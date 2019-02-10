@@ -1,10 +1,10 @@
 package com.l2kt.loginserver.network.gameserverpackets;
 
-import java.util.logging.Logger;
-
 import com.l2kt.loginserver.GameServerManager;
 import com.l2kt.loginserver.model.GameServerInfo;
 import com.l2kt.loginserver.network.clientpackets.ClientBasePacket;
+
+import java.util.logging.Logger;
 
 public class ServerStatus extends ClientBasePacket
 {
@@ -42,7 +42,7 @@ public class ServerStatus extends ClientBasePacket
 	{
 		super(decrypt);
 		
-		GameServerInfo gsi = GameServerManager.getInstance().getRegisteredGameServers().get(serverId);
+		GameServerInfo gsi = GameServerManager.INSTANCE.getRegisteredGameServers().get(serverId);
 		if (gsi != null)
 		{
 			int size = readD();

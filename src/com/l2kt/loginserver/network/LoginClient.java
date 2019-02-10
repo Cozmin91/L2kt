@@ -52,8 +52,8 @@ public final class LoginClient extends MMOClient<MMOConnection<LoginClient>>
 		super(con);
 		
 		_state = LoginClientState.CONNECTED;
-		_scrambledPair = LoginController.getInstance().getScrambledRSAKeyPair();
-		_blowfishKey = LoginController.getInstance().getBlowfishKey();
+		_scrambledPair = LoginController.INSTANCE.getScrambledRSAKeyPair();
+		_blowfishKey = LoginController.INSTANCE.getBlowfishKey();
 		_sessionId = Rnd.nextInt();
 		_connectionStartTime = System.currentTimeMillis();
 		_loginCrypt = new LoginCrypt();
@@ -208,7 +208,7 @@ public final class LoginClient extends MMOClient<MMOConnection<LoginClient>>
 	public void onDisconnection()
 	{
 		if (!hasJoinedGS() || (getConnectionStartTime() + LoginController.LOGIN_TIMEOUT) < System.currentTimeMillis())
-			LoginController.getInstance().removeAuthedLoginClient(getAccount());
+			LoginController.INSTANCE.removeAuthedLoginClient(getAccount());
 	}
 	
 	@Override

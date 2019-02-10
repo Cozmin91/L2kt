@@ -1,15 +1,15 @@
 package com.l2kt.loginserver.network.serverpackets;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.l2kt.loginserver.GameServerManager;
 import com.l2kt.loginserver.model.GameServerInfo;
 import com.l2kt.loginserver.model.ServerData;
 import com.l2kt.loginserver.network.LoginClient;
 import com.l2kt.loginserver.network.gameserverpackets.ServerStatus;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class ServerList extends L2LoginServerPacket
 {
@@ -20,7 +20,7 @@ public final class ServerList extends L2LoginServerPacket
 	{
 		_lastServer = client.getLastServer();
 		
-		for (GameServerInfo gsi : GameServerManager.getInstance().getRegisteredGameServers().values())
+		for (GameServerInfo gsi : GameServerManager.INSTANCE.getRegisteredGameServers().values())
 		{
 			final int status = (gsi.getStatus() != ServerStatus.STATUS_GM_ONLY) ? gsi.getStatus() : (client.getAccessLevel() > 0) ? gsi.getStatus() : ServerStatus.STATUS_DOWN;
 			final String hostName = gsi.getHostName();

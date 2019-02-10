@@ -9,7 +9,7 @@ public class AuthResponse extends ServerBasePacket
 	{
 		writeC(0x02);
 		writeC(serverId);
-		writeS(GameServerManager.getInstance().getServerNames().get(serverId));
+		writeS(GameServerManager.INSTANCE.getServerNames().get(serverId));
 	}
 	
 	@Override

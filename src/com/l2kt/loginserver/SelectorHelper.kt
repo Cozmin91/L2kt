@@ -26,6 +26,6 @@ class SelectorHelper : IMMOExecutor<LoginClient>, IClientFactory<LoginClient>, I
     }
 
     override fun accept(sc: SocketChannel): Boolean {
-        return _ipv4filter.accept(sc) && !LoginController.getInstance().isBannedAddress(sc.socket().inetAddress)
+        return _ipv4filter.accept(sc) && !LoginController.isBannedAddress(sc.socket().inetAddress)
     }
 }

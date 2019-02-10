@@ -42,10 +42,10 @@ object LoginServer {
         L2DatabaseFactory
 
         printSection("LoginController")
-        LoginController.getInstance()
+        LoginController
 
         printSection("GameServerManager")
-        GameServerManager.getInstance()
+        GameServerManager
 
         printSection("Ban List")
         loadBanFile()
@@ -151,7 +151,7 @@ object LoginServer {
                         }
 
                         try {
-                            LoginController.getInstance().addBanForAddress(address, duration)
+                            LoginController.addBanForAddress(address, duration)
                         } catch (e: UnknownHostException) {
                             LOGGER.error("Invalid address ({}). Line: {}.", parts[0], reader.lineNumber)
                         }
@@ -162,6 +162,6 @@ object LoginServer {
             LOGGER.error("Error while reading banned_ips.properties.", e)
         }
 
-        LOGGER.info("Loaded {} banned IP(s).", LoginController.getInstance().bannedIps.size)
+        LOGGER.info("Loaded {} banned IP(s).", LoginController.bannedIps.size)
     }
 }

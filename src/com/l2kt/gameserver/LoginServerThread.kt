@@ -1,5 +1,17 @@
 package com.l2kt.gameserver
 
+import com.l2kt.Config
+import com.l2kt.commons.logging.CLogger
+import com.l2kt.commons.random.Rnd
+import com.l2kt.gameserver.model.World
+import com.l2kt.gameserver.network.L2GameClient
+import com.l2kt.gameserver.network.L2GameClient.GameClientState
+import com.l2kt.gameserver.network.gameserverpackets.*
+import com.l2kt.gameserver.network.loginserverpackets.*
+import com.l2kt.gameserver.network.serverpackets.AuthLoginFail
+import com.l2kt.gameserver.network.serverpackets.AuthLoginFail.FailReason
+import com.l2kt.gameserver.network.serverpackets.CharSelectInfo
+import com.l2kt.loginserver.crypt.NewCrypt
 import java.io.BufferedOutputStream
 import java.io.IOException
 import java.io.OutputStream
@@ -11,33 +23,8 @@ import java.security.KeyFactory
 import java.security.interfaces.RSAPublicKey
 import java.security.spec.RSAKeyGenParameterSpec
 import java.security.spec.RSAPublicKeySpec
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
-
-import com.l2kt.Config
-import com.l2kt.commons.logging.CLogger
-import com.l2kt.commons.random.Rnd
-
-import com.l2kt.gameserver.model.World
-import com.l2kt.gameserver.network.L2GameClient
-import com.l2kt.gameserver.network.L2GameClient.GameClientState
-import com.l2kt.gameserver.network.gameserverpackets.AuthRequest
-import com.l2kt.gameserver.network.gameserverpackets.BlowFishKey
-import com.l2kt.gameserver.network.gameserverpackets.ChangeAccessLevel
-import com.l2kt.gameserver.network.gameserverpackets.GameServerBasePacket
-import com.l2kt.gameserver.network.gameserverpackets.PlayerAuthRequest
-import com.l2kt.gameserver.network.gameserverpackets.PlayerInGame
-import com.l2kt.gameserver.network.gameserverpackets.PlayerLogout
-import com.l2kt.gameserver.network.gameserverpackets.ServerStatus
-import com.l2kt.gameserver.network.loginserverpackets.AuthResponse
-import com.l2kt.gameserver.network.loginserverpackets.InitLS
-import com.l2kt.gameserver.network.loginserverpackets.KickPlayer
-import com.l2kt.gameserver.network.loginserverpackets.LoginServerFail
-import com.l2kt.gameserver.network.loginserverpackets.PlayerAuthResponse
-import com.l2kt.gameserver.network.serverpackets.AuthLoginFail
-import com.l2kt.gameserver.network.serverpackets.AuthLoginFail.FailReason
-import com.l2kt.gameserver.network.serverpackets.CharSelectInfo
-import com.l2kt.loginserver.crypt.NewCrypt
 
 object LoginServerThread : Thread("LoginServerThread") {
 
@@ -55,7 +42,7 @@ object LoginServerThread : Thread("LoginServerThread") {
     var serverName: String? = null
 
     private var loginSocket: Socket? = null
-    private var outputStream: OutputStream? = null
+    private lateinit var outputStream: OutputStream
 
     private var blowfish: NewCrypt? = null
     private var hexId: ByteArray? = null
@@ -301,12 +288,12 @@ object LoginServerThread : Thread("LoginServerThread") {
 
         val len = data.size + 2
 
-        synchronized(this) // avoids tow threads writing in the mean time
+        synchronized(outputStream) // avoids tow threads writing in the mean time
         {
-            outputStream!!.write(len and 0xff)
-            outputStream!!.write(len shr 8 and 0xff)
-            outputStream!!.write(data)
-            outputStream!!.flush()
+            outputStream.write(len and 0xff)
+            outputStream.write(len shr 8 and 0xff)
+            outputStream.write(data)
+            outputStream.flush()
         }
     }
 

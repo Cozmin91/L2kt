@@ -34,9 +34,9 @@ object GameServerRegister {
 
                 if (choice.equals("list", ignoreCase = true)) {
                     println()
-                    for ((key, value) in GameServerManager.getInstance().serverNames)
+                    for ((key, value) in GameServerManager.serverNames)
                         println(
-                            key.toString() + ": " + value + " " + if (GameServerManager.getInstance().registeredGameServers.containsKey(
+                            key.toString() + ": " + value + " " + if (GameServerManager.registeredGameServers.containsKey(
                                     key
                                 )
                             ) "*" else ""
@@ -44,27 +44,27 @@ object GameServerRegister {
                 } else if (choice.equals("clean", ignoreCase = true)) {
                     println()
 
-                    if (GameServerManager.getInstance().serverNames.isEmpty())
+                    if (GameServerManager.serverNames.isEmpty())
                         println("No server names available, be sure 'serverNames.xml' is in the LoginServer directory.")
                     else {
                         println("UNREGISTER a specific server. Here's the current list :")
-                        for (entry in GameServerManager.getInstance().registeredGameServers.values)
-                            println(entry.id.toString() + ": " + GameServerManager.getInstance().serverNames[entry.id])
+                        for (entry in GameServerManager.registeredGameServers.values)
+                            println(entry.id.toString() + ": " + GameServerManager.serverNames[entry.id])
 
                         println()
                         print("Your choice? ")
 
                         choice = _scn.next()
                         try {
-                            val id = Integer.parseInt(choice!!)
+                            val id = choice.toInt()
 
-                            if (!GameServerManager.getInstance().registeredGameServers.containsKey(id))
+                            if (!GameServerManager.registeredGameServers.containsKey(id))
                                 println("This server id isn't used.")
                             else {
                                 try {
-                                    L2DatabaseFactory.connection.use { con ->
+                                    L2DatabaseFactory.connection.use {
                                         val statement =
-                                            con.prepareStatement("DELETE FROM gameservers WHERE server_id=?")
+                                            it.prepareStatement("DELETE FROM gameservers WHERE server_id=?")
                                         statement.setInt(1, id)
                                         statement.executeUpdate()
                                         statement.close()
@@ -73,7 +73,7 @@ object GameServerRegister {
                                     println("SQL error while cleaning registered server: $e")
                                 }
 
-                                GameServerManager.getInstance().registeredGameServers.remove(id)
+                                GameServerManager.registeredGameServers.remove(id)
 
                                 println("You successfully dropped gameserver #$id.")
                             }
@@ -99,7 +99,7 @@ object GameServerRegister {
                             println("SQL error while cleaning registered servers: $e")
                         }
 
-                        GameServerManager.getInstance().registeredGameServers.clear()
+                        GameServerManager.registeredGameServers.clear()
 
                         println("You successfully dropped all registered gameservers.")
                     } else
@@ -110,19 +110,19 @@ object GameServerRegister {
                     try {
                         println()
 
-                        if (GameServerManager.getInstance().serverNames.isEmpty())
+                        if (GameServerManager.serverNames.isEmpty())
                             println("No server names available, be sure 'serverNames.xml' is in the LoginServer directory.")
                         else {
                             val id = Integer.parseInt(choice)
 
                             when {
-                                GameServerManager.getInstance().serverNames[id] == null -> println("No name for server id: $id.")
-                                GameServerManager.getInstance().registeredGameServers.containsKey(id) -> println("This server id is already used.")
+                                GameServerManager.serverNames[id] == null -> println("No name for server id: $id.")
+                                GameServerManager.registeredGameServers.containsKey(id) -> println("This server id is already used.")
                                 else -> {
                                     val hexId = LoginServerThread.generateHex(16)
 
-                                    GameServerManager.getInstance().registeredGameServers[id] = GameServerInfo(id, hexId)
-                                    GameServerManager.getInstance().registerServerOnDB(hexId, id, "")
+                                    GameServerManager.registeredGameServers[id] = GameServerInfo(id, hexId)
+                                    GameServerManager.registerServerOnDB(hexId, id, "")
                                     Config.saveHexid(id, BigInteger(hexId).toString(16), "hexid(server $id).txt")
 
                                     println("Server registered under 'hexid(server $id).txt'.")

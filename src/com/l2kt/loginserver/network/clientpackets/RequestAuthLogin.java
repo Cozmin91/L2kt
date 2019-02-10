@@ -1,10 +1,5 @@
 package com.l2kt.loginserver.network.clientpackets;
 
-import java.net.InetAddress;
-import java.security.GeneralSecurityException;
-
-import javax.crypto.Cipher;
-
 import com.l2kt.Config;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.loginserver.LoginController;
@@ -12,12 +7,15 @@ import com.l2kt.loginserver.model.AccountInfo;
 import com.l2kt.loginserver.model.GameServerInfo;
 import com.l2kt.loginserver.network.LoginClient;
 import com.l2kt.loginserver.network.SessionKey;
-
 import com.l2kt.loginserver.network.serverpackets.AccountKicked;
 import com.l2kt.loginserver.network.serverpackets.AccountKicked.AccountKickedReason;
 import com.l2kt.loginserver.network.serverpackets.LoginFail;
 import com.l2kt.loginserver.network.serverpackets.LoginOk;
 import com.l2kt.loginserver.network.serverpackets.ServerList;
+
+import javax.crypto.Cipher;
+import java.net.InetAddress;
+import java.security.GeneralSecurityException;
 
 public class RequestAuthLogin extends L2LoginClientPacket
 {
@@ -56,7 +54,7 @@ public class RequestAuthLogin extends L2LoginClientPacket
 	@Override
 	public void run()
 	{
-		byte[] decrypted = null;
+		byte[] decrypted;
 		final LoginClient client = getClient();
 		try
 		{
@@ -87,14 +85,14 @@ public class RequestAuthLogin extends L2LoginClientPacket
 		
 		final InetAddress clientAddr = client.getConnection().getInetAddress();
 		
-		final AccountInfo info = LoginController.getInstance().retrieveAccountInfo(clientAddr, _user, _password);
+		final AccountInfo info = LoginController.INSTANCE.retrieveAccountInfo(clientAddr, _user, _password);
 		if (info == null)
 		{
 			client.close(LoginFail.REASON_USER_OR_PASS_WRONG);
 			return;
 		}
 		
-		final LoginController.AuthLoginResult result = LoginController.getInstance().tryCheckinAccount(client, clientAddr, info);
+		final LoginController.AuthLoginResult result = LoginController.INSTANCE.tryCheckinAccount(client, clientAddr, info);
 		switch (result)
 		{
 			case AUTH_SUCCESS:
@@ -113,17 +111,14 @@ public class RequestAuthLogin extends L2LoginClientPacket
 				break;
 			
 			case ALREADY_ON_LS:
-				final LoginClient oldClient = LoginController.getInstance().getAuthedClient(info.getLogin());
-				if (oldClient != null)
-				{
-					oldClient.close(LoginFail.REASON_ACCOUNT_IN_USE);
-					LoginController.getInstance().removeAuthedLoginClient(info.getLogin());
-				}
+				final LoginClient oldClient = LoginController.INSTANCE.getAuthedClient(info.getLogin());
+				oldClient.close(LoginFail.REASON_ACCOUNT_IN_USE);
+				LoginController.INSTANCE.removeAuthedLoginClient(info.getLogin());
 				client.close(LoginFail.REASON_ACCOUNT_IN_USE);
 				break;
 			
 			case ALREADY_ON_GS:
-				final GameServerInfo gsi = LoginController.getInstance().getAccountOnGameServer(info.getLogin());
+				final GameServerInfo gsi = LoginController.INSTANCE.getAccountOnGameServer(info.getLogin());
 				if (gsi != null)
 				{
 					client.close(LoginFail.REASON_ACCOUNT_IN_USE);
