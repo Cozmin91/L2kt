@@ -1,32 +1,10 @@
 package com.l2kt.commons.data.xml;
 
-import java.io.IOException;
-import java.nio.file.FileVisitOption;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import com.l2kt.commons.logging.CLogger;
-
 import com.l2kt.gameserver.model.holder.IntIntHolder;
 import com.l2kt.gameserver.model.location.Location;
 import com.l2kt.gameserver.model.location.SpawnLocation;
 import com.l2kt.gameserver.templates.StatsSet;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -35,22 +13,32 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 public interface IXmlReader
 {
 	CLogger LOGGER = new CLogger(IXmlReader.class.getName());
-	
+
 	String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
 	String W3C_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema";
-	
+
 	void load();
-	
+
 	void parseDocument(Document doc, Path path);
-	
+
 	default void parseFile(String path)
 	{
 		parseFile(Paths.get(path), false, true, true);
 	}
-	
+
 	default void parseFile(Path path, boolean validate, boolean ignoreComments, boolean ignoreWhitespaces)
 	{
 		if (Files.isDirectory(path))
@@ -67,7 +55,7 @@ public interface IXmlReader
 						return FileVisitResult.CONTINUE;
 					}
 				});
-				
+
 				pathsToParse.forEach(p -> parseFile(p, validate, ignoreComments, ignoreWhitespaces));
 			}
 			catch (IOException e)
@@ -83,7 +71,7 @@ public interface IXmlReader
 			dbf.setIgnoringComments(ignoreComments);
 			dbf.setIgnoringElementContentWhitespace(ignoreWhitespaces);
 			dbf.setAttribute(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
-			
+
 			try
 			{
 				final DocumentBuilder db = dbf.newDocumentBuilder();
@@ -100,184 +88,184 @@ public interface IXmlReader
 			}
 		}
 	}
-	
+
 	default Boolean parseBoolean(Node node, Boolean defaultValue)
 	{
 		return node != null ? Boolean.valueOf(node.getNodeValue()) : defaultValue;
 	}
-	
+
 	default Boolean parseBoolean(Node node)
 	{
 		return parseBoolean(node, null);
 	}
-	
+
 	default Boolean parseBoolean(NamedNodeMap attrs, String name)
 	{
 		return parseBoolean(attrs.getNamedItem(name));
 	}
-	
+
 	default Boolean parseBoolean(NamedNodeMap attrs, String name, Boolean defaultValue)
 	{
 		return parseBoolean(attrs.getNamedItem(name), defaultValue);
 	}
-	
+
 	default Byte parseByte(Node node, Byte defaultValue)
 	{
 		return node != null ? Byte.decode(node.getNodeValue()) : defaultValue;
 	}
-	
+
 	default Byte parseByte(Node node)
 	{
 		return parseByte(node, null);
 	}
-	
+
 	default Byte parseByte(NamedNodeMap attrs, String name)
 	{
 		return parseByte(attrs.getNamedItem(name));
 	}
-	
+
 	default Byte parseByte(NamedNodeMap attrs, String name, Byte defaultValue)
 	{
 		return parseByte(attrs.getNamedItem(name), defaultValue);
 	}
-	
+
 	default Short parseShort(Node node, Short defaultValue)
 	{
 		return node != null ? Short.decode(node.getNodeValue()) : defaultValue;
 	}
-	
+
 	default Short parseShort(Node node)
 	{
 		return parseShort(node, null);
 	}
-	
+
 	default Short parseShort(NamedNodeMap attrs, String name)
 	{
 		return parseShort(attrs.getNamedItem(name));
 	}
-	
+
 	default Short parseShort(NamedNodeMap attrs, String name, Short defaultValue)
 	{
 		return parseShort(attrs.getNamedItem(name), defaultValue);
 	}
-	
+
 	default int parseInt(Node node, Integer defaultValue)
 	{
 		return node != null ? Integer.decode(node.getNodeValue()) : defaultValue;
 	}
-	
+
 	default int parseInt(Node node)
 	{
 		return parseInt(node, -1);
 	}
-	
+
 	default Integer parseInteger(Node node, Integer defaultValue)
 	{
 		return node != null ? Integer.decode(node.getNodeValue()) : defaultValue;
 	}
-	
+
 	default Integer parseInteger(Node node)
 	{
 		return parseInteger(node, null);
 	}
-	
+
 	default Integer parseInteger(NamedNodeMap attrs, String name)
 	{
 		return parseInteger(attrs.getNamedItem(name));
 	}
-	
+
 	default Integer parseInteger(NamedNodeMap attrs, String name, Integer defaultValue)
 	{
 		return parseInteger(attrs.getNamedItem(name), defaultValue);
 	}
-	
+
 	default Long parseLong(Node node, Long defaultValue)
 	{
 		return node != null ? Long.decode(node.getNodeValue()) : defaultValue;
 	}
-	
+
 	default Long parseLong(Node node)
 	{
 		return parseLong(node, null);
 	}
-	
+
 	default Long parseLong(NamedNodeMap attrs, String name)
 	{
 		return parseLong(attrs.getNamedItem(name));
 	}
-	
+
 	default Long parseLong(NamedNodeMap attrs, String name, Long defaultValue)
 	{
 		return parseLong(attrs.getNamedItem(name), defaultValue);
 	}
-	
+
 	default Float parseFloat(Node node, Float defaultValue)
 	{
 		return node != null ? Float.valueOf(node.getNodeValue()) : defaultValue;
 	}
-	
+
 	default Float parseFloat(Node node)
 	{
 		return parseFloat(node, null);
 	}
-	
+
 	default Float parseFloat(NamedNodeMap attrs, String name)
 	{
 		return parseFloat(attrs.getNamedItem(name));
 	}
-	
+
 	default Float parseFloat(NamedNodeMap attrs, String name, Float defaultValue)
 	{
 		return parseFloat(attrs.getNamedItem(name), defaultValue);
 	}
-	
+
 	default Double parseDouble(Node node, Double defaultValue)
 	{
 		return node != null ? Double.valueOf(node.getNodeValue()) : defaultValue;
 	}
-	
+
 	default Double parseDouble(Node node)
 	{
 		return parseDouble(node, null);
 	}
-	
+
 	default Double parseDouble(NamedNodeMap attrs, String name)
 	{
 		return parseDouble(attrs.getNamedItem(name));
 	}
-	
+
 	default Double parseDouble(NamedNodeMap attrs, String name, Double defaultValue)
 	{
 		return parseDouble(attrs.getNamedItem(name), defaultValue);
 	}
-	
+
 	default String parseString(Node node, String defaultValue)
 	{
 		return node != null ? node.getNodeValue() : defaultValue;
 	}
-	
+
 	default String parseString(Node node)
 	{
 		return parseString(node, null);
 	}
-	
+
 	default String parseString(NamedNodeMap attrs, String name)
 	{
 		return parseString(attrs.getNamedItem(name));
 	}
-	
+
 	default String parseString(NamedNodeMap attrs, String name, String defaultValue)
 	{
 		return parseString(attrs.getNamedItem(name), defaultValue);
 	}
-	
+
 	default <T extends Enum<T>> T parseEnum(Node node, Class<T> clazz, T defaultValue)
 	{
 		if (node == null)
 		{
 			return defaultValue;
 		}
-		
+
 		try
 		{
 			return Enum.valueOf(clazz, node.getNodeValue());
@@ -288,22 +276,22 @@ public interface IXmlReader
 			return defaultValue;
 		}
 	}
-	
+
 	default <T extends Enum<T>> T parseEnum(Node node, Class<T> clazz)
 	{
 		return parseEnum(node, clazz, null);
 	}
-	
+
 	default <T extends Enum<T>> T parseEnum(NamedNodeMap attrs, Class<T> clazz, String name)
 	{
 		return parseEnum(attrs.getNamedItem(name), clazz);
 	}
-	
+
 	default <T extends Enum<T>> T parseEnum(NamedNodeMap attrs, Class<T> clazz, String name, T defaultValue)
 	{
 		return parseEnum(attrs.getNamedItem(name), clazz, defaultValue);
 	}
-	
+
 	default StatsSet parseAttributes(Node node)
 	{
 		final NamedNodeMap attrs = node.getAttributes();
@@ -315,7 +303,7 @@ public interface IXmlReader
 		}
 		return map;
 	}
-	
+
 	default void addAttributes(StatsSet set, NamedNodeMap attrs)
 	{
 		for (int i = 0; i < attrs.getLength(); i++)
@@ -324,7 +312,7 @@ public interface IXmlReader
 			set.put(att.getNodeName(), att.getNodeValue());
 		}
 	}
-	
+
 	default Map<String, Object> parseParameters(Node n)
 	{
 		final Map<String, Object> parameters = new HashMap<>();
@@ -352,17 +340,17 @@ public interface IXmlReader
 		}
 		return parameters;
 	}
-	
+
 	default Location parseLocation(Node n)
 	{
 		final NamedNodeMap attrs = n.getAttributes();
 		final int x = parseInteger(attrs, "x");
 		final int y = parseInteger(attrs, "y");
 		final int z = parseInteger(attrs, "z");
-		
+
 		return new Location(x, y, z);
 	}
-	
+
 	default SpawnLocation parseSpawnLocation(Node n)
 	{
 		final NamedNodeMap attrs = n.getAttributes();
@@ -370,15 +358,15 @@ public interface IXmlReader
 		final int y = parseInteger(attrs, "y");
 		final int z = parseInteger(attrs, "z");
 		final int heading = parseInteger(attrs, "heading", 0);
-		
+
 		return new SpawnLocation(x, y, z, heading);
 	}
-	
+
 	default void forEach(Node node, Consumer<Node> action)
 	{
 		forEach(node, a -> true, action);
 	}
-	
+
 	default void forEach(Node node, String nodeName, Consumer<Node> action)
 	{
 		forEach(node, innerNode ->
@@ -398,7 +386,7 @@ public interface IXmlReader
 			return nodeName.equals(innerNode.getNodeName());
 		}, action);
 	}
-	
+
 	default void forEach(Node node, Predicate<Node> filter, Consumer<Node> action)
 	{
 		final NodeList list = node.getChildNodes();
@@ -411,17 +399,17 @@ public interface IXmlReader
 			}
 		}
 	}
-	
+
 	public static boolean isNode(Node node)
 	{
 		return node.getNodeType() == Node.ELEMENT_NODE;
 	}
-	
+
 	public static boolean isText(Node node)
 	{
 		return node.getNodeType() == Node.TEXT_NODE;
 	}
-	
+
 	class XMLErrorHandler implements ErrorHandler
 	{
 		@Override
@@ -429,13 +417,13 @@ public interface IXmlReader
 		{
 			throw e;
 		}
-		
+
 		@Override
 		public void error(SAXParseException e) throws SAXParseException
 		{
 			throw e;
 		}
-		
+
 		@Override
 		public void fatalError(SAXParseException e) throws SAXParseException
 		{

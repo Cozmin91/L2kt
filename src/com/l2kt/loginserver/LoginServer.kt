@@ -2,13 +2,12 @@ package com.l2kt.loginserver
 
 import com.l2kt.Config
 import com.l2kt.L2DatabaseFactory
-import com.l2kt.commons.lang.StringUtil
+import com.l2kt.commons.lang.StringUtil.printSection
 import com.l2kt.commons.logging.CLogger
 import com.l2kt.commons.mmocore.SelectorConfig
 import com.l2kt.commons.mmocore.SelectorThread
 import com.l2kt.loginserver.network.LoginClient
 import com.l2kt.loginserver.network.LoginPacketHandler
-
 import java.io.*
 import java.net.InetAddress
 import java.net.UnknownHostException
@@ -16,9 +15,8 @@ import java.util.logging.LogManager
 
 object LoginServer {
 
-    var gameServerListener: GameServerListener? = null
-        private set
-    private var _selectorThread: SelectorThread<LoginClient>? = null
+    lateinit var gameServerListener: GameServerListener
+    private lateinit var selectorThread: SelectorThread<LoginClient>
     private val LOGGER = CLogger(LoginServer::class.java.name)
 
     const val PROTOCOL_REV = 0x0102
@@ -29,32 +27,30 @@ object LoginServer {
     }
 
     init {
-        // Create log folder
         File("./log").mkdir()
         File("./log/console").mkdir()
         File("./log/error").mkdir()
 
-        // Create input stream for log file -- or store file data into memory
-        FileInputStream(File("config/logging.properties")).use { `is` ->
-            LogManager.getLogManager().readConfiguration(`is`)
+        FileInputStream(File("config/logging.properties")).use {
+            LogManager.getLogManager().readConfiguration(it)
         }
 
-        StringUtil.printSection("L2kt")
+        printSection("L2kt")
 
         Config.loadLoginServer()
 
         L2DatabaseFactory
 
-        StringUtil.printSection("LoginController")
+        printSection("LoginController")
         LoginController.getInstance()
 
-        StringUtil.printSection("GameServerManager")
+        printSection("GameServerManager")
         GameServerManager.getInstance()
 
-        StringUtil.printSection("Ban List")
+        printSection("Ban List")
         loadBanFile()
 
-        StringUtil.printSection("IP, Ports & Socket infos")
+        printSection("IP, Ports & Socket infos")
         var bindAddress: InetAddress? = null
         if (Config.LOGIN_BIND_ADDRESS != "*") {
             try {
@@ -74,7 +70,7 @@ object LoginServer {
         val lph = LoginPacketHandler()
         val sh = SelectorHelper()
         try {
-            _selectorThread = SelectorThread(sc, sh, lph, sh, sh)
+            selectorThread = SelectorThread(sc, sh, lph, sh, sh)
         } catch (ioe: IOException) {
             LOGGER.error("Failed to open selector.", ioe)
 
@@ -83,7 +79,7 @@ object LoginServer {
 
         try {
             gameServerListener = GameServerListener()
-            gameServerListener!!.start()
+            gameServerListener.start()
 
             LOGGER.info(
                 "Listening for gameservers on {}:{}.",
@@ -97,21 +93,21 @@ object LoginServer {
         }
 
         try {
-            _selectorThread!!.openServerSocket(bindAddress, Config.PORT_LOGIN)
+            selectorThread.openServerSocket(bindAddress, Config.PORT_LOGIN)
         } catch (ioe: IOException) {
             LOGGER.error("Failed to open server socket.", ioe)
 
             System.exit(1)
         }
 
-        _selectorThread!!.start()
+        selectorThread.start()
         LOGGER.info(
             "Loginserver ready on {}:{}.",
             if (bindAddress == null) "*" else bindAddress.hostAddress,
             Config.PORT_LOGIN
         )
 
-        StringUtil.printSection("Waiting for gameserver answer")
+        printSection("Waiting for gameserver answer")
     }
 
     fun shutdown(restart: Boolean) {
@@ -120,50 +116,52 @@ object LoginServer {
 
     private fun loadBanFile() {
         val banFile = File("config/banned_ips.properties")
-        if (banFile.exists() && banFile.isFile) {
-            try {
-                LineNumberReader(FileReader(banFile)).use { reader ->
-                    reader.forEachLine {
-                        var line = it
-                        var parts: Array<String>
-                        line = line.trim()
-                        if (line.isNotEmpty() && line[0] != '#') {
-                            parts = line.split("#".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        if (!banFile.exists() || !banFile.isFile){
+            LOGGER.warn("banned_ips.properties is missing. Ban listing is skipped.")
+            return
+        }
 
-                            line = parts[0]
-                            parts = line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        try {
+            LineNumberReader(FileReader(banFile)).use { reader ->
+                reader.forEachLine {
+                    var line = it
+                    var parts: Array<String>
+                    line = line.trim()
+                    if (line.isNotEmpty() && line[0] != '#') {
+                        parts = line.split("#".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 
-                            val address = parts[0]
-                            var duration: Long = 0
+                        line = parts[0]
+                        parts = line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 
-                            if (parts.size > 1) {
-                                try {
-                                    duration = java.lang.Long.parseLong(parts[1])
-                                } catch (e: NumberFormatException) {
-                                    LOGGER.error(
-                                        "Incorrect ban duration ({}). Line: {}.",
-                                        parts[1],
-                                        reader.lineNumber
-                                    )
-                                    return@forEachLine
-                                }
+                        val address = parts[0]
+                        var duration: Long = 0
 
-                            }
-
+                        if (parts.size > 1) {
                             try {
-                                LoginController.getInstance().addBanForAddress(address, duration)
-                            } catch (e: UnknownHostException) {
-                                LOGGER.error("Invalid address ({}). Line: {}.", parts[0], reader.lineNumber)
+                                duration = parts[1].toLong()
+                            } catch (e: NumberFormatException) {
+                                LOGGER.error(
+                                    "Incorrect ban duration ({}). Line: {}.",
+                                    parts[1],
+                                    reader.lineNumber
+                                )
+                                return@forEachLine
                             }
+
+                        }
+
+                        try {
+                            LoginController.getInstance().addBanForAddress(address, duration)
+                        } catch (e: UnknownHostException) {
+                            LOGGER.error("Invalid address ({}). Line: {}.", parts[0], reader.lineNumber)
                         }
                     }
                 }
-            } catch (e: IOException) {
-                LOGGER.error("Error while reading banned_ips.properties.", e)
             }
+        } catch (e: IOException) {
+            LOGGER.error("Error while reading banned_ips.properties.", e)
+        }
 
-            LOGGER.info("Loaded {} banned IP(s).", LoginController.getInstance().bannedIps.size)
-        } else
-            LOGGER.warn("banned_ips.properties is missing. Ban listing is skipped.")
+        LOGGER.info("Loaded {} banned IP(s).", LoginController.getInstance().bannedIps.size)
     }
 }

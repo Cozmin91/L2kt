@@ -93,7 +93,7 @@ public class GameServerThread extends Thread
 				
 				// decrypt if we have a key
 				data = _blowfish.decrypt(data);
-				checksumOk = NewCrypt.verifyChecksum(data);
+				checksumOk = NewCrypt.Companion.verifyChecksum(data);
 				if (!checksumOk)
 				{
 					LOGGER.warn("Incorrect packet checksum, closing connection.");
@@ -367,7 +367,7 @@ public class GameServerThread extends Thread
 		try
 		{
 			byte[] data = sl.getContent();
-			NewCrypt.appendChecksum(data);
+			NewCrypt.Companion.appendChecksum(data);
 			data = _blowfish.crypt(data);
 			
 			int len = data.length + 2;
