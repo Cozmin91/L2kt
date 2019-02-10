@@ -60,7 +60,7 @@ public class AdminMaintenance implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_server_gm_only"))
 		{
-			LoginServerThread.INSTANCE.setServerStatus(ServerStatus.STATUS_GM_ONLY);
+			LoginServerThread.INSTANCE.setServerStatus(ServerStatus.Companion.getSTATUS_GM_ONLY());
 			Config.SERVER_GMONLY = true;
 			
 			activeChar.sendMessage("Server is now setted as GMonly.");
@@ -68,7 +68,7 @@ public class AdminMaintenance implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_server_all"))
 		{
-			LoginServerThread.INSTANCE.setServerStatus(ServerStatus.STATUS_AUTO);
+			LoginServerThread.INSTANCE.setServerStatus(ServerStatus.Companion.getSTATUS_AUTO());
 			Config.SERVER_GMONLY = false;
 			
 			activeChar.sendMessage("Server isn't setted as GMonly anymore.");
