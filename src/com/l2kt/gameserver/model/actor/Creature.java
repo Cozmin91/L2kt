@@ -1,77 +1,40 @@
 package com.l2kt.gameserver.model.actor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Future;
-
 import com.l2kt.Config;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.math.MathUtil;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.data.SkillTable;
 import com.l2kt.gameserver.data.xml.MapRegionData;
-import com.l2kt.gameserver.model.item.instance.ItemInstance;
-import com.l2kt.gameserver.model.item.kind.Armor;
-import com.l2kt.gameserver.model.item.kind.Item;
-import com.l2kt.gameserver.model.item.kind.Weapon;
-import com.l2kt.gameserver.model.item.type.WeaponType;
-import com.l2kt.gameserver.model.zone.ZoneId;
-import com.l2kt.gameserver.util.Broadcast;
-
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.handler.ISkillHandler;
 import com.l2kt.gameserver.handler.SkillHandler;
-import com.l2kt.gameserver.model.ChanceSkillList;
-import com.l2kt.gameserver.model.CharEffectList;
-import com.l2kt.gameserver.model.FusionSkill;
-import com.l2kt.gameserver.model.IChanceSkillTrigger;
-import com.l2kt.gameserver.model.L2Effect;
-import com.l2kt.gameserver.model.L2Skill;
-import com.l2kt.gameserver.model.ShotType;
-import com.l2kt.gameserver.model.World;
-import com.l2kt.gameserver.model.WorldObject;
-import com.l2kt.gameserver.model.WorldRegion;
+import com.l2kt.gameserver.model.*;
 import com.l2kt.gameserver.model.actor.ai.CtrlEvent;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
 import com.l2kt.gameserver.model.actor.ai.type.AttackableAI;
 import com.l2kt.gameserver.model.actor.ai.type.CreatureAI;
-import com.l2kt.gameserver.model.actor.instance.Door;
-import com.l2kt.gameserver.model.actor.instance.Pet;
-import com.l2kt.gameserver.model.actor.instance.Player;
-import com.l2kt.gameserver.model.actor.instance.RiftInvader;
-import com.l2kt.gameserver.model.actor.instance.Walker;
+import com.l2kt.gameserver.model.actor.instance.*;
 import com.l2kt.gameserver.model.actor.stat.CreatureStat;
 import com.l2kt.gameserver.model.actor.status.CreatureStatus;
 import com.l2kt.gameserver.model.actor.template.CreatureTemplate;
 import com.l2kt.gameserver.model.group.Party;
 import com.l2kt.gameserver.model.holder.SkillUseHolder;
+import com.l2kt.gameserver.model.item.instance.ItemInstance;
+import com.l2kt.gameserver.model.item.kind.Armor;
+import com.l2kt.gameserver.model.item.kind.Item;
+import com.l2kt.gameserver.model.item.kind.Weapon;
+import com.l2kt.gameserver.model.item.type.WeaponType;
 import com.l2kt.gameserver.model.itemcontainer.Inventory;
 import com.l2kt.gameserver.model.location.Location;
 import com.l2kt.gameserver.model.location.SpawnLocation;
+import com.l2kt.gameserver.model.zone.ZoneId;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.AbstractNpcInfo.NpcInfo;
-import com.l2kt.gameserver.network.serverpackets.ActionFailed;
-import com.l2kt.gameserver.network.serverpackets.Attack;
-import com.l2kt.gameserver.network.serverpackets.ChangeMoveType;
-import com.l2kt.gameserver.network.serverpackets.ChangeWaitType;
-import com.l2kt.gameserver.network.serverpackets.FlyToLocation;
+import com.l2kt.gameserver.network.serverpackets.*;
 import com.l2kt.gameserver.network.serverpackets.FlyToLocation.FlyType;
-import com.l2kt.gameserver.network.serverpackets.L2GameServerPacket;
-import com.l2kt.gameserver.network.serverpackets.MagicSkillCanceled;
-import com.l2kt.gameserver.network.serverpackets.MagicSkillLaunched;
-import com.l2kt.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2kt.gameserver.network.serverpackets.MoveToLocation;
-import com.l2kt.gameserver.network.serverpackets.Revive;
-import com.l2kt.gameserver.network.serverpackets.ServerObjectInfo;
-import com.l2kt.gameserver.network.serverpackets.SetupGauge;
 import com.l2kt.gameserver.network.serverpackets.SetupGauge.GaugeColor;
-import com.l2kt.gameserver.network.serverpackets.StatusUpdate;
-import com.l2kt.gameserver.network.serverpackets.StopMove;
-import com.l2kt.gameserver.network.serverpackets.SystemMessage;
-import com.l2kt.gameserver.network.serverpackets.TeleportToLocation;
 import com.l2kt.gameserver.scripting.EventType;
 import com.l2kt.gameserver.scripting.Quest;
 import com.l2kt.gameserver.skills.AbnormalEffect;
@@ -80,24 +43,19 @@ import com.l2kt.gameserver.skills.Formulas;
 import com.l2kt.gameserver.skills.Stats;
 import com.l2kt.gameserver.skills.basefuncs.Func;
 import com.l2kt.gameserver.skills.effects.EffectChanceSkillTrigger;
-import com.l2kt.gameserver.skills.funcs.FuncAtkAccuracy;
-import com.l2kt.gameserver.skills.funcs.FuncAtkCritical;
-import com.l2kt.gameserver.skills.funcs.FuncAtkEvasion;
-import com.l2kt.gameserver.skills.funcs.FuncMAtkCritical;
-import com.l2kt.gameserver.skills.funcs.FuncMAtkMod;
-import com.l2kt.gameserver.skills.funcs.FuncMAtkSpeed;
-import com.l2kt.gameserver.skills.funcs.FuncMDefMod;
-import com.l2kt.gameserver.skills.funcs.FuncMaxHpMul;
-import com.l2kt.gameserver.skills.funcs.FuncMaxMpMul;
-import com.l2kt.gameserver.skills.funcs.FuncMoveSpeed;
-import com.l2kt.gameserver.skills.funcs.FuncPAtkMod;
-import com.l2kt.gameserver.skills.funcs.FuncPAtkSpeed;
-import com.l2kt.gameserver.skills.funcs.FuncPDefMod;
+import com.l2kt.gameserver.skills.funcs.*;
 import com.l2kt.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2kt.gameserver.taskmanager.MovementTaskManager;
 import com.l2kt.gameserver.templates.skills.L2EffectFlag;
 import com.l2kt.gameserver.templates.skills.L2EffectType;
 import com.l2kt.gameserver.templates.skills.L2SkillType;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Future;
 
 /**
  * An instance type extending {@link WorldObject} which represents the mother class of all character objects of the world such as players, NPCs and monsters.
@@ -258,7 +216,7 @@ public abstract class Creature extends WorldObject
 	 */
 	public void broadcastPacket(L2GameServerPacket mov)
 	{
-		Broadcast.toSelfAndKnownPlayers(this, mov);
+		BroadcastExtensionsKt.toSelfAndKnownPlayers(this, mov);
 	}
 	
 	/**
@@ -268,7 +226,7 @@ public abstract class Creature extends WorldObject
 	 */
 	public void broadcastPacket(L2GameServerPacket mov, int radius)
 	{
-		Broadcast.toSelfAndKnownPlayersInRadius(this, mov, radius);
+		BroadcastExtensionsKt.toSelfAndKnownPlayersInRadius(this, mov, radius);
 	}
 	
 	/**

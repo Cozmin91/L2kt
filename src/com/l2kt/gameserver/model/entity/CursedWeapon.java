@@ -1,15 +1,12 @@
 package com.l2kt.gameserver.model.entity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.concurrent.ScheduledFuture;
-
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.logging.CLogger;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.data.SkillTable;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
+import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.model.L2Effect;
 import com.l2kt.gameserver.model.L2Skill;
 import com.l2kt.gameserver.model.actor.Attackable;
@@ -17,9 +14,6 @@ import com.l2kt.gameserver.model.actor.Creature;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.group.Party;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
-import com.l2kt.gameserver.util.Broadcast;
-
-import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.model.location.Location;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.Earthquake;
@@ -27,6 +21,11 @@ import com.l2kt.gameserver.network.serverpackets.ExRedSky;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
 import com.l2kt.gameserver.network.serverpackets.UserInfo;
 import com.l2kt.gameserver.templates.StatsSet;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * One of these swords can drop from any mob. But only one instance of each sword can exist in the world. When a cursed sword drops, the world becomes red for several seconds, the ground shakes, and there's also an announcement as a system message that a cursed sword is found.<br>
@@ -106,7 +105,7 @@ public class CursedWeapon
 		
 		_skillMaxLevel = SkillTable.getInstance().getMaxLevel(_skillId);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(LOAD_CW))
 			{
@@ -280,7 +279,7 @@ public class CursedWeapon
 			{
 				LOGGER.info("{} is being removed offline.", _name);
 				
-				try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+				try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 				{
 					// Delete the item
 					try (PreparedStatement ps = con.prepareStatement(DELETE_ITEM))
@@ -328,7 +327,7 @@ public class CursedWeapon
 		removeFromDb();
 		
 		// Inform all ppl.
-		Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_DISAPPEARED).addItemName(_itemId));
+		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_DISAPPEARED).addItemName(_itemId));
 		
 		// Reset state.
 		_player = null;
@@ -410,7 +409,7 @@ public class CursedWeapon
 		removeFromDb();
 		
 		// Broadcast a message to all online players.
-		Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.S2_WAS_DROPPED_IN_THE_S1_REGION).addZoneName(_player.getPosition()).addItemName(_itemId));
+		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.S2_WAS_DROPPED_IN_THE_S1_REGION).addZoneName(_player.getPosition()).addItemName(_itemId));
 	}
 	
 	/**
@@ -434,13 +433,13 @@ public class CursedWeapon
 		_item.dropMe(attackable, x, y, z);
 		
 		// RedSky and Earthquake
-		Broadcast.toAllOnlinePlayers(new ExRedSky(10));
-		Broadcast.toAllOnlinePlayers(new Earthquake(x, y, z, 14, 3));
+		BroadcastExtensionsKt.toAllOnlinePlayers(new ExRedSky(10));
+		BroadcastExtensionsKt.toAllOnlinePlayers(new Earthquake(x, y, z, 14, 3));
 		
 		_isDropped = true;
 		
 		// Broadcast a message to all online players.
-		Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.S2_WAS_DROPPED_IN_THE_S1_REGION).addZoneName(player.getPosition()).addItemName(_itemId));
+		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.S2_WAS_DROPPED_IN_THE_S1_REGION).addZoneName(player.getPosition()).addItemName(_itemId));
 	}
 	
 	/**
@@ -455,7 +454,7 @@ public class CursedWeapon
 		SystemMessage msg = SystemMessage.getSystemMessage(SystemMessageId.S2_OWNER_HAS_LOGGED_INTO_THE_S1_REGION);
 		msg.addZoneName(_player.getPosition());
 		msg.addItemName(_player.getCursedWeaponEquippedId());
-		Broadcast.toAllOnlinePlayers(msg);
+		BroadcastExtensionsKt.toAllOnlinePlayers(msg);
 		
 		final int timeLeft = (int) (getTimeLeft() / 60000);
 		if (timeLeft > 60)
@@ -583,7 +582,7 @@ public class CursedWeapon
 		cancelDropTimer();
 		
 		// Save data on database.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(INSERT_CW))
 			{
@@ -633,7 +632,7 @@ public class CursedWeapon
 		_player.broadcastUserInfo();
 		
 		// _player.broadcastPacket(new SocialAction(_player, 17));
-		Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION).addZoneName(_player.getPosition()).addItemName(_item.getItemId()));
+		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION).addZoneName(_player.getPosition()).addItemName(_item.getItemId()));
 	}
 	
 	/**
@@ -641,7 +640,7 @@ public class CursedWeapon
 	 */
 	private void removeFromDb()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(DELETE_CW))
 			{
@@ -791,7 +790,7 @@ public class CursedWeapon
 			// Save data.
 			else
 			{
-				try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+				try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 				{
 					try (PreparedStatement ps = con.prepareStatement(UPDATE_CW))
 					{

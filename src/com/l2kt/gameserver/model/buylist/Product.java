@@ -124,7 +124,7 @@ public class Product
 	 */
 	public void save(long nextRestockTime)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE_BUYLIST))
 		{
 			ps.setInt(1, getBuyListId());
@@ -144,7 +144,7 @@ public class Product
 	 */
 	public void delete()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_BUYLIST))
 		{
 			ps.setInt(1, getBuyListId());

@@ -46,7 +46,7 @@ public class BufferManager implements IXmlReader
 		parseFile("./data/xml/bufferSkills.xml");
 		LOGGER.info("Loaded {} available buffs.", _availableBuffs.size());
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(LOAD_SCHEMES);
              ResultSet rs = ps.executeQuery())
 		{
@@ -94,7 +94,7 @@ public class BufferManager implements IXmlReader
 	
 	public void saveSchemes()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			// Delete all entries from database.
 			PreparedStatement ps = con.prepareStatement(DELETE_SCHEMES);

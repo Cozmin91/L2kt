@@ -99,7 +99,7 @@ public class FishingChampionshipManager
 	{
 		_endDate = ServerMemoTable.getInstance().getLong("fishChampionshipEnd", 0);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(SELECT))
 		{
 			try (ResultSet rs = ps.executeQuery())
@@ -433,7 +433,7 @@ public class FishingChampionshipManager
 	{
 		ServerMemoTable.getInstance().set("fishChampionshipEnd", _endDate);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE);
 			PreparedStatement ps2 = con.prepareStatement(INSERT))
 		{

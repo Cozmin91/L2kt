@@ -32,7 +32,7 @@ public class CoupleManager
 	
 	protected CoupleManager()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(LOAD_COUPLES);
              ResultSet rs = ps.executeQuery())
 		{
@@ -109,7 +109,7 @@ public class CoupleManager
 	 */
 	public void save()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement ps = con.prepareStatement(DELETE_COUPLES);
 			ps.execute();

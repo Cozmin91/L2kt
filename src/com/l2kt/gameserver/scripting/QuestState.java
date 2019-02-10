@@ -184,7 +184,7 @@ public final class QuestState
 				takeItems(itemId, -1);
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement((repeatable) ? QUEST_DELETE : QUEST_COMPLETE))
 		{
 			ps.setInt(1, _player.getObjectId());
@@ -405,7 +405,7 @@ public final class QuestState
 	 */
 	private void setQuestVarInDb(String var, String value)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(QUEST_SET_VAR))
 		{
 			ps.setInt(1, _player.getObjectId());
@@ -426,7 +426,7 @@ public final class QuestState
 	 */
 	private void removeQuestVarInDb(String var)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(QUEST_DEL_VAR))
 		{
 			ps.setInt(1, _player.getObjectId());

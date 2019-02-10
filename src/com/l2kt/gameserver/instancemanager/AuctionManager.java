@@ -1,5 +1,8 @@
 package com.l2kt.gameserver.instancemanager;
 
+import com.l2kt.L2DatabaseFactory;
+import com.l2kt.gameserver.model.entity.Auction;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.l2kt.L2DatabaseFactory;
-import com.l2kt.gameserver.model.entity.Auction;
 
 public class AuctionManager
 {
@@ -119,7 +119,7 @@ public class AuctionManager
 	
 	private final void load()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("SELECT id FROM auction ORDER BY id");
 			ResultSet rs = statement.executeQuery();
@@ -183,7 +183,7 @@ public class AuctionManager
 			return;
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("INSERT INTO `auction` VALUES " + ITEM_INIT_DATA[i]);
 			statement.execute();

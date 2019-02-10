@@ -1,19 +1,5 @@
 package com.l2kt.gameserver.model.entity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
 import com.l2kt.Config;
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.concurrent.ThreadPool;
@@ -21,14 +7,13 @@ import com.l2kt.commons.util.ArraysUtil;
 import com.l2kt.gameserver.data.manager.CastleManager;
 import com.l2kt.gameserver.data.sql.ClanTable;
 import com.l2kt.gameserver.data.xml.NpcData;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.model.L2Spawn;
 import com.l2kt.gameserver.model.WorldObject;
 import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.instance.ControlTower;
 import com.l2kt.gameserver.model.actor.instance.FlameTower;
 import com.l2kt.gameserver.model.actor.instance.Player;
-import com.l2kt.gameserver.util.Broadcast;
-
 import com.l2kt.gameserver.model.location.TowerSpawnLocation;
 import com.l2kt.gameserver.model.pledge.Clan;
 import com.l2kt.gameserver.model.pledge.ClanMember;
@@ -37,6 +22,16 @@ import com.l2kt.gameserver.network.serverpackets.PlaySound;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
 import com.l2kt.gameserver.network.serverpackets.UserInfo;
 import com.l2kt.gameserver.scripting.Quest;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class Siege implements Siegable
 {
@@ -98,7 +93,7 @@ public class Siege implements Siegable
 		}
 		
 		// Feed _registeredClans.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement ps = con.prepareStatement(LOAD_SIEGE_CLAN);
 			ps.setInt(1, _castle.getCastleId());
@@ -132,7 +127,7 @@ public class Siege implements Siegable
 			final SystemMessage sm = SystemMessage.getSystemMessage((getCastle().getOwnerId() <= 0) ? SystemMessageId.SIEGE_OF_S1_HAS_BEEN_CANCELED_DUE_TO_LACK_OF_INTEREST : SystemMessageId.S1_SIEGE_WAS_CANCELED_BECAUSE_NO_CLANS_PARTICIPATED);
 			sm.addString(getCastle().getName());
 			
-			Broadcast.toAllOnlinePlayers(sm);
+			BroadcastExtensionsKt.toAllOnlinePlayers(sm);
 			saveCastleSiege(true);
 			return;
 		}
@@ -159,8 +154,8 @@ public class Siege implements Siegable
 		// Schedule a task to prepare auto siege end
 		ThreadPool.schedule(new EndSiegeTask(getCastle()), 1000);
 		
-		Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SIEGE_OF_S1_HAS_STARTED).addString(getCastle().getName()));
-		Broadcast.toAllOnlinePlayers(new PlaySound("systemmsg_e.17"));
+		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SIEGE_OF_S1_HAS_STARTED).addString(getCastle().getName()));
+		BroadcastExtensionsKt.toAllOnlinePlayers(new PlaySound("systemmsg_e.17"));
 	}
 	
 	@Override
@@ -169,13 +164,13 @@ public class Siege implements Siegable
 		if (!isInProgress())
 			return;
 		
-		Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SIEGE_OF_S1_HAS_ENDED).addString(getCastle().getName()));
-		Broadcast.toAllOnlinePlayers(new PlaySound("systemmsg_e.18"));
+		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SIEGE_OF_S1_HAS_ENDED).addString(getCastle().getName()));
+		BroadcastExtensionsKt.toAllOnlinePlayers(new PlaySound("systemmsg_e.18"));
 		
 		if (getCastle().getOwnerId() > 0)
 		{
 			Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
-			Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_VICTORIOUS_OVER_S2_S_SIEGE).addString(clan.getName()).addString(getCastle().getName()));
+			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_VICTORIOUS_OVER_S2_S_SIEGE).addString(clan.getName()).addString(getCastle().getName()));
 			
 			// An initial clan was holding the castle and is different of current owner.
 			if (_formerOwner != null && clan != _formerOwner)
@@ -193,7 +188,7 @@ public class Siege implements Siegable
 			}
 		}
 		else
-			Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SIEGE_S1_DRAW).addString(getCastle().getName()));
+			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SIEGE_S1_DRAW).addString(getCastle().getName()));
 		
 		// Cleanup clans kills/deaths counters, cleanup flag.
 		for (Clan clan : _registeredClans.keySet())
@@ -538,7 +533,7 @@ public class Siege implements Siegable
 	/** Clear all registered siege clans from database for castle */
 	public void clearAllClans()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(CLEAR_SIEGE_CLANS))
 		{
 			ps.setInt(1, getCastle().getCastleId());
@@ -563,7 +558,7 @@ public class Siege implements Siegable
 	/** Clear all siege clans waiting for approval from database for castle */
 	protected void clearPendingClans()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(CLEAR_PENDING_CLANS))
 		{
 			ps.setInt(1, getCastle().getCastleId());
@@ -680,7 +675,7 @@ public class Siege implements Siegable
 		if (clan == null || clan.getCastleId() == getCastle().getCastleId() || _registeredClans.remove(clan) == null)
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(CLEAR_SIEGE_CLAN))
 		{
 			ps.setInt(1, getCastle().getCastleId());
@@ -813,7 +808,7 @@ public class Siege implements Siegable
 			_siegeTask = ThreadPool.schedule(new SiegeTask(getCastle()), 1000);
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_SIEGE_INFOS))
 		{
 			ps.setLong(1, getSiegeDate().getTimeInMillis());
@@ -852,7 +847,7 @@ public class Siege implements Siegable
 				break;
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(ADD_OR_UPDATE_SIEGE_CLAN))
 		{
 			ps.setInt(1, clan.getClanId());
@@ -901,7 +896,7 @@ public class Siege implements Siegable
 		siegeDate.set(Calendar.MILLISECOND, 0);
 		
 		// Send message and allow registration for next siege.
-		Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.S1_ANNOUNCED_SIEGE_TIME).addString(getCastle().getName()));
+		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.S1_ANNOUNCED_SIEGE_TIME).addString(getCastle().getName()));
 		changeStatus(SiegeStatus.REGISTRATION_OPENED);
 	}
 	
@@ -1080,7 +1075,7 @@ public class Siege implements Siegable
 				_siegeTask = ThreadPool.schedule(new SiegeTask(_castle), timeRemaining - 86400000);
 			else if (timeRemaining <= 86400000 && timeRemaining > 13600000)
 			{
-				Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.REGISTRATION_TERM_FOR_S1_ENDED).addString(getCastle().getName()));
+				BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.REGISTRATION_TERM_FOR_S1_ENDED).addString(getCastle().getName()));
 				changeStatus(SiegeStatus.REGISTRATION_OVER);
 				clearPendingClans();
 				_siegeTask = ThreadPool.schedule(new SiegeTask(_castle), timeRemaining - 13600000);

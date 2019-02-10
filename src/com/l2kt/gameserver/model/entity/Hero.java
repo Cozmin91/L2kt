@@ -77,7 +77,7 @@ public class Hero
 	
 	protected Hero()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement(GET_HEROES);
 			ResultSet rset = statement.executeQuery();
@@ -217,7 +217,7 @@ public class Hero
 	 */
 	public void loadMessage(int charId)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("SELECT message FROM heroes WHERE char_id=?");
 			statement.setInt(1, charId);
@@ -240,7 +240,7 @@ public class Hero
 	{
 		int entries = 0;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement(GET_DIARIES);
 			statement.setInt(1, charId);
@@ -303,7 +303,7 @@ public class Hero
 		int losses = 0;
 		int draws = 0;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM olympiad_fights WHERE (charOneId=? OR charTwoId=?) AND start<? ORDER BY start ASC");
 			statement.setInt(1, charId);
@@ -650,7 +650,7 @@ public class Hero
 	
 	public void updateHeroes(boolean setDefault)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			if (setDefault)
 			{
@@ -796,7 +796,7 @@ public class Hero
 	
 	public void setDiaryData(int charId, int action, int param)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement(UPDATE_DIARIES);
 			statement.setInt(1, charId);
@@ -831,7 +831,7 @@ public class Hero
 		if (_heroMessages.get(charId) == null)
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("UPDATE heroes SET message=? WHERE char_id=?;");
 			statement.setString(1, _heroMessages.get(charId));
@@ -847,7 +847,7 @@ public class Hero
 	
 	private static void deleteItemsInDb()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement(DELETE_ITEMS);
 			statement.execute();

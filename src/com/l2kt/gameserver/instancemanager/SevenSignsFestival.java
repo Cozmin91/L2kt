@@ -3238,7 +3238,7 @@ public class SevenSignsFestival
 	 */
 	protected void restoreFestivalData()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement st = con.prepareStatement(RESTORE_FESTIVAL);
 			ResultSet rset = st.executeQuery();
@@ -3300,7 +3300,7 @@ public class SevenSignsFestival
 	 */
 	public void saveFestivalData(boolean updateSettings)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statementUpdate = con.prepareStatement(UPDATE);
 			PreparedStatement statementInsert = con.prepareStatement(INSERT);
@@ -3374,7 +3374,7 @@ public class SevenSignsFestival
 		}
 		else
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 			{
 				PreparedStatement st = con.prepareStatement(GET_CLAN_NAME);
 				st.setString(1, playerName);

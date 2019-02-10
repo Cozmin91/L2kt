@@ -1,17 +1,13 @@
 package com.l2kt.gameserver.idfactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.l2kt.L2DatabaseFactory;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
-
-import com.l2kt.L2DatabaseFactory;
 
 public abstract class IdFactory
 {
@@ -62,7 +58,7 @@ public abstract class IdFactory
 	 */
 	private static void setAllCharacterOffline()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			Statement statement = con.createStatement();
 			statement.executeUpdate("UPDATE characters SET online = 0");
@@ -80,7 +76,7 @@ public abstract class IdFactory
 	 */
 	private static void cleanUpDB()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			int cleanCount = 0;
 			Statement stmt = con.createStatement();
@@ -151,7 +147,7 @@ public abstract class IdFactory
 	
 	private static void cleanUpTimeStamps()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			int cleanCount = 0;
 			PreparedStatement stmt = con.prepareStatement("DELETE FROM character_skills_save WHERE restore_type = 1 AND systime <= ?");
@@ -170,7 +166,7 @@ public abstract class IdFactory
 	{
 		final List<Integer> temp = new ArrayList<>();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			final Statement st = con.createStatement();
 			for (String[] table : EXTRACT_OBJ_ID_TABLES)

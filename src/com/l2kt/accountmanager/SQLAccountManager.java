@@ -1,5 +1,8 @@
 package com.l2kt.accountmanager;
 
+import com.l2kt.Config;
+import com.l2kt.L2DatabaseFactory;
+
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Scanner;
-
-import com.l2kt.Config;
-import com.l2kt.L2DatabaseFactory;
 
 public class SQLAccountManager
 {
@@ -147,7 +147,7 @@ public class SQLAccountManager
 		}
 		q = q.concat(" ORDER BY login ASC");
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(q);
              ResultSet rset = ps.executeQuery())
 		{
@@ -168,7 +168,7 @@ public class SQLAccountManager
 	
 	private static void addOrUpdateAccount(String account, String password, String level)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement("REPLACE accounts(login, password, access_level) VALUES (?, ?, ?)"))
 		{
 			byte[] newPassword = MessageDigest.getInstance("SHA").digest(password.getBytes("UTF-8"));
@@ -194,7 +194,7 @@ public class SQLAccountManager
 	
 	private static void changeAccountLevel(String account, String level)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement("UPDATE accounts SET access_level = ? WHERE login = ?"))
 		{
 			ps.setString(1, level);
@@ -217,7 +217,7 @@ public class SQLAccountManager
 	
 	private static void deleteAccount(String account)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement("DELETE FROM accounts WHERE login = ?"))
 		{
 			ps.setString(1, account);

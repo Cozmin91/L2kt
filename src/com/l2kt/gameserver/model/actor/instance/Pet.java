@@ -1,19 +1,14 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Future;
-
 import com.l2kt.Config;
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.data.SkillTable;
 import com.l2kt.gameserver.data.manager.CursedWeaponManager;
+import com.l2kt.gameserver.handler.IItemHandler;
+import com.l2kt.gameserver.handler.ItemHandler;
+import com.l2kt.gameserver.idfactory.IdFactory;
 import com.l2kt.gameserver.model.L2Skill;
 import com.l2kt.gameserver.model.PetDataEntry;
 import com.l2kt.gameserver.model.World;
@@ -22,33 +17,32 @@ import com.l2kt.gameserver.model.actor.Creature;
 import com.l2kt.gameserver.model.actor.Summon;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
 import com.l2kt.gameserver.model.actor.stat.PetStat;
+import com.l2kt.gameserver.model.actor.template.NpcTemplate;
+import com.l2kt.gameserver.model.actor.template.PetTemplate;
+import com.l2kt.gameserver.model.group.Party;
+import com.l2kt.gameserver.model.group.Party.LootRule;
+import com.l2kt.gameserver.model.holder.Timestamp;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.model.item.kind.Item;
 import com.l2kt.gameserver.model.item.kind.Weapon;
 import com.l2kt.gameserver.model.item.type.ArmorType;
 import com.l2kt.gameserver.model.item.type.EtcItemType;
 import com.l2kt.gameserver.model.item.type.WeaponType;
-import com.l2kt.gameserver.model.zone.ZoneId;
-
-import com.l2kt.gameserver.handler.IItemHandler;
-import com.l2kt.gameserver.handler.ItemHandler;
-import com.l2kt.gameserver.idfactory.IdFactory;
-import com.l2kt.gameserver.model.actor.template.NpcTemplate;
-import com.l2kt.gameserver.model.actor.template.PetTemplate;
-import com.l2kt.gameserver.model.group.Party;
-import com.l2kt.gameserver.model.group.Party.LootRule;
-import com.l2kt.gameserver.model.holder.Timestamp;
 import com.l2kt.gameserver.model.itemcontainer.Inventory;
 import com.l2kt.gameserver.model.itemcontainer.PetInventory;
+import com.l2kt.gameserver.model.zone.ZoneId;
 import com.l2kt.gameserver.network.SystemMessageId;
-import com.l2kt.gameserver.network.serverpackets.InventoryUpdate;
-import com.l2kt.gameserver.network.serverpackets.PetInventoryUpdate;
-import com.l2kt.gameserver.network.serverpackets.PetItemList;
-import com.l2kt.gameserver.network.serverpackets.StatusUpdate;
-import com.l2kt.gameserver.network.serverpackets.StopMove;
-import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+import com.l2kt.gameserver.network.serverpackets.*;
 import com.l2kt.gameserver.taskmanager.DecayTaskManager;
 import com.l2kt.gameserver.taskmanager.ItemsOnGroundTaskManager;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Future;
 
 /**
  * A pet is a instance extending {@link Summon}, linked to a {@link Player}. A pet is different than a Servitor in multiple ways:
@@ -423,7 +417,7 @@ public class Pet extends Summon
 		if (_controlItemId == 0)
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(STORE_PET))
 		{
 			ps.setString(1, getName());
@@ -645,7 +639,7 @@ public class Pet extends Summon
 		owner.destroyItem("PetDestroy", _controlItemId, 1, getOwner(), false);
 		
 		// Delete the pet from the database.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_PET))
 		{
 			ps.setInt(1, _controlItemId);
@@ -659,7 +653,7 @@ public class Pet extends Summon
 	
 	public static Pet restore(ItemInstance control, NpcTemplate template, Player owner)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			Pet pet;
 			if (template.isType("BabyPet"))

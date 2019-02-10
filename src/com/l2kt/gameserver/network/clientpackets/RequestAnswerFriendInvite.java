@@ -48,7 +48,7 @@ public final class RequestAnswerFriendInvite extends L2GameClientPacket
 			requestor.sendPacket(new FriendList(requestor));
 			player.sendPacket(new FriendList(player));
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
                  PreparedStatement ps = con.prepareStatement(ADD_FRIEND))
 			{
 				ps.setInt(1, requestor.getObjectId());

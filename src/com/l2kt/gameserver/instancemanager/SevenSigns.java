@@ -1,5 +1,20 @@
 package com.l2kt.gameserver.instancemanager;
 
+import com.l2kt.Config;
+import com.l2kt.L2DatabaseFactory;
+import com.l2kt.commons.concurrent.ThreadPool;
+import com.l2kt.gameserver.data.SkillTable;
+import com.l2kt.gameserver.data.manager.CastleManager;
+import com.l2kt.gameserver.data.xml.MapRegionData;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
+import com.l2kt.gameserver.instancemanager.AutoSpawnManager.AutoSpawnInstance;
+import com.l2kt.gameserver.model.World;
+import com.l2kt.gameserver.model.actor.instance.Player;
+import com.l2kt.gameserver.network.SystemMessageId;
+import com.l2kt.gameserver.network.serverpackets.SSQInfo;
+import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+import com.l2kt.gameserver.templates.StatsSet;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,22 +25,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.l2kt.Config;
-import com.l2kt.L2DatabaseFactory;
-import com.l2kt.commons.concurrent.ThreadPool;
-import com.l2kt.gameserver.data.SkillTable;
-import com.l2kt.gameserver.data.manager.CastleManager;
-import com.l2kt.gameserver.data.xml.MapRegionData;
-import com.l2kt.gameserver.model.World;
-import com.l2kt.gameserver.model.actor.instance.Player;
-import com.l2kt.gameserver.network.SystemMessageId;
-import com.l2kt.gameserver.network.serverpackets.SSQInfo;
-import com.l2kt.gameserver.network.serverpackets.SystemMessage;
-import com.l2kt.gameserver.templates.StatsSet;
-import com.l2kt.gameserver.util.Broadcast;
-
-import com.l2kt.gameserver.instancemanager.AutoSpawnManager.AutoSpawnInstance;
 
 public class SevenSigns
 {
@@ -633,7 +632,7 @@ public class SevenSigns
 	 */
 	protected void restoreSevenSignsData()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement st = con.prepareStatement(LOAD_DATA);
 			ResultSet rset = st.executeQuery();
@@ -702,7 +701,7 @@ public class SevenSigns
 	 */
 	public void saveSevenSignsData()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement st = con.prepareStatement(UPDATE_PLAYER))
 		{
 			for (StatsSet set : _playersData.values())
@@ -727,7 +726,7 @@ public class SevenSigns
 	
 	public final void saveSevenSignsStatus()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement st = con.prepareStatement(UPDATE_STATUS))
 		{
 			st.setInt(1, _currentCycle);
@@ -806,7 +805,7 @@ public class SevenSigns
 			_playersData.put(objectId, set);
 			
 			// Update data in database, as we have a new player signing up.
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement st = con.prepareStatement(INSERT_PLAYER))
 			{
 				st.setInt(1, objectId);
@@ -1037,23 +1036,23 @@ public class SevenSigns
 			{
 				case AVARICE:
 					if (newSealOwner == CabalType.DAWN)
-						Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_OBTAINED_AVARICE));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_OBTAINED_AVARICE));
 					else if (newSealOwner == CabalType.DUSK)
-						Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_OBTAINED_AVARICE));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_OBTAINED_AVARICE));
 					break;
 				
 				case GNOSIS:
 					if (newSealOwner == CabalType.DAWN)
-						Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_OBTAINED_GNOSIS));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_OBTAINED_GNOSIS));
 					else if (newSealOwner == CabalType.DUSK)
-						Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_OBTAINED_GNOSIS));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_OBTAINED_GNOSIS));
 					break;
 				
 				case STRIFE:
 					if (newSealOwner == CabalType.DAWN)
-						Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_OBTAINED_STRIFE));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_OBTAINED_STRIFE));
 					else if (newSealOwner == CabalType.DUSK)
-						Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_OBTAINED_STRIFE));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_OBTAINED_STRIFE));
 					
 					CastleManager.getInstance().validateTaxes(newSealOwner);
 					break;
@@ -1115,12 +1114,12 @@ public class SevenSigns
 					CastleManager.getInstance().resetCertificates();
 					
 					// Send message that Competition has begun.
-					Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.QUEST_EVENT_PERIOD_BEGUN));
+					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.QUEST_EVENT_PERIOD_BEGUN));
 					break;
 				
 				case COMPETITION: // Results Calculation
 					// Send message that Competition has ended.
-					Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.QUEST_EVENT_PERIOD_ENDED));
+					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.QUEST_EVENT_PERIOD_ENDED));
 					
 					final CabalType winningCabal = getCabalHighestScore();
 					
@@ -1133,11 +1132,11 @@ public class SevenSigns
 					switch (winningCabal)
 					{
 						case DAWN:
-							Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_WON));
+							BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_WON));
 							break;
 						
 						case DUSK:
-							Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_WON));
+							BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_WON));
 							break;
 					}
 					
@@ -1152,7 +1151,7 @@ public class SevenSigns
 					giveSosEffect(getSealOwner(SealType.STRIFE));
 					
 					// Send message that Seal Validation has begun.
-					Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SEAL_VALIDATION_PERIOD_BEGUN));
+					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SEAL_VALIDATION_PERIOD_BEGUN));
 					
 					_log.info("SevenSigns: The " + _previousWinner.getFullName() + " have won the competition with " + getCurrentScore(_previousWinner) + " points!");
 					break;
@@ -1162,7 +1161,7 @@ public class SevenSigns
 					_activePeriod = PeriodType.RECRUITING;
 					
 					// Send message that Seal Validation has ended.
-					Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SEAL_VALIDATION_PERIOD_ENDED));
+					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SEAL_VALIDATION_PERIOD_ENDED));
 					
 					// Clear Seal of Strife influence.
 					removeSosEffect();
@@ -1192,7 +1191,7 @@ public class SevenSigns
 			teleLosingCabalFromDungeons(getCabalHighestScore());
 			
 			// Spawns NPCs and change sky color.
-			Broadcast.toAllOnlinePlayers(SSQInfo.sendSky());
+			BroadcastExtensionsKt.toAllOnlinePlayers(SSQInfo.sendSky());
 			spawnSevenSignsNPC();
 			
 			_log.info("SevenSigns: The " + _activePeriod.getName() + " period has begun!");

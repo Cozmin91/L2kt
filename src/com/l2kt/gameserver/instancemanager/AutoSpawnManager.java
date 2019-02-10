@@ -1,5 +1,18 @@
 package com.l2kt.gameserver.instancemanager;
 
+import com.l2kt.L2DatabaseFactory;
+import com.l2kt.commons.concurrent.ThreadPool;
+import com.l2kt.commons.random.Rnd;
+import com.l2kt.gameserver.data.SpawnTable;
+import com.l2kt.gameserver.data.xml.MapRegionData;
+import com.l2kt.gameserver.data.xml.NpcData;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
+import com.l2kt.gameserver.idfactory.IdFactory;
+import com.l2kt.gameserver.model.L2Spawn;
+import com.l2kt.gameserver.model.actor.Npc;
+import com.l2kt.gameserver.model.actor.template.NpcTemplate;
+import com.l2kt.gameserver.model.location.SpawnLocation;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,19 +25,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.l2kt.L2DatabaseFactory;
-import com.l2kt.commons.concurrent.ThreadPool;
-import com.l2kt.commons.random.Rnd;
-import com.l2kt.gameserver.data.SpawnTable;
-import com.l2kt.gameserver.data.xml.MapRegionData;
-import com.l2kt.gameserver.data.xml.NpcData;
-import com.l2kt.gameserver.idfactory.IdFactory;
-import com.l2kt.gameserver.model.L2Spawn;
-import com.l2kt.gameserver.model.actor.Npc;
-import com.l2kt.gameserver.model.actor.template.NpcTemplate;
-import com.l2kt.gameserver.model.location.SpawnLocation;
-import com.l2kt.gameserver.util.Broadcast;
 
 /**
  * Allows spawning of a NPC object based on a timer (from the official idea used for the Merchant and Blacksmith of Mammon).
@@ -75,7 +75,7 @@ public class AutoSpawnManager
 	
 	private void restoreSpawnData()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			// Restore spawn group data, then the location data.
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM random_spawn ORDER BY groupId ASC");
@@ -412,7 +412,7 @@ public class AutoSpawnManager
 				
 				// Announce to all players that the spawn has taken place, with the nearest town location.
 				if (npcInst != null && spawnInst.isBroadcasting())
-					Broadcast.announceToOnlinePlayers("The " + npcInst.getName() + " has spawned near " + MapRegionData.getInstance().getClosestTownName(npcInst.getX(), npcInst.getY()) + "!");
+					BroadcastExtensionsKt.announceToOnlinePlayers("The " + npcInst.getName() + " has spawned near " + MapRegionData.getInstance().getClosestTownName(npcInst.getX(), npcInst.getY()) + "!");
 				
 				// If there is no despawn time, do not create a despawn task.
 				if (spawnInst.getDespawnDelay() > 0)

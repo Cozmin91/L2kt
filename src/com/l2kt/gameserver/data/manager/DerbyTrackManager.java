@@ -1,23 +1,11 @@
 package com.l2kt.gameserver.data.manager;
 
-import java.lang.reflect.Constructor;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.logging.CLogger;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.data.xml.NpcData;
-
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.idfactory.IdFactory;
 import com.l2kt.gameserver.model.HistoryInfo;
 import com.l2kt.gameserver.model.actor.Npc;
@@ -28,7 +16,14 @@ import com.l2kt.gameserver.network.serverpackets.DeleteObject;
 import com.l2kt.gameserver.network.serverpackets.MonRaceInfo;
 import com.l2kt.gameserver.network.serverpackets.PlaySound;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
-import com.l2kt.gameserver.util.Broadcast;
+
+import java.lang.reflect.Constructor;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class DerbyTrackManager
 {
@@ -246,7 +241,7 @@ public class DerbyTrackManager
 	 */
 	protected void loadHistory()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(LOAD_HISTORY);
              ResultSet rs = ps.executeQuery())
 		{
@@ -274,7 +269,7 @@ public class DerbyTrackManager
 	 */
 	protected void saveHistory(HistoryInfo history)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(SAVE_HISTORY))
 		{
 			ps.setInt(1, history.getRaceId());
@@ -294,7 +289,7 @@ public class DerbyTrackManager
 	 */
 	protected void loadBets()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_BETS);
 			ResultSet rs = ps.executeQuery())
 		{
@@ -314,7 +309,7 @@ public class DerbyTrackManager
 	 */
 	protected void saveBet(int lane, long sum)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(SAVE_BETS))
 		{
 			ps.setInt(1, lane);
@@ -335,7 +330,7 @@ public class DerbyTrackManager
 		for (int key : _betsPerLane.keySet())
 			_betsPerLane.put(key, 0L);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(CLEAR_BETS))
 		{
 			ps.execute();
@@ -404,7 +399,7 @@ public class DerbyTrackManager
 					_state = RaceState.ACCEPTING_BETS;
 					_packet = new MonRaceInfo(CODES[0][0], CODES[0][1], getRunners(), getSpeeds());
 					
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, _packet, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, _packet, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber));
 					break;
 				
 				case 30: // 30 sec
@@ -433,19 +428,19 @@ public class DerbyTrackManager
 				case 780: // 13 min
 				case 810: // 13 min 30
 				case 870: // 14 min 30 sec
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber));
 					break;
 				
 				case 300: // 5 min
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber), SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_STOP_IN_S1_MINUTES).addNumber(10));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber), SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_STOP_IN_S1_MINUTES).addNumber(10));
 					break;
 				
 				case 600: // 10 min
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber), SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_STOP_IN_S1_MINUTES).addNumber(5));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber), SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_STOP_IN_S1_MINUTES).addNumber(5));
 					break;
 				
 				case 840: // 14 min
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber), SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_STOP_IN_S1_MINUTES).addNumber(1));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber), SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_STOP_IN_S1_MINUTES).addNumber(1));
 					break;
 				
 				case 900: // 15 min
@@ -453,21 +448,21 @@ public class DerbyTrackManager
 					
 					calculateOdds();
 					
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber), SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_S1_TICKET_SALES_CLOSED));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_TICKETS_NOW_AVAILABLE_FOR_S1_RACE).addNumber(_raceNumber), SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_S1_TICKET_SALES_CLOSED));
 					break;
 				
 				case 960: // 16 min
 				case 1020: // 17 min
 					final int minutes = (_finalCountdown == 960) ? 2 : 1;
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_S2_BEGINS_IN_S1_MINUTES).addNumber(minutes));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_S2_BEGINS_IN_S1_MINUTES).addNumber(minutes));
 					break;
 				
 				case 1050: // 17 min 30 sec
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_S1_BEGINS_IN_30_SECONDS));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_S1_BEGINS_IN_30_SECONDS));
 					break;
 				
 				case 1070: // 17 min 50 sec
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_S1_COUNTDOWN_IN_FIVE_SECONDS));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_S1_COUNTDOWN_IN_FIVE_SECONDS));
 					break;
 				
 				case 1075: // 17 min 55 sec
@@ -476,20 +471,20 @@ public class DerbyTrackManager
 				case 1078: // 17 min 58 sec
 				case 1079: // 17 min 59 sec
 					final int seconds = 1080 - _finalCountdown;
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_BEGINS_IN_S1_SECONDS).addNumber(seconds));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_BEGINS_IN_S1_SECONDS).addNumber(seconds));
 					break;
 				
 				case 1080: // 18 min
 					_state = RaceState.STARTING_RACE;
 					_packet = new MonRaceInfo(CODES[1][0], CODES[1][1], getRunners(), getSpeeds());
 					
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_RACE_START), SOUND_1, SOUND_2, _packet);
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_RACE_START), SOUND_1, SOUND_2, _packet);
 					break;
 				
 				case 1085: // 18 min 5 sec
 					_packet = new MonRaceInfo(CODES[2][0], CODES[2][1], getRunners(), getSpeeds());
 					
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, _packet);
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, _packet);
 					break;
 				
 				case 1115: // 18 min 35 sec
@@ -509,12 +504,12 @@ public class DerbyTrackManager
 					// Clear bets.
 					clearBets();
 					
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_FIRST_PLACE_S1_SECOND_S2).addNumber(getFirst() + 1).addNumber(getSecond() + 1), SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_S1_RACE_END).addNumber(_raceNumber));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_FIRST_PLACE_S1_SECOND_S2).addNumber(getFirst() + 1).addNumber(getSecond() + 1), SystemMessage.getSystemMessage(SystemMessageId.MONSRACE_S1_RACE_END).addNumber(_raceNumber));
 					_raceNumber++;
 					break;
 				
 				case 1140: // 19 min
-					Broadcast.toAllPlayersInZoneType(DerbyTrackZone.class, new DeleteObject(getRunners().get(0)), new DeleteObject(getRunners().get(1)), new DeleteObject(getRunners().get(2)), new DeleteObject(getRunners().get(3)), new DeleteObject(getRunners().get(4)), new DeleteObject(getRunners().get(5)), new DeleteObject(getRunners().get(6)), new DeleteObject(getRunners().get(7)));
+					BroadcastExtensionsKt.toAllPlayersInZoneType(DerbyTrackZone.class, new DeleteObject(getRunners().get(0)), new DeleteObject(getRunners().get(1)), new DeleteObject(getRunners().get(2)), new DeleteObject(getRunners().get(3)), new DeleteObject(getRunners().get(4)), new DeleteObject(getRunners().get(5)), new DeleteObject(getRunners().get(6)), new DeleteObject(getRunners().get(7)));
 					break;
 			}
 			_finalCountdown += 1;

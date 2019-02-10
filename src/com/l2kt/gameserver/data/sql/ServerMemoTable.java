@@ -30,7 +30,7 @@ public class ServerMemoTable extends AbstractMemo
 	public boolean restoreMe()
 	{
 		// Restore previous variables.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(SELECT_QUERY);
              ResultSet rs = ps.executeQuery())
 		{
@@ -57,7 +57,7 @@ public class ServerMemoTable extends AbstractMemo
 		if (!hasChanges())
 			return false;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			// Clear previous entries.
 			PreparedStatement ps = con.prepareStatement(DELETE_QUERY);

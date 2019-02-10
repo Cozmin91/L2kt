@@ -518,7 +518,7 @@ public abstract class ItemContainer
 	{
 		final Player owner = (getOwner() == null) ? null : getOwner().getActingPlayer();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(RESTORE_ITEMS))
 		{
 			ps.setInt(1, getOwnerId());

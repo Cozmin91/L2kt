@@ -80,7 +80,7 @@ public final class RequestChangePetName extends L2GameClientPacket
 	{
 		boolean result = true;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(SEARCH_NAME))
 		{
 			ps.setString(1, name);

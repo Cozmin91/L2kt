@@ -54,7 +54,7 @@ public class FriendsBBSManager extends BaseBBSManager
 			}
 			else if (action.equals("delall"))
 			{
-				try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+				try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
                      PreparedStatement ps = con.prepareStatement(DELETE_ALL_FRIENDS))
 				{
 					ps.setInt(1, player.getObjectId());
@@ -90,7 +90,7 @@ public class FriendsBBSManager extends BaseBBSManager
 				showFriendsList(player, true);
 			else if (action.equals("del"))
 			{
-				try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+				try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 					PreparedStatement ps = con.prepareStatement(DELETE_FRIEND))
 				{
 					ps.setInt(1, player.getObjectId());

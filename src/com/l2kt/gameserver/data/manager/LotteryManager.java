@@ -1,20 +1,19 @@
 package com.l2kt.gameserver.data.manager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Calendar;
-
 import com.l2kt.Config;
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.logging.CLogger;
 import com.l2kt.commons.random.Rnd;
-
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
-import com.l2kt.gameserver.util.Broadcast;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Calendar;
 
 /**
  * Handles the Lottery event, where player can buy tickets to gamble money.
@@ -80,7 +79,7 @@ public class LotteryManager
 	{
 		_prize += count;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(UPDATE_PRICE))
 		{
 			ps.setInt(1, getPrize());
@@ -138,7 +137,7 @@ public class LotteryManager
 			0
 		};
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(SELECT_LOTTERY_TICKET))
 		{
 			ps.setInt(1, id);
@@ -216,7 +215,7 @@ public class LotteryManager
 		@Override
 		public void run()
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(SELECT_LAST_LOTTERY);
 				ResultSet rs = ps.executeQuery())
 			{
@@ -267,7 +266,7 @@ public class LotteryManager
 			_isSellingTickets = true;
 			_isStarted = true;
 			
-			Broadcast.announceToOnlinePlayers("Lottery tickets are now available for Lucky Lottery #" + getId() + ".");
+			BroadcastExtensionsKt.announceToOnlinePlayers("Lottery tickets are now available for Lucky Lottery #" + getId() + ".");
 			
 			Calendar finishTime = Calendar.getInstance();
 			finishTime.setTimeInMillis(_endDate);
@@ -290,7 +289,7 @@ public class LotteryManager
 			ThreadPool.schedule(new StopSellingTickets(), _endDate - System.currentTimeMillis() - 10 * MINUTE);
 			ThreadPool.schedule(new FinishLottery(), _endDate - System.currentTimeMillis());
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(INSERT_LOTTERY))
 			{
 				ps.setInt(1, 1);
@@ -318,7 +317,7 @@ public class LotteryManager
 		{
 			_isSellingTickets = false;
 			
-			Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.LOTTERY_TICKET_SALES_TEMP_SUSPENDED));
+			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.LOTTERY_TICKET_SALES_TEMP_SUSPENDED));
 		}
 	}
 	
@@ -367,7 +366,7 @@ public class LotteryManager
 			int count3 = 0;
 			int count4 = 0;
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(SELECT_LOTTERY_ITEM))
 			{
 				ps.setInt(1, getId());
@@ -433,12 +432,12 @@ public class LotteryManager
 			int newPrize = Config.ALT_LOTTERY_PRIZE + getPrize() - (prize1 + prize2 + prize3 + prize4);
 			
 			if (count1 > 0) // There are winners.
-				Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.AMOUNT_FOR_WINNER_S1_IS_S2_ADENA_WE_HAVE_S3_PRIZE_WINNER).addNumber(getId()).addNumber(getPrize()).addNumber(count1));
+				BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.AMOUNT_FOR_WINNER_S1_IS_S2_ADENA_WE_HAVE_S3_PRIZE_WINNER).addNumber(getId()).addNumber(getPrize()).addNumber(count1));
 			else
 				// There are no winners.
-				Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.AMOUNT_FOR_LOTTERY_S1_IS_S2_ADENA_NO_WINNER).addNumber(getId()).addNumber(getPrize()));
+				BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.AMOUNT_FOR_LOTTERY_S1_IS_S2_ADENA_NO_WINNER).addNumber(getId()).addNumber(getPrize()));
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(UPDATE_LOTTERY))
 			{
 				ps.setInt(1, getPrize());

@@ -1,5 +1,10 @@
 package com.l2kt.gameserver.communitybbs.BB;
 
+import com.l2kt.L2DatabaseFactory;
+import com.l2kt.commons.logging.CLogger;
+import com.l2kt.gameserver.communitybbs.Manager.ForumsBBSManager;
+import com.l2kt.gameserver.communitybbs.Manager.TopicBBSManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,12 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.l2kt.L2DatabaseFactory;
-import com.l2kt.commons.logging.CLogger;
-
-import com.l2kt.gameserver.communitybbs.Manager.ForumsBBSManager;
-import com.l2kt.gameserver.communitybbs.Manager.TopicBBSManager;
 
 public class Forum
 {
@@ -76,7 +75,7 @@ public class Forum
 	
 	private void load()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(RESTORE_FORUMS);
              PreparedStatement ps2 = con.prepareStatement(RESTORE_TOPICS))
 		{
@@ -119,7 +118,7 @@ public class Forum
 	
 	private void getChildren()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(RESTORE_CHILDREN))
 		{
 			ps.setInt(1, _forumId);
@@ -196,7 +195,7 @@ public class Forum
 	
 	public void insertIntoDb()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(ADD_FORUM))
 		{
 			ps.setInt(1, _forumId);

@@ -25,7 +25,7 @@ public class BookmarkTable
 	
 	protected BookmarkTable()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement("SELECT * FROM bookmarks");
              ResultSet rs = ps.executeQuery())
 		{
@@ -89,7 +89,7 @@ public class BookmarkTable
 		
 		_bks.add(new Bookmark(name, objId, x, y, z));
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement("INSERT INTO bookmarks (name, obj_Id, x, y, z) values (?,?,?,?,?)"))
 		{
 			ps.setString(1, name);
@@ -117,7 +117,7 @@ public class BookmarkTable
 		{
 			_bks.remove(bookmark);
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement("DELETE FROM bookmarks WHERE name=? AND obj_Id=?"))
 			{
 				ps.setString(1, name);

@@ -1,16 +1,11 @@
 package com.l2kt.util;
 
-import java.lang.management.LockInfo;
-import java.lang.management.ManagementFactory;
-import java.lang.management.MonitorInfo;
-import java.lang.management.ThreadInfo;
-import java.lang.management.ThreadMXBean;
-
 import com.l2kt.Config;
 import com.l2kt.commons.logging.CLogger;
-
 import com.l2kt.gameserver.Shutdown;
-import com.l2kt.gameserver.util.Broadcast;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
+
+import java.lang.management.*;
 
 /**
  * Thread to check for deadlocked threads.
@@ -86,8 +81,8 @@ public class DeadLockDetector extends Thread
 					
 					if (Config.RESTART_ON_DEADLOCK)
 					{
-						Broadcast.announceToOnlinePlayers("Server has stability issues - restarting now.");
-						Shutdown.getInstance().startShutdown(null, "DeadLockDetector - Auto Restart", 60, true);
+						BroadcastExtensionsKt.announceToOnlinePlayers("Server has stability issues - restarting now.");
+						Shutdown.Companion.getInstance().startShutdown(null, "DeadLockDetector - Auto Restart", 60, true);
 					}
 				}
 				Thread.sleep(SLEEP_TIME);

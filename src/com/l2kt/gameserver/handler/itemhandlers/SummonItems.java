@@ -3,6 +3,7 @@ package com.l2kt.gameserver.handler.itemhandlers;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.gameserver.data.xml.NpcData;
 import com.l2kt.gameserver.data.xml.SummonItemData;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.handler.IItemHandler;
 import com.l2kt.gameserver.model.L2Spawn;
 import com.l2kt.gameserver.model.World;
@@ -15,8 +16,6 @@ import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.holder.IntIntHolder;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
-import com.l2kt.gameserver.util.Broadcast;
-
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2kt.gameserver.network.serverpackets.MagicSkillUse;
@@ -103,7 +102,7 @@ public class SummonItems implements IItemHandler
 			case 1: // pet summons
 				final WorldObject oldTarget = activeChar.getTarget();
 				activeChar.setTarget(activeChar);
-				Broadcast.toSelfAndKnownPlayers(activeChar, new MagicSkillUse(activeChar, 2046, 1, 5000, 0));
+				BroadcastExtensionsKt.toSelfAndKnownPlayers(activeChar, new MagicSkillUse(activeChar, 2046, 1, 5000, 0));
 				activeChar.setTarget(oldTarget);
 				activeChar.sendPacket(new SetupGauge(GaugeColor.BLUE, 5000));
 				activeChar.sendPacket(SystemMessageId.SUMMON_A_PET);

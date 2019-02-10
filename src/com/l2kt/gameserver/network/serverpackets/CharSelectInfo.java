@@ -164,7 +164,7 @@ public class CharSelectInfo extends L2GameServerPacket
 	{
 		final List<CharSelectSlot> list = new ArrayList<>();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			final PreparedStatement ps = con.prepareStatement(SELECT_INFOS);
 			ps.setString(1, loginName);

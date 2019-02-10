@@ -1,12 +1,11 @@
 package com.l2kt.gameserver.handler.itemhandlers;
 
 import com.l2kt.commons.random.Rnd;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.handler.IItemHandler;
 import com.l2kt.gameserver.model.actor.Playable;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
-import com.l2kt.gameserver.util.Broadcast;
-
 import com.l2kt.gameserver.network.FloodProtectors;
 import com.l2kt.gameserver.network.FloodProtectors.Action;
 import com.l2kt.gameserver.network.SystemMessageId;
@@ -31,7 +30,7 @@ public class RollingDice implements IItemHandler
 		
 		final int number = Rnd.get(1, 6);
 		
-		Broadcast.toSelfAndKnownPlayers(activeChar, new Dice(activeChar.getObjectId(), item.getItemId(), number, activeChar.getX() - 30, activeChar.getY() - 30, activeChar.getZ()));
-		Broadcast.toSelfAndKnownPlayers(activeChar, SystemMessage.getSystemMessage(SystemMessageId.S1_ROLLED_S2).addCharName(activeChar).addNumber(number));
+		BroadcastExtensionsKt.toSelfAndKnownPlayers(activeChar, new Dice(activeChar.getObjectId(), item.getItemId(), number, activeChar.getX() - 30, activeChar.getY() - 30, activeChar.getZ()));
+		BroadcastExtensionsKt.toSelfAndKnownPlayers(activeChar, SystemMessage.getSystemMessage(SystemMessageId.S1_ROLLED_S2).addCharName(activeChar).addNumber(number));
 	}
 }

@@ -42,7 +42,7 @@ public class BossZone extends ZoneType
 	{
 		super(id);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(SELECT_GRAND_BOSS_LIST))
 		{
 			ps.setInt(1, id);

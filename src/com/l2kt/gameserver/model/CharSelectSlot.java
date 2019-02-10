@@ -345,7 +345,7 @@ public class CharSelectSlot
 	{
 		int[][] paperdoll = new int[0x12][3];
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(RESTORE_PAPERDOLLS))
 		{
 			ps.setInt(1, objectId);

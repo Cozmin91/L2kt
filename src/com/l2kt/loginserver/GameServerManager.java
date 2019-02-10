@@ -86,7 +86,7 @@ public class GameServerManager implements IXmlReader
 	
 	private void loadRegisteredGameServers()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(LOAD_SERVERS);
              ResultSet rs = ps.executeQuery())
 		{
@@ -139,7 +139,7 @@ public class GameServerManager implements IXmlReader
 	
 	public void registerServerOnDB(byte[] hexId, int id, String hostName)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(ADD_SERVER))
 		{
 			ps.setString(1, hexToString(hexId));

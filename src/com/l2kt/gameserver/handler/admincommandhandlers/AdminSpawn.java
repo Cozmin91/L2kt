@@ -1,17 +1,15 @@
 package com.l2kt.gameserver.handler.admincommandhandlers;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.gameserver.data.SpawnTable;
 import com.l2kt.gameserver.data.manager.FenceManager;
 import com.l2kt.gameserver.data.xml.AdminData;
 import com.l2kt.gameserver.data.xml.NpcData;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.handler.IAdminCommandHandler;
+import com.l2kt.gameserver.instancemanager.DayNightSpawnManager;
+import com.l2kt.gameserver.instancemanager.RaidBossSpawnManager;
+import com.l2kt.gameserver.instancemanager.SevenSigns;
 import com.l2kt.gameserver.model.L2Spawn;
 import com.l2kt.gameserver.model.World;
 import com.l2kt.gameserver.model.WorldObject;
@@ -19,14 +17,15 @@ import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.instance.Fence;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
-import com.l2kt.gameserver.util.Broadcast;
-
-import com.l2kt.gameserver.instancemanager.DayNightSpawnManager;
-import com.l2kt.gameserver.instancemanager.RaidBossSpawnManager;
-import com.l2kt.gameserver.instancemanager.SevenSigns;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class handles following admin commands:<br>
@@ -181,7 +180,7 @@ public class AdminSpawn implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_unspawnall"))
 		{
-			Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.NPC_SERVER_NOT_OPERATING));
+			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.NPC_SERVER_NOT_OPERATING));
 			RaidBossSpawnManager.getInstance().cleanUp();
 			DayNightSpawnManager.getInstance().cleanUp();
 			World.getInstance().deleteVisibleNpcSpawns();

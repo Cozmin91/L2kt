@@ -19,7 +19,7 @@ public class ForumsBBSManager extends BaseBBSManager
 	
 	protected ForumsBBSManager()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(LOAD_FORUMS))
 		{
 			try (ResultSet rs = ps.executeQuery())

@@ -50,7 +50,7 @@ public final class RecommendationUpdate extends ScheduledQuest
 		}
 		
 		// Refresh database side.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			// Delete all characters listed on character_recommends table.
 			PreparedStatement ps = con.prepareStatement(DELETE_CHAR_RECOMS);

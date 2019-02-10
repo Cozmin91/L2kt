@@ -37,7 +37,7 @@ public class ClanTable
 	protected ClanTable()
 	{
 		// Load all clans.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement ps = con.prepareStatement("SELECT * FROM clan_data");
 			ResultSet rs = ps.executeQuery();
@@ -222,7 +222,7 @@ public class ClanTable
 			clan.removeClanMember(member.getObjectId(), 0);
 		
 		// Numerous mySQL queries.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement ps = con.prepareStatement("DELETE FROM clan_data WHERE clan_id=?");
 			ps.setInt(1, clan.getClanId());
@@ -308,7 +308,7 @@ public class ClanTable
 		clan2.setAttackerClan(clanId1);
 		clan2.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan2), SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR).addString(clan1.getName()));
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement ps = con.prepareStatement("REPLACE INTO clan_wars (clan1, clan2) VALUES(?,?)");
 			ps.setInt(1, clanId1);
@@ -333,7 +333,7 @@ public class ClanTable
 		clan2.deleteAttackerClan(clanId1);
 		clan2.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan2), SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_HAS_DECIDED_TO_STOP).addString(clan1.getName()));
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement ps;
 			
@@ -385,7 +385,7 @@ public class ClanTable
 	 */
 	private void restoreWars()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			// Delete deprecated wars (server was offline).
 			PreparedStatement ps = con.prepareStatement("DELETE FROM clan_wars WHERE expiry_time > 0 AND expiry_time <= ?");
@@ -464,7 +464,7 @@ public class ClanTable
 		}
 		
 		// Retrieve the 99 best clans, allocate their ranks.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement ps = con.prepareStatement("SELECT clan_id FROM clan_data ORDER BY reputation_score DESC LIMIT 99");
 			ResultSet rs = ps.executeQuery();

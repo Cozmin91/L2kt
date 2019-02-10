@@ -37,7 +37,7 @@ public class GrandBossManager
 	
 	protected GrandBossManager()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement(SELECT_GRAND_BOSS_DATA);
 			ResultSet rset = statement.executeQuery();
@@ -121,7 +121,7 @@ public class GrandBossManager
 	
 	private void storeToDb()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement updateStatement1 = con.prepareStatement(UPDATE_GRAND_BOSS_DATA2);
 			PreparedStatement updateStatement2 = con.prepareStatement(UPDATE_GRAND_BOSS_DATA);
@@ -165,7 +165,7 @@ public class GrandBossManager
 	
 	private void updateDb(int bossId, boolean statusOnly)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			GrandBoss boss = _bosses.get(bossId);
 			StatsSet info = _storedInfo.get(bossId);

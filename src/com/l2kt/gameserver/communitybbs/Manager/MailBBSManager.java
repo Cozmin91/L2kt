@@ -162,7 +162,7 @@ public class MailBBSManager extends BaseBBSManager
 	
 	private void initId()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(SELECT_LAST_ID))
 		{
 			try (ResultSet rs = ps.executeQuery())
@@ -192,7 +192,7 @@ public class MailBBSManager extends BaseBBSManager
 		{
 			mails = ConcurrentHashMap.newKeySet();
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(SELECT_CHAR_MAILS))
 			{
 				ps.setInt(1, objectId);
@@ -458,7 +458,7 @@ public class MailBBSManager extends BaseBBSManager
 		// Edit message.
 		message = message.replaceAll("\n", "<br1>");
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			// Get the current time under timestamp format.
 			final Timestamp time = new Timestamp(currentDate);
@@ -633,7 +633,7 @@ public class MailBBSManager extends BaseBBSManager
 			}
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_MAIL))
 		{
 			ps.setInt(1, mailId);
@@ -649,7 +649,7 @@ public class MailBBSManager extends BaseBBSManager
 	{
 		getMail(player, mailId).unread = false;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(MARK_MAIL_READ))
 		{
 			ps.setInt(1, mailId);
@@ -665,7 +665,7 @@ public class MailBBSManager extends BaseBBSManager
 	{
 		getMail(player, mailId).location = location;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(SET_MAIL_LOC))
 		{
 			ps.setString(1, location.toString().toLowerCase());
@@ -688,7 +688,7 @@ public class MailBBSManager extends BaseBBSManager
 	{
 		boolean isGM = false;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(GET_GM_STATUS))
 		{
 			ps.setInt(1, objectId);

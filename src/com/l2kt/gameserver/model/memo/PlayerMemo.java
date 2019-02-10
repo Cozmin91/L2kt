@@ -31,7 +31,7 @@ public class PlayerMemo extends AbstractMemo
 	public boolean restoreMe()
 	{
 		// Restore previous variables.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			try (PreparedStatement ps = con.prepareStatement(SELECT_QUERY))
 			{
@@ -63,7 +63,7 @@ public class PlayerMemo extends AbstractMemo
 		if (!hasChanges())
 			return false;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			// Clear previous entries.
 			try (PreparedStatement ps = con.prepareStatement(DELETE_QUERY))

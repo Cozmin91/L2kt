@@ -1,12 +1,12 @@
 package com.l2kt.gameserver.handler.itemhandlers;
 
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.handler.IItemHandler;
 import com.l2kt.gameserver.model.ShotType;
 import com.l2kt.gameserver.model.actor.Playable;
 import com.l2kt.gameserver.model.actor.Summon;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
-import com.l2kt.gameserver.util.Broadcast;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
@@ -60,6 +60,6 @@ public class BeastSoulShot implements IItemHandler
 		
 		activeOwner.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PET_USES_S1).addItemName(item.getItemId()));
 		activePet.setChargedShot(ShotType.SOULSHOT, true);
-		Broadcast.toSelfAndKnownPlayersInRadius(activeOwner, new MagicSkillUse(activePet, activePet, 2033, 1, 0, 0), 600);
+		BroadcastExtensionsKt.toSelfAndKnownPlayersInRadius(activeOwner, new MagicSkillUse(activePet, activePet, 2033, 1, 0, 0), 600);
 	}
 }

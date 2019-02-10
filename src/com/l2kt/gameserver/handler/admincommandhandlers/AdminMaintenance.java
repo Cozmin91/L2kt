@@ -36,7 +36,7 @@ public class AdminMaintenance implements IAdminCommandHandler
 		{
 			try
 			{
-				Shutdown.getInstance().startShutdown(activeChar, null, Integer.parseInt(command.substring(22)), false);
+				Shutdown.Companion.getInstance().startShutdown(activeChar, null, Integer.parseInt(command.substring(22)), false);
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -47,7 +47,7 @@ public class AdminMaintenance implements IAdminCommandHandler
 		{
 			try
 			{
-				Shutdown.getInstance().startShutdown(activeChar, null, Integer.parseInt(command.substring(21)), true);
+				Shutdown.Companion.getInstance().startShutdown(activeChar, null, Integer.parseInt(command.substring(21)), true);
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
@@ -56,11 +56,11 @@ public class AdminMaintenance implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_server_abort"))
 		{
-			Shutdown.getInstance().abort(activeChar);
+			Shutdown.Companion.getInstance().abort(activeChar);
 		}
 		else if (command.equals("admin_server_gm_only"))
 		{
-			LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_GM_ONLY);
+			LoginServerThread.INSTANCE.setServerStatus(ServerStatus.STATUS_GM_ONLY);
 			Config.SERVER_GMONLY = true;
 			
 			activeChar.sendMessage("Server is now setted as GMonly.");
@@ -68,7 +68,7 @@ public class AdminMaintenance implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_server_all"))
 		{
-			LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_AUTO);
+			LoginServerThread.INSTANCE.setServerStatus(ServerStatus.STATUS_AUTO);
 			Config.SERVER_GMONLY = false;
 			
 			activeChar.sendMessage("Server isn't setted as GMonly anymore.");
@@ -80,7 +80,7 @@ public class AdminMaintenance implements IAdminCommandHandler
 			{
 				final int number = Integer.parseInt(command.substring(24));
 				
-				LoginServerThread.getInstance().setMaxPlayer(number);
+				LoginServerThread.INSTANCE.setMaxPlayer(number);
 				activeChar.sendMessage("Server maximum player amount is setted to " + number + ".");
 				sendHtmlForm(activeChar);
 			}
@@ -98,9 +98,9 @@ public class AdminMaintenance implements IAdminCommandHandler
 		html.setFile("data/html/admin/maintenance.htm");
 		html.replace("%count%", World.getInstance().getPlayers().size());
 		html.replace("%used%", SysUtil.getUsedMemory());
-		html.replace("%server_name%", LoginServerThread.getInstance().getServerName());
-		html.replace("%status%", LoginServerThread.getInstance().getStatusString());
-		html.replace("%max_players%", LoginServerThread.getInstance().getMaxPlayers());
+		html.replace("%server_name%", LoginServerThread.INSTANCE.getServerName());
+		html.replace("%status%", LoginServerThread.INSTANCE.getStatusString());
+		html.replace("%max_players%", LoginServerThread.INSTANCE.getMaxPlayers());
 		html.replace("%time%", GameTimeTaskManager.getInstance().getGameTimeFormated());
 		activeChar.sendPacket(html);
 	}

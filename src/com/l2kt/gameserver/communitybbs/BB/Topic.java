@@ -1,12 +1,11 @@
 package com.l2kt.gameserver.communitybbs.BB;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.logging.CLogger;
-
 import com.l2kt.gameserver.communitybbs.Manager.TopicBBSManager;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 public class Topic
 {
@@ -77,7 +76,7 @@ public class Topic
 	
 	private void insertIntoDb()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(INSERT_TOPIC))
 		{
 			ps.setInt(1, _id);
@@ -101,7 +100,7 @@ public class Topic
 		TopicBBSManager.getInstance().deleteTopic(this);
 		forum.removeTopic(_id);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_TOPIC))
 		{
 			ps.setInt(1, _id);

@@ -39,7 +39,7 @@ public final class CastleManager implements IXmlReader
 	protected CastleManager()
 	{
 		// Generate Castle objects with dynamic data.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(LOAD_CASTLES);
              ResultSet rs = ps.executeQuery())
 		{
@@ -202,7 +202,7 @@ public final class CastleManager implements IXmlReader
 			castle.setLeftCertificates(300, false);
 		
 		// Update all castles with a single query.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(RESET_CERTIFICATES))
 		{
 			ps.executeUpdate();

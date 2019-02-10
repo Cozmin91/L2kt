@@ -1,8 +1,7 @@
 package com.l2kt.gameserver.handler.admincommandhandlers;
 
-import java.util.StringTokenizer;
-
 import com.l2kt.gameserver.data.SkillTable;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.handler.IAdminCommandHandler;
 import com.l2kt.gameserver.model.World;
 import com.l2kt.gameserver.model.WorldObject;
@@ -11,18 +10,10 @@ import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.Summon;
 import com.l2kt.gameserver.model.actor.instance.Chest;
 import com.l2kt.gameserver.model.actor.instance.Player;
-import com.l2kt.gameserver.util.Broadcast;
 import com.l2kt.gameserver.network.SystemMessageId;
-import com.l2kt.gameserver.network.serverpackets.Earthquake;
-import com.l2kt.gameserver.network.serverpackets.ExRedSky;
-import com.l2kt.gameserver.network.serverpackets.L2GameServerPacket;
-import com.l2kt.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2kt.gameserver.network.serverpackets.PlaySound;
-import com.l2kt.gameserver.network.serverpackets.SSQInfo;
-import com.l2kt.gameserver.network.serverpackets.SocialAction;
-import com.l2kt.gameserver.network.serverpackets.StopMove;
-import com.l2kt.gameserver.network.serverpackets.SunRise;
-import com.l2kt.gameserver.network.serverpackets.SunSet;
+import com.l2kt.gameserver.network.serverpackets.*;
+
+import java.util.StringTokenizer;
 
 /**
  * This class handles following admin commands:
@@ -137,7 +128,7 @@ public class AdminEffects implements IAdminCommandHandler
 				}
 				
 				if (packet != null)
-					Broadcast.toAllOnlinePlayers(packet);
+					BroadcastExtensionsKt.toAllOnlinePlayers(packet);
 			}
 			catch (Exception ex)
 			{

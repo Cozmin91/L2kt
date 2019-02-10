@@ -212,7 +212,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 		if (objid < 0)
 			return -1;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("SELECT clanId FROM characters WHERE obj_id=?");
 			statement.setInt(1, objid);
@@ -267,7 +267,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 		if (objid < 0)
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("UPDATE characters SET deletetime=0 WHERE obj_id=?");
 			statement.setInt(1, objid);
@@ -287,7 +287,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 		
 		PlayerInfoTable.getInstance().removePlayer(objid);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement;
 			
@@ -603,7 +603,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>> i
 			}
 			finally
 			{
-				LoginServerThread.getInstance().sendLogout(getAccountName());
+				LoginServerThread.INSTANCE.sendLogout(getAccountName());
 			}
 		}
 	}

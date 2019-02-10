@@ -41,7 +41,7 @@ public class SpawnTable
 	
 	private void fillSpawnTable()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM spawnlist");
 			ResultSet rset = statement.executeQuery();
@@ -120,7 +120,7 @@ public class SpawnTable
 		
 		if (storeInDb)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 			{
 				PreparedStatement statement = con.prepareStatement("INSERT INTO spawnlist (npc_templateid,locx,locy,locz,heading,respawn_delay) values(?,?,?,?,?,?)");
 				statement.setInt(1, spawn.getNpcId());
@@ -147,7 +147,7 @@ public class SpawnTable
 		
 		if (updateDb)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 			{
 				PreparedStatement statement = con.prepareStatement("DELETE FROM spawnlist WHERE locx=? AND locy=? AND locz=? AND npc_templateid=? AND heading=?");
 				statement.setInt(1, spawn.getLocX());

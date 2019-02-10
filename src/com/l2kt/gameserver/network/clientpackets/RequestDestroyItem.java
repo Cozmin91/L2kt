@@ -97,7 +97,7 @@ public final class RequestDestroyItem extends L2GameClientPacket
 				return;
 			}
 			
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
                  PreparedStatement ps = con.prepareStatement(DELETE_PET))
 			{
 				ps.setInt(1, _objectId);

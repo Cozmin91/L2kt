@@ -83,7 +83,7 @@ public class CastleManorManager implements IXmlReader
 		load();
 		
 		// Load dynamic data.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement stProduction = con.prepareStatement(LOAD_PRODUCTION);
              PreparedStatement stProcure = con.prepareStatement(LOAD_PROCURE))
 		{
@@ -346,7 +346,7 @@ public class CastleManorManager implements IXmlReader
 	
 	public final static void updateCurrentProduction(int castleId, Collection<SeedProduction> items)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_PRODUCTION))
 		{
 			for (SeedProduction sp : items)
@@ -366,7 +366,7 @@ public class CastleManorManager implements IXmlReader
 	
 	public final static void updateCurrentProcure(int castleId, Collection<CropProcure> items)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_PROCURE))
 		{
 			for (CropProcure sp : items)
@@ -434,7 +434,7 @@ public class CastleManorManager implements IXmlReader
 	
 	public final boolean storeMe()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ds = con.prepareStatement(DELETE_ALL_PRODUCTS);
 			PreparedStatement is = con.prepareStatement(INSERT_PRODUCT);
 			PreparedStatement dp = con.prepareStatement(DELETE_ALL_PROCURE);

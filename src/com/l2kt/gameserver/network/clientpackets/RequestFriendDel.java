@@ -50,7 +50,7 @@ public final class RequestFriendDel extends L2GameClientPacket
 			friend.sendPacket(new FriendList(friend)); // update friendList *heavy method*
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(DELETE_FRIEND))
 		{
 			ps.setInt(1, player.getObjectId());

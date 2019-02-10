@@ -199,7 +199,7 @@ public class Castle
 				_treasury += amount;
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(UPDATE_TREASURY))
 		{
 			ps.setLong(1, _treasury);
@@ -268,7 +268,7 @@ public class Castle
 		
 		if (save)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(UPDATE_CERTIFICATES))
 			{
 				ps.setInt(1, leftCertificates);
@@ -421,7 +421,7 @@ public class Castle
 		
 		if (save)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 			{
 				PreparedStatement statement = con.prepareStatement("UPDATE castle SET taxPercent = ? WHERE id = ?");
 				statement.setInt(1, taxPercent);
@@ -478,7 +478,7 @@ public class Castle
 		
 		if (db)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(UPDATE_DOORS))
 			{
 				ps.setInt(1, doorId);
@@ -498,7 +498,7 @@ public class Castle
 	 */
 	public void loadDoorUpgrade()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_DOORS))
 		{
 			ps.setInt(1, _castleId);
@@ -523,7 +523,7 @@ public class Castle
 		for (Door door : _doors)
 			door.getStat().setUpgradeHpRatio(1);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_DOOR))
 		{
 			ps.setInt(1, _castleId);
@@ -554,7 +554,7 @@ public class Castle
 			clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan), new PlaySound(1, "Siege_Victory"));
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_OWNER);
 			PreparedStatement ps2 = con.prepareStatement(UPDATE_OWNER))
 		{
@@ -713,7 +713,7 @@ public class Castle
 	
 	public void loadTrapUpgrade()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(LOAD_TRAPS))
 		{
 			ps.setInt(1, _castleId);
@@ -852,7 +852,7 @@ public class Castle
 	{
 		if (save)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(UPDATE_TRAP))
 			{
 				ps.setInt(1, _castleId);
@@ -879,7 +879,7 @@ public class Castle
 		for (TowerSpawnLocation ts : _flameTowers)
 			ts.setUpgradeLevel(0);
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE_TRAP))
 		{
 			ps.setInt(1, _castleId);
@@ -898,7 +898,7 @@ public class Castle
 			player.checkItemRestriction();
 		else
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(UPDATE_ITEMS_LOC))
 			{
 				ps.setInt(1, _circletId);
@@ -914,7 +914,7 @@ public class Castle
 	
 	public void checkItemsForClan(Clan clan)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_ITEMS_LOC))
 		{
 			ps.setInt(1, _circletId);

@@ -1,5 +1,14 @@
 package com.l2kt.loginserver;
 
+import com.l2kt.Config;
+import com.l2kt.commons.logging.CLogger;
+import com.l2kt.loginserver.crypt.NewCrypt;
+import com.l2kt.loginserver.model.GameServerInfo;
+import com.l2kt.loginserver.network.SessionKey;
+import com.l2kt.loginserver.network.gameserverpackets.*;
+import com.l2kt.loginserver.network.loginserverpackets.*;
+import com.l2kt.loginserver.network.serverpackets.ServerBasePacket;
+
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,26 +22,6 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.l2kt.Config;
-import com.l2kt.commons.logging.CLogger;
-
-import com.l2kt.loginserver.crypt.NewCrypt;
-import com.l2kt.loginserver.model.GameServerInfo;
-import com.l2kt.loginserver.network.SessionKey;
-import com.l2kt.loginserver.network.gameserverpackets.BlowFishKey;
-import com.l2kt.loginserver.network.gameserverpackets.ChangeAccessLevel;
-import com.l2kt.loginserver.network.gameserverpackets.GameServerAuth;
-import com.l2kt.loginserver.network.gameserverpackets.PlayerAuthRequest;
-import com.l2kt.loginserver.network.gameserverpackets.PlayerInGame;
-import com.l2kt.loginserver.network.gameserverpackets.PlayerLogout;
-import com.l2kt.loginserver.network.gameserverpackets.ServerStatus;
-import com.l2kt.loginserver.network.loginserverpackets.AuthResponse;
-import com.l2kt.loginserver.network.loginserverpackets.InitLS;
-import com.l2kt.loginserver.network.loginserverpackets.KickPlayer;
-import com.l2kt.loginserver.network.loginserverpackets.LoginServerFail;
-import com.l2kt.loginserver.network.loginserverpackets.PlayerAuthResponse;
-import com.l2kt.loginserver.network.serverpackets.ServerBasePacket;
 
 public class GameServerThread extends Thread
 {
@@ -159,8 +148,8 @@ public class GameServerThread extends Thread
 				_gsi.setDown();
 				LOGGER.info("GameServer [{}] {} is now set as disconnected.", getServerId(), GameServerManager.getInstance().getServerNames().get(getServerId()));
 			}
-			LoginServer.getInstance().getGameServerListener().removeGameServer(this);
-			LoginServer.getInstance().getGameServerListener().removeFloodProtection(_connectionIp);
+			LoginServer.INSTANCE.getGameServerListener().removeGameServer(this);
+			LoginServer.INSTANCE.getGameServerListener().removeFloodProtection(_connectionIp);
 		}
 	}
 	

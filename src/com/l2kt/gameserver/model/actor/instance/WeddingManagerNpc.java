@@ -1,25 +1,20 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.StringTokenizer;
-
 import com.l2kt.Config;
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.gameserver.data.SkillTable;
 import com.l2kt.gameserver.data.manager.CastleManager;
 import com.l2kt.gameserver.data.manager.CoupleManager;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.model.World;
 import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
-import com.l2kt.gameserver.model.item.instance.ItemInstance;
-import com.l2kt.gameserver.util.Broadcast;
-
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
+import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.model.itemcontainer.Inventory;
-import com.l2kt.gameserver.network.serverpackets.ActionFailed;
-import com.l2kt.gameserver.network.serverpackets.ConfirmDlg;
-import com.l2kt.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2kt.gameserver.network.serverpackets.MoveToPawn;
-import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
+import com.l2kt.gameserver.network.serverpackets.*;
+
+import java.util.StringTokenizer;
 
 public class WeddingManagerNpc extends Folk
 {
@@ -226,8 +221,8 @@ public class WeddingManagerNpc extends Folk
 		// Fireworks
 		requester.doCast(SkillTable.FrequentSkill.LARGE_FIREWORK.getSkill());
 		partner.doCast(SkillTable.FrequentSkill.LARGE_FIREWORK.getSkill());
-		
-		Broadcast.announceToOnlinePlayers("Congratulations to " + requester.getName() + " and " + partner.getName() + "! They have been married.");
+
+		BroadcastExtensionsKt.announceToOnlinePlayers("Congratulations to " + requester.getName() + " and " + partner.getName() + "! They have been married.");
 	}
 	
 	private void sendHtmlMessage(Player player, String file)

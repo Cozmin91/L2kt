@@ -101,7 +101,7 @@ public class AdminEditChar implements IAdminCommandHandler
 						onLineChange(activeChar, player, lvl);
 					else
 					{
-						try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+						try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
                              PreparedStatement ps = con.prepareStatement("UPDATE characters SET accesslevel=? WHERE char_name=?"))
 						{
 							ps.setInt(1, lvl);
@@ -623,7 +623,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				Player player = World.getInstance().getPlayer(playerName);
 				if (player == null)
 				{
-					try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+					try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 					{
 						PreparedStatement ps = con.prepareStatement("UPDATE characters SET " + (changeCreateExpiryTime ? "clan_create_expiry_time" : "clan_join_expiry_time") + " WHERE char_name=? LIMIT 1");
 						

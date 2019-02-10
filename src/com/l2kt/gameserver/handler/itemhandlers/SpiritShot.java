@@ -1,5 +1,6 @@
 package com.l2kt.gameserver.handler.itemhandlers;
 
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.handler.IItemHandler;
 import com.l2kt.gameserver.model.ShotType;
 import com.l2kt.gameserver.model.actor.Playable;
@@ -7,7 +8,6 @@ import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.holder.IntIntHolder;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.model.item.kind.Weapon;
-import com.l2kt.gameserver.util.Broadcast;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.MagicSkillUse;
 
@@ -56,6 +56,6 @@ public class SpiritShot implements IItemHandler
 		
 		activeChar.sendPacket(SystemMessageId.ENABLED_SPIRITSHOT);
 		activeChar.setChargedShot(ShotType.SPIRITSHOT, true);
-		Broadcast.toSelfAndKnownPlayersInRadius(activeChar, new MagicSkillUse(activeChar, activeChar, skills[0].getId(), 1, 0, 0), 600);
+		BroadcastExtensionsKt.toSelfAndKnownPlayersInRadius(activeChar, new MagicSkillUse(activeChar, activeChar, skills[0].getId(), 1, 0, 0), 600);
 	}
 }

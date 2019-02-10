@@ -1,10 +1,10 @@
 package com.l2kt.util;
 
+import com.l2kt.commons.mmocore.IAcceptFilter;
+
 import java.nio.channels.SocketChannel;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import com.l2kt.commons.mmocore.IAcceptFilter;
 
 public class IPv4Filter implements IAcceptFilter, Runnable
 {
@@ -79,11 +79,11 @@ public class IPv4Filter implements IAcceptFilter, Runnable
 	
 	protected final class FloodHolder
 	{
-		protected long lastAccess = System.currentTimeMillis();
+		long lastAccess = System.currentTimeMillis();
 		protected int tries;
 	}
 	
-	private static final int hash(byte[] ip)
+	private static int hash(byte[] ip)
 	{
 		return ip[0] & 0xFF | ip[1] << 8 & 0xFF00 | ip[2] << 16 & 0xFF0000 | ip[3] << 24 & 0xFF000000;
 	}

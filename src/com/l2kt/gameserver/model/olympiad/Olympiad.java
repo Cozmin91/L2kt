@@ -1,34 +1,29 @@
 package com.l2kt.gameserver.model.olympiad;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.l2kt.Config;
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.gameserver.data.manager.ZoneManager;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.model.actor.instance.OlympiadManagerNpc;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.base.ClassId;
 import com.l2kt.gameserver.model.entity.Hero;
 import com.l2kt.gameserver.model.zone.type.OlympiadStadiumZone;
-import com.l2kt.gameserver.util.Broadcast;
-
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.clientpackets.Say2;
 import com.l2kt.gameserver.network.serverpackets.NpcSay;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
 import com.l2kt.gameserver.templates.StatsSet;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+import java.util.concurrent.ScheduledFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Olympiad
 {
@@ -113,7 +108,7 @@ public class Olympiad
 	private void load()
 	{
 		boolean loaded = false;
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement(OLYMPIAD_LOAD_DATA);
 			ResultSet rset = statement.executeQuery();
@@ -174,7 +169,7 @@ public class Olympiad
 				return;
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement(OLYMPIAD_LOAD_NOBLES);
 			ResultSet rset = statement.executeQuery();
@@ -234,7 +229,7 @@ public class Olympiad
 		
 		final Map<Integer, Integer> tmpPlace = new HashMap<>();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement(GET_ALL_CLASSIFIED_NOBLESS);
 			ResultSet rset = statement.executeQuery();
@@ -302,7 +297,7 @@ public class Olympiad
 		@Override
 		public void run()
 		{
-			Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_ENDED).addNumber(_currentCycle));
+			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_ENDED).addNumber(_currentCycle));
 			
 			if (_scheduledWeeklyTask != null)
 				_scheduledWeeklyTask.cancel(true);
@@ -373,7 +368,7 @@ public class Olympiad
 			
 			_inCompPeriod = true;
 			
-			Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_STARTED));
+			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_STARTED));
 			_log.info("Olympiad: Olympiad game started.");
 			
 			_gameManager = ThreadPool.scheduleAtFixedRate(OlympiadGameManager.getInstance(), 30000, 30000);
@@ -382,7 +377,7 @@ public class Olympiad
 			
 			long regEnd = getMillisToCompEnd() - 600000;
 			if (regEnd > 0)
-				ThreadPool.schedule(() -> Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_REGISTRATION_PERIOD_ENDED)), regEnd);
+				ThreadPool.schedule(() -> BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_REGISTRATION_PERIOD_ENDED)), regEnd);
 			
 			_scheduledCompEnd = ThreadPool.schedule(() ->
 			{
@@ -390,7 +385,7 @@ public class Olympiad
 					return;
 				
 				_inCompPeriod = false;
-				Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_ENDED));
+				BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_ENDED));
 				_log.info("Olympiad: Olympiad game ended.");
 				
 				while (OlympiadGameManager.getInstance().isBattleStarted()) // cleared in game manager
@@ -452,7 +447,7 @@ public class Olympiad
 	
 	protected void setNewOlympiadEnd()
 	{
-		Broadcast.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_STARTED).addNumber(_currentCycle));
+		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_STARTED).addNumber(_currentCycle));
 		
 		Calendar currentTime = Calendar.getInstance();
 		currentTime.add(Calendar.MONTH, 1);
@@ -554,7 +549,7 @@ public class Olympiad
 		if (_nobles == null || _nobles.isEmpty())
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement;
 			for (Map.Entry<Integer, StatsSet> nobleEntry : _nobles.entrySet())
@@ -612,7 +607,7 @@ public class Olympiad
 	{
 		saveNobleData();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			final PreparedStatement statement = con.prepareStatement(OLYMPIAD_SAVE_DATA);
 			
@@ -638,7 +633,7 @@ public class Olympiad
 	
 	protected void updateMonthlyData()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement(OLYMPIAD_MONTH_CLEAR);
 			statement.execute();
@@ -657,7 +652,7 @@ public class Olympiad
 	{
 		_heroesToBe.clear();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			final PreparedStatement statement = con.prepareStatement(OLYMPIAD_GET_HEROS);
 			for (ClassId id : ClassId.VALUES)
@@ -691,7 +686,7 @@ public class Olympiad
 	public List<String> getClassLeaderBoard(int classId)
 	{
 		List<String> names = new ArrayList<>();
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement(GET_EACH_CLASS_LEADER);
 			statement.setInt(1, classId);
@@ -761,7 +756,7 @@ public class Olympiad
 	public int getLastNobleOlympiadPoints(int objId)
 	{
 		int result = 0;
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			final PreparedStatement statement = con.prepareStatement("SELECT olympiad_points FROM olympiad_nobles_eom WHERE char_id = ?");
 			statement.setInt(1, objId);
@@ -804,7 +799,7 @@ public class Olympiad
 	
 	protected void deleteNobles()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			final PreparedStatement statement = con.prepareStatement(OLYMPIAD_DELETE_ALL);
 			statement.execute();

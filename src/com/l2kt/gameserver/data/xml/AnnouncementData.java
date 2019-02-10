@@ -1,24 +1,22 @@
 package com.l2kt.gameserver.data.xml;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.nio.file.Path;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.l2kt.commons.data.xml.IXmlReader;
 import com.l2kt.commons.lang.StringUtil;
-
 import com.l2kt.gameserver.data.cache.HtmCache;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.model.Announcement;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.network.clientpackets.Say2;
 import com.l2kt.gameserver.network.serverpackets.CreatureSay;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2kt.gameserver.util.Broadcast;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.nio.file.Path;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class loads and stores {@link Announcement}s, the key being dynamically generated on loading.<br>
@@ -100,7 +98,7 @@ public class AnnouncementData implements IXmlReader
 	}
 	
 	/**
-	 * Use {@link Broadcast}.announceToOnlinePlayers(String, Boolean) in order to send announcement, wrapped into a ioobe try/catch.
+	 * Use {@link BroadcastExtensionsKt}.announceToOnlinePlayers(String, Boolean) in order to send announcement, wrapped into a ioobe try/catch.
 	 * @param command : The command to handle.
 	 * @param lengthToTrim : The length to trim, in order to send only the message without the command.
 	 * @param critical : Is the message critical or not.
@@ -109,7 +107,7 @@ public class AnnouncementData implements IXmlReader
 	{
 		try
 		{
-			Broadcast.announceToOnlinePlayers(command.substring(lengthToTrim), critical);
+			BroadcastExtensionsKt.announceToOnlinePlayers(command.substring(lengthToTrim), critical);
 		}
 		catch (StringIndexOutOfBoundsException e)
 		{

@@ -210,7 +210,7 @@ public class FourSepulchersManager
 	
 	private void loadMysteriousBox()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement("SELECT id, npc_templateid, locx, locy, locz, heading, respawn_delay, key_npc_id FROM spawnlist_4s WHERE spawntype = 0 ORDER BY id");
              ResultSet rs = ps.executeQuery())
 		{
@@ -267,7 +267,7 @@ public class FourSepulchersManager
 	{
 		int loaded = 0;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement("SELECT Distinct key_npc_id FROM spawnlist_4s WHERE spawntype = ? ORDER BY key_npc_id"))
 		{
 			ps.setInt(1, type);

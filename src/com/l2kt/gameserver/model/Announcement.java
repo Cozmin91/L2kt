@@ -1,9 +1,9 @@
 package com.l2kt.gameserver.model;
 
-import java.util.concurrent.ScheduledFuture;
-
 import com.l2kt.commons.concurrent.ThreadPool;
-import com.l2kt.gameserver.util.Broadcast;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
+
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * A datatype used to retain informations for announcements. It notably holds a {@link ScheduledFuture}.
@@ -66,7 +66,7 @@ public class Announcement implements Runnable
 			_task = ThreadPool.schedule(this, _delay * 1000); // self schedule (worker)
 			_tempLimit--;
 		}
-		Broadcast.announceToOnlinePlayers(_message, _critical);
+		BroadcastExtensionsKt.announceToOnlinePlayers(_message, _critical);
 	}
 	
 	public String getMessage()

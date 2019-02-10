@@ -28,7 +28,7 @@ public final class PlayerInfoTable
 	
 	protected PlayerInfoTable()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(LOAD_DATA);
              ResultSet rs = ps.executeQuery())
 		{

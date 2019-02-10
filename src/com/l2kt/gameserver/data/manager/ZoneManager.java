@@ -229,7 +229,7 @@ public class ZoneManager implements IXmlReader
 	 */
 	public final void save()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			// clear table first
 			PreparedStatement ps = con.prepareStatement(DELETE_GRAND_BOSS_LIST);

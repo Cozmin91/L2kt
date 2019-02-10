@@ -705,7 +705,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 		
 		_augmentation = null;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(DELETE_AUGMENTATION))
 		{
 			ps.setInt(1, getObjectId());
@@ -719,7 +719,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 	
 	private void restoreAttributes()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(RESTORE_AUGMENTATION))
 		{
 			ps.setInt(1, getObjectId());
@@ -738,7 +738,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 	
 	private void updateItemAttributes()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_AUGMENTATION))
 		{
 			ps.setInt(1, getObjectId());
@@ -1011,7 +1011,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 		if (_storedInDb)
 			return;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_ITEM))
 		{
 			ps.setInt(1, _ownerId);
@@ -1042,7 +1042,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 	{
 		assert !_existsInDb && getObjectId() != 0;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(INSERT_ITEM))
 		{
 			ps.setInt(1, _ownerId);
@@ -1077,7 +1077,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 	{
 		assert _existsInDb;
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement ps = con.prepareStatement(DELETE_ITEM);
 			ps.setInt(1, getObjectId());
@@ -1286,7 +1286,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 		// if it's a pet control item, delete the pet as well
 		if (getItemType() == EtcItemType.PET_COLLAR)
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(DELETE_PET_ITEM))
 			{
 				ps.setInt(1, getObjectId());

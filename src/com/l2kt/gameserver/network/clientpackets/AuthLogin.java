@@ -31,6 +31,6 @@ public final class AuthLogin extends L2GameClientPacket
 		getClient().setSessionId(new SessionKey(_loginKey1, _loginKey2, _playKey1, _playKey2));
 		
 		// Add the client.
-		LoginServerThread.getInstance().addClient(_loginName, getClient());
+		LoginServerThread.INSTANCE.addClient(_loginName, getClient());
 	}
 }

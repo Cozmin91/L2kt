@@ -1,5 +1,12 @@
 package com.l2kt.gameserver.instancemanager;
 
+import com.l2kt.L2DatabaseFactory;
+import com.l2kt.gameserver.data.sql.ClanTable;
+import com.l2kt.gameserver.model.entity.Auction;
+import com.l2kt.gameserver.model.entity.ClanHall;
+import com.l2kt.gameserver.model.pledge.Clan;
+import com.l2kt.gameserver.model.zone.type.ClanHallZone;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,13 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.l2kt.L2DatabaseFactory;
-import com.l2kt.gameserver.data.sql.ClanTable;
-import com.l2kt.gameserver.model.entity.Auction;
-import com.l2kt.gameserver.model.entity.ClanHall;
-import com.l2kt.gameserver.model.pledge.Clan;
-import com.l2kt.gameserver.model.zone.type.ClanHallZone;
 
 /**
  * @author Steuf
@@ -50,7 +50,7 @@ public class ClanHallManager
 	/** Load All Clan Hall */
 	private final void load()
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			int id, ownerId, lease, grade = 0;
 			String Name, Desc, Location;

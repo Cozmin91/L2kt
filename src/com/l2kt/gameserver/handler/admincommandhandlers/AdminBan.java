@@ -109,7 +109,7 @@ public class AdminBan implements IAdminCommandHandler
 			
 			if (targetPlayer == null)
 			{
-				LoginServerThread.getInstance().sendAccessLevel(player, -100);
+				LoginServerThread.INSTANCE.sendAccessLevel(player, -100);
 				activeChar.sendMessage("Ban request sent for account " + player + ".");
 			}
 			else
@@ -170,7 +170,7 @@ public class AdminBan implements IAdminCommandHandler
 			
 			if (!player.equals(""))
 			{
-				LoginServerThread.getInstance().sendAccessLevel(player, 0);
+				LoginServerThread.INSTANCE.sendAccessLevel(player, 0);
 				activeChar.sendMessage("Unban request sent for account " + player + ".");
 			}
 			else
@@ -270,7 +270,7 @@ public class AdminBan implements IAdminCommandHandler
 		else
 			level = Player.PunishLevel.NONE.value();
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(UPDATE_BAN))
 		{
 			ps.setInt(1, level);
@@ -294,7 +294,7 @@ public class AdminBan implements IAdminCommandHandler
 	
 	private static void jailOfflinePlayer(Player activeChar, String name, int delay)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_JAIL))
 		{
 			ps.setInt(1, Player.PunishLevel.JAIL.value());
@@ -316,7 +316,7 @@ public class AdminBan implements IAdminCommandHandler
 	
 	private static void unjailOfflinePlayer(Player activeChar, String name)
 	{
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(UPDATE_UNJAIL))
 		{
 			ps.setString(1, name);
@@ -344,7 +344,7 @@ public class AdminBan implements IAdminCommandHandler
 		}
 		else
 		{
-			try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+			try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 				PreparedStatement ps = con.prepareStatement(UPDATE_ACCESS))
 			{
 				ps.setInt(1, lvl);

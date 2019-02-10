@@ -30,7 +30,7 @@ public class ClanWarsList implements IUserCommandHandler
 			return false;
 		}
 		
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection())
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement;
 			

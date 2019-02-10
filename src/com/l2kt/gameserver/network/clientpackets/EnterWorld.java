@@ -226,7 +226,7 @@ public class EnterWorld extends L2GameClientPacket
 		player.sendSkillList();
 		
 		// Load quests.
-		try (Connection con = L2DatabaseFactory.getInstance().getConnection();
+		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(LOAD_PLAYER_QUESTS))
 		{
 			ps.setInt(1, objectId);

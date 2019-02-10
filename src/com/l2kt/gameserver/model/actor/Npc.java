@@ -18,10 +18,10 @@ import com.l2kt.gameserver.data.sql.ClanTable;
 import com.l2kt.gameserver.data.xml.MultisellData;
 import com.l2kt.gameserver.data.xml.NewbieBuffData;
 import com.l2kt.gameserver.data.xml.ScriptData;
+import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.model.item.kind.Item;
 import com.l2kt.gameserver.model.item.kind.Weapon;
-import com.l2kt.gameserver.util.Broadcast;
 
 import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.idfactory.IdFactory;
@@ -1380,7 +1380,7 @@ public class Npc extends Creature
 				return;
 			
 			_currentSsCount--;
-			Broadcast.toSelfAndKnownPlayersInRadius(this, new MagicSkillUse(this, this, 2154, 1, 0, 0), 600);
+			BroadcastExtensionsKt.toSelfAndKnownPlayersInRadius(this, new MagicSkillUse(this, this, 2154, 1, 0, 0), 600);
 			setChargedShot(ShotType.SOULSHOT, true);
 		}
 		
@@ -1393,7 +1393,7 @@ public class Npc extends Creature
 				return;
 			
 			_currentSpsCount--;
-			Broadcast.toSelfAndKnownPlayersInRadius(this, new MagicSkillUse(this, this, 2061, 1, 0, 0), 600);
+			BroadcastExtensionsKt.toSelfAndKnownPlayersInRadius(this, new MagicSkillUse(this, this, 2061, 1, 0, 0), 600);
 			setChargedShot(ShotType.SPIRITSHOT, true);
 		}
 	}
