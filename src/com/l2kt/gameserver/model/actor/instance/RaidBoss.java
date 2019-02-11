@@ -106,7 +106,7 @@ public class RaidBoss extends Monster
 			final Player player = killer.getActingPlayer();
 			if (player != null)
 			{
-				broadcastPacket(SystemMessage.getSystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
+				broadcastPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL));
 				broadcastPacket(new PlaySound("systemmsg_e.1209"));
 				
 				final Party party = player.getParty();

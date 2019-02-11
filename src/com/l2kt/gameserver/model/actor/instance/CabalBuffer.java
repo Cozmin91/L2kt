@@ -218,7 +218,7 @@ public class CabalBuffer extends Folk
 			{
 				skill.getEffects(_caster, player);
 				broadcastPacket(new MagicSkillUse(_caster, player, skill.getId(), skillLevel, skill.getHitTime(), 0));
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skillId));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skillId));
 			}
 		}
 	}

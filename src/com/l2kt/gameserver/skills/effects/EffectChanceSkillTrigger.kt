@@ -9,7 +9,7 @@ import com.l2kt.gameserver.templates.skills.L2EffectType
 class EffectChanceSkillTrigger(env: Env, template: EffectTemplate) : L2Effect(env, template), IChanceSkillTrigger {
     private val _triggeredId: Int = template.triggeredId
     private val _triggeredLevel: Int = template.triggeredLevel
-    private val _chanceCondition: ChanceCondition = template.chanceCondition
+    private val _chanceCondition: ChanceCondition? = template.chanceCondition
 
     override fun getEffectType(): L2EffectType {
         return L2EffectType.CHANCE_SKILL_TRIGGER
@@ -46,7 +46,7 @@ class EffectChanceSkillTrigger(env: Env, template: EffectTemplate) : L2Effect(en
         return _triggeredId > 1
     }
 
-    override fun getTriggeredChanceCondition(): ChanceCondition {
+    override fun getTriggeredChanceCondition(): ChanceCondition? {
         return _chanceCondition
     }
 }

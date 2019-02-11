@@ -1185,7 +1185,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		if ((mask & weaponsAllowed) != 0)
 			return true;
 		
-		activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(this));
+		activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(this));
 		return false;
 	}
 	
@@ -1209,7 +1209,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				final int msgId = cond.getMessageId();
 				if (msgId != 0)
 				{
-					SystemMessage sm = SystemMessage.getSystemMessage(msgId);
+					SystemMessage sm = SystemMessage.Companion.getSystemMessage(msgId);
 					if (cond.isAddName())
 						sm.addSkillName(_id);
 					activeChar.sendPacket(sm);
@@ -1272,7 +1272,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				
 				if (target == null || target.isDead() || (target == activeChar && !canTargetSelf))
 				{
-					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return _emptyTargetList;
 				}
 				
@@ -1293,7 +1293,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			{
 				if (!(target instanceof HolyThing))
 				{
-					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return _emptyTargetList;
 				}
 				
@@ -1456,7 +1456,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			{
 				if (((target == null || target == activeChar || target.isAlikeDead()) && _castRange >= 0) || (!(target instanceof Attackable || target instanceof Playable)))
 				{
-					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return _emptyTargetList;
 				}
 				
@@ -1573,7 +1573,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					return _emptyTargetList;
 				}
 				
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return _emptyTargetList;
 			}
 			case TARGET_PARTY_OTHER:
@@ -1613,7 +1613,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					return _emptyTargetList;
 				}
 				
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return _emptyTargetList;
 			}
 			case TARGET_ALLY:
@@ -1816,7 +1816,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 								if (targetPlayer.isInsideZone(ZoneId.SIEGE) && !targetPlayer.isInSiege())
 								{
 									condGood = false;
-									activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
+									activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
 								}
 								
 								if (targetPlayer.isFestivalParticipant()) // Check to see if the current player target is in a festival.
@@ -1857,21 +1857,21 @@ public abstract class L2Skill implements IChanceSkillTrigger
 							};
 					}
 				}
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return _emptyTargetList;
 			}
 			case TARGET_CORPSE_MOB:
 			{
 				if (!(target instanceof Attackable) || !target.isDead())
 				{
-					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return _emptyTargetList;
 				}
 				
 				// Corpse mob only available for half time
 				if (_skillType == L2SkillType.DRAIN && !DecayTaskManager.INSTANCE.isCorpseActionAllowed((Attackable) target))
 				{
-					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CORPSE_TOO_OLD_SKILL_NOT_USED));
+					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CORPSE_TOO_OLD_SKILL_NOT_USED));
 					return _emptyTargetList;
 				}
 				
@@ -1884,7 +1884,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			{
 				if ((!(target instanceof Attackable)) || !target.isDead())
 				{
-					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return _emptyTargetList;
 				}
 				
@@ -1932,7 +1932,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				{
 					if (!target.isUndead() || target.isDead())
 					{
-						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+						activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 						return _emptyTargetList;
 					}
 					
@@ -1942,7 +1942,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					};
 				}
 				
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return _emptyTargetList;
 			}
 			case TARGET_AURA_UNDEAD:
@@ -2207,7 +2207,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			}
 			// display fail message only for effects with icons
 			else if (et.getIcon() && effector instanceof Player)
-				((Player) effector).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(effected).addSkillName(this));
+				((Player) effector).sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(effected).addSkillName(this));
 		}
 		return effects;
 	}

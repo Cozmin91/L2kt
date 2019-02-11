@@ -61,7 +61,7 @@ public final class RequestStartPledgeWar extends L2GameClientPacket
 		
 		if (!attackerClan.getAttackerList().contains(attackedClan.getClanId()) && (attackedClan.getLevel() < 3 || attackedClan.getMembersCount() < Config.ALT_CLAN_MEMBERS_FOR_WAR))
 		{
-			player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CLAN_CANNOT_DECLARE_WAR_TOO_LOW_LEVEL_OR_NOT_ENOUGH_MEMBERS).addString(attackedClan.getName()));
+			player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CLAN_CANNOT_DECLARE_WAR_TOO_LOW_LEVEL_OR_NOT_ENOUGH_MEMBERS).addString(attackedClan.getName()));
 			return;
 		}
 		
@@ -85,7 +85,7 @@ public final class RequestStartPledgeWar extends L2GameClientPacket
 		
 		if (attackerClan.hasWarPenaltyWith(attackedClan.getClanId()))
 		{
-			player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ALREADY_AT_WAR_WITH_S1_WAIT_5_DAYS).addString(attackedClan.getName()));
+			player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ALREADY_AT_WAR_WITH_S1_WAIT_5_DAYS).addString(attackedClan.getName()));
 			return;
 		}
 		

@@ -22,7 +22,7 @@ public class PartyInfo implements IUserCommandHandler
 		
 		player.sendPacket(SystemMessageId.PARTY_INFORMATION);
 		player.sendPacket(party.getLootRule().getMessageId());
-		player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PARTY_LEADER_S1).addString(party.getLeader().getName()));
+		player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PARTY_LEADER_S1).addString(party.getLeader().getName()));
 		player.sendMessage("Members: " + party.getMembersCount() + "/9");
 		player.sendPacket(SystemMessageId.FRIEND_LIST_FOOTER);
 		return true;

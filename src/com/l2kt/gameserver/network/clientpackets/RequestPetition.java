@@ -55,7 +55,7 @@ public final class RequestPetition extends L2GameClientPacket
 		int totalPetitions = PetitionManager.getInstance().getPlayerTotalPetitionCount(activeChar) + 1;
 		if (totalPetitions > Config.MAX_PETITIONS_PER_PLAYER)
 		{
-			activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.WE_HAVE_RECEIVED_S1_PETITIONS_TODAY).addNumber(totalPetitions));
+			activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.WE_HAVE_RECEIVED_S1_PETITIONS_TODAY).addNumber(totalPetitions));
 			return;
 		}
 		
@@ -67,8 +67,8 @@ public final class RequestPetition extends L2GameClientPacket
 		
 		int petitionId = PetitionManager.getInstance().submitPetition(activeChar, _content, _type);
 		
-		activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PETITION_ACCEPTED_RECENT_NO_S1).addNumber(petitionId));
-		activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.SUBMITTED_YOU_S1_TH_PETITION_S2_LEFT).addNumber(totalPetitions).addNumber(Config.MAX_PETITIONS_PER_PLAYER - totalPetitions));
-		activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_PETITION_ON_WAITING_LIST).addNumber(PetitionManager.getInstance().getPendingPetitions().size()));
+		activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PETITION_ACCEPTED_RECENT_NO_S1).addNumber(petitionId));
+		activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.SUBMITTED_YOU_S1_TH_PETITION_S2_LEFT).addNumber(totalPetitions).addNumber(Config.MAX_PETITIONS_PER_PLAYER - totalPetitions));
+		activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_PETITION_ON_WAITING_LIST).addNumber(PetitionManager.getInstance().getPendingPetitions().size()));
 	}
 }

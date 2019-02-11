@@ -489,14 +489,14 @@ public class MailBBSManager extends BaseBBSManager
 					// Sender is a regular player, while recipient is a GM.
 					if (isGM(recipientId))
 					{
-						player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANNOT_MAIL_GM_S1).addString(recipientName));
+						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CANNOT_MAIL_GM_S1).addString(recipientName));
 						continue;
 					}
 					
 					// The recipient is on block mode.
 					if (isBlocked(player, recipientId))
 					{
-						player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_BLOCKED_YOU_CANNOT_MAIL).addString(recipientName));
+						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_BLOCKED_YOU_CANNOT_MAIL).addString(recipientName));
 						continue;
 					}
 					

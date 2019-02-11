@@ -134,7 +134,7 @@ public class Castle
 		setOwner(clan);
 		
 		// "Clan X engraved the ruler" message.
-		getSiege().announceToPlayers(SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_ENGRAVED_RULER).addString(clan.getName()), true);
+		getSiege().announceToPlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_S1_ENGRAVED_RULER).addString(clan.getName()), true);
 	}
 	
 	/**
@@ -352,7 +352,7 @@ public class Castle
 			getSiege().midVictory();
 			
 			// "There is a new castle Lord" message when the castle change of hands. Message sent for both sides.
-			getSiege().announceToPlayers(SystemMessage.getSystemMessage(SystemMessageId.NEW_CASTLE_LORD), true);
+			getSiege().announceToPlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.NEW_CASTLE_LORD), true);
 		}
 	}
 	

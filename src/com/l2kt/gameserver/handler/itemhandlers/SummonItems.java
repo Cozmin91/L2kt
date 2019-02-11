@@ -78,7 +78,7 @@ public class SummonItems implements IItemHandler
 					{
 						if (npcTemplate.getNpcId() == ChristmasTree.SPECIAL_TREE_ID)
 						{
-							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANNOT_SUMMON_S1_AGAIN).addCharName(ch));
+							activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CANNOT_SUMMON_S1_AGAIN).addCharName(ch));
 							return;
 						}
 					}

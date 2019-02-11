@@ -82,7 +82,7 @@ public class PetFood implements IItemHandler
 					return true;
 				}
 				
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(itemId));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(itemId));
 				return false;
 			}
 		}

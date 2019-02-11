@@ -82,7 +82,7 @@ public class DamageZone extends CastleZoneType
 					
 					// Message for castle traps.
 					if (getCastle() != null)
-						getCastle().getSiege().announceToPlayers(SystemMessage.getSystemMessage(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_TRIPPED), false);
+						getCastle().getSiege().announceToPlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_TRIPPED), false);
 				}
 			}
 		}

@@ -873,7 +873,7 @@ public class Npc extends Creature
 			item.setCustomType2(type2);
 			
 			player.addItem("Loto", item, player, false);
-			player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.EARNED_ITEM_S1).addItemName(4442));
+			player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_ITEM_S1).addItemName(4442));
 			
 			html.setFile(getHtmlPath(npcId, 3));
 		}
@@ -978,7 +978,7 @@ public class Npc extends Creature
 		{
 			setTarget(player);
 			doCast(SkillTable.FrequentSkill.ARENA_CP_RECOVERY.getSkill());
-			player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED).addCharName(player));
+			player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED).addCharName(player));
 		}
 	}
 	

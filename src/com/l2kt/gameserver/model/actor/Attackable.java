@@ -1074,7 +1074,7 @@ public class Attackable extends Npc
 					
 					// Broadcast message if RaidBoss was defeated
 					if (isRaidBoss())
-						broadcastPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DIED_DROPPED_S3_S2).addCharName(this).addItemName(item.getId()).addNumber(item.getValue()));
+						broadcastPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DIED_DROPPED_S3_S2).addCharName(this).addItemName(item.getId()).addNumber(item.getValue()));
 				}
 			}
 		}

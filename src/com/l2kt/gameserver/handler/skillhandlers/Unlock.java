@@ -31,14 +31,14 @@ public class Unlock implements ISkillHandler
 			final Door door = (Door) object;
 			if (!door.isUnlockable() && skill.getSkillType() != L2SkillType.UNLOCK_SPECIAL)
 			{
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.UNABLE_TO_UNLOCK_DOOR));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.UNABLE_TO_UNLOCK_DOOR));
 				return;
 			}
 			
 			if (doorUnlock(skill) && (!door.isOpened()))
 				door.openMe();
 			else
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FAILED_TO_UNLOCK_DOOR));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FAILED_TO_UNLOCK_DOOR));
 		}
 		else if (object instanceof Chest)
 		{
@@ -59,7 +59,7 @@ public class Unlock implements ISkillHandler
 			}
 		}
 		else
-			activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.INCORRECT_TARGET));
+			activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.INCORRECT_TARGET));
 	}
 	
 	private static final boolean doorUnlock(L2Skill skill)

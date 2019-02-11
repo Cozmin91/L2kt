@@ -53,11 +53,11 @@ public class Recipes implements IItemHandler
 			else if (recipe.getLevel() > player.getSkillLevel(L2Skill.SKILL_CREATE_DWARVEN))
 				player.sendPacket(SystemMessageId.CREATE_LVL_TOO_LOW_TO_REGISTER);
 			else if (player.getDwarvenRecipeBook().size() >= player.getDwarfRecipeLimit())
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.UP_TO_S1_RECIPES_CAN_REGISTER).addNumber(player.getDwarfRecipeLimit()));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.UP_TO_S1_RECIPES_CAN_REGISTER).addNumber(player.getDwarfRecipeLimit()));
 			else if (player.destroyItem("Consume", item.getObjectId(), 1, null, false))
 			{
 				player.registerDwarvenRecipeList(recipe);
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_ADDED).addItemName(item));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_ADDED).addItemName(item));
 				player.sendPacket(new RecipeBookItemList(player, true));
 			}
 		}
@@ -70,11 +70,11 @@ public class Recipes implements IItemHandler
 			else if (recipe.getLevel() > player.getSkillLevel(L2Skill.SKILL_CREATE_COMMON))
 				player.sendPacket(SystemMessageId.CREATE_LVL_TOO_LOW_TO_REGISTER);
 			else if (player.getCommonRecipeBook().size() >= player.getCommonRecipeLimit())
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.UP_TO_S1_RECIPES_CAN_REGISTER).addNumber(player.getCommonRecipeLimit()));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.UP_TO_S1_RECIPES_CAN_REGISTER).addNumber(player.getCommonRecipeLimit()));
 			else if (player.destroyItem("Consume", item.getObjectId(), 1, null, false))
 			{
 				player.registerCommonRecipeList(recipe);
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_ADDED).addItemName(item));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_ADDED).addItemName(item));
 				player.sendPacket(new RecipeBookItemList(player, false));
 			}
 		}

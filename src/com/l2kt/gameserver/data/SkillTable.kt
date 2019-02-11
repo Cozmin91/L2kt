@@ -1,11 +1,10 @@
 package com.l2kt.gameserver.data
 
-import java.io.File
-import java.util.HashMap
-import java.util.logging.Logger
-
 import com.l2kt.gameserver.model.L2Skill
 import com.l2kt.gameserver.skills.DocumentSkill
+import java.io.File
+import java.util.*
+import java.util.logging.Logger
 
 object SkillTable {
 
@@ -95,8 +94,8 @@ object SkillTable {
         load()
     }
 
-    fun getInfo(skillId: Int, level: Int): L2Skill {
-        return _skills[getSkillHashCode(skillId, level)]!!
+    fun getInfo(skillId: Int, level: Int): L2Skill? {
+        return _skills[getSkillHashCode(skillId, level)]
     }
 
     fun getMaxLevel(skillId: Int): Int {

@@ -97,6 +97,6 @@ public class MercTicket implements IItemHandler
 		
 		castle.addDroppedTicket(droppedTicket);
 		
-		activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PLACE_S1_IN_CURRENT_LOCATION_AND_DIRECTION).addItemName(itemId));
+		activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PLACE_S1_IN_CURRENT_LOCATION_AND_DIRECTION).addItemName(itemId));
 	}
 }

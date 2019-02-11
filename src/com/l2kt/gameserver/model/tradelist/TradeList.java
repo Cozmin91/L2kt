@@ -688,13 +688,13 @@ public class TradeList
 			// Send messages about the transaction to both players
 			if (newItem.isStackable())
 			{
-				SystemMessage msg = SystemMessage.getSystemMessage(SystemMessageId.S1_PURCHASED_S3_S2_S);
+				SystemMessage msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_PURCHASED_S3_S2_S);
 				msg.addString(player.getName());
 				msg.addItemName(newItem.getItemId());
 				msg.addNumber(item.getCount());
 				_owner.sendPacket(msg);
 				
-				msg = SystemMessage.getSystemMessage(SystemMessageId.PURCHASED_S3_S2_S_FROM_S1);
+				msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.PURCHASED_S3_S2_S_FROM_S1);
 				msg.addString(_owner.getName());
 				msg.addItemName(newItem.getItemId());
 				msg.addNumber(item.getCount());
@@ -702,12 +702,12 @@ public class TradeList
 			}
 			else
 			{
-				SystemMessage msg = SystemMessage.getSystemMessage(SystemMessageId.S1_PURCHASED_S2);
+				SystemMessage msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_PURCHASED_S2);
 				msg.addString(player.getName());
 				msg.addItemName(newItem.getItemId());
 				_owner.sendPacket(msg);
 				
-				msg = SystemMessage.getSystemMessage(SystemMessageId.PURCHASED_S2_FROM_S1);
+				msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.PURCHASED_S2_FROM_S1);
 				msg.addString(_owner.getName());
 				msg.addItemName(newItem.getItemId());
 				player.sendPacket(msg);
@@ -838,13 +838,13 @@ public class TradeList
 			// Send messages about the transaction to both players
 			if (newItem.isStackable())
 			{
-				SystemMessage msg = SystemMessage.getSystemMessage(SystemMessageId.PURCHASED_S3_S2_S_FROM_S1);
+				SystemMessage msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.PURCHASED_S3_S2_S_FROM_S1);
 				msg.addString(player.getName());
 				msg.addItemName(newItem.getItemId());
 				msg.addNumber(item.getCount());
 				_owner.sendPacket(msg);
 				
-				msg = SystemMessage.getSystemMessage(SystemMessageId.S1_PURCHASED_S3_S2_S);
+				msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_PURCHASED_S3_S2_S);
 				msg.addString(_owner.getName());
 				msg.addItemName(newItem.getItemId());
 				msg.addNumber(item.getCount());
@@ -852,12 +852,12 @@ public class TradeList
 			}
 			else
 			{
-				SystemMessage msg = SystemMessage.getSystemMessage(SystemMessageId.PURCHASED_S2_FROM_S1);
+				SystemMessage msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.PURCHASED_S2_FROM_S1);
 				msg.addString(player.getName());
 				msg.addItemName(newItem.getItemId());
 				_owner.sendPacket(msg);
 				
-				msg = SystemMessage.getSystemMessage(SystemMessageId.S1_PURCHASED_S2);
+				msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_PURCHASED_S2);
 				msg.addString(_owner.getName());
 				msg.addItemName(newItem.getItemId());
 				player.sendPacket(msg);

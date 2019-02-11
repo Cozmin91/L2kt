@@ -180,7 +180,7 @@ public class AdminSpawn implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_unspawnall"))
 		{
-			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.NPC_SERVER_NOT_OPERATING));
+			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.NPC_SERVER_NOT_OPERATING));
 			RaidBossSpawnManager.getInstance().cleanUp();
 			DayNightSpawnManager.getInstance().cleanUp();
 			World.getInstance().deleteVisibleNpcSpawns();

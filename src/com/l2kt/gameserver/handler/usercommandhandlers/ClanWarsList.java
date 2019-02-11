@@ -64,9 +64,9 @@ public class ClanWarsList implements IUserCommandHandler
 					String clanName = rset.getString("clan_name");
 					
 					if (rset.getInt("ally_id") > 0)
-						sm = SystemMessage.getSystemMessage(SystemMessageId.S1_S2_ALLIANCE).addString(clanName).addString(rset.getString("ally_name"));
+						sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_S2_ALLIANCE).addString(clanName).addString(rset.getString("ally_name"));
 					else
-						sm = SystemMessage.getSystemMessage(SystemMessageId.S1_NO_ALLI_EXISTS).addString(clanName);
+						sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_NO_ALLI_EXISTS).addString(clanName);
 					
 					activeChar.sendPacket(sm);
 				}

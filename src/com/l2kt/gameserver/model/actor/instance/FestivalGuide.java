@@ -277,7 +277,7 @@ public final class FestivalGuide extends Folk
 					final boolean isHighestScore = SevenSignsFestival.getInstance().setFinalScore(player, _festivalOracle, _festivalType, offeringScore);
 					
 					// Send message that the contribution score has increased.
-					player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED_S1).addNumber(offeringScore));
+					player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED_S1).addNumber(offeringScore));
 					
 					if (isHighestScore)
 						showChatWindow(player, 3, "c", false);

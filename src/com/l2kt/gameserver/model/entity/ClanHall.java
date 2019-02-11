@@ -611,7 +611,7 @@ public class ClanHall
 						{
 							AuctionManager.INSTANCE.initNPC(getId());
 							ClanHallManager.getInstance().setFree(getId());
-							clan.broadcastToOnlineMembers(SystemMessage.getSystemMessage(SystemMessageId.THE_CLAN_HALL_FEE_IS_ONE_WEEK_OVERDUE_THEREFORE_THE_CLAN_HALL_OWNERSHIP_HAS_BEEN_REVOKED));
+							clan.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_CLAN_HALL_FEE_IS_ONE_WEEK_OVERDUE_THEREFORE_THE_CLAN_HALL_OWNERSHIP_HAS_BEEN_REVOKED));
 						}
 						else
 							ThreadPool.schedule(new FeeTask(), 3000);
@@ -619,7 +619,7 @@ public class ClanHall
 					else
 					{
 						updateDb();
-						clan.broadcastToOnlineMembers(SystemMessage.getSystemMessage(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW).addNumber(getLease()));
+						clan.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW).addNumber(getLease()));
 						
 						if (time + 86400000 <= _paidUntil + CH_RATE)
 							ThreadPool.schedule(new FeeTask(), time + 86400000);

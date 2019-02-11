@@ -191,7 +191,7 @@ public class Q508_AClansReputation extends Quest
 					htmltext = "30868-" + raid + "b.htm";
 					st.takeItems(item, 1);
 					clan.addReputationScore(reward);
-					player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CLAN_QUEST_COMPLETED_AND_S1_POINTS_GAINED).addNumber(reward));
+					player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_QUEST_COMPLETED_AND_S1_POINTS_GAINED).addNumber(reward));
 					clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 				}
 				break;

@@ -77,7 +77,7 @@ public class Duel
 			_countdown = 35;
 			
 			// Inform players that they will be ported shortly.
-			SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.IN_A_MOMENT_YOU_WILL_BE_TRANSPORTED_TO_THE_SITE_WHERE_THE_DUEL_WILL_TAKE_PLACE);
+			SystemMessage sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.IN_A_MOMENT_YOU_WILL_BE_TRANSPORTED_TO_THE_SITE_WHERE_THE_DUEL_WILL_TAKE_PLACE);
 			broadcastToTeam1(sm);
 			broadcastToTeam2(sm);
 			
@@ -217,13 +217,13 @@ public class Duel
 				case 3:
 				case 2:
 				case 1:
-					SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.THE_DUEL_WILL_BEGIN_IN_S1_SECONDS).addNumber(_countdown);
+					SystemMessage sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_DUEL_WILL_BEGIN_IN_S1_SECONDS).addNumber(_countdown);
 					broadcastToTeam1(sm);
 					broadcastToTeam2(sm);
 					break;
 				
 				case 0:
-					sm = SystemMessage.getSystemMessage(SystemMessageId.LET_THE_DUEL_BEGIN);
+					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.LET_THE_DUEL_BEGIN);
 					broadcastToTeam1(sm);
 					broadcastToTeam2(sm);
 					
@@ -641,24 +641,24 @@ public class Duel
 		switch (result)
 		{
 			case TEAM_2_SURRENDER:
-				sm = SystemMessage.getSystemMessage((_partyDuel) ? SystemMessageId.SINCE_S1_PARTY_WITHDREW_FROM_THE_DUEL_S2_PARTY_HAS_WON : SystemMessageId.SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON).addString(_playerB.getName()).addString(_playerA.getName());
+				sm = SystemMessage.Companion.getSystemMessage((_partyDuel) ? SystemMessageId.SINCE_S1_PARTY_WITHDREW_FROM_THE_DUEL_S2_PARTY_HAS_WON : SystemMessageId.SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON).addString(_playerB.getName()).addString(_playerA.getName());
 				broadcastToTeam1(sm);
 				broadcastToTeam2(sm);
 			case TEAM_1_WIN:
-				sm = SystemMessage.getSystemMessage((_partyDuel) ? SystemMessageId.S1_PARTY_HAS_WON_THE_DUEL : SystemMessageId.S1_HAS_WON_THE_DUEL).addString(_playerA.getName());
+				sm = SystemMessage.Companion.getSystemMessage((_partyDuel) ? SystemMessageId.S1_PARTY_HAS_WON_THE_DUEL : SystemMessageId.S1_HAS_WON_THE_DUEL).addString(_playerA.getName());
 				break;
 			
 			case TEAM_1_SURRENDER:
-				sm = SystemMessage.getSystemMessage((_partyDuel) ? SystemMessageId.SINCE_S1_PARTY_WITHDREW_FROM_THE_DUEL_S2_PARTY_HAS_WON : SystemMessageId.SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON).addString(_playerA.getName()).addString(_playerB.getName());
+				sm = SystemMessage.Companion.getSystemMessage((_partyDuel) ? SystemMessageId.SINCE_S1_PARTY_WITHDREW_FROM_THE_DUEL_S2_PARTY_HAS_WON : SystemMessageId.SINCE_S1_WITHDREW_FROM_THE_DUEL_S2_HAS_WON).addString(_playerA.getName()).addString(_playerB.getName());
 				broadcastToTeam1(sm);
 				broadcastToTeam2(sm);
 			case TEAM_2_WIN:
-				sm = SystemMessage.getSystemMessage((_partyDuel) ? SystemMessageId.S1_PARTY_HAS_WON_THE_DUEL : SystemMessageId.S1_HAS_WON_THE_DUEL).addString(_playerB.getName());
+				sm = SystemMessage.Companion.getSystemMessage((_partyDuel) ? SystemMessageId.S1_PARTY_HAS_WON_THE_DUEL : SystemMessageId.S1_HAS_WON_THE_DUEL).addString(_playerB.getName());
 				break;
 			
 			case CANCELED:
 			case TIMEOUT:
-				sm = SystemMessage.getSystemMessage(SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE);
+				sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE);
 				break;
 		}
 		

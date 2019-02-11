@@ -63,10 +63,10 @@ public class Blow implements ISkillHandler
 				if (skillIsEvaded)
 				{
 					if (activeChar instanceof Player)
-						((Player) activeChar).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(target));
+						((Player) activeChar).sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(target));
 					
 					if (target instanceof Player)
-						((Player) target).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(activeChar));
+						((Player) target).sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(activeChar));
 					
 					// no futher calculations needed.
 					continue;
@@ -80,7 +80,7 @@ public class Blow implements ISkillHandler
 					{
 						activeChar.stopSkillEffects(skill.getId());
 						skill.getEffects(target, activeChar);
-						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
+						activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
 					}
 					else
 					{
@@ -89,10 +89,10 @@ public class Blow implements ISkillHandler
 						if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, true))
 						{
 							skill.getEffects(activeChar, target, new Env(shld, false, false, false));
-							target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
+							target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
 						}
 						else
-							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
+							activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 					}
 				}
 				
@@ -132,10 +132,10 @@ public class Blow implements ISkillHandler
 				if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0)
 				{
 					if (target instanceof Player)
-						target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.COUNTERED_S1_ATTACK).addCharName(activeChar));
+						target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.COUNTERED_S1_ATTACK).addCharName(activeChar));
 					
 					if (activeChar instanceof Player)
-						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_PERFORMING_COUNTERATTACK).addCharName(target));
+						activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_PERFORMING_COUNTERATTACK).addCharName(target));
 					
 					// Formula from Diego post, 700 from rpg tests
 					double vegdamage = (700 * target.getPAtk(activeChar) / activeChar.getPDef(target));
@@ -149,7 +149,7 @@ public class Blow implements ISkillHandler
 					((Player) activeChar).sendDamageMessage(target, (int) damage, false, true, false);
 			}
 			else
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ATTACK_FAILED));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ATTACK_FAILED));
 			
 			// Possibility of a lethal strike
 			Formulas.calcLethalHit(activeChar, target, skill);

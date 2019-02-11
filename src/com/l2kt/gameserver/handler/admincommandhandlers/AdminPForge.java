@@ -146,7 +146,7 @@ public class AdminPForge implements IAdminCommandHandler
 			try
 			{
 				// Used for testing SystemMessage IDs - Use //msg <ID>
-				activeChar.sendPacket(SystemMessage.getSystemMessage(Integer.parseInt(command.substring(10).trim())));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(Integer.parseInt(command.substring(10).trim())));
 			}
 			catch (Exception e)
 			{

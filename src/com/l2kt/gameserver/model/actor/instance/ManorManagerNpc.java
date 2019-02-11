@@ -46,7 +46,7 @@ public class ManorManagerNpc extends Merchant
 			{
 				case 1: // Seed purchase
 					if (castleId != getCastle().getCastleId())
-						player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.HERE_YOU_CAN_BUY_ONLY_SEEDS_OF_S1_MANOR).addString(getCastle().getName()));
+						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.HERE_YOU_CAN_BUY_ONLY_SEEDS_OF_S1_MANOR).addString(getCastle().getName()));
 					else
 						player.sendPacket(new BuyListSeed(player.getAdena(), castleId));
 					break;

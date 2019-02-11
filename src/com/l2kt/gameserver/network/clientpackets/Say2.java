@@ -162,7 +162,7 @@ public final class Say2 extends L2GameClientPacket
 		final IChatHandler handler = ChatHandler.getInstance().getHandler(_type);
 		if (handler == null)
 		{
-			LOGGER.warn("{} tried to use unregistred chathandler type: {}.", player.getName(), _type);
+			Companion.getLOGGER().warn("{} tried to use unregistred chathandler type: {}.", player.getName(), _type);
 			return;
 		}
 		

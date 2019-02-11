@@ -48,9 +48,9 @@ public class CombatPointHeal implements ISkillHandler
 			if (target instanceof Player)
 			{
 				if (actChar instanceof Player && actChar != target)
-					target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S2_CP_WILL_BE_RESTORED_BY_S1).addCharName(actChar).addNumber((int) cp));
+					target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_CP_WILL_BE_RESTORED_BY_S1).addCharName(actChar).addNumber((int) cp));
 				else
-					target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED).addNumber((int) cp));
+					target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED).addNumber((int) cp));
 			}
 		}
 	}

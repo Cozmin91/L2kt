@@ -497,7 +497,7 @@ public abstract class Item
 					}
 					else if (msgId != 0)
 					{
-						SystemMessage sm = SystemMessage.getSystemMessage(msgId);
+						SystemMessage sm = SystemMessage.Companion.getSystemMessage(msgId);
 						if (preCondition.isAddName())
 							sm.addItemName(_itemId);
 						activeChar.sendPacket(sm);

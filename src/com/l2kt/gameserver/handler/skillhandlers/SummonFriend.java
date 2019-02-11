@@ -53,7 +53,7 @@ public class SummonFriend implements ISkillHandler
 			// Check target teleport request status.
 			if (!target.teleportRequest(player, skill))
 			{
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_ALREADY_SUMMONED).addCharName(target));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_ALREADY_SUMMONED).addCharName(target));
 				continue;
 			}
 			

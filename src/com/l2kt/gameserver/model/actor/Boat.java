@@ -256,9 +256,9 @@ public class Boat extends Creature
 					}
 					
 					if (count > 1)
-						player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S2_S1_DISAPPEARED).addItemName(itemId).addItemNumber(count));
+						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_S1_DISAPPEARED).addItemName(itemId).addItemNumber(count));
 					else
-						player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(itemId));
+						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(itemId));
 				}
 				addPassenger(player);
 			}

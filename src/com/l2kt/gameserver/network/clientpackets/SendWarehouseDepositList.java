@@ -109,14 +109,14 @@ public final class SendWarehouseDepositList extends L2GameClientPacket
 		// Item Max Limit Check
 		if (!warehouse.validateCapacity(slots))
 		{
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
 			return;
 		}
 		
 		// Check if enough adena and charge the fee
 		if (currentAdena < fee || !player.reduceAdena(warehouse.getName(), fee, folk, false))
 		{
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 			return;
 		}
 		

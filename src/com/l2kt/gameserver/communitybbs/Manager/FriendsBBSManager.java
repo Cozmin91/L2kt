@@ -112,7 +112,7 @@ public class FriendsBBSManager extends BaseBBSManager
 						
 						// The friend is deleted from your friendlist.
 						player.getFriendList().remove(Integer.valueOf(friendId));
-						player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST).addString(PlayerInfoTable.getInstance().getPlayerName(friendId)));
+						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST).addString(PlayerInfoTable.getInstance().getPlayerName(friendId)));
 					}
 					ps.executeBatch();
 				}

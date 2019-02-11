@@ -60,14 +60,14 @@ public final class RequestRefine extends AbstractRefinePacket
 			return;
 		}
 		
-		if (!isValid(activeChar, targetItem, refinerItem, gemStoneItem))
+		if (!Companion.isValid(activeChar, targetItem, refinerItem, gemStoneItem))
 		{
 			activeChar.sendPacket(new ExVariationResult(0, 0, 0));
 			activeChar.sendPacket(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS);
 			return;
 		}
 		
-		final LifeStone ls = getLifeStone(refinerItem.getItemId());
+		final LifeStone ls = Companion.getLifeStone(refinerItem.getItemId());
 		if (ls == null)
 		{
 			activeChar.sendPacket(new ExVariationResult(0, 0, 0));
@@ -77,7 +77,7 @@ public final class RequestRefine extends AbstractRefinePacket
 		
 		final int lifeStoneLevel = ls.getLevel();
 		final int lifeStoneGrade = ls.getGrade();
-		if (_gemStoneCount != getGemStoneCount(targetItem.getItem().getCrystalType()))
+		if (_gemStoneCount != Companion.getGemStoneCount(targetItem.getItem().getCrystalType()))
 		{
 			activeChar.sendPacket(new ExVariationResult(0, 0, 0));
 			activeChar.sendPacket(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS);

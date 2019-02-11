@@ -307,7 +307,7 @@ public class SignsPriest extends Folk
 					else
 					{
 						score = SevenSigns.getInstance().addPlayerStoneContrib(player.getObjectId(), blueContrib, greenContrib, redContrib);
-						player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED_S1).addItemNumber(score));
+						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED_S1).addItemNumber(score));
 						
 						if (this instanceof DawnPriest)
 							showChatWindow(player, 6, "dawn", false);
@@ -404,7 +404,7 @@ public class SignsPriest extends Folk
 								else
 								{
 									contribScore = SevenSigns.getInstance().addPlayerStoneContrib(player.getObjectId(), blueContribCount, greenContribCount, redContribCount);
-									player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED_S1).addItemNumber(contribScore));
+									player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED_S1).addItemNumber(contribScore));
 									
 									if (this instanceof DawnPriest)
 										showChatWindow(player, 6, "dawn", false);

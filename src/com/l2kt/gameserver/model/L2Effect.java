@@ -374,7 +374,7 @@ public abstract class L2Effect
 				
 				if (_skill.isPvpSkill() && _icon && getEffected() instanceof Player)
 				{
-					SystemMessage smsg = SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+					SystemMessage smsg = SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 					smsg.addSkillName(_skill);
 					getEffected().sendPacket(smsg);
 				}
@@ -408,7 +408,7 @@ public abstract class L2Effect
 			{
 				// If the time left is equal to zero, send the message
 				if (_count == 0 && _icon && getEffected() instanceof Player)
-					getEffected().sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_WORN_OFF).addSkillName(_skill));
+					getEffected().sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_HAS_WORN_OFF).addSkillName(_skill));
 				
 				// if task is null - stopEffectTask does not remove effect
 				if (_currentFuture == null && getEffected() != null)

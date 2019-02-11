@@ -38,7 +38,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		// Prevent player from unequipping items in special conditions
 		if (activeChar.isStunned() || activeChar.isSleeping() || activeChar.isParalyzed() || activeChar.isAfraid() || activeChar.isAlikeDead())
 		{
-			activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
+			activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
 			return;
 		}
 		
@@ -63,13 +63,13 @@ public class RequestUnEquipItem extends L2GameClientPacket
 			SystemMessage sm = null;
 			if (unequipped[0].getEnchantLevel() > 0)
 			{
-				sm = SystemMessage.getSystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
+				sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
 				sm.addNumber(unequipped[0].getEnchantLevel());
 				sm.addItemName(unequipped[0]);
 			}
 			else
 			{
-				sm = SystemMessage.getSystemMessage(SystemMessageId.S1_DISARMED);
+				sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISARMED);
 				sm.addItemName(unequipped[0]);
 			}
 			activeChar.sendPacket(sm);

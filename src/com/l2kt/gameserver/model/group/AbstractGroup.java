@@ -119,7 +119,7 @@ public abstract class AbstractGroup
 	 */
 	public void broadcastMessage(SystemMessageId message)
 	{
-		broadcastPacket(SystemMessage.getSystemMessage(message));
+		broadcastPacket(SystemMessage.Companion.getSystemMessage(message));
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public abstract class AbstractGroup
 	 */
 	public void broadcastString(String text)
 	{
-		broadcastPacket(SystemMessage.sendString(text));
+		broadcastPacket(SystemMessage.Companion.sendString(text));
 	}
 	
 	/**

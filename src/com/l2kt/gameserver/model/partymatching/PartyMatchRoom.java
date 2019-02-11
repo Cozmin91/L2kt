@@ -64,7 +64,7 @@ public class PartyMatchRoom
 	{
 		for (Player _member : getPartyMembers())
 		{
-			SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.S1_LEFT_PARTY_ROOM);
+			SystemMessage sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_LEFT_PARTY_ROOM);
 			sm.addCharName(player);
 			_member.sendPacket(sm);
 			_member.sendPacket(new ExManagePartyRoomMember(player, this, 2));

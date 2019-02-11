@@ -28,7 +28,7 @@ class EffectCancelDebuff(env: Env, template: EffectTemplate) : L2Effect(env, tem
         return false
     }
 
-    private fun cancel(caster: Creature, target: Creature, skill: L2Skill, effectType: L2SkillType): Boolean {
+    private fun cancel(caster: Creature, target: Creature, skill: L2Skill, effectType: L2SkillType?): Boolean {
         if (target !is Player || target.isDead())
             return false
 

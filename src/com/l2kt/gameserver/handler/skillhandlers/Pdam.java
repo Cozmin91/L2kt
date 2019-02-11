@@ -53,10 +53,10 @@ public class Pdam implements ISkillHandler
 			if (weapon != null && weapon.getItemType() != WeaponType.BOW && Formulas.calcPhysicalSkillEvasion(target, skill))
 			{
 				if (activeChar instanceof Player)
-					((Player) activeChar).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(target));
+					((Player) activeChar).sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DODGES_ATTACK).addCharName(target));
 				
 				if (target instanceof Player)
-					((Player) target).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(activeChar));
+					((Player) target).sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(activeChar));
 				
 				// no futher calculations needed.
 				continue;
@@ -87,7 +87,7 @@ public class Pdam implements ISkillHandler
 					activeChar.stopSkillEffects(skill.getId());
 					effects = skill.getEffects(target, activeChar);
 					if (effects != null && !effects.isEmpty())
-						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
+						activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
 				}
 				else
 				{
@@ -95,7 +95,7 @@ public class Pdam implements ISkillHandler
 					target.stopSkillEffects(skill.getId());
 					effects = skill.getEffects(activeChar, target, new Env(shld, false, false, false));
 					if (effects != null && !effects.isEmpty())
-						target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
+						target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
 				}
 			}
 			
@@ -112,17 +112,17 @@ public class Pdam implements ISkillHandler
 				if ((reflect & Formulas.SKILL_REFLECT_VENGEANCE) != 0)
 				{
 					if (target instanceof Player)
-						target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.COUNTERED_S1_ATTACK).addCharName(activeChar));
+						target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.COUNTERED_S1_ATTACK).addCharName(activeChar));
 					
 					if (activeChar instanceof Player)
-						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_PERFORMING_COUNTERATTACK).addCharName(target));
+						activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_PERFORMING_COUNTERATTACK).addCharName(target));
 					
 					double vegdamage = (700 * target.getPAtk(activeChar) / activeChar.getPDef(target));
 					activeChar.reduceCurrentHp(vegdamage, target, skill);
 				}
 			}
 			else
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ATTACK_FAILED));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ATTACK_FAILED));
 		}
 		
 		if (skill.hasSelfEffects())

@@ -120,14 +120,14 @@ public final class SendWarehouseWithdrawList extends L2GameClientPacket
 		// Item Max Limit Check
 		if (!player.getInventory().validateCapacity(slots))
 		{
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.SLOTS_FULL));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.SLOTS_FULL));
 			return;
 		}
 		
 		// Weight limit Check
 		if (!player.getInventory().validateWeight(weight))
 		{
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
 			return;
 		}
 		

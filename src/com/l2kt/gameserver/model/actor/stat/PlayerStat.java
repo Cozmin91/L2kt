@@ -73,11 +73,11 @@ public class PlayerStat extends PlayableStat
 		SystemMessage sm;
 		
 		if (addToExp == 0 && addToSp > 0)
-			sm = SystemMessage.getSystemMessage(SystemMessageId.ACQUIRED_S1_SP).addNumber(addToSp);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.ACQUIRED_S1_SP).addNumber(addToSp);
 		else if (addToExp > 0 && addToSp == 0)
-			sm = SystemMessage.getSystemMessage(SystemMessageId.EARNED_S1_EXPERIENCE).addNumber((int) addToExp);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_S1_EXPERIENCE).addNumber((int) addToExp);
 		else
-			sm = SystemMessage.getSystemMessage(SystemMessageId.YOU_EARNED_S1_EXP_AND_S2_SP).addNumber((int) addToExp).addNumber(addToSp);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_EARNED_S1_EXP_AND_S2_SP).addNumber((int) addToExp).addNumber(addToSp);
 		
 		getActiveChar().sendPacket(sm);
 		
@@ -163,10 +163,10 @@ public class PlayerStat extends PlayableStat
 		if (sendMessage)
 		{
 			if (removeExp > 0)
-				getActiveChar().sendPacket(SystemMessage.getSystemMessage(SystemMessageId.EXP_DECREASED_BY_S1).addNumber((int) removeExp));
+				getActiveChar().sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EXP_DECREASED_BY_S1).addNumber((int) removeExp));
 			
 			if (removeSp > 0)
-				getActiveChar().sendPacket(SystemMessage.getSystemMessage(SystemMessageId.SP_DECREASED_S1).addNumber(removeSp));
+				getActiveChar().sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.SP_DECREASED_S1).addNumber(removeSp));
 			
 			if (getLevel() < oldLevel)
 				getActiveChar().broadcastStatusUpdate();

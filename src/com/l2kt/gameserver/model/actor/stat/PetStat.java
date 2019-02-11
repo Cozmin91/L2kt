@@ -32,7 +32,7 @@ public class PetStat extends SummonStat
 		if (!super.addExpAndSp(addToExp, addToSp))
 			return false;
 		
-		getActiveChar().getOwner().sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PET_EARNED_S1_EXP).addNumber((int) addToExp));
+		getActiveChar().getOwner().sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_EARNED_S1_EXP).addNumber((int) addToExp));
 		return true;
 	}
 	

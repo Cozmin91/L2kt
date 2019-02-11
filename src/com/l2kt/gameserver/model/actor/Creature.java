@@ -419,7 +419,7 @@ public abstract class Creature extends WorldObject
 		
 		if (player != null && player.isInObserverMode())
 		{
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE));
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
@@ -442,7 +442,7 @@ public abstract class Creature extends WorldObject
 		{
 			// You can't make an attack with a fishing pole.
 			getAI().setIntention(CtrlIntention.IDLE);
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANNOT_ATTACK_WITH_FISHING_POLE));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CANNOT_ATTACK_WITH_FISHING_POLE));
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
@@ -451,7 +451,7 @@ public abstract class Creature extends WorldObject
 		if (!GeoEngine.getInstance().canSeeTarget(this, target))
 		{
 			getAI().setIntention(CtrlIntention.ACTIVE);
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANT_SEE_TARGET));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CANT_SEE_TARGET));
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
@@ -467,7 +467,7 @@ public abstract class Creature extends WorldObject
 				if (!checkAndEquipArrows())
 				{
 					getAI().setIntention(CtrlIntention.IDLE);
-					sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_ARROWS));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_ENOUGH_ARROWS));
 					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 					return;
 				}
@@ -487,7 +487,7 @@ public abstract class Creature extends WorldObject
 					if (getCurrentMp() < mpConsume)
 					{
 						getAI().setIntention(CtrlIntention.IDLE);
-						sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_MP));
+						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_ENOUGH_MP));
 						sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 						return;
 					}
@@ -667,7 +667,7 @@ public abstract class Creature extends WorldObject
 		if (this instanceof Player)
 		{
 			// Send a system message
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.GETTING_READY_TO_SHOOT_AN_ARROW));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.GETTING_READY_TO_SHOOT_AN_ARROW));
 			
 			// Send SetupGauge
 			sendPacket(new SetupGauge(GaugeColor.RED, sAtk + reuse));
@@ -1116,7 +1116,7 @@ public abstract class Creature extends WorldObject
 			{
 				if (!destroyItemByItemId("Consume", skill.getItemConsumeId(), skill.getItemConsume(), null, true))
 				{
-					sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
 					if (simultaneously)
 						setIsCastingSimultaneouslyNow(false);
 					else
@@ -1162,7 +1162,7 @@ public abstract class Creature extends WorldObject
 			// Send a system message USE_S1 to the Creature
 			if (this instanceof Player && skill.getId() != 1312)
 			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.USE_S1);
+				SystemMessage sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.USE_S1);
 				sm.addSkillName(skill);
 				sendPacket(sm);
 			}
@@ -1246,7 +1246,7 @@ public abstract class Creature extends WorldObject
 		if (getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
 		{
 			// Send a System Message to the caster
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_MP));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_ENOUGH_MP));
 			
 			// Send ActionFailed to the Player
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -1257,7 +1257,7 @@ public abstract class Creature extends WorldObject
 		if (getCurrentHp() <= skill.getHpConsume())
 		{
 			// Send a System Message to the caster
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_HP));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_ENOUGH_HP));
 			
 			// Send ActionFailed to the Player
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -1292,14 +1292,14 @@ public abstract class Creature extends WorldObject
 				// Checked: when a summon skill failed, server show required consume item count
 				if (skill.getSkillType() == L2SkillType.SUMMON)
 				{
-					SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.SUMMONING_SERVITOR_COSTS_S2_S1);
+					SystemMessage sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.SUMMONING_SERVITOR_COSTS_S2_S1);
 					sm.addItemName(skill.getItemConsumeId());
 					sm.addNumber(skill.getItemConsume());
 					sendPacket(sm);
 					return false;
 				}
 				
-				sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NUMBER_INCORRECT));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NUMBER_INCORRECT));
 				return false;
 			}
 		}
@@ -3597,7 +3597,7 @@ public abstract class Creature extends WorldObject
 				target.getChanceSkills().onEvadedHit(this);
 			
 			if (target instanceof Player)
-				target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(this));
+				target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.AVOIDED_S1_ATTACK).addCharName(this));
 		}
 		
 		// Send message about damage/crit or miss
@@ -3708,7 +3708,7 @@ public abstract class Creature extends WorldObject
 			abortAttack();
 			
 			if (this instanceof Player)
-				sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ATTACK_FAILED));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ATTACK_FAILED));
 		}
 	}
 	
@@ -3724,7 +3724,7 @@ public abstract class Creature extends WorldObject
 			abortCast();
 			
 			if (this instanceof Player)
-				sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CASTING_INTERRUPTED));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CASTING_INTERRUPTED));
 		}
 	}
 	
@@ -4079,11 +4079,11 @@ public abstract class Creature extends WorldObject
 				if (this instanceof Player)
 				{
 					if (_skiprange > 0)
-						sendPacket(SystemMessage.getSystemMessage(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED));
+						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED));
 					else if (_skipgeo > 0)
-						sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANT_SEE_TARGET));
+						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CANT_SEE_TARGET));
 					else if (_skippeace > 0)
-						sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
+						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
 				}
 				abortCast();
 				return;
@@ -4163,7 +4163,7 @@ public abstract class Creature extends WorldObject
 			if (tgt instanceof Playable)
 			{
 				if (skill.getSkillType() == L2SkillType.BUFF || skill.getSkillType() == L2SkillType.FUSION || skill.getSkillType() == L2SkillType.SEED)
-					((Creature) tgt).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
+					((Creature) tgt).sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
 				
 				if (this instanceof Player && tgt instanceof Summon)
 					((Summon) tgt).updateAndBroadcastStatus(1);
@@ -4179,7 +4179,7 @@ public abstract class Creature extends WorldObject
 		{
 			if (mpConsume > getCurrentMp())
 			{
-				sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_MP));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_ENOUGH_MP));
 				abortCast();
 				return;
 			}
@@ -4195,7 +4195,7 @@ public abstract class Creature extends WorldObject
 		{
 			if (hpConsume > getCurrentHp())
 			{
-				sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_HP));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_ENOUGH_HP));
 				abortCast();
 				return;
 			}
@@ -4215,7 +4215,7 @@ public abstract class Creature extends WorldObject
 			int charges = ((Player) this).getCharges();
 			if (skill.getMaxCharges() == 0 && charges < skill.getNumCharges())
 			{
-				SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+				SystemMessage sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 				sm.addSkillName(skill);
 				sendPacket(sm);
 				abortCast();
@@ -4456,7 +4456,7 @@ public abstract class Creature extends WorldObject
 						if (getActiveWeaponItem() != null && !target.isDead())
 						{
 							if (this instanceof Player && !getActiveWeaponItem().getSkillEffects(this, target, skill).isEmpty())
-								sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_BEEN_ACTIVATED).addSkillName(skill));
+								sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_HAS_BEEN_ACTIVATED).addSkillName(skill));
 						}
 						
 						// Maybe launch chance skills on us

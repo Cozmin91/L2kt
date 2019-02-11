@@ -21,7 +21,7 @@ public class Time implements IUserCommandHandler
 		
 		final String min = ((minute < 10) ? "0" : "") + minute;
 		
-		activeChar.sendPacket(SystemMessage.getSystemMessage((GameTimeTaskManager.INSTANCE.isNight()) ? SystemMessageId.TIME_S1_S2_IN_THE_NIGHT : SystemMessageId.TIME_S1_S2_IN_THE_DAY).addNumber(hour).addString(min));
+		activeChar.sendPacket(SystemMessage.Companion.getSystemMessage((GameTimeTaskManager.INSTANCE.isNight()) ? SystemMessageId.TIME_S1_S2_IN_THE_NIGHT : SystemMessageId.TIME_S1_S2_IN_THE_DAY).addNumber(hour).addString(min));
 		return true;
 	}
 	

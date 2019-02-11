@@ -58,7 +58,7 @@ public class BeastSoulShot implements IItemHandler
 			return;
 		}
 		
-		activeOwner.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PET_USES_S1).addItemName(item.getItemId()));
+		activeOwner.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_USES_S1).addItemName(item.getItemId()));
 		activePet.setChargedShot(ShotType.SOULSHOT, true);
 		BroadcastExtensionsKt.toSelfAndKnownPlayersInRadius(activeOwner, new MagicSkillUse(activePet, activePet, 2033, 1, 0, 0), 600);
 	}

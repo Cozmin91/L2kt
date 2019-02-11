@@ -134,10 +134,10 @@ public class PlayerStatus extends PlayableStatus
 			
 			if (fullValue > 0 && !isDOT)
 			{
-				getActiveChar().sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG).addCharName(attacker).addNumber(fullValue));
+				getActiveChar().sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG).addCharName(attacker).addNumber(fullValue));
 				
 				if (tDmg > 0 && attackerPlayer != null)
-					attackerPlayer.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.GIVEN_S1_DAMAGE_TO_YOUR_TARGET_AND_S2_DAMAGE_TO_SERVITOR).addNumber(fullValue).addNumber(tDmg));
+					attackerPlayer.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.GIVEN_S1_DAMAGE_TO_YOUR_TARGET_AND_S2_DAMAGE_TO_SERVITOR).addNumber(fullValue).addNumber(tDmg));
 			}
 		}
 		

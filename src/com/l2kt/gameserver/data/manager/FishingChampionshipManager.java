@@ -218,7 +218,7 @@ public class FishingChampionshipManager
 		if (lureId >= 8484 && lureId <= 8486)
 			len += Rnd.INSTANCE.get(0, 3000) / 1000.;
 		
-		player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CAUGHT_FISH_S1_LENGTH).addString(String.valueOf(len)));
+		player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CAUGHT_FISH_S1_LENGTH).addString(String.valueOf(len)));
 		
 		if (_tmpPlayers.size() < 5)
 		{

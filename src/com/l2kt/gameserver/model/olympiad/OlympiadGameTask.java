@@ -164,7 +164,7 @@ public final class OlympiadGameTask implements Runnable
 				// Teleport to arena countdown
 				case TELE_TO_ARENA:
 				{
-					_game.broadcastPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_WILL_ENTER_THE_OLYMPIAD_STADIUM_IN_S1_SECOND_S).addNumber(_countDown));
+					_game.broadcastPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_WILL_ENTER_THE_OLYMPIAD_STADIUM_IN_S1_SECOND_S).addNumber(_countDown));
 					
 					delay = getDelay(TELEPORT_TO_ARENA);
 					if (_countDown <= 0)
@@ -188,7 +188,7 @@ public final class OlympiadGameTask implements Runnable
 				// Battle start countdown, first part (60-10)
 				case BATTLE_COUNTDOWN:
 				{
-					_zone.broadcastPacket(SystemMessage.getSystemMessage(SystemMessageId.THE_GAME_WILL_START_IN_S1_SECOND_S).addNumber(_countDown));
+					_zone.broadcastPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_GAME_WILL_START_IN_S1_SECOND_S).addNumber(_countDown));
 					
 					if (_countDown == 20)
 					{
@@ -237,7 +237,7 @@ public final class OlympiadGameTask implements Runnable
 				// Teleport to town countdown
 				case TELE_TO_TOWN:
 				{
-					_game.broadcastPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS).addNumber(_countDown));
+					_game.broadcastPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS).addNumber(_countDown));
 					
 					delay = getDelay(TELEPORT_TO_TOWN);
 					if (_countDown <= 0)
@@ -335,7 +335,7 @@ public final class OlympiadGameTask implements Runnable
 			{
 				// game successfully started
 				_game.broadcastOlympiadInfo(_zone);
-				_zone.broadcastPacket(SystemMessage.getSystemMessage(SystemMessageId.STARTS_THE_GAME));
+				_zone.broadcastPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.STARTS_THE_GAME));
 				_zone.updateZoneStatusForCharactersInside();
 				return true;
 			}

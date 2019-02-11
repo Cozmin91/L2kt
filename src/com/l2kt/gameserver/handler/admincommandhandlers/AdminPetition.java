@@ -42,29 +42,29 @@ public class AdminPetition implements IAdminCommandHandler
 		{
 			if (PetitionManager.getInstance().isPlayerInConsultation(activeChar))
 			{
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ONLY_ONE_ACTIVE_PETITION_AT_TIME));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ONLY_ONE_ACTIVE_PETITION_AT_TIME));
 				return true;
 			}
 			
 			if (PetitionManager.getInstance().isPetitionInProcess(petitionId))
 			{
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
 				return true;
 			}
 			
 			if (!PetitionManager.getInstance().acceptPetition(activeChar, petitionId))
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_UNDER_PETITION_CONSULTATION));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_UNDER_PETITION_CONSULTATION));
 		}
 		else if (command.startsWith("admin_reject_petition"))
 		{
 			if (!PetitionManager.getInstance().rejectPetition(activeChar, petitionId))
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FAILED_CANCEL_PETITION_TRY_LATER));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FAILED_CANCEL_PETITION_TRY_LATER));
 		}
 		else if (command.equals("admin_reset_petitions"))
 		{
 			if (PetitionManager.getInstance().isPetitionInProcess())
 			{
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
 				return false;
 			}
 			PetitionManager.getInstance().getPendingPetitions().clear();

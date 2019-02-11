@@ -90,7 +90,7 @@ public class SiegeFlag extends Npc
 		// Send warning to owners of headquarters that theirs base is under attack.
 		if (_clan != null && isScriptValue(0))
 		{
-			_clan.broadcastToOnlineMembers(SystemMessage.getSystemMessage(SystemMessageId.BASE_UNDER_ATTACK));
+			_clan.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.BASE_UNDER_ATTACK));
 			
 			setScriptValue(1);
 			ThreadPool.schedule(() -> setScriptValue(0), 30000);

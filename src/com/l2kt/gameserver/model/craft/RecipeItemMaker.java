@@ -170,8 +170,8 @@ public class RecipeItemMaker implements Runnable
 		{
 			if (_target != _player)
 			{
-				_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CREATION_OF_S2_FOR_S1_AT_S3_ADENA_FAILED).addCharName(_target).addItemName(_recipe.getProduct().getId()).addItemNumber(_price));
-				_target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_FAILED_TO_CREATE_S2_FOR_S3_ADENA).addCharName(_player).addItemName(_recipe.getProduct().getId()).addItemNumber(_price));
+				_player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CREATION_OF_S2_FOR_S1_AT_S3_ADENA_FAILED).addCharName(_target).addItemName(_recipe.getProduct().getId()).addItemNumber(_price));
+				_target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_FAILED_TO_CREATE_S2_FOR_S3_ADENA).addCharName(_player).addItemName(_recipe.getProduct().getId()).addItemNumber(_price));
 			}
 			else
 				_target.sendPacket(SystemMessageId.ITEM_MIXING_FAILED);
@@ -227,7 +227,7 @@ public class RecipeItemMaker implements Runnable
 				final ItemInstance item = inv.getItemByItemId(material.getId());
 				if (item == null || item.getCount() < quantity)
 				{
-					_target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.MISSING_S2_S1_TO_CREATE).addItemName(material.getId()).addItemNumber((item == null) ? quantity : quantity - item.getCount()));
+					_target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.MISSING_S2_S1_TO_CREATE).addItemName(material.getId()).addItemNumber((item == null) ? quantity : quantity - item.getCount()));
 					gotAllMats = false;
 				}
 			}
@@ -243,9 +243,9 @@ public class RecipeItemMaker implements Runnable
 				inv.destroyItemByItemId("Manufacture", material.getId(), material.getValue(), _target, _player);
 				
 				if (material.getValue() > 1)
-					_target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S2_S1_DISAPPEARED).addItemName(material.getId()).addItemNumber(material.getValue()));
+					_target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_S1_DISAPPEARED).addItemName(material.getId()).addItemNumber(material.getValue()));
 				else
-					_target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(material.getId()));
+					_target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(material.getId()));
 			}
 		}
 		return true;
@@ -276,20 +276,20 @@ public class RecipeItemMaker implements Runnable
 			// inform manufacturer of earned profit
 			if (itemCount == 1)
 			{
-				_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S2_CREATED_FOR_S1_FOR_S3_ADENA).addString(_target.getName()).addItemName(itemId).addItemNumber(_price));
-				_target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CREATED_S2_FOR_S3_ADENA).addString(_player.getName()).addItemName(itemId).addItemNumber(_price));
+				_player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_CREATED_FOR_S1_FOR_S3_ADENA).addString(_target.getName()).addItemName(itemId).addItemNumber(_price));
+				_target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CREATED_S2_FOR_S3_ADENA).addString(_player.getName()).addItemName(itemId).addItemNumber(_price));
 			}
 			else
 			{
-				_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S2_S3_S_CREATED_FOR_S1_FOR_S4_ADENA).addString(_target.getName()).addNumber(itemCount).addItemName(itemId).addItemNumber(_price));
-				_target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CREATED_S2_S3_S_FOR_S4_ADENA).addString(_player.getName()).addNumber(itemCount).addItemName(itemId).addItemNumber(_price));
+				_player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_S3_S_CREATED_FOR_S1_FOR_S4_ADENA).addString(_target.getName()).addNumber(itemCount).addItemName(itemId).addItemNumber(_price));
+				_target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CREATED_S2_S3_S_FOR_S4_ADENA).addString(_player.getName()).addNumber(itemCount).addItemName(itemId).addItemNumber(_price));
 			}
 		}
 		
 		if (itemCount > 1)
-			_target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(itemId).addNumber(itemCount));
+			_target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(itemId).addNumber(itemCount));
 		else
-			_target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.EARNED_ITEM_S1).addItemName(itemId));
+			_target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_ITEM_S1).addItemName(itemId));
 		
 		updateMakeInfo(true); // success
 	}

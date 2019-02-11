@@ -230,7 +230,7 @@ public class VillageMaster extends Folk
 			
 			if (member == null)
 			{
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_DOES_NOT_EXIST).addString(cmdParams));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DOES_NOT_EXIST).addString(cmdParams));
 				return;
 			}
 			
@@ -734,7 +734,7 @@ public class VillageMaster extends Folk
 			if (tempClan.getSubPledge(clanName) != null)
 			{
 				if (pledgeType == Clan.SUBUNIT_ACADEMY)
-					player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_ALREADY_EXISTS).addString(clanName));
+					player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_ALREADY_EXISTS).addString(clanName));
 				else
 					player.sendPacket(SystemMessageId.ANOTHER_MILITARY_UNIT_IS_ALREADY_USING_THAT_NAME);
 				
@@ -762,21 +762,21 @@ public class VillageMaster extends Folk
 		SystemMessage sm;
 		if (pledgeType == Clan.SUBUNIT_ACADEMY)
 		{
-			sm = SystemMessage.getSystemMessage(SystemMessageId.THE_S1S_CLAN_ACADEMY_HAS_BEEN_CREATED);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_S1S_CLAN_ACADEMY_HAS_BEEN_CREATED);
 			sm.addString(player.getClan().getName());
 		}
 		else if (pledgeType >= Clan.SUBUNIT_KNIGHT1)
 		{
-			sm = SystemMessage.getSystemMessage(SystemMessageId.THE_KNIGHTS_OF_S1_HAVE_BEEN_CREATED);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_KNIGHTS_OF_S1_HAVE_BEEN_CREATED);
 			sm.addString(player.getClan().getName());
 		}
 		else if (pledgeType >= Clan.SUBUNIT_ROYAL1)
 		{
-			sm = SystemMessage.getSystemMessage(SystemMessageId.THE_ROYAL_GUARD_OF_S1_HAVE_BEEN_CREATED);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_ROYAL_GUARD_OF_S1_HAVE_BEEN_CREATED);
 			sm.addString(player.getClan().getName());
 		}
 		else
-			sm = SystemMessage.getSystemMessage(SystemMessageId.CLAN_CREATED);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_CREATED);
 		player.sendPacket(sm);
 		
 		if (pledgeType != Clan.SUBUNIT_ACADEMY)
@@ -853,7 +853,7 @@ public class VillageMaster extends Folk
 			leaderPlayer.sendPacket(new UserInfo(leaderPlayer));
 		}
 		
-		clan.broadcastToOnlineMembers(new PledgeShowMemberListAll(clan, subPledge.getId()), SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_BEEN_SELECTED_AS_CAPTAIN_OF_S2).addString(leaderName).addString(clanName));
+		clan.broadcastToOnlineMembers(new PledgeShowMemberListAll(clan, subPledge.getId()), SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_HAS_BEEN_SELECTED_AS_CAPTAIN_OF_S2).addString(leaderName).addString(clanName));
 	}
 	
 	public static final void showPledgeSkillList(Player player)

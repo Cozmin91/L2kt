@@ -297,7 +297,7 @@ public class Olympiad
 		@Override
 		public void run()
 		{
-			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_ENDED).addNumber(_currentCycle));
+			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_ENDED).addNumber(_currentCycle));
 			
 			if (_scheduledWeeklyTask != null)
 				_scheduledWeeklyTask.cancel(true);
@@ -368,7 +368,7 @@ public class Olympiad
 			
 			_inCompPeriod = true;
 			
-			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_STARTED));
+			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_STARTED));
 			_log.info("Olympiad: Olympiad game started.");
 			
 			_gameManager = ThreadPool.scheduleAtFixedRate(OlympiadGameManager.getInstance(), 30000, 30000);
@@ -377,7 +377,7 @@ public class Olympiad
 			
 			long regEnd = getMillisToCompEnd() - 600000;
 			if (regEnd > 0)
-				ThreadPool.schedule(() -> BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_REGISTRATION_PERIOD_ENDED)), regEnd);
+				ThreadPool.schedule(() -> BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.OLYMPIAD_REGISTRATION_PERIOD_ENDED)), regEnd);
 			
 			_scheduledCompEnd = ThreadPool.schedule(() ->
 			{
@@ -385,7 +385,7 @@ public class Olympiad
 					return;
 				
 				_inCompPeriod = false;
-				BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_ENDED));
+				BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_ENDED));
 				_log.info("Olympiad: Olympiad game ended.");
 				
 				while (OlympiadGameManager.getInstance().isBattleStarted()) // cleared in game manager
@@ -447,7 +447,7 @@ public class Olympiad
 	
 	protected void setNewOlympiadEnd()
 	{
-		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_STARTED).addNumber(_currentCycle));
+		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.OLYMPIAD_PERIOD_S1_HAS_STARTED).addNumber(_currentCycle));
 		
 		Calendar currentTime = Calendar.getInstance();
 		currentTime.add(Calendar.MONTH, 1);

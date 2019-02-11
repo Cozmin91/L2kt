@@ -97,7 +97,7 @@ public class Fisherman extends Merchant
 		{
 			final int minlevel = SkillTreeData.getInstance().getRequiredLevelForNextFishingSkill(player);
 			if (minlevel > 0)
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_S1).addNumber(minlevel));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_S1).addNumber(minlevel));
 			else
 				player.sendPacket(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
 		}

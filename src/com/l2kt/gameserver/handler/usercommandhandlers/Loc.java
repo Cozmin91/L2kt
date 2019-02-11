@@ -99,7 +99,7 @@ public class Loc implements IUserCommandHandler
 				msg = SystemMessageId.LOC_ADEN_S1_S2_S3;
 		}
 		
-		activeChar.sendPacket(SystemMessage.getSystemMessage(msg).addNumber(activeChar.getX()).addNumber(activeChar.getY()).addNumber(activeChar.getZ()));
+		activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(msg).addNumber(activeChar.getX()).addNumber(activeChar.getY()).addNumber(activeChar.getZ()));
 		return true;
 	}
 	

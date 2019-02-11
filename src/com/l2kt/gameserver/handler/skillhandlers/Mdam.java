@@ -67,7 +67,7 @@ public class Mdam implements ISkillHandler
 					{
 						activeChar.stopSkillEffects(skill.getId());
 						skill.getEffects(target, activeChar);
-						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
+						activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT).addSkillName(skill));
 					}
 					else
 					{
@@ -76,7 +76,7 @@ public class Mdam implements ISkillHandler
 						if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, bsps))
 							skill.getEffects(activeChar, target, new Env(shld, sps, false, bsps));
 						else
-							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill.getId()));
+							activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill.getId()));
 					}
 				}
 			}

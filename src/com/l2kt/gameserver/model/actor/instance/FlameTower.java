@@ -86,7 +86,7 @@ public class FlameTower extends Npc
 		{
 			// Message occurs only if the trap was triggered first.
 			if (_zoneList != null && _upgradeLevel != 0)
-				getCastle().getSiege().announceToPlayers(SystemMessage.getSystemMessage(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED), false);
+				getCastle().getSiege().announceToPlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED), false);
 			
 			// Spawn a little version of it. This version is a simple NPC, cleaned on siege end.
 			try

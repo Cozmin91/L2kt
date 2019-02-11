@@ -538,7 +538,7 @@ public final class QuestState
 		// Send message to the client.
 		if (itemId == 57)
 		{
-			SystemMessage smsg = SystemMessage.getSystemMessage(SystemMessageId.EARNED_S1_ADENA);
+			SystemMessage smsg = SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_S1_ADENA);
 			smsg.addItemNumber(itemCount);
 			_player.sendPacket(smsg);
 		}
@@ -546,14 +546,14 @@ public final class QuestState
 		{
 			if (itemCount > 1)
 			{
-				SystemMessage smsg = SystemMessage.getSystemMessage(SystemMessageId.EARNED_S2_S1_S);
+				SystemMessage smsg = SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_S2_S1_S);
 				smsg.addItemName(itemId);
 				smsg.addItemNumber(itemCount);
 				_player.sendPacket(smsg);
 			}
 			else
 			{
-				SystemMessage smsg = SystemMessage.getSystemMessage(SystemMessageId.EARNED_ITEM_S1);
+				SystemMessage smsg = SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_ITEM_S1);
 				smsg.addItemName(itemId);
 				_player.sendPacket(smsg);
 			}

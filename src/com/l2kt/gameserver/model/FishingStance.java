@@ -358,9 +358,9 @@ public class FishingStance
 			if (_deceptiveMode == 0)
 			{
 				// Reeling is successful, Damage: $s1
-				_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.REELING_SUCCESFUL_S1_DAMAGE).addNumber(dmg));
+				_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.REELING_SUCCESFUL_S1_DAMAGE).addNumber(dmg));
 				if (penalty == 50)
-					_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.REELING_SUCCESSFUL_PENALTY_S1).addNumber(penalty));
+					_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.REELING_SUCCESSFUL_PENALTY_S1).addNumber(penalty));
 				
 				_goodUse = 1;
 				changeHp(dmg, penalty);
@@ -368,7 +368,7 @@ public class FishingStance
 			else
 			{
 				// Reeling failed, Damage: $s1
-				_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FISH_RESISTED_REELING_S1_HP_REGAINED).addNumber(dmg));
+				_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FISH_RESISTED_REELING_S1_HP_REGAINED).addNumber(dmg));
 				_goodUse = 2;
 				changeHp(-dmg, penalty);
 			}
@@ -378,16 +378,16 @@ public class FishingStance
 			if (_deceptiveMode == 0)
 			{
 				// Reeling failed, Damage: $s1
-				_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FISH_RESISTED_REELING_S1_HP_REGAINED).addNumber(dmg));
+				_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FISH_RESISTED_REELING_S1_HP_REGAINED).addNumber(dmg));
 				_goodUse = 2;
 				changeHp(-dmg, penalty);
 			}
 			else
 			{
 				// Reeling is successful, Damage: $s1
-				_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.REELING_SUCCESFUL_S1_DAMAGE).addNumber(dmg));
+				_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.REELING_SUCCESFUL_S1_DAMAGE).addNumber(dmg));
 				if (penalty == 50)
-					_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.REELING_SUCCESSFUL_PENALTY_S1).addNumber(penalty));
+					_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.REELING_SUCCESSFUL_PENALTY_S1).addNumber(penalty));
 				
 				_goodUse = 1;
 				changeHp(dmg, penalty);
@@ -414,9 +414,9 @@ public class FishingStance
 			if (_deceptiveMode == 0)
 			{
 				// Pumping is successful. Damage: $s1
-				_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PUMPING_SUCCESFUL_S1_DAMAGE).addNumber(dmg));
+				_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PUMPING_SUCCESFUL_S1_DAMAGE).addNumber(dmg));
 				if (penalty == 50)
-					_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PUMPING_SUCCESSFUL_PENALTY_S1).addNumber(penalty));
+					_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PUMPING_SUCCESSFUL_PENALTY_S1).addNumber(penalty));
 				
 				_goodUse = 1;
 				changeHp(dmg, penalty);
@@ -424,7 +424,7 @@ public class FishingStance
 			else
 			{
 				// Pumping failed, Regained: $s1
-				_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FISH_RESISTED_PUMPING_S1_HP_REGAINED).addNumber(dmg));
+				_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FISH_RESISTED_PUMPING_S1_HP_REGAINED).addNumber(dmg));
 				_goodUse = 2;
 				changeHp(-dmg, penalty);
 			}
@@ -434,16 +434,16 @@ public class FishingStance
 			if (_deceptiveMode == 0)
 			{
 				// Pumping failed, Regained: $s1
-				_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FISH_RESISTED_PUMPING_S1_HP_REGAINED).addNumber(dmg));
+				_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FISH_RESISTED_PUMPING_S1_HP_REGAINED).addNumber(dmg));
 				_goodUse = 2;
 				changeHp(-dmg, penalty);
 			}
 			else
 			{
 				// Pumping is successful. Damage: $s1
-				_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PUMPING_SUCCESFUL_S1_DAMAGE).addNumber(dmg));
+				_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PUMPING_SUCCESFUL_S1_DAMAGE).addNumber(dmg));
 				if (penalty == 50)
-					_fisher.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PUMPING_SUCCESSFUL_PENALTY_S1).addNumber(penalty));
+					_fisher.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PUMPING_SUCCESSFUL_PENALTY_S1).addNumber(penalty));
 				
 				_goodUse = 1;
 				changeHp(dmg, penalty);

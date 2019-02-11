@@ -56,7 +56,7 @@ public class Folk extends Npc
 		{
 			final int minlevel = player.getRequiredLevelForNextSkill();
 			if (minlevel > 0)
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_S1).addNumber(minlevel));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_S1).addNumber(minlevel));
 			else
 				player.sendPacket(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
 		}
@@ -94,7 +94,7 @@ public class Folk extends Npc
 			player.sendPacket(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);
 			
 			if (player.getLevel() < 74)
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_S1).addNumber(74));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_S1).addNumber(74));
 			else
 				player.sendPacket(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
 		}

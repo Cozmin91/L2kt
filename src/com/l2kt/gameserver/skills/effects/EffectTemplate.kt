@@ -16,7 +16,7 @@ import java.util.logging.Logger
 
 class EffectTemplate(
     val attachCond: Condition?,
-    val applayCond: Condition,
+    val applayCond: Condition?,
     func: String,
     val lambda: Lambda,
     val counter: Int,
@@ -28,11 +28,11 @@ class EffectTemplate(
     val icon: Boolean,
     val effectPower: Double // to handle chance
     ,
-    val effectType: L2SkillType // to handle resistances etc...
+    val effectType: L2SkillType? // to handle resistances etc...
     ,
     val triggeredId: Int,
     val triggeredLevel: Int,
-    val chanceCondition: ChanceCondition
+    val chanceCondition: ChanceCondition?
 ) {
 
     private val _func: Class<*>

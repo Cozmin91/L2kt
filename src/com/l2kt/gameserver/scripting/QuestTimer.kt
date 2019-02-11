@@ -9,8 +9,8 @@ import java.util.logging.Logger
 class QuestTimer(
     protected val _quest: Quest,
     protected val _name: String,
-    protected val _npc: Npc,
-    protected val _player: Player,
+    protected val _npc: Npc?,
+    protected val _player: Player?,
     time: Long,
     protected val _isRepeating: Boolean
 ) {
@@ -19,10 +19,10 @@ class QuestTimer(
 
     init {
 
-        if (_isRepeating)
-            _schedular = ThreadPool.scheduleAtFixedRate(ScheduleTimerTask(), time, time)
+        _schedular = if (_isRepeating)
+            ThreadPool.scheduleAtFixedRate(ScheduleTimerTask(), time, time)
         else
-            _schedular = ThreadPool.schedule(ScheduleTimerTask(), time)
+            ThreadPool.schedule(ScheduleTimerTask(), time)
     }
 
     override fun toString(): String {
@@ -58,7 +58,7 @@ class QuestTimer(
      * @param player : Player instance attached to the desired timer (null if no player attached)
      * @return boolean
      */
-    fun equals(quest: Quest?, name: String?, npc: Npc, player: Player): Boolean {
+    fun equals(quest: Quest?, name: String?, npc: Npc?, player: Player?): Boolean {
         if (quest == null || quest !== _quest)
             return false
 
@@ -67,6 +67,6 @@ class QuestTimer(
     }
 
     companion object {
-        protected val _log = Logger.getLogger(QuestTimer::class.java.name)
+        private val log = Logger.getLogger(QuestTimer::class.java.name)
     }
 }

@@ -58,11 +58,11 @@ public class Petition
 			else
 			{
 				// Ending petition consultation with <Player>.
-				_responder.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PETITION_ENDED_WITH_S1).addCharName(_petitioner));
+				_responder.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PETITION_ENDED_WITH_S1).addCharName(_petitioner));
 				
 				// Receipt No. <ID> petition cancelled.
 				if (endState == PetitionState.PETITIONER_CANCEL)
-					_responder.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.RECENT_NO_S1_CANCELED).addNumber(getId()));
+					_responder.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.RECENT_NO_S1_CANCELED).addNumber(getId()));
 			}
 		}
 		

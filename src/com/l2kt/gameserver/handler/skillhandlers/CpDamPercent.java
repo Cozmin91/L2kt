@@ -52,7 +52,7 @@ public class CpDamPercent implements ISkillHandler
 			target.setCurrentCp(target.getCurrentCp() - damage);
 			
 			// Custom message to see Wrath damage on target
-			target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG).addCharName(activeChar).addNumber(damage));
+			target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG).addCharName(activeChar).addNumber(damage));
 		}
 		activeChar.setChargedShot(ShotType.SOULSHOT, skill.isStaticReuse());
 	}

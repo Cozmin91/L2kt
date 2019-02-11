@@ -290,7 +290,7 @@ public class Door extends Creature implements IGeoObject
 			GeoEngine.getInstance().removeGeoObject(this);
 		
 		if (_castle != null && _castle.getSiege().isInProgress())
-			_castle.getSiege().announceToPlayers(SystemMessage.getSystemMessage((getTemplate().getType() == DoorType.WALL) ? SystemMessageId.CASTLE_WALL_DAMAGED : SystemMessageId.CASTLE_GATE_BROKEN_DOWN), false);
+			_castle.getSiege().announceToPlayers(SystemMessage.Companion.getSystemMessage((getTemplate().getType() == DoorType.WALL) ? SystemMessageId.CASTLE_WALL_DAMAGED : SystemMessageId.CASTLE_GATE_BROKEN_DOWN), false);
 		
 		return true;
 	}

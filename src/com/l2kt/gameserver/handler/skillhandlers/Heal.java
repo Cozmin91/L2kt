@@ -125,13 +125,13 @@ public class Heal implements ISkillHandler
 			if (target instanceof Player)
 			{
 				if (skill.getId() == 4051)
-					target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.REJUVENATING_HP));
+					target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.REJUVENATING_HP));
 				else
 				{
 					if (activeChar instanceof Player && activeChar != target)
-						target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S2_HP_RESTORED_BY_S1).addCharName(activeChar).addNumber((int) hp));
+						target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_HP_RESTORED_BY_S1).addCharName(activeChar).addNumber((int) hp));
 					else
-						target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_HP_RESTORED).addNumber((int) hp));
+						target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_HP_RESTORED).addNumber((int) hp));
 				}
 			}
 		}

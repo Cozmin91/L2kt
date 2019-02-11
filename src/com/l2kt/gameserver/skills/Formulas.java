@@ -681,15 +681,15 @@ public final class Formulas
 				if (calcMagicSuccess(attacker, target, skill) && (target.getLevel() - attacker.getLevel()) <= 9)
 				{
 					if (skill.getSkillType() == L2SkillType.DRAIN)
-						attacker.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.DRAIN_HALF_SUCCESFUL));
+						attacker.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.DRAIN_HALF_SUCCESFUL));
 					else
-						attacker.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ATTACK_FAILED));
+						attacker.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ATTACK_FAILED));
 					
 					damage /= 2;
 				}
 				else
 				{
-					attacker.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
+					attacker.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 					damage = 1;
 				}
 			}
@@ -697,9 +697,9 @@ public final class Formulas
 			if (target instanceof Player)
 			{
 				if (skill.getSkillType() == L2SkillType.DRAIN)
-					target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.RESISTED_S1_DRAIN).addCharName(attacker));
+					target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.RESISTED_S1_DRAIN).addCharName(attacker));
 				else
-					target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.RESISTED_S1_MAGIC).addCharName(attacker));
+					target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.RESISTED_S1_MAGIC).addCharName(attacker));
 			}
 		}
 		else if (mcrit)
@@ -749,16 +749,16 @@ public final class Formulas
 			}
 			else
 			{
-				owner.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
+				owner.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 				damage = 1;
 			}
 			
 			if (target instanceof Player)
 			{
 				if (skill.getSkillType() == L2SkillType.DRAIN)
-					target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.RESISTED_S1_DRAIN).addCharName(owner));
+					target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.RESISTED_S1_DRAIN).addCharName(owner));
 				else
-					target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.RESISTED_S1_MAGIC).addCharName(owner));
+					target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.RESISTED_S1_MAGIC).addCharName(owner));
 			}
 		}
 		else if (mcrit)
@@ -859,7 +859,7 @@ public final class Formulas
 					}
 				}
 			}
-			attacker.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL));
+			attacker.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL));
 		}
 		// First lethal effect (hp/2 for npc, cp to 1 for player).
 		else if (skill.getLethalChance1() > 0 && Rnd.INSTANCE.get(1000) < calcLethal(attacker, target, skill.getLethalChance1(), skill.getMagicLevel()))
@@ -878,7 +878,7 @@ public final class Formulas
 					}
 				}
 			}
-			attacker.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL));
+			attacker.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL));
 		}
 	}
 	

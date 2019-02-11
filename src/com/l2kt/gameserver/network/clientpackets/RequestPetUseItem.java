@@ -46,7 +46,7 @@ public final class RequestPetUseItem extends L2GameClientPacket
 		
 		if (activeChar.isAlikeDead() || pet.isDead())
 		{
-			activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
+			activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
 			return;
 		}
 		
@@ -66,12 +66,12 @@ public final class RequestPetUseItem extends L2GameClientPacket
 			if (item.isEquipped())
 			{
 				pet.getInventory().unEquipItemInSlot(item.getLocationSlot());
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PET_TOOK_OFF_S1).addItemName(item));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_TOOK_OFF_S1).addItemName(item));
 			}
 			else
 			{
 				pet.getInventory().equipPetItem(item);
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PET_PUT_ON_S1).addItemName(item));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_PUT_ON_S1).addItemName(item));
 			}
 			
 			activeChar.sendPacket(new PetItemList(pet));

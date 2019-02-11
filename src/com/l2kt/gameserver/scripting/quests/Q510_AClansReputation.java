@@ -79,7 +79,7 @@ public class Q510_AClansReputation extends Quest
 					st.takeItems(TYRANNOSAURUS_CLAW, -1);
 					
 					clan.addReputationScore(count);
-					player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CLAN_QUEST_COMPLETED_AND_S1_POINTS_GAINED).addNumber(count));
+					player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_QUEST_COMPLETED_AND_S1_POINTS_GAINED).addNumber(count));
 					clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 				}
 				else

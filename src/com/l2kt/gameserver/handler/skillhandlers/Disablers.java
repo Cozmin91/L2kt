@@ -71,7 +71,7 @@ public class Disablers implements ISkillHandler
 					if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, bsps))
 						skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps));
 					else
-						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
+						activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 					break;
 				
 				case FAKE_DEATH:
@@ -89,7 +89,7 @@ public class Disablers implements ISkillHandler
 					else
 					{
 						if (activeChar instanceof Player)
-							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill.getId()));
+							activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill.getId()));
 					}
 					break;
 				
@@ -103,7 +103,7 @@ public class Disablers implements ISkillHandler
 					else
 					{
 						if (activeChar instanceof Player)
-							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill.getId()));
+							activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill.getId()));
 					}
 					break;
 				
@@ -125,7 +125,7 @@ public class Disablers implements ISkillHandler
 					else
 					{
 						if (activeChar instanceof Player)
-							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill.getId()));
+							activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill.getId()));
 					}
 					break;
 				
@@ -146,11 +146,11 @@ public class Disablers implements ISkillHandler
 						else
 						{
 							if (activeChar instanceof Player)
-								activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
+								activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 						}
 					}
 					else
-						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+						activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					break;
 				
 				case AGGDAMAGE:
@@ -196,7 +196,7 @@ public class Disablers implements ISkillHandler
 					else
 					{
 						if (activeChar instanceof Player)
-							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
+							activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 						
 						target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 					}
@@ -219,7 +219,7 @@ public class Disablers implements ISkillHandler
 						else
 						{
 							if (activeChar instanceof Player)
-								activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
+								activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 							
 							target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 						}
@@ -243,7 +243,7 @@ public class Disablers implements ISkillHandler
 					else
 					{
 						if (activeChar instanceof Player)
-							activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
+							activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 					}
 					break;
 				

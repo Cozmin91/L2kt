@@ -105,13 +105,13 @@ public class RequestProcureCropList extends L2GameClientPacket
 		
 		if (!player.getInventory().validateWeight(weight))
 		{
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
 			return;
 		}
 		
 		if (!player.getInventory().validateCapacity(slots))
 		{
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.SLOTS_FULL));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.SLOTS_FULL));
 			return;
 		}
 		
@@ -125,7 +125,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			final int rewardItemCount = i.getPrice() / rewardPrice;
 			if (rewardItemCount < 1)
 			{
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FAILED_IN_TRADING_S2_OF_CROP_S1).addItemName(i.getId()).addItemNumber(i.getValue()));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FAILED_IN_TRADING_S2_OF_CROP_S1).addItemName(i.getId()).addItemNumber(i.getValue()));
 				continue;
 			}
 			
@@ -133,8 +133,8 @@ public class RequestProcureCropList extends L2GameClientPacket
 			final int fee = (castleId == i.getManorId()) ? 0 : ((int) (i.getPrice() * 0.05));
 			if (fee != 0 && player.getAdena() < fee)
 			{
-				sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FAILED_IN_TRADING_S2_OF_CROP_S1).addItemName(i.getId()).addItemNumber(i.getValue()));
-				sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FAILED_IN_TRADING_S2_OF_CROP_S1).addItemName(i.getId()).addItemNumber(i.getValue()));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 				continue;
 			}
 			

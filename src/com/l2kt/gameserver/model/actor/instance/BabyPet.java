@@ -127,7 +127,7 @@ public final class BabyPet extends Pet
 		setTarget(getOwner());
 		useMagic(skill, false, false);
 		
-		getOwner().sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PET_USES_S1).addSkillName(skill));
+		getOwner().sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_USES_S1).addSkillName(skill));
 		
 		// calling useMagic changes the follow status, if the babypet actually casts
 		// (as opposed to failing due some factors, such as too low MP, etc).

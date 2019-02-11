@@ -44,7 +44,7 @@ public class SummonStatus extends PlayableStatus
 		if (attacker != null)
 		{
 			if (!isDOT && owner != null)
-				owner.sendPacket(SystemMessage.getSystemMessage((getActiveChar() instanceof Servitor) ? SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_S1 : SystemMessageId.PET_RECEIVED_S2_DAMAGE_BY_S1).addCharName(attacker).addNumber((int) value));
+				owner.sendPacket(SystemMessage.Companion.getSystemMessage((getActiveChar() instanceof Servitor) ? SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_S1 : SystemMessageId.PET_RECEIVED_S2_DAMAGE_BY_S1).addCharName(attacker).addNumber((int) value));
 			
 			getActiveChar().getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
 		}

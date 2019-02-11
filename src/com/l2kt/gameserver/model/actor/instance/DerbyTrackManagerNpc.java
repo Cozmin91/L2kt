@@ -142,7 +142,7 @@ public class DerbyTrackManagerNpc extends Folk
 				item.setCustomType2(TICKET_PRICES[priceId - 1] / 100);
 				
 				player.addItem("Race", item, player, false);
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ACQUIRED_S1_S2).addNumber(DerbyTrackManager.getInstance().getRaceNumber()).addItemName(4443));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ACQUIRED_S1_S2).addNumber(DerbyTrackManager.getInstance().getRaceNumber()).addItemName(4443));
 				
 				// Refresh lane bet.
 				DerbyTrackManager.getInstance().setBetOnLane(ticket, TICKET_PRICES[priceId - 1], true);

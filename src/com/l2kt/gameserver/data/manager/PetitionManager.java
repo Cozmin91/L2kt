@@ -222,13 +222,13 @@ public final class PetitionManager
 		petition.setState(PetitionState.IN_PROCESS);
 		
 		// Petition application accepted. (Send to Petitioner)
-		petition.sendPetitionerPacket(SystemMessage.getSystemMessage(SystemMessageId.PETITION_APP_ACCEPTED));
+		petition.sendPetitionerPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PETITION_APP_ACCEPTED));
 		
 		// Petition application accepted. Reciept No. is <ID>
-		petition.sendResponderPacket(SystemMessage.getSystemMessage(SystemMessageId.PETITION_ACCEPTED_RECENT_NO_S1).addNumber(petition.getId()));
+		petition.sendResponderPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PETITION_ACCEPTED_RECENT_NO_S1).addNumber(petition.getId()));
 		
 		// Petition consultation with <Player> underway.
-		petition.sendResponderPacket(SystemMessage.getSystemMessage(SystemMessageId.PETITION_WITH_S1_UNDER_WAY).addCharName(petition.getPetitioner()));
+		petition.sendResponderPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PETITION_WITH_S1_UNDER_WAY).addCharName(petition.getPetitioner()));
 		return true;
 	}
 	

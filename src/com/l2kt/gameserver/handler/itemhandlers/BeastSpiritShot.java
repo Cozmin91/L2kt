@@ -60,7 +60,7 @@ public class BeastSpiritShot implements IItemHandler
 			return;
 		}
 		
-		activeOwner.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PET_USES_S1).addItemName(itemId));
+		activeOwner.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_USES_S1).addItemName(itemId));
 		activePet.setChargedShot(isBlessed ? ShotType.BLESSED_SPIRITSHOT : ShotType.SPIRITSHOT, true);
 		BroadcastExtensionsKt.toSelfAndKnownPlayersInRadius(activeOwner, new MagicSkillUse(activePet, activePet, (isBlessed ? 2009 : 2008), 1, 0, 0), 600);
 	}

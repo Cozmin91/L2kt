@@ -105,7 +105,7 @@ public class AdminSiege implements IAdminCommandHandler
 			}
 			else if (command.equalsIgnoreCase("admin_move_defenders"))
 			{
-				activeChar.sendPacket(SystemMessage.sendString("Not implemented yet."));
+				activeChar.sendPacket(SystemMessage.Companion.sendString("Not implemented yet."));
 			}
 			else if (command.equalsIgnoreCase("admin_setcastle"))
 			{

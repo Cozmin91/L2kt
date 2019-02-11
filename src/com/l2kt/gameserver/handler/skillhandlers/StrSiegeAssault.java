@@ -56,7 +56,7 @@ public class StrSiegeAssault implements ISkillHandler
 				target.reduceCurrentHp(damage, activeChar, skill);
 			}
 			else
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ATTACK_FAILED));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ATTACK_FAILED));
 		}
 		activeChar.setChargedShot(ShotType.SOULSHOT, skill.isStaticReuse());
 	}

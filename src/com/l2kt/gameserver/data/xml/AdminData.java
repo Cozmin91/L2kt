@@ -215,7 +215,7 @@ public final class AdminData implements IXmlReader
 			player.sendPacket(SystemMessageId.GM_LIST);
 			
 			for (String name : getAllGmNames(player.isGM()))
-				player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.GM_S1).addString(name));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.GM_S1).addString(name));
 		}
 		else
 		{

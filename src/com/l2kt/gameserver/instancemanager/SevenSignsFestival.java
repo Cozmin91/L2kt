@@ -3369,7 +3369,7 @@ public class SevenSignsFestival
 			if (player.getClan() != null)
 			{
 				player.getClan().addReputationScore(100);
-				player.getClan().broadcastToOnlineMembers(SystemMessage.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION).addString(playerName).addNumber(100));
+				player.getClan().broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION).addString(playerName).addNumber(100));
 			}
 		}
 		else
@@ -3389,7 +3389,7 @@ public class SevenSignsFestival
 						if (clan != null)
 						{
 							clan.addReputationScore(100);
-							clan.broadcastToOnlineMembers(SystemMessage.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION).addString(playerName).addNumber(100));
+							clan.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION).addString(playerName).addNumber(100));
 						}
 					}
 				}

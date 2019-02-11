@@ -1036,23 +1036,23 @@ public class SevenSigns
 			{
 				case AVARICE:
 					if (newSealOwner == CabalType.DAWN)
-						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_OBTAINED_AVARICE));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.DAWN_OBTAINED_AVARICE));
 					else if (newSealOwner == CabalType.DUSK)
-						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_OBTAINED_AVARICE));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.DUSK_OBTAINED_AVARICE));
 					break;
 				
 				case GNOSIS:
 					if (newSealOwner == CabalType.DAWN)
-						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_OBTAINED_GNOSIS));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.DAWN_OBTAINED_GNOSIS));
 					else if (newSealOwner == CabalType.DUSK)
-						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_OBTAINED_GNOSIS));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.DUSK_OBTAINED_GNOSIS));
 					break;
 				
 				case STRIFE:
 					if (newSealOwner == CabalType.DAWN)
-						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_OBTAINED_STRIFE));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.DAWN_OBTAINED_STRIFE));
 					else if (newSealOwner == CabalType.DUSK)
-						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_OBTAINED_STRIFE));
+						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.DUSK_OBTAINED_STRIFE));
 					
 					CastleManager.getInstance().validateTaxes(newSealOwner);
 					break;
@@ -1114,12 +1114,12 @@ public class SevenSigns
 					CastleManager.getInstance().resetCertificates();
 					
 					// Send message that Competition has begun.
-					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.QUEST_EVENT_PERIOD_BEGUN));
+					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.QUEST_EVENT_PERIOD_BEGUN));
 					break;
 				
 				case COMPETITION: // Results Calculation
 					// Send message that Competition has ended.
-					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.QUEST_EVENT_PERIOD_ENDED));
+					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.QUEST_EVENT_PERIOD_ENDED));
 					
 					final CabalType winningCabal = getCabalHighestScore();
 					
@@ -1132,11 +1132,11 @@ public class SevenSigns
 					switch (winningCabal)
 					{
 						case DAWN:
-							BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DAWN_WON));
+							BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.DAWN_WON));
 							break;
 						
 						case DUSK:
-							BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.DUSK_WON));
+							BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.DUSK_WON));
 							break;
 					}
 					
@@ -1151,7 +1151,7 @@ public class SevenSigns
 					giveSosEffect(getSealOwner(SealType.STRIFE));
 					
 					// Send message that Seal Validation has begun.
-					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SEAL_VALIDATION_PERIOD_BEGUN));
+					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.SEAL_VALIDATION_PERIOD_BEGUN));
 					
 					_log.info("SevenSigns: The " + _previousWinner.getFullName() + " have won the competition with " + getCurrentScore(_previousWinner) + " points!");
 					break;
@@ -1161,7 +1161,7 @@ public class SevenSigns
 					_activePeriod = PeriodType.RECRUITING;
 					
 					// Send message that Seal Validation has ended.
-					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.getSystemMessage(SystemMessageId.SEAL_VALIDATION_PERIOD_ENDED));
+					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.SEAL_VALIDATION_PERIOD_ENDED));
 					
 					// Clear Seal of Strife influence.
 					removeSosEffect();

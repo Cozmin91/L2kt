@@ -95,7 +95,7 @@ public class ItemSkills implements IItemHandler
 			
 			// Send message to owner.
 			if (isPet)
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.PET_USES_S1).addSkillName(itemSkill));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_USES_S1).addSkillName(itemSkill));
 			else
 			{
 				final int skillId = skillInfo.getId();

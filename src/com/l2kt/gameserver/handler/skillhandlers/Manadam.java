@@ -41,7 +41,7 @@ public class Manadam implements ISkillHandler
 			
 			boolean acted = Formulas.calcMagicAffected(activeChar, target, skill);
 			if (target.isInvul() || !acted)
-				activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.MISSED_TARGET));
+				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.MISSED_TARGET));
 			else
 			{
 				if (skill.hasEffects())
@@ -52,7 +52,7 @@ public class Manadam implements ISkillHandler
 					if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, bsps))
 						skill.getEffects(activeChar, target, new Env(shld, sps, false, bsps));
 					else
-						activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
+						activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(target).addSkillName(skill));
 				}
 				
 				double damage = Formulas.calcManaDam(activeChar, target, skill, sps, bsps);
@@ -68,11 +68,11 @@ public class Manadam implements ISkillHandler
 					sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getCurrentMp());
 					target.sendPacket(sump);
 					
-					target.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S2_MP_HAS_BEEN_DRAINED_BY_S1).addCharName(activeChar).addNumber((int) mp));
+					target.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_MP_HAS_BEEN_DRAINED_BY_S1).addCharName(activeChar).addNumber((int) mp));
 				}
 				
 				if (activeChar instanceof Player)
-					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOUR_OPPONENTS_MP_WAS_REDUCED_BY_S1).addNumber((int) mp));
+					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOUR_OPPONENTS_MP_WAS_REDUCED_BY_S1).addNumber((int) mp));
 			}
 		}
 		

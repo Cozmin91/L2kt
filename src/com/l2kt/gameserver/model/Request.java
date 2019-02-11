@@ -86,7 +86,7 @@ public class Request
 		
 		if (partner.getRequest().isProcessingRequest())
 		{
-			_player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER).addCharName(partner));
+			_player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER).addCharName(partner));
 			return false;
 		}
 		

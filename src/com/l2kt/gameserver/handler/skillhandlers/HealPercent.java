@@ -91,9 +91,9 @@ public class HealPercent implements ISkillHandler
 				if (hp)
 				{
 					if (activeChar != target)
-						sm = SystemMessage.getSystemMessage(SystemMessageId.S2_HP_RESTORED_BY_S1).addCharName(activeChar);
+						sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_HP_RESTORED_BY_S1).addCharName(activeChar);
 					else
-						sm = SystemMessage.getSystemMessage(SystemMessageId.S1_HP_RESTORED);
+						sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_HP_RESTORED);
 					
 					sm.addNumber((int) amount);
 					target.sendPacket(sm);
@@ -102,9 +102,9 @@ public class HealPercent implements ISkillHandler
 				else if (mp)
 				{
 					if (activeChar != target)
-						sm = SystemMessage.getSystemMessage(SystemMessageId.S2_MP_RESTORED_BY_S1).addCharName(activeChar);
+						sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_MP_RESTORED_BY_S1).addCharName(activeChar);
 					else
-						sm = SystemMessage.getSystemMessage(SystemMessageId.S1_MP_RESTORED);
+						sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_MP_RESTORED);
 					
 					sm.addNumber((int) amount);
 					target.sendPacket(sm);

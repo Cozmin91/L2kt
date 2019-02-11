@@ -221,7 +221,7 @@ abstract class DocumentBase
 		if (attrs.getNamedItem("effectType") != null)
 		{
 			String typeName = getValue(attrs.getNamedItem("effectType").getNodeValue(), template);
-			
+
 			try
 			{
 				type = Enum.valueOf(L2SkillType.class, typeName);
@@ -314,7 +314,7 @@ abstract class DocumentBase
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 			
-		if (cond.getConditions() == null || cond.getConditions().size() == 0)
+		if (cond.getConditions() == null || cond.getConditions().length == 0)
 			_log.severe("Empty <and> condition in " + _file);
 		
 		return cond;

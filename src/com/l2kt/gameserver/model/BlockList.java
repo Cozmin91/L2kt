@@ -152,7 +152,7 @@ public class BlockList
 		
 		if (listOwner.getFriendList().contains(targetId))
 		{
-			SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.S1_ALREADY_IN_FRIENDS_LIST);
+			SystemMessage sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_ALREADY_IN_FRIENDS_LIST);
 			sm.addString(charName);
 			listOwner.sendPacket(sm);
 			return;
@@ -166,7 +166,7 @@ public class BlockList
 		
 		listOwner.getBlockList().addToBlockList(targetId);
 		
-		SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.S1_WAS_ADDED_TO_YOUR_IGNORE_LIST);
+		SystemMessage sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_WAS_ADDED_TO_YOUR_IGNORE_LIST);
 		sm.addString(charName);
 		listOwner.sendPacket(sm);
 		
@@ -174,7 +174,7 @@ public class BlockList
 		
 		if (player != null)
 		{
-			sm = SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_ADDED_YOU_TO_IGNORE_LIST);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_HAS_ADDED_YOU_TO_IGNORE_LIST);
 			sm.addString(listOwner.getName());
 			player.sendPacket(sm);
 		}
@@ -190,14 +190,14 @@ public class BlockList
 		
 		if (!listOwner.getBlockList().getBlockList().contains(targetId))
 		{
-			sm = SystemMessage.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT);
 			listOwner.sendPacket(sm);
 			return;
 		}
 		
 		listOwner.getBlockList().removeFromBlockList(targetId);
 		
-		sm = SystemMessage.getSystemMessage(SystemMessageId.S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST);
+		sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST);
 		sm.addString(charName);
 		listOwner.sendPacket(sm);
 	}

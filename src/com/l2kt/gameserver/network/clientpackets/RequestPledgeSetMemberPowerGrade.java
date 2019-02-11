@@ -42,6 +42,6 @@ public final class RequestPledgeSetMemberPowerGrade extends L2GameClientPacket
 			return;
 		
 		member.setPowerGrade(_powerGrade);
-		clan.broadcastToOnlineMembers(new PledgeShowMemberListUpdate(member), SystemMessage.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_PRIVILEGE_CHANGED_TO_S2).addString(member.getName()).addNumber(_powerGrade));
+		clan.broadcastToOnlineMembers(new PledgeShowMemberListUpdate(member), SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_PRIVILEGE_CHANGED_TO_S2).addString(member.getName()).addNumber(_powerGrade));
 	}
 }

@@ -94,7 +94,7 @@ public class ControlTower extends Npc
 				
 				// If siege life controls reach 0, broadcast a message to defenders.
 				if (siege.getControlTowerCount() == 0)
-					siege.announceToPlayers(SystemMessage.getSystemMessage(SystemMessageId.TOWER_DESTROYED_NO_RESURRECTION), false);
+					siege.announceToPlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.TOWER_DESTROYED_NO_RESURRECTION), false);
 				
 				// Spawn a little version of it. This version is a simple NPC, cleaned on siege end.
 				try

@@ -3,16 +3,16 @@ package com.l2kt.gameserver.skills.conditions
 import com.l2kt.gameserver.skills.Env
 
 class ConditionLogicAnd : Condition() {
-    var conditions = _emptyConditions.filterNotNull()
+    var conditions: Array<Condition?> = _emptyConditions
 
     override var listener: ConditionListener?
         get() = super.listener
         set(listener) {
             if (listener != null) {
-                for (c in conditions)
+                for (c in conditions.filterNotNull())
                     c.listener = this
             } else {
-                for (c in conditions)
+                for (c in conditions.filterNotNull())
                     c.listener = null
             }
             super.listener = listener
@@ -25,13 +25,14 @@ class ConditionLogicAnd : Condition() {
             condition.listener = this
         val len = conditions.size
         val tmp = arrayOfNulls<Condition>(len + 1)
+
         System.arraycopy(conditions, 0, tmp, 0, len)
         tmp[len] = condition
-        conditions = tmp.filterNotNull()
+        conditions = tmp
     }
 
     override fun testImpl(env: Env): Boolean {
-        for (c in conditions) {
+        for (c in conditions.filterNotNull()) {
             if (!c.test(env))
                 return false
         }

@@ -34,6 +34,6 @@ class EffectFusion(env: Env, template: EffectTemplate) : L2Effect(env, template)
 
     private fun updateBuff() {
         exit()
-        SkillTable.getInfo(skill.id, effect).getEffects(effector, effected)
+        SkillTable.getInfo(skill.id, effect)?.getEffects(effector, effected)
     }
 }

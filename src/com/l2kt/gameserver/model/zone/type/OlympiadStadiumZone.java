@@ -38,7 +38,7 @@ public class OlympiadStadiumZone extends SpawnZoneType
 			character.setInsideZone(ZoneId.PVP, true);
 			if (character instanceof Player)
 			{
-				character.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+				character.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 				_task.getGame().sendOlympiadInfo(character);
 			}
 		}
@@ -67,7 +67,7 @@ public class OlympiadStadiumZone extends SpawnZoneType
 			
 			if (character instanceof Player)
 			{
-				character.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+				character.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 				character.sendPacket(ExOlympiadMatchEnd.Companion.getSTATIC_PACKET());
 			}
 		}
@@ -79,7 +79,7 @@ public class OlympiadStadiumZone extends SpawnZoneType
 			return;
 		
 		final boolean battleStarted = _task.isBattleStarted();
-		final SystemMessage sm = SystemMessage.getSystemMessage((battleStarted) ? SystemMessageId.ENTERED_COMBAT_ZONE : SystemMessageId.LEFT_COMBAT_ZONE);
+		final SystemMessage sm = SystemMessage.Companion.getSystemMessage((battleStarted) ? SystemMessageId.ENTERED_COMBAT_ZONE : SystemMessageId.LEFT_COMBAT_ZONE);
 		
 		for (Creature character : _characters.values())
 		{

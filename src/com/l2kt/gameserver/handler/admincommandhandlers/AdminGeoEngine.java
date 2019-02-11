@@ -84,7 +84,7 @@ public class AdminGeoEngine implements IAdminCommandHandler
 				if (GeoEngine.getInstance().canSeeTarget(activeChar, target))
 					activeChar.sendMessage("Can see target.");
 				else
-					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANT_SEE_TARGET));
+					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CANT_SEE_TARGET));
 			}
 			else
 				activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);

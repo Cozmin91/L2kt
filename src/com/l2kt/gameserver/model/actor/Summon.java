@@ -534,7 +534,7 @@ public abstract class Summon extends Playable
 		// Check if this skill is enabled (e.g. reuse time)
 		if (isSkillDisabled(skill))
 		{
-			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE).addString(skill.getName()));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE).addString(skill.getName()));
 			return false;
 		}
 		
@@ -564,7 +564,7 @@ public abstract class Summon extends Playable
 			if (isInsidePeaceZone(this, target))
 			{
 				// If summon or target is in a peace zone, send a system message TARGET_IN_PEACEZONE
-				sendPacket(SystemMessage.getSystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
 				return false;
 			}
 			
@@ -641,12 +641,12 @@ public abstract class Summon extends Playable
 			if (target.isInvul())
 			{
 				if (target.isParalyzed())
-					sm = SystemMessage.getSystemMessage(SystemMessageId.OPPONENT_PETRIFIED);
+					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.OPPONENT_PETRIFIED);
 				else
-					sm = SystemMessage.getSystemMessage(SystemMessageId.ATTACK_WAS_BLOCKED);
+					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.ATTACK_WAS_BLOCKED);
 			}
 			else
-				sm = SystemMessage.getSystemMessage(SystemMessageId.PET_HIT_FOR_S1_DAMAGE).addNumber(damage);
+				sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_HIT_FOR_S1_DAMAGE).addNumber(damage);
 			
 			sendPacket(sm);
 			

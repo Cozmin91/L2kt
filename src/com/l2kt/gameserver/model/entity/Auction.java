@@ -371,7 +371,7 @@ public class Auction
 			if (biddingClan != newOwner)
 				returnItem(b.getClanName(), b.getBid(), true); // 10 % tax
 				
-			biddingClan.broadcastToOnlineMembers(SystemMessage.getSystemMessage(SystemMessageId.CLANHALL_AWARDED_TO_CLAN_S1).addString(newOwner.getName()));
+			biddingClan.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.CLANHALL_AWARDED_TO_CLAN_S1).addString(newOwner.getName()));
 		}
 		_bidders.clear();
 	}
@@ -412,7 +412,7 @@ public class Auction
 				
 				// Retrieves the seller.
 				Clan owner = ClanTable.getInstance().getClanByName(_sellerClanName);
-				owner.broadcastToOnlineMembers(SystemMessage.getSystemMessage(SystemMessageId.CLANHALL_NOT_SOLD));
+				owner.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.CLANHALL_NOT_SOLD));
 				return;
 			}
 			

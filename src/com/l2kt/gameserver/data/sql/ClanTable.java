@@ -169,7 +169,7 @@ public class ClanTable
 		if (getClanByName(clanName) != null)
 		{
 			// clan name is already taken
-			player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_ALREADY_EXISTS).addString(clanName));
+			player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_ALREADY_EXISTS).addString(clanName));
 			return null;
 		}
 		
@@ -199,7 +199,7 @@ public class ClanTable
 		if (!_clans.containsKey(clan.getClanId()))
 			return;
 		
-		clan.broadcastToOnlineMembers(SystemMessage.getSystemMessage(SystemMessageId.CLAN_HAS_DISPERSED));
+		clan.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_HAS_DISPERSED));
 		
 		// Drop the clan from all sieges. The related mySQL query is handled below.
 		for (Castle castle : CastleManager.getInstance().getCastles())
@@ -302,10 +302,10 @@ public class ClanTable
 		final Clan clan2 = _clans.get(clanId2);
 		
 		clan1.setEnemyClan(clanId2);
-		clan1.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan1), SystemMessage.getSystemMessage(SystemMessageId.CLAN_WAR_DECLARED_AGAINST_S1_IF_KILLED_LOSE_LOW_EXP).addString(clan2.getName()));
+		clan1.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan1), SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_WAR_DECLARED_AGAINST_S1_IF_KILLED_LOSE_LOW_EXP).addString(clan2.getName()));
 		
 		clan2.setAttackerClan(clanId1);
-		clan2.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan2), SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR).addString(clan1.getName()));
+		clan2.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan2), SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR).addString(clan1.getName()));
 		
 		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
@@ -327,10 +327,10 @@ public class ClanTable
 		final Clan clan2 = _clans.get(clanId2);
 		
 		clan1.deleteEnemyClan(clanId2);
-		clan1.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan1), SystemMessage.getSystemMessage(SystemMessageId.WAR_AGAINST_S1_HAS_STOPPED).addString(clan2.getName()));
+		clan1.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan1), SystemMessage.Companion.getSystemMessage(SystemMessageId.WAR_AGAINST_S1_HAS_STOPPED).addString(clan2.getName()));
 		
 		clan2.deleteAttackerClan(clanId1);
-		clan2.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan2), SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_HAS_DECIDED_TO_STOP).addString(clan1.getName()));
+		clan2.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan2), SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_S1_HAS_DECIDED_TO_STOP).addString(clan1.getName()));
 		
 		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{

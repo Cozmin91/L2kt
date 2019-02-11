@@ -57,7 +57,7 @@ public class MotherTreeZone extends ZoneType
 			character.setInsideZone(ZoneId.MOTHER_TREE, true);
 			
 			if (_enterMsg != 0)
-				character.sendPacket(SystemMessage.getSystemMessage(_enterMsg));
+				character.sendPacket(SystemMessage.Companion.getSystemMessage(_enterMsg));
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class MotherTreeZone extends ZoneType
 			character.setInsideZone(ZoneId.MOTHER_TREE, false);
 			
 			if (_leaveMsg != 0)
-				character.sendPacket(SystemMessage.getSystemMessage(_leaveMsg));
+				character.sendPacket(SystemMessage.Companion.getSystemMessage(_leaveMsg));
 		}
 	}
 	

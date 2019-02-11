@@ -31,6 +31,6 @@ public class RollingDice implements IItemHandler
 		final int number = Rnd.INSTANCE.get(1, 6);
 		
 		BroadcastExtensionsKt.toSelfAndKnownPlayers(activeChar, new Dice(activeChar.getObjectId(), item.getItemId(), number, activeChar.getX() - 30, activeChar.getY() - 30, activeChar.getZ()));
-		BroadcastExtensionsKt.toSelfAndKnownPlayers(activeChar, SystemMessage.getSystemMessage(SystemMessageId.S1_ROLLED_S2).addCharName(activeChar).addNumber(number));
+		BroadcastExtensionsKt.toSelfAndKnownPlayers(activeChar, SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_ROLLED_S2).addCharName(activeChar).addNumber(number));
 	}
 }

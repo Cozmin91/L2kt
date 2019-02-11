@@ -35,7 +35,7 @@ public final class RequestRecipeBookDestroy extends L2GameClientPacket
 			return;
 		
 		player.unregisterRecipeList(_recipeId);
-		player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED).addItemName(recipe.getRecipeId()));
+		player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED).addItemName(recipe.getRecipeId()));
 		player.sendPacket(new RecipeBookItemList(player, recipe.isDwarven()));
 	}
 }
