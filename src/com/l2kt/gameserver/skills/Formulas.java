@@ -413,7 +413,7 @@ public final class Formulas
 		if (siege == null || !siege.checkSide(clan, Siege.SiegeSide.ATTACKER))
 			return false;
 		
-		return MathUtil.checkIfInRange(200, player, clan.getFlag(), true);
+		return MathUtil.INSTANCE.checkIfInRange(200, player, clan.getFlag(), true);
 	}
 	
 	/**
@@ -775,7 +775,7 @@ public final class Formulas
 	 */
 	public static final boolean calcCrit(double rate)
 	{
-		return rate > Rnd.get(1000);
+		return rate > Rnd.INSTANCE.get(1000);
 	}
 	
 	/**
@@ -787,7 +787,7 @@ public final class Formulas
 	 */
 	public static final boolean calcBlow(Creature attacker, Creature target, int chance)
 	{
-		return attacker.calcStat(Stats.BLOW_RATE, chance * (1.0 + (attacker.getDEX() - 20) / 100), target, null) > Rnd.get(100);
+		return attacker.calcStat(Stats.BLOW_RATE, chance * (1.0 + (attacker.getDEX() - 20) / 100), target, null) > Rnd.INSTANCE.get(100);
 	}
 	
 	/**
@@ -842,7 +842,7 @@ public final class Formulas
 		}
 		
 		// Second lethal effect (hp to 1 for npc, cp/hp to 1 for player).
-		if (skill.getLethalChance2() > 0 && Rnd.get(1000) < calcLethal(attacker, target, skill.getLethalChance2(), skill.getMagicLevel()))
+		if (skill.getLethalChance2() > 0 && Rnd.INSTANCE.get(1000) < calcLethal(attacker, target, skill.getLethalChance2(), skill.getMagicLevel()))
 		{
 			if (target instanceof Npc)
 				target.reduceCurrentHp(target.getCurrentHp() - 1, attacker, skill);
@@ -862,7 +862,7 @@ public final class Formulas
 			attacker.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL));
 		}
 		// First lethal effect (hp/2 for npc, cp to 1 for player).
-		else if (skill.getLethalChance1() > 0 && Rnd.get(1000) < calcLethal(attacker, target, skill.getLethalChance1(), skill.getMagicLevel()))
+		else if (skill.getLethalChance1() > 0 && Rnd.INSTANCE.get(1000) < calcLethal(attacker, target, skill.getLethalChance1(), skill.getMagicLevel()))
 		{
 			if (target instanceof Npc)
 				target.reduceCurrentHp(target.getCurrentHp() / 2, attacker, skill);
@@ -887,7 +887,7 @@ public final class Formulas
 		if (Config.DEVELOPER)
 			LOGGER.info("Current mCritRate: {} / 1000.", mRate);
 		
-		return mRate > Rnd.get(1000);
+		return mRate > Rnd.INSTANCE.get(1000);
 	}
 	
 	/**
@@ -924,7 +924,7 @@ public final class Formulas
 		if (Config.DEVELOPER)
 			LOGGER.info("calcCastBreak rate: {}%.", (int) rate);
 		
-		if (Rnd.get(100) < rate)
+		if (Rnd.INSTANCE.get(100) < rate)
 			target.breakCast();
 	}
 	
@@ -977,7 +977,7 @@ public final class Formulas
 			modifier -= 3;
 		
 		// Get weather bonus. TODO: rain support (-3%).
-		if (GameTimeTaskManager.getInstance().isNight())
+		if (GameTimeTaskManager.INSTANCE.isNight())
 			modifier -= 10;
 		
 		// Get position bonus.
@@ -991,7 +991,7 @@ public final class Formulas
 		if (Config.DEVELOPER)
 			LOGGER.info("calcHitMiss rate: {}%, modifier : x{}.", chance / 10, +modifier / 100);
 		
-		return Math.max(Math.min(chance, 980), 200) < Rnd.get(1000);
+		return Math.max(Math.min(chance, 980), 200) < Rnd.INSTANCE.get(1000);
 	}
 	
 	/**
@@ -1027,9 +1027,9 @@ public final class Formulas
 		if (attacker.getAttackType() == BOW)
 			shldRate *= 1.3;
 		
-		if (shldRate > 0 && 100 - Config.PERFECT_SHIELD_BLOCK_RATE < Rnd.get(100))
+		if (shldRate > 0 && 100 - Config.PERFECT_SHIELD_BLOCK_RATE < Rnd.INSTANCE.get(100))
 			shldSuccess = SHIELD_DEFENSE_PERFECT_BLOCK;
-		else if (shldRate > Rnd.get(100))
+		else if (shldRate > Rnd.INSTANCE.get(100))
 			shldSuccess = SHIELD_DEFENSE_SUCCEED;
 		
 		if (target instanceof Player)
@@ -1063,7 +1063,7 @@ public final class Formulas
 		double attack = 2 * actor.getMAtk(target, skill) * calcSkillVulnerability(actor, target, skill, type);
 		double d = (attack - defence) / (attack + defence);
 		
-		d += 0.5 * Rnd.nextGaussian();
+		d += 0.5 * Rnd.INSTANCE.nextGaussian();
 		return d > 0;
 	}
 	
@@ -1191,11 +1191,11 @@ public final class Formulas
 		if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
 			return false;
 		
-		final L2SkillType type = effect.effectType;
-		final double baseChance = effect.effectPower;
+		final L2SkillType type = effect.getEffectType();
+		final double baseChance = effect.getEffectPower();
 		
 		if (type == null)
-			return Rnd.get(100) < baseChance;
+			return Rnd.INSTANCE.get(100) < baseChance;
 		
 		if (type.equals(L2SkillType.CANCEL)) // CANCEL type lands always
 			return true;
@@ -1209,7 +1209,7 @@ public final class Formulas
 		if (Config.DEVELOPER)
 			LOGGER.info("calcEffectSuccess(): name:{} eff.type:{} power:{} statMod:{} skillMod:{} mAtkMod:{} lvlMod:{} total:{}%.", skill.getName(), type.toString(), baseChance, String.format("%1.2f", statModifier), String.format("%1.2f", skillModifier), String.format("%1.2f", mAtkModifier), String.format("%1.2f", lvlModifier), String.format("%1.2f", rate));
 		
-		return (Rnd.get(100) < rate);
+		return (Rnd.INSTANCE.get(100) < rate);
 	}
 	
 	public static boolean calcSkillSuccess(Creature attacker, Creature target, L2Skill skill, byte shld, boolean bss)
@@ -1224,7 +1224,7 @@ public final class Formulas
 		
 		final double baseChance = skill.getEffectPower();
 		if (skill.ignoreResists())
-			return (Rnd.get(100) < baseChance);
+			return (Rnd.INSTANCE.get(100) < baseChance);
 		
 		final double statModifier = calcSkillStatModifier(type, target);
 		final double skillModifier = calcSkillVulnerability(attacker, target, skill, type);
@@ -1235,7 +1235,7 @@ public final class Formulas
 		if (Config.DEVELOPER)
 			LOGGER.info("calcSkillSuccess(): name:{} type:{} power:{} statMod:{} skillMod:{} mAtkMod:{} lvlMod:{} total:{}%.", skill.getName(), skill.getSkillType().toString(), baseChance, String.format("%1.2f", statModifier), String.format("%1.2f", skillModifier), String.format("%1.2f", mAtkModifier), String.format("%1.2f", lvlModifier), String.format("%1.2f", rate));
 		
-		return (Rnd.get(100) < rate);
+		return (Rnd.INSTANCE.get(100) < rate);
 	}
 	
 	public static boolean calcCubicSkillSuccess(Cubic attacker, Creature target, L2Skill skill, byte shld, boolean bss)
@@ -1255,7 +1255,7 @@ public final class Formulas
 		final double baseChance = skill.getEffectPower();
 		
 		if (skill.ignoreResists())
-			return Rnd.get(100) < baseChance;
+			return Rnd.INSTANCE.get(100) < baseChance;
 		
 		double mAtkModifier = 1;
 		
@@ -1278,7 +1278,7 @@ public final class Formulas
 		if (Config.DEVELOPER)
 			LOGGER.info("calcCubicSkillSuccess(): name:{} type:{} power:{} statMod:{} skillMod:{} mAtkMod:{} lvlMod:{} total:{}%.", skill.getName(), skill.getSkillType().toString(), baseChance, String.format("%1.2f", statModifier), String.format("%1.2f", skillModifier), String.format("%1.2f", mAtkModifier), String.format("%1.2f", lvlModifier), String.format("%1.2f", rate));
 		
-		return (Rnd.get(100) < rate);
+		return (Rnd.INSTANCE.get(100) < rate);
 	}
 	
 	public static boolean calcMagicSuccess(Creature attacker, Creature target, L2Skill skill)
@@ -1297,7 +1297,7 @@ public final class Formulas
 		
 		rate = Math.min(rate, 9900);
 		
-		return (Rnd.get(10000) > rate);
+		return (Rnd.INSTANCE.get(10000) > rate);
 	}
 	
 	public static double calcManaDam(Creature attacker, Creature target, L2Skill skill, boolean ss, boolean bss)
@@ -1336,7 +1336,7 @@ public final class Formulas
 		if (skill.isMagic())
 			return false;
 		
-		return Rnd.get(100) < target.calcStat(Stats.P_SKILL_EVASION, 0, null, skill);
+		return Rnd.INSTANCE.get(100) < target.calcStat(Stats.P_SKILL_EVASION, 0, null, skill);
 	}
 	
 	public static boolean calcSkillMastery(Creature actor, L2Skill sk)
@@ -1355,7 +1355,7 @@ public final class Formulas
 		else
 			val *= STR_BONUS[actor.getSTR()];
 		
-		return Rnd.get(100) < val;
+		return Rnd.INSTANCE.get(100) < val;
 	}
 	
 	public static double calcValakasAttribute(Creature attacker, Creature target, L2Skill skill)
@@ -1455,13 +1455,13 @@ public final class Formulas
 			case DEATHLINK:
 			case CHARGEDAM:
 				final double venganceChance = target.getStat().calcStat((skill.isMagic()) ? Stats.VENGEANCE_SKILL_MAGIC_DAMAGE : Stats.VENGEANCE_SKILL_PHYSICAL_DAMAGE, 0, target, skill);
-				if (venganceChance > Rnd.get(100))
+				if (venganceChance > Rnd.INSTANCE.get(100))
 					reflect |= SKILL_REFLECT_VENGEANCE;
 				break;
 		}
 		
 		final double reflectChance = target.calcStat((skill.isMagic()) ? Stats.REFLECT_SKILL_MAGIC : Stats.REFLECT_SKILL_PHYSIC, 0, null, skill);
-		if (Rnd.get(100) < reflectChance)
+		if (Rnd.INSTANCE.get(100) < reflectChance)
 			reflect |= SKILL_REFLECT_SUCCEED;
 		
 		return reflect;
@@ -1502,7 +1502,7 @@ public final class Formulas
 			case SLEEP:
 			case AGGDEBUFF:
 			case AGGREDUCE_CHAR:
-				if (Rnd.get(1000) == 1)
+				if (Rnd.INSTANCE.get(1000) == 1)
 					return true;
 		}
 		return false;

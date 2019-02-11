@@ -23,6 +23,6 @@ public class Book implements IItemHandler
 		html.setItemId(itemId);
 		activeChar.sendPacket(html);
 		
-		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+		activeChar.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 }

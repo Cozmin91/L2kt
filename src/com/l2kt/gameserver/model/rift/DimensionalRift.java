@@ -121,7 +121,7 @@ public class DimensionalRift
 		
 		_spawnTimerTask = ThreadPool.schedule(() -> _room.spawn(), Config.RIFT_SPAWN_DELAY);
 		
-		long jumpTime = Rnd.get(Config.RIFT_AUTO_JUMPS_TIME_MIN, Config.RIFT_AUTO_JUMPS_TIME_MAX) * 1000;
+		long jumpTime = Rnd.INSTANCE.get(Config.RIFT_AUTO_JUMPS_TIME_MIN, Config.RIFT_AUTO_JUMPS_TIME_MAX) * 1000;
 		if (_room.isBossRoom())
 			jumpTime *= Config.RIFT_BOSS_ROOM_TIME_MUTIPLY;
 		
@@ -227,7 +227,7 @@ public class DimensionalRift
 		}
 		
 		// List is filled ; return a random Room and set it as filled.
-		_room = Rnd.get(list);
+		_room = Rnd.INSTANCE.get(list);
 		_room.setPartyInside(true);
 		
 		// Teleport all Players in.

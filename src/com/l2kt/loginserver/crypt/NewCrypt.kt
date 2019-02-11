@@ -72,10 +72,9 @@ class NewCrypt(blowfishKey: ByteArray) {
 
             var chksum: Long = 0
             val count = size - 4
-            var check: Long = -1
-            var i: Int
+            var check: Long
+            var i: Int = offset
 
-            i = offset
             while (i < count) {
                 check = (raw[i].toInt() and 0xff).toLong()
                 check = check or (raw[i + 1].toInt() shl 8 and 0xff00).toLong()

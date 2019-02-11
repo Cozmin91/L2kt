@@ -53,7 +53,7 @@ public final class Auctioneer extends Folk
 			
 			try
 			{
-				final Auction auction = AuctionManager.getInstance().getAuction(Integer.parseInt(val));
+				final Auction auction = AuctionManager.INSTANCE.getAuction(Integer.parseInt(val));
 				if (auction != null)
 				{
 					final ClanHall ch = ClanHallManager.getInstance().getClanHallById(auction.getItemId());
@@ -117,7 +117,7 @@ public final class Auctioneer extends Folk
 				{
 					final int bid = (st.hasMoreTokens()) ? Math.min(Integer.parseInt(st.nextToken()), Integer.MAX_VALUE) : 0;
 					
-					AuctionManager.getInstance().getAuction(Integer.parseInt(val)).setBid(player, bid);
+					AuctionManager.INSTANCE.getAuction(Integer.parseInt(val)).setBid(player, bid);
 				}
 				catch (Exception e)
 				{
@@ -152,7 +152,7 @@ public final class Auctioneer extends Folk
 						return;
 					}
 					
-					final Auction auction = AuctionManager.getInstance().getAuction(Integer.parseInt(val));
+					final Auction auction = AuctionManager.INSTANCE.getAuction(Integer.parseInt(val));
 					int minimumBid = auction.getHighestBidderMaxBid();
 					if (minimumBid == 0)
 						minimumBid = auction.getStartingBid();
@@ -186,11 +186,11 @@ public final class Auctioneer extends Folk
 						auctionId = Integer.parseInt(val);
 					
 					final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-					final Collection<Bidder> bidders = AuctionManager.getInstance().getAuction(auctionId).getBidders().values();
+					final Collection<Bidder> bidders = AuctionManager.INSTANCE.getAuction(auctionId).getBidders().values();
 					
 					final StringBuilder sb = new StringBuilder(bidders.size() * 150);
 					for (Bidder bidder : bidders)
-						StringUtil.append(sb, "<tr><td width=90 align=center>", bidder.getClanName(), "</td><td width=90 align=center>", bidder.getName(), "</td><td width=90 align=center>", sdf.format(bidder.getTimeBid().getTime()), "</td></tr>");
+						StringUtil.INSTANCE.append(sb, "<tr><td width=90 align=center>", bidder.getClanName(), "</td><td width=90 align=center>", bidder.getName(), "</td><td width=90 align=center>", sdf.format(bidder.getTimeBid().getTime()), "</td></tr>");
 					
 					final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setFile("data/html/auction/AgitBidderList.htm");
@@ -213,7 +213,7 @@ public final class Auctioneer extends Folk
 			{
 				try
 				{
-					final int bid = AuctionManager.getInstance().getAuction(player.getClan().getAuctionBiddedAt()).getBidders().get(player.getClanId()).getBid();
+					final int bid = AuctionManager.INSTANCE.getAuction(player.getClan().getAuctionBiddedAt()).getBidders().get(player.getClanId()).getBid();
 					
 					final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setFile("data/html/auction/AgitBidCancel.htm");
@@ -230,7 +230,7 @@ public final class Auctioneer extends Folk
 			}
 			else if (actualCommand.equalsIgnoreCase("doCancelBid"))
 			{
-				final Auction auction = AuctionManager.getInstance().getAuction(player.getClan().getAuctionBiddedAt());
+				final Auction auction = AuctionManager.INSTANCE.getAuction(player.getClan().getAuctionBiddedAt());
 				if (auction != null)
 				{
 					auction.cancelBid(player.getClanId());
@@ -250,7 +250,7 @@ public final class Auctioneer extends Folk
 			}
 			else if (actualCommand.equalsIgnoreCase("doCancelAuction"))
 			{
-				final Auction auction = AuctionManager.getInstance().getAuction(player.getClan().getHideoutId());
+				final Auction auction = AuctionManager.INSTANCE.getAuction(player.getClan().getHideoutId());
 				if (auction != null)
 				{
 					auction.cancelAuction();
@@ -272,7 +272,7 @@ public final class Auctioneer extends Folk
 			}
 			else if (actualCommand.equalsIgnoreCase("rebid"))
 			{
-				final Auction auction = AuctionManager.getInstance().getAuction(player.getClan().getAuctionBiddedAt());
+				final Auction auction = AuctionManager.INSTANCE.getAuction(player.getClan().getAuctionBiddedAt());
 				if (auction != null)
 				{
 					final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -386,10 +386,10 @@ public final class Auctioneer extends Folk
 	private void showAuctionsList(String val, Player player)
 	{
 		// Retrieve the whole auctions list.
-		List<Auction> auctions = AuctionManager.getInstance().getAuctions();
+		List<Auction> auctions = AuctionManager.INSTANCE.getAuctions();
 		
 		final int page = (val.isEmpty()) ? 1 : Integer.parseInt(val);
-		final int max = MathUtil.countPagesNumber(auctions.size(), PAGE_LIMIT);
+		final int max = MathUtil.INSTANCE.countPagesNumber(auctions.size(), PAGE_LIMIT);
 		
 		// Cut auctions list up to page number.
 		auctions = auctions.subList((page - 1) * PAGE_LIMIT, Math.min(page * PAGE_LIMIT, auctions.size()));
@@ -401,13 +401,13 @@ public final class Auctioneer extends Folk
 		
 		// Auctions feeding.
 		for (Auction auction : auctions)
-			StringUtil.append(sb, "<tr><td><font color=\"aaaaff\">", ClanHallManager.getInstance().getClanHallById(auction.getItemId()).getLocation(), "</font></td><td><font color=\"ffffaa\"><a action=\"bypass -h npc_", getObjectId(), "_bidding ", auction.getId(), "\">", auction.getItemName(), " [", auction.getBidders().size(), "]</a></font></td><td>", sdf.format(auction.getEndDate()), "</td><td><font color=\"aaffff\">", auction.getStartingBid(), "</font></td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td><font color=\"aaaaff\">", ClanHallManager.getInstance().getClanHallById(auction.getItemId()).getLocation(), "</font></td><td><font color=\"ffffaa\"><a action=\"bypass -h npc_", getObjectId(), "_bidding ", auction.getId(), "\">", auction.getItemName(), " [", auction.getBidders().size(), "]</a></font></td><td>", sdf.format(auction.getEndDate()), "</td><td><font color=\"aaffff\">", auction.getStartingBid(), "</font></td></tr>");
 		
 		sb.append("</table><table width=280><tr>");
 		
 		// Page feeding.
 		for (int j = 1; j <= max; j++)
-			StringUtil.append(sb, "<td><center><a action=\"bypass -h npc_", getObjectId(), "_list ", j, "\"> Page ", j, " </a></center></td>");
+			StringUtil.INSTANCE.append(sb, "<td><center><a action=\"bypass -h npc_", getObjectId(), "_list ", j, "\"> Page ", j, " </a></center></td>");
 		
 		sb.append("</tr></table>");
 		
@@ -427,7 +427,7 @@ public final class Auctioneer extends Folk
 		
 		if (!clan.hasHideout() && clan.getAuctionBiddedAt() > 0)
 		{
-			final Auction auction = AuctionManager.getInstance().getAuction(clan.getAuctionBiddedAt());
+			final Auction auction = AuctionManager.INSTANCE.getAuction(clan.getAuctionBiddedAt());
 			if (auction != null)
 			{
 				final ClanHall ch = ClanHallManager.getInstance().getClanHallById(auction.getItemId());
@@ -452,9 +452,9 @@ public final class Auctioneer extends Folk
 			}
 			return;
 		}
-		else if (AuctionManager.getInstance().getAuction(clan.getHideoutId()) != null)
+		else if (AuctionManager.INSTANCE.getAuction(clan.getHideoutId()) != null)
 		{
-			final Auction auction = AuctionManager.getInstance().getAuction(clan.getHideoutId());
+			final Auction auction = AuctionManager.INSTANCE.getAuction(clan.getHideoutId());
 			if (auction != null)
 			{
 				final ClanHall ch = ClanHallManager.getInstance().getClanHallById(auction.getItemId());

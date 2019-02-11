@@ -60,7 +60,7 @@ public class Fish
 	
 	public int getType(boolean isLureNight)
 	{
-		if (!GameTimeTaskManager.getInstance().isNight() && isLureNight)
+		if (!GameTimeTaskManager.INSTANCE.isNight() && isLureNight)
 			return -1;
 		
 		return _type;

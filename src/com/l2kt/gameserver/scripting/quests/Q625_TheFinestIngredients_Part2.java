@@ -108,7 +108,7 @@ public class Q625_TheFinestIngredients_Part2 extends Quest
 			if (st.hasQuestItems(SPECIAL_YETI_MEAT))
 			{
 				st.takeItems(SPECIAL_YETI_MEAT, 1);
-				st.rewardItems(REWARD_DYE[Rnd.get(REWARD_DYE.length)], 5);
+				st.rewardItems(REWARD_DYE[Rnd.INSTANCE.get(REWARD_DYE.length)], 5);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
 			}
@@ -231,7 +231,7 @@ public class Q625_TheFinestIngredients_Part2 extends Quest
 		if (raid != null && raid.getRaidStatus() == StatusEnum.ALIVE)
 		{
 			// set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-			raid.getSpawn().setLoc(157117, -121939, -2397, Rnd.get(65536));
+			raid.getSpawn().setLoc(157117, -121939, -2397, Rnd.INSTANCE.get(65536));
 			
 			// teleport raid from secret place
 			raid.teleToLocation(157117, -121939, -2397, 100);

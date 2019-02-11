@@ -32,7 +32,7 @@ public class Product
 	public Product(int buyListId, StatsSet set)
 	{
 		_buyListId = buyListId;
-		_item = ItemTable.getInstance().getTemplate(set.getInteger("id"));
+		_item = ItemTable.INSTANCE.getTemplate(set.getInteger("id"));
 		_price = set.getInteger("price", 0);
 		_restockDelay = set.getLong("restockDelay", -1) * 60000;
 		_maxCount = set.getInteger("count", -1);
@@ -108,7 +108,7 @@ public class Product
 		// We test product addition and save result, but only if count has been affected.
 		final boolean result = _count.addAndGet(-val) >= 0;
 		if (result)
-			BuyListTaskManager.getInstance().add(this, getRestockDelay());
+			BuyListTaskManager.INSTANCE.add(this, getRestockDelay());
 		
 		return result;
 	}

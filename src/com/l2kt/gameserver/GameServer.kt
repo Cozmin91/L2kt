@@ -45,7 +45,7 @@ import java.util.logging.LogManager
 
 object GameServer {
 
-    private val LOGGER = CLogger(GameServer::class.simpleName)
+    private val LOGGER = CLogger(GameServer::class.simpleName!!)
     val selectorThread: SelectorThread<L2GameClient>
 
     @JvmStatic
@@ -70,7 +70,7 @@ object GameServer {
 
         Config.loadGameServer()
 
-        XMLDocumentFactory.getInstance()
+        XMLDocumentFactory
         L2DatabaseFactory
         ThreadPool.init()
 
@@ -84,11 +84,11 @@ object GameServer {
         ServerMemoTable.getInstance()
 
         StringUtil.printSection("Skills")
-        SkillTable.getInstance()
+        SkillTable
         SkillTreeData.getInstance()
 
         StringUtil.printSection("Items")
-        ItemTable.getInstance()
+        ItemTable
         SummonItemData.getInstance()
         HennaData.getInstance()
         BuyListManager.getInstance()
@@ -103,7 +103,7 @@ object GameServer {
 
         StringUtil.printSection("Admins")
         AdminData.getInstance()
-        BookmarkTable.getInstance()
+        BookmarkTable
         MovieMakerManager.getInstance()
         PetitionManager.getInstance()
 
@@ -126,7 +126,7 @@ object GameServer {
         printSection("Clans")
         CrestCache.getInstance()
         ClanTable.getInstance()
-        AuctionManager.getInstance()
+        AuctionManager
         ClanHallManager.getInstance()
 
         printSection("Geodata & Pathfinding")
@@ -139,15 +139,15 @@ object GameServer {
         CastleManager.getInstance()
 
         printSection("Task Managers")
-        AttackStanceTaskManager.getInstance()
-        DecayTaskManager.getInstance()
-        GameTimeTaskManager.getInstance()
-        ItemsOnGroundTaskManager.getInstance()
-        MovementTaskManager.getInstance()
-        PvpFlagTaskManager.getInstance()
-        RandomAnimationTaskManager.getInstance()
-        ShadowItemTaskManager.getInstance()
-        WaterTaskManager.getInstance()
+        AttackStanceTaskManager
+        DecayTaskManager
+        GameTimeTaskManager
+        ItemsOnGroundTaskManager
+        MovementTaskManager
+        PvpFlagTaskManager
+        RandomAnimationTaskManager
+        ShadowItemTaskManager
+        WaterTaskManager
 
         printSection("Seven Signs")
         SevenSigns.getInstance().spawnSevenSignsNPC()
@@ -163,7 +163,7 @@ object GameServer {
         WalkerRouteData.getInstance()
         DoorData.getInstance().spawn()
         StaticObjectData.getInstance()
-        SpawnTable.getInstance()
+        SpawnTable
         RaidBossSpawnManager.getInstance()
         GrandBossManager.getInstance()
         DayNightSpawnManager.getInstance()

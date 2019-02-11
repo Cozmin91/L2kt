@@ -95,7 +95,7 @@ public class AdminKnownlist implements IAdminCommandHandler
 			return;
 		}
 		
-		final int max = MathUtil.countPagesNumber(knownlist.size(), PAGE_LIMIT);
+		final int max = MathUtil.INSTANCE.countPagesNumber(knownlist.size(), PAGE_LIMIT);
 		if (page > max)
 			page = max;
 		
@@ -104,7 +104,7 @@ public class AdminKnownlist implements IAdminCommandHandler
 		// Generate data.
 		final StringBuilder sb = new StringBuilder(knownlist.size() * 150);
 		for (WorldObject object : knownlist)
-			StringUtil.append(sb, "<tr><td>", object.getName(), "</td><td>", object.getClass().getSimpleName(), "</td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td>", object.getName(), "</td><td>", object.getClass().getSimpleName(), "</td></tr>");
 		
 		html.replace("%knownlist%", sb.toString());
 		
@@ -115,9 +115,9 @@ public class AdminKnownlist implements IAdminCommandHandler
 		{
 			final int pagenr = i + 1;
 			if (page == pagenr)
-				StringUtil.append(sb, pagenr, "&nbsp;");
+				StringUtil.INSTANCE.append(sb, pagenr, "&nbsp;");
 			else
-				StringUtil.append(sb, "<a action=\"bypass -h admin_knownlist_page ", target.getObjectId(), " ", pagenr, "\">", pagenr, "</a>&nbsp;");
+				StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h admin_knownlist_page ", target.getObjectId(), " ", pagenr, "\">", pagenr, "</a>&nbsp;");
 		}
 		
 		html.replace("%pages%", sb.toString());

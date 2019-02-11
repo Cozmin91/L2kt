@@ -109,7 +109,7 @@ public class CreatureStatus
 		{
 			getActiveChar().stopEffectsOnDamage(awake);
 			
-			if (getActiveChar().isStunned() && Rnd.get(10) == 0)
+			if (getActiveChar().isStunned() && Rnd.INSTANCE.get(10) == 0)
 				getActiveChar().stopStunning(true);
 			
 			if (getActiveChar().isImmobileUntilAttacked())

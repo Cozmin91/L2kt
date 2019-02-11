@@ -1,10 +1,5 @@
 package com.l2kt.gameserver.scripting;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.l2kt.Config;
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.logging.CLogger;
@@ -15,17 +10,12 @@ import com.l2kt.gameserver.model.item.DropData;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.model.itemcontainer.PcInventory;
 import com.l2kt.gameserver.network.SystemMessageId;
+import com.l2kt.gameserver.network.serverpackets.*;
 
-import com.l2kt.gameserver.network.serverpackets.ExShowQuestMark;
-import com.l2kt.gameserver.network.serverpackets.InventoryUpdate;
-import com.l2kt.gameserver.network.serverpackets.PlaySound;
-import com.l2kt.gameserver.network.serverpackets.QuestList;
-import com.l2kt.gameserver.network.serverpackets.StatusUpdate;
-import com.l2kt.gameserver.network.serverpackets.SystemMessage;
-import com.l2kt.gameserver.network.serverpackets.TutorialCloseHtml;
-import com.l2kt.gameserver.network.serverpackets.TutorialEnableClientEvent;
-import com.l2kt.gameserver.network.serverpackets.TutorialShowHtml;
-import com.l2kt.gameserver.network.serverpackets.TutorialShowQuestionMark;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class QuestState
 {
@@ -656,22 +646,22 @@ public final class QuestState
 			case DROP_DIVMOD:
 				dropChance *= Config.RATE_QUEST_DROP;
 				amount = count * (dropChance / DropData.MAX_CHANCE);
-				if (Rnd.get(DropData.MAX_CHANCE) < dropChance % DropData.MAX_CHANCE)
+				if (Rnd.INSTANCE.get(DropData.MAX_CHANCE) < dropChance % DropData.MAX_CHANCE)
 					amount += count;
 				break;
 			
 			case DROP_FIXED_RATE:
-				if (Rnd.get(DropData.MAX_CHANCE) < dropChance)
+				if (Rnd.INSTANCE.get(DropData.MAX_CHANCE) < dropChance)
 					amount = (int) (count * Config.RATE_QUEST_DROP);
 				break;
 			
 			case DROP_FIXED_COUNT:
-				if (Rnd.get(DropData.MAX_CHANCE) < dropChance * Config.RATE_QUEST_DROP)
+				if (Rnd.INSTANCE.get(DropData.MAX_CHANCE) < dropChance * Config.RATE_QUEST_DROP)
 					amount = count;
 				break;
 			
 			case DROP_FIXED_BOTH:
-				if (Rnd.get(DropData.MAX_CHANCE) < dropChance)
+				if (Rnd.INSTANCE.get(DropData.MAX_CHANCE) < dropChance)
 					amount = count;
 				break;
 		}
@@ -745,22 +735,22 @@ public final class QuestState
 				case DROP_DIVMOD:
 					dropChance *= Config.RATE_QUEST_DROP;
 					amount = count * (dropChance / DropData.MAX_CHANCE);
-					if (Rnd.get(DropData.MAX_CHANCE) < dropChance % DropData.MAX_CHANCE)
+					if (Rnd.INSTANCE.get(DropData.MAX_CHANCE) < dropChance % DropData.MAX_CHANCE)
 						amount += count;
 					break;
 				
 				case DROP_FIXED_RATE:
-					if (Rnd.get(DropData.MAX_CHANCE) < dropChance)
+					if (Rnd.INSTANCE.get(DropData.MAX_CHANCE) < dropChance)
 						amount = (int) (count * Config.RATE_QUEST_DROP);
 					break;
 				
 				case DROP_FIXED_COUNT:
-					if (Rnd.get(DropData.MAX_CHANCE) < dropChance * Config.RATE_QUEST_DROP)
+					if (Rnd.INSTANCE.get(DropData.MAX_CHANCE) < dropChance * Config.RATE_QUEST_DROP)
 						amount = count;
 					break;
 				
 				case DROP_FIXED_BOTH:
-					if (Rnd.get(DropData.MAX_CHANCE) < dropChance)
+					if (Rnd.INSTANCE.get(DropData.MAX_CHANCE) < dropChance)
 						amount = count;
 					break;
 			}
@@ -863,7 +853,7 @@ public final class QuestState
 	
 	public void closeTutorialHtml()
 	{
-		_player.sendPacket(TutorialCloseHtml.STATIC_PACKET);
+		_player.sendPacket(TutorialCloseHtml.Companion.getSTATIC_PACKET());
 	}
 	
 	public void onTutorialClientEvent(int number)

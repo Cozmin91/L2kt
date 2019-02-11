@@ -95,7 +95,7 @@ public class Q660_AidingTheFloranVillage extends Quest
 				htmltext = "30291-11a.htm";
 			else
 			{
-				if (Rnd.get(10) < 8)
+				if (Rnd.INSTANCE.get(10) < 8)
 					st.rewardItems(ADENA, 1000);
 				else
 				{
@@ -110,7 +110,7 @@ public class Q660_AidingTheFloranVillage extends Quest
 				htmltext = "30291-12a.htm";
 			else
 			{
-				final int luck = Rnd.get(15);
+				final int luck = Rnd.INSTANCE.get(15);
 				if (luck < 8)
 					st.rewardItems(ADENA, 2000);
 				else if (luck < 12)
@@ -128,7 +128,7 @@ public class Q660_AidingTheFloranVillage extends Quest
 				htmltext = "30291-13a.htm";
 			else
 			{
-				if (Rnd.get(10) < 8)
+				if (Rnd.INSTANCE.get(10) < 8)
 					st.rewardItems(ADENA, 5000);
 				else
 				{

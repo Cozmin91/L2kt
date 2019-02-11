@@ -78,7 +78,7 @@ public class Q383_SearchingForTreasure extends Quest
 				// Adena reward.
 				int i1 = 0;
 				
-				int i0 = Rnd.get(100);
+				int i0 = Rnd.INSTANCE.get(100);
 				if (i0 < 5)
 					st.giveItems(2450, 1);
 				else if (i0 < 6)
@@ -90,7 +90,7 @@ public class Q383_SearchingForTreasure extends Quest
 				else
 					i1 += 500;
 				
-				i0 = Rnd.get(1000);
+				i0 = Rnd.INSTANCE.get(1000);
 				if (i0 < 25)
 					st.giveItems(4481, 1);
 				else if (i0 < 50)
@@ -118,7 +118,7 @@ public class Q383_SearchingForTreasure extends Quest
 				else
 					i1 += 300;
 				
-				i0 = Rnd.get(100);
+				i0 = Rnd.INSTANCE.get(100);
 				if (i0 < 4)
 					st.giveItems(1337, 1);
 				else if (i0 < 8)
@@ -136,7 +136,7 @@ public class Q383_SearchingForTreasure extends Quest
 				else
 					i1 += 500;
 				
-				i0 = Rnd.get(100);
+				i0 = Rnd.INSTANCE.get(100);
 				if (i0 < 20)
 					st.giveItems(4408, 1);
 				else if (i0 < 40)

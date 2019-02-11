@@ -47,7 +47,7 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 		player.setCurrentSkillWorldPosition(new Location(_x, _y, _z));
 		
 		// normally magicskilluse packet turns char client side but for these skills, it doesn't (even with correct target)
-		player.setHeading(MathUtil.calculateHeadingFrom(player.getX(), player.getY(), _x, _y));
+		player.setHeading(MathUtil.INSTANCE.calculateHeadingFrom(player.getX(), player.getY(), _x, _y));
 		player.broadcastPacket(new ValidateLocation(player));
 		
 		player.useMagic(skill, _ctrlPressed, _shiftPressed);

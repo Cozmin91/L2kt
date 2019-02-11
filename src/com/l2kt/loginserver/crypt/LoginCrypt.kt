@@ -22,26 +22,26 @@ class LoginCrypt {
 
     @Throws(IOException::class)
     fun encrypt(raw: ByteArray, offset: Int, size: Int): Int {
-        var size = size
-        size += 4
+        var actualSize = size
+        actualSize += 4
 
         if (_static) {
             // reserve for XOR "key"
-            size += 4
+            actualSize += 4
 
             // padding
-            size += 8 - size % 8
-            NewCrypt.encXORPass(raw, offset, size, Rnd.nextInt())
-            _staticCrypt!!.crypt(raw, offset, size)
+            actualSize += 8 - actualSize % 8
+            NewCrypt.encXORPass(raw, offset, actualSize, Rnd.nextInt())
+            _staticCrypt!!.crypt(raw, offset, actualSize)
 
             _static = false
         } else {
             // padding
-            size += 8 - size % 8
-            NewCrypt.appendChecksum(raw, offset, size)
-            _crypt!!.crypt(raw, offset, size)
+            actualSize += 8 - actualSize % 8
+            NewCrypt.appendChecksum(raw, offset, actualSize)
+            _crypt!!.crypt(raw, offset, actualSize)
         }
-        return size
+        return actualSize
     }
 
     companion object {

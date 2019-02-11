@@ -1,16 +1,5 @@
 package com.l2kt.gameserver.instancemanager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ScheduledFuture;
-import java.util.logging.Logger;
-
 import com.l2kt.Config;
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.concurrent.ThreadPool;
@@ -39,6 +28,17 @@ import com.l2kt.gameserver.network.serverpackets.CreatureSay;
 import com.l2kt.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
 import com.l2kt.gameserver.templates.StatsSet;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
+import java.util.logging.Logger;
 
 public class SevenSignsFestival
 {
@@ -4220,17 +4220,17 @@ public class SevenSignsFestival
 					int x = _startLocation._x;
 					int y = _startLocation._y;
 					
-					isPositive = (Rnd.get(2) == 1);
+					isPositive = (Rnd.INSTANCE.get(2) == 1);
 					
 					if (isPositive)
 					{
-						x += Rnd.get(FESTIVAL_MAX_OFFSET_X);
-						y += Rnd.get(FESTIVAL_MAX_OFFSET_Y);
+						x += Rnd.INSTANCE.get(FESTIVAL_MAX_OFFSET_X);
+						y += Rnd.INSTANCE.get(FESTIVAL_MAX_OFFSET_Y);
 					}
 					else
 					{
-						x -= Rnd.get(FESTIVAL_MAX_OFFSET_X);
-						y -= Rnd.get(FESTIVAL_MAX_OFFSET_Y);
+						x -= Rnd.INSTANCE.get(FESTIVAL_MAX_OFFSET_X);
+						y -= Rnd.INSTANCE.get(FESTIVAL_MAX_OFFSET_Y);
 					}
 					
 					participant.getAI().setIntention(CtrlIntention.IDLE);
@@ -4259,7 +4259,7 @@ public class SevenSignsFestival
 				// Needed as doSpawn() is required to be called also for the NpcInstance it returns.
 				npcSpawn.setRespawnState(true);
 				
-				SpawnTable.getInstance().addNewSpawn(npcSpawn, false);
+				SpawnTable.INSTANCE.addNewSpawn(npcSpawn, false);
 				_witchInst = npcSpawn.doSpawn(false);
 			}
 			catch (Exception e)
@@ -4300,15 +4300,15 @@ public class SevenSignsFestival
 				int x = _startLocation._x;
 				int y = _startLocation._y;
 				
-				if (Rnd.nextBoolean())
+				if (Rnd.INSTANCE.nextBoolean())
 				{
-					x += Rnd.get(FESTIVAL_MAX_OFFSET_X);
-					y += Rnd.get(FESTIVAL_MAX_OFFSET_Y);
+					x += Rnd.INSTANCE.get(FESTIVAL_MAX_OFFSET_X);
+					y += Rnd.INSTANCE.get(FESTIVAL_MAX_OFFSET_Y);
 				}
 				else
 				{
-					x -= Rnd.get(FESTIVAL_MAX_OFFSET_X);
-					y -= Rnd.get(FESTIVAL_MAX_OFFSET_Y);
+					x -= Rnd.INSTANCE.get(FESTIVAL_MAX_OFFSET_X);
+					y -= Rnd.INSTANCE.get(FESTIVAL_MAX_OFFSET_Y);
 				}
 				
 				festivalMob.setRunning();
@@ -4361,11 +4361,11 @@ public class SevenSignsFestival
 					try
 					{
 						final L2Spawn npcSpawn = new L2Spawn(npcTemplate);
-						npcSpawn.setLoc(currSpawn._x, currSpawn._y, currSpawn._z, Rnd.get(65536));
+						npcSpawn.setLoc(currSpawn._x, currSpawn._y, currSpawn._z, Rnd.INSTANCE.get(65536));
 						npcSpawn.setRespawnDelay(respawnDelay);
 						npcSpawn.setRespawnState(true);
 						
-						SpawnTable.getInstance().addNewSpawn(npcSpawn, false);
+						SpawnTable.INSTANCE.addNewSpawn(npcSpawn, false);
 						FestivalMonster festivalMob = (FestivalMonster) npcSpawn.doSpawn(false);
 						
 						// Set the offering bonus to 2x or 5x the amount per kill, if this spawn is part of an increased challenge or is a festival chest.
@@ -4434,7 +4434,7 @@ public class SevenSignsFestival
 			{
 				_witchInst.getSpawn().setRespawnState(false);
 				_witchInst.deleteMe();
-				SpawnTable.getInstance().deleteSpawn(_witchInst.getSpawn(), false);
+				SpawnTable.INSTANCE.deleteSpawn(_witchInst.getSpawn(), false);
 			}
 			
 			if (_npcInsts != null)
@@ -4443,7 +4443,7 @@ public class SevenSignsFestival
 					{
 						monsterInst.getSpawn().setRespawnState(false);
 						monsterInst.deleteMe();
-						SpawnTable.getInstance().deleteSpawn(monsterInst.getSpawn(), false);
+						SpawnTable.INSTANCE.deleteSpawn(monsterInst.getSpawn(), false);
 					}
 		}
 		
@@ -4487,7 +4487,7 @@ public class SevenSignsFestival
 			_z = z;
 			
 			// Generate a random heading if no positive one given.
-			_heading = (heading < 0) ? Rnd.get(65536) : heading;
+			_heading = (heading < 0) ? Rnd.INSTANCE.get(65536) : heading;
 			
 			_npcId = -1;
 		}
@@ -4498,7 +4498,7 @@ public class SevenSignsFestival
 			_y = spawnData[1];
 			_z = spawnData[2];
 			
-			_heading = (spawnData[3] < 0) ? Rnd.get(65536) : spawnData[3];
+			_heading = (spawnData[3] < 0) ? Rnd.INSTANCE.get(65536) : spawnData[3];
 			
 			if (spawnData.length > 4)
 				_npcId = spawnData[4];

@@ -159,7 +159,7 @@ public class Servitor extends Summon
 		if (isPhoenixBlessed())
 			getOwner().reviveRequest(getOwner(), null, true);
 		
-		DecayTaskManager.getInstance().add(this, getTemplate().getCorpseTime());
+		DecayTaskManager.INSTANCE.add(this, getTemplate().getCorpseTime());
 		
 		if (_summonLifeTask != null)
 		{

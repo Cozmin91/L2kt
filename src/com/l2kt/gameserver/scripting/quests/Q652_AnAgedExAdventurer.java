@@ -74,11 +74,11 @@ public class Q652_AnAgedExAdventurer extends Quest
 		}
 		else if (event.equalsIgnoreCase("apparition_npc"))
 		{
-			int chance = Rnd.get(5);
+			int chance = Rnd.INSTANCE.get(5);
 			
 			// Loop to avoid to spawn to the same place.
 			while (chance == _currentPosition)
-				chance = Rnd.get(5);
+				chance = Rnd.INSTANCE.get(5);
 			
 			// Register new position.
 			_currentPosition = chance;
@@ -109,7 +109,7 @@ public class Q652_AnAgedExAdventurer extends Quest
 				switch (npc.getNpcId())
 				{
 					case SARA:
-						if (Rnd.get(100) < 50)
+						if (Rnd.INSTANCE.get(100) < 50)
 						{
 							htmltext = "30180-01.htm";
 							st.rewardItems(57, 5026);

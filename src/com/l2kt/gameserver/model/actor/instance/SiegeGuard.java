@@ -86,7 +86,7 @@ public final class SiegeGuard extends Attackable
 					player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
 					
 					// Send ActionFailed to the player in order to avoid he stucks
-					player.sendPacket(ActionFailed.STATIC_PACKET);
+					player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				}
 			}
 		}

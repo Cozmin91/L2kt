@@ -1,9 +1,7 @@
 package com.l2kt.gameserver.network.clientpackets;
 
-import java.util.StringTokenizer;
-import java.util.logging.Logger;
-
 import com.l2kt.Config;
+import com.l2kt.gameserver.communitybbs.CommunityBoard;
 import com.l2kt.gameserver.data.xml.AdminData;
 import com.l2kt.gameserver.handler.AdminCommandHandler;
 import com.l2kt.gameserver.handler.IAdminCommandHandler;
@@ -16,9 +14,11 @@ import com.l2kt.gameserver.model.entity.Hero;
 import com.l2kt.gameserver.model.olympiad.OlympiadManager;
 import com.l2kt.gameserver.network.FloodProtectors;
 import com.l2kt.gameserver.network.SystemMessageId;
-import com.l2kt.gameserver.communitybbs.CommunityBoard;
 import com.l2kt.gameserver.network.serverpackets.ActionFailed;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import java.util.StringTokenizer;
+import java.util.logging.Logger;
 
 public final class RequestBypassToServer extends L2GameClientPacket
 {
@@ -38,7 +38,7 @@ public final class RequestBypassToServer extends L2GameClientPacket
 		if (_command.isEmpty())
 			return;
 		
-		if (!FloodProtectors.performAction(getClient(), FloodProtectors.Action.SERVER_BYPASS))
+		if (!FloodProtectors.INSTANCE.performAction(getClient(), FloodProtectors.Action.SERVER_BYPASS))
 			return;
 		
 		final Player player = getClient().getActiveChar();
@@ -106,7 +106,7 @@ public final class RequestBypassToServer extends L2GameClientPacket
 				if (object != null && object instanceof Npc && endOfId > 0 && ((Npc) object).canInteract(player))
 					((Npc) object).onBypassFeedback(player, _command.substring(endOfId + 1));
 				
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 			catch (NumberFormatException nfe)
 			{

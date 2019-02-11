@@ -325,7 +325,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				if (target instanceof Player)
 				{
 					// Invalid pattern.
-					if (!StringUtil.isValidString(newName, "^[A-Za-z0-9]{3,16}$"))
+					if (!StringUtil.INSTANCE.isValidString(newName, "^[A-Za-z0-9]{3,16}$"))
 					{
 						activeChar.sendPacket(SystemMessageId.INCORRECT_NAME_TRY_AGAIN);
 						return false;
@@ -559,9 +559,9 @@ public class AdminEditChar implements IAdminCommandHandler
 			for (Player member : party.getMembers())
 			{
 				if (!party.isLeader(member))
-					StringUtil.append(sb, "<tr><td width=150><a action=\"bypass -h admin_character_info ", member.getName(), "\">", member.getName(), " (", member.getLevel(), ")</a></td><td width=120 align=right>", member.getClassId().toString(), "</td></tr>");
+					StringUtil.INSTANCE.append(sb, "<tr><td width=150><a action=\"bypass -h admin_character_info ", member.getName(), "\">", member.getName(), " (", member.getLevel(), ")</a></td><td width=120 align=right>", member.getClassId().toString(), "</td></tr>");
 				else
-					StringUtil.append(sb, "<tr><td width=150><a action=\"bypass -h admin_character_info ", member.getName(), "\"><font color=\"LEVEL\">", member.getName(), " (", member.getLevel(), ")</font></a></td><td width=120 align=right>", member.getClassId().toString(), "</td></tr>");
+					StringUtil.INSTANCE.append(sb, "<tr><td width=150><a action=\"bypass -h admin_character_info ", member.getName(), "\"><font color=\"LEVEL\">", member.getName(), " (", member.getLevel(), ")</font></a></td><td width=120 align=right>", member.getClassId().toString(), "</td></tr>");
 			}
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(0);
@@ -666,7 +666,7 @@ public class AdminEditChar implements IAdminCommandHandler
 	{
 		List<Player> players = new ArrayList<>(World.getInstance().getPlayers());
 		
-		final int max = MathUtil.countPagesNumber(players.size(), PAGE_LIMIT);
+		final int max = MathUtil.INSTANCE.countPagesNumber(players.size(), PAGE_LIMIT);
 		
 		players = players.subList((page - 1) * PAGE_LIMIT, Math.min(page * PAGE_LIMIT, players.size()));
 		
@@ -680,9 +680,9 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			final int pagenr = x + 1;
 			if (page == pagenr)
-				StringUtil.append(sb, pagenr, "&nbsp;");
+				StringUtil.INSTANCE.append(sb, pagenr, "&nbsp;");
 			else
-				StringUtil.append(sb, "<a action=\"bypass -h admin_show_characters ", pagenr, "\">", pagenr, "</a>&nbsp;");
+				StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h admin_show_characters ", pagenr, "\">", pagenr, "</a>&nbsp;");
 		}
 		html.replace("%pages%", sb.toString());
 		
@@ -691,7 +691,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		
 		// Second use of sb, add player info into new table row.
 		for (Player player : players)
-			StringUtil.append(sb, "<tr><td width=80><a action=\"bypass -h admin_character_info ", player.getName(), "\">", player.getName(), "</a></td><td width=110>", player.getTemplate().getClassName(), "</td><td width=40>", player.getLevel(), "</td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td width=80><a action=\"bypass -h admin_character_info ", player.getName(), "\">", player.getName(), "</a></td><td width=110>", player.getTemplate().getClassName(), "</td><td width=40>", player.getLevel(), "</td></tr>");
 		
 		html.replace("%players%", sb.toString());
 		activeChar.sendPacket(html);
@@ -751,7 +751,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		html.replace("%pkkills%", player.getPkKills());
 		html.replace("%currentload%", player.getCurrentLoad());
 		html.replace("%maxload%", player.getMaxLoad());
-		html.replace("%percent%", MathUtil.roundTo(((float) player.getCurrentLoad() / (float) player.getMaxLoad()) * 100, 2));
+		html.replace("%percent%", MathUtil.INSTANCE.roundTo(((float) player.getCurrentLoad() / (float) player.getMaxLoad()) * 100, 2));
 		html.replace("%patk%", player.getPAtk(null));
 		html.replace("%matk%", player.getMAtk(null, null));
 		html.replace("%pdef%", player.getPDef(null));
@@ -817,7 +817,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			if (name.toLowerCase().contains(characterToFind.toLowerCase()))
 			{
 				charactersFound++;
-				StringUtil.append(sb, "<tr><td width=80><a action=\"bypass -h admin_character_info ", name, "\">", name, "</a></td><td width=110>", player.getTemplate().getClassName(), "</td><td width=40>", player.getLevel(), "</td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td width=80><a action=\"bypass -h admin_character_info ", name, "\">", name, "</a></td><td width=110>", player.getTemplate().getClassName(), "</td><td width=40>", player.getLevel(), "</td></tr>");
 			}
 			
 			if (charactersFound > 20)
@@ -890,7 +890,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			
 			String name = player.getName();
 			charactersFound++;
-			StringUtil.append(sb, "<tr><td width=80><a action=\"bypass -h admin_character_info ", name, "\">", name, "</a></td><td width=110>", player.getTemplate().getClassName(), "</td><td width=40>", player.getLevel(), "</td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td width=80><a action=\"bypass -h admin_character_info ", name, "\">", name, "</a></td><td width=110>", player.getTemplate().getClassName(), "</td><td width=40>", player.getLevel(), "</td></tr>");
 			
 			if (charactersFound > 20)
 				break;
@@ -986,7 +986,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		
 		final StringBuilder sb = new StringBuilder();
 		for (String dualboxIP : keys)
-			StringUtil.append(sb, "<a action=\"bypass -h admin_find_ip ", dualboxIP, "\">", dualboxIP, " (", dualboxIPs.get(dualboxIP), ")</a><br1>");
+			StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h admin_find_ip ", dualboxIP, "\">", dualboxIP, " (", dualboxIPs.get(dualboxIP), ")</a><br1>");
 		
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setFile("data/html/admin/dualbox.htm");

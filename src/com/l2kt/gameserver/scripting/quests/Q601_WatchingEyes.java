@@ -74,7 +74,7 @@ public class Q601_WatchingEyes extends Quest
 		{
 			st.takeItems(PROOF_OF_AVENGER, -1);
 			
-			final int random = Rnd.get(100);
+			final int random = Rnd.INSTANCE.get(100);
 			for (int[] element : REWARDS)
 			{
 				if (random < element[2])

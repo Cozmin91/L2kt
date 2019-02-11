@@ -376,8 +376,8 @@ public class AttackableAI extends CreatureAI implements Runnable
 				
 				if (npc.getPlanDistanceSq(master.getX(), master.getY()) > offset * offset)
 				{
-					int x1 = Rnd.get(minRadius * 2, offset * 2); // x
-					int y1 = Rnd.get(x1, offset * 2); // distance
+					int x1 = Rnd.INSTANCE.get(minRadius * 2, offset * 2); // x
+					int y1 = Rnd.INSTANCE.get(x1, offset * 2); // distance
 					
 					y1 = (int) Math.sqrt(y1 * y1 - x1 * x1); // y
 					
@@ -404,7 +404,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 				return;
 			
 			// Random walk otherwise.
-			if (npc.getSpawn() != null && !npc.isNoRndWalk() && Rnd.get(RANDOM_WALK_RATE) == 0)
+			if (npc.getSpawn() != null && !npc.isNoRndWalk() && Rnd.INSTANCE.get(RANDOM_WALK_RATE) == 0)
 			{
 				int x1 = npc.getSpawn().getLocX();
 				int y1 = npc.getSpawn().getLocY();
@@ -412,8 +412,8 @@ public class AttackableAI extends CreatureAI implements Runnable
 				
 				final int range = Config.MAX_DRIFT_RANGE;
 				
-				x1 = Rnd.get(range * 2); // x
-				y1 = Rnd.get(x1, range * 2); // distance
+				x1 = Rnd.INSTANCE.get(range * 2); // x
+				y1 = Rnd.INSTANCE.get(x1, range * 2); // distance
 				y1 = (int) Math.sqrt(y1 * y1 - x1 * x1); // y
 				x1 += npc.getSpawn().getLocX() - range;
 				y1 += npc.getSpawn().getLocY() - range;
@@ -444,7 +444,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 		Creature attackTarget = npc.getMostHated();
 		
 		// If target doesn't exist, is too far or if timeout is expired.
-		if (attackTarget == null || _attackTimeout < System.currentTimeMillis() || MathUtil.calculateDistance(npc, attackTarget, true) > 2000)
+		if (attackTarget == null || _attackTimeout < System.currentTimeMillis() || MathUtil.INSTANCE.calculateDistance(npc, attackTarget, true) > 2000)
 		{
 			// Stop hating this target after the attack timeout or if target is dead
 			npc.stopHating(attackTarget);
@@ -499,7 +499,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 			defaultList = npc.getTemplate().getSkills(SkillType.SUICIDE);
 			if (!defaultList.isEmpty() && (npc.getCurrentHp() / npc.getMaxHp() < 0.15))
 			{
-				final L2Skill skill = Rnd.get(defaultList);
+				final L2Skill skill = Rnd.INSTANCE.get(defaultList);
 				if (cast(skill, dist, range + skill.getSkillRadius()))
 					return;
 			}
@@ -522,7 +522,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 							continue;
 						
 						final int overallRange = (int) (sk.getCastRange() + actorCollision + master.getCollisionRadius());
-						if (!MathUtil.checkIfInRange(overallRange, npc, master, false) && sk.getTargetType() != L2Skill.SkillTargetType.TARGET_PARTY && !npc.isMovementDisabled())
+						if (!MathUtil.INSTANCE.checkIfInRange(overallRange, npc, master, false) && sk.getTargetType() != L2Skill.SkillTargetType.TARGET_PARTY && !npc.isMovementDisabled())
 						{
 							moveToPawn(master, overallRange);
 							return;
@@ -616,7 +616,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 			// -------------------------------------------------------------------------------
 			// Debuff - 10% luck to get debuffed.
 			defaultList = npc.getTemplate().getSkills(SkillType.DEBUFF);
-			if (Rnd.get(100) < 10 && !defaultList.isEmpty())
+			if (Rnd.INSTANCE.get(100) < 10 && !defaultList.isEmpty())
 			{
 				for (L2Skill sk : defaultList)
 				{
@@ -640,7 +640,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 			defaultList = npc.getTemplate().getSkills(SkillType.SHORT_RANGE);
 			if (!defaultList.isEmpty() && dist <= 150)
 			{
-				final L2Skill skill = Rnd.get(defaultList);
+				final L2Skill skill = Rnd.INSTANCE.get(defaultList);
 				if (cast(skill, dist, skill.getCastRange()))
 					return;
 			}
@@ -649,7 +649,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 				defaultList = npc.getTemplate().getSkills(SkillType.LONG_RANGE);
 				if (!defaultList.isEmpty() && dist > 150)
 				{
-					final L2Skill skill = Rnd.get(defaultList);
+					final L2Skill skill = Rnd.INSTANCE.get(defaultList);
 					if (cast(skill, dist, skill.getCastRange()))
 						return;
 				}
@@ -682,20 +682,20 @@ public class AttackableAI extends CreatureAI implements Runnable
 		 * In case many mobs are trying to hit from same place, move a bit, circling around the target
 		 */
 		
-		if (Rnd.get(100) <= 3)
+		if (Rnd.INSTANCE.get(100) <= 3)
 		{
 			for (Attackable nearby : npc.getKnownTypeInRadius(Attackable.class, actorCollision))
 			{
 				if (nearby != attackTarget)
 				{
-					int newX = combinedCollision + Rnd.get(40);
-					if (Rnd.nextBoolean())
+					int newX = combinedCollision + Rnd.INSTANCE.get(40);
+					if (Rnd.INSTANCE.nextBoolean())
 						newX = attackTarget.getX() + newX;
 					else
 						newX = attackTarget.getX() - newX;
 					
-					int newY = combinedCollision + Rnd.get(40);
-					if (Rnd.nextBoolean())
+					int newY = combinedCollision + Rnd.INSTANCE.get(40);
+					if (Rnd.INSTANCE.nextBoolean())
 						newY = attackTarget.getY() + newY;
 					else
 						newY = attackTarget.getY() - newY;
@@ -716,7 +716,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 		 * Test the flee possibility. Archers got 25% chance to flee.
 		 */
 		
-		if (npc.getTemplate().getAiType() == AIType.ARCHER && dist <= (60 + combinedCollision) && Rnd.get(4) > 1)
+		if (npc.getTemplate().getAiType() == AIType.ARCHER && dist <= (60 + combinedCollision) && Rnd.INSTANCE.get(4) > 1)
 		{
 			final int posX = npc.getX() + ((attackTarget.getX() < npc.getX()) ? 300 : -300);
 			final int posY = npc.getY() + ((attackTarget.getY() < npc.getY()) ? 300 : -300);
@@ -818,10 +818,10 @@ public class AttackableAI extends CreatureAI implements Runnable
 				if (sk.getTargetType() != L2Skill.SkillTargetType.TARGET_SELF)
 				{
 					final Attackable master = caster.getMaster();
-					if (master != null && !master.isDead() && Rnd.get(100) > (master.getCurrentHp() / master.getMaxHp() * 100))
+					if (master != null && !master.isDead() && Rnd.INSTANCE.get(100) > (master.getCurrentHp() / master.getMaxHp() * 100))
 					{
 						final int overallRange = (int) (sk.getCastRange() + caster.getCollisionRadius() + master.getCollisionRadius());
-						if (!MathUtil.checkIfInRange(overallRange, caster, master, false) && sk.getTargetType() != L2Skill.SkillTargetType.TARGET_PARTY && !caster.isMovementDisabled())
+						if (!MathUtil.INSTANCE.checkIfInRange(overallRange, caster, master, false) && sk.getTargetType() != L2Skill.SkillTargetType.TARGET_PARTY && !caster.isMovementDisabled())
 							moveToPawn(master, overallRange);
 						
 						if (GeoEngine.getInstance().canSeeTarget(caster, master))
@@ -836,7 +836,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 				
 				// Personal case.
 				double percentage = caster.getCurrentHp() / caster.getMaxHp() * 100;
-				if (Rnd.get(100) < (100 - percentage) / 3)
+				if (Rnd.INSTANCE.get(100) < (100 - percentage) / 3)
 				{
 					clientStopMoving(null);
 					caster.setTarget(caster);
@@ -855,7 +855,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 							continue;
 						
 						percentage = obj.getCurrentHp() / obj.getMaxHp() * 100;
-						if (Rnd.get(100) < (100 - percentage) / 10)
+						if (Rnd.INSTANCE.get(100) < (100 - percentage) / 10)
 						{
 							if (GeoEngine.getInstance().canSeeTarget(caster, obj))
 							{
@@ -875,7 +875,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 						if (!ArraysUtil.contains(caster.getTemplate().getClans(), obj.getTemplate().getClans()))
 							continue;
 						
-						if (obj.getCurrentHp() < obj.getMaxHp() && Rnd.get(100) <= 20)
+						if (obj.getCurrentHp() < obj.getMaxHp() && Rnd.INSTANCE.get(100) <= 20)
 						{
 							clientStopMoving(null);
 							caster.setTarget(caster);
@@ -1061,7 +1061,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 			case NEGATE:
 			{
 				// decrease cancel probability
-				if (Rnd.get(50) != 0)
+				if (Rnd.INSTANCE.get(50) != 0)
 					return true;
 				
 				if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_ONE)
@@ -1174,7 +1174,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 				if (getActiveChar().isPhysicalMuted())
 					return false;
 		}
-		return Rnd.get(100) < 10;
+		return Rnd.INSTANCE.get(100) < 10;
 	}
 	
 	/**
@@ -1271,7 +1271,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 		
 		// Choose a new victim, and make checks to see if it fits.
 		final Creature mostHated = actor.getMostHated();
-		final Creature victim = Rnd.get(actor.getHateList().stream().filter(v -> autoAttackCondition(v)).collect(Collectors.toList()));
+		final Creature victim = Rnd.INSTANCE.get(actor.getHateList().stream().filter(v -> autoAttackCondition(v)).collect(Collectors.toList()));
 		
 		if (victim != null && mostHated != victim)
 		{
@@ -1519,7 +1519,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 	
 	private boolean checkBuffAndSetBackTarget(WorldObject target)
 	{
-		if (Rnd.get(RANDOM_WALK_RATE) != 0)
+		if (Rnd.INSTANCE.get(RANDOM_WALK_RATE) != 0)
 			return false;
 		
 		for (L2Skill sk : getActiveChar().getTemplate().getSkills(SkillType.BUFF))

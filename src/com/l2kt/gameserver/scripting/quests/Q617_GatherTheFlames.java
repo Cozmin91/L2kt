@@ -102,7 +102,7 @@ public class Q617_GatherTheFlames extends Quest
 			{
 				htmltext = "31539-07.htm";
 				st.takeItems(TORCH, 1000);
-				st.giveItems(REWARD[Rnd.get(REWARD.length)], 1);
+				st.giveItems(REWARD[Rnd.INSTANCE.get(REWARD.length)], 1);
 			}
 		}
 		else if (event.equalsIgnoreCase("31539-08.htm"))
@@ -110,7 +110,7 @@ public class Q617_GatherTheFlames extends Quest
 			st.takeItems(TORCH, -1);
 			st.exitQuest(true);
 		}
-		else if (StringUtil.isDigit(event))
+		else if (StringUtil.INSTANCE.isDigit(event))
 		{
 			if (st.getQuestItemsCount(TORCH) >= 1200)
 			{

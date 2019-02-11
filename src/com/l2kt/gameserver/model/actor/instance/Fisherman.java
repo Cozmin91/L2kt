@@ -104,6 +104,6 @@ public class Fisherman extends Merchant
 		else
 			player.sendPacket(new AcquireSkillList(AcquireSkillType.FISHING, skills));
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 }

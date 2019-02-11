@@ -223,7 +223,7 @@ public class Q648_AnIceMerchantsDream extends Quest
 		else if (event.equalsIgnoreCase("32023-05.htm"))
 		{
 			if (st.getInt("exCond") == 0)
-				st.set("exCond", String.valueOf((Rnd.get(4) + 1) * 10));
+				st.set("exCond", String.valueOf((Rnd.INSTANCE.get(4) + 1) * 10));
 		}
 		else if (event.startsWith("32023-06-"))
 		{

@@ -86,7 +86,7 @@ public class OlympiadManagerNpc extends Folk
 		player.sendPacket(html);
 		
 		// Send a Server->Client ActionFailed to the Player in order to avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	@Override
@@ -214,23 +214,23 @@ public class OlympiadManagerNpc extends Folk
 					final StringBuilder sb = new StringBuilder(2000);
 					for (OlympiadGameTask task : OlympiadGameManager.getInstance().getOlympiadTasks())
 					{
-						StringUtil.append(sb, "<a action=\"bypass arenachange ", i, "\">Arena ", ++i, "&nbsp;");
+						StringUtil.INSTANCE.append(sb, "<a action=\"bypass arenachange ", i, "\">Arena ", ++i, "&nbsp;");
 						
 						if (task.isGameStarted())
 						{
 							if (task.isInTimerTime())
-								StringUtil.append(sb, "(&$907;)"); // Counting In Progress
+								StringUtil.INSTANCE.append(sb, "(&$907;)"); // Counting In Progress
 							else if (task.isBattleStarted())
-								StringUtil.append(sb, "(&$829;)"); // In Progress
+								StringUtil.INSTANCE.append(sb, "(&$829;)"); // In Progress
 							else
-								StringUtil.append(sb, "(&$908;)"); // Terminate
+								StringUtil.INSTANCE.append(sb, "(&$908;)"); // Terminate
 								
-							StringUtil.append(sb, "&nbsp;", task.getGame().getPlayerNames()[0], "&nbsp; : &nbsp;", task.getGame().getPlayerNames()[1]);
+							StringUtil.INSTANCE.append(sb, "&nbsp;", task.getGame().getPlayerNames()[0], "&nbsp; : &nbsp;", task.getGame().getPlayerNames()[1]);
 						}
 						else
-							StringUtil.append(sb, "(&$906;)</td><td>&nbsp;"); // Initial State
+							StringUtil.INSTANCE.append(sb, "(&$906;)</td><td>&nbsp;"); // Initial State
 							
-						StringUtil.append(sb, "</a><br>");
+						StringUtil.INSTANCE.append(sb, "</a><br>");
 					}
 					html.replace("%list%", sb.toString());
 					html.replace("%objectId%", getObjectId());

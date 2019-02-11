@@ -33,7 +33,7 @@ public class PartyMatchRoomList
 			if (_member == null)
 				continue;
 			
-			_member.sendPacket(ExClosePartyRoom.STATIC_PACKET);
+			_member.sendPacket(ExClosePartyRoom.Companion.getSTATIC_PACKET());
 			_member.sendPacket(SystemMessageId.PARTY_ROOM_DISBANDED);
 			
 			_member.setPartyRoom(0);

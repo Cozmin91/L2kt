@@ -55,7 +55,7 @@ public abstract class SpawnZoneType extends ZoneType
 	 */
 	public final Location getRandomLoc()
 	{
-		return Rnd.get(_locs);
+		return Rnd.INSTANCE.get(_locs);
 	}
 	
 	/**
@@ -63,6 +63,6 @@ public abstract class SpawnZoneType extends ZoneType
 	 */
 	public final Location getRandomChaoticLoc()
 	{
-		return Rnd.get((_chaoticLocs != null) ? _chaoticLocs : _locs);
+		return Rnd.INSTANCE.get((_chaoticLocs != null) ? _chaoticLocs : _locs);
 	}
 }

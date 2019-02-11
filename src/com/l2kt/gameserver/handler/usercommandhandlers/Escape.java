@@ -27,13 +27,13 @@ public class Escape implements IUserCommandHandler
 		
 		// Official timer 5 minutes, for GM 1 second
 		if (activeChar.isGM())
-			activeChar.doCast(SkillTable.getInstance().getInfo(2100, 1));
+			activeChar.doCast(SkillTable.INSTANCE.getInfo(2100, 1));
 		else
 		{
 			activeChar.sendPacket(new PlaySound("systemmsg_e.809"));
 			activeChar.sendPacket(SystemMessageId.STUCK_TRANSPORT_IN_FIVE_MINUTES);
 			
-			activeChar.doCast(SkillTable.getInstance().getInfo(2099, 1));
+			activeChar.doCast(SkillTable.INSTANCE.getInfo(2099, 1));
 		}
 		
 		return true;

@@ -115,8 +115,8 @@ public class Npc extends Creature
 		if (!hasRandomAnimation())
 			return;
 		
-		final int timer = (isMob()) ? Rnd.get(Config.MIN_MONSTER_ANIMATION, Config.MAX_MONSTER_ANIMATION) : Rnd.get(Config.MIN_NPC_ANIMATION, Config.MAX_NPC_ANIMATION);
-		RandomAnimationTaskManager.getInstance().add(this, timer);
+		final int timer = (isMob()) ? Rnd.INSTANCE.get(Config.MIN_MONSTER_ANIMATION, Config.MAX_MONSTER_ANIMATION) : Rnd.INSTANCE.get(Config.MIN_NPC_ANIMATION, Config.MAX_NPC_ANIMATION);
+		RandomAnimationTaskManager.INSTANCE.add(this, timer);
 	}
 	
 	/**
@@ -327,10 +327,10 @@ public class Npc extends Creature
 					player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
 					
 					// Send ActionFailed to the player in order to avoid he stucks
-					player.sendPacket(ActionFailed.STATIC_PACKET);
+					player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 					
 					if (hasRandomAnimation())
-						onRandomAnimation(Rnd.get(8));
+						onRandomAnimation(Rnd.INSTANCE.get(8));
 					
 					List<Quest> scripts = getTemplate().getEventQuests(EventType.QUEST_START);
 					if (scripts != null && !scripts.isEmpty())
@@ -362,7 +362,7 @@ public class Npc extends Creature
 				if (player.isInsideRadius(this, player.getPhysicalAttackRange(), false, false) && GeoEngine.getInstance().canSeeTarget(player, this))
 					player.getAI().setIntention(CtrlIntention.ATTACK, this);
 				else
-					player.sendPacket(ActionFailed.STATIC_PACKET);
+					player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 			else if (canInteract(player))
 			{
@@ -370,10 +370,10 @@ public class Npc extends Creature
 				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
 				
 				// Send ActionFailed to the player in order to avoid he stucks
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				
 				if (hasRandomAnimation())
-					onRandomAnimation(Rnd.get(8));
+					onRandomAnimation(Rnd.INSTANCE.get(8));
 				
 				List<Quest> scripts = getTemplate().getEventQuests(EventType.QUEST_START);
 				if (scripts != null && !scripts.isEmpty())
@@ -386,7 +386,7 @@ public class Npc extends Creature
 					showChatWindow(player);
 			}
 			else
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 	}
 	
@@ -523,11 +523,11 @@ public class Npc extends Creature
 			{
 				case 1:
 					player.sendPacket(SystemMessageId.SELECT_THE_ITEM_TO_BE_AUGMENTED);
-					player.sendPacket(ExShowVariationMakeWindow.STATIC_PACKET);
+					player.sendPacket(ExShowVariationMakeWindow.Companion.getSTATIC_PACKET());
 					break;
 				case 2:
 					player.sendPacket(SystemMessageId.SELECT_THE_ITEM_FROM_WHICH_YOU_WISH_TO_REMOVE_AUGMENTATION);
-					player.sendPacket(ExShowVariationCancelWindow.STATIC_PACKET);
+					player.sendPacket(ExShowVariationCancelWindow.Companion.getSTATIC_PACKET());
 					break;
 			}
 		}
@@ -604,7 +604,7 @@ public class Npc extends Creature
 			html.setHtml(Quest.getNoQuestMsg());
 			player.sendPacket(html);
 			
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -623,7 +623,7 @@ public class Npc extends Creature
 				html.setHtml(Quest.getTooMuchQuestsMsg());
 				player.sendPacket(html);
 				
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			
@@ -648,7 +648,7 @@ public class Npc extends Creature
 		
 		for (Quest q : quests)
 		{
-			StringUtil.append(sb, "<a action=\"bypass -h npc_%objectId%_Quest ", q.getName(), "\">[", q.getDescr());
+			StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h npc_%objectId%_Quest ", q.getName(), "\">[", q.getDescr());
 			
 			final QuestState qs = player.getQuestState(q.getName());
 			if (qs != null && qs.isStarted())
@@ -666,7 +666,7 @@ public class Npc extends Creature
 		html.replace("%objectId%", npc.getObjectId());
 		player.sendPacket(html);
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	@Override
@@ -684,7 +684,7 @@ public class Npc extends Creature
 			return null;
 		
 		// Get the weapon item equipped in the right hand of the L2Npc
-		final Item item = ItemTable.getInstance().getTemplate(weaponId);
+		final Item item = ItemTable.INSTANCE.getTemplate(weaponId);
 		if (!(item instanceof Weapon))
 			return null;
 		
@@ -706,7 +706,7 @@ public class Npc extends Creature
 			return null;
 		
 		// Return the item equipped in the left hand of the L2Npc
-		return ItemTable.getInstance().getTemplate(itemId);
+		return ItemTable.INSTANCE.getTemplate(itemId);
 	}
 	
 	/**
@@ -893,11 +893,11 @@ public class Npc extends Creature
 				
 				if (item.getItemId() == 4442 && item.getCustomType1() < lotoNumber)
 				{
-					StringUtil.append(sb, "<a action=\"bypass -h npc_%objectId%_Loto ", item.getObjectId(), "\">", item.getCustomType1(), " Event Number ");
+					StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h npc_%objectId%_Loto ", item.getObjectId(), "\">", item.getCustomType1(), " Event Number ");
 					
 					int[] numbers = LotteryManager.decodeNumbers(item.getEnchantLevel(), item.getCustomType2());
 					for (int i = 0; i < 5; i++)
-						StringUtil.append(sb, numbers[i], " ");
+						StringUtil.INSTANCE.append(sb, numbers[i], " ");
 					
 					int[] check = LotteryManager.checkTicket(item);
 					if (check[0] > 0)
@@ -917,7 +917,7 @@ public class Npc extends Creature
 								sb.append("- 4th Prize");
 								break;
 						}
-						StringUtil.append(sb, " ", check[1], "a.");
+						StringUtil.INSTANCE.append(sb, " ", check[1], "a.");
 					}
 					sb.append("</a><br>");
 				}
@@ -959,7 +959,7 @@ public class Npc extends Creature
 		player.sendPacket(html);
 		
 		// Send a Server->Client ActionFailed to the Player in order to avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	public void makeCPRecovery(Player player)
@@ -1039,7 +1039,7 @@ public class Npc extends Creature
 		{
 			if (buff.isMagicClassBuff() == player.isMageClass() && playerLevel >= buff.getLowerLevel() && playerLevel <= buff.getUpperLevel())
 			{
-				final L2Skill skill = SkillTable.getInstance().getInfo(buff.getSkillId(), buff.getSkillLevel());
+				final L2Skill skill = SkillTable.INSTANCE.getInfo(buff.getSkillId(), buff.getSkillLevel());
 				if (skill.getSkillType() == L2SkillType.SUMMON)
 					player.doCast(skill);
 				else
@@ -1064,7 +1064,7 @@ public class Npc extends Creature
 			html.setHtml(content);
 			player.sendPacket(html);
 			
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return true;
 		}
 		return false;
@@ -1101,7 +1101,7 @@ public class Npc extends Creature
 		html.replace("%objectId%", getObjectId());
 		player.sendPacket(html);
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	/**
@@ -1150,7 +1150,7 @@ public class Npc extends Creature
 		_currentEnchant = getTemplate().getEnchantEffect();
 		_currentCollisionHeight = getTemplate().getCollisionHeight();
 		_currentCollisionRadius = getTemplate().getCollisionRadius();
-		DecayTaskManager.getInstance().add(this, getTemplate().getCorpseTime());
+		DecayTaskManager.INSTANCE.add(this, getTemplate().getCorpseTime());
 		return true;
 	}
 	
@@ -1237,7 +1237,7 @@ public class Npc extends Creature
 	{
 		if (!isDecayed())
 		{
-			DecayTaskManager.getInstance().cancel(this);
+			DecayTaskManager.INSTANCE.cancel(this);
 			onDecay();
 		}
 	}
@@ -1376,7 +1376,7 @@ public class Npc extends Creature
 			if (_currentSsCount <= 0)
 				return;
 			
-			if (Rnd.get(100) > getTemplate().getSsRate())
+			if (Rnd.INSTANCE.get(100) > getTemplate().getSsRate())
 				return;
 			
 			_currentSsCount--;
@@ -1389,7 +1389,7 @@ public class Npc extends Creature
 			if (_currentSpsCount <= 0)
 				return;
 			
-			if (Rnd.get(100) > getTemplate().getSpsRate())
+			if (Rnd.INSTANCE.get(100) > getTemplate().getSpsRate())
 				return;
 			
 			_currentSpsCount--;
@@ -1435,7 +1435,7 @@ public class Npc extends Creature
 		html.replace("%script%", getScriptValue());
 		html.replace("%castle%", (getCastle() != null) ? getCastle().getName() : "none");
 		html.replace("%aggro%", getTemplate().getAggroRange());
-		html.replace("%corpse%", StringUtil.getTimeStamp(getTemplate().getCorpseTime()));
+		html.replace("%corpse%", StringUtil.INSTANCE.getTimeStamp(getTemplate().getCorpseTime()));
 		html.replace("%enchant%", getTemplate().getEnchantEffect());
 		html.replace("%hp%", (int) getCurrentHp());
 		html.replace("%hpmax%", getMaxHp());
@@ -1471,8 +1471,8 @@ public class Npc extends Creature
 			html.replace("%spawn%", getSpawn().getLoc().toString());
 			html.replace("%loc2d%", (int) Math.sqrt(getPlanDistanceSq(getSpawn().getLocX(), getSpawn().getLocY())));
 			html.replace("%loc3d%", (int) Math.sqrt(getDistanceSq(getSpawn().getLocX(), getSpawn().getLocY(), getSpawn().getLocZ())));
-			html.replace("%resp%", StringUtil.getTimeStamp(getSpawn().getRespawnDelay()));
-			html.replace("%rand_resp%", StringUtil.getTimeStamp(getSpawn().getRespawnRandom()));
+			html.replace("%resp%", StringUtil.INSTANCE.getTimeStamp(getSpawn().getRespawnDelay()));
+			html.replace("%rand_resp%", StringUtil.INSTANCE.getTimeStamp(getSpawn().getRespawnRandom()));
 		}
 		else
 		{

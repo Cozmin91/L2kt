@@ -75,16 +75,16 @@ class LoginClient(con: MMOConnection<LoginClient>) : MMOClient<MMOConnection<Log
     }
 
     override fun encrypt(buf: ByteBuffer, size: Int): Boolean {
-        var size = size
+        var actualSize = size
         val offset = buf.position()
         try {
-            size = _loginCrypt.encrypt(buf.array(), offset, size)
+            actualSize = _loginCrypt.encrypt(buf.array(), offset, actualSize)
         } catch (e: IOException) {
             e.printStackTrace()
             return false
         }
 
-        buf.position(offset + size)
+        buf.position(offset + actualSize)
         return true
     }
 

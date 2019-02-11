@@ -296,7 +296,7 @@ public class Q108_JumbleTumbleDiamondFuss extends Quest
 							st.giveItems(BAT_DIAGRAM, 1);
 						}
 						else if (cond == 11)
-							htmltext = (Rnd.nextBoolean()) ? "30522-02.htm" : "30522-04.htm";
+							htmltext = (Rnd.INSTANCE.nextBoolean()) ? "30522-02.htm" : "30522-04.htm";
 						else if (cond == 12)
 							htmltext = "30522-03.htm";
 						break;

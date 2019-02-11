@@ -110,13 +110,13 @@ public abstract class L2Effect
 		_template = template;
 		_effected = env.getTarget();
 		_effector = env.getCharacter();
-		_lambda = template.lambda;
-		_funcTemplates = template.funcTemplates;
-		_count = template.counter;
+		_lambda = template.getLambda();
+		_funcTemplates = template.getFuncTemplates();
+		_count = template.getCounter();
 		_totalCount = _count;
 		
 		// Support for retail herbs duration when _effected has a Summon
-		int temp = template.period;
+		int temp = template.getPeriod();
 		
 		if (_skill.getId() > 2277 && _skill.getId() < 2286)
 		{
@@ -128,14 +128,14 @@ public abstract class L2Effect
 			temp *= 2;
 		
 		_period = temp;
-		_abnormalEffect = template.abnormalEffect;
-		_stackType = template.stackType;
-		_stackOrder = template.stackOrder;
+		_abnormalEffect = template.getAbnormalEffect();
+		_stackType = template.getStackType();
+		_stackOrder = template.getStackOrder();
 		_periodStartTime = System.currentTimeMillis();
 		_periodFirstTime = 0;
-		_icon = template.icon;
-		_effectPower = template.effectPower;
-		_effectSkillType = template.effectType;
+		_icon = template.getIcon();
+		_effectPower = template.getEffectPower();
+		_effectSkillType = template.getEffectType();
 		
 		_isHerbEffect = _skill.getName().contains("Herb");
 	}

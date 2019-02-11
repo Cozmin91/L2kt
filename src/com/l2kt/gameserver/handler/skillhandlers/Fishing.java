@@ -77,8 +77,8 @@ public class Fishing implements ISkillHandler
 			return;
 		}
 		
-		final int rnd = Rnd.get(50) + 250;
-		final double radian = Math.toRadians(MathUtil.convertHeadingToDegree(player.getHeading()));
+		final int rnd = Rnd.INSTANCE.get(50) + 250;
+		final double radian = Math.toRadians(MathUtil.INSTANCE.convertHeadingToDegree(player.getHeading()));
 		
 		final int x = player.getX() + (int) (Math.cos(radian) * rnd);
 		final int y = player.getY() + (int) (Math.sin(radian) * rnd);

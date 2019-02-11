@@ -77,8 +77,8 @@ public class Q620_FourGoblets extends Quest
 		
 		if (event.equalsIgnoreCase("31452-05.htm"))
 		{
-			if (Rnd.nextBoolean())
-				htmltext = (Rnd.nextBoolean()) ? "31452-03.htm" : "31452-04.htm";
+			if (Rnd.INSTANCE.nextBoolean())
+				htmltext = (Rnd.INSTANCE.nextBoolean()) ? "31452-03.htm" : "31452-04.htm";
 		}
 		else if (event.equalsIgnoreCase("31452-06.htm"))
 		{
@@ -122,7 +122,7 @@ public class Q620_FourGoblets extends Quest
 				st.takeItems(SEALED_BOX, 1);
 				
 				if (!calculateBoxReward(st))
-					htmltext = (Rnd.nextBoolean()) ? "31454-09.htm" : "31454-10.htm";
+					htmltext = (Rnd.INSTANCE.nextBoolean()) ? "31454-09.htm" : "31454-10.htm";
 				else
 					htmltext = "31454-08.htm";
 			}
@@ -168,13 +168,13 @@ public class Q620_FourGoblets extends Quest
 				st.takeItems(SEALED_BOX, 1);
 				
 				if (!calculateBoxReward(st))
-					htmltext = (Rnd.nextBoolean()) ? "31919-04.htm" : "31919-05.htm";
+					htmltext = (Rnd.INSTANCE.nextBoolean()) ? "31919-04.htm" : "31919-05.htm";
 				else
 					htmltext = "31919-03.htm";
 			}
 		}
 		// If event is a simple digit, parse it to get an integer form, then test the reward list
-		else if (StringUtil.isDigit(event))
+		else if (StringUtil.INSTANCE.isDigit(event))
 		{
 			final int id = Integer.parseInt(event);
 			if (ArraysUtil.contains(RCP_REWARDS, id) && st.getQuestItemsCount(RELIC) >= 1000)
@@ -270,7 +270,7 @@ public class Q620_FourGoblets extends Quest
 	private static boolean calculateBoxReward(QuestState st)
 	{
 		boolean reward = false;
-		int rnd = Rnd.get(5);
+		int rnd = Rnd.INSTANCE.get(5);
 		
 		if (rnd == 0)
 		{
@@ -279,10 +279,10 @@ public class Q620_FourGoblets extends Quest
 		}
 		else if (rnd == 1)
 		{
-			if (Rnd.get(1000) < 848)
+			if (Rnd.INSTANCE.get(1000) < 848)
 			{
 				reward = true;
-				int i = Rnd.get(1000);
+				int i = Rnd.INSTANCE.get(1000);
 				
 				if (i < 43)
 					st.giveItems(1884, 42);
@@ -306,10 +306,10 @@ public class Q620_FourGoblets extends Quest
 					st.giveItems(4043, 1);
 			}
 			
-			if (Rnd.get(1000) < 323)
+			if (Rnd.INSTANCE.get(1000) < 323)
 			{
 				reward = true;
-				int i = Rnd.get(1000);
+				int i = Rnd.INSTANCE.get(1000);
 				
 				if (i < 335)
 					st.giveItems(1888, 1);
@@ -329,10 +329,10 @@ public class Q620_FourGoblets extends Quest
 		}
 		else if (rnd == 2)
 		{
-			if (Rnd.get(1000) < 847)
+			if (Rnd.INSTANCE.get(1000) < 847)
 			{
 				reward = true;
-				int i = Rnd.get(1000);
+				int i = Rnd.INSTANCE.get(1000);
 				
 				if (i < 148)
 					st.giveItems(1878, 8);
@@ -356,10 +356,10 @@ public class Q620_FourGoblets extends Quest
 					st.giveItems(4044, 1);
 			}
 			
-			if (Rnd.get(1000) < 251)
+			if (Rnd.INSTANCE.get(1000) < 251)
 			{
 				reward = true;
-				int i = Rnd.get(1000);
+				int i = Rnd.INSTANCE.get(1000);
 				
 				if (i < 350)
 					st.giveItems(1887, 1);
@@ -379,10 +379,10 @@ public class Q620_FourGoblets extends Quest
 		}
 		else if (rnd == 3)
 		{
-			if (Rnd.get(1000) < 31)
+			if (Rnd.INSTANCE.get(1000) < 31)
 			{
 				reward = true;
-				int i = Rnd.get(1000);
+				int i = Rnd.INSTANCE.get(1000);
 				
 				if (i < 223)
 					st.giveItems(730, 1);
@@ -392,10 +392,10 @@ public class Q620_FourGoblets extends Quest
 					st.giveItems(960, 1);
 			}
 			
-			if (Rnd.get(1000) < 5)
+			if (Rnd.INSTANCE.get(1000) < 5)
 			{
 				reward = true;
-				int i = Rnd.get(1000);
+				int i = Rnd.INSTANCE.get(1000);
 				
 				if (i < 202)
 					st.giveItems(729, 1);
@@ -407,10 +407,10 @@ public class Q620_FourGoblets extends Quest
 		}
 		else if (rnd == 4)
 		{
-			if (Rnd.get(1000) < 329)
+			if (Rnd.INSTANCE.get(1000) < 329)
 			{
 				reward = true;
-				int i = Rnd.get(1000);
+				int i = Rnd.INSTANCE.get(1000);
 				
 				if (i < 88)
 					st.giveItems(6698, 1);
@@ -448,10 +448,10 @@ public class Q620_FourGoblets extends Quest
 					st.giveItems(6714, 1);
 			}
 			
-			if (Rnd.get(1000) < 54)
+			if (Rnd.INSTANCE.get(1000) < 54)
 			{
 				reward = true;
-				int i = Rnd.get(1000);
+				int i = Rnd.INSTANCE.get(1000);
 				
 				if (i < 100)
 					st.giveItems(6688, 1);

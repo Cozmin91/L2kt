@@ -46,20 +46,20 @@ public final class RequestMoveToLocationInVehicle extends L2GameClientPacket
 		
 		if (activeChar.isAttackingNow() && activeChar.getAttackType() == WeaponType.BOW)
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			activeChar.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		if (activeChar.isSitting() || activeChar.isMovementDisabled())
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			activeChar.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		if (activeChar.getPet() != null)
 		{
 			activeChar.sendPacket(SystemMessageId.RELEASE_PET_ON_BOAT);
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			activeChar.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -69,7 +69,7 @@ public final class RequestMoveToLocationInVehicle extends L2GameClientPacket
 			boat = activeChar.getBoat();
 			if (boat.getObjectId() != _boatId)
 			{
-				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				activeChar.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 		}
@@ -78,7 +78,7 @@ public final class RequestMoveToLocationInVehicle extends L2GameClientPacket
 			boat = BoatManager.getInstance().getBoat(_boatId);
 			if (boat == null || !boat.isInsideRadius(activeChar, 300, true, false))
 			{
-				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+				activeChar.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			activeChar.setBoat(boat);

@@ -106,7 +106,7 @@ class Shutdown : Thread {
             ServerMemoTable.getInstance().storeMe()
             LOGGER.info("ServerMemo data has been saved.")
 
-            ItemsOnGroundTaskManager.getInstance().save()
+            ItemsOnGroundTaskManager.save()
 
             try {
                 Thread.sleep(5000)

@@ -79,7 +79,7 @@ public abstract class Playable extends Creature
 			if (isAutoAttackable(player) && player.isInsideRadius(this, player.getPhysicalAttackRange(), false, false) && GeoEngine.getInstance().canSeeTarget(player, this))
 				player.getAI().setIntention(CtrlIntention.ATTACK, this);
 			else
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 	}
 	

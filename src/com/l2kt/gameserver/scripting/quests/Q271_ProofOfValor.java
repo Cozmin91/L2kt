@@ -78,7 +78,7 @@ public class Q271_ProofOfValor extends Quest
 				{
 					htmltext = "30577-05.htm";
 					st.takeItems(KASHA_WOLF_FANG, -1);
-					st.giveItems((Rnd.get(100) < 10) ? NECKLACE_OF_VALOR : NECKLACE_OF_COURAGE, 1);
+					st.giveItems((Rnd.INSTANCE.get(100) < 10) ? NECKLACE_OF_VALOR : NECKLACE_OF_COURAGE, 1);
 					st.playSound(QuestState.SOUND_FINISH);
 					st.exitQuest(true);
 				}
@@ -97,7 +97,7 @@ public class Q271_ProofOfValor extends Quest
 		if (st == null)
 			return null;
 		
-		if (st.dropItemsAlways(KASHA_WOLF_FANG, (Rnd.get(4) == 0) ? 2 : 1, 50))
+		if (st.dropItemsAlways(KASHA_WOLF_FANG, (Rnd.INSTANCE.get(4) == 0) ? 2 : 1, 50))
 			st.set("cond", "2");
 		
 		return null;

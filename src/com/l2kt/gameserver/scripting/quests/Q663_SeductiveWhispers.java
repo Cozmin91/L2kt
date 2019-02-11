@@ -161,8 +161,8 @@ public class Q663_SeductiveWhispers extends Quest
 			int i1 = i0 % 10;
 			int i2 = (i0 - i1) / 10;
 			
-			int param1 = Rnd.get(2) + 1;
-			int param2 = Rnd.get(5) + 1;
+			int param1 = Rnd.INSTANCE.get(2) + 1;
+			int param2 = Rnd.INSTANCE.get(5) + 1;
 			
 			int i5 = state / 10;
 			
@@ -230,8 +230,8 @@ public class Q663_SeductiveWhispers extends Quest
 			int i1 = i0 % 10;
 			int i2 = (i0 - i1) / 10;
 			
-			int param1 = Rnd.get(2) + 1;
-			int param2 = Rnd.get(5) + 1;
+			int param1 = Rnd.INSTANCE.get(2) + 1;
+			int param2 = Rnd.INSTANCE.get(5) + 1;
 			int param3 = param1 * 10 + param2;
 			
 			if (param1 == i2)
@@ -292,12 +292,12 @@ public class Q663_SeductiveWhispers extends Quest
 			else if (round == 4)
 			{
 				st.rewardItems(ADENA, 388000);
-				st.rewardItems(RECIPES[Rnd.get(RECIPES.length)], 1);
+				st.rewardItems(RECIPES[Rnd.INSTANCE.get(RECIPES.length)], 1);
 			}
 			else if (round == 5)
 			{
 				st.rewardItems(ADENA, 675000);
-				st.rewardItems(BLADES[Rnd.get(BLADES.length)], 1);
+				st.rewardItems(BLADES[Rnd.INSTANCE.get(BLADES.length)], 1);
 			}
 			else if (round == 6)
 			{
@@ -328,8 +328,8 @@ public class Q663_SeductiveWhispers extends Quest
 			int i1 = i0 % 10;
 			int i2 = (i0 - i1) / 10;
 			
-			int param1 = Rnd.get(2) + 1;
-			int param2 = Rnd.get(5) + 1;
+			int param1 = Rnd.INSTANCE.get(2) + 1;
+			int param2 = Rnd.INSTANCE.get(5) + 1;
 			int param3 = param1 * 10 + param2;
 			
 			if (param1 == i2)
@@ -374,8 +374,8 @@ public class Q663_SeductiveWhispers extends Quest
 			int i1 = i0 % 10;
 			int i2 = (i0 - i1) / 10;
 			
-			int param1 = Rnd.get(2) + 1;
-			int param2 = Rnd.get(5) + 1;
+			int param1 = Rnd.INSTANCE.get(2) + 1;
+			int param2 = Rnd.INSTANCE.get(5) + 1;
 			int param3 = param1 * 10 + param2;
 			
 			if (param1 == i2)

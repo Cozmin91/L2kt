@@ -1,66 +1,27 @@
 package com.l2kt.gameserver.skills;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.l2kt.gameserver.model.ChanceCondition;
 import com.l2kt.gameserver.model.L2Skill;
 import com.l2kt.gameserver.model.base.ClassRace;
 import com.l2kt.gameserver.model.item.kind.Item;
 import com.l2kt.gameserver.model.item.type.ArmorType;
 import com.l2kt.gameserver.model.item.type.WeaponType;
-import com.l2kt.gameserver.skills.basefuncs.FuncTemplate;
-import com.l2kt.gameserver.skills.basefuncs.Lambda;
-import com.l2kt.gameserver.skills.basefuncs.LambdaCalc;
-import com.l2kt.gameserver.skills.basefuncs.LambdaConst;
-import com.l2kt.gameserver.skills.basefuncs.LambdaStats;
-import com.l2kt.gameserver.skills.conditions.Condition;
-import com.l2kt.gameserver.skills.conditions.ConditionElementSeed;
-import com.l2kt.gameserver.skills.conditions.ConditionForceBuff;
-import com.l2kt.gameserver.skills.conditions.ConditionGameTime;
-import com.l2kt.gameserver.skills.conditions.ConditionLogicAnd;
-import com.l2kt.gameserver.skills.conditions.ConditionLogicNot;
-import com.l2kt.gameserver.skills.conditions.ConditionLogicOr;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerActiveEffectId;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerActiveSkillId;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerCharges;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerHasCastle;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerHasClanHall;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerHp;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerHpPercentage;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerInvSize;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerIsHero;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerLevel;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerMp;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerPkCount;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerPledgeClass;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerRace;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerSex;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerState;
+import com.l2kt.gameserver.skills.basefuncs.*;
+import com.l2kt.gameserver.skills.conditions.*;
 import com.l2kt.gameserver.skills.conditions.ConditionPlayerState.PlayerState;
-import com.l2kt.gameserver.skills.conditions.ConditionPlayerWeight;
-import com.l2kt.gameserver.skills.conditions.ConditionSkillStats;
-import com.l2kt.gameserver.skills.conditions.ConditionTargetActiveSkillId;
-import com.l2kt.gameserver.skills.conditions.ConditionTargetHpMinMax;
-import com.l2kt.gameserver.skills.conditions.ConditionTargetNpcId;
-import com.l2kt.gameserver.skills.conditions.ConditionTargetRaceId;
-import com.l2kt.gameserver.skills.conditions.ConditionUsingItemType;
 import com.l2kt.gameserver.skills.effects.EffectChanceSkillTrigger;
 import com.l2kt.gameserver.skills.effects.EffectTemplate;
 import com.l2kt.gameserver.templates.StatsSet;
 import com.l2kt.gameserver.templates.skills.L2SkillType;
 import com.l2kt.gameserver.xmlfactory.XMLDocumentFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import java.io.File;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author mkizub
@@ -83,7 +44,7 @@ abstract class DocumentBase
 		Document doc;
 		try
 		{
-			doc = XMLDocumentFactory.getInstance().loadDocument(_file);
+			doc = XMLDocumentFactory.INSTANCE.loadDocument(_file);
 		}
 		catch (Exception e)
 		{
@@ -353,7 +314,7 @@ abstract class DocumentBase
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 			
-		if (cond.conditions == null || cond.conditions.length == 0)
+		if (cond.getConditions() == null || cond.getConditions().size() == 0)
 			_log.severe("Empty <and> condition in " + _file);
 		
 		return cond;
@@ -366,7 +327,7 @@ abstract class DocumentBase
 			if (n.getNodeType() == Node.ELEMENT_NODE)
 				cond.add(parseCondition(n, template));
 			
-		if (cond.conditions == null || cond.conditions.length == 0)
+		if (cond.getConditions() == null || cond.getConditions().size() == 0)
 			_log.severe("Empty <or> condition in " + _file);
 		
 		return cond;

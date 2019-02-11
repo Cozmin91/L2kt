@@ -370,7 +370,7 @@ public class Q416_PathToAnOrcShaman extends Quest
 				if (cond == 9)
 				{
 					final int count = st.getQuestItemsCount(DURKA_PARASITE);
-					final int rnd = Rnd.get(10);
+					final int rnd = Rnd.INSTANCE.get(10);
 					if ((count == 5 && rnd < 1) || ((count == 6 || count == 7) && rnd < 2) || count >= 8)
 					{
 						st.playSound(QuestState.SOUND_BEFORE_BATTLE);
@@ -401,7 +401,7 @@ public class Q416_PathToAnOrcShaman extends Quest
 						st.set("cond", "15");
 						st.playSound(QuestState.SOUND_MIDDLE);
 						
-						if (Rnd.get(3) < 2)
+						if (Rnd.INSTANCE.get(3) < 2)
 							npc.broadcastNpcSay("My dear friend of " + player.getName() + ", who has gone on ahead of me!");
 					}
 					else
@@ -412,7 +412,7 @@ public class Q416_PathToAnOrcShaman extends Quest
 					st.set("cond", "17");
 					st.playSound(QuestState.SOUND_MIDDLE);
 					
-					if (Rnd.get(3) < 2)
+					if (Rnd.INSTANCE.get(3) < 2)
 						npc.broadcastNpcSay("Listen to Tejakar Gandi, young Oroka! The spirit of the slain leopard is calling you, " + player.getName() + "!");
 				}
 				else if (cond == 18)

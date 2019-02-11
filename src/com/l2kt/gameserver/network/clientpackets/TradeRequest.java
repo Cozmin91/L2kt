@@ -86,7 +86,7 @@ public final class TradeRequest extends L2GameClientPacket
 			return;
 		}
 		
-		if (MathUtil.calculateDistance(player, target, true) > Npc.INTERACTION_DISTANCE)
+		if (MathUtil.INSTANCE.calculateDistance(player, target, true) > Npc.INTERACTION_DISTANCE)
 		{
 			player.sendPacket(SystemMessageId.TARGET_TOO_FAR);
 			return;

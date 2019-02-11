@@ -185,22 +185,22 @@ public class Valakas extends L2AttackableAIScript
 			}
 			
 			// Regeneration buff.
-			if (Rnd.get(30) == 0)
+			if (Rnd.INSTANCE.get(30) == 0)
 			{
 				L2Skill skillRegen;
 				final double hpRatio = npc.getCurrentHp() / npc.getMaxHp();
 				
 				// Current HPs are inferior to 25% ; apply lvl 4 of regen skill.
 				if (hpRatio < 0.25)
-					skillRegen = SkillTable.getInstance().getInfo(4691, 4);
+					skillRegen = SkillTable.INSTANCE.getInfo(4691, 4);
 				// Current HPs are inferior to 50% ; apply lvl 3 of regen skill.
 				else if (hpRatio < 0.5)
-					skillRegen = SkillTable.getInstance().getInfo(4691, 3);
+					skillRegen = SkillTable.INSTANCE.getInfo(4691, 3);
 				// Current HPs are inferior to 75% ; apply lvl 2 of regen skill.
 				else if (hpRatio < 0.75)
-					skillRegen = SkillTable.getInstance().getInfo(4691, 2);
+					skillRegen = SkillTable.INSTANCE.getInfo(4691, 2);
 				else
-					skillRegen = SkillTable.getInstance().getInfo(4691, 1);
+					skillRegen = SkillTable.INSTANCE.getInfo(4691, 1);
 				
 				skillRegen.getEffects(npc, npc);
 			}
@@ -312,7 +312,7 @@ public class Valakas extends L2AttackableAIScript
 		
 		GrandBossManager.getInstance().setBossStatus(VALAKAS, DEAD);
 		
-		long respawnTime = (long) Config.SPAWN_INTERVAL_VALAKAS + Rnd.get(-Config.RANDOM_SPAWN_TIME_VALAKAS, Config.RANDOM_SPAWN_TIME_VALAKAS);
+		long respawnTime = (long) Config.SPAWN_INTERVAL_VALAKAS + Rnd.INSTANCE.get(-Config.RANDOM_SPAWN_TIME_VALAKAS, Config.RANDOM_SPAWN_TIME_VALAKAS);
 		respawnTime *= 3600000;
 		
 		startQuestTimer("valakas_unlock", respawnTime, null, null, false);
@@ -337,20 +337,20 @@ public class Valakas extends L2AttackableAIScript
 			return;
 		
 		// Pickup a target if no or dead victim. 10% luck he decides to reconsiders his target.
-		if (_actualVictim == null || _actualVictim.isDead() || !(npc.getKnownType(Player.class).contains(_actualVictim)) || Rnd.get(10) == 0)
+		if (_actualVictim == null || _actualVictim.isDead() || !(npc.getKnownType(Player.class).contains(_actualVictim)) || Rnd.INSTANCE.get(10) == 0)
 			_actualVictim = getRandomPlayer(npc);
 		
 		// If result is still null, Valakas will roam. Don't go deeper in skill AI.
 		if (_actualVictim == null)
 		{
-			if (Rnd.get(10) == 0)
+			if (Rnd.INSTANCE.get(10) == 0)
 			{
 				int x = npc.getX();
 				int y = npc.getY();
 				int z = npc.getZ();
 				
-				int posX = x + Rnd.get(-1400, 1400);
-				int posY = y + Rnd.get(-1400, 1400);
+				int posX = x + Rnd.INSTANCE.get(-1400, 1400);
+				int posY = y + Rnd.INSTANCE.get(-1400, 1400);
 				
 				if (GeoEngine.getInstance().canMoveToTarget(x, y, z, posX, posY, z))
 					npc.getAI().setIntention(CtrlIntention.MOVE_TO, new Location(posX, posY, z));
@@ -358,10 +358,10 @@ public class Valakas extends L2AttackableAIScript
 			return;
 		}
 		
-		final L2Skill skill = SkillTable.getInstance().getInfo(getRandomSkill(npc), 1);
+		final L2Skill skill = SkillTable.INSTANCE.getInfo(getRandomSkill(npc), 1);
 		
 		// Cast the skill or follow the target.
-		if (MathUtil.checkIfInRange((skill.getCastRange() < 600) ? 600 : skill.getCastRange(), npc, _actualVictim, true))
+		if (MathUtil.INSTANCE.checkIfInRange((skill.getCastRange() < 600) ? 600 : skill.getCastRange(), npc, _actualVictim, true))
 		{
 			npc.getAI().setIntention(CtrlIntention.IDLE);
 			npc.setTarget(_actualVictim);
@@ -383,10 +383,10 @@ public class Valakas extends L2AttackableAIScript
 		final double hpRatio = npc.getCurrentHp() / npc.getMaxHp();
 		
 		// Valakas Lava Skin is prioritary.
-		if (hpRatio < 0.25 && Rnd.get(1500) == 0 && npc.getFirstEffect(4680) == null)
+		if (hpRatio < 0.25 && Rnd.INSTANCE.get(1500) == 0 && npc.getFirstEffect(4680) == null)
 			return LAVA_SKIN;
 		
-		if (hpRatio < 0.5 && Rnd.get(60) == 0)
+		if (hpRatio < 0.5 && Rnd.INSTANCE.get(60) == 0)
 			return METEOR_SWARM;
 		
 		// Find enemies surrounding Valakas.
@@ -394,9 +394,9 @@ public class Valakas extends L2AttackableAIScript
 		
 		// Behind position got more ppl than front position, use behind aura skill.
 		if (playersAround[1] > playersAround[0])
-			return BEHIND_SKILLS[Rnd.get(BEHIND_SKILLS.length)];
+			return BEHIND_SKILLS[Rnd.INSTANCE.get(BEHIND_SKILLS.length)];
 		
 		// Use front aura skill.
-		return FRONT_SKILLS[Rnd.get(FRONT_SKILLS.length)];
+		return FRONT_SKILLS[Rnd.INSTANCE.get(FRONT_SKILLS.length)];
 	}
 }

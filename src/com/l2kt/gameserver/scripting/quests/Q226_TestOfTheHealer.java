@@ -237,7 +237,7 @@ public class Q226_TestOfTheHealer extends Quest
 						break;
 					
 					case ORPHAN_GIRL:
-						htmltext = "30659-0" + Rnd.get(1, 5) + ".htm";
+						htmltext = "30659-0" + Rnd.INSTANCE.get(1, 5) + ".htm";
 						break;
 					
 					case ALLANA:

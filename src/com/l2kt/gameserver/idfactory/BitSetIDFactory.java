@@ -38,7 +38,7 @@ public class BitSetIDFactory extends IdFactory
 	{
 		try
 		{
-			_freeIds = new BitSet(PrimeFinder.nextPrime(100000));
+			_freeIds = new BitSet(PrimeFinder.INSTANCE.nextPrime(100000));
 			_freeIds.clear();
 			_freeIdCount = new AtomicInteger(FREE_OBJECT_ID_SIZE);
 			
@@ -116,12 +116,12 @@ public class BitSetIDFactory extends IdFactory
 	
 	protected synchronized boolean reachingBitSetCapacity()
 	{
-		return PrimeFinder.nextPrime(usedIdCount() * 11 / 10) > _freeIds.size();
+		return PrimeFinder.INSTANCE.nextPrime(usedIdCount() * 11 / 10) > _freeIds.size();
 	}
 	
 	protected synchronized void increaseBitSetCapacity()
 	{
-		BitSet newBitSet = new BitSet(PrimeFinder.nextPrime(usedIdCount() * 11 / 10));
+		BitSet newBitSet = new BitSet(PrimeFinder.INSTANCE.nextPrime(usedIdCount() * 11 / 10));
 		newBitSet.or(_freeIds);
 		_freeIds = newBitSet;
 	}

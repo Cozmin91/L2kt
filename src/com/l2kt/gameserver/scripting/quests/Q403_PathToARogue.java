@@ -187,7 +187,7 @@ public class Q403_PathToARogue extends Quest
 			case 27038:
 				if (st.getInt("cond") == 5)
 				{
-					final int randomItem = Rnd.get(STOLEN_JEWELRY, STOLEN_NECKLACE);
+					final int randomItem = Rnd.INSTANCE.get(STOLEN_JEWELRY, STOLEN_NECKLACE);
 					
 					if (!st.hasQuestItems(randomItem))
 					{

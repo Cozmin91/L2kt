@@ -26,7 +26,7 @@ public class PlayerAI extends PlayableAI
 	@Override
 	protected void clientActionFailed()
 	{
-		_actor.sendPacket(ActionFailed.STATIC_PACKET);
+		_actor.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	@Override
@@ -198,7 +198,7 @@ public class PlayerAI extends PlayableAI
 	@Override
 	public void startAttackStance()
 	{
-		if (!AttackStanceTaskManager.getInstance().isInAttackStance(_actor))
+		if (!AttackStanceTaskManager.INSTANCE.isInAttackStance(_actor))
 		{
 			final Summon summon = ((Player) _actor).getPet();
 			if (summon != null)
@@ -206,7 +206,7 @@ public class PlayerAI extends PlayableAI
 			
 			_actor.broadcastPacket(new AutoAttackStart(_actor.getObjectId()));
 		}
-		AttackStanceTaskManager.getInstance().add(_actor);
+		AttackStanceTaskManager.INSTANCE.add(_actor);
 	}
 	
 	private void thinkAttack()

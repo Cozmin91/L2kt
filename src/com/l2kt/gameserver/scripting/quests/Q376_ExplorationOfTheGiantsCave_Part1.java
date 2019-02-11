@@ -217,7 +217,7 @@ public class Q376_ExplorationOfTheGiantsCave_Part1 extends Quest
 				for (int book : BOOKS[type])
 					st.takeItems(book, 1);
 				
-				st.giveItems(RECIPES[type][Rnd.get(RECIPES[type].length)], 1);
+				st.giveItems(RECIPES[type][Rnd.INSTANCE.get(RECIPES[type].length)], 1);
 				return "31147-04.htm";
 			}
 		}

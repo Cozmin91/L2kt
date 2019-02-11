@@ -29,7 +29,7 @@ public class MovieMakerManager
 		{
 			final StringBuilder sb = new StringBuilder();
 			for (Sequence sequence : _sequences.values())
-				StringUtil.append(sb, "<tr><td>", sequence._sequenceId, ": (", sequence._dist, ", ", sequence._yaw, ", ", sequence._pitch, ", ", sequence._time, ", ", sequence._duration, ", ", sequence._turn, ", ", sequence._rise, ", ", sequence._widescreen, ")</td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td>", sequence._sequenceId, ": (", sequence._dist, ", ", sequence._yaw, ", ", sequence._pitch, ", ", sequence._time, ", ", sequence._duration, ", ", sequence._turn, ", ", sequence._rise, ", ", sequence._widescreen, ")</td></tr>");
 			
 			html.setFile("data/html/admin/movie/main_notempty.htm");
 			html.replace("%sequences%", sb.toString());

@@ -59,13 +59,13 @@ public class WarehouseKeeper extends Folk
 		if (player.getActiveEnchantItem() != null)
 		{
 			player.setActiveEnchantItem(null);
-			player.sendPacket(EnchantResult.CANCELLED);
+			player.sendPacket(EnchantResult.Companion.getCANCELLED());
 			player.sendPacket(SystemMessageId.ENCHANT_SCROLL_CANCELLED);
 		}
 		
 		if (command.startsWith("WithdrawP"))
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			player.setActiveWarehouse(player.getWarehouse());
 			
 			if (player.getActiveWarehouse().getSize() == 0)
@@ -78,7 +78,7 @@ public class WarehouseKeeper extends Folk
 		}
 		else if (command.equals("DepositP"))
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			player.setActiveWarehouse(player.getWarehouse());
 			player.tempInventoryDisable();
 			
@@ -86,7 +86,7 @@ public class WarehouseKeeper extends Folk
 		}
 		else if (command.equals("WithdrawC"))
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			if ((player.getClanPrivileges() & Clan.CP_CL_VIEW_WAREHOUSE) != Clan.CP_CL_VIEW_WAREHOUSE)
 			{
 				player.sendPacket(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE);
@@ -103,7 +103,7 @@ public class WarehouseKeeper extends Folk
 		}
 		else if (command.equals("DepositC"))
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			if (player.getClan() != null)
 			{
 				if (player.getClan().getLevel() == 0)
@@ -120,7 +120,7 @@ public class WarehouseKeeper extends Folk
 		{
 			if (Config.ALLOW_FREIGHT)
 			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				PcFreight freight = player.getFreight();
 				
 				if (freight != null)
@@ -154,7 +154,7 @@ public class WarehouseKeeper extends Folk
 					
 					if (chars.size() < 1)
 					{
-						player.sendPacket(ActionFailed.STATIC_PACKET);
+						player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 						return;
 					}
 					
@@ -168,7 +168,7 @@ public class WarehouseKeeper extends Folk
 			{
 				String id = command.substring(command.lastIndexOf("_") + 1);
 				
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				
 				PcFreight freight = player.getDepositedFreight(Integer.parseInt(id));
 				

@@ -341,7 +341,7 @@ public class Q373_SupplierOfReagents extends Quest
 					if (temperature[0] != tempIndex)
 						continue;
 					
-					if (Rnd.get(100) < temperature[1])
+					if (Rnd.INSTANCE.get(100) < temperature[1])
 					{
 						st.giveItems(formula[3], temperature[2]);
 						return "31149-12-" + formula[3] + ".htm";
@@ -393,7 +393,7 @@ public class Q373_SupplierOfReagents extends Quest
 			st.dropItems(drop[0], 1, 0, drop[1]);
 		else
 		{
-			final int random = Rnd.get(1000);
+			final int random = Rnd.INSTANCE.get(1000);
 			if (random < drop[3])
 				st.dropItemsAlways((random < drop[2]) ? drop[0] : drop[1], 1, 0);
 		}

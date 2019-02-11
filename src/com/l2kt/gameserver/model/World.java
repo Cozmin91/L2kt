@@ -1,17 +1,16 @@
 package com.l2kt.gameserver.model;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.l2kt.commons.logging.CLogger;
 import com.l2kt.gameserver.data.SpawnTable;
 import com.l2kt.gameserver.data.sql.PlayerInfoTable;
-
 import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.instance.Pet;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.location.Location;
+
+import java.util.Collection;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class World
 {
@@ -190,7 +189,7 @@ public final class World
 						if (spawn != null)
 						{
 							spawn.setRespawnState(false);
-							SpawnTable.getInstance().deleteSpawn(spawn, false);
+							SpawnTable.INSTANCE.deleteSpawn(spawn, false);
 						}
 					}
 				}

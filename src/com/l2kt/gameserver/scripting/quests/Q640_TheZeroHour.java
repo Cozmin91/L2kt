@@ -103,7 +103,7 @@ public class Q640_TheZeroHour extends Quest
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}
-		else if (StringUtil.isDigit(event))
+		else if (StringUtil.INSTANCE.isDigit(event))
 		{
 			int reward[] = REWARDS[Integer.parseInt(event)];
 			

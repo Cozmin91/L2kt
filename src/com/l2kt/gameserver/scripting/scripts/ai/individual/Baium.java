@@ -152,14 +152,14 @@ public class Baium extends L2AttackableAIScript
 				if (player != null)
 				{
 					// If player is far of Baium, teleport him back.
-					if (!MathUtil.checkIfInShortRadius(300, player, npc, true))
+					if (!MathUtil.INSTANCE.checkIfInShortRadius(300, player, npc, true))
 					{
 						BAIUM_LAIR.allowPlayerEntry(player, 10);
 						player.teleToLocation(115929, 17349, 10077, 0);
 					}
 					
 					// 60% to die.
-					if (Rnd.get(100) < 60)
+					if (Rnd.INSTANCE.get(100) < 60)
 						player.doDie(npc);
 				}
 			}
@@ -216,7 +216,7 @@ public class Baium extends L2AttackableAIScript
 				else if ((_timeTracker + 300000 < System.currentTimeMillis()) && (npc.getCurrentHp() / npc.getMaxHp() < 0.75))
 				{
 					npc.setTarget(npc);
-					npc.doCast(SkillTable.getInstance().getInfo(4135, 1));
+					npc.doCast(SkillTable.INSTANCE.getInfo(4135, 1));
 				}
 				else if (!BAIUM_LAIR.isInsideZone(npc))
 					npc.teleToLocation(116033, 17447, 10104, 0);
@@ -236,7 +236,7 @@ public class Baium extends L2AttackableAIScript
 				Attackable angel = ((Attackable) minion);
 				Creature victim = angel.getMostHated();
 				
-				if (Rnd.get(100) < 10) // Chaos time
+				if (Rnd.INSTANCE.get(100) < 10) // Chaos time
 					updateTarget = true;
 				else
 				{
@@ -331,7 +331,7 @@ public class Baium extends L2AttackableAIScript
 		// spawn the "Teleportation Cubic" for 15 minutes (to allow players to exit the lair)
 		addSpawn(29055, 115203, 16620, 10078, 0, false, 900000, false);
 		
-		long respawnTime = (long) Config.SPAWN_INTERVAL_BAIUM + Rnd.get(-Config.RANDOM_SPAWN_TIME_BAIUM, Config.RANDOM_SPAWN_TIME_BAIUM);
+		long respawnTime = (long) Config.SPAWN_INTERVAL_BAIUM + Rnd.INSTANCE.get(-Config.RANDOM_SPAWN_TIME_BAIUM, Config.RANDOM_SPAWN_TIME_BAIUM);
 		respawnTime *= 3600000;
 		
 		GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM, DEAD);
@@ -398,7 +398,7 @@ public class Baium extends L2AttackableAIScript
 			}
 		}
 		
-		return (result.isEmpty()) ? null : Rnd.get(result);
+		return (result.isEmpty()) ? null : Rnd.INSTANCE.get(result);
 	}
 	
 	/**
@@ -411,17 +411,17 @@ public class Baium extends L2AttackableAIScript
 			return;
 		
 		// Pickup a target if no or dead victim. If Baium was hitting an angel, 50% luck he reconsiders his target. 10% luck he decides to reconsiders his target.
-		if (_actualVictim == null || _actualVictim.isDead() || !(npc.getKnownType(Player.class).contains(_actualVictim)) || (_actualVictim instanceof Monster && Rnd.get(10) < 5) || Rnd.get(10) == 0)
+		if (_actualVictim == null || _actualVictim.isDead() || !(npc.getKnownType(Player.class).contains(_actualVictim)) || (_actualVictim instanceof Monster && Rnd.INSTANCE.get(10) < 5) || Rnd.INSTANCE.get(10) == 0)
 			_actualVictim = getRandomTarget(npc);
 		
 		// If result is null, return directly.
 		if (_actualVictim == null)
 			return;
 		
-		final L2Skill skill = SkillTable.getInstance().getInfo(getRandomSkill(npc), 1);
+		final L2Skill skill = SkillTable.INSTANCE.getInfo(getRandomSkill(npc), 1);
 		
 		// Adapt the skill range, because Baium is fat.
-		if (MathUtil.checkIfInRange((int) (skill.getCastRange() + npc.getCollisionRadius()), npc, _actualVictim, true))
+		if (MathUtil.INSTANCE.checkIfInRange((int) (skill.getCastRange() + npc.getCollisionRadius()), npc, _actualVictim, true))
 		{
 			npc.getAI().setIntention(CtrlIntention.IDLE);
 			npc.setTarget(skill.getId() == 4135 ? npc : _actualVictim);
@@ -442,12 +442,12 @@ public class Baium extends L2AttackableAIScript
 		// Baium's selfheal. It happens exceptionaly.
 		if (npc.getCurrentHp() / npc.getMaxHp() < 0.1)
 		{
-			if (Rnd.get(10000) == 777) // His lucky day.
+			if (Rnd.INSTANCE.get(10000) == 777) // His lucky day.
 				return 4135;
 		}
 		
 		int skill = 4127; // Default attack if nothing is possible.
-		final int chance = Rnd.get(100); // Remember, it's 0 to 99, not 1 to 100.
+		final int chance = Rnd.INSTANCE.get(100); // Remember, it's 0 to 99, not 1 to 100.
 		
 		// If Baium feels surrounded or see 2+ angels, he unleashes his wrath upon heads :).
 		if (getPlayersCountInRadius(600, npc, false) >= 20 || npc.getKnownTypeInRadius(Monster.class, 600).size() >= 2)

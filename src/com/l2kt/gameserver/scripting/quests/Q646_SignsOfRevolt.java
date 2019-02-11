@@ -64,7 +64,7 @@ public class Q646_SignsOfRevolt extends Quest
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
 		}
-		else if (StringUtil.isDigit(event))
+		else if (StringUtil.INSTANCE.isDigit(event))
 		{
 			htmltext = "32016-07.htm";
 			st.takeItems(CURSED_DOLL, -1);

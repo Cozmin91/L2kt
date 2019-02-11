@@ -90,12 +90,12 @@ public class DimensionalRiftRoom
 	
 	public int getRandomX()
 	{
-		return Rnd.get(_xMin, _xMax);
+		return Rnd.INSTANCE.get(_xMin, _xMax);
 	}
 	
 	public int getRandomY()
 	{
-		return Rnd.get(_yMin, _yMax);
+		return Rnd.INSTANCE.get(_yMin, _yMax);
 	}
 	
 	public Location getTeleportLoc()

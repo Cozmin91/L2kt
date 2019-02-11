@@ -39,7 +39,7 @@ public final class ClassMaster extends Folk
 	@Override
 	public void showChatWindow(Player player)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		String filename = "data/html/classmaster/disabled.htm";
 		
 		if (Config.ALLOW_CLASS_MASTERS)
@@ -160,7 +160,7 @@ public final class ClassMaster extends Folk
 							continue;
 						
 						if (validateClassId(currentClassId, cid))
-							StringUtil.append(menu, "<a action=\"bypass -h npc_%objectId%_change_class ", cid.getId(), "\">", PlayerData.getInstance().getClassNameById(cid.getId()), "</a><br>");
+							StringUtil.INSTANCE.append(menu, "<a action=\"bypass -h npc_%objectId%_change_class ", cid.getId(), "\">", PlayerData.getInstance().getClassNameById(cid.getId()), "</a><br>");
 					}
 					
 					if (menu.length() > 0)
@@ -315,7 +315,7 @@ public final class ClassMaster extends Folk
 		
 		final StringBuilder sb = new StringBuilder();
 		for (IntIntHolder item : neededItems)
-			StringUtil.append(sb, "<tr><td><font color=\"LEVEL\">", item.getValue(), "</font></td><td>", ItemTable.getInstance().getTemplate(item.getId()).getName(), "</td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td><font color=\"LEVEL\">", item.getValue(), "</font></td><td>", ItemTable.INSTANCE.getTemplate(item.getId()).getName(), "</td></tr>");
 		
 		return sb.toString();
 	}

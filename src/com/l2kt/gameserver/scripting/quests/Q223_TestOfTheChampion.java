@@ -280,10 +280,10 @@ public class Q223_TestOfTheChampion extends Quest
 		switch (npc.getNpcId())
 		{
 			case HARPY: // Possibility to spawn an HARPY _MATRIARCH.
-				if (st.getInt("cond") == 6 && Rnd.nextBoolean() && !npc.isScriptValue(1))
+				if (st.getInt("cond") == 6 && Rnd.INSTANCE.nextBoolean() && !npc.isScriptValue(1))
 				{
 					// Spawn one or two matriarchs.
-					for (int i = 1; i < ((Rnd.get(10) < 7) ? 2 : 3); i++)
+					for (int i = 1; i < ((Rnd.INSTANCE.get(10) < 7) ? 2 : 3); i++)
 					{
 						final Attackable collector = (Attackable) addSpawn(HARPY_MATRIARCH, npc, true, 0, false);
 						
@@ -296,10 +296,10 @@ public class Q223_TestOfTheChampion extends Quest
 				break;
 			
 			case ROAD_SCAVENGER: // Possibility to spawn a Road Collector.
-				if (st.getInt("cond") == 10 && Rnd.nextBoolean() && !npc.isScriptValue(1))
+				if (st.getInt("cond") == 10 && Rnd.INSTANCE.nextBoolean() && !npc.isScriptValue(1))
 				{
 					// Spawn one or two collectors.
-					for (int i = 1; i < ((Rnd.get(10) < 7) ? 2 : 3); i++)
+					for (int i = 1; i < ((Rnd.INSTANCE.get(10) < 7) ? 2 : 3); i++)
 					{
 						final Attackable collector = (Attackable) addSpawn(ROAD_COLLECTOR, npc, true, 0, false);
 						

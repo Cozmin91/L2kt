@@ -24,7 +24,7 @@ public class SiegeNpc extends Folk
 			html.replace("%castlename%", getCastle().getName());
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 	}
 }

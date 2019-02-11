@@ -62,56 +62,56 @@ public final class CharacterCreate extends L2GameClientPacket
 		// Invalid race.
 		if (_race > 4 || _race < 0)
 		{
-			sendPacket(CharCreateFail.REASON_CREATION_FAILED);
+			sendPacket(CharCreateFail.Companion.getREASON_CREATION_FAILED());
 			return;
 		}
 		
 		// Invalid face.
 		if (_face > 2 || _face < 0)
 		{
-			sendPacket(CharCreateFail.REASON_CREATION_FAILED);
+			sendPacket(CharCreateFail.Companion.getREASON_CREATION_FAILED());
 			return;
 		}
 		
 		// Invalid hair style.
 		if (_hairStyle < 0 || (_sex == 0 && _hairStyle > 4) || (_sex != 0 && _hairStyle > 6))
 		{
-			sendPacket(CharCreateFail.REASON_CREATION_FAILED);
+			sendPacket(CharCreateFail.Companion.getREASON_CREATION_FAILED());
 			return;
 		}
 		
 		// Invalid hair color.
 		if (_hairColor > 3 || _hairColor < 0)
 		{
-			sendPacket(CharCreateFail.REASON_CREATION_FAILED);
+			sendPacket(CharCreateFail.Companion.getREASON_CREATION_FAILED());
 			return;
 		}
 		
 		// Invalid name length, or name typo.
-		if (!StringUtil.isValidString(_name, "^[A-Za-z0-9]{3,16}$"))
+		if (!StringUtil.INSTANCE.isValidString(_name, "^[A-Za-z0-9]{3,16}$"))
 		{
-			sendPacket((_name.length() > 16) ? CharCreateFail.REASON_16_ENG_CHARS : CharCreateFail.REASON_INCORRECT_NAME);
+			sendPacket((_name.length() > 16) ? CharCreateFail.Companion.getREASON_16_ENG_CHARS() : CharCreateFail.Companion.getREASON_INCORRECT_NAME());
 			return;
 		}
 		
 		// Your name is already taken by a NPC.
 		if (NpcData.getInstance().getTemplateByName(_name) != null)
 		{
-			sendPacket(CharCreateFail.REASON_INCORRECT_NAME);
+			sendPacket(CharCreateFail.Companion.getREASON_INCORRECT_NAME());
 			return;
 		}
 		
 		// You already have the maximum amount of characters for this account.
 		if (PlayerInfoTable.getInstance().getCharactersInAcc(getClient().getAccountName()) >= 7)
 		{
-			sendPacket(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
+			sendPacket(CharCreateFail.Companion.getREASON_TOO_MANY_CHARACTERS());
 			return;
 		}
 		
 		// The name already exists.
 		if (PlayerInfoTable.getInstance().getPlayerObjectId(_name) > 0)
 		{
-			sendPacket(CharCreateFail.REASON_NAME_ALREADY_EXISTS);
+			sendPacket(CharCreateFail.Companion.getREASON_NAME_ALREADY_EXISTS());
 			return;
 		}
 		
@@ -119,7 +119,7 @@ public final class CharacterCreate extends L2GameClientPacket
 		final PlayerTemplate template = PlayerData.getInstance().getTemplate(_classId);
 		if (template == null || template.getClassBaseLevel() > 1)
 		{
-			sendPacket(CharCreateFail.REASON_CREATION_FAILED);
+			sendPacket(CharCreateFail.Companion.getREASON_CREATION_FAILED());
 			return;
 		}
 		
@@ -127,7 +127,7 @@ public final class CharacterCreate extends L2GameClientPacket
 		final Player player = Player.create(IdFactory.getInstance().getNextId(), template, getClient().getAccountName(), _name, _hairStyle, _hairColor, _face, Sex.values()[_sex]);
 		if (player == null)
 		{
-			sendPacket(CharCreateFail.REASON_CREATION_FAILED);
+			sendPacket(CharCreateFail.Companion.getREASON_CREATION_FAILED());
 			return;
 		}
 		
@@ -137,7 +137,7 @@ public final class CharacterCreate extends L2GameClientPacket
 		player.setCurrentMp(player.getMaxMp());
 		
 		// send acknowledgement
-		sendPacket(CharCreateOk.STATIC_PACKET);
+		sendPacket(CharCreateOk.Companion.getSTATIC_PACKET());
 		
 		World.getInstance().addObject(player);
 		
@@ -187,7 +187,7 @@ public final class CharacterCreate extends L2GameClientPacket
 		player.setOnlineStatus(true, false);
 		player.deleteMe();
 		
-		final CharSelectInfo csi = new CharSelectInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
+		final CharSelectInfo csi = new CharSelectInfo(getClient().getAccountName(), getClient().getSessionId().getPlayOkID1());
 		sendPacket(csi);
 		getClient().setCharSelectSlot(csi.getCharacterSlots());
 	}

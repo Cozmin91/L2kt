@@ -66,17 +66,17 @@ public abstract class WorldObject
 	
 	public void onAction(Player player)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	public void onActionShift(Player player)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	public void onForcedAttack(Player player)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	public void onSpawn()
@@ -131,7 +131,7 @@ public abstract class WorldObject
 	 */
 	public final void spawnMe(int x, int y, int z)
 	{
-		_position.set(MathUtil.limit(x, World.WORLD_X_MIN + 100, World.WORLD_X_MAX - 100), MathUtil.limit(y, World.WORLD_Y_MIN + 100, World.WORLD_Y_MAX - 100), z);
+		_position.set(MathUtil.INSTANCE.limit(x, World.WORLD_X_MIN + 100, World.WORLD_X_MAX - 100), MathUtil.INSTANCE.limit(y, World.WORLD_Y_MIN + 100, World.WORLD_Y_MAX - 100), z);
 		
 		spawnMe();
 	}
@@ -202,7 +202,7 @@ public abstract class WorldObject
 		}
 		else if (type == PolyType.ITEM)
 		{
-			if (ItemTable.getInstance().getTemplate(id) == null)
+			if (ItemTable.INSTANCE.getTemplate(id) == null)
 				return false;
 		}
 		else if (type == PolyType.DEFAULT)
@@ -290,7 +290,7 @@ public abstract class WorldObject
 		_position.set(x, y, z);
 		
 		if (Config.DEBUG_MOVEMENT > 0)
-			DebugMovementTaskManager.getInstance().addItem(this, x, y, z);
+			DebugMovementTaskManager.INSTANCE.addItem(this, x, y, z);
 		
 		if (!isVisible())
 			return;
@@ -308,7 +308,7 @@ public abstract class WorldObject
 	 */
 	public final void setXYZInvisible(int x, int y, int z)
 	{
-		_position.set(MathUtil.limit(x, World.WORLD_X_MIN + 100, World.WORLD_X_MAX - 100), MathUtil.limit(y, World.WORLD_Y_MIN + 100, World.WORLD_Y_MAX - 100), z);
+		_position.set(MathUtil.INSTANCE.limit(x, World.WORLD_X_MIN + 100, World.WORLD_X_MAX - 100), MathUtil.INSTANCE.limit(y, World.WORLD_Y_MIN + 100, World.WORLD_Y_MAX - 100), z);
 		
 		setIsVisible(false);
 	}
@@ -475,7 +475,7 @@ public abstract class WorldObject
 		{
 			for (WorldObject obj : reg.getObjects())
 			{
-				if (obj == this || !type.isAssignableFrom(obj.getClass()) || !MathUtil.checkIfInRange(radius, this, obj, true))
+				if (obj == this || !type.isAssignableFrom(obj.getClass()) || !MathUtil.INSTANCE.checkIfInRange(radius, this, obj, true))
 					continue;
 				
 				result.add((A) obj);

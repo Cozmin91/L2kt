@@ -124,7 +124,7 @@ public class Cancel implements ISkillHandler
 		else if (rate > maxRate)
 			rate = maxRate;
 		
-		return Rnd.get(100) < rate;
+		return Rnd.INSTANCE.get(100) < rate;
 	}
 	
 	@Override

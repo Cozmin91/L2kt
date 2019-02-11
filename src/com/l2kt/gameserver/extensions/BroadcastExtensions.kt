@@ -41,11 +41,11 @@ fun Creature.toKnownPlayers(packet: L2GameServerPacket) {
  * @param radius : The given radius.
  */
 fun Creature.toKnownPlayersInRadius(packet: L2GameServerPacket, radius: Int) {
-    var radius = radius
-    if (radius < 0)
-        radius = 1500
+    var actualRadius = radius
+    if (actualRadius < 0)
+        actualRadius = 1500
 
-    for (player in getKnownTypeInRadius(Player::class.java, radius))
+    for (player in getKnownTypeInRadius(Player::class.java, actualRadius))
         player.sendPacket(packet)
 }
 

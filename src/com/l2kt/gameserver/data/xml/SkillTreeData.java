@@ -166,7 +166,7 @@ public class SkillTreeData implements IXmlReader
 		for (EnchantSkillNode esn : _enchantSkills)
 		{
 			final L2Skill skill = player.getSkill(esn.getId());
-			if (skill != null && ((skill.getLevel() == SkillTable.getInstance().getMaxLevel(skill.getId()) && (esn.getValue() == 101 || esn.getValue() == 141)) || (skill.getLevel() == esn.getValue() - 1)))
+			if (skill != null && ((skill.getLevel() == SkillTable.INSTANCE.getMaxLevel(skill.getId()) && (esn.getValue() == 101 || esn.getValue() == 141)) || (skill.getLevel() == esn.getValue() - 1)))
 				result.add(esn);
 		}
 		return result;
@@ -187,7 +187,7 @@ public class SkillTreeData implements IXmlReader
 		
 		// We now test player current skill level.
 		final int currentSkillLevel = player.getSkillLevel(skillId);
-		if ((currentSkillLevel == SkillTable.getInstance().getMaxLevel(skillId) && (skillLevel == 101 || skillLevel == 141)) || (currentSkillLevel == skillLevel - 1))
+		if ((currentSkillLevel == SkillTable.INSTANCE.getMaxLevel(skillId) && (skillLevel == 101 || skillLevel == 141)) || (currentSkillLevel == skillLevel - 1))
 			return esn;
 		
 		return null;

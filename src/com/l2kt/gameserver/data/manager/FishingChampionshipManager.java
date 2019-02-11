@@ -214,9 +214,9 @@ public class FishingChampionshipManager
 		if (!Config.ALT_FISH_CHAMPIONSHIP_ENABLED)
 			return;
 		
-		double len = Rnd.get(60, 89) + (Rnd.get(0, 1000) / 1000.);
+		double len = Rnd.INSTANCE.get(60, 89) + (Rnd.INSTANCE.get(0, 1000) / 1000.);
 		if (lureId >= 8484 && lureId <= 8486)
-			len += Rnd.get(0, 3000) / 1000.;
+			len += Rnd.INSTANCE.get(0, 3000) / 1000.;
 		
 		player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CAUGHT_FISH_S1_LENGTH).addString(String.valueOf(len)));
 		
@@ -391,12 +391,12 @@ public class FishingChampionshipManager
 		final StringBuilder sb = new StringBuilder(100);
 		for (int x = 1; x <= 5; x++)
 		{
-			StringUtil.append(sb, "<tr><td width=70 align=center>", x, "</td>");
-			StringUtil.append(sb, "<td width=110 align=center>", getCurrentName(x), "</td>");
-			StringUtil.append(sb, "<td width=80 align=center>", getCurrentFishLength(x), "</td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td width=70 align=center>", x, "</td>");
+			StringUtil.INSTANCE.append(sb, "<td width=110 align=center>", getCurrentName(x), "</td>");
+			StringUtil.INSTANCE.append(sb, "<td width=80 align=center>", getCurrentFishLength(x), "</td></tr>");
 		}
 		html.replace("%TABLE%", sb.toString());
-		html.replace("%prizeItem%", ItemTable.getInstance().getTemplate(Config.ALT_FISH_CHAMPIONSHIP_REWARD_ITEM).getName());
+		html.replace("%prizeItem%", ItemTable.INSTANCE.getTemplate(Config.ALT_FISH_CHAMPIONSHIP_REWARD_ITEM).getName());
 		html.replace("%prizeFirst%", Config.ALT_FISH_CHAMPIONSHIP_REWARD_1);
 		html.replace("%prizeTwo%", Config.ALT_FISH_CHAMPIONSHIP_REWARD_2);
 		html.replace("%prizeThree%", Config.ALT_FISH_CHAMPIONSHIP_REWARD_3);
@@ -413,12 +413,12 @@ public class FishingChampionshipManager
 		final StringBuilder sb = new StringBuilder(100);
 		for (int x = 1; x <= 5; x++)
 		{
-			StringUtil.append(sb, "<tr><td width=70 align=center>", x, "</td>");
-			StringUtil.append(sb, "<td width=110 align=center>", getWinnerName(x), "</td>");
-			StringUtil.append(sb, "<td width=80 align=center>", getFishLength(x), "</td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td width=70 align=center>", x, "</td>");
+			StringUtil.INSTANCE.append(sb, "<td width=110 align=center>", getWinnerName(x), "</td>");
+			StringUtil.INSTANCE.append(sb, "<td width=80 align=center>", getFishLength(x), "</td></tr>");
 		}
 		html.replace("%TABLE%", sb.toString());
-		html.replace("%prizeItem%", ItemTable.getInstance().getTemplate(Config.ALT_FISH_CHAMPIONSHIP_REWARD_ITEM).getName());
+		html.replace("%prizeItem%", ItemTable.INSTANCE.getTemplate(Config.ALT_FISH_CHAMPIONSHIP_REWARD_ITEM).getName());
 		html.replace("%prizeFirst%", Config.ALT_FISH_CHAMPIONSHIP_REWARD_1);
 		html.replace("%prizeTwo%", Config.ALT_FISH_CHAMPIONSHIP_REWARD_2);
 		html.replace("%prizeThree%", Config.ALT_FISH_CHAMPIONSHIP_REWARD_3);

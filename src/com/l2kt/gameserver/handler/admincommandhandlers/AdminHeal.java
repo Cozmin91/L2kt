@@ -38,7 +38,7 @@ public class AdminHeal implements IAdminCommandHandler
 				final Player target = World.getInstance().getPlayer(nameOrRadius);
 				if (target != null)
 					object = target;
-				else if (StringUtil.isDigit(nameOrRadius))
+				else if (StringUtil.INSTANCE.isDigit(nameOrRadius))
 				{
 					final int radius = Integer.parseInt(nameOrRadius);
 					for (Creature creature : player.getKnownTypeInRadius(Creature.class, radius))

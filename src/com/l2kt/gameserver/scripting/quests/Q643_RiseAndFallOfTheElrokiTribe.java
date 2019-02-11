@@ -62,7 +62,7 @@ public class Q643_RiseAndFallOfTheElrokiTribe extends Quest
 			if (count >= 300)
 			{
 				st.takeItems(BONES, 300);
-				st.rewardItems(Rnd.get(8712, 8722), 5);
+				st.rewardItems(Rnd.INSTANCE.get(8712, 8722), 5);
 			}
 			else
 				htmltext = "32117-04.htm";

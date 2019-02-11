@@ -71,7 +71,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 			st.setState(STATE_STARTED);
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
-			st.giveItems(Rnd.get(1836, 1839), 1); // Kendell's orders 1 to 4.
+			st.giveItems(Rnd.INSTANCE.get(1836, 1839), 1); // Kendell's orders 1 to 4.
 		}
 		return htmltext;
 	}
@@ -109,7 +109,7 @@ public class Q105_SkirmishWithTheOrcs extends Quest
 					st.takeItems(KENDELL_ORDER_2, 1);
 					st.takeItems(KENDELL_ORDER_3, 1);
 					st.takeItems(KENDELL_ORDER_4, 1);
-					st.giveItems(Rnd.get(1840, 1843), 1); // Kendell's orders 5 to 8.
+					st.giveItems(Rnd.INSTANCE.get(1840, 1843), 1); // Kendell's orders 5 to 8.
 				}
 				else if (cond == 3)
 					htmltext = "30218-07.htm";

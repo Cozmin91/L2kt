@@ -39,7 +39,7 @@ public final class RequestGetItemFromPet extends L2GameClientPacket
 		if (player.getActiveEnchantItem() != null)
 		{
 			player.setActiveEnchantItem(null);
-			player.sendPacket(EnchantResult.CANCELLED);
+			player.sendPacket(EnchantResult.Companion.getCANCELLED());
 			player.sendPacket(SystemMessageId.ENCHANT_SCROLL_CANCELLED);
 		}
 		

@@ -65,20 +65,20 @@ public class Unlock implements ISkillHandler
 	private static final boolean doorUnlock(L2Skill skill)
 	{
 		if (skill.getSkillType() == L2SkillType.UNLOCK_SPECIAL)
-			return Rnd.get(100) < skill.getPower();
+			return Rnd.INSTANCE.get(100) < skill.getPower();
 		
 		switch (skill.getLevel())
 		{
 			case 0:
 				return false;
 			case 1:
-				return Rnd.get(120) < 30;
+				return Rnd.INSTANCE.get(120) < 30;
 			case 2:
-				return Rnd.get(120) < 50;
+				return Rnd.INSTANCE.get(120) < 50;
 			case 3:
-				return Rnd.get(120) < 75;
+				return Rnd.INSTANCE.get(120) < 75;
 			default:
-				return Rnd.get(120) < 100;
+				return Rnd.INSTANCE.get(120) < 100;
 		}
 	}
 	
@@ -118,7 +118,7 @@ public class Unlock implements ISkillHandler
 		}
 		
 		chance = Math.min(chance, 50);
-		return Rnd.get(100) < chance;
+		return Rnd.INSTANCE.get(100) < chance;
 	}
 	
 	@Override

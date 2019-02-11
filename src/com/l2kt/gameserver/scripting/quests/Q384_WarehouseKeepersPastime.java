@@ -233,7 +233,7 @@ public class Q384_WarehouseKeepersPastime extends Quest
 			else
 			{
 				st.set("bet", "10");
-				st.set("board", StringUtil.scrambleString("123456789"));
+				st.set("board", StringUtil.INSTANCE.scrambleString("123456789"));
 				st.takeItems(MEDAL, 10);
 			}
 		}
@@ -244,7 +244,7 @@ public class Q384_WarehouseKeepersPastime extends Quest
 			else
 			{
 				st.set("bet", "100");
-				st.set("board", StringUtil.scrambleString("123456789"));
+				st.set("board", StringUtil.INSTANCE.scrambleString("123456789"));
 				st.takeItems(MEDAL, 100);
 			}
 		}
@@ -313,7 +313,7 @@ public class Q384_WarehouseKeepersPastime extends Quest
 				{
 					htmltext = getHtmlText(npcId + "-23.htm");
 					
-					final int chance = Rnd.get(100);
+					final int chance = Rnd.INSTANCE.get(100);
 					for (int[] reward : ((st.get("bet") == "10") ? _rewards_10_win : _rewards_100_win))
 					{
 						if (chance < reward[0])
@@ -330,7 +330,7 @@ public class Q384_WarehouseKeepersPastime extends Quest
 				{
 					htmltext = getHtmlText(npcId + "-25.htm");
 					
-					final int chance = Rnd.get(100);
+					final int chance = Rnd.INSTANCE.get(100);
 					for (int[] reward : ((st.get("bet") == "10") ? _rewards_10_lose : _rewards_100_lose))
 					{
 						if (chance < reward[0])

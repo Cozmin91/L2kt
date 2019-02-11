@@ -24,12 +24,12 @@ public class EffectPoint extends Npc
 	@Override
 	public void onAction(Player player)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	@Override
 	public void onActionShift(Player player)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 }

@@ -137,7 +137,7 @@ public class KetraOrcSupport extends Quest
 		if (st == null)
 			return htmltext;
 		
-		if (StringUtil.isDigit(event))
+		if (StringUtil.INSTANCE.isDigit(event))
 		{
 			final int[] buffInfo = BUFF[Integer.parseInt(event)];
 			if (st.getQuestItemsCount(HORN) >= buffInfo[1])
@@ -145,7 +145,7 @@ public class KetraOrcSupport extends Quest
 				htmltext = "31372-4.htm";
 				st.takeItems(HORN, buffInfo[1]);
 				npc.setTarget(player);
-				npc.doCast(SkillTable.getInstance().getInfo(buffInfo[0], 1));
+				npc.doCast(SkillTable.INSTANCE.getInfo(buffInfo[0], 1));
 				npc.setCurrentHpMp(npc.getMaxHp(), npc.getMaxMp());
 			}
 		}
@@ -155,7 +155,7 @@ public class KetraOrcSupport extends Quest
 				htmltext = "31374-0.htm";
 			else
 			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				player.setActiveWarehouse(player.getWarehouse());
 				player.sendPacket(new WarehouseWithdrawList(player, 1));
 			}

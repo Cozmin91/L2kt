@@ -203,7 +203,7 @@ public class Party extends AbstractGroup
 		// Delete the CommandChannel, or remove Party from it.
 		if (_commandChannel != null)
 		{
-			broadcastPacket(ExCloseMPCC.STATIC_PACKET);
+			broadcastPacket(ExCloseMPCC.Companion.getSTATIC_PACKET());
 			
 			if (_commandChannel.isLeader(getLeader()))
 				_commandChannel.disband();
@@ -214,7 +214,7 @@ public class Party extends AbstractGroup
 		for (Player member : _members)
 		{
 			member.setParty(null);
-			member.sendPacket(PartySmallWindowDeleteAll.STATIC_PACKET);
+			member.sendPacket(PartySmallWindowDeleteAll.Companion.getSTATIC_PACKET());
 			
 			if (member.isFestivalParticipant())
 				SevenSignsFestival.getInstance().updateParticipants(member, this);
@@ -277,10 +277,10 @@ public class Party extends AbstractGroup
 		final List<Player> availableMembers = new ArrayList<>();
 		for (Player member : _members)
 		{
-			if (member.getInventory().validateCapacityByItemId(itemId) && MathUtil.checkIfInRange(Config.PARTY_RANGE, target, member, true))
+			if (member.getInventory().validateCapacityByItemId(itemId) && MathUtil.INSTANCE.checkIfInRange(Config.PARTY_RANGE, target, member, true))
 				availableMembers.add(member);
 		}
-		return (availableMembers.isEmpty()) ? null : Rnd.get(availableMembers);
+		return (availableMembers.isEmpty()) ? null : Rnd.INSTANCE.get(availableMembers);
 	}
 	
 	/**
@@ -297,7 +297,7 @@ public class Party extends AbstractGroup
 				_itemLastLoot = 0;
 			
 			final Player member = _members.get(_itemLastLoot);
-			if (member.getInventory().validateCapacityByItemId(itemId) && MathUtil.checkIfInRange(Config.PARTY_RANGE, target, member, true))
+			if (member.getInventory().validateCapacityByItemId(itemId) && MathUtil.INSTANCE.checkIfInRange(Config.PARTY_RANGE, target, member, true))
 				return member;
 		}
 		return null;
@@ -343,7 +343,7 @@ public class Party extends AbstractGroup
 		final SystemMessage sm = SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER).addCharName(getLeader());
 		for (Player member : _members)
 		{
-			member.sendPacket(PartySmallWindowDeleteAll.STATIC_PACKET);
+			member.sendPacket(PartySmallWindowDeleteAll.Companion.getSTATIC_PACKET());
 			member.sendPacket(new PartySmallWindowAll(member, this));
 			member.broadcastUserInfo();
 			member.sendPacket(sm);
@@ -405,7 +405,7 @@ public class Party extends AbstractGroup
 		}
 		
 		if (_commandChannel != null)
-			player.sendPacket(ExOpenMPCC.STATIC_PACKET);
+			player.sendPacket(ExOpenMPCC.Companion.getSTATIC_PACKET());
 	}
 	
 	/**
@@ -463,12 +463,12 @@ public class Party extends AbstractGroup
 			}
 			
 			player.setParty(null);
-			player.sendPacket(PartySmallWindowDeleteAll.STATIC_PACKET);
+			player.sendPacket(PartySmallWindowDeleteAll.Companion.getSTATIC_PACKET());
 			
 			broadcastPacket(new PartySmallWindowDelete(player));
 			
 			if (_commandChannel != null)
-				player.sendPacket(ExCloseMPCC.STATIC_PACKET);
+				player.sendPacket(ExCloseMPCC.Companion.getSTATIC_PACKET());
 		}
 	}
 	
@@ -610,7 +610,7 @@ public class Party extends AbstractGroup
 		List<Player> toReward = new ArrayList<>(_members.size());
 		for (Player member : _members)
 		{
-			if (!MathUtil.checkIfInRange(Config.PARTY_RANGE, target, member, true) || member.getAdena() == Integer.MAX_VALUE)
+			if (!MathUtil.INSTANCE.checkIfInRange(Config.PARTY_RANGE, target, member, true) || member.getAdena() == Integer.MAX_VALUE)
 				continue;
 			
 			toReward.add(member);
@@ -675,7 +675,7 @@ public class Party extends AbstractGroup
 				sqLevelSum += (member.getLevel() * member.getLevel());
 			
 			// Have to use range 1 to 9, since we -1 it : 0 can't be a good number (would lead to a IOOBE). Since 0 and 1 got same values, it's not a problem.
-			final int partySize = MathUtil.limit(rewardedMembers.size(), 1, 9);
+			final int partySize = MathUtil.INSTANCE.limit(rewardedMembers.size(), 1, 9);
 			
 			for (Player member : rewardedMembers)
 			{

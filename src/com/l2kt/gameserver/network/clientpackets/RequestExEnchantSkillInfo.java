@@ -41,7 +41,7 @@ public final class RequestExEnchantSkillInfo extends L2GameClientPacket
 		if (player.getSkillLevel(_skillId) >= _skillLevel)
 			return;
 		
-		final L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLevel);
+		final L2Skill skill = SkillTable.INSTANCE.getInfo(_skillId, _skillLevel);
 		if (skill == null)
 			return;
 		

@@ -62,7 +62,7 @@ public class Q364_JovialAccordion extends Quest
 			if (st.hasQuestItems(KEY_2))
 			{
 				st.takeItems(KEY_2, 1);
-				if (Rnd.nextBoolean())
+				if (Rnd.INSTANCE.nextBoolean())
 				{
 					htmltext = "30960-02.htm";
 					st.giveItems(STOLEN_BEER, 1);
@@ -75,7 +75,7 @@ public class Q364_JovialAccordion extends Quest
 			if (st.hasQuestItems(KEY_1))
 			{
 				st.takeItems(KEY_1, 1);
-				if (Rnd.nextBoolean())
+				if (Rnd.INSTANCE.nextBoolean())
 				{
 					htmltext = "30961-02.htm";
 					st.giveItems(STOLEN_CLOTHES, 1);

@@ -95,7 +95,7 @@ public class Sow implements ISkillHandler
 		if (basicSuccess < 1)
 			basicSuccess = 1;
 		
-		return Rnd.get(99) < basicSuccess;
+		return Rnd.INSTANCE.get(99) < basicSuccess;
 	}
 	
 	@Override

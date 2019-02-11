@@ -55,7 +55,7 @@ public class AdminCreateItem implements IAdminCommandHandler
 				for (Player player : players)
 					createItem(activeChar, player, id, count, 0, false);
 				
-				activeChar.sendMessage(players.size() + " players rewarded with " + ItemTable.getInstance().getTemplate(id).getName());
+				activeChar.sendMessage(players.size() + " players rewarded with " + ItemTable.INSTANCE.getTemplate(id).getName());
 			}
 			catch (Exception e)
 			{
@@ -175,7 +175,7 @@ public class AdminCreateItem implements IAdminCommandHandler
 	
 	private static void createItem(Player activeChar, Player target, int id, int num, int radius, boolean sendGmMessage)
 	{
-		final Item template = ItemTable.getInstance().getTemplate(id);
+		final Item template = ItemTable.INSTANCE.getTemplate(id);
 		if (template == null)
 		{
 			activeChar.sendMessage("This item doesn't exist.");

@@ -34,7 +34,7 @@ public class CharacterSelected extends L2GameClientPacket
 	protected void runImpl()
 	{
 		final L2GameClient client = getClient();
-		if (!FloodProtectors.performAction(client, FloodProtectors.Action.CHARACTER_SELECT))
+		if (!FloodProtectors.INSTANCE.performAction(client, FloodProtectors.Action.CHARACTER_SELECT))
 			return;
 		
 		// we should always be able to acquire the lock but if we cant lock then nothing should be done (ie repeated packet)
@@ -58,11 +58,11 @@ public class CharacterSelected extends L2GameClientPacket
 					client.setActiveChar(cha);
 					cha.setOnlineStatus(true, true);
 					
-					sendPacket(SSQInfo.sendSky());
+					sendPacket(SSQInfo.Companion.sendSky());
 					
 					client.setState(L2GameClient.GameClientState.IN_GAME);
 					
-					sendPacket(new CharSelected(cha, client.getSessionId().playOkID1));
+					sendPacket(new CharSelected(cha, client.getSessionId().getPlayOkID1()));
 				}
 			}
 			finally

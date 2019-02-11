@@ -26,12 +26,12 @@ public class PenaltyMonster extends Monster
 	
 	public void setPlayerToKill(Player ptk)
 	{
-		if (Rnd.get(100) <= 80)
+		if (Rnd.INSTANCE.get(100) <= 80)
 			broadcastNpcSay("Your bait was too delicious! Now, I will kill you!");
 		
 		_ptk = ptk;
 		
-		getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _ptk, Rnd.get(1, 100));
+		getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _ptk, Rnd.INSTANCE.get(1, 100));
 	}
 	
 	@Override
@@ -40,7 +40,7 @@ public class PenaltyMonster extends Monster
 		if (!super.doDie(killer))
 			return false;
 		
-		if (Rnd.get(100) <= 75)
+		if (Rnd.INSTANCE.get(100) <= 75)
 			broadcastNpcSay("I will tell fish not to take your bait!");
 		
 		return true;

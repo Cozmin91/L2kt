@@ -1,29 +1,11 @@
 package com.l2kt.gameserver.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.logging.Logger;
-
 import com.l2kt.commons.math.MathUtil;
 import com.l2kt.commons.util.ArraysUtil;
 import com.l2kt.gameserver.data.SkillTable;
-
 import com.l2kt.gameserver.geoengine.GeoEngine;
-import com.l2kt.gameserver.model.actor.Attackable;
-import com.l2kt.gameserver.model.actor.Creature;
-import com.l2kt.gameserver.model.actor.Npc;
-import com.l2kt.gameserver.model.actor.Playable;
-import com.l2kt.gameserver.model.actor.Summon;
-import com.l2kt.gameserver.model.actor.instance.Chest;
-import com.l2kt.gameserver.model.actor.instance.Cubic;
-import com.l2kt.gameserver.model.actor.instance.Door;
-import com.l2kt.gameserver.model.actor.instance.HolyThing;
-import com.l2kt.gameserver.model.actor.instance.Pet;
-import com.l2kt.gameserver.model.actor.instance.Player;
-import com.l2kt.gameserver.model.actor.instance.Servitor;
-import com.l2kt.gameserver.model.actor.instance.SiegeFlag;
+import com.l2kt.gameserver.model.actor.*;
+import com.l2kt.gameserver.model.actor.instance.*;
 import com.l2kt.gameserver.model.group.Party;
 import com.l2kt.gameserver.model.holder.IntIntHolder;
 import com.l2kt.gameserver.model.item.kind.Armor;
@@ -46,6 +28,12 @@ import com.l2kt.gameserver.skills.effects.EffectTemplate;
 import com.l2kt.gameserver.taskmanager.DecayTaskManager;
 import com.l2kt.gameserver.templates.StatsSet;
 import com.l2kt.gameserver.templates.skills.L2SkillType;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.logging.Logger;
 
 public abstract class L2Skill implements IChanceSkillTrigger
 {
@@ -342,7 +330,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			try
 			{
 				String[] valuesSplit = reuseHash.split("-");
-				_reuseHashCode = SkillTable.getSkillHashCode(Integer.parseInt(valuesSplit[0]), Integer.parseInt(valuesSplit[1]));
+				_reuseHashCode = SkillTable.INSTANCE.getSkillHashCode(Integer.parseInt(valuesSplit[0]), Integer.parseInt(valuesSplit[1]));
 			}
 			catch (Exception e)
 			{
@@ -350,7 +338,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			}
 		}
 		else
-			_reuseHashCode = SkillTable.getSkillHashCode(_id, _level);
+			_reuseHashCode = SkillTable.INSTANCE.getSkillHashCode(_id, _level);
 		
 		_stat = set.getEnum("stat", Stats.class, null);
 		_ignoreShield = set.getBool("ignoreShld", false);
@@ -427,7 +415,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		_maxCharges = set.getInteger("maxCharges", 0);
 		_numCharges = set.getInteger("numCharges", 0);
 		
-		_isHeroSkill = SkillTable.isHeroSkill(_id);
+		_isHeroSkill = SkillTable.INSTANCE.isHeroSkill(_id);
 		
 		_baseCritRate = set.getInteger("baseCritRate", (_skillType == L2SkillType.PDAM || _skillType == L2SkillType.BLOW) ? 0 : -1);
 		_lethalEffect1 = set.getInteger("lethal1", 0);
@@ -645,8 +633,8 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		{
 			for (EffectTemplate et : _effectTemplates)
 			{
-				if (et.effectPower > 0)
-					return et.effectPower;
+				if (et.getEffectPower() > 0)
+					return et.getEffectPower();
 			}
 		}
 		
@@ -696,8 +684,8 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		{
 			for (EffectTemplate et : _effectTemplates)
 			{
-				if (et.effectType != null)
-					return et.effectType;
+				if (et.getEffectType() != null)
+					return et.getEffectType();
 			}
 		}
 		
@@ -1445,7 +1433,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					if (obj == null || obj == target || obj == activeChar)
 						continue;
 					
-					if (!MathUtil.checkIfInRange(_skillRadius, target, obj, true))
+					if (!MathUtil.INSTANCE.checkIfInRange(_skillRadius, target, obj, true))
 						continue;
 					
 					if (!(obj instanceof Attackable || obj instanceof Playable))
@@ -1501,7 +1489,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					if (obj == origin)
 						continue;
 					
-					if (MathUtil.checkIfInRange(_skillRadius, origin, obj, true))
+					if (MathUtil.INSTANCE.checkIfInRange(_skillRadius, origin, obj, true))
 					{
 						switch (_targetType)
 						{
@@ -1881,7 +1869,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				}
 				
 				// Corpse mob only available for half time
-				if (_skillType == L2SkillType.DRAIN && !DecayTaskManager.getInstance().isCorpseActionAllowed((Attackable) target))
+				if (_skillType == L2SkillType.DRAIN && !DecayTaskManager.INSTANCE.isCorpseActionAllowed((Attackable) target))
 				{
 					activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CORPSE_TOO_OLD_SKILL_NOT_USED));
 					return _emptyTargetList;
@@ -2117,7 +2105,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		if (isDead != target.isDead())
 			return false;
 		
-		if (radius > 0 && !MathUtil.checkIfInRange(radius, caster, target, true))
+		if (radius > 0 && !MathUtil.INSTANCE.checkIfInRange(radius, caster, target, true))
 			return false;
 		
 		return true;
@@ -2205,7 +2193,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		{
 			boolean success = true;
 			
-			if (et.effectPower > -1)
+			if (et.getEffectPower() > -1)
 				success = Formulas.calcEffectSuccess(effector, effected, et, this, env.getShield(), env.isBlessedSpiritShot());
 			
 			if (success)
@@ -2218,7 +2206,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				}
 			}
 			// display fail message only for effects with icons
-			else if (et.icon && effector instanceof Player)
+			else if (et.getIcon() && effector instanceof Player)
 				((Player) effector).sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_RESISTED_YOUR_S2).addCharName(effected).addSkillName(this));
 		}
 		return effects;
@@ -2277,7 +2265,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		for (EffectTemplate et : _effectTemplates)
 		{
 			boolean success = true;
-			if (et.effectPower > -1)
+			if (et.getEffectPower() > -1)
 				success = Formulas.calcEffectSuccess(effector.getOwner(), effected, et, this, env.getShield(), env.isBlessedSpiritShot());
 			
 			if (success)
@@ -2411,7 +2399,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		if (products.isEmpty())
 			_log.warning("Extractable skills data: Error in Skill Id: " + skillId + " Level: " + skillLvl + " -> There are no production items!");
 		
-		return new L2ExtractableSkill(SkillTable.getSkillHashCode(this), products);
+		return new L2ExtractableSkill(SkillTable.INSTANCE.getSkillHashCode(this), products);
 	}
 	
 	public L2ExtractableSkill getExtractableSkill()

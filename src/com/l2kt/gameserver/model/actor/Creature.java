@@ -50,10 +50,7 @@ import com.l2kt.gameserver.templates.skills.L2EffectFlag;
 import com.l2kt.gameserver.templates.skills.L2EffectType;
 import com.l2kt.gameserver.templates.skills.L2SkillType;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 
@@ -344,8 +341,8 @@ public abstract class Creature extends WorldObject
 		
 		if (randomOffset > 0)
 		{
-			x += Rnd.get(-randomOffset, randomOffset);
-			y += Rnd.get(-randomOffset, randomOffset);
+			x += Rnd.INSTANCE.get(-randomOffset, randomOffset);
+			y += Rnd.INSTANCE.get(-randomOffset, randomOffset);
 		}
 		
 		z += 5;
@@ -397,7 +394,7 @@ public abstract class Creature extends WorldObject
 	{
 		if (target == null || isAttackingDisabled())
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -406,14 +403,14 @@ public abstract class Creature extends WorldObject
 			if (this instanceof Npc && target.isAlikeDead() || !getKnownType(Creature.class).contains(target))
 			{
 				getAI().setIntention(CtrlIntention.ACTIVE);
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			
 			if (this instanceof Player && target.isDead())
 			{
 				getAI().setIntention(CtrlIntention.ACTIVE);
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 		}
@@ -423,7 +420,7 @@ public abstract class Creature extends WorldObject
 		if (player != null && player.isInObserverMode())
 		{
 			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE));
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -431,7 +428,7 @@ public abstract class Creature extends WorldObject
 		if (isInsidePeaceZone(this, target))
 		{
 			getAI().setIntention(CtrlIntention.ACTIVE);
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -446,7 +443,7 @@ public abstract class Creature extends WorldObject
 			// You can't make an attack with a fishing pole.
 			getAI().setIntention(CtrlIntention.IDLE);
 			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANNOT_ATTACK_WITH_FISHING_POLE));
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -455,7 +452,7 @@ public abstract class Creature extends WorldObject
 		{
 			getAI().setIntention(CtrlIntention.ACTIVE);
 			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.CANT_SEE_TARGET));
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -471,7 +468,7 @@ public abstract class Creature extends WorldObject
 				{
 					getAI().setIntention(CtrlIntention.IDLE);
 					sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_ARROWS));
-					sendPacket(ActionFailed.STATIC_PACKET);
+					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 					return;
 				}
 				
@@ -479,7 +476,7 @@ public abstract class Creature extends WorldObject
 				if (_disableBowAttackEndTime > time)
 				{
 					ThreadPool.schedule(() -> getAI().notifyEvent(CtrlEvent.EVT_READY_TO_ACT), 100);
-					sendPacket(ActionFailed.STATIC_PACKET);
+					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 					return;
 				}
 				
@@ -491,7 +488,7 @@ public abstract class Creature extends WorldObject
 					{
 						getAI().setIntention(CtrlIntention.IDLE);
 						sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_MP));
-						sendPacket(ActionFailed.STATIC_PACKET);
+						sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 						return;
 					}
 					getStatus().reduceMp(mpConsume);
@@ -516,7 +513,7 @@ public abstract class Creature extends WorldObject
 		Attack attack = new Attack(this, isChargedShot(ShotType.SOULSHOT), (weaponItem != null) ? weaponItem.getCrystalType().getId() : 0);
 		
 		// Make sure that char is facing selected target
-		setHeading(MathUtil.calculateHeadingFrom(this, target));
+		setHeading(MathUtil.INSTANCE.calculateHeadingFrom(this, target));
 		
 		boolean hitted;
 		
@@ -804,7 +801,7 @@ public abstract class Creature extends WorldObject
 					continue;
 			}
 			
-			if (!MathUtil.checkIfInRange(maxRadius, this, obj, false))
+			if (!MathUtil.INSTANCE.checkIfInRange(maxRadius, this, obj, false))
 				continue;
 			
 			// otherwise hit too high/low. 650 because mob z coord sometimes wrong on hills
@@ -973,7 +970,7 @@ public abstract class Creature extends WorldObject
 					// Send ActionFailed to the Player
 					if (this instanceof Player)
 					{
-						sendPacket(ActionFailed.STATIC_PACKET);
+						sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 						getAI().setIntention(CtrlIntention.ACTIVE);
 					}
 					return;
@@ -1007,7 +1004,7 @@ public abstract class Creature extends WorldObject
 			
 			if (this instanceof Player)
 			{
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				getAI().setIntention(CtrlIntention.ACTIVE);
 			}
 			return;
@@ -1109,7 +1106,7 @@ public abstract class Creature extends WorldObject
 		
 		// Make sure that char is facing selected target
 		if (target != this)
-			setHeading(MathUtil.calculateHeadingFrom(this, target));
+			setHeading(MathUtil.INSTANCE.calculateHeadingFrom(this, target));
 		
 		// For force buff skills, start the effect as long as the player is casting.
 		if (effectWhileCasting)
@@ -1151,10 +1148,10 @@ public abstract class Creature extends WorldObject
 			if (!skill.isPotion())
 			{
 				broadcastPacket(new MagicSkillUse(this, target, displayId, level, hitTime, reuseDelay, false));
-				broadcastPacket(new MagicSkillLaunched(this, displayId, level, (targets == null || targets.length == 0) ? new WorldObject[]
-				{
-					target
-				} : targets));
+				broadcastPacket(new MagicSkillLaunched(this, displayId, level, Arrays.asList((targets == null || targets.length == 0) ? new WorldObject[]
+						{
+								target
+						} : targets)));
 			}
 			else
 				broadcastPacket(new MagicSkillUse(this, target, displayId, level, 0, 0));
@@ -1241,7 +1238,7 @@ public abstract class Creature extends WorldObject
 		if (skill == null || isSkillDisabled(skill))
 		{
 			// Send ActionFailed to the Player
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return false;
 		}
 		
@@ -1252,7 +1249,7 @@ public abstract class Creature extends WorldObject
 			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_MP));
 			
 			// Send ActionFailed to the Player
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return false;
 		}
 		
@@ -1263,7 +1260,7 @@ public abstract class Creature extends WorldObject
 			sendPacket(SystemMessage.getSystemMessage(SystemMessageId.NOT_ENOUGH_HP));
 			
 			// Send ActionFailed to the Player
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return false;
 		}
 		
@@ -1271,7 +1268,7 @@ public abstract class Creature extends WorldObject
 		if (!skill.isPotion() && ((skill.isMagic() && isMuted()) || (!skill.isMagic() && isPhysicalMuted())))
 		{
 			// Send ActionFailed to the Player
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return false;
 		}
 		
@@ -1279,7 +1276,7 @@ public abstract class Creature extends WorldObject
 		if (!skill.getWeaponDependancy(this))
 		{
 			// Send ActionFailed to the Player
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return false;
 		}
 		
@@ -2731,7 +2728,7 @@ public abstract class Creature extends WorldObject
 	 */
 	public boolean isInCombat()
 	{
-		return hasAI() && AttackStanceTaskManager.getInstance().isInAttackStance(this);
+		return hasAI() && AttackStanceTaskManager.INSTANCE.isInAttackStance(this);
 	}
 	
 	/**
@@ -2805,7 +2802,7 @@ public abstract class Creature extends WorldObject
 	public final void abortAttack()
 	{
 		if (isAttackingNow())
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	/**
@@ -2850,7 +2847,7 @@ public abstract class Creature extends WorldObject
 				getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING); // setting back previous intention
 				
 			broadcastPacket(new MagicSkillCanceled(getObjectId())); // broadcast packet to stop animations client-side
-			sendPacket(ActionFailed.STATIC_PACKET); // send an "action failed" packet to the caster
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET()); // send an "action failed" packet to the caster
 		}
 	}
 	
@@ -2910,7 +2907,7 @@ public abstract class Creature extends WorldObject
 		final boolean isFloating = isFlying() || isInsideZone(ZoneId.WATER);
 		
 		// Z coordinate will follow geodata or client values once a second to reduce possible cpu load
-		if (!isFloating && !m.disregardingGeodata && Rnd.get(10) == 0 && GeoEngine.getInstance().hasGeo(xPrev, yPrev))
+		if (!isFloating && !m.disregardingGeodata && Rnd.INSTANCE.get(10) == 0 && GeoEngine.getInstance().hasGeo(xPrev, yPrev))
 		{
 			short geoHeight = GeoEngine.getInstance().getHeight(xPrev, yPrev, zPrev);
 			dz = m._zDestination - geoHeight;
@@ -3304,10 +3301,10 @@ public abstract class Creature extends WorldObject
 		
 		// Does not broke heading on vertical movements
 		if (!verticalMovementOnly)
-			setHeading(MathUtil.calculateHeadingFrom(cos, sin));
+			setHeading(MathUtil.INSTANCE.calculateHeadingFrom(cos, sin));
 		
 		// add the character to moving objects of the GameTimeController
-		MovementTaskManager.getInstance().add(this);
+		MovementTaskManager.INSTANCE.add(this);
 	}
 	
 	public boolean moveToNextRoutePoint()
@@ -3366,10 +3363,10 @@ public abstract class Creature extends WorldObject
 		
 		// set character heading
 		if (distance != 0)
-			setHeading(MathUtil.calculateHeadingFrom(dx, dy));
+			setHeading(MathUtil.INSTANCE.calculateHeadingFrom(dx, dy));
 		
 		// add the character to moving objects of the GameTimeController
-		MovementTaskManager.getInstance().add(this);
+		MovementTaskManager.INSTANCE.add(this);
 		
 		// send MoveToLocation packet to known objects
 		broadcastPacket(new MoveToLocation(this));
@@ -3585,7 +3582,7 @@ public abstract class Creature extends WorldObject
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 			
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -3751,7 +3748,7 @@ public abstract class Creature extends WorldObject
 		{
 			// If Creature or target is in a peace zone, send a system message TARGET_IN_PEACEZONE ActionFailed
 			player.sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -3761,7 +3758,7 @@ public abstract class Creature extends WorldObject
 			if (target == null || (target.isInOlympiadMode() && (!player.isOlympiadStart() || player.getOlympiadGameId() != target.getOlympiadGameId())))
 			{
 				// if Player is in Olympia and the match isn't already start, send ActionFailed
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 		}
@@ -3769,14 +3766,14 @@ public abstract class Creature extends WorldObject
 		if (player.getTarget() != null && !player.getTarget().isAttackable() && !player.getAccessLevel().allowPeaceAttack())
 		{
 			// If target is not attackable, send ActionFailed
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		if (player.isConfused())
 		{
 			// If target is confused, send ActionFailed
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -3784,7 +3781,7 @@ public abstract class Creature extends WorldObject
 		if (!GeoEngine.getInstance().canSeeTarget(player, this))
 		{
 			player.sendPacket(SystemMessageId.CANT_SEE_TARGET);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -4056,7 +4053,7 @@ public abstract class Creature extends WorldObject
 			{
 				if (target instanceof Creature)
 				{
-					if (!MathUtil.checkIfInRange(escapeRange, this, target, true))
+					if (!MathUtil.INSTANCE.checkIfInRange(escapeRange, this, target, true))
 					{
 						_skiprange++;
 						continue;
@@ -4604,8 +4601,8 @@ public abstract class Creature extends WorldObject
 		
 		final double maxAngleDiff = 60;
 		
-		double angleChar = MathUtil.calculateAngleFrom(this, target);
-		double angleTarget = MathUtil.convertHeadingToDegree(target.getHeading());
+		double angleChar = MathUtil.INSTANCE.calculateAngleFrom(this, target);
+		double angleTarget = MathUtil.INSTANCE.convertHeadingToDegree(target.getHeading());
 		double angleDiff = angleChar - angleTarget;
 		
 		if (angleDiff <= -360 + maxAngleDiff)
@@ -4637,8 +4634,8 @@ public abstract class Creature extends WorldObject
 		
 		final double maxAngleDiff = 60;
 		
-		double angleTarget = MathUtil.calculateAngleFrom(target, this);
-		double angleChar = MathUtil.convertHeadingToDegree(target.getHeading());
+		double angleTarget = MathUtil.INSTANCE.calculateAngleFrom(target, this);
+		double angleChar = MathUtil.INSTANCE.convertHeadingToDegree(target.getHeading());
 		double angleDiff = angleChar - angleTarget;
 		
 		if (angleDiff <= -360 + maxAngleDiff)
@@ -4661,8 +4658,8 @@ public abstract class Creature extends WorldObject
 			return false;
 		
 		double maxAngleDiff = maxAngle / 2;
-		double angleTarget = MathUtil.calculateAngleFrom(this, target);
-		double angleChar = MathUtil.convertHeadingToDegree(getHeading());
+		double angleTarget = MathUtil.INSTANCE.calculateAngleFrom(this, target);
+		double angleChar = MathUtil.INSTANCE.convertHeadingToDegree(getHeading());
 		double angleDiff = angleChar - angleTarget;
 		
 		if (angleDiff <= -360 + maxAngleDiff)
@@ -5075,7 +5072,7 @@ public abstract class Creature extends WorldObject
 		else
 			random = 5 + (int) Math.sqrt(getLevel());
 		
-		return (1 + ((double) Rnd.get(0 - random, random) / 100));
+		return (1 + ((double) Rnd.INSTANCE.get(0 - random, random) / 100));
 	}
 	
 	public void disableCoreAI(boolean val)

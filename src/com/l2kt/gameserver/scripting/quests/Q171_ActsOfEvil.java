@@ -268,7 +268,7 @@ public class Q171_ActsOfEvil extends Quest
 				if (st.getInt("cond") == 2 && !st.dropItems(BLADE_MOLD, 1, 20, CHANCES.get(npcId)))
 				{
 					final int count = st.getQuestItemsCount(BLADE_MOLD);
-					if (count == 5 || (count >= 10 && Rnd.get(100) < 25))
+					if (count == 5 || (count >= 10 && Rnd.INSTANCE.get(100) < 25))
 						addSpawn(27190, player, false, 0, true);
 				}
 				break;
@@ -282,7 +282,7 @@ public class Q171_ActsOfEvil extends Quest
 						st.giveItems(RANGER_REPORT_1, 1);
 						st.playSound(QuestState.SOUND_ITEMGET);
 					}
-					else if (Rnd.get(100) < 20)
+					else if (Rnd.INSTANCE.get(100) < 20)
 					{
 						if (!st.hasQuestItems(RANGER_REPORT_2))
 						{
@@ -304,7 +304,7 @@ public class Q171_ActsOfEvil extends Quest
 				break;
 			
 			case 20438:
-				if (st.getInt("cond") == 6 && Rnd.get(100) < 10 && !st.hasQuestItems(WEAPON_TRADE_CONTRACT, ATTACK_DIRECTIVES))
+				if (st.getInt("cond") == 6 && Rnd.INSTANCE.get(100) < 10 && !st.hasQuestItems(WEAPON_TRADE_CONTRACT, ATTACK_DIRECTIVES))
 				{
 					st.playSound(QuestState.SOUND_ITEMGET);
 					st.giveItems(WEAPON_TRADE_CONTRACT, 1);

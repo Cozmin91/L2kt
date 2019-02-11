@@ -54,7 +54,7 @@ public class RequestSetCrop extends L2GameClientPacket
 		final CastleManorManager manor = CastleManorManager.getInstance();
 		if (!manor.isModifiablePeriod())
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -62,7 +62,7 @@ public class RequestSetCrop extends L2GameClientPacket
 		final Player player = getClient().getActiveChar();
 		if (player == null || player.getClan() == null || player.getClan().getCastleId() != _manorId || ((player.getClanPrivileges() & Clan.CP_CS_MANOR_ADMIN) != Clan.CP_CS_MANOR_ADMIN) || !player.getCurrentFolk().canInteract(player))
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		

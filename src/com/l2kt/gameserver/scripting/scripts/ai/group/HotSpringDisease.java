@@ -63,7 +63,7 @@ public class HotSpringDisease extends L2AttackableAIScript
 	
 	private static void tryToApplyEffect(Npc npc, Player victim, int skillId)
 	{
-		if (Rnd.get(100) < DISEASE_CHANCE)
+		if (Rnd.INSTANCE.get(100) < DISEASE_CHANCE)
 		{
 			int level = 1;
 			
@@ -83,7 +83,7 @@ public class HotSpringDisease extends L2AttackableAIScript
 			if (level > 10)
 				level = 10;
 			
-			SkillTable.getInstance().getInfo(skillId, level).getEffects(npc, victim);
+			SkillTable.INSTANCE.getInfo(skillId, level).getEffects(npc, victim);
 		}
 	}
 }

@@ -20,7 +20,7 @@ public class ChatHeroVoice implements IChatHandler
 		if (!activeChar.isHero())
 			return;
 		
-		if (!FloodProtectors.performAction(activeChar.getClient(), Action.HERO_VOICE))
+		if (!FloodProtectors.INSTANCE.performAction(activeChar.getClient(), Action.HERO_VOICE))
 			return;
 		
 		final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);

@@ -145,11 +145,11 @@ public class Q662_AGameOfCards extends Quest
 			
 			if (state == 0 && stateEx == 0 && st.getQuestItemsCount(RED_GEM) >= 50)
 			{
-				int i1 = Rnd.get(70) + 1;
-				int i2 = Rnd.get(70) + 1;
-				int i3 = Rnd.get(70) + 1;
-				int i4 = Rnd.get(70) + 1;
-				int i5 = Rnd.get(70) + 1;
+				int i1 = Rnd.INSTANCE.get(70) + 1;
+				int i2 = Rnd.INSTANCE.get(70) + 1;
+				int i3 = Rnd.INSTANCE.get(70) + 1;
+				int i4 = Rnd.INSTANCE.get(70) + 1;
+				int i5 = Rnd.INSTANCE.get(70) + 1;
 				
 				if (i1 >= 57)
 					i1 = i1 - 56;
@@ -540,7 +540,7 @@ public class Q662_AGameOfCards extends Quest
 	
 	private static void giveReward(QuestState st, int item, int count)
 	{
-		final Item template = ItemTable.getInstance().getTemplate(item);
+		final Item template = ItemTable.INSTANCE.getTemplate(item);
 		
 		if (template.isStackable())
 			st.giveItems(item, count);

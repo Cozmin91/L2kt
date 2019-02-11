@@ -239,8 +239,8 @@ public class CastleChamberlain extends Merchant
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile(filename);
 			html.replace("%objectId%", getObjectId());
-			html.replace("%tax_income%", StringUtil.formatNumber(getCastle().getTreasury()));
-			html.replace("%withdraw_amount%", StringUtil.formatNumber(amount));
+			html.replace("%tax_income%", StringUtil.INSTANCE.formatNumber(getCastle().getTreasury()));
+			html.replace("%withdraw_amount%", StringUtil.INSTANCE.formatNumber(amount));
 			player.sendPacket(html);
 		}
 		else if (actualCommand.equalsIgnoreCase("operate_door")) // door control
@@ -329,7 +329,7 @@ public class CastleChamberlain extends Merchant
 			final CastleManorManager manor = CastleManorManager.getInstance();
 			if (manor.isUnderMaintenance())
 			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				player.sendPacket(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE);
 				return;
 			}
@@ -646,7 +646,7 @@ public class CastleChamberlain extends Merchant
 	@Override
 	public void showChatWindow(Player player)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		String filename = "data/html/chamberlain/no.htm";
 		
 		int condition = validateCondition(player);

@@ -234,7 +234,7 @@ public class CastleManorManager implements IXmlReader
 							if (crop.getStartAmount() != crop.getAmount())
 							{
 								int count = (int) ((crop.getStartAmount() - crop.getAmount()) * 0.9);
-								if (count < 1 && Rnd.nextInt(99) < 90)
+								if (count < 1 && Rnd.INSTANCE.nextInt(99) < 90)
 									count = 1;
 								
 								if (count > 0)

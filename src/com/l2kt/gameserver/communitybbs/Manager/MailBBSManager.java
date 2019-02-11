@@ -304,7 +304,7 @@ public class MailBBSManager extends BaseBBSManager
 				if (index > maxIndex)
 					break;
 				
-				StringUtil.append(sb, "<table width=610><tr><td width=5></td><td width=150>", getPlayerName(mail.senderId), "</td><td width=300><a action=\"bypass _bbsmail;view;", mail.mailId, "\">");
+				StringUtil.INSTANCE.append(sb, "<table width=610><tr><td width=5></td><td width=150>", getPlayerName(mail.senderId), "</td><td width=300><a action=\"bypass _bbsmail;view;", mail.mailId, "\">");
 				
 				if (mail.unread)
 					sb.append("<font color=\"LEVEL\">");
@@ -314,7 +314,7 @@ public class MailBBSManager extends BaseBBSManager
 				if (mail.unread)
 					sb.append("</font>");
 				
-				StringUtil.append(sb, "</a></td><td width=150>", mail.sentDateString, "</td><td width=5></td></tr></table><img src=\"L2UI.Squaregray\" width=610 height=1>");
+				StringUtil.INSTANCE.append(sb, "</a></td><td width=150>", mail.sentDateString, "</td><td width=5></td></tr></table><img src=\"L2UI.Squaregray\" width=610 height=1>");
 				index++;
 			}
 		}
@@ -325,7 +325,7 @@ public class MailBBSManager extends BaseBBSManager
 		
 		final String fullSearch = (!sType.equals("") && !search.equals("")) ? ";" + sType + ";" + search : "";
 		
-		StringUtil.append(sb, "<td><table><tr><td></td></tr><tr><td><button action=\"bypass _bbsmail;", type, ";", (page == 1 ? page : page - 1), fullSearch, "\" back=\"l2ui_ch3.prev1_down\" fore=\"l2ui_ch3.prev1\" width=16 height=16></td></tr></table></td>");
+		StringUtil.INSTANCE.append(sb, "<td><table><tr><td></td></tr><tr><td><button action=\"bypass _bbsmail;", type, ";", (page == 1 ? page : page - 1), fullSearch, "\" back=\"l2ui_ch3.prev1_down\" fore=\"l2ui_ch3.prev1\" width=16 height=16></td></tr></table></td>");
 		
 		int i = 0;
 		if (maxpage > 21)
@@ -335,9 +335,9 @@ public class MailBBSManager extends BaseBBSManager
 				for (i = 1; i <= (10 + page); i++)
 				{
 					if (i == page)
-						StringUtil.append(sb, "<td> ", i, " </td>");
+						StringUtil.INSTANCE.append(sb, "<td> ", i, " </td>");
 					else
-						StringUtil.append(sb, "<td><a action=\"bypass _bbsmail;", type, ";", i, fullSearch, "\"> ", i, " </a></td>");
+						StringUtil.INSTANCE.append(sb, "<td><a action=\"bypass _bbsmail;", type, ";", i, fullSearch, "\"> ", i, " </a></td>");
 				}
 			}
 			else if (page > 11 && (maxpage - page) > 10)
@@ -347,14 +347,14 @@ public class MailBBSManager extends BaseBBSManager
 					if (i == page)
 						continue;
 					
-					StringUtil.append(sb, "<td><a action=\"bypass _bbsmail;", type, ";", i, fullSearch, "\"> ", i, " </a></td>");
+					StringUtil.INSTANCE.append(sb, "<td><a action=\"bypass _bbsmail;", type, ";", i, fullSearch, "\"> ", i, " </a></td>");
 				}
 				for (i = page; i <= (page + 10); i++)
 				{
 					if (i == page)
-						StringUtil.append(sb, "<td> ", i, " </td>");
+						StringUtil.INSTANCE.append(sb, "<td> ", i, " </td>");
 					else
-						StringUtil.append(sb, "<td><a action=\"bypass _bbsmail;", type, ";", i, fullSearch, "\"> ", i, " </a></td>");
+						StringUtil.INSTANCE.append(sb, "<td><a action=\"bypass _bbsmail;", type, ";", i, fullSearch, "\"> ", i, " </a></td>");
 				}
 			}
 			else if ((maxpage - page) <= 10)
@@ -362,9 +362,9 @@ public class MailBBSManager extends BaseBBSManager
 				for (i = (page - 10); i <= maxpage; i++)
 				{
 					if (i == page)
-						StringUtil.append(sb, "<td> ", i, " </td>");
+						StringUtil.INSTANCE.append(sb, "<td> ", i, " </td>");
 					else
-						StringUtil.append(sb, "<td><a action=\"bypass _bbsmail;", type, ";", i, fullSearch, "\"> ", i, " </a></td>");
+						StringUtil.INSTANCE.append(sb, "<td><a action=\"bypass _bbsmail;", type, ";", i, fullSearch, "\"> ", i, " </a></td>");
 				}
 			}
 		}
@@ -373,12 +373,12 @@ public class MailBBSManager extends BaseBBSManager
 			for (i = 1; i <= maxpage; i++)
 			{
 				if (i == page)
-					StringUtil.append(sb, "<td> ", i, " </td>");
+					StringUtil.INSTANCE.append(sb, "<td> ", i, " </td>");
 				else
-					StringUtil.append(sb, "<td><a action=\"bypass _bbsmail;", type, ";", i, fullSearch, "\"> ", i, " </a></td>");
+					StringUtil.INSTANCE.append(sb, "<td><a action=\"bypass _bbsmail;", type, ";", i, fullSearch, "\"> ", i, " </a></td>");
 			}
 		}
-		StringUtil.append(sb, "<td><table><tr><td></td></tr><tr><td><button action=\"bypass _bbsmail;", type, ";", (page == maxpage ? page : page + 1), fullSearch, "\" back=\"l2ui_ch3.next1_down\" fore=\"l2ui_ch3.next1\" width=16 height=16 ></td></tr></table></td>");
+		StringUtil.INSTANCE.append(sb, "<td><table><tr><td></td></tr><tr><td><button action=\"bypass _bbsmail;", type, ";", (page == maxpage ? page : page + 1), fullSearch, "\" back=\"l2ui_ch3.next1_down\" fore=\"l2ui_ch3.next1\" width=16 height=16 ></td></tr></table></td>");
 		
 		content = content.replace("%maillistlength%", sb.toString());
 		
@@ -535,7 +535,7 @@ public class MailBBSManager extends BaseBBSManager
 				{
 					recipientPlayer.sendPacket(SystemMessageId.NEW_MAIL);
 					recipientPlayer.sendPacket(new PlaySound("systemmsg_e.1233"));
-					recipientPlayer.sendPacket(ExMailArrived.STATIC_PACKET);
+					recipientPlayer.sendPacket(ExMailArrived.Companion.getSTATIC_PACKET());
 				}
 			}
 			

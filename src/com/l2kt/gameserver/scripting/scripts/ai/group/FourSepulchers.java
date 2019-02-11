@@ -72,8 +72,8 @@ public class FourSepulchers extends L2AttackableAIScript
 		if (attacker instanceof Attackable)
 		{
 			// Calculate random coords.
-			final int rndX = npc.getX() + Rnd.get(-Config.MAX_DRIFT_RANGE, Config.MAX_DRIFT_RANGE);
-			final int rndY = npc.getY() + Rnd.get(-Config.MAX_DRIFT_RANGE, Config.MAX_DRIFT_RANGE);
+			final int rndX = npc.getX() + Rnd.INSTANCE.get(-Config.MAX_DRIFT_RANGE, Config.MAX_DRIFT_RANGE);
+			final int rndY = npc.getY() + Rnd.INSTANCE.get(-Config.MAX_DRIFT_RANGE, Config.MAX_DRIFT_RANGE);
 			
 			// Wait the NPC to be immobile to move him again. Also check destination point.
 			if (!npc.isMoving() && GeoEngine.getInstance().canMoveToTarget(npc.getX(), npc.getY(), npc.getZ(), rndX, rndY, npc.getZ()))
@@ -86,8 +86,8 @@ public class FourSepulchers extends L2AttackableAIScript
 				
 				// 50% to call a specific player. If no player can be found, we use generic string.
 				Player playerToCall = null;
-				if (Rnd.nextBoolean())
-					playerToCall = Rnd.get(npc.getKnownTypeInRadius(Player.class, 1200));
+				if (Rnd.INSTANCE.nextBoolean())
+					playerToCall = Rnd.INSTANCE.get(npc.getKnownTypeInRadius(Player.class, 1200));
 				
 				npc.broadcastNpcSay((playerToCall == null) ? "Help me!!" : "%s! Help me!!".replaceAll("%s", playerToCall.getName()));
 			}

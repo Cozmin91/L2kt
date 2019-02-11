@@ -103,7 +103,7 @@ public class CursedWeapon
 		_durationLost = set.getInteger("durationLost");
 		_stageKills = set.getInteger("stageKills");
 		
-		_skillMaxLevel = SkillTable.getInstance().getMaxLevel(_skillId);
+		_skillMaxLevel = SkillTable.INSTANCE.getMaxLevel(_skillId);
 		
 		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
@@ -423,8 +423,8 @@ public class CursedWeapon
 		_isActivated = false;
 		
 		// Get position.
-		int x = attackable.getX() + Rnd.get(-70, 70);
-		int y = attackable.getY() + Rnd.get(-70, 70);
+		int x = attackable.getX() + Rnd.INSTANCE.get(-70, 70);
+		int y = attackable.getY() + Rnd.INSTANCE.get(-70, 70);
 		int z = GeoEngine.getInstance().getHeight(x, y, attackable.getZ());
 		
 		// Create item and drop it.
@@ -477,7 +477,7 @@ public class CursedWeapon
 	 */
 	public void giveDemonicSkills()
 	{
-		final L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _currentStage);
+		final L2Skill skill = SkillTable.INSTANCE.getInfo(_skillId, _currentStage);
 		if (skill != null)
 		{
 			_player.addSkill(skill, false);
@@ -526,7 +526,7 @@ public class CursedWeapon
 	 */
 	public boolean checkDrop(Attackable attackable, Player player)
 	{
-		if (Rnd.get(1000000) < _dropRate)
+		if (Rnd.INSTANCE.get(1000000) < _dropRate)
 		{
 			// Drop the item.
 			dropFromMob(attackable, player);
@@ -570,7 +570,7 @@ public class CursedWeapon
 		_item = item;
 		
 		// Generate a random number for next stage.
-		_numberBeforeNextStage = Rnd.get((int) Math.round(_stageKills * 0.5), (int) Math.round(_stageKills * 1.5));
+		_numberBeforeNextStage = Rnd.INSTANCE.get((int) Math.round(_stageKills * 0.5), (int) Math.round(_stageKills * 1.5));
 		
 		// Renew hungry time.
 		_hungryTime = _durationLost * 60;
@@ -661,7 +661,7 @@ public class CursedWeapon
 	public void dropIt(Creature killer)
 	{
 		// Remove it
-		if (Rnd.get(100) <= _dissapearChance)
+		if (Rnd.INSTANCE.get(100) <= _dissapearChance)
 			endOfLife();
 		// Unequip & Drop
 		else
@@ -688,7 +688,7 @@ public class CursedWeapon
 				_nbKills = 0;
 				
 				// Setup the new random number.
-				_numberBeforeNextStage = Rnd.get((int) Math.round(_stageKills * 0.5), (int) Math.round(_stageKills * 1.5));
+				_numberBeforeNextStage = Rnd.INSTANCE.get((int) Math.round(_stageKills * 0.5), (int) Math.round(_stageKills * 1.5));
 				
 				// Rank up the CW.
 				rankUp();

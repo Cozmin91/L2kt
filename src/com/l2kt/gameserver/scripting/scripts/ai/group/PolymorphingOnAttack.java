@@ -153,11 +153,11 @@ public class PolymorphingOnAttack extends L2AttackableAIScript
 			final Integer[] tmp = MOBSPAWNS.get(npc.getNpcId());
 			if (tmp != null)
 			{
-				if (npc.getCurrentHp() <= (npc.getMaxHp() * tmp[1] / 100.0) && Rnd.get(100) < tmp[2])
+				if (npc.getCurrentHp() <= (npc.getMaxHp() * tmp[1] / 100.0) && Rnd.INSTANCE.get(100) < tmp[2])
 				{
 					if (tmp[3] >= 0)
 					{
-						String text = Rnd.get(MOBTEXTS[tmp[3]]);
+						String text = Rnd.INSTANCE.get(MOBTEXTS[tmp[3]]);
 						npc.broadcastPacket(new CreatureSay(npc.getObjectId(), Say2.ALL, npc.getName(), text));
 					}
 					npc.deleteMe();

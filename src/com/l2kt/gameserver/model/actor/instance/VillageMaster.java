@@ -104,7 +104,7 @@ public class VillageMaster extends Folk
 				return;
 			}
 			
-			if (!StringUtil.isAlphaNumeric(cmdParams2))
+			if (!StringUtil.INSTANCE.isAlphaNumeric(cmdParams2))
 			{
 				player.sendPacket(SystemMessageId.CLAN_NAME_INVALID);
 				return;
@@ -373,7 +373,7 @@ public class VillageMaster extends Folk
 					
 					sb = new StringBuilder(300);
 					for (ClassId subClass : subsAvailable)
-						StringUtil.append(sb, "<a action=\"bypass -h npc_%objectId%_Subclass 4 ", subClass.getId(), "\" msg=\"1268;", subClass, "\">", subClass, "</a><br>");
+						StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h npc_%objectId%_Subclass 4 ", subClass.getId(), "\" msg=\"1268;", subClass, "\">", subClass, "</a><br>");
 					
 					html.setFile("data/html/villagemaster/SubClass_Add.htm");
 					html.replace("%list%", sb.toString());
@@ -401,12 +401,12 @@ public class VillageMaster extends Folk
 						sb = new StringBuilder(300);
 						
 						if (checkVillageMaster(player.getBaseClass()))
-							StringUtil.append(sb, "<a action=\"bypass -h npc_%objectId%_Subclass 5 0\">", PlayerData.getInstance().getClassNameById(player.getBaseClass()), "</a><br>");
+							StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h npc_%objectId%_Subclass 5 0\">", PlayerData.getInstance().getClassNameById(player.getBaseClass()), "</a><br>");
 						
 						for (SubClass subclass : player.getSubClasses().values())
 						{
 							if (checkVillageMaster(subclass.getClassDefinition()))
-								StringUtil.append(sb, "<a action=\"bypass -h npc_%objectId%_Subclass 5 ", subclass.getClassIndex(), "\">", subclass.getClassDefinition(), "</a><br>");
+								StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h npc_%objectId%_Subclass 5 ", subclass.getClassIndex(), "\">", subclass.getClassDefinition(), "</a><br>");
 						}
 						
 						if (sb.length() > 0)
@@ -444,7 +444,7 @@ public class VillageMaster extends Folk
 					break;
 				
 				case 4: // Add Subclass - Action (Subclass 4 x[x])
-					if (!FloodProtectors.performAction(player.getClient(), Action.SUBCLASS))
+					if (!FloodProtectors.INSTANCE.performAction(player.getClient(), Action.SUBCLASS))
 						return;
 					
 					boolean allowAddition = true;
@@ -487,7 +487,7 @@ public class VillageMaster extends Folk
 					break;
 				
 				case 5: // Change Class - Action
-					if (!FloodProtectors.performAction(player.getClient(), Action.SUBCLASS))
+					if (!FloodProtectors.INSTANCE.performAction(player.getClient(), Action.SUBCLASS))
 						return;
 					
 					if (player.getClassIndex() == paramOne)
@@ -535,7 +535,7 @@ public class VillageMaster extends Folk
 					
 					sb = new StringBuilder(300);
 					for (ClassId subClass : subsAvailable)
-						StringUtil.append(sb, "<a action=\"bypass -h npc_%objectId%_Subclass 7 ", paramOne, " ", subClass.getId(), "\" msg=\"1445;", "\">", subClass, "</a><br>");
+						StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h npc_%objectId%_Subclass 7 ", paramOne, " ", subClass.getId(), "\" msg=\"1445;", "\">", subClass, "</a><br>");
 					
 					switch (paramOne)
 					{
@@ -558,7 +558,7 @@ public class VillageMaster extends Folk
 					break;
 				
 				case 7: // Change Subclass - Action
-					if (!FloodProtectors.performAction(player.getClient(), Action.SUBCLASS))
+					if (!FloodProtectors.INSTANCE.performAction(player.getClient(), Action.SUBCLASS))
 						return;
 					
 					if (!isValidNewSubClass(player, paramTwo))
@@ -717,7 +717,7 @@ public class VillageMaster extends Folk
 			return;
 		}
 		
-		if (!StringUtil.isAlphaNumeric(clanName))
+		if (!StringUtil.INSTANCE.isAlphaNumeric(clanName))
 		{
 			player.sendPacket(SystemMessageId.CLAN_NAME_INVALID);
 			return;
@@ -863,7 +863,7 @@ public class VillageMaster extends Folk
 			final NpcHtmlMessage html = new NpcHtmlMessage(0);
 			html.setFile("data/html/scripts/village_master/Clan/9000-09-no.htm");
 			player.sendPacket(html);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -877,6 +877,6 @@ public class VillageMaster extends Folk
 		else
 			player.sendPacket(new AcquireSkillList(AcquireSkillType.CLAN, skills));
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 }

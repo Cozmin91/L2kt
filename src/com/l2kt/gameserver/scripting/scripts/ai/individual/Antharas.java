@@ -170,7 +170,7 @@ public class Antharas extends L2AttackableAIScript
 			callSkillAI(npc);
 		else if (event.equalsIgnoreCase("minions_spawn"))
 		{
-			boolean isBehemoth = Rnd.get(100) < 60;
+			boolean isBehemoth = Rnd.INSTANCE.get(100) < 60;
 			int mobNumber = isBehemoth ? 2 : 3;
 			
 			// Set spawn.
@@ -179,8 +179,8 @@ public class Antharas extends L2AttackableAIScript
 				if (_monsters.size() > 9)
 					break;
 				
-				final int npcId = isBehemoth ? 29069 : Rnd.get(29070, 29076);
-				final Npc dragon = addSpawn(npcId, npc.getX() + Rnd.get(-200, 200), npc.getY() + Rnd.get(-200, 200), npc.getZ(), 0, false, 0, true);
+				final int npcId = isBehemoth ? 29069 : Rnd.INSTANCE.get(29070, 29076);
+				final Npc dragon = addSpawn(npcId, npc.getX() + Rnd.INSTANCE.get(-200, 200), npc.getY() + Rnd.INSTANCE.get(-200, 200), npc.getZ(), 0, false, 0, true);
 				((Attackable) dragon).setMinion(true);
 				
 				_monsters.add(dragon);
@@ -204,10 +204,10 @@ public class Antharas extends L2AttackableAIScript
 				case 29073:
 				case 29074:
 				case 29075:
-					skill = SkillTable.getInstance().getInfo(5097, 1);
+					skill = SkillTable.INSTANCE.getInfo(5097, 1);
 					break;
 				default:
-					skill = SkillTable.getInstance().getInfo(5094, 1);
+					skill = SkillTable.INSTANCE.getInfo(5094, 1);
 			}
 			npc.doCast(skill);
 		}
@@ -282,7 +282,7 @@ public class Antharas extends L2AttackableAIScript
 			
 			GrandBossManager.getInstance().setBossStatus(ANTHARAS, DEAD);
 			
-			long respawnTime = (long) Config.SPAWN_INTERVAL_ANTHARAS + Rnd.get(-Config.RANDOM_SPAWN_TIME_ANTHARAS, Config.RANDOM_SPAWN_TIME_ANTHARAS);
+			long respawnTime = (long) Config.SPAWN_INTERVAL_ANTHARAS + Rnd.INSTANCE.get(-Config.RANDOM_SPAWN_TIME_ANTHARAS, Config.RANDOM_SPAWN_TIME_ANTHARAS);
 			respawnTime *= 3600000;
 			
 			startQuestTimer("antharas_unlock", respawnTime, null, null, false);
@@ -306,20 +306,20 @@ public class Antharas extends L2AttackableAIScript
 			return;
 		
 		// Pickup a target if no or dead victim. 10% luck he decides to reconsiders his target.
-		if (_actualVictim == null || _actualVictim.isDead() || !(npc.getKnownType(Player.class).contains(_actualVictim)) || Rnd.get(10) == 0)
+		if (_actualVictim == null || _actualVictim.isDead() || !(npc.getKnownType(Player.class).contains(_actualVictim)) || Rnd.INSTANCE.get(10) == 0)
 			_actualVictim = getRandomPlayer(npc);
 		
 		// If result is still null, Antharas will roam. Don't go deeper in skill AI.
 		if (_actualVictim == null)
 		{
-			if (Rnd.get(10) == 0)
+			if (Rnd.INSTANCE.get(10) == 0)
 			{
 				int x = npc.getX();
 				int y = npc.getY();
 				int z = npc.getZ();
 				
-				int posX = x + Rnd.get(-1400, 1400);
-				int posY = y + Rnd.get(-1400, 1400);
+				int posX = x + Rnd.INSTANCE.get(-1400, 1400);
+				int posY = y + Rnd.INSTANCE.get(-1400, 1400);
 				
 				if (GeoEngine.getInstance().canMoveToTarget(x, y, z, posX, posY, z))
 					npc.getAI().setIntention(CtrlIntention.MOVE_TO, new Location(posX, posY, z));
@@ -330,7 +330,7 @@ public class Antharas extends L2AttackableAIScript
 		final L2Skill skill = getRandomSkill(npc);
 		
 		// Cast the skill or follow the target.
-		if (MathUtil.checkIfInRange((skill.getCastRange() < 600) ? 600 : skill.getCastRange(), npc, _actualVictim, true))
+		if (MathUtil.INSTANCE.checkIfInRange((skill.getCastRange() < 600) ? 600 : skill.getCastRange(), npc, _actualVictim, true))
 		{
 			npc.getAI().setIntention(CtrlIntention.IDLE);
 			npc.setTarget(_actualVictim);
@@ -355,70 +355,70 @@ public class Antharas extends L2AttackableAIScript
 		
 		if (hpRatio < 0.25)
 		{
-			if (Rnd.get(100) < 30)
+			if (Rnd.INSTANCE.get(100) < 30)
 				return SkillTable.FrequentSkill.ANTHARAS_MOUTH.getSkill();
 			
-			if (playersAround[1] >= 10 && Rnd.get(100) < 80)
+			if (playersAround[1] >= 10 && Rnd.INSTANCE.get(100) < 80)
 				return SkillTable.FrequentSkill.ANTHARAS_TAIL.getSkill();
 			
 			if (playersAround[0] >= 10)
 			{
-				if (Rnd.get(100) < 40)
+				if (Rnd.INSTANCE.get(100) < 40)
 					return SkillTable.FrequentSkill.ANTHARAS_DEBUFF.getSkill();
 				
-				if (Rnd.get(100) < 10)
+				if (Rnd.INSTANCE.get(100) < 10)
 					return SkillTable.FrequentSkill.ANTHARAS_JUMP.getSkill();
 			}
 			
-			if (Rnd.get(100) < 10)
+			if (Rnd.INSTANCE.get(100) < 10)
 				return SkillTable.FrequentSkill.ANTHARAS_METEOR.getSkill();
 		}
 		else if (hpRatio < 0.5)
 		{
-			if (playersAround[1] >= 10 && Rnd.get(100) < 80)
+			if (playersAround[1] >= 10 && Rnd.INSTANCE.get(100) < 80)
 				return SkillTable.FrequentSkill.ANTHARAS_TAIL.getSkill();
 			
 			if (playersAround[0] >= 10)
 			{
-				if (Rnd.get(100) < 40)
+				if (Rnd.INSTANCE.get(100) < 40)
 					return SkillTable.FrequentSkill.ANTHARAS_DEBUFF.getSkill();
 				
-				if (Rnd.get(100) < 10)
+				if (Rnd.INSTANCE.get(100) < 10)
 					return SkillTable.FrequentSkill.ANTHARAS_JUMP.getSkill();
 			}
 			
-			if (Rnd.get(100) < 7)
+			if (Rnd.INSTANCE.get(100) < 7)
 				return SkillTable.FrequentSkill.ANTHARAS_METEOR.getSkill();
 		}
 		else if (hpRatio < 0.75)
 		{
-			if (playersAround[1] >= 10 && Rnd.get(100) < 80)
+			if (playersAround[1] >= 10 && Rnd.INSTANCE.get(100) < 80)
 				return SkillTable.FrequentSkill.ANTHARAS_TAIL.getSkill();
 			
-			if (playersAround[0] >= 10 && Rnd.get(100) < 10)
+			if (playersAround[0] >= 10 && Rnd.INSTANCE.get(100) < 10)
 				return SkillTable.FrequentSkill.ANTHARAS_JUMP.getSkill();
 			
-			if (Rnd.get(100) < 5)
+			if (Rnd.INSTANCE.get(100) < 5)
 				return SkillTable.FrequentSkill.ANTHARAS_METEOR.getSkill();
 		}
 		else
 		{
-			if (playersAround[1] >= 10 && Rnd.get(100) < 80)
+			if (playersAround[1] >= 10 && Rnd.INSTANCE.get(100) < 80)
 				return SkillTable.FrequentSkill.ANTHARAS_TAIL.getSkill();
 			
-			if (Rnd.get(100) < 3)
+			if (Rnd.INSTANCE.get(100) < 3)
 				return SkillTable.FrequentSkill.ANTHARAS_METEOR.getSkill();
 		}
 		
-		if (Rnd.get(100) < 6)
+		if (Rnd.INSTANCE.get(100) < 6)
 			return SkillTable.FrequentSkill.ANTHARAS_BREATH.getSkill();
 		
-		if (Rnd.get(100) < 50)
+		if (Rnd.INSTANCE.get(100) < 50)
 			return SkillTable.FrequentSkill.ANTHARAS_NORMAL_ATTACK.getSkill();
 		
-		if (Rnd.get(100) < 5)
+		if (Rnd.INSTANCE.get(100) < 5)
 		{
-			if (Rnd.get(100) < 50)
+			if (Rnd.INSTANCE.get(100) < 50)
 				return SkillTable.FrequentSkill.ANTHARAS_FEAR.getSkill();
 			
 			return SkillTable.FrequentSkill.ANTHARAS_SHORT_FEAR.getSkill();
@@ -437,19 +437,19 @@ public class Antharas extends L2AttackableAIScript
 		if (playersNumber < 45)
 		{
 			_antharasId = ANTHARAS_IDS[0];
-			_skillRegen = SkillTable.getInstance().getInfo(4239, 1);
+			_skillRegen = SkillTable.INSTANCE.getInfo(4239, 1);
 			_minionTimer = 180000;
 		}
 		else if (playersNumber < 63)
 		{
 			_antharasId = ANTHARAS_IDS[1];
-			_skillRegen = SkillTable.getInstance().getInfo(4240, 1);
+			_skillRegen = SkillTable.INSTANCE.getInfo(4240, 1);
 			_minionTimer = 150000;
 		}
 		else
 		{
 			_antharasId = ANTHARAS_IDS[2];
-			_skillRegen = SkillTable.getInstance().getInfo(4241, 1);
+			_skillRegen = SkillTable.INSTANCE.getInfo(4241, 1);
 			_minionTimer = 120000;
 		}
 	}

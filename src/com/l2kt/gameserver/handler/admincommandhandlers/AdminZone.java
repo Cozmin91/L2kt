@@ -84,7 +84,7 @@ public class AdminZone implements IAdminCommandHandler
 		for (ZoneId zone : ZoneId.VALUES)
 		{
 			if (player.isInsideZone(zone))
-				StringUtil.append(sb, zone, "<br1>");
+				StringUtil.INSTANCE.append(sb, zone, "<br1>");
 		}
 		html.replace("%ZONES%", sb.toString());
 		
@@ -94,7 +94,7 @@ public class AdminZone implements IAdminCommandHandler
 		for (ZoneType zone : World.getInstance().getRegion(x, y).getZones())
 		{
 			if (zone.isCharacterInZone(player))
-				StringUtil.append(sb, zone.getId(), " ");
+				StringUtil.INSTANCE.append(sb, zone.getId(), " ");
 		}
 		html.replace("%ZLIST%", sb.toString());
 		player.sendPacket(html);

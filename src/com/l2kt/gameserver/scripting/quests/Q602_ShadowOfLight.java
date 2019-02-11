@@ -80,7 +80,7 @@ public class Q602_ShadowOfLight extends Quest
 		{
 			st.takeItems(EYE_OF_DARKNESS, -1);
 			
-			final int random = Rnd.get(100);
+			final int random = Rnd.INSTANCE.get(100);
 			for (int[] element : REWARDS)
 			{
 				if (random < element[4])

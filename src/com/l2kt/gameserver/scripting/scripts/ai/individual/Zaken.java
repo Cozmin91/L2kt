@@ -113,7 +113,7 @@ public class Zaken extends L2AttackableAIScript
 		
 		if (event.equalsIgnoreCase("1001"))
 		{
-			if (GameTimeTaskManager.getInstance().isNight())
+			if (GameTimeTaskManager.INSTANCE.isNight())
 			{
 				L2Skill skill = SkillTable.FrequentSkill.ZAKEN_DAY_TO_NIGHT.getSkill();
 				if (npc.getFirstEffect(skill) == null)
@@ -163,7 +163,7 @@ public class Zaken extends L2AttackableAIScript
 				}
 				
 				// Potentially refresh the stored location.
-				if (Rnd.get(20) < 1 && !_hasTeleported)
+				if (Rnd.INSTANCE.get(20) < 1 && !_hasTeleported)
 					_zakenLocation.set(npc.getPosition());
 				
 				// Process to cleanup hate from most hated upon 5 straight AI loops.
@@ -215,7 +215,7 @@ public class Zaken extends L2AttackableAIScript
 					skill.getEffects(npc, npc);
 			}
 			
-			if (Rnd.get(40) < 1)
+			if (Rnd.INSTANCE.get(40) < 1)
 				npc.doCast(SkillTable.FrequentSkill.ZAKEN_SELF_TELE.getSkill());
 			
 			startQuestTimer("1001", 30000, npc, null, false);
@@ -263,103 +263,103 @@ public class Zaken extends L2AttackableAIScript
 			}
 			else if (_minionStatus == 5)
 			{
-				addSpawn(DOLL_BLADER, 52675, 219371, -3290, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 52687, 219596, -3368, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 52672, 219740, -3418, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 52857, 219992, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 52959, 219997, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 53381, 220151, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 54236, 220948, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 54885, 220144, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55264, 219860, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 55399, 220263, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55679, 220129, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 56276, 220783, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 57173, 220234, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 56267, 218826, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 56294, 219482, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 56094, 219113, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 56364, 218967, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 57113, 218079, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 56186, 217153, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55440, 218081, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 55202, 217940, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55225, 218236, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 54973, 218075, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 53412, 218077, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 54226, 218797, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 54394, 219067, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 54139, 219253, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 54262, 219480, -3488, Rnd.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 52675, 219371, -3290, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 52687, 219596, -3368, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 52672, 219740, -3418, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 52857, 219992, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 52959, 219997, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 53381, 220151, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 54236, 220948, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 54885, 220144, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55264, 219860, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 55399, 220263, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55679, 220129, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 56276, 220783, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 57173, 220234, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 56267, 218826, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 56294, 219482, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 56094, 219113, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 56364, 218967, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 57113, 218079, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 56186, 217153, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55440, 218081, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 55202, 217940, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55225, 218236, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 54973, 218075, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 53412, 218077, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 54226, 218797, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 54394, 219067, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 54139, 219253, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 54262, 219480, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
 				
 				// Pass to the next spawn cycle.
 				_minionStatus = 6;
 			}
 			else if (_minionStatus == 6)
 			{
-				addSpawn(PIRATE_ZOMBIE, 53412, 218077, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 54413, 217132, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 54841, 217132, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 55372, 217128, -3343, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 55893, 217122, -3488, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 56282, 217237, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 56963, 218080, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 56267, 218826, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 56294, 219482, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 56094, 219113, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 56364, 218967, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 56276, 220783, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 57173, 220234, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 54885, 220144, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55264, 219860, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 55399, 220263, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55679, 220129, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 54236, 220948, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 54464, 219095, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 54226, 218797, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 54394, 219067, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 54139, 219253, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 54262, 219480, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 53412, 218077, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55440, 218081, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 55202, 217940, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55225, 218236, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 54973, 218075, -3216, Rnd.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 53412, 218077, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 54413, 217132, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 54841, 217132, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 55372, 217128, -3343, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 55893, 217122, -3488, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 56282, 217237, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 56963, 218080, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 56267, 218826, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 56294, 219482, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 56094, 219113, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 56364, 218967, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 56276, 220783, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 57173, 220234, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 54885, 220144, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55264, 219860, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 55399, 220263, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55679, 220129, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 54236, 220948, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 54464, 219095, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 54226, 218797, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 54394, 219067, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 54139, 219253, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 54262, 219480, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 53412, 218077, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55440, 218081, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 55202, 217940, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55225, 218236, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 54973, 218075, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
 				
 				// Pass to the next spawn cycle.
 				_minionStatus = 7;
 			}
 			else if (_minionStatus == 7)
 			{
-				addSpawn(PIRATE_ZOMBIE, 54228, 217504, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 54181, 217168, -3216, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 54714, 217123, -3168, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 55298, 217127, -3073, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 55787, 217130, -2993, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 56284, 217216, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 56963, 218080, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 56267, 218826, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 56294, 219482, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 56094, 219113, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 56364, 218967, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 56276, 220783, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 57173, 220234, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 54885, 220144, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55264, 219860, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 55399, 220263, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55679, 220129, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 54236, 220948, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 54464, 219095, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 54226, 218797, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(VALE_MASTER, 54394, 219067, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 54139, 219253, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(DOLL_BLADER, 54262, 219480, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 53412, 218077, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 54280, 217200, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55440, 218081, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_CAPTAIN, 55202, 217940, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 55225, 218236, -2944, Rnd.get(65536), false, 0, true);
-				addSpawn(PIRATE_ZOMBIE, 54973, 218075, -2944, Rnd.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 54228, 217504, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 54181, 217168, -3216, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 54714, 217123, -3168, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 55298, 217127, -3073, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 55787, 217130, -2993, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 56284, 217216, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 56963, 218080, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 56267, 218826, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 56294, 219482, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 56094, 219113, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 56364, 218967, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 56276, 220783, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 57173, 220234, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 54885, 220144, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55264, 219860, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 55399, 220263, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55679, 220129, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 54236, 220948, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 54464, 219095, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 54226, 218797, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(VALE_MASTER, 54394, 219067, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 54139, 219253, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(DOLL_BLADER, 54262, 219480, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 53412, 218077, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 54280, 217200, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55440, 218081, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_CAPTAIN, 55202, 217940, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 55225, 218236, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
+				addSpawn(PIRATE_ZOMBIE, 54973, 218075, -2944, Rnd.INSTANCE.get(65536), false, 0, true);
 				
 				cancelQuestTimer("1003", null, null);
 			}
@@ -370,7 +370,7 @@ public class Zaken extends L2AttackableAIScript
 			spawnBoss(true);
 		}
 		else if (event.equalsIgnoreCase("CreateOnePrivateEx"))
-			addSpawn(npc.getNpcId(), npc.getX(), npc.getY(), npc.getZ(), Rnd.get(65535), false, 0, true);
+			addSpawn(npc.getNpcId(), npc.getX(), npc.getY(), npc.getZ(), Rnd.INSTANCE.get(65535), false, 0, true);
 		
 		return super.onAdvEvent(event, npc, player);
 	}
@@ -386,11 +386,11 @@ public class Zaken extends L2AttackableAIScript
 		if (npc.getNpcId() == ZAKEN)
 		{
 			// Feed victims list, but only if not already full.
-			if (Rnd.get(3) < 1 && VICTIMS.size() < 5)
+			if (Rnd.INSTANCE.get(3) < 1 && VICTIMS.size() < 5)
 				VICTIMS.add(player);
 			
 			// Cast a skill.
-			if (Rnd.get(15) < 1)
+			if (Rnd.INSTANCE.get(15) < 1)
 				callSkills(npc, realBypasser);
 		}
 		else if (testCursesOnAggro(npc, realBypasser))
@@ -406,10 +406,10 @@ public class Zaken extends L2AttackableAIScript
 		if (attacker instanceof Playable && testCursesOnAttack(npc, attacker))
 			return null;
 		
-		if (Rnd.get(10) < 1)
+		if (Rnd.INSTANCE.get(10) < 1)
 			callSkills(npc, attacker);
 		
-		if (!GameTimeTaskManager.getInstance().isNight() && (npc.getCurrentHp() < (npc.getMaxHp() * _teleportCheck) / 4))
+		if (!GameTimeTaskManager.INSTANCE.isNight() && (npc.getCurrentHp() < (npc.getMaxHp() * _teleportCheck) / 4))
 		{
 			_teleportCheck -= 1;
 			npc.doCast(SkillTable.FrequentSkill.ZAKEN_SELF_TELE.getSkill());
@@ -420,9 +420,9 @@ public class Zaken extends L2AttackableAIScript
 	@Override
 	public String onFactionCall(Npc npc, Npc caller, Player attacker, boolean isPet)
 	{
-		if (caller.getNpcId() == ZAKEN && GameTimeTaskManager.getInstance().isNight())
+		if (caller.getNpcId() == ZAKEN && GameTimeTaskManager.INSTANCE.isNight())
 		{
-			if (npc.getAI().getDesire().getIntention() == CtrlIntention.IDLE && !_hasTeleported && caller.getCurrentHp() < (0.9 * caller.getMaxHp()) && Rnd.get(450) < 1)
+			if (npc.getAI().getDesire().getIntention() == CtrlIntention.IDLE && !_hasTeleported && caller.getCurrentHp() < (0.9 * caller.getMaxHp()) && Rnd.INSTANCE.get(450) < 1)
 			{
 				// Set the teleport flag as true.
 				_hasTeleported = true;
@@ -449,7 +449,7 @@ public class Zaken extends L2AttackableAIScript
 			GrandBossManager.getInstance().setBossStatus(ZAKEN, DEAD);
 			
 			// Calculate the next respawn time.
-			final long respawnTime = (long) (Config.SPAWN_INTERVAL_ZAKEN + Rnd.get(-Config.RANDOM_SPAWN_TIME_ZAKEN, Config.RANDOM_SPAWN_TIME_ZAKEN)) * 3600000;
+			final long respawnTime = (long) (Config.SPAWN_INTERVAL_ZAKEN + Rnd.INSTANCE.get(-Config.RANDOM_SPAWN_TIME_ZAKEN, Config.RANDOM_SPAWN_TIME_ZAKEN)) * 3600000;
 			
 			// Cancel tasks.
 			cancelQuestTimer("1001", npc, null);
@@ -464,7 +464,7 @@ public class Zaken extends L2AttackableAIScript
 			GrandBossManager.getInstance().setStatsSet(ZAKEN, info);
 		}
 		else if (GrandBossManager.getInstance().getBossStatus(ZAKEN) == ALIVE)
-			startQuestTimer("CreateOnePrivateEx", ((30 + Rnd.get(60)) * 1000), npc, null, false);
+			startQuestTimer("CreateOnePrivateEx", ((30 + Rnd.INSTANCE.get(60)) * 1000), npc, null, false);
 		
 		return super.onKill(npc, killer);
 	}
@@ -472,7 +472,7 @@ public class Zaken extends L2AttackableAIScript
 	@Override
 	public String onSkillSee(Npc npc, Player caster, L2Skill skill, WorldObject[] targets, boolean isPet)
 	{
-		if (Rnd.get(12) < 1)
+		if (Rnd.INSTANCE.get(12) < 1)
 			callSkills(npc, caster);
 		
 		return super.onSkillSee(npc, caster, skill, targets, isPet);
@@ -490,7 +490,7 @@ public class Zaken extends L2AttackableAIScript
 			
 			case 4216: // Scatter Enemy ; a target teleport skill, which teleports the targeted Player to a defined, random Location.
 				((Attackable) npc).stopHating(player);
-				player.teleToLocation(LOCS[Rnd.get(15)], 0);
+				player.teleToLocation(LOCS[Rnd.INSTANCE.get(15)], 0);
 				break;
 			
 			case 4217: // Mass Teleport ; teleport victims and targeted Player, each on a defined, random Location.
@@ -499,11 +499,11 @@ public class Zaken extends L2AttackableAIScript
 					if (ply.isInsideRadius(player, 250, true, false))
 					{
 						((Attackable) npc).stopHating(ply);
-						ply.teleToLocation(LOCS[Rnd.get(15)], 0);
+						ply.teleToLocation(LOCS[Rnd.INSTANCE.get(15)], 0);
 					}
 				}
 				((Attackable) npc).stopHating(player);
-				player.teleToLocation(LOCS[Rnd.get(15)], 0);
+				player.teleToLocation(LOCS[Rnd.INSTANCE.get(15)], 0);
 				break;
 		}
 		return super.onSpellFinished(npc, player, skill);
@@ -512,7 +512,7 @@ public class Zaken extends L2AttackableAIScript
 	@Override
 	public void onGameTime()
 	{
-		if (GameTimeTaskManager.getInstance().getGameTime() == 0)
+		if (GameTimeTaskManager.INSTANCE.getGameTime() == 0)
 		{
 			final Door door = DoorData.getInstance().getDoor(21240006);
 			if (door != null)
@@ -532,7 +532,7 @@ public class Zaken extends L2AttackableAIScript
 		
 		npc.setTarget(target);
 		
-		final int chance = Rnd.get(225);
+		final int chance = Rnd.INSTANCE.get(225);
 		if (chance < 1)
 			npc.doCast(SkillTable.FrequentSkill.ZAKEN_TELE.getSkill());
 		else if (chance < 2)
@@ -547,7 +547,7 @@ public class Zaken extends L2AttackableAIScript
 				npc.doCast(SkillTable.FrequentSkill.ZAKEN_MASS_DUAL_ATTACK.getSkill());
 		}
 		
-		if (Rnd.nextBoolean() && target == ((Attackable) npc).getMostHated())
+		if (Rnd.INSTANCE.nextBoolean() && target == ((Attackable) npc).getMostHated())
 			npc.doCast(SkillTable.FrequentSkill.ZAKEN_DUAL_ATTACK.getSkill());
 	}
 	
@@ -562,7 +562,7 @@ public class Zaken extends L2AttackableAIScript
 		{
 			GrandBossManager.getInstance().setBossStatus(ZAKEN, ALIVE);
 			
-			final Location loc = LOCS[Rnd.get(15)];
+			final Location loc = LOCS[Rnd.INSTANCE.get(15)];
 			zaken = (GrandBoss) addSpawn(ZAKEN, loc.getX(), loc.getY(), loc.getZ(), 0, false, 0, false);
 		}
 		else
@@ -611,10 +611,10 @@ public class Zaken extends L2AttackableAIScript
 		{
 			for (int i = 0; i < roundsNumber; i++)
 			{
-				final int x = loc.getX() + Rnd.get(650);
-				final int y = loc.getY() + Rnd.get(650);
+				final int x = loc.getX() + Rnd.INSTANCE.get(650);
+				final int y = loc.getY() + Rnd.INSTANCE.get(650);
 				
-				addSpawn(npcId, x, y, loc.getZ(), Rnd.get(65536), false, 0, true);
+				addSpawn(npcId, x, y, loc.getZ(), Rnd.INSTANCE.get(65536), false, 0, true);
 			}
 		}
 	}

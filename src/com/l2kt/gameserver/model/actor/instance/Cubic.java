@@ -80,43 +80,43 @@ public class Cubic
 		switch (_id)
 		{
 			case STORM_CUBIC:
-				_skills.add(SkillTable.getInstance().getInfo(4049, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(4049, level));
 				break;
 			
 			case VAMPIRIC_CUBIC:
-				_skills.add(SkillTable.getInstance().getInfo(4050, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(4050, level));
 				break;
 			
 			case LIFE_CUBIC:
-				_skills.add(SkillTable.getInstance().getInfo(4051, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(4051, level));
 				doAction();
 				break;
 			
 			case VIPER_CUBIC:
-				_skills.add(SkillTable.getInstance().getInfo(4052, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(4052, level));
 				break;
 			
 			case POLTERGEIST_CUBIC:
-				_skills.add(SkillTable.getInstance().getInfo(4053, level));
-				_skills.add(SkillTable.getInstance().getInfo(4054, level));
-				_skills.add(SkillTable.getInstance().getInfo(4055, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(4053, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(4054, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(4055, level));
 				break;
 			
 			case BINDING_CUBIC:
-				_skills.add(SkillTable.getInstance().getInfo(4164, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(4164, level));
 				break;
 			
 			case AQUA_CUBIC:
-				_skills.add(SkillTable.getInstance().getInfo(4165, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(4165, level));
 				break;
 			
 			case SPARK_CUBIC:
-				_skills.add(SkillTable.getInstance().getInfo(4166, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(4166, level));
 				break;
 			
 			case ATTRACT_CUBIC:
-				_skills.add(SkillTable.getInstance().getInfo(5115, level));
-				_skills.add(SkillTable.getInstance().getInfo(5116, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(5115, level));
+				_skills.add(SkillTable.INSTANCE.getInfo(5116, level));
 				break;
 		}
 		_disappearTask = ThreadPool.schedule(new Disappear(), totallifetime); // disappear
@@ -383,15 +383,15 @@ public class Cubic
 					return;
 				}
 				
-				if (!AttackStanceTaskManager.getInstance().isInAttackStance(_owner))
+				if (!AttackStanceTaskManager.INSTANCE.isInAttackStance(_owner))
 				{
 					stopAction();
 					return;
 				}
 				
-				if (Rnd.get(1, 100) < _chance)
+				if (Rnd.INSTANCE.get(1, 100) < _chance)
 				{
-					final L2Skill skill = Rnd.get(_skills);
+					final L2Skill skill = Rnd.INSTANCE.get(_skills);
 					if (skill != null)
 					{
 						// friendly skill, so we look a target in owner's party

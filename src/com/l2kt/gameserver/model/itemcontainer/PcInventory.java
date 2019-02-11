@@ -34,7 +34,7 @@ public class PcInventory extends Inventory
 		addPaperdollListener(ArmorSetListener.getInstance());
 		addPaperdollListener(BowRodListener.getInstance());
 		addPaperdollListener(ItemPassiveSkillsListener.getInstance());
-		addPaperdollListener(ShadowItemTaskManager.getInstance());
+		addPaperdollListener(ShadowItemTaskManager.INSTANCE);
 	}
 	
 	@Override

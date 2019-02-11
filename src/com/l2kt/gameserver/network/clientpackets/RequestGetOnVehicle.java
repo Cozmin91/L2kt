@@ -35,7 +35,7 @@ public final class RequestGetOnVehicle extends L2GameClientPacket
 			boat = activeChar.getBoat();
 			if (boat.getObjectId() != _boatId)
 			{
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 		}
@@ -44,7 +44,7 @@ public final class RequestGetOnVehicle extends L2GameClientPacket
 			boat = BoatManager.getInstance().getBoat(_boatId);
 			if (boat == null || boat.isMoving() || !activeChar.isInsideRadius(boat, 1000, true, false))
 			{
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 		}

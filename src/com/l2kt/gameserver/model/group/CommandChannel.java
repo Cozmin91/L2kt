@@ -32,13 +32,13 @@ public class CommandChannel extends AbstractGroup
 		for (Player member : requestor.getMembers())
 		{
 			member.sendPacket(SystemMessageId.COMMAND_CHANNEL_FORMED);
-			member.sendPacket(ExOpenMPCC.STATIC_PACKET);
+			member.sendPacket(ExOpenMPCC.Companion.getSTATIC_PACKET());
 		}
 		
 		for (Player member : target.getMembers())
 		{
 			member.sendPacket(SystemMessageId.JOINED_COMMAND_CHANNEL);
-			member.sendPacket(ExOpenMPCC.STATIC_PACKET);
+			member.sendPacket(ExOpenMPCC.Companion.getSTATIC_PACKET());
 		}
 	}
 	
@@ -120,7 +120,7 @@ public class CommandChannel extends AbstractGroup
 		for (Party party : _parties)
 		{
 			party.setCommandChannel(null);
-			party.broadcastPacket(ExCloseMPCC.STATIC_PACKET);
+			party.broadcastPacket(ExCloseMPCC.Companion.getSTATIC_PACKET());
 			party.broadcastMessage(SystemMessageId.COMMAND_CHANNEL_DISBANDED);
 		}
 		_parties.clear();
@@ -146,7 +146,7 @@ public class CommandChannel extends AbstractGroup
 		for (Player member : party.getMembers())
 		{
 			member.sendPacket(SystemMessageId.JOINED_COMMAND_CHANNEL);
-			member.sendPacket(ExOpenMPCC.STATIC_PACKET);
+			member.sendPacket(ExOpenMPCC.Companion.getSTATIC_PACKET());
 		}
 	}
 	
@@ -169,7 +169,7 @@ public class CommandChannel extends AbstractGroup
 			_parties.remove(party);
 			
 			party.setCommandChannel(null);
-			party.broadcastPacket(ExCloseMPCC.STATIC_PACKET);
+			party.broadcastPacket(ExCloseMPCC.Companion.getSTATIC_PACKET());
 			
 			recalculateLevel();
 		}

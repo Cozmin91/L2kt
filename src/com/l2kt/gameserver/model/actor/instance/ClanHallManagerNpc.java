@@ -1409,7 +1409,7 @@ public class ClanHallManagerNpc extends Merchant
 					final int id = Integer.parseInt(val);
 					final int lvl = (st.hasMoreTokens()) ? Integer.parseInt(st.nextToken()) : 0;
 					
-					final L2Skill skill = SkillTable.getInstance().getInfo(id, lvl);
+					final L2Skill skill = SkillTable.INSTANCE.getInfo(id, lvl);
 					if (skill.getSkillType() == L2SkillType.SUMMON)
 						player.doSimultaneousCast(skill);
 					else
@@ -1464,11 +1464,11 @@ public class ClanHallManagerNpc extends Merchant
 				if (list != null && player.reduceAdena("Teleport", list.getPrice(), this, true))
 					player.teleToLocation(list, 0);
 				
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 			else if (actualCommand.equalsIgnoreCase("WithdrawC"))
 			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				if ((player.getClanPrivileges() & Clan.CP_CL_VIEW_WAREHOUSE) != Clan.CP_CL_VIEW_WAREHOUSE)
 				{
 					player.sendPacket(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE);
@@ -1485,7 +1485,7 @@ public class ClanHallManagerNpc extends Merchant
 			}
 			else if (actualCommand.equalsIgnoreCase("DepositC"))
 			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				if (player.getClan() != null)
 				{
 					if (player.getClan().getLevel() == 0)
@@ -1506,7 +1506,7 @@ public class ClanHallManagerNpc extends Merchant
 	@Override
 	public void showChatWindow(Player player)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		String filename = "data/html/clanHallManager/chamberlain-no.htm";
 		
 		final int condition = validateCondition(player);

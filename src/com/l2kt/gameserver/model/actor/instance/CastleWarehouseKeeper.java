@@ -27,7 +27,7 @@ public class CastleWarehouseKeeper extends WarehouseKeeper
 	@Override
 	public void showChatWindow(Player player, int val)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		String filename = "data/html/castlewarehouse/castlewarehouse-no.htm";
 		
 		int condition = validateCondition(player);

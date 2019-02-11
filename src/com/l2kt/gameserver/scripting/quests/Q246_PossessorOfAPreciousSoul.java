@@ -199,7 +199,7 @@ public class Q246_PossessorOfAPreciousSoul extends Quest
 			if (st == null)
 				return null;
 			
-			if (Rnd.get(10) < 2)
+			if (Rnd.INSTANCE.get(10) < 2)
 			{
 				final int neklaceOrRing = (npcId == PILGRIM_OF_SPLENDOR) ? WATERBINDER : EVERGREEN;
 				

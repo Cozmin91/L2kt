@@ -27,7 +27,7 @@ public final class RequestRecipeShopMakeItem extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (!FloodProtectors.performAction(getClient(), FloodProtectors.Action.MANUFACTURE))
+		if (!FloodProtectors.INSTANCE.performAction(getClient(), FloodProtectors.Action.MANUFACTURE))
 			return;
 		
 		final Player player = getClient().getActiveChar();
@@ -53,7 +53,7 @@ public final class RequestRecipeShopMakeItem extends L2GameClientPacket
 			return;
 		}
 		
-		if (!MathUtil.checkIfInRange(150, player, manufacturer, true))
+		if (!MathUtil.INSTANCE.checkIfInRange(150, player, manufacturer, true))
 			return;
 		
 		final Recipe recipe = RecipeData.getInstance().getRecipeList(_recipeId);

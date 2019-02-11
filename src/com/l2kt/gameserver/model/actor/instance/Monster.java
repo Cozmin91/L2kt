@@ -104,8 +104,8 @@ public class Monster extends Attackable
 		final int offset = (int) (100 + getCollisionRadius() + _master.getCollisionRadius());
 		final int minRadius = (int) (_master.getCollisionRadius() + 30);
 		
-		int newX = Rnd.get(minRadius * 2, offset * 2); // x
-		int newY = Rnd.get(newX, offset * 2); // distance
+		int newX = Rnd.INSTANCE.get(minRadius * 2, offset * 2); // x
+		int newY = Rnd.INSTANCE.get(newX, offset * 2); // distance
 		newY = (int) Math.sqrt(newY * newY - newX * newX); // y
 		
 		if (newX > offset + minRadius)

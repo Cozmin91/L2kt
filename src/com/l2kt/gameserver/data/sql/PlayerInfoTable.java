@@ -1,16 +1,15 @@
 package com.l2kt.gameserver.data.sql;
 
+import com.l2kt.L2DatabaseFactory;
+import com.l2kt.commons.logging.CLogger;
+import com.l2kt.gameserver.model.actor.instance.Player;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
-
-import com.l2kt.L2DatabaseFactory;
-import com.l2kt.commons.logging.CLogger;
-
-import com.l2kt.gameserver.model.actor.instance.Player;
 
 /**
  * This class caches few {@link Player}s informations. It keeps a link between objectId and a {@link PlayerInfo}.
@@ -21,11 +20,11 @@ import com.l2kt.gameserver.model.actor.instance.Player;
 public final class PlayerInfoTable
 {
 	private static final CLogger LOGGER = new CLogger(PlayerInfoTable.class.getName());
-	
+
 	private static final String LOAD_DATA = "SELECT account_name, obj_Id, char_name, accesslevel FROM characters";
-	
+
 	private final Map<Integer, PlayerInfo> _infos = new ConcurrentHashMap<>();
-	
+
 	protected PlayerInfoTable()
 	{
 		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
@@ -39,10 +38,10 @@ public final class PlayerInfoTable
 		{
 			LOGGER.error("Couldn't load player infos.", e);
 		}
-		
+
 		LOGGER.info("Loaded {} player infos.", _infos.size());
 	}
-	
+
 	/**
 	 * Caches {@link Player} informations, but only if not already existing.
 	 * @param objectId : The player's objectId.
@@ -54,7 +53,7 @@ public final class PlayerInfoTable
 	{
 		_infos.putIfAbsent(objectId, new PlayerInfo(accountName, playerName, accessLevel));
 	}
-	
+
 	/**
 	 * Update the {@link Player} data. The informations must already exist. Used for name and access level edition.
 	 * @param player : The player to update.
@@ -64,7 +63,7 @@ public final class PlayerInfoTable
 	{
 		if (player == null)
 			return;
-		
+
 		final PlayerInfo data = _infos.get(player.getObjectId());
 		if (data != null)
 		{
@@ -78,7 +77,7 @@ public final class PlayerInfoTable
 			}
 		}
 	}
-	
+
 	/**
 	 * Remove a {@link Player} entry.
 	 * @param objId : The objectId to check.
@@ -88,7 +87,7 @@ public final class PlayerInfoTable
 		if (_infos.containsKey(objId))
 			_infos.remove(objId);
 	}
-	
+
 	/**
 	 * Get {@link Player} objectId by name (reversing call).
 	 * @param playerName : The name to check.
@@ -98,10 +97,10 @@ public final class PlayerInfoTable
 	{
 		if (playerName == null || playerName.isEmpty())
 			return -1;
-		
+
 		return _infos.entrySet().stream().filter(m -> m.getValue().getPlayerName().equalsIgnoreCase(playerName)).map(Entry::getKey).findFirst().orElse(-1);
 	}
-	
+
 	/**
 	 * Get {@link Player} name by object id.
 	 * @param objId : The objectId to check.
@@ -112,7 +111,7 @@ public final class PlayerInfoTable
 		final PlayerInfo data = _infos.get(objId);
 		return (data != null) ? data.getPlayerName() : null;
 	}
-	
+
 	/**
 	 * Get {@link Player} access level by object id.
 	 * @param objId : The objectId to check.
@@ -123,7 +122,7 @@ public final class PlayerInfoTable
 		final PlayerInfo data = _infos.get(objId);
 		return (data != null) ? data.getAccessLevel() : 0;
 	}
-	
+
 	/**
 	 * Retrieve characters amount from any account, by account name.
 	 * @param accountName : The account name to check.
@@ -133,7 +132,7 @@ public final class PlayerInfoTable
 	{
 		return (int) _infos.entrySet().stream().filter(m -> m.getValue().getAccountName().equalsIgnoreCase(accountName)).count();
 	}
-	
+
 	/**
 	 * A datatype used to retain Player informations such as account name, player name and access level.
 	 */
@@ -142,45 +141,45 @@ public final class PlayerInfoTable
 		private final String _accountName;
 		private String _playerName;
 		private int _accessLevel;
-		
+
 		public PlayerInfo(String accountName, String playerName, int accessLevel)
 		{
 			_accountName = accountName;
 			_playerName = playerName;
 			_accessLevel = accessLevel;
 		}
-		
+
 		public final String getAccountName()
 		{
 			return _accountName;
 		}
-		
+
 		public final String getPlayerName()
 		{
 			return _playerName;
 		}
-		
+
 		public final int getAccessLevel()
 		{
 			return _accessLevel;
 		}
-		
+
 		public final void setPlayerName(String playerName)
 		{
 			_playerName = playerName;
 		}
-		
+
 		public final void setAccessLevel(int accessLevel)
 		{
 			_accessLevel = accessLevel;
 		}
 	}
-	
+
 	public static final PlayerInfoTable getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-	
+
 	private static final class SingletonHolder
 	{
 		protected static final PlayerInfoTable INSTANCE = new PlayerInfoTable();

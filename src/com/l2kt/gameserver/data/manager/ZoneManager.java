@@ -62,7 +62,7 @@ public class ZoneManager implements IXmlReader
 	{
 		_lastDynamicId = (_lastDynamicId / 1000) * 1000 + 1000;
 		
-		final String zoneType = StringUtil.getNameWithoutExtension(path.toFile().getName());
+		final String zoneType = StringUtil.INSTANCE.getNameWithoutExtension(path.toFile().getName());
 		
 		// Create the Constructor, based on file name. It is reused by every zone.
 		Constructor<?> zoneConstructor;

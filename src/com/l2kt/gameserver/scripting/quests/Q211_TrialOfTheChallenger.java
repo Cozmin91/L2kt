@@ -99,12 +99,12 @@ public class Q211_TrialOfTheChallenger extends Quest
 		{
 			if (st.hasQuestItems(BROKEN_KEY))
 			{
-				if (Rnd.get(10) < 2)
+				if (Rnd.INSTANCE.get(10) < 2)
 				{
 					htmltext = "30647-03.htm";
 					st.playSound(QuestState.SOUND_JACKPOT);
 					st.takeItems(BROKEN_KEY, 1);
-					int chance = Rnd.get(100);
+					int chance = Rnd.INSTANCE.get(100);
 					if (chance > 90)
 					{
 						st.rewardItems(BRIGANDINE_GAUNTLETS_PATTERN, 1);
@@ -127,7 +127,7 @@ public class Q211_TrialOfTheChallenger extends Quest
 				{
 					htmltext = "30647-02.htm";
 					st.takeItems(BROKEN_KEY, 1);
-					st.rewardItems(ADENA, Rnd.get(1, 1000));
+					st.rewardItems(ADENA, Rnd.INSTANCE.get(1, 1000));
 				}
 			}
 		}

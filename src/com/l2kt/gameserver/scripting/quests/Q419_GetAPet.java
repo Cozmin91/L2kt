@@ -271,7 +271,7 @@ public class Q419_GetAPet extends Quest
 		if (answers < 10)
 		{
 			String[] questions = st.get("quiz").split(" ");
-			int index = Rnd.get(questions.length - 1);
+			int index = Rnd.INSTANCE.get(questions.length - 1);
 			String question = questions[index];
 			
 			if (questions.length > 10 - answers)

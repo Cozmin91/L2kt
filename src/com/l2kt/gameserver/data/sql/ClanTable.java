@@ -1,21 +1,10 @@
 package com.l2kt.gameserver.data.sql;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-
 import com.l2kt.Config;
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.commons.logging.CLogger;
-
 import com.l2kt.gameserver.data.manager.CastleManager;
 import com.l2kt.gameserver.idfactory.IdFactory;
 import com.l2kt.gameserver.model.actor.instance.Player;
@@ -27,6 +16,16 @@ import com.l2kt.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2kt.gameserver.network.serverpackets.PledgeShowMemberListAll;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
 import com.l2kt.gameserver.network.serverpackets.UserInfo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class ClanTable
 {
@@ -155,7 +154,7 @@ public class ClanTable
 			return null;
 		}
 		
-		if (!StringUtil.isAlphaNumeric(clanName))
+		if (!StringUtil.INSTANCE.isAlphaNumeric(clanName))
 		{
 			player.sendPacket(SystemMessageId.CLAN_NAME_INVALID);
 			return null;

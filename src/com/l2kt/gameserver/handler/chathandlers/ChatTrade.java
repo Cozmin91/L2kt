@@ -19,7 +19,7 @@ public class ChatTrade implements IChatHandler
 	@Override
 	public void handleChat(int type, Player activeChar, String target, String text)
 	{
-		if (!FloodProtectors.performAction(activeChar.getClient(), Action.TRADE_CHAT))
+		if (!FloodProtectors.INSTANCE.performAction(activeChar.getClient(), Action.TRADE_CHAT))
 			return;
 		
 		final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);

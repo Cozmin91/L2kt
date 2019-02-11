@@ -370,7 +370,7 @@ public class CreatureAI extends AbstractAI
 	{
 		// Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
 		_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
-		AttackStanceTaskManager.getInstance().remove(_actor);
+		AttackStanceTaskManager.INSTANCE.remove(_actor);
 		
 		// Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation (broadcast)
 		clientStopMoving(null);
@@ -394,7 +394,7 @@ public class CreatureAI extends AbstractAI
 	{
 		// Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
 		_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
-		AttackStanceTaskManager.getInstance().remove(_actor);
+		AttackStanceTaskManager.INSTANCE.remove(_actor);
 		
 		// Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation (broadcast)
 		clientStopMoving(null);
@@ -417,7 +417,7 @@ public class CreatureAI extends AbstractAI
 	{
 		// Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
 		_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
-		AttackStanceTaskManager.getInstance().remove(_actor);
+		AttackStanceTaskManager.INSTANCE.remove(_actor);
 		
 		// Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation (broadcast)
 		clientStopMoving(null);
@@ -554,7 +554,7 @@ public class CreatureAI extends AbstractAI
 		// Stop an AI Follow Task
 		stopFollow();
 		
-		if (!AttackStanceTaskManager.getInstance().isInAttackStance(_actor))
+		if (!AttackStanceTaskManager.INSTANCE.isInAttackStance(_actor))
 			_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
 		
 		// Launch actions corresponding to the Event Think

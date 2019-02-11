@@ -44,7 +44,7 @@ public class TownPet extends Folk
 				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
 				
 				// Send ActionFailed to the player in order to avoid he stucks
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 		}
 	}
@@ -68,7 +68,7 @@ public class TownPet extends Folk
 			if (getSpawn() == null)
 				return;
 			
-			getAI().setIntention(CtrlIntention.MOVE_TO, GeoEngine.getInstance().canMoveToTargetLoc(getX(), getY(), getZ(), getSpawn().getLocX() + Rnd.get(-75, 75), getSpawn().getLocY() + Rnd.get(-75, 75), getZ()));
+			getAI().setIntention(CtrlIntention.MOVE_TO, GeoEngine.getInstance().canMoveToTargetLoc(getX(), getY(), getZ(), getSpawn().getLocX() + Rnd.INSTANCE.get(-75, 75), getSpawn().getLocY() + Rnd.INSTANCE.get(-75, 75), getZ()));
 		}
 	}
 }

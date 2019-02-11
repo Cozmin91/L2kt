@@ -136,7 +136,7 @@ public class Q351_BlackSwan extends Quest
 		if (st == null)
 			return null;
 		
-		final int random = Rnd.get(4);
+		final int random = Rnd.INSTANCE.get(4);
 		if (random < 3)
 		{
 			st.dropItemsAlways(LIZARD_FANG, (random < 2) ? 1 : 2, 0);

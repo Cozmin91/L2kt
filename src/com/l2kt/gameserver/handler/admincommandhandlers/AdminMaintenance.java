@@ -101,7 +101,7 @@ public class AdminMaintenance implements IAdminCommandHandler
 		html.replace("%server_name%", LoginServerThread.INSTANCE.getServerName());
 		html.replace("%status%", LoginServerThread.INSTANCE.getStatusString());
 		html.replace("%max_players%", LoginServerThread.INSTANCE.getMaxPlayers());
-		html.replace("%time%", GameTimeTaskManager.getInstance().getGameTimeFormated());
+		html.replace("%time%", GameTimeTaskManager.INSTANCE.getGameTimeFormated());
 		activeChar.sendPacket(html);
 	}
 	

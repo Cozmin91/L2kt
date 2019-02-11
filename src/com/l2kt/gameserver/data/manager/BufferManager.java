@@ -111,7 +111,7 @@ public class BufferManager implements IXmlReader
 					// Build a String composed of skill ids seperated by a ",".
 					final StringBuilder sb = new StringBuilder();
 					for (int skillId : scheme.getValue())
-						StringUtil.append(sb, skillId, ",");
+						StringUtil.INSTANCE.append(sb, skillId, ",");
 					
 					// Delete the last "," : must be called only if there is something to delete !
 					if (sb.length() > 0)

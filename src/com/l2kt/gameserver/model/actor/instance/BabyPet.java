@@ -167,7 +167,7 @@ public final class BabyPet extends Pet
 					if (hpPercent < 0.15)
 					{
 						skill = _majorHeal.getSkill();
-						if (!_baby.isSkillDisabled(skill) && Rnd.get(100) <= 75)
+						if (!_baby.isSkillDisabled(skill) && Rnd.INSTANCE.get(100) <= 75)
 						{
 							if (_baby.getCurrentMp() >= skill.getMpConsume())
 							{
@@ -180,7 +180,7 @@ public final class BabyPet extends Pet
 					{
 						// Cast _minorHeal only if it's different than _majorHeal, then pet has two heals available.
 						skill = _minorHeal.getSkill();
-						if (!_baby.isSkillDisabled(skill) && Rnd.get(100) <= 25)
+						if (!_baby.isSkillDisabled(skill) && Rnd.INSTANCE.get(100) <= 25)
 						{
 							if (_baby.getCurrentMp() >= skill.getMpConsume())
 							{

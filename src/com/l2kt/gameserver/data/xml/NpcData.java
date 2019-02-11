@@ -99,7 +99,7 @@ public class NpcData implements IXmlReader
 						data.setMinDrop(parseInteger(dropAttrs, "min"));
 						data.setMaxDrop(parseInteger(dropAttrs, "max"));
 						data.setChance(parseInteger(dropAttrs, "chance"));
-						if (ItemTable.getInstance().getTemplate(data.getItemId()) == null)
+						if (ItemTable.INSTANCE.getTemplate(data.getItemId()) == null)
 						{
 							LOGGER.warn("Droplist data for undefined itemId: {}.", data.getItemId());
 							return;
@@ -156,7 +156,7 @@ public class NpcData implements IXmlReader
 						return;
 					}
 					
-					final L2Skill skill = SkillTable.getInstance().getInfo(skillId, level);
+					final L2Skill skill = SkillTable.INSTANCE.getInfo(skillId, level);
 					if (skill == null)
 						return;
 					

@@ -78,7 +78,7 @@ public class Q358_IllegitimateChildOfAGoddess extends Quest
 				{
 					htmltext = "30862-07.htm";
 					st.takeItems(SCALE, -1);
-					st.giveItems(REWARD[Rnd.get(REWARD.length)], 1);
+					st.giveItems(REWARD[Rnd.INSTANCE.get(REWARD.length)], 1);
 					st.playSound(QuestState.SOUND_FINISH);
 					st.exitQuest(true);
 				}

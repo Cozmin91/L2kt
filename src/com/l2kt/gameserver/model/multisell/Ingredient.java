@@ -33,7 +33,7 @@ public class Ingredient
 		_maintainIngredient = maintainIngredient;
 		
 		if (_itemId > 0)
-			_template = ItemTable.getInstance().getTemplate(_itemId);
+			_template = ItemTable.INSTANCE.getTemplate(_itemId);
 	}
 	
 	/**

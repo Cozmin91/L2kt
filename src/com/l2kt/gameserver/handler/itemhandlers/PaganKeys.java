@@ -25,7 +25,7 @@ public class PaganKeys implements IItemHandler
 		if (!(target instanceof Door))
 		{
 			activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			activeChar.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -34,7 +34,7 @@ public class PaganKeys implements IItemHandler
 		if (!(activeChar.isInsideRadius(door, Npc.INTERACTION_DISTANCE, false, false)))
 		{
 			activeChar.sendPacket(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED);
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			activeChar.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		

@@ -405,7 +405,7 @@ public class Q217_TestimonyOfTrust extends Quest
 		{
 			case DRYAD:
 			case DRYAD_ELDER:
-				if (st.getInt("cond") == 2 && !st.hasQuestItems(SEED_OF_VERDURE) && Rnd.get(100) < 33)
+				if (st.getInt("cond") == 2 && !st.hasQuestItems(SEED_OF_VERDURE) && Rnd.INSTANCE.get(100) < 33)
 				{
 					addSpawn(ACTEA_OF_VERDANT_WILDS, npc, true, 200000, true);
 					st.playSound(QuestState.SOUND_BEFORE_BATTLE);
@@ -414,7 +414,7 @@ public class Q217_TestimonyOfTrust extends Quest
 			
 			case LIREIN:
 			case LIREIN_ELDER:
-				if (st.getInt("cond") == 2 && !st.hasQuestItems(BREATH_OF_WINDS) && Rnd.get(100) < 33)
+				if (st.getInt("cond") == 2 && !st.hasQuestItems(BREATH_OF_WINDS) && Rnd.INSTANCE.get(100) < 33)
 				{
 					addSpawn(LUELL_OF_ZEPHYR_WINDS, npc, true, 200000, true);
 					st.playSound(QuestState.SOUND_BEFORE_BATTLE);

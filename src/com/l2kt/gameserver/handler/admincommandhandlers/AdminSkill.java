@@ -199,26 +199,26 @@ public class AdminSkill implements IAdminCommandHandler
 		
 		List<L2Skill> skills = new ArrayList<>(player.getSkills().values());
 		
-		final int max = MathUtil.countPagesNumber(skills.size(), PAGE_LIMIT);
+		final int max = MathUtil.INSTANCE.countPagesNumber(skills.size(), PAGE_LIMIT);
 		
 		skills = skills.subList((page - 1) * PAGE_LIMIT, Math.min(page * PAGE_LIMIT, skills.size()));
 		
 		final StringBuilder sb = new StringBuilder(3000);
-		StringUtil.append(sb, "<html><body><table width=270><tr><td width=45><button value=\"Main\" action=\"bypass -h admin_admin\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td width=180><center>Delete Skills Menu</center></td><td width=45><button value=\"Back\" action=\"bypass -h admin_show_skills\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table><br><br><center>Editing <font color=\"LEVEL\">", player.getName(), "</font>, ", player.getTemplate().getClassName(), " lvl ", player.getLevel(), ".<br><center><table width=270><tr>");
+		StringUtil.INSTANCE.append(sb, "<html><body><table width=270><tr><td width=45><button value=\"Main\" action=\"bypass -h admin_admin\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td width=180><center>Delete Skills Menu</center></td><td width=45><button value=\"Back\" action=\"bypass -h admin_show_skills\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table><br><br><center>Editing <font color=\"LEVEL\">", player.getName(), "</font>, ", player.getTemplate().getClassName(), " lvl ", player.getLevel(), ".<br><center><table width=270><tr>");
 		
 		for (int i = 0; i < max; i++)
 		{
 			final int pagenr = i + 1;
 			if (page == pagenr)
-				StringUtil.append(sb, "<td>", pagenr, "</td>");
+				StringUtil.INSTANCE.append(sb, "<td>", pagenr, "</td>");
 			else
-				StringUtil.append(sb, "<td><a action=\"bypass -h admin_remove_skills ", pagenr, "\">", pagenr, "</a></td>");
+				StringUtil.INSTANCE.append(sb, "<td><a action=\"bypass -h admin_remove_skills ", pagenr, "\">", pagenr, "</a></td>");
 		}
 		
 		sb.append("</tr></table></center><br><table width=270><tr><td width=80>Name:</td><td width=60>Level:</td><td width=40>Id:</td></tr>");
 		
 		for (L2Skill skill : skills)
-			StringUtil.append(sb, "<tr><td width=80><a action=\"bypass -h admin_remove_skill ", skill.getId(), "\">", skill.getName(), "</a></td><td width=60>", skill.getLevel(), "</td><td width=40>", skill.getId(), "</td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td width=80><a action=\"bypass -h admin_remove_skill ", skill.getId(), "\">", skill.getName(), "</a></td><td width=60>", skill.getLevel(), "</td><td width=40>", skill.getId(), "</td></tr>");
 		
 		sb.append("</table><br><center><table width=200><tr><td width=50 align=right>Id: </td><td><edit var=\"id_to_remove\" width=55></td><td width=100><button value=\"Remove skill\" action=\"bypass -h admin_remove_skill $id_to_remove\" width=95 height=21 back=\"bigbutton_over\" fore=\"bigbutton\"></td></tr><tr><td></td><td></td><td><button value=\"Back to stats\" action=\"bypass -h admin_current_player\" width=95 height=21 back=\"bigbutton_over\" fore=\"bigbutton\"></td></tr></table></center></body></html>");
 		
@@ -322,7 +322,7 @@ public class AdminSkill implements IAdminCommandHandler
 				String level = st.nextToken();
 				int idval = Integer.parseInt(id);
 				int levelval = Integer.parseInt(level);
-				skill = SkillTable.getInstance().getInfo(idval, levelval);
+				skill = SkillTable.INSTANCE.getInfo(idval, levelval);
 			}
 			catch (Exception e)
 			{
@@ -402,7 +402,7 @@ public class AdminSkill implements IAdminCommandHandler
 			return;
 		}
 		
-		L2Skill skill = SkillTable.getInstance().getInfo(id, level);
+		L2Skill skill = SkillTable.INSTANCE.getInfo(id, level);
 		if (skill == null)
 		{
 			activeChar.sendMessage("Error: there is no such skill.");

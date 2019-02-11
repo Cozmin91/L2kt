@@ -221,7 +221,7 @@ public final class L2Spawn implements Runnable
 		int respawnTime = _respawnDelay;
 		
 		if (_respawnRandom > 0)
-			respawnTime += Rnd.get(-_respawnRandom, _respawnRandom);
+			respawnTime += Rnd.INSTANCE.get(-_respawnRandom, _respawnRandom);
 		
 		return respawnTime;
 	}
@@ -403,11 +403,11 @@ public final class L2Spawn implements Runnable
 		{
 			// It can't be a Raid, a Raid minion nor a minion. Quest mobs and chests are disabled too.
 			if (_npc instanceof Monster && !getTemplate().cantBeChampion() && _npc.getLevel() >= Config.CHAMP_MIN_LVL && _npc.getLevel() <= Config.CHAMP_MAX_LVL && !_npc.isRaidRelated() && !_npc.isMinion())
-				((Attackable) _npc).setChampion(Rnd.get(100) < Config.CHAMPION_FREQUENCY);
+				((Attackable) _npc).setChampion(Rnd.INSTANCE.get(100) < Config.CHAMPION_FREQUENCY);
 		}
 		
 		// set heading (random heading if not defined)
-		_npc.setHeading(_loc.getHeading() < 0 ? Rnd.get(65536) : _loc.getHeading());
+		_npc.setHeading(_loc.getHeading() < 0 ? Rnd.INSTANCE.get(65536) : _loc.getHeading());
 		
 		// spawn NPC on new coordinates
 		_npc.spawnMe(locx, locy, locz);

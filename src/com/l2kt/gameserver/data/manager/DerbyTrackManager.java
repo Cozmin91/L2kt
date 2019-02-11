@@ -202,7 +202,7 @@ public class DerbyTrackManager
 				if (j == 19)
 					_speeds[i][j] = 100;
 				else
-					_speeds[i][j] = Rnd.get(60) + 65;
+					_speeds[i][j] = Rnd.INSTANCE.get(60) + 65;
 				
 				// feed actual total to current lane total.
 				total += _speeds[i][j];

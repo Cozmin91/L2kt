@@ -85,14 +85,14 @@ public class Core extends L2AttackableAIScript
 		for (int i = 0; i < 5; i++)
 		{
 			int x = 16800 + i * 360;
-			mob = (Attackable) addSpawn(DEATH_KNIGHT, x, 110000, npc.getZ(), 280 + Rnd.get(40), false, 0, false);
+			mob = (Attackable) addSpawn(DEATH_KNIGHT, x, 110000, npc.getZ(), 280 + Rnd.INSTANCE.get(40), false, 0, false);
 			mob.setMinion(true);
 			_minions.add(mob);
-			mob = (Attackable) addSpawn(DEATH_KNIGHT, x, 109000, npc.getZ(), 280 + Rnd.get(40), false, 0, false);
+			mob = (Attackable) addSpawn(DEATH_KNIGHT, x, 109000, npc.getZ(), 280 + Rnd.INSTANCE.get(40), false, 0, false);
 			mob.setMinion(true);
 			_minions.add(mob);
 			int x2 = 16800 + i * 600;
-			mob = (Attackable) addSpawn(DOOM_WRAITH, x2, 109300, npc.getZ(), 280 + Rnd.get(40), false, 0, false);
+			mob = (Attackable) addSpawn(DOOM_WRAITH, x2, 109300, npc.getZ(), 280 + Rnd.INSTANCE.get(40), false, 0, false);
 			mob.setMinion(true);
 			_minions.add(mob);
 		}
@@ -100,7 +100,7 @@ public class Core extends L2AttackableAIScript
 		for (int i = 0; i < 4; i++)
 		{
 			int x = 16800 + i * 450;
-			mob = (Attackable) addSpawn(SUSCEPTOR, x, 110300, npc.getZ(), 280 + Rnd.get(40), false, 0, false);
+			mob = (Attackable) addSpawn(SUSCEPTOR, x, 110300, npc.getZ(), 280 + Rnd.INSTANCE.get(40), false, 0, false);
 			mob.setMinion(true);
 			_minions.add(mob);
 		}
@@ -141,7 +141,7 @@ public class Core extends L2AttackableAIScript
 		{
 			if (npc.isScriptValue(1))
 			{
-				if (Rnd.get(100) == 0)
+				if (Rnd.INSTANCE.get(100) == 0)
 					npc.broadcastNpcSay("Removing intruders.");
 			}
 			else
@@ -168,7 +168,7 @@ public class Core extends L2AttackableAIScript
 			addSpawn(31842, 18948, 110166, -6397, 0, false, 900000, false);
 			GrandBossManager.getInstance().setBossStatus(CORE, DEAD);
 			
-			long respawnTime = (long) Config.SPAWN_INTERVAL_CORE + Rnd.get(-Config.RANDOM_SPAWN_TIME_CORE, Config.RANDOM_SPAWN_TIME_CORE);
+			long respawnTime = (long) Config.SPAWN_INTERVAL_CORE + Rnd.INSTANCE.get(-Config.RANDOM_SPAWN_TIME_CORE, Config.RANDOM_SPAWN_TIME_CORE);
 			respawnTime *= 3600000;
 			
 			startQuestTimer("core_unlock", respawnTime, null, null, false);

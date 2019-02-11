@@ -222,7 +222,7 @@ public class Q616_MagicalPowerOfFire_Part2 extends Quest
 		if (raid != null && raid.getRaidStatus() == StatusEnum.ALIVE)
 		{
 			// set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-			raid.getSpawn().setLoc(142624, -82285, -6491, Rnd.get(65536));
+			raid.getSpawn().setLoc(142624, -82285, -6491, Rnd.INSTANCE.get(65536));
 			
 			// teleport raid from secret place
 			raid.teleToLocation(142624, -82285, -6491, 100);

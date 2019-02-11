@@ -95,7 +95,7 @@ public final class RequestActionUse extends L2GameClientPacket
 		// Dont do anything if player is dead, or use fakedeath using another action than sit.
 		if ((player.isFakeDeath() && _actionId != 0) || player.isDead() || player.isOutOfControl())
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -133,7 +133,7 @@ public final class RequestActionUse extends L2GameClientPacket
 					return;
 				
 				// You can't order anymore your pet to stop if distance is superior to 2000.
-				if (pet.getFollowStatus() && MathUtil.calculateDistance(player, pet, true) > 2000)
+				if (pet.getFollowStatus() && MathUtil.INSTANCE.calculateDistance(player, pet, true) > 2000)
 					return;
 				
 				if (pet.isOutOfControl())
@@ -342,8 +342,8 @@ public final class RequestActionUse extends L2GameClientPacket
 				break;
 			
 			case 1001: // Sin Eater - Ultimate Bombastic Buster
-				if (useSkill(4139, pet) && pet.getNpcId() == SIN_EATER_ID && Rnd.get(100) < 10)
-					pet.broadcastPacket(new NpcSay(pet.getObjectId(), Say2.ALL, pet.getNpcId(), SIN_EATER_ACTIONS_STRINGS[Rnd.get(SIN_EATER_ACTIONS_STRINGS.length)]));
+				if (useSkill(4139, pet) && pet.getNpcId() == SIN_EATER_ID && Rnd.INSTANCE.get(100) < 10)
+					pet.broadcastPacket(new NpcSay(pet.getObjectId(), Say2.ALL, pet.getNpcId(), SIN_EATER_ACTIONS_STRINGS[Rnd.INSTANCE.get(SIN_EATER_ACTIONS_STRINGS.length)]));
 				break;
 			
 			case 1003: // Wind Hatchling/Strider - Wild Stun

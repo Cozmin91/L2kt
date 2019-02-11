@@ -131,7 +131,7 @@ public class Q422_RepentYourSins extends Quest
 				st.takeItems(PENITENT_MANACLES, 1);
 				st.giveItems(LEFT_PENITENT_MANACLES, 1);
 				
-				int removePkAmount = Rnd.get(10) + 1;
+				int removePkAmount = Rnd.INSTANCE.get(10) + 1;
 				
 				// Player's PKs are lower than random amount ; finish the quest.
 				if (player.getPkKills() <= removePkAmount)

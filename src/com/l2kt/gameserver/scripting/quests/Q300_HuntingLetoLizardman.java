@@ -67,7 +67,7 @@ public class Q300_HuntingLetoLizardman extends Quest
 				htmltext = "30126-06.htm";
 				st.takeItems(BRACELET, -1);
 				
-				final int luck = Rnd.get(3);
+				final int luck = Rnd.INSTANCE.get(3);
 				if (luck == 0)
 					st.rewardItems(57, 30000);
 				else if (luck == 1)

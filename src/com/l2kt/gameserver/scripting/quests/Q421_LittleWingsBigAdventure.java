@@ -194,7 +194,7 @@ public class Q421_LittleWingsBigAdventure extends Quest
 							// Curse if the registered objectId is the wrong one (switch flutes).
 							htmltext = "30747-18.htm";
 							
-							final L2Skill skill = SkillTable.getInstance().getInfo(4167, 1);
+							final L2Skill skill = SkillTable.INSTANCE.getInfo(4167, 1);
 							if (skill != null && player.getFirstEffect(skill) == null)
 								skill.getEffects(npc, player);
 						}
@@ -214,7 +214,7 @@ public class Q421_LittleWingsBigAdventure extends Quest
 		{
 			for (Monster ghost : ((Monster) npc).getMinionList().getSpawnedMinions())
 			{
-				if (!ghost.isDead() && Rnd.get(100) < 1)
+				if (!ghost.isDead() && Rnd.INSTANCE.get(100) < 1)
 					ghost.broadcastNpcSay("We must protect the fairy tree!");
 			}
 		}
@@ -229,7 +229,7 @@ public class Q421_LittleWingsBigAdventure extends Quest
 				return null;
 			
 			// A pet was the attacker, and the objectId is the good one - random luck is reached and you still have some leaves ; go further.
-			if (((Pet) attacker).getControlItemId() == st.getInt("summonOid") && Rnd.get(100) < 1 && st.hasQuestItems(FAIRY_LEAF))
+			if (((Pet) attacker).getControlItemId() == st.getInt("summonOid") && Rnd.INSTANCE.get(100) < 1 && st.hasQuestItems(FAIRY_LEAF))
 			{
 				final int idMask = (int) Math.pow(2, (npc.getNpcId() - 27182) - 1);
 				final int iCond = st.getInt("iCond");
@@ -260,9 +260,9 @@ public class Q421_LittleWingsBigAdventure extends Quest
 	public String onKill(Npc npc, Creature killer)
 	{
 		// Tree curses the killer.
-		if (Rnd.get(100) < 30)
+		if (Rnd.INSTANCE.get(100) < 30)
 		{
-			final L2Skill skill = SkillTable.getInstance().getInfo(4243, 1);
+			final L2Skill skill = SkillTable.INSTANCE.getInfo(4243, 1);
 			if (skill != null && killer.getFirstEffect(skill) == null)
 				skill.getEffects(npc, killer);
 		}

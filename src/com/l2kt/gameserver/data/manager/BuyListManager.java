@@ -58,7 +58,7 @@ public class BuyListManager implements IXmlReader
 				if (product == null)
 					continue;
 				
-				BuyListTaskManager.getInstance().test(product, count, nextRestockTime);
+				BuyListTaskManager.INSTANCE.test(product, count, nextRestockTime);
 			}
 		}
 		catch (Exception e)

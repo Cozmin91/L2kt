@@ -78,7 +78,7 @@ public final class Gatekeeper extends Folk
 				html.replace("%npcname%", getName());
 				player.sendPacket(html);
 				
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			
@@ -96,7 +96,7 @@ public final class Gatekeeper extends Folk
 			if (player.destroyItemByItemId("Teleport ", (list.isNoble()) ? 6651 : 57, price, this, true))
 				player.teleToLocation(list, 20);
 			
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		else if (command.startsWith("Chat"))
 		{
@@ -129,7 +129,7 @@ public final class Gatekeeper extends Folk
 					html.replace("%npcname%", getName());
 					player.sendPacket(html);
 					
-					player.sendPacket(ActionFailed.STATIC_PACKET);
+					player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 					return;
 				}
 			}

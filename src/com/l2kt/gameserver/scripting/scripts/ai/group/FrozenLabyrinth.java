@@ -41,7 +41,7 @@ public final class FrozenLabyrinth extends L2AttackableAIScript
 				spawnId = PRONGHORN_SPIRIT;
 			
 			int diff = 0;
-			for (int i = 0; i < Rnd.get(6, 8); i++)
+			for (int i = 0; i < Rnd.INSTANCE.get(6, 8); i++)
 			{
 				int x = diff < 60 ? npc.getX() + diff : npc.getX();
 				int y = diff >= 60 ? npc.getY() + (diff - 40) : npc.getY();

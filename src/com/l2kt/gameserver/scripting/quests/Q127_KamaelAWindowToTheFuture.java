@@ -100,7 +100,7 @@ public class Q127_KamaelAWindowToTheFuture extends Quest
 		{
 			st.set("cond", "8");
 			st.playSound(QuestState.SOUND_MIDDLE);
-			player.sendPacket(ExShowSlideshowKamael.STATIC_PACKET);
+			player.sendPacket(ExShowSlideshowKamael.Companion.getSTATIC_PACKET());
 			return null;
 		}
 		else if (event.equalsIgnoreCase("30756-05.htm"))

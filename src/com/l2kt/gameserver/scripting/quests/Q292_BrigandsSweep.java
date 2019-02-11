@@ -154,7 +154,7 @@ public class Q292_BrigandsSweep extends Quest
 		if (st == null)
 			return null;
 		
-		final int chance = Rnd.get(10);
+		final int chance = Rnd.INSTANCE.get(10);
 		
 		if (chance > 5)
 		{

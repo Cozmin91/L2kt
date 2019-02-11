@@ -50,7 +50,7 @@ public class RequestAcquireSkill extends L2GameClientPacket
 			return;
 		
 		// Skill doesn't exist, return.
-		final L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLevel);
+		final L2Skill skill = SkillTable.INSTANCE.getInfo(_skillId, _skillLevel);
 		if (skill == null)
 			return;
 		

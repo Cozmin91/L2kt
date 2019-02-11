@@ -55,7 +55,7 @@ public class AdminCamera implements IAdminCommandHandler
 			{
 				activeChar.setIsImmobilized(false);
 				activeChar.sendPacket(new CameraMode(0));
-				activeChar.sendPacket(NormalCamera.STATIC_PACKET);
+				activeChar.sendPacket(NormalCamera.Companion.getSTATIC_PACKET());
 				
 				// Make the character appears (to world too)
 				activeChar.getAppearance().setVisible();

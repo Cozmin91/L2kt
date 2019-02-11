@@ -802,7 +802,7 @@ public final class Config
 
         ALT_GAME_CASTLE_DAWN = events.getProperty("AltCastleForDawn", true);
         ALT_GAME_CASTLE_DUSK = events.getProperty("AltCastleForDusk", true);
-        ALT_FESTIVAL_MIN_PLAYER = MathUtil.limit(events.getProperty("AltFestivalMinPlayer", 5), 2, 9);
+        ALT_FESTIVAL_MIN_PLAYER = MathUtil.INSTANCE.limit(events.getProperty("AltFestivalMinPlayer", 5), 2, 9);
         ALT_MAXIMUM_PLAYER_CONTRIB = events.getProperty("AltMaxPlayerContrib", 1000000);
         ALT_FESTIVAL_MANAGER_START = events.getProperty("AltFestivalManagerStart", 120000);
         ALT_FESTIVAL_LENGTH = events.getProperty("AltFestivalLength", 1080000);
@@ -815,7 +815,7 @@ public final class Config
 
         FS_TIME_ENTRY = events.getProperty("EntryTime", 55);
         FS_TIME_END = events.getProperty("EndTime", 50);
-        FS_PARTY_MEMBER_COUNT = MathUtil.limit(events.getProperty("NeededPartyMembers", 4), 2, 9);
+        FS_PARTY_MEMBER_COUNT = MathUtil.INSTANCE.limit(events.getProperty("NeededPartyMembers", 4), 2, 9);
 
         RIFT_MIN_PARTY_SIZE = events.getProperty("RiftMinPartySize", 2);
         RIFT_MAX_JUMPS = events.getProperty("MaxRiftJumps", 4);

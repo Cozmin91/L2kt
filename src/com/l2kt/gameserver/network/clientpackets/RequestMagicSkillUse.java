@@ -35,27 +35,27 @@ public final class RequestMagicSkillUse extends L2GameClientPacket
 		final L2Skill skill = player.getSkill(_skillId);
 		if (skill == null)
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		// If Alternate rule Karma punishment is set to true, forbid skill Return to player with Karma
 		if (skill.getSkillType() == L2SkillType.RECALL && !Config.KARMA_PLAYER_CAN_TELEPORT && player.getKarma() > 0)
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		// players mounted on pets cannot use any toggle skills
 		if (skill.isToggle() && player.isMounted())
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		if (player.isOutOfControl())
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		

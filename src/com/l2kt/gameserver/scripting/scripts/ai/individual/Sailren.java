@@ -240,7 +240,7 @@ public class Sailren extends L2AttackableAIScript
 					// Cancel inactivity task.
 					cancelQuestTimers("inactivity");
 					
-					long respawnTime = (long) Config.SPAWN_INTERVAL_SAILREN + Rnd.get(-Config.RANDOM_SPAWN_TIME_SAILREN, Config.RANDOM_SPAWN_TIME_SAILREN);
+					long respawnTime = (long) Config.SPAWN_INTERVAL_SAILREN + Rnd.INSTANCE.get(-Config.RANDOM_SPAWN_TIME_SAILREN, Config.RANDOM_SPAWN_TIME_SAILREN);
 					respawnTime *= 3600000;
 					
 					startQuestTimer("oust", INTERVAL_CHECK, null, null, false);

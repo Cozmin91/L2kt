@@ -89,7 +89,7 @@ public class Q417_PathToBecomeAScavenger extends Quest
 		// MION
 		else if (event.equalsIgnoreCase("30519_1"))
 		{
-			final int random = Rnd.get(3);
+			final int random = Rnd.INSTANCE.get(3);
 			
 			htmltext = "30519-0" + (random + 2) + ".htm";
 			st.set("cond", "2");
@@ -99,7 +99,7 @@ public class Q417_PathToBecomeAScavenger extends Quest
 		}
 		else if (event.equalsIgnoreCase("30519_2"))
 		{
-			final int random = Rnd.get(3);
+			final int random = Rnd.INSTANCE.get(3);
 			
 			htmltext = "30519-0" + (random + 2) + ".htm";
 			st.takeItems(BRONK_PAY, -1);
@@ -130,7 +130,7 @@ public class Q417_PathToBecomeAScavenger extends Quest
 				st.giveItems(MION_LETTER, 1);
 			}
 		}
-		else if (event.equalsIgnoreCase("30519-11.htm") && Rnd.nextBoolean())
+		else if (event.equalsIgnoreCase("30519-11.htm") && Rnd.INSTANCE.nextBoolean())
 			htmltext = "30519-06.htm";
 		// TOMA
 		else if (event.equalsIgnoreCase("30556-05b.htm"))
@@ -379,7 +379,7 @@ public class Q417_PathToBecomeAScavenger extends Quest
 					int step = st.getInt("step");
 					if (step > 20)
 					{
-						if (((step - 20) * 10) >= Rnd.get(100))
+						if (((step - 20) * 10) >= Rnd.INSTANCE.get(100))
 						{
 							addSpawn(HONEY_BEAR, npc, false, 300000, true);
 							st.unset("step");

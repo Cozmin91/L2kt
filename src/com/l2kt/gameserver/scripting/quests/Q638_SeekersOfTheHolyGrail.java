@@ -74,7 +74,7 @@ public class Q638_SeekersOfTheHolyGrail extends Quest
 					st.playSound(QuestState.SOUND_MIDDLE);
 					st.takeItems(PAGAN_TOTEM, 2000);
 					
-					int chance = Rnd.get(3);
+					int chance = Rnd.INSTANCE.get(3);
 					if (chance == 0)
 						st.rewardItems(959, 1);
 					else if (chance == 1)

@@ -441,7 +441,7 @@ public class Q218_TestimonyOfLife extends Quest
 			
 			case 20581:
 			case 20582:
-				if (st.getInt("cond") == 15 && Rnd.nextBoolean())
+				if (st.getInt("cond") == 15 && Rnd.INSTANCE.nextBoolean())
 				{
 					for (int itemId : TALINS_PIECES)
 					{

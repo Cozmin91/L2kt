@@ -1,16 +1,16 @@
 package com.l2kt.gameserver.instancemanager;
 
+import com.l2kt.gameserver.model.L2Spawn;
+import com.l2kt.gameserver.model.actor.Npc;
+import com.l2kt.gameserver.model.actor.instance.RaidBoss;
+import com.l2kt.gameserver.taskmanager.GameTimeTaskManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.l2kt.gameserver.model.L2Spawn;
-import com.l2kt.gameserver.model.actor.Npc;
-import com.l2kt.gameserver.model.actor.instance.RaidBoss;
-import com.l2kt.gameserver.taskmanager.GameTimeTaskManager;
 
 /**
  * @author godson
@@ -139,7 +139,7 @@ public class DayNightSpawnManager
 	{
 		try
 		{
-			if (GameTimeTaskManager.getInstance().isNight())
+			if (GameTimeTaskManager.INSTANCE.isNight())
 				changeMode(1);
 			else
 				changeMode(0);
@@ -211,7 +211,7 @@ public class DayNightSpawnManager
 		if (_bosses.containsKey(spawnDat))
 			return _bosses.get(spawnDat);
 		
-		if (GameTimeTaskManager.getInstance().isNight())
+		if (GameTimeTaskManager.INSTANCE.isNight())
 		{
 			RaidBoss raidboss = (RaidBoss) spawnDat.doSpawn(false);
 			_bosses.put(spawnDat, raidboss);

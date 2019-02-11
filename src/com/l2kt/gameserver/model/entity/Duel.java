@@ -293,7 +293,7 @@ public class Duel
 				partyPlayer.abortCast();
 				partyPlayer.getAI().setIntention(CtrlIntention.ACTIVE);
 				partyPlayer.setTarget(null);
-				partyPlayer.sendPacket(ActionFailed.STATIC_PACKET);
+				partyPlayer.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 			
 			for (Player partyPlayer : _playerB.getParty().getMembers())
@@ -301,7 +301,7 @@ public class Duel
 				partyPlayer.abortCast();
 				partyPlayer.getAI().setIntention(CtrlIntention.ACTIVE);
 				partyPlayer.setTarget(null);
-				partyPlayer.sendPacket(ActionFailed.STATIC_PACKET);
+				partyPlayer.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 		}
 		else
@@ -312,8 +312,8 @@ public class Duel
 			_playerA.setTarget(null);
 			_playerB.getAI().setIntention(CtrlIntention.ACTIVE);
 			_playerB.setTarget(null);
-			_playerA.sendPacket(ActionFailed.STATIC_PACKET);
-			_playerB.sendPacket(ActionFailed.STATIC_PACKET);
+			_playerA.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
+			_playerB.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 	}
 	

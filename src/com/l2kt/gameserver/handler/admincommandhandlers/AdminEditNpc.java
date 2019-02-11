@@ -1,10 +1,5 @@
 package com.l2kt.gameserver.handler.admincommandhandlers;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.StringTokenizer;
-
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.gameserver.data.ItemTable;
 import com.l2kt.gameserver.data.manager.BuyListManager;
@@ -21,12 +16,16 @@ import com.l2kt.gameserver.model.buylist.NpcBuyList;
 import com.l2kt.gameserver.model.buylist.Product;
 import com.l2kt.gameserver.model.item.DropCategory;
 import com.l2kt.gameserver.model.item.DropData;
-
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2kt.gameserver.scripting.EventType;
 import com.l2kt.gameserver.scripting.Quest;
 import com.l2kt.gameserver.templates.skills.L2SkillType;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.StringTokenizer;
 
 public class AdminEditNpc implements IAdminCommandHandler
 {
@@ -72,7 +71,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			if (master != null)
 			{
 				html.replace("%type%", "minion");
-				StringUtil.append(sb, "<tr><td>", master.getNpcId(), "</td><td>", master.getName(), " (", ((master.isDead()) ? "Dead" : "Alive"), ")</td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td>", master.getNpcId(), "</td><td>", master.getName(), " (", ((master.isDead()) ? "Dead" : "Alive"), ")</td></tr>");
 			}
 			// Monster is a master, find back minions informations.
 			else if (monster.hasMinions())
@@ -80,7 +79,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 				html.replace("%type%", "master");
 				
 				for (Entry<Monster, Boolean> data : monster.getMinionList().getMinions().entrySet())
-					StringUtil.append(sb, "<tr><td>", data.getKey().getNpcId(), "</td><td>", data.getKey().toString(), " (", ((data.getValue()) ? "Alive" : "Dead"), ")</td></tr>");
+					StringUtil.INSTANCE.append(sb, "<tr><td>", data.getKey().getNpcId(), "</td><td>", data.getKey().toString(), " (", ((data.getValue()) ? "Alive" : "Dead"), ")</td></tr>");
 			}
 			// Monster isn't anything.
 			else
@@ -161,10 +160,10 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		
 		final StringBuilder sb = new StringBuilder(500);
-		StringUtil.append(sb, "<html><body><center><font color=\"LEVEL\">", NpcData.getInstance().getTemplate(buyList.getNpcId()).getName(), " (", buyList.getNpcId(), ") buylist id: ", buyList.getListId(), "</font></center><br><table width=\"100%\"><tr><td width=200>Item</td><td width=80>Price</td></tr>");
+		StringUtil.INSTANCE.append(sb, "<html><body><center><font color=\"LEVEL\">", NpcData.getInstance().getTemplate(buyList.getNpcId()).getName(), " (", buyList.getNpcId(), ") buylist id: ", buyList.getListId(), "</font></center><br><table width=\"100%\"><tr><td width=200>Item</td><td width=80>Price</td></tr>");
 		
 		for (Product product : buyList.getProducts())
-			StringUtil.append(sb, "<tr><td>", product.getItem().getName(), "</td><td>", product.getPrice(), "</td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td>", product.getItem().getName(), "</td><td>", product.getPrice(), "</td></tr>");
 		
 		sb.append("</table></body></html>");
 		
@@ -183,22 +182,22 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		
 		final StringBuilder sb = new StringBuilder(500);
-		StringUtil.append(sb, "<html><title>Merchant Shop Lists</title><body>");
+		StringUtil.INSTANCE.append(sb, "<html><title>Merchant Shop Lists</title><body>");
 		
 		if (activeChar.getTarget() instanceof Merchant)
 		{
 			Npc merchant = (Npc) activeChar.getTarget();
 			int taxRate = merchant.getCastle().getTaxPercent();
 			
-			StringUtil.append(sb, "<center><font color=\"LEVEL\">", merchant.getName(), " (", npcId, ")</font></center><br>Tax rate: ", taxRate, "%");
+			StringUtil.INSTANCE.append(sb, "<center><font color=\"LEVEL\">", merchant.getName(), " (", npcId, ")</font></center><br>Tax rate: ", taxRate, "%");
 		}
 		
-		StringUtil.append(sb, "<table width=\"100%\">");
+		StringUtil.INSTANCE.append(sb, "<table width=\"100%\">");
 		
 		for (NpcBuyList buyList : buyLists)
-			StringUtil.append(sb, "<tr><td><a action=\"bypass -h admin_show_shoplist ", buyList.getListId(), " 1\">Buylist id: ", buyList.getListId(), "</a></td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td><a action=\"bypass -h admin_show_shoplist ", buyList.getListId(), " 1\">Buylist id: ", buyList.getListId(), "</a></td></tr>");
 		
-		StringUtil.append(sb, "</table></body></html>");
+		StringUtil.INSTANCE.append(sb, "</table></body></html>");
 		
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setHtml(sb.toString());
@@ -215,7 +214,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		
 		final StringBuilder sb = new StringBuilder(2000);
-		StringUtil.append(sb, "<html><title>Show droplist page ", page, "</title><body><center><font color=\"LEVEL\">", npcData.getName(), " (", npcId, ")</font></center><br>");
+		StringUtil.INSTANCE.append(sb, "<html><title>Show droplist page ", page, "</title><body><center><font color=\"LEVEL\">", npcData.getName(), " (", npcId, ")</font></center><br>");
 		
 		if (!npcData.getDropData().isEmpty())
 		{
@@ -253,7 +252,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 						break;
 					}
 					
-					StringUtil.append(sb, "<tr><td><font color=\"", ((cat.isSweep()) ? "00FF00" : "3BB9FF"), "\">", cat.getCategoryType(), "</td><td>", ItemTable.getInstance().getTemplate(drop.getItemId()).getName(), " (", drop.getItemId(), ")</td></tr>");
+					StringUtil.INSTANCE.append(sb, "<tr><td><font color=\"", ((cat.isSweep()) ? "00FF00" : "3BB9FF"), "\">", cat.getCategoryType(), "</td><td>", ItemTable.INSTANCE.getTemplate(drop.getItemId()).getName(), " (", drop.getItemId(), ")</td></tr>");
 					shown++;
 				}
 			}
@@ -262,9 +261,9 @@ public class AdminEditNpc implements IAdminCommandHandler
 			
 			if (page > 1)
 			{
-				StringUtil.append(sb, "<td width=120><a action=\"bypass -h admin_show_droplist ", npcId, " ", page - 1, "\">Prev Page</a></td>");
+				StringUtil.INSTANCE.append(sb, "<td width=120><a action=\"bypass -h admin_show_droplist ", npcId, " ", page - 1, "\">Prev Page</a></td>");
 				if (!hasMore)
-					StringUtil.append(sb, "<td width=100>Page ", page, "</td><td width=70></td></tr>");
+					StringUtil.INSTANCE.append(sb, "<td width=100>Page ", page, "</td><td width=70></td></tr>");
 			}
 			
 			if (hasMore)
@@ -272,7 +271,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 				if (page <= 1)
 					sb.append("<td width=120></td>");
 				
-				StringUtil.append(sb, "<td width=100>Page ", page, "</td><td width=70><a action=\"bypass -h admin_show_droplist ", npcId, " ", page + 1, "\">Next Page</a></td></tr>");
+				StringUtil.INSTANCE.append(sb, "<td width=100>Page ", page, "</td><td width=70><a action=\"bypass -h admin_show_droplist ", npcId, " ", page + 1, "\">Next Page</a></td></tr>");
 			}
 			sb.append("</table>");
 		}
@@ -296,7 +295,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		
 		final StringBuilder sb = new StringBuilder(500);
-		StringUtil.append(sb, "<html><body><center><font color=\"LEVEL\">", npcData.getName(), " (", npcId, ") skills</font></center><br>");
+		StringUtil.INSTANCE.append(sb, "<html><body><center><font color=\"LEVEL\">", npcData.getName(), " (", npcId, ") skills</font></center><br>");
 		
 		if (!npcData.getSkills().isEmpty())
 		{
@@ -308,11 +307,11 @@ public class AdminEditNpc implements IAdminCommandHandler
 				if (type != entry.getKey())
 				{
 					type = entry.getKey();
-					StringUtil.append(sb, "<br><font color=\"LEVEL\">", type.name(), "</font><br1>");
+					StringUtil.INSTANCE.append(sb, "<br><font color=\"LEVEL\">", type.name(), "</font><br1>");
 				}
 				
 				for (L2Skill skill : entry.getValue())
-					StringUtil.append(sb, ((skill.getSkillType() == L2SkillType.NOTDONE) ? ("<font color=\"777777\">" + skill.getName() + "</font>") : skill.getName()), " [", skill.getId(), "-", skill.getLevel(), "]<br1>");
+					StringUtil.INSTANCE.append(sb, ((skill.getSkillType() == L2SkillType.NOTDONE) ? ("<font color=\"777777\">" + skill.getName() + "</font>") : skill.getName()), " [", skill.getId(), "-", skill.getLevel(), "]<br1>");
 			}
 		}
 		else
@@ -335,7 +334,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		}
 		
 		final StringBuilder sb = new StringBuilder(500);
-		StringUtil.append(sb, "<html><body><center><font color=\"LEVEL\">", npcData.getName(), " (", npcId, ")</font></center><br>");
+		StringUtil.INSTANCE.append(sb, "<html><body><center><font color=\"LEVEL\">", npcData.getName(), " (", npcId, ")</font></center><br>");
 		
 		if (!npcData.getEventQuests().isEmpty())
 		{
@@ -347,11 +346,11 @@ public class AdminEditNpc implements IAdminCommandHandler
 				if (type != entry.getKey())
 				{
 					type = entry.getKey();
-					StringUtil.append(sb, "<br><font color=\"LEVEL\">", type.name(), "</font><br1>");
+					StringUtil.INSTANCE.append(sb, "<br><font color=\"LEVEL\">", type.name(), "</font><br1>");
 				}
 				
 				for (Quest quest : entry.getValue())
-					StringUtil.append(sb, quest.getName(), "<br1>");
+					StringUtil.INSTANCE.append(sb, quest.getName(), "<br1>");
 			}
 		}
 		else

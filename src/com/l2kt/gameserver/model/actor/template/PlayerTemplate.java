@@ -70,7 +70,7 @@ public class PlayerTemplate extends CreatureTemplate
 		
 		_skills = set.getList("skills");
 		
-		_fists = (Weapon) ItemTable.getInstance().getTemplate(set.getInteger("fists"));
+		_fists = (Weapon) ItemTable.INSTANCE.getTemplate(set.getInteger("fists"));
 	}
 	
 	public final ClassId getClassId()
@@ -118,7 +118,7 @@ public class PlayerTemplate extends CreatureTemplate
 	
 	public final Location getRandomSpawn()
 	{
-		final Location loc = Rnd.get(_spawnLocations);
+		final Location loc = Rnd.INSTANCE.get(_spawnLocations);
 		return (loc == null) ? Location.DUMMY_LOC : loc;
 	}
 	

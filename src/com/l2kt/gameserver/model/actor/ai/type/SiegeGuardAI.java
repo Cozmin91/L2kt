@@ -196,7 +196,7 @@ public class SiegeGuardAI extends AttackableAI
 		Creature attackTarget = actor.getMostHated();
 		
 		// If target doesn't exist, is too far or if timeout is expired.
-		if (attackTarget == null || _attackTimeout < System.currentTimeMillis() || MathUtil.calculateDistance(actor, attackTarget, true) > 2000)
+		if (attackTarget == null || _attackTimeout < System.currentTimeMillis() || MathUtil.INSTANCE.calculateDistance(actor, attackTarget, true) > 2000)
 		{
 			// Stop hating this target after the attack timeout or if target is dead
 			actor.stopHating(attackTarget);
@@ -262,7 +262,7 @@ public class SiegeGuardAI extends AttackableAI
 					{
 						for (L2Skill sk : defaultList)
 						{
-							if (!MathUtil.checkIfInRange(sk.getCastRange(), actor, cha, true))
+							if (!MathUtil.INSTANCE.checkIfInRange(sk.getCastRange(), actor, cha, true))
 								continue;
 							
 							clientStopMoving(null);
@@ -301,7 +301,7 @@ public class SiegeGuardAI extends AttackableAI
 			// -------------------------------------------------------------------------------
 			// Debuff - 10% luck to get debuffed.
 			defaultList = actor.getTemplate().getSkills(SkillType.DEBUFF);
-			if (Rnd.get(100) < 10 && !defaultList.isEmpty())
+			if (Rnd.INSTANCE.get(100) < 10 && !defaultList.isEmpty())
 			{
 				for (L2Skill sk : defaultList)
 				{
@@ -325,7 +325,7 @@ public class SiegeGuardAI extends AttackableAI
 			defaultList = actor.getTemplate().getSkills(SkillType.SHORT_RANGE);
 			if (!defaultList.isEmpty() && dist <= 150)
 			{
-				final L2Skill skill = Rnd.get(defaultList);
+				final L2Skill skill = Rnd.INSTANCE.get(defaultList);
 				if (cast(skill, dist, skill.getCastRange()))
 					return;
 			}
@@ -334,7 +334,7 @@ public class SiegeGuardAI extends AttackableAI
 				defaultList = actor.getTemplate().getSkills(SkillType.LONG_RANGE);
 				if (!defaultList.isEmpty() && dist > 150)
 				{
-					final L2Skill skill = Rnd.get(defaultList);
+					final L2Skill skill = Rnd.INSTANCE.get(defaultList);
 					if (cast(skill, dist, skill.getCastRange()))
 						return;
 				}
@@ -367,20 +367,20 @@ public class SiegeGuardAI extends AttackableAI
 		 * In case many mobs are trying to hit from same place, move a bit, circling around the target
 		 */
 		
-		if (Rnd.get(100) <= 3)
+		if (Rnd.INSTANCE.get(100) <= 3)
 		{
 			for (Attackable nearby : actor.getKnownTypeInRadius(Attackable.class, actorCollision))
 			{
 				if (nearby != attackTarget)
 				{
-					int newX = combinedCollision + Rnd.get(40);
-					if (Rnd.nextBoolean())
+					int newX = combinedCollision + Rnd.INSTANCE.get(40);
+					if (Rnd.INSTANCE.nextBoolean())
 						newX = attackTarget.getX() + newX;
 					else
 						newX = attackTarget.getX() - newX;
 					
-					int newY = combinedCollision + Rnd.get(40);
-					if (Rnd.nextBoolean())
+					int newY = combinedCollision + Rnd.INSTANCE.get(40);
+					if (Rnd.INSTANCE.nextBoolean())
 						newY = attackTarget.getY() + newY;
 					else
 						newY = attackTarget.getY() - newY;
@@ -401,7 +401,7 @@ public class SiegeGuardAI extends AttackableAI
 		 * Test the flee possibility. Archers got 25% chance to flee.
 		 */
 		
-		if (actor.getTemplate().getAiType() == AIType.ARCHER && dist <= (60 + combinedCollision) && Rnd.get(4) > 1)
+		if (actor.getTemplate().getAiType() == AIType.ARCHER && dist <= (60 + combinedCollision) && Rnd.INSTANCE.get(4) > 1)
 		{
 			final int posX = actor.getX() + ((attackTarget.getX() < actor.getX()) ? 300 : -300);
 			final int posY = actor.getY() + ((attackTarget.getY() < actor.getY()) ? 300 : -300);

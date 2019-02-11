@@ -134,7 +134,7 @@ public class AdminRes implements IAdminCommandHandler
 			((Player) targetChar).restoreExp(100.0);
 		// If the target is an NPC, then abort it's auto decay and respawn.
 		else
-			DecayTaskManager.getInstance().cancel(targetChar);
+			DecayTaskManager.INSTANCE.cancel(targetChar);
 		
 		targetChar.doRevive();
 	}

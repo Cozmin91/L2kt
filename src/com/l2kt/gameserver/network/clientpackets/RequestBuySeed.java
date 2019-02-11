@@ -1,10 +1,5 @@
 package com.l2kt.gameserver.network.clientpackets;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.l2kt.Config;
 import com.l2kt.gameserver.data.ItemTable;
 import com.l2kt.gameserver.data.manager.CastleManager;
@@ -20,6 +15,11 @@ import com.l2kt.gameserver.network.FloodProtectors;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.ActionFailed;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RequestBuySeed extends L2GameClientPacket
 {
@@ -56,7 +56,7 @@ public class RequestBuySeed extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (!FloodProtectors.performAction(getClient(), FloodProtectors.Action.MANOR))
+		if (!FloodProtectors.INSTANCE.performAction(getClient(), FloodProtectors.Action.MANOR))
 			return;
 		
 		final Player player = getClient().getActiveChar();
@@ -65,28 +65,28 @@ public class RequestBuySeed extends L2GameClientPacket
 		
 		if (_items == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		final CastleManorManager manor = CastleManorManager.getInstance();
 		if (manor.isUnderMaintenance())
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		final Castle castle = CastleManager.getInstance().getCastleById(_manorId);
 		if (castle == null)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		final Folk folk = player.getCurrentFolk();
 		if (!(folk instanceof ManorManagerNpc) || !folk.canInteract(player) || folk.getCastle() != castle)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -101,7 +101,7 @@ public class RequestBuySeed extends L2GameClientPacket
 			final SeedProduction sp = manor.getSeedProduct(_manorId, ih.getId(), false);
 			if (sp == null || sp.getPrice() <= 0 || sp.getAmount() < ih.getValue() || ((Integer.MAX_VALUE / ih.getValue()) < sp.getPrice()))
 			{
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			
@@ -109,11 +109,11 @@ public class RequestBuySeed extends L2GameClientPacket
 			totalPrice += (sp.getPrice() * ih.getValue());
 			if (totalPrice > Integer.MAX_VALUE)
 			{
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			
-			final Item template = ItemTable.getInstance().getTemplate(ih.getId());
+			final Item template = ItemTable.INSTANCE.getTemplate(ih.getId());
 			totalWeight += ih.getValue() * template.getWeight();
 			
 			// Calculate slots

@@ -68,7 +68,7 @@ public class Q296_TarantulasSpiderSilk extends Quest
 			{
 				htmltext = "30548-03.htm";
 				st.takeItems(TARANTULA_SPINNERETTE, -1);
-				st.giveItems(TARANTULA_SPIDER_SILK, count * (15 + Rnd.get(10)));
+				st.giveItems(TARANTULA_SPIDER_SILK, count * (15 + Rnd.INSTANCE.get(10)));
 			}
 		}
 		
@@ -122,7 +122,7 @@ public class Q296_TarantulasSpiderSilk extends Quest
 		if (st == null)
 			return null;
 		
-		final int rnd = Rnd.get(100);
+		final int rnd = Rnd.INSTANCE.get(100);
 		if (rnd > 95)
 			st.dropItemsAlways(TARANTULA_SPINNERETTE, 1, 0);
 		else if (rnd > 45)

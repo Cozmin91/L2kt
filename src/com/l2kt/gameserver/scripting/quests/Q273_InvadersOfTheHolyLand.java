@@ -122,7 +122,7 @@ public class Q273_InvadersOfTheHolyLand extends Quest
 		else if (npcId == 20312)
 			probability = 87;
 		
-		if (Rnd.get(100) <= probability)
+		if (Rnd.INSTANCE.get(100) <= probability)
 			st.dropItemsAlways(BLACK_SOULSTONE, 1, 0);
 		else
 			st.dropItemsAlways(RED_SOULSTONE, 1, 0);

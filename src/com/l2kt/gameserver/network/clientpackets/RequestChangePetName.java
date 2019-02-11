@@ -51,7 +51,7 @@ public final class RequestChangePetName extends L2GameClientPacket
 		}
 		
 		// Invalid name pattern.
-		if (!StringUtil.isValidString(_name, "^[A-Za-z0-9]{2,8}$"))
+		if (!StringUtil.INSTANCE.isValidString(_name, "^[A-Za-z0-9]{2,8}$"))
 		{
 			player.sendPacket(SystemMessageId.NAMING_PETNAME_CONTAINS_INVALID_CHARS);
 			return;

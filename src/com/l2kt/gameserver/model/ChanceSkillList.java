@@ -1,10 +1,5 @@
 package com.l2kt.gameserver.model;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.l2kt.gameserver.data.SkillTable;
 import com.l2kt.gameserver.handler.ISkillHandler;
 import com.l2kt.gameserver.handler.SkillHandler;
@@ -13,6 +8,13 @@ import com.l2kt.gameserver.network.serverpackets.MagicSkillLaunched;
 import com.l2kt.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2kt.gameserver.skills.effects.EffectChanceSkillTrigger;
 import com.l2kt.gameserver.templates.skills.L2SkillType;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * CT2.3: Added support for allowing effect as a chance skill trigger (DrHouse)
@@ -129,7 +131,7 @@ public class ChanceSkillList extends ConcurrentHashMap<IChanceSkillTrigger, Chan
 			{
 				if (skill.triggersChanceSkill()) // skill will trigger another skill, but only if its not chance skill
 				{
-					skill = SkillTable.getInstance().getInfo(skill.getTriggeredChanceId(), skill.getTriggeredChanceLevel());
+					skill = SkillTable.INSTANCE.getInfo(skill.getTriggeredChanceId(), skill.getTriggeredChanceLevel());
 					if (skill == null || skill.getSkillType() == L2SkillType.NOTDONE)
 						return;
 				}
@@ -147,7 +149,7 @@ public class ChanceSkillList extends ConcurrentHashMap<IChanceSkillTrigger, Chan
 				
 				Creature firstTarget = (Creature) targets[0];
 				
-				_owner.broadcastPacket(new MagicSkillLaunched(_owner, skill.getId(), skill.getLevel(), targets));
+				_owner.broadcastPacket(new MagicSkillLaunched(_owner, skill.getId(), skill.getLevel(), Arrays.stream(targets).collect(Collectors.toList())));
 				_owner.broadcastPacket(new MagicSkillUse(_owner, firstTarget, skill.getId(), skill.getLevel(), 0, 0));
 				
 				// Launch the magic skill and calculate its effects
@@ -172,7 +174,7 @@ public class ChanceSkillList extends ConcurrentHashMap<IChanceSkillTrigger, Chan
 			if (effect == null || !effect.triggersChanceSkill())
 				return;
 			
-			L2Skill triggered = SkillTable.getInstance().getInfo(effect.getTriggeredChanceId(), effect.getTriggeredChanceLevel());
+			L2Skill triggered = SkillTable.INSTANCE.getInfo(effect.getTriggeredChanceId(), effect.getTriggeredChanceLevel());
 			if (triggered == null)
 				return;
 			Creature caster = triggered.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF ? _owner : effect.getEffector();
@@ -192,7 +194,7 @@ public class ChanceSkillList extends ConcurrentHashMap<IChanceSkillTrigger, Chan
 			
 			ISkillHandler handler = SkillHandler.getInstance().getHandler(triggered.getSkillType());
 			
-			_owner.broadcastPacket(new MagicSkillLaunched(_owner, triggered.getId(), triggered.getLevel(), targets));
+			_owner.broadcastPacket(new MagicSkillLaunched(_owner, triggered.getId(), triggered.getLevel(), Arrays.stream(targets).collect(Collectors.toList())));
 			_owner.broadcastPacket(new MagicSkillUse(_owner, firstTarget, triggered.getId(), triggered.getLevel(), 0, 0));
 			
 			// Launch the magic skill and calculate its effects

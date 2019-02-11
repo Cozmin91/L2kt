@@ -357,7 +357,7 @@ public class GeoEngine
 	 */
 	public static final int getGeoX(int worldX)
 	{
-		return (MathUtil.limit(worldX, World.WORLD_X_MIN, World.WORLD_X_MAX) - World.WORLD_X_MIN) >> 4;
+		return (MathUtil.INSTANCE.limit(worldX, World.WORLD_X_MIN, World.WORLD_X_MAX) - World.WORLD_X_MIN) >> 4;
 	}
 	
 	/**
@@ -367,7 +367,7 @@ public class GeoEngine
 	 */
 	public static final int getGeoY(int worldY)
 	{
-		return (MathUtil.limit(worldY, World.WORLD_Y_MIN, World.WORLD_Y_MAX) - World.WORLD_Y_MIN) >> 4;
+		return (MathUtil.INSTANCE.limit(worldY, World.WORLD_Y_MIN, World.WORLD_Y_MAX) - World.WORLD_Y_MIN) >> 4;
 	}
 	
 	/**
@@ -377,7 +377,7 @@ public class GeoEngine
 	 */
 	public static final int getWorldX(int geoX)
 	{
-		return (MathUtil.limit(geoX, 0, GeoStructure.GEO_CELLS_X) << 4) + World.WORLD_X_MIN + 8;
+		return (MathUtil.INSTANCE.limit(geoX, 0, GeoStructure.GEO_CELLS_X) << 4) + World.WORLD_X_MIN + 8;
 	}
 	
 	/**
@@ -387,7 +387,7 @@ public class GeoEngine
 	 */
 	public static final int getWorldY(int geoY)
 	{
-		return (MathUtil.limit(geoY, 0, GeoStructure.GEO_CELLS_Y) << 4) + World.WORLD_Y_MIN + 8;
+		return (MathUtil.INSTANCE.limit(geoY, 0, GeoStructure.GEO_CELLS_Y) << 4) + World.WORLD_Y_MIN + 8;
 	}
 	
 	/**
@@ -1497,12 +1497,12 @@ public class GeoEngine
 		{
 			final StringBuilder sb = new StringBuilder(100);
 			
-			StringUtil.append(sb, "Buffer ", String.valueOf(_size), "x", String.valueOf(_size), ": count=", String.valueOf(_count), " uses=", String.valueOf(_playableUses), "/", String.valueOf(_uses));
+			StringUtil.INSTANCE.append(sb, "Buffer ", String.valueOf(_size), "x", String.valueOf(_size), ": count=", String.valueOf(_count), " uses=", String.valueOf(_playableUses), "/", String.valueOf(_uses));
 			
 			if (_uses > 0)
-				StringUtil.append(sb, " total/avg(ms)=", String.valueOf(_elapsed), "/", String.format("%1.2f", (double) _elapsed / _uses));
+				StringUtil.INSTANCE.append(sb, " total/avg(ms)=", String.valueOf(_elapsed), "/", String.format("%1.2f", (double) _elapsed / _uses));
 			
-			StringUtil.append(sb, " ovf=", String.valueOf(_playableOverflows), "/", String.valueOf(_overflows));
+			StringUtil.INSTANCE.append(sb, " ovf=", String.valueOf(_playableOverflows), "/", String.valueOf(_overflows));
 			
 			return sb.toString();
 		}

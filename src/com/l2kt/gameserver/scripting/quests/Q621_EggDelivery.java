@@ -109,9 +109,9 @@ public class Q621_EggDelivery extends Quest
 		}
 		else if (event.equalsIgnoreCase("31584-02.htm"))
 		{
-			if (Rnd.get(5) < 1)
+			if (Rnd.INSTANCE.get(5) < 1)
 			{
-				st.rewardItems(RECIPES[Rnd.get(3)], 1);
+				st.rewardItems(RECIPES[Rnd.INSTANCE.get(3)], 1);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
 			}

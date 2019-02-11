@@ -132,7 +132,7 @@ public class Benom extends L2AttackableAIScript
 		if (isPet)
 			return super.onAggro(npc, player, isPet);
 		
-		if (_targets.size() < 10 && Rnd.get(3) < 1)
+		if (_targets.size() < 10 && Rnd.INSTANCE.get(3) < 1)
 			_targets.add(player);
 		
 		return super.onAggro(npc, player, isPet);
@@ -213,27 +213,27 @@ public class Benom extends L2AttackableAIScript
 	{
 		if (attacker instanceof Playable)
 		{
-			if (Rnd.get(100) <= 25)
+			if (Rnd.INSTANCE.get(100) <= 25)
 			{
 				npc.setTarget(attacker);
-				npc.doCast(SkillTable.getInstance().getInfo(4995, 1));
+				npc.doCast(SkillTable.INSTANCE.getInfo(4995, 1));
 			}
 			else if (!npc.isCastingNow())
 			{
-				if ((npc.getCurrentHp() < (npc.getMaxHp() / 3)) && Rnd.get(500) < 1)
+				if ((npc.getCurrentHp() < (npc.getMaxHp() / 3)) && Rnd.INSTANCE.get(500) < 1)
 				{
 					npc.setTarget(attacker);
-					npc.doCast(SkillTable.getInstance().getInfo(4996, 1));
+					npc.doCast(SkillTable.INSTANCE.getInfo(4996, 1));
 				}
-				else if (!npc.isInsideRadius(attacker, 300, true, false) && Rnd.get(100) < 1)
+				else if (!npc.isInsideRadius(attacker, 300, true, false) && Rnd.INSTANCE.get(100) < 1)
 				{
 					npc.setTarget(attacker);
-					npc.doCast(SkillTable.getInstance().getInfo(4993, 1));
+					npc.doCast(SkillTable.INSTANCE.getInfo(4993, 1));
 				}
-				else if (Rnd.get(100) < 1)
+				else if (Rnd.INSTANCE.get(100) < 1)
 				{
 					npc.setTarget(attacker);
-					npc.doCast(SkillTable.getInstance().getInfo(4994, 1));
+					npc.doCast(SkillTable.INSTANCE.getInfo(4994, 1));
 				}
 			}
 		}
@@ -259,7 +259,7 @@ public class Benom extends L2AttackableAIScript
 	{
 		if (player != null)
 		{
-			final SpawnLocation loc = Rnd.get(TARGET_TELEPORTS);
+			final SpawnLocation loc = Rnd.INSTANCE.get(TARGET_TELEPORTS);
 			player.teleToLocation(loc, loc.getHeading());
 		}
 	}

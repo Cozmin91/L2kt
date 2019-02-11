@@ -1,16 +1,5 @@
 package com.l2kt.gameserver.data.manager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-
 import com.l2kt.Config;
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.concurrent.ThreadPool;
@@ -20,7 +9,6 @@ import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.data.SpawnTable;
 import com.l2kt.gameserver.data.xml.DoorData;
 import com.l2kt.gameserver.data.xml.NpcData;
-
 import com.l2kt.gameserver.model.L2Spawn;
 import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.instance.Door;
@@ -35,6 +23,13 @@ import com.l2kt.gameserver.model.zone.type.BossZone;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2kt.gameserver.scripting.QuestState;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class FourSepulchersManager
 {
@@ -227,7 +222,7 @@ public class FourSepulchersManager
 				spawn.setLoc(rs.getInt("locx"), rs.getInt("locy"), rs.getInt("locz"), rs.getInt("heading"));
 				spawn.setRespawnDelay(rs.getInt("respawn_delay"));
 				
-				SpawnTable.getInstance().addNewSpawn(spawn, false);
+				SpawnTable.INSTANCE.addNewSpawn(spawn, false);
 				_mysteriousBoxSpawns.put(rs.getInt("key_npc_id"), spawn);
 			}
 		}
@@ -252,7 +247,7 @@ public class FourSepulchersManager
 				}
 				
 				final L2Spawn spawn = new L2Spawn(template);
-				SpawnTable.getInstance().addNewSpawn(spawn, false);
+				SpawnTable.INSTANCE.addNewSpawn(spawn, false);
 				_keyBoxSpawns.put(keyNpc.getKey(), spawn);
 			}
 			catch (Exception e)
@@ -304,7 +299,7 @@ public class FourSepulchersManager
 							spawn.setLoc(rs2.getInt("locx"), rs2.getInt("locy"), rs2.getInt("locz"), rs2.getInt("heading"));
 							spawn.setRespawnDelay(rs2.getInt("respawn_delay"));
 							
-							SpawnTable.getInstance().addNewSpawn(spawn, false);
+							SpawnTable.INSTANCE.addNewSpawn(spawn, false);
 							spawns.add(spawn);
 							
 							loaded++;
@@ -351,7 +346,7 @@ public class FourSepulchersManager
 		};
 		
 		// Generate new locations for the 4 shadows.
-		final Map<Integer, SpawnLocation> newLoc = _shadowSpawnLoc.get(Rnd.get(4));
+		final Map<Integer, SpawnLocation> newLoc = _shadowSpawnLoc.get(Rnd.INSTANCE.get(4));
 		
 		// Used to store current index.
 		int index = 0;
@@ -371,7 +366,7 @@ public class FourSepulchersManager
 				final L2Spawn spawn = new L2Spawn(template);
 				spawn.setLoc(entry.getValue());
 				
-				SpawnTable.getInstance().addNewSpawn(spawn, false);
+				SpawnTable.INSTANCE.addNewSpawn(spawn, false);
 				
 				_shadowSpawns.put(gateKeeper[index], spawn);
 				
@@ -400,7 +395,7 @@ public class FourSepulchersManager
 				
 				final L2Spawn spawn = new L2Spawn(template);
 				
-				SpawnTable.getInstance().addNewSpawn(spawn, false);
+				SpawnTable.INSTANCE.addNewSpawn(spawn, false);
 				_executionerSpawns.put(victimNpc.getKey(), spawn);
 			}
 			catch (Exception e)
@@ -442,7 +437,7 @@ public class FourSepulchersManager
 						break;
 				}
 				
-				SpawnTable.getInstance().addNewSpawn(spawn, false);
+				SpawnTable.INSTANCE.addNewSpawn(spawn, false);
 				spawn.doSpawn(false);
 				spawn.setRespawnState(true);
 				
@@ -551,7 +546,7 @@ public class FourSepulchersManager
 		final Location loc = _startHallSpawns.get(npcId);
 		
 		// For every party player who isn't dead and who is near current player.
-		for (Player member : party.getMembers().stream().filter(m -> !m.isDead() && MathUtil.checkIfInRange(700, player, m, true)).collect(Collectors.toList()))
+		for (Player member : party.getMembers().stream().filter(m -> !m.isDead() && MathUtil.INSTANCE.checkIfInRange(700, player, m, true)).collect(Collectors.toList()))
 		{
 			// Allow zone timer.
 			ZoneManager.getInstance().getZone(loc.getX(), loc.getY(), loc.getZ(), BossZone.class).allowPlayerEntry(member, 30);
@@ -594,7 +589,7 @@ public class FourSepulchersManager
 		if (!isAttackTime())
 			return;
 		
-		final List<L2Spawn> monsterList = (Rnd.nextBoolean()) ? _physicalMonsters.get(npcId) : _magicalMonsters.get(npcId);
+		final List<L2Spawn> monsterList = (Rnd.INSTANCE.nextBoolean()) ? _physicalMonsters.get(npcId) : _magicalMonsters.get(npcId);
 		final List<Npc> mobs = new ArrayList<>();
 		
 		boolean spawnKeyBoxMob = false;
@@ -612,7 +607,7 @@ public class FourSepulchersManager
 					case 31474:
 					case 31479:
 					case 31484:
-						if (Rnd.get(48) == 0)
+						if (Rnd.INSTANCE.get(48) == 0)
 							spawnKeyBoxMob = true;
 						break;
 					
@@ -638,7 +633,7 @@ public class FourSepulchersManager
 					keyBoxMobSpawn.setLoc(spawn.getLoc());
 					keyBoxMobSpawn.setRespawnDelay(3600);
 					
-					SpawnTable.getInstance().addNewSpawn(keyBoxMobSpawn, false);
+					SpawnTable.INSTANCE.addNewSpawn(keyBoxMobSpawn, false);
 					mob = keyBoxMobSpawn.doSpawn(false);
 					keyBoxMobSpawn.setRespawnState(false);
 				}
@@ -850,7 +845,7 @@ public class FourSepulchersManager
 	protected void onAttackEvent()
 	{
 		// Generate new locations for the 4 shadows.
-		final Map<Integer, SpawnLocation> newLoc = _shadowSpawnLoc.get(Rnd.get(4));
+		final Map<Integer, SpawnLocation> newLoc = _shadowSpawnLoc.get(Rnd.INSTANCE.get(4));
 		
 		// Refresh locations for all spawns.
 		for (L2Spawn spawn : _shadowSpawns.values())

@@ -184,7 +184,7 @@ public abstract class ItemContainer
 			if (item.getItemId() == 57 && count < 10000 * Config.RATE_DROP_ADENA)
 			{
 				// Small adena changes won't be saved to database all the time
-				if (Rnd.get(10) < 2)
+				if (Rnd.INSTANCE.get(10) < 2)
 					item.updateDatabase();
 			}
 			else
@@ -231,7 +231,7 @@ public abstract class ItemContainer
 			if (itemId == 57 && count < 10000 * Config.RATE_DROP_ADENA)
 			{
 				// Small adena changes won't be saved to database all the time
-				if (Rnd.get(10) < 2)
+				if (Rnd.INSTANCE.get(10) < 2)
 					item.updateDatabase();
 			}
 			else
@@ -240,7 +240,7 @@ public abstract class ItemContainer
 		// If item hasn't be found in inventory, create new one
 		else
 		{
-			final Item template = ItemTable.getInstance().getTemplate(itemId);
+			final Item template = ItemTable.INSTANCE.getTemplate(itemId);
 			if (template == null)
 				return null;
 			
@@ -371,7 +371,7 @@ public abstract class ItemContainer
 				item.setLastChange(ItemInstance.ItemState.MODIFIED);
 				
 				// don't update often for untraced items
-				if (process != null || Rnd.get(10) == 0)
+				if (process != null || Rnd.INSTANCE.get(10) == 0)
 					item.updateDatabase();
 				
 				refreshWeight();

@@ -1,16 +1,15 @@
 package com.l2kt.gameserver.handler.admincommandhandlers;
 
-import java.util.List;
-import java.util.StringTokenizer;
-
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.commons.math.MathUtil;
 import com.l2kt.gameserver.data.sql.BookmarkTable;
 import com.l2kt.gameserver.handler.IAdminCommandHandler;
 import com.l2kt.gameserver.model.Bookmark;
 import com.l2kt.gameserver.model.actor.instance.Player;
-
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * This class handles bookmarks (stored locations for GMs use).<br>
@@ -58,13 +57,13 @@ public class AdminBookmark implements IAdminCommandHandler
 					return true;
 				}
 				
-				if (BookmarkTable.getInstance().isExisting(name, activeChar.getObjectId()))
+				if (BookmarkTable.INSTANCE.isExisting(name, activeChar.getObjectId()))
 				{
 					activeChar.sendMessage("That location is already existing.");
 					return true;
 				}
 				
-				BookmarkTable.getInstance().saveBookmark(name, activeChar);
+				BookmarkTable.INSTANCE.saveBookmark(name, activeChar);
 			}
 			
 			// Show the HTM.
@@ -80,12 +79,12 @@ public class AdminBookmark implements IAdminCommandHandler
 				final String name = st.nextToken();
 				final int objId = activeChar.getObjectId();
 				
-				if (!BookmarkTable.getInstance().isExisting(name, objId))
+				if (!BookmarkTable.INSTANCE.isExisting(name, objId))
 				{
 					activeChar.sendMessage("That location doesn't exist.");
 					return true;
 				}
-				BookmarkTable.getInstance().deleteBookmark(name, objId);
+				BookmarkTable.INSTANCE.deleteBookmark(name, objId);
 			}
 			else
 				activeChar.sendMessage("The command delbk must be followed by a valid name.");
@@ -103,7 +102,7 @@ public class AdminBookmark implements IAdminCommandHandler
 	private static void showBookmarks(Player activeChar, int page)
 	{
 		final int objId = activeChar.getObjectId();
-		List<Bookmark> bookmarks = BookmarkTable.getInstance().getBookmarks(objId);
+		List<Bookmark> bookmarks = BookmarkTable.INSTANCE.getBookmarks(objId);
 		
 		// Load static Htm.
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
@@ -116,7 +115,7 @@ public class AdminBookmark implements IAdminCommandHandler
 			return;
 		}
 		
-		final int max = MathUtil.countPagesNumber(bookmarks.size(), PAGE_LIMIT);
+		final int max = MathUtil.INSTANCE.countPagesNumber(bookmarks.size(), PAGE_LIMIT);
 		
 		bookmarks = bookmarks.subList((page - 1) * PAGE_LIMIT, Math.min(page * PAGE_LIMIT, bookmarks.size()));
 		
@@ -130,7 +129,7 @@ public class AdminBookmark implements IAdminCommandHandler
 			final int y = bk.getY();
 			final int z = bk.getZ();
 			
-			StringUtil.append(sb, "<tr><td><a action=\"bypass -h admin_move_to ", x, " ", y, " ", z, "\">", name, " (", x, " ", y, " ", z, ")", "</a></td><td><a action=\"bypass -h admin_delbk ", name, "\">Remove</a></td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td><a action=\"bypass -h admin_move_to ", x, " ", y, " ", z, "\">", name, " (", x, " ", y, " ", z, ")", "</a></td><td><a action=\"bypass -h admin_delbk ", name, "\">Remove</a></td></tr>");
 		}
 		html.replace("%locs%", sb.toString());
 		
@@ -142,9 +141,9 @@ public class AdminBookmark implements IAdminCommandHandler
 		{
 			final int pagenr = i + 1;
 			if (page == pagenr)
-				StringUtil.append(sb, pagenr, "&nbsp;");
+				StringUtil.INSTANCE.append(sb, pagenr, "&nbsp;");
 			else
-				StringUtil.append(sb, "<a action=\"bypass -h admin_bkpage ", pagenr, "\">", pagenr, "</a>&nbsp;");
+				StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h admin_bkpage ", pagenr, "\">", pagenr, "</a>&nbsp;");
 		}
 		
 		html.replace("%pages%", sb.toString());

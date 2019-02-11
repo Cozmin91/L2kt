@@ -83,7 +83,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				if (st.hasMoreTokens())
 				{
 					String secondParam = st.nextToken();
-					if (StringUtil.isDigit(secondParam))
+					if (StringUtil.INSTANCE.isDigit(secondParam))
 					{
 						int radius = Integer.parseInt(secondParam);
 						for (Creature knownChar : player.getKnownTypeInRadius(Creature.class, radius))
@@ -101,7 +101,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				else
 					kill(activeChar, player);
 			}
-			else if (StringUtil.isDigit(firstParam))
+			else if (StringUtil.INSTANCE.isDigit(firstParam))
 			{
 				int radius = Integer.parseInt(firstParam);
 				for (Creature knownChar : activeChar.getKnownTypeInRadius(Creature.class, radius))
@@ -199,7 +199,7 @@ public class AdminAdmin implements IAdminCommandHandler
 					}
 					else if (type.startsWith("item"))
 					{
-						ItemTable.getInstance().reload();
+						ItemTable.INSTANCE.reload();
 						activeChar.sendMessage("Items' templates have been reloaded.");
 					}
 					else if (type.equals("multisell"))
@@ -219,7 +219,7 @@ public class AdminAdmin implements IAdminCommandHandler
 					}
 					else if (type.startsWith("skill"))
 					{
-						SkillTable.getInstance().reload();
+						SkillTable.INSTANCE.reload();
 						activeChar.sendMessage("Skills' XMLs have been reloaded.");
 					}
 					else if (type.startsWith("teleport"))

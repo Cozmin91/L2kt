@@ -226,7 +226,7 @@ public class Attackable extends Npc
 				continue;
 			
 			// Check if attacker isn't too far from this.
-			if (!MathUtil.checkIfInRange(Config.PARTY_RANGE, this, attacker, true))
+			if (!MathUtil.INSTANCE.checkIfInRange(Config.PARTY_RANGE, this, attacker, true))
 				continue;
 			
 			final Player attackerPlayer = attacker.getActingPlayer();
@@ -344,7 +344,7 @@ public class Attackable extends Npc
 					// If the Player is in the L2Attackable rewards add its damages to party damages
 					if (reward2 != null)
 					{
-						if (MathUtil.checkIfInRange(Config.PARTY_RANGE, this, partyPlayer, true))
+						if (MathUtil.INSTANCE.checkIfInRange(Config.PARTY_RANGE, this, partyPlayer, true))
 						{
 							partyDmg += reward2.getDamage(); // Add Player damages to party damages
 							rewardedMembers.add(partyPlayer);
@@ -361,7 +361,7 @@ public class Attackable extends Npc
 					// Add Player of the party (that have attacked or not) to members that can be rewarded and in range of the monster.
 					else
 					{
-						if (MathUtil.checkIfInRange(Config.PARTY_RANGE, this, partyPlayer, true))
+						if (MathUtil.INSTANCE.checkIfInRange(Config.PARTY_RANGE, this, partyPlayer, true))
 						{
 							rewardedMembers.add(partyPlayer);
 							if (partyPlayer.getLevel() > partyLvl)
@@ -771,12 +771,12 @@ public class Attackable extends Npc
 		int itemCount = 0;
 		
 		// Check if the Item must be dropped
-		int random = Rnd.get(DropData.MAX_CHANCE);
+		int random = Rnd.INSTANCE.get(DropData.MAX_CHANCE);
 		while (random < dropChance)
 		{
 			// Get the item quantity dropped
 			if (minCount < maxCount)
-				itemCount += Rnd.get(minCount, maxCount);
+				itemCount += Rnd.INSTANCE.get(minCount, maxCount);
 			else if (minCount == maxCount)
 				itemCount += minCount;
 			else
@@ -833,7 +833,7 @@ public class Attackable extends Npc
 			categoryDropChance = 1;
 		
 		// Check if an Item from this category must be dropped
-		if (Rnd.get(DropData.MAX_CHANCE) < categoryDropChance)
+		if (Rnd.INSTANCE.get(DropData.MAX_CHANCE) < categoryDropChance)
 		{
 			DropData drop = categoryDrops.dropOne(isRaidBoss());
 			if (drop == null)
@@ -871,12 +871,12 @@ public class Attackable extends Npc
 			int itemCount = 0;
 			
 			// Check if the Item must be dropped
-			int random = Rnd.get(DropData.MAX_CHANCE);
+			int random = Rnd.INSTANCE.get(DropData.MAX_CHANCE);
 			while (random < dropChance)
 			{
 				// Get the item quantity dropped
 				if (min < max)
-					itemCount += Rnd.get(min, max);
+					itemCount += Rnd.INSTANCE.get(min, max);
 				else if (min == max)
 					itemCount += min;
 				else
@@ -951,7 +951,7 @@ public class Attackable extends Npc
 		}
 		
 		// Check if an Item from this category must be dropped
-		if (Rnd.get(DropData.MAX_CHANCE) < Math.max(1, categoryDropChance))
+		if (Rnd.INSTANCE.get(DropData.MAX_CHANCE) < Math.max(1, categoryDropChance))
 		{
 			final DropData drop = categoryDrops.dropOne(false);
 			if (drop == null)
@@ -990,12 +990,12 @@ public class Attackable extends Npc
 			int itemCount = 0;
 			
 			// Check if the Item must be dropped
-			int random = Rnd.get(DropData.MAX_CHANCE);
+			int random = Rnd.INSTANCE.get(DropData.MAX_CHANCE);
 			while (random < dropChance)
 			{
 				// Get the item quantity dropped
 				if (min < max)
-					itemCount += Rnd.get(min, max);
+					itemCount += Rnd.INSTANCE.get(min, max);
 				else if (min == max)
 					itemCount += min;
 				else
@@ -1093,9 +1093,9 @@ public class Attackable extends Npc
 				dropChance = ((Config.CHAMPION_REWARD - ((Config.CHAMPION_REWARD * levelModifier) / 100)) / deepBlueDrop);
 			}
 			
-			if (Rnd.get(100) < dropChance)
+			if (Rnd.INSTANCE.get(100) < dropChance)
 			{
-				final IntIntHolder item = new IntIntHolder(Config.CHAMPION_REWARD_ID, Math.max(1, Rnd.get(1, Config.CHAMPION_REWARD_QTY)));
+				final IntIntHolder item = new IntIntHolder(Config.CHAMPION_REWARD_ID, Math.max(1, Rnd.INSTANCE.get(1, Config.CHAMPION_REWARD_QTY)));
 				if (Config.AUTO_LOOT)
 					player.addItem("ChampionLoot", item.getId(), item.getValue(), this, true);
 				else
@@ -1143,7 +1143,7 @@ public class Attackable extends Npc
 			// Init the dropped ItemInstance and add it in the world as a visible object at the position where mob was last
 			final ItemInstance item = ItemInstance.create(holder.getId(), holder.getValue(), mainDamageDealer, this);
 			item.setDropProtection(mainDamageDealer.getObjectId(), isRaidBoss());
-			item.dropMe(this, getX() + Rnd.get(-70, 70), getY() + Rnd.get(-70, 70), Math.max(getZ(), mainDamageDealer.getZ()) + 20);
+			item.dropMe(this, getX() + Rnd.INSTANCE.get(-70, 70), getY() + Rnd.INSTANCE.get(-70, 70), Math.max(getZ(), mainDamageDealer.getZ()) + 20);
 			
 			// If stackable, end loop as entire count is included in 1 instance of item.
 			if (item.isStackable() || !Config.MULTIPLE_ITEM_DROP)

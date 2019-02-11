@@ -58,10 +58,10 @@ public class SepulcherNpc extends Folk
 					player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
 					
 					// Send ActionFailed to the player in order to avoid he stucks
-					player.sendPacket(ActionFailed.STATIC_PACKET);
+					player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 					
 					if (hasRandomAnimation())
-						onRandomAnimation(Rnd.get(8));
+						onRandomAnimation(Rnd.INSTANCE.get(8));
 					
 					doAction(player);
 				}
@@ -85,7 +85,7 @@ public class SepulcherNpc extends Folk
 				if (player.isInsideRadius(this, player.getPhysicalAttackRange(), false, false) && GeoEngine.getInstance().canSeeTarget(player, this))
 					player.getAI().setIntention(CtrlIntention.ATTACK, this);
 				else
-					player.sendPacket(ActionFailed.STATIC_PACKET);
+					player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 			else if (canInteract(player))
 			{
@@ -93,15 +93,15 @@ public class SepulcherNpc extends Folk
 				player.sendPacket(new MoveToPawn(player, this, INTERACTION_DISTANCE));
 				
 				// Send ActionFailed to the player in order to avoid he stucks
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				
 				if (hasRandomAnimation())
-					onRandomAnimation(Rnd.get(8));
+					onRandomAnimation(Rnd.INSTANCE.get(8));
 				
 				doAction(player);
 			}
 			else
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 	}
 	
@@ -109,7 +109,7 @@ public class SepulcherNpc extends Folk
 	{
 		if (isDead())
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -179,7 +179,7 @@ public class SepulcherNpc extends Folk
 					showChatWindow(player);
 			}
 		}
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	@Override

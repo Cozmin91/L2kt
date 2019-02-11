@@ -128,7 +128,7 @@ public final class TamedBeast extends FeedableBeast
 		if (_owner.isDead() || isCastingNow())
 			return;
 		
-		final int proba = Rnd.get(3);
+		final int proba = Rnd.INSTANCE.get(3);
 		
 		// Heal, 33% luck.
 		if (proba == 0)
@@ -244,7 +244,7 @@ public final class TamedBeast extends FeedableBeast
 				}
 				
 				broadcastPacket(new SocialAction(TamedBeast.this, 2));
-				broadcastPacket(new NpcSay(getObjectId(), 0, getNpcId(), Rnd.get(FOOD_CHAT)));
+				broadcastPacket(new NpcSay(getObjectId(), 0, getNpcId(), Rnd.INSTANCE.get(FOOD_CHAT)));
 				
 				_step = 0;
 			}
@@ -258,7 +258,7 @@ public final class TamedBeast extends FeedableBeast
 			L2Skill buffToGive = null;
 			
 			final List<L2Skill> skills = getTemplate().getSkills(SkillType.BUFF);
-			final int rand = Rnd.get(skills.size());
+			final int rand = Rnd.INSTANCE.get(skills.size());
 			
 			// Retrieve the random buff, and check how much tamed beast buffs the player has.
 			for (L2Skill skill : skills)

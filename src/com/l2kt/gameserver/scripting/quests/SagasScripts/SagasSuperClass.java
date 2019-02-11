@@ -504,7 +504,7 @@ public class SagasSuperClass extends Quest
 				if (st.getInt("Quest0") == 0)
 				{
 					startQuestTimer("Mob_2 Timer 3", 13000, npc, player, false);
-					if (Rnd.get(2) == 0)
+					if (Rnd.INSTANCE.get(2) == 0)
 						npc.broadcastNpcSay(Text[9].replace("PLAYERNAME", player.getName()));
 					else
 						npc.broadcastNpcSay(Text[10].replace("PLAYERNAME", player.getName()));
@@ -859,7 +859,7 @@ public class SagasSuperClass extends Quest
 					}
 					if (PartyQuestMembers.size() > 0)
 					{
-						QuestState st2 = Rnd.get(PartyQuestMembers);
+						QuestState st2 = Rnd.INSTANCE.get(PartyQuestMembers);
 						giveHallishaMark(st2);
 					}
 				}

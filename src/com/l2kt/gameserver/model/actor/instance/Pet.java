@@ -277,7 +277,7 @@ public class Pet extends Summon
 				target.pickupMe(this);
 			
 			// Item must be removed from ItemsOnGroundManager if it is active.
-			ItemsOnGroundTaskManager.getInstance().remove(target);
+			ItemsOnGroundTaskManager.INSTANCE.remove(target);
 		}
 		
 		// Auto use herbs - pick up
@@ -339,7 +339,7 @@ public class Pet extends Summon
 		
 		stopFeed();
 		getOwner().sendPacket(SystemMessageId.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
-		DecayTaskManager.getInstance().add(this, 1200);
+		DecayTaskManager.INSTANCE.add(this, 1200);
 		
 		// Dont decrease exp if killed in duel or arena
 		final Player owner = getOwner();
@@ -357,7 +357,7 @@ public class Pet extends Summon
 		super.doRevive();
 		
 		// stopDecay
-		DecayTaskManager.getInstance().cancel(this);
+		DecayTaskManager.INSTANCE.cancel(this);
 		startFeed();
 		
 		if (!checkHungryState())
@@ -493,7 +493,7 @@ public class Pet extends Summon
 			return 0;
 		
 		// Max level for pet is 80, max level for pet skills is 12 => ((80 - 8) / 6) = 12.
-		return Math.max(1, Math.min((getLevel() - 8) / 6, SkillTable.getInstance().getMaxLevel(skillId)));
+		return Math.max(1, Math.min((getLevel() - 8) / 6, SkillTable.INSTANCE.getMaxLevel(skillId)));
 	}
 	
 	@Override
@@ -788,7 +788,7 @@ public class Pet extends Summon
 				_curWeightPenalty = newWeightPenalty;
 				if (newWeightPenalty > 0)
 				{
-					// addSkill(SkillTable.getInstance().getInfo(4270, newWeightPenalty), false);
+					// addSkill(SkillTable.INSTANCE.getInfo(4270, newWeightPenalty), false);
 					setIsOverloaded(getCurrentLoad() >= maxLoad);
 				}
 				else
@@ -880,7 +880,7 @@ public class Pet extends Summon
 			else if (getCurrentFed() == 0)
 			{
 				getOwner().sendPacket(SystemMessageId.YOUR_PET_IS_VERY_HUNGRY);
-				if (Rnd.get(100) < 30)
+				if (Rnd.INSTANCE.get(100) < 30)
 				{
 					stopFeed();
 					getOwner().sendPacket(SystemMessageId.STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT);
@@ -891,7 +891,7 @@ public class Pet extends Summon
 			else if (getCurrentFed() < (0.10 * getPetData().getMaxMeal()))
 			{
 				getOwner().sendPacket(SystemMessageId.YOUR_PET_IS_VERY_HUNGRY_PLEASE_BE_CAREFUL);
-				if (Rnd.get(100) < 3)
+				if (Rnd.INSTANCE.get(100) < 3)
 				{
 					stopFeed();
 					getOwner().sendPacket(SystemMessageId.STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT);

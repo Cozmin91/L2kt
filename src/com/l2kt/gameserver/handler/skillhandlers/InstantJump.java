@@ -23,7 +23,7 @@ public class InstantJump implements ISkillHandler
 		
 		int px = target.getX();
 		int py = target.getY();
-		double ph = MathUtil.convertHeadingToDegree(target.getHeading());
+		double ph = MathUtil.INSTANCE.convertHeadingToDegree(target.getHeading());
 		
 		ph += 180;
 		

@@ -190,7 +190,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		{
 			int[][] temp;
 			temp = _spiceToMob.get(spice);
-			int rand = Rnd.get(temp[0].length);
+			int rand = Rnd.INSTANCE.get(temp[0].length);
 			return temp[0][rand];
 		}
 		
@@ -572,7 +572,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 		if (growthLevel == 2)
 		{
 			// If tamed, the mob that will spawn depends on the class type (fighter/mage) of the player!
-			if (Rnd.get(2) == 0)
+			if (Rnd.INSTANCE.get(2) == 0)
 			{
 				if (player.isMageClass())
 					nextNpcId = GROWTH_CAPABLE_MOBS.get(npcId).getMob(food, 1, 1);
@@ -584,7 +584,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 				/*
 				 * If not tamed, there is a small chance that have "mad cow" disease. that is a stronger-than-normal animal that attacks its feeder
 				 */
-				if (Rnd.get(5) == 0)
+				if (Rnd.INSTANCE.get(5) == 0)
 					nextNpcId = GROWTH_CAPABLE_MOBS.get(npcId).getMob(food, 0, 1);
 				else
 					nextNpcId = GROWTH_CAPABLE_MOBS.get(npcId).getMob(food, 0, 0);
@@ -613,14 +613,14 @@ public class FeedableBeasts extends L2AttackableAIScript
 			
 			// If player has Q020 going, give quest item
 			QuestState st = player.getQuestState(Q020_BringUpWithLove.qn);
-			if (st != null && Rnd.get(100) < 5 && !st.hasQuestItems(7185))
+			if (st != null && Rnd.INSTANCE.get(100) < 5 && !st.hasQuestItems(7185))
 			{
 				st.giveItems(7185, 1);
 				st.set("cond", "2");
 			}
 			
 			// Also, perform a rare random chat
-			int rand = Rnd.get(20);
+			int rand = Rnd.INSTANCE.get(20);
 			if (rand < 5)
 				npc.broadcastPacket(new NpcSay(nextNpc.getObjectId(), 0, nextNpc.getNpcId(), SPAWN_CHATS[rand].replace("$s1", player.getName())));
 		}
@@ -711,8 +711,8 @@ public class FeedableBeasts extends L2AttackableAIScript
 				return super.onSkillSee(npc, caster, skill, targets, isPet);
 			
 			// Rare random talk...
-			if (Rnd.get(20) == 0)
-				npc.broadcastPacket(new NpcSay(objectId, 0, npc.getNpcId(), Rnd.get(TEXT[growthLevel])));
+			if (Rnd.INSTANCE.get(20) == 0)
+				npc.broadcastPacket(new NpcSay(objectId, 0, npc.getNpcId(), Rnd.INSTANCE.get(TEXT[growthLevel])));
 			
 			if (growthLevel > 0 && FEED_INFO.getOrDefault(objectId, 0) != caster.getObjectId())
 			{
@@ -722,7 +722,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 			}
 			
 			// Polymorph the mob, with a certain chance, given its current growth level
-			if (Rnd.get(100) < GROWTH_CAPABLE_MOBS.get(npcId).getChance())
+			if (Rnd.INSTANCE.get(100) < GROWTH_CAPABLE_MOBS.get(npcId).getChance())
 				spawnNext(npc, growthLevel, caster, food);
 		}
 		

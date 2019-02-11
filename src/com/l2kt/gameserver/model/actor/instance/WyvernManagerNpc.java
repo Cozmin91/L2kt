@@ -113,6 +113,6 @@ public class WyvernManagerNpc extends CastleChamberlain
 		html.replace("%needed_crystals%", Config.WYVERN_REQUIRED_CRYSTALS);
 		player.sendPacket(html);
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 }

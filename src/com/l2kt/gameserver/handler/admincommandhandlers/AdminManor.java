@@ -31,10 +31,10 @@ public class AdminManor implements IAdminCommandHandler
 			final StringBuilder sb = new StringBuilder(3400);
 			for (Castle c : CastleManager.getInstance().getCastles())
 			{
-				StringUtil.append(sb, "<tr><td width=110>Name:</td><td width=160><font color=008000>" + c.getName() + "</font></td></tr>");
-				StringUtil.append(sb, "<tr><td>Current period cost:</td><td><font color=FF9900>", StringUtil.formatNumber(manor.getManorCost(c.getCastleId(), false)), " Adena</font></td></tr>");
-				StringUtil.append(sb, "<tr><td>Next period cost:</td><td><font color=FF9900>", StringUtil.formatNumber(manor.getManorCost(c.getCastleId(), true)), " Adena</font></td></tr>");
-				StringUtil.append(sb, "<tr><td>&nbsp;</td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td width=110>Name:</td><td width=160><font color=008000>" + c.getName() + "</font></td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td>Current period cost:</td><td><font color=FF9900>", StringUtil.INSTANCE.formatNumber(manor.getManorCost(c.getCastleId(), false)), " Adena</font></td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td>Next period cost:</td><td><font color=FF9900>", StringUtil.INSTANCE.formatNumber(manor.getManorCost(c.getCastleId(), true)), " Adena</font></td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td>&nbsp;</td></tr>");
 			}
 			msg.replace("%castleInfo%", sb.toString());
 			activeChar.sendPacket(msg);

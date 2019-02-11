@@ -99,7 +99,7 @@ public class Q382_KailsMagicCoin extends Quest
 				break;
 			
 			case FALLEN_ORC_CAPTAIN:
-				st.dropItems(5961 + Rnd.get(3), 1, 0, 100000);
+				st.dropItems(5961 + Rnd.INSTANCE.get(3), 1, 0, 100000);
 				break;
 		}
 		

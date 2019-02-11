@@ -47,7 +47,7 @@ public class SummonFriend implements ISkillHandler
 				continue;
 			
 			// Check target distance.
-			if (MathUtil.checkIfInRange(50, activeChar, target, false))
+			if (MathUtil.INSTANCE.checkIfInRange(50, activeChar, target, false))
 				continue;
 			
 			// Check target teleport request status.

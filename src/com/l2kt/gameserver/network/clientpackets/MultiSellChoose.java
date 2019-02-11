@@ -1,8 +1,5 @@
 package com.l2kt.gameserver.network.clientpackets;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.l2kt.Config;
 import com.l2kt.gameserver.model.L2Augmentation;
 import com.l2kt.gameserver.model.actor.instance.Folk;
@@ -17,6 +14,9 @@ import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.ItemList;
 import com.l2kt.gameserver.network.serverpackets.StatusUpdate;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MultiSellChoose extends L2GameClientPacket
 {
@@ -43,7 +43,7 @@ public class MultiSellChoose extends L2GameClientPacket
 		if (player == null)
 			return;
 		
-		if (!FloodProtectors.performAction(getClient(), FloodProtectors.Action.MULTISELL))
+		if (!FloodProtectors.INSTANCE.performAction(getClient(), FloodProtectors.Action.MULTISELL))
 		{
 			player.setMultiSell(null);
 			return;

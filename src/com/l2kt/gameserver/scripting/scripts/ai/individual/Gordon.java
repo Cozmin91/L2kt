@@ -158,7 +158,7 @@ public class Gordon extends L2AttackableAIScript
 	
 	private static Npc findSpawn(int npcId)
 	{
-		for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable())
+		for (L2Spawn spawn : SpawnTable.INSTANCE.getSpawnTable())
 		{
 			if (spawn.getNpcId() == npcId)
 				return spawn.getNpc();

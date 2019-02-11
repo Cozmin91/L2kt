@@ -200,7 +200,7 @@ public class L2AttackableAIScript extends Quest
 			result.add(player);
 		}
 		
-		return (result.isEmpty()) ? null : Rnd.get(result);
+		return (result.isEmpty()) ? null : Rnd.INSTANCE.get(result);
 	}
 	
 	/**
@@ -249,7 +249,7 @@ public class L2AttackableAIScript extends Quest
 			if (!invisible && player.getAppearance().getInvisible())
 				continue;
 			
-			if (!MathUtil.checkIfInRange(range, npc, player, true))
+			if (!MathUtil.INSTANCE.checkIfInRange(range, npc, player, true))
 				continue;
 			
 			if (player.isInFrontOf(npc))

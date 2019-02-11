@@ -74,7 +74,7 @@ public class Q619_RelicsOfTheOldEmpire extends Quest
 			{
 				htmltext = "31538-09.htm";
 				st.takeItems(RELICS, 1000);
-				st.giveItems(RCP_REWARDS[Rnd.get(RCP_REWARDS.length)], 1);
+				st.giveItems(RCP_REWARDS[Rnd.INSTANCE.get(RCP_REWARDS.length)], 1);
 			}
 			else
 				htmltext = "31538-06.htm";

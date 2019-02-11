@@ -255,7 +255,7 @@ public final class Weapon extends Item
 	 */
 	public int getMpConsume()
 	{
-		if (_mpConsumeReduceRate > 0 && Rnd.get(100) < _mpConsumeReduceRate)
+		if (_mpConsumeReduceRate > 0 && Rnd.INSTANCE.get(100) < _mpConsumeReduceRate)
 			return _mpConsumeReduceValue;
 		
 		return _mpConsume;

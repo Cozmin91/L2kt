@@ -472,10 +472,10 @@ abstract class AbstractAI
 	 */
 	public void startAttackStance()
 	{
-		if (!AttackStanceTaskManager.getInstance().isInAttackStance(_actor))
+		if (!AttackStanceTaskManager.INSTANCE.isInAttackStance(_actor))
 			_actor.broadcastPacket(new AutoAttackStart(_actor.getObjectId()));
 		
-		AttackStanceTaskManager.getInstance().add(_actor);
+		AttackStanceTaskManager.INSTANCE.add(_actor);
 	}
 	
 	/**
@@ -485,7 +485,7 @@ abstract class AbstractAI
 	{
 		_actor.broadcastPacket(new AutoAttackStop(_actor.getObjectId()));
 		
-		AttackStanceTaskManager.getInstance().remove(_actor);
+		AttackStanceTaskManager.INSTANCE.remove(_actor);
 	}
 	
 	/**

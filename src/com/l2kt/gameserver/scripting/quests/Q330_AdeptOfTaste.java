@@ -181,7 +181,7 @@ public class Q330_AdeptOfTaste extends Quest
 								
 								final int specialIngredientsNumber = st.getQuestItemsCount(WHITE_MANDRAGORA_SAP) + st.getQuestItemsCount(GOLDEN_HONEY) + st.getQuestItemsCount(BROWN_MOSS_BUNDLE);
 								
-								if (Rnd.nextBoolean())
+								if (Rnd.INSTANCE.nextBoolean())
 								{
 									htmltext = "30469-05t" + Integer.toString(specialIngredientsNumber + 2) + ".htm";
 									dish = 1443 + specialIngredientsNumber;
@@ -463,22 +463,22 @@ public class Q330_AdeptOfTaste extends Quest
 		{
 			case 20265:
 				if (st.hasQuestItems(ROLANT_CREATURE_BOOK))
-					st.dropItems(MONSTER_EYE_BODY, (Rnd.get(97) < 77) ? 2 : 3, 30, 970000);
+					st.dropItems(MONSTER_EYE_BODY, (Rnd.INSTANCE.get(97) < 77) ? 2 : 3, 30, 970000);
 				break;
 			
 			case 20266:
 				if (st.hasQuestItems(ROLANT_CREATURE_BOOK))
-					st.dropItemsAlways(MONSTER_EYE_BODY, (Rnd.get(10) < 7) ? 1 : 2, 30);
+					st.dropItemsAlways(MONSTER_EYE_BODY, (Rnd.INSTANCE.get(10) < 7) ? 1 : 2, 30);
 				break;
 			
 			case 20226:
 				if (st.hasQuestItems(GLYVKA_BOTANY_BOOK))
-					st.dropItems(((Rnd.get(96) < 87) ? GREEN_MARSH_MOSS : BROWN_MARSH_MOSS), 1, 20, 960000);
+					st.dropItems(((Rnd.INSTANCE.get(96) < 87) ? GREEN_MARSH_MOSS : BROWN_MARSH_MOSS), 1, 20, 960000);
 				break;
 			
 			case 20228:
 				if (st.hasQuestItems(GLYVKA_BOTANY_BOOK))
-					st.dropItemsAlways(((Rnd.get(10) < 9) ? GREEN_MARSH_MOSS : BROWN_MARSH_MOSS), 1, 20);
+					st.dropItemsAlways(((Rnd.INSTANCE.get(10) < 9) ? GREEN_MARSH_MOSS : BROWN_MARSH_MOSS), 1, 20);
 				break;
 			
 			case 20147:
@@ -490,7 +490,7 @@ public class Q330_AdeptOfTaste extends Quest
 			case 20229:
 				if (st.hasQuestItems(JACOB_INSECT_BOOK))
 				{
-					final int random = Rnd.get(100);
+					final int random = Rnd.INSTANCE.get(100);
 					final int[] chances = CHANCES.get(npcId);
 					if (random < chances[0])
 						st.dropItemsAlways(NECTAR, 1, 20);
@@ -505,7 +505,7 @@ public class Q330_AdeptOfTaste extends Quest
 			case 20156:
 				if (st.hasQuestItems(SONIA_BOTANY_BOOK))
 				{
-					final int random = Rnd.get(100);
+					final int random = Rnd.INSTANCE.get(100);
 					final int[] chances = CHANCES.get(npcId);
 					if (random < chances[1])
 						st.dropItemsAlways((random < chances[0]) ? RED_MANDRAGORA_ROOT : WHITE_MANDRAGORA_ROOT, 1, 40);

@@ -30,7 +30,7 @@ public final class L2Augmentation
 	
 	public L2Augmentation(int effects, int skill, int skillLevel)
 	{
-		this(effects, skill != 0 ? SkillTable.getInstance().getInfo(skill, skillLevel) : null);
+		this(effects, skill != 0 ? SkillTable.INSTANCE.getInfo(skill, skillLevel) : null);
 	}
 	
 	public static class AugmentationStatBoni

@@ -33,10 +33,10 @@ public final class Seed
 		_limitCrops = set.getInteger("cropsLimit");
 		_limitSeeds = set.getInteger("seedsLimit");
 		
-		Item item = ItemTable.getInstance().getTemplate(_cropId);
+		Item item = ItemTable.INSTANCE.getTemplate(_cropId);
 		_cropReferencePrice = (item != null) ? item.getReferencePrice() : 1;
 		
-		item = ItemTable.getInstance().getTemplate(_seedId);
+		item = ItemTable.INSTANCE.getTemplate(_seedId);
 		_seedReferencePrice = (item != null) ? item.getReferencePrice() : 1;
 	}
 	

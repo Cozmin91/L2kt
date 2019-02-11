@@ -1,14 +1,5 @@
 package com.l2kt.gameserver.scripting;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.l2kt.Config;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.logging.CLogger;
@@ -35,9 +26,12 @@ import com.l2kt.gameserver.model.pledge.ClanMember;
 import com.l2kt.gameserver.model.zone.ZoneType;
 import com.l2kt.gameserver.network.serverpackets.ActionFailed;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
-
 import com.l2kt.gameserver.scripting.scripts.ai.L2AttackableAIScript;
 import com.l2kt.gameserver.taskmanager.GameTimeTaskManager;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Quest
 {
@@ -281,7 +275,7 @@ public class Quest
 			return null;
 		
 		// Return random candidate.
-		return Rnd.get(getPartyMembers(player, npc, var, value));
+		return Rnd.INSTANCE.get(getPartyMembers(player, npc, var, value));
 	}
 	
 	/**
@@ -368,7 +362,7 @@ public class Quest
 			return null;
 		
 		// Return random candidate.
-		return Rnd.get(getPartyMembersState(player, npc, state));
+		return Rnd.INSTANCE.get(getPartyMembersState(player, npc, state));
 	}
 	
 	/**
@@ -616,8 +610,8 @@ public class Quest
 			
 			if (randomOffset)
 			{
-				x += Rnd.get(-100, 100);
-				y += Rnd.get(-100, 100);
+				x += Rnd.INSTANCE.get(-100, 100);
+				y += Rnd.INSTANCE.get(-100, 100);
 			}
 			
 			final L2Spawn spawn = new L2Spawn(template);
@@ -696,7 +690,7 @@ public class Quest
 				npcReply.replace("%objectId%", npc.getObjectId());
 			
 			player.sendPacket(npcReply);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		else if (result.startsWith("<html>"))
 		{
@@ -707,7 +701,7 @@ public class Quest
 				npcReply.replace("%objectId%", npc.getObjectId());
 			
 			player.sendPacket(npcReply);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		else
 			player.sendMessage(result);
@@ -1104,7 +1098,7 @@ public class Quest
 		if (res != null && res.length() > 0)
 			showResult(npc, player, res);
 		else
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	public String onFirstTalk(Npc npc, Player player)
@@ -1120,7 +1114,7 @@ public class Quest
 	{
 		for (int itemId : itemIds)
 		{
-			Item t = ItemTable.getInstance().getTemplate(itemId);
+			Item t = ItemTable.INSTANCE.getTemplate(itemId);
 			if (t != null)
 				t.addQuestEvent(this);
 		}
@@ -1362,7 +1356,7 @@ public class Quest
 	 */
 	public final void addGameTimeNotify()
 	{
-		GameTimeTaskManager.getInstance().addQuestEvent(this);
+		GameTimeTaskManager.INSTANCE.addQuestEvent(this);
 	}
 	
 	public void onGameTime()

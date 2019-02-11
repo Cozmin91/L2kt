@@ -148,7 +148,7 @@ public class Q293_TheHiddenVeins extends Quest
 		if (st == null)
 			return null;
 		
-		final int chance = Rnd.get(100);
+		final int chance = Rnd.INSTANCE.get(100);
 		
 		if (chance > 50)
 			st.dropItemsAlways(CHRYSOLITE_ORE, 1, 0);

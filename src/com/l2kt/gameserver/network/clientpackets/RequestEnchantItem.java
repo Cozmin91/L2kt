@@ -47,7 +47,7 @@ public final class RequestEnchantItem extends AbstractEnchantPacket
 		{
 			activeChar.sendPacket(SystemMessageId.CANNOT_ENCHANT_WHILE_STORE);
 			activeChar.setActiveEnchantItem(null);
-			activeChar.sendPacket(EnchantResult.CANCELLED);
+			activeChar.sendPacket(EnchantResult.Companion.getCANCELLED());
 			return;
 		}
 		
@@ -58,7 +58,7 @@ public final class RequestEnchantItem extends AbstractEnchantPacket
 		{
 			activeChar.setActiveEnchantItem(null);
 			activeChar.sendPacket(SystemMessageId.ENCHANT_SCROLL_CANCELLED);
-			activeChar.sendPacket(EnchantResult.CANCELLED);
+			activeChar.sendPacket(EnchantResult.Companion.getCANCELLED());
 			return;
 		}
 		
@@ -72,7 +72,7 @@ public final class RequestEnchantItem extends AbstractEnchantPacket
 		{
 			activeChar.sendPacket(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
 			activeChar.setActiveEnchantItem(null);
-			activeChar.sendPacket(EnchantResult.CANCELLED);
+			activeChar.sendPacket(EnchantResult.Companion.getCANCELLED());
 			return;
 		}
 		
@@ -82,7 +82,7 @@ public final class RequestEnchantItem extends AbstractEnchantPacket
 		{
 			activeChar.sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
 			activeChar.setActiveEnchantItem(null);
-			activeChar.sendPacket(EnchantResult.CANCELLED);
+			activeChar.sendPacket(EnchantResult.Companion.getCANCELLED());
 			return;
 		}
 		
@@ -102,12 +102,12 @@ public final class RequestEnchantItem extends AbstractEnchantPacket
 			{
 				activeChar.sendPacket(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
 				activeChar.setActiveEnchantItem(null);
-				activeChar.sendPacket(EnchantResult.CANCELLED);
+				activeChar.sendPacket(EnchantResult.Companion.getCANCELLED());
 				return;
 			}
 			
 			// success
-			if (Rnd.nextDouble() < chance)
+			if (Rnd.INSTANCE.nextDouble() < chance)
 			{
 				// announce the success
 				SystemMessage sm;
@@ -157,7 +157,7 @@ public final class RequestEnchantItem extends AbstractEnchantPacket
 								final int skillId = armorSet.getEnchant6skillId();
 								if (skillId > 0)
 								{
-									final L2Skill skill = SkillTable.getInstance().getInfo(skillId, 1);
+									final L2Skill skill = SkillTable.INSTANCE.getInfo(skillId, 1);
 									if (skill != null)
 									{
 										activeChar.addSkill(skill, false);
@@ -168,7 +168,7 @@ public final class RequestEnchantItem extends AbstractEnchantPacket
 						}
 					}
 				}
-				activeChar.sendPacket(EnchantResult.SUCCESS);
+				activeChar.sendPacket(EnchantResult.Companion.getSUCCESS());
 			}
 			else
 			{
@@ -215,7 +215,7 @@ public final class RequestEnchantItem extends AbstractEnchantPacket
 					
 					item.setEnchantLevel(0);
 					item.updateDatabase();
-					activeChar.sendPacket(EnchantResult.UNSUCCESS);
+					activeChar.sendPacket(EnchantResult.Companion.getUNSUCCESS());
 				}
 				else
 				{
@@ -229,7 +229,7 @@ public final class RequestEnchantItem extends AbstractEnchantPacket
 					if (destroyItem == null)
 					{
 						activeChar.setActiveEnchantItem(null);
-						activeChar.sendPacket(EnchantResult.CANCELLED);
+						activeChar.sendPacket(EnchantResult.Companion.getCANCELLED());
 						return;
 					}
 					
@@ -255,9 +255,9 @@ public final class RequestEnchantItem extends AbstractEnchantPacket
 					
 					World.getInstance().removeObject(destroyItem);
 					if (crystalId == 0)
-						activeChar.sendPacket(EnchantResult.UNK_RESULT_4);
+						activeChar.sendPacket(EnchantResult.Companion.getUNK_RESULT_4());
 					else
-						activeChar.sendPacket(EnchantResult.UNK_RESULT_1);
+						activeChar.sendPacket(EnchantResult.Companion.getUNK_RESULT_1());
 					
 					StatusUpdate su = new StatusUpdate(activeChar);
 					su.addAttribute(StatusUpdate.CUR_LOAD, activeChar.getCurrentLoad());

@@ -90,7 +90,7 @@ public final class RequestCrystallizeItem extends L2GameClientPacket
 		if (!canCrystallize)
 		{
 			player.sendPacket(SystemMessageId.CRYSTALLIZE_LEVEL_TOO_LOW);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		

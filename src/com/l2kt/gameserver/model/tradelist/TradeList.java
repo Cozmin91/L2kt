@@ -215,7 +215,7 @@ public class TradeList
 		if (isLocked())
 			return null;
 		
-		Item item = ItemTable.getInstance().getTemplate(itemId);
+		Item item = ItemTable.INSTANCE.getTemplate(itemId);
 		if (item == null)
 			return null;
 		
@@ -445,7 +445,7 @@ public class TradeList
 			if (item == null)
 				continue;
 			
-			Item template = ItemTable.getInstance().getTemplate(item.getItem().getItemId());
+			Item template = ItemTable.INSTANCE.getTemplate(item.getItem().getItemId());
 			if (template == null)
 				continue;
 			
@@ -469,7 +469,7 @@ public class TradeList
 			if (item == null)
 				continue;
 			
-			Item template = ItemTable.getInstance().getTemplate(item.getItem().getItemId());
+			Item template = ItemTable.INSTANCE.getTemplate(item.getItem().getItemId());
 			if (template == null)
 				continue;
 			
@@ -606,7 +606,7 @@ public class TradeList
 				return false;
 			}
 			
-			Item template = ItemTable.getInstance().getTemplate(item.getItemId());
+			Item template = ItemTable.INSTANCE.getTemplate(item.getItemId());
 			if (template == null)
 				continue;
 			weight += item.getCount() * template.getWeight();

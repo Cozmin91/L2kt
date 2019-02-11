@@ -105,7 +105,7 @@ public class Q274_SkirmishWithTheWerewolves extends Quest
 		if (st.dropItemsAlways(MARAKU_WEREWOLF_HEAD, 1, 40))
 			st.set("cond", "2");
 		
-		if (Rnd.get(100) < 6)
+		if (Rnd.INSTANCE.get(100) < 6)
 			st.giveItems(MARAKU_WOLFMEN_TOTEM, 1);
 		
 		return null;

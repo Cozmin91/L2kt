@@ -83,8 +83,8 @@ public class QueenAnt extends L2AttackableAIScript
 		if (event.equalsIgnoreCase("action"))
 		{
 			// Animation timer.
-			if (Rnd.get(10) < 3)
-				npc.broadcastPacket(new SocialAction(npc, (Rnd.nextBoolean()) ? 3 : 4));
+			if (Rnd.INSTANCE.get(10) < 3)
+				npc.broadcastPacket(new SocialAction(npc, (Rnd.INSTANCE.nextBoolean()) ? 3 : 4));
 			
 			// Teleport Royal Guards back in zone if out.
 			((Monster) npc).getMinionList().getSpawnedMinions().stream().filter(m -> m.getNpcId() == ROYAL && !ZONE.isInsideZone(m)).forEach(m -> m.teleToMaster());
@@ -92,10 +92,10 @@ public class QueenAnt extends L2AttackableAIScript
 		else if (event.equalsIgnoreCase("chaos"))
 		{
 			// Randomize the target for Royal Guards.
-			((Monster) npc).getMinionList().getSpawnedMinions().stream().filter(m -> m.getNpcId() == ROYAL && m.isInCombat() && Rnd.get(100) < 66).forEach(m -> ((AttackableAI) m.getAI()).aggroReconsider());
+			((Monster) npc).getMinionList().getSpawnedMinions().stream().filter(m -> m.getNpcId() == ROYAL && m.isInCombat() && Rnd.INSTANCE.get(100) < 66).forEach(m -> ((AttackableAI) m.getAI()).aggroReconsider());
 			
 			// Relaunch a new chaos task.
-			startQuestTimer("chaos", 90000 + Rnd.get(240000), npc, null, false);
+			startQuestTimer("chaos", 90000 + Rnd.INSTANCE.get(240000), npc, null, false);
 		}
 		else if (event.equalsIgnoreCase("clean"))
 		{
@@ -106,9 +106,9 @@ public class QueenAnt extends L2AttackableAIScript
 		else if (event.equalsIgnoreCase("queen_unlock"))
 		{
 			// Choose a teleport location, and teleport players out of Queen Ant zone.
-			if (Rnd.get(100) < 33)
+			if (Rnd.INSTANCE.get(100) < 33)
 				ZONE.movePlayersTo(PLAYER_TELE_OUT[0]);
-			else if (Rnd.nextBoolean())
+			else if (Rnd.INSTANCE.nextBoolean())
 				ZONE.movePlayersTo(PLAYER_TELE_OUT[1]);
 			else
 				ZONE.movePlayersTo(PLAYER_TELE_OUT[2]);
@@ -142,17 +142,17 @@ public class QueenAnt extends L2AttackableAIScript
 			if (npc.getNpcId() == QUEEN && !npc.isCastingNow())
 			{
 				final double dist = Math.sqrt(npc.getPlanDistanceSq(attacker.getX(), attacker.getY()));
-				if (dist > 500 && Rnd.get(100) < 10)
+				if (dist > 500 && Rnd.INSTANCE.get(100) < 10)
 				{
 					npc.setTarget(attacker);
 					((Monster) npc).useMagic(SkillTable.FrequentSkill.QUEEN_ANT_STRIKE.getSkill());
 				}
-				else if (dist > 150 && Rnd.get(100) < 10)
+				else if (dist > 150 && Rnd.INSTANCE.get(100) < 10)
 				{
 					npc.setTarget(attacker);
-					((Monster) npc).useMagic((Rnd.get(10) < 8) ? SkillTable.FrequentSkill.QUEEN_ANT_STRIKE.getSkill() : SkillTable.FrequentSkill.QUEEN_ANT_SPRINKLE.getSkill());
+					((Monster) npc).useMagic((Rnd.INSTANCE.get(10) < 8) ? SkillTable.FrequentSkill.QUEEN_ANT_STRIKE.getSkill() : SkillTable.FrequentSkill.QUEEN_ANT_SPRINKLE.getSkill());
 				}
-				else if (dist < 250 && Rnd.get(100) < 5)
+				else if (dist < 250 && Rnd.INSTANCE.get(100) < 5)
 				{
 					npc.setTarget(attacker);
 					((Monster) npc).useMagic(SkillTable.FrequentSkill.QUEEN_ANT_BRANDISH.getSkill());
@@ -186,17 +186,17 @@ public class QueenAnt extends L2AttackableAIScript
 				// Pick current attacker, and make actions based on it and the actual distance range seperating them.
 				final Playable realAttacker = (isPet && attacker.getPet() != null) ? attacker.getPet() : attacker;
 				final double dist = Math.sqrt(npc.getPlanDistanceSq(realAttacker.getX(), realAttacker.getY()));
-				if (dist > 500 && Rnd.get(100) < 3)
+				if (dist > 500 && Rnd.INSTANCE.get(100) < 3)
 				{
 					npc.setTarget(realAttacker);
 					((Monster) npc).useMagic(SkillTable.FrequentSkill.QUEEN_ANT_STRIKE.getSkill());
 				}
-				else if (dist > 150 && Rnd.get(100) < 3)
+				else if (dist > 150 && Rnd.INSTANCE.get(100) < 3)
 				{
 					npc.setTarget(realAttacker);
-					((Monster) npc).useMagic((Rnd.get(10) < 8) ? SkillTable.FrequentSkill.QUEEN_ANT_STRIKE.getSkill() : SkillTable.FrequentSkill.QUEEN_ANT_SPRINKLE.getSkill());
+					((Monster) npc).useMagic((Rnd.INSTANCE.get(10) < 8) ? SkillTable.FrequentSkill.QUEEN_ANT_STRIKE.getSkill() : SkillTable.FrequentSkill.QUEEN_ANT_SPRINKLE.getSkill());
 				}
-				else if (dist < 250 && Rnd.get(100) < 2)
+				else if (dist < 250 && Rnd.INSTANCE.get(100) < 2)
 				{
 					npc.setTarget(realAttacker);
 					((Monster) npc).useMagic(SkillTable.FrequentSkill.QUEEN_ANT_BRANDISH.getSkill());
@@ -208,7 +208,7 @@ public class QueenAnt extends L2AttackableAIScript
 				if (caller.getNpcId() == LARVA)
 				{
 					npc.setTarget(caller);
-					((Monster) npc).useMagic(Rnd.nextBoolean() ? SkillTable.FrequentSkill.NURSE_HEAL_1.getSkill() : SkillTable.FrequentSkill.NURSE_HEAL_2.getSkill());
+					((Monster) npc).useMagic(Rnd.INSTANCE.nextBoolean() ? SkillTable.FrequentSkill.NURSE_HEAL_1.getSkill() : SkillTable.FrequentSkill.NURSE_HEAL_2.getSkill());
 				}
 				// If the faction caller is Queen Ant, then check first Larva.
 				else if (caller.getNpcId() == QUEEN)
@@ -216,7 +216,7 @@ public class QueenAnt extends L2AttackableAIScript
 					if (_larva != null && _larva.getCurrentHp() < _larva.getMaxHp())
 					{
 						npc.setTarget(_larva);
-						((Monster) npc).useMagic(Rnd.nextBoolean() ? SkillTable.FrequentSkill.NURSE_HEAL_1.getSkill() : SkillTable.FrequentSkill.NURSE_HEAL_2.getSkill());
+						((Monster) npc).useMagic(Rnd.INSTANCE.nextBoolean() ? SkillTable.FrequentSkill.NURSE_HEAL_1.getSkill() : SkillTable.FrequentSkill.NURSE_HEAL_2.getSkill());
 					}
 					else
 					{
@@ -241,7 +241,7 @@ public class QueenAnt extends L2AttackableAIScript
 			GrandBossManager.getInstance().setBossStatus(QUEEN, DEAD);
 			
 			// Calculate the next respawn time.
-			final long respawnTime = (long) (Config.SPAWN_INTERVAL_AQ + Rnd.get(-Config.RANDOM_SPAWN_TIME_AQ, Config.RANDOM_SPAWN_TIME_AQ)) * 3600000;
+			final long respawnTime = (long) (Config.SPAWN_INTERVAL_AQ + Rnd.INSTANCE.get(-Config.RANDOM_SPAWN_TIME_AQ, Config.RANDOM_SPAWN_TIME_AQ)) * 3600000;
 			
 			// Cancel tasks.
 			cancelQuestTimer("action", npc, null);
@@ -263,7 +263,7 @@ public class QueenAnt extends L2AttackableAIScript
 			final Monster master = minion.getMaster();
 			
 			if (master != null && master.hasMinions())
-				master.getMinionList().onMinionDie(minion, (npc.getNpcId() == NURSE) ? 10000 : (280000 + (Rnd.get(40) * 1000)));
+				master.getMinionList().onMinionDie(minion, (npc.getNpcId() == NURSE) ? 10000 : (280000 + (Rnd.INSTANCE.get(40) * 1000)));
 			
 			return null;
 		}
@@ -286,7 +286,7 @@ public class QueenAnt extends L2AttackableAIScript
 		}
 		
 		// If Queen Ant see an aggroable skill, try to launch Queen Ant Strike.
-		if (npc.getNpcId() == QUEEN && !npc.isCastingNow() && skill.getAggroPoints() > 0 && Rnd.get(100) < 15)
+		if (npc.getNpcId() == QUEEN && !npc.isCastingNow() && skill.getAggroPoints() > 0 && Rnd.INSTANCE.get(100) < 15)
 		{
 			npc.setTarget(realAttacker);
 			((Monster) npc).useMagic(SkillTable.FrequentSkill.QUEEN_ANT_STRIKE.getSkill());
@@ -333,10 +333,10 @@ public class QueenAnt extends L2AttackableAIScript
 		GrandBossManager.getInstance().addBoss(queen);
 		
 		startQuestTimer("action", 10000, queen, null, true);
-		startQuestTimer("chaos", 90000 + Rnd.get(240000), queen, null, false);
+		startQuestTimer("chaos", 90000 + Rnd.INSTANCE.get(240000), queen, null, false);
 		
 		queen.broadcastPacket(new PlaySound(1, "BS01_A", queen));
 		
-		_larva = (Monster) addSpawn(LARVA, -21600, 179482, -5846, Rnd.get(360), false, 0, false);
+		_larva = (Monster) addSpawn(LARVA, -21600, 179482, -5846, Rnd.INSTANCE.get(360), false, 0, false);
 	}
 }

@@ -70,7 +70,7 @@ public class Doorman extends Folk
 		html.replace("%objectId%", getObjectId());
 		player.sendPacket(html);
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	protected void openDoors(Player player, String command)
@@ -97,7 +97,7 @@ public class Doorman extends Folk
 		html.setFile("data/html/doormen/busy.htm");
 		player.sendPacket(html);
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	protected void doTeleport(Player player, String command)
@@ -106,7 +106,7 @@ public class Doorman extends Folk
 		if (list != null && !player.isAlikeDead())
 			player.teleToLocation(list, 0);
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	protected boolean isOwnerClan(Player player)

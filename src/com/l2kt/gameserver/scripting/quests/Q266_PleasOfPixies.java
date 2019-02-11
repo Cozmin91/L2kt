@@ -78,7 +78,7 @@ public class Q266_PleasOfPixies extends Quest
 					htmltext = "31852-05.htm";
 					st.takeItems(PREDATOR_FANG, -1);
 					
-					final int n = Rnd.get(100);
+					final int n = Rnd.INSTANCE.get(100);
 					if (n < 10)
 					{
 						st.playSound(QuestState.SOUND_JACKPOT);
@@ -112,7 +112,7 @@ public class Q266_PleasOfPixies extends Quest
 		switch (npc.getNpcId())
 		{
 			case 20525:
-				if (st.dropItemsAlways(PREDATOR_FANG, Rnd.get(2, 3), 100))
+				if (st.dropItemsAlways(PREDATOR_FANG, Rnd.INSTANCE.get(2, 3), 100))
 					st.set("cond", "2");
 				break;
 			
@@ -122,7 +122,7 @@ public class Q266_PleasOfPixies extends Quest
 				break;
 			
 			case 20534:
-				if (st.dropItems(PREDATOR_FANG, (Rnd.get(3) == 0) ? 1 : 2, 100, 600000))
+				if (st.dropItems(PREDATOR_FANG, (Rnd.INSTANCE.get(3) == 0) ? 1 : 2, 100, 600000))
 					st.set("cond", "2");
 				break;
 			

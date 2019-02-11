@@ -169,7 +169,7 @@ object LoginServerThread : Thread("LoginServerThread") {
                             serverName = aresp.serverName
 
                             Config.saveHexid(serverId, BigInteger(hexId!!).toString(16))
-                            LOGGER.info("Registered as server: [{}] {}.", serverId, serverName)
+                            LOGGER.info("Registered as server: [{}] {}.", serverId, serverName!!)
 
                             val ss = ServerStatus()
                             ss.addAttribute(
@@ -202,7 +202,7 @@ object LoginServerThread : Thread("LoginServerThread") {
                                 sendPacket(PlayerInGame(par.account))
 
                                 client.state = GameClientState.AUTHED
-                                client.sendPacket(CharSelectInfo(par.account, client.sessionId.playOkID1))
+                                client.sendPacket(CharSelectInfo(par.account, client.sessionId!!.playOkID1))
                             } else {
                                 client.sendPacket(AuthLoginFail(FailReason.SYSTEM_ERROR_LOGIN_LATER))
                                 client.closeNow()
@@ -254,11 +254,7 @@ object LoginServerThread : Thread("LoginServerThread") {
     fun addClient(account: String, client: L2GameClient) {
         val existingClient = (clients).putIfAbsent(account, client)
         if (existingClient == null) {
-            try {
-                sendPacket(PlayerAuthRequest(client.accountName, client.sessionId))
-            } catch (e: IOException) {
-                LOGGER.error("Error while sending player auth request.")
-            }
+                sendPacket(PlayerAuthRequest(client.accountName!!, client.sessionId!!))
 
         } else {
             client.closeNow()

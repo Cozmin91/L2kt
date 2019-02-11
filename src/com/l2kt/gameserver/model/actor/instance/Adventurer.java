@@ -26,7 +26,7 @@ public class Adventurer extends Folk
 			showChatWindow(player, filename);
 		}
 		else if (command.equalsIgnoreCase("questlist"))
-			player.sendPacket(ExQuestInfo.STATIC_PACKET);
+			player.sendPacket(ExQuestInfo.Companion.getSTATIC_PACKET());
 		else
 			super.onBypassFeedback(player, command);
 	}

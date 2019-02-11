@@ -94,7 +94,7 @@ public class DropCategory
 			return null;
 		
 		// among the results choose one.
-		final int randomIndex = Rnd.get(subCatChance);
+		final int randomIndex = Rnd.INSTANCE.get(subCatChance);
 		
 		int sum = 0;
 		for (DropData drop : drops)
@@ -120,7 +120,7 @@ public class DropCategory
 	 */
 	public synchronized DropData dropOne(boolean raid)
 	{
-		int randomIndex = Rnd.get(getCategoryBalancedChance());
+		int randomIndex = Rnd.INSTANCE.get(getCategoryBalancedChance());
 		int sum = 0;
 		for (DropData drop : getAllDrops())
 		{

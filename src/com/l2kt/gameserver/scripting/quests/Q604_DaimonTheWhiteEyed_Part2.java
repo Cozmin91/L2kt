@@ -108,7 +108,7 @@ public class Q604_DaimonTheWhiteEyed_Part2 extends Quest
 			if (st.hasQuestItems(ESSENCE_OF_DAIMON))
 			{
 				st.takeItems(ESSENCE_OF_DAIMON, 1);
-				st.rewardItems(REWARD_DYE[Rnd.get(REWARD_DYE.length)], 5);
+				st.rewardItems(REWARD_DYE[Rnd.INSTANCE.get(REWARD_DYE.length)], 5);
 				st.playSound(QuestState.SOUND_FINISH);
 				st.exitQuest(true);
 			}
@@ -235,7 +235,7 @@ public class Q604_DaimonTheWhiteEyed_Part2 extends Quest
 		if (raid != null && raid.getRaidStatus() == StatusEnum.ALIVE)
 		{
 			// set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-			raid.getSpawn().setLoc(185900, -44000, -3160, Rnd.get(65536));
+			raid.getSpawn().setLoc(185900, -44000, -3160, Rnd.INSTANCE.get(65536));
 			
 			// teleport raid from secret place
 			raid.teleToLocation(185900, -44000, -3160, 100);

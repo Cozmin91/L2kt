@@ -111,7 +111,7 @@ public class RaidbossInfo extends Quest
 		}
 		
 		// Add all Raid Bosses locations.
-		for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable())
+		for (L2Spawn spawn : SpawnTable.INSTANCE.getSpawnTable())
 		{
 			if (spawn.getTemplate().isType(BOSS_CLASS_TYPE))
 				RADARS.put(spawn.getNpcId(), spawn.getLoc());
@@ -125,7 +125,7 @@ public class RaidbossInfo extends Quest
 		if (st == null)
 			return event;
 		
-		if (StringUtil.isDigit(event))
+		if (StringUtil.INSTANCE.isDigit(event))
 		{
 			int rbid = Integer.parseInt(event);
 			

@@ -182,7 +182,7 @@ public class AdminEnchant implements IAdminCommandHandler
 								final int skillId = armorSet.getEnchant6skillId();
 								if (skillId > 0)
 								{
-									final L2Skill skill = SkillTable.getInstance().getInfo(skillId, 1);
+									final L2Skill skill = SkillTable.INSTANCE.getInfo(skillId, 1);
 									if (skill != null)
 									{
 										player.addSkill(skill, false);

@@ -61,7 +61,7 @@ public class Q623_TheFinestFood extends Quest
 			st.takeItems(BUFFALO_MEAT, -1);
 			st.takeItems(ANTELOPE_HORN, -1);
 			
-			int luck = Rnd.get(100);
+			int luck = Rnd.INSTANCE.get(100);
 			if (luck < 11)
 			{
 				st.rewardItems(57, 25000);

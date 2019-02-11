@@ -63,7 +63,7 @@ public class Folk extends Npc
 		else
 			player.sendPacket(new AcquireSkillList(AcquireSkillType.USUAL, skills));
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class Folk extends Npc
 		else
 			player.sendPacket(new ExEnchantSkillList(skills));
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	public void giveBlessingSupport(Player player)

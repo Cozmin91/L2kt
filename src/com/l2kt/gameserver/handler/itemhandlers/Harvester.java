@@ -34,7 +34,7 @@ public class Harvester implements IItemHandler
 			return;
 		}
 		
-		final L2Skill skill = SkillTable.getInstance().getInfo(2098, 1);
+		final L2Skill skill = SkillTable.INSTANCE.getInfo(2098, 1);
 		if (skill != null)
 			playable.useMagic(skill, false, false);
 	}

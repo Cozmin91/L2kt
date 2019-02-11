@@ -113,7 +113,7 @@ public class Q631_DeliciousTopChoiceMeat extends Quest
 				st.exitQuest(true);
 			}
 		}
-		else if (StringUtil.isDigit(event))
+		else if (StringUtil.INSTANCE.isDigit(event))
 		{
 			if (st.getQuestItemsCount(TOP_QUALITY_MEAT) >= 120)
 			{

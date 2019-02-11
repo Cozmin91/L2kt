@@ -9,13 +9,13 @@ set mysqlBinPath=C:\Program Files\MySQL\MySQL Server 5.7\bin
 REM LOGINSERVER
 set lsuser=root
 set lspass=root
-set lsdb=l2interlux
+set lsdb=l2kt
 set lshost=localhost
 
 REM GAMESERVER
 set gsuser=root
 set gspass=root
-set gsdb=l2interlux
+set gsdb=l2kt
 set gshost=localhost
 REM ############################################
 

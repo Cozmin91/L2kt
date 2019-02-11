@@ -474,7 +474,7 @@ public class Q337_AudienceWithTheLandDragon extends Quest
 			// reward jewel fragment
 			if (percentHp < 33)
 			{
-				if (Rnd.get(100) < 33 && st.getInt("drop" + npcInfo[2]) == 1)
+				if (Rnd.INSTANCE.get(100) < 33 && st.getInt("drop" + npcInfo[2]) == 1)
 				{
 					int itemId = npcInfo[3];
 					if (!st.hasQuestItems(itemId))
@@ -487,7 +487,7 @@ public class Q337_AudienceWithTheLandDragon extends Quest
 			// spawn monsters and register spawned
 			else if (percentHp < 66)
 			{
-				if (Rnd.get(100) < 33 && st.getInt("drop" + npcInfo[2]) == 1)
+				if (Rnd.INSTANCE.get(100) < 33 && st.getInt("drop" + npcInfo[2]) == 1)
 				{
 					boolean spawn;
 					if (npcId == ABYSSAL_JEWEL_3)
@@ -501,7 +501,7 @@ public class Q337_AudienceWithTheLandDragon extends Quest
 					{
 						for (int i = 0; i < npcInfo[4]; i++)
 						{
-							Npc mob = addSpawn(npcInfo[5], npc.getX() + Rnd.get(-150, 150), npc.getY() + Rnd.get(-150, 150), npc.getZ(), npc.getHeading(), true, 60000, false);
+							Npc mob = addSpawn(npcInfo[5], npc.getX() + Rnd.INSTANCE.get(-150, 150), npc.getY() + Rnd.INSTANCE.get(-150, 150), npc.getZ(), npc.getHeading(), true, 60000, false);
 							mob.setRunning();
 							((Attackable) mob).addDamageHate(attacker, 0, 500);
 							mob.getAI().setIntention(CtrlIntention.ATTACK, attacker);
@@ -577,16 +577,16 @@ public class Q337_AudienceWithTheLandDragon extends Quest
 				if (cond == 1 && st.getInt("drop1") == 1 && !st.hasQuestItems(REMAINS_OF_SACRIFIED))
 				{
 					for (int i = 0; i < 8; i++)
-						addSpawn(SACRIFICE_OF_THE_SACRIFICED, npc.getX() + Rnd.get(-100, 100), npc.getY() + Rnd.get(-100, 100), npc.getZ(), npc.getHeading(), true, 60000, false);
+						addSpawn(SACRIFICE_OF_THE_SACRIFICED, npc.getX() + Rnd.INSTANCE.get(-100, 100), npc.getY() + Rnd.INSTANCE.get(-100, 100), npc.getZ(), npc.getHeading(), true, 60000, false);
 				}
 				break;
 			
 			case HARIT_LIZARDMAN_SHAMAN:// Kendra's request
 			case HARIT_LIZARDMAN_MATRIARCH:
-				if (cond == 1 && Rnd.get(5) == 0 && st.getInt("drop2") == 1 && !st.hasQuestItems(TOTEM_OF_LAND_DRAGON))
+				if (cond == 1 && Rnd.INSTANCE.get(5) == 0 && st.getInt("drop2") == 1 && !st.hasQuestItems(TOTEM_OF_LAND_DRAGON))
 				{
 					for (int i = 0; i < 3; i++)
-						addSpawn(HARIT_LIZARDMAN_ZEALOT, npc.getX() + Rnd.get(-50, 50), npc.getY() + Rnd.get(-50, 50), npc.getZ(), npc.getHeading(), true, 60000, false);
+						addSpawn(HARIT_LIZARDMAN_ZEALOT, npc.getX() + Rnd.INSTANCE.get(-50, 50), npc.getY() + Rnd.INSTANCE.get(-50, 50), npc.getZ(), npc.getHeading(), true, 60000, false);
 				}
 				break;
 			
@@ -594,8 +594,8 @@ public class Q337_AudienceWithTheLandDragon extends Quest
 			case CAVE_MAIDEN_2:
 			case CAVE_KEEPER_1:
 			case CAVE_KEEPER_2:
-				if (cond == 4 && Rnd.get(5) == 0 && !st.hasQuestItems(THIRD_FRAGMENT_OF_ABYSS_JEWEL))
-					addSpawn(ABYSSAL_JEWEL_3, npc.getX() + Rnd.get(-50, 50), npc.getY() + Rnd.get(-50, 50), npc.getZ(), npc.getHeading(), true, 60000, false);
+				if (cond == 4 && Rnd.INSTANCE.get(5) == 0 && !st.hasQuestItems(THIRD_FRAGMENT_OF_ABYSS_JEWEL))
+					addSpawn(ABYSSAL_JEWEL_3, npc.getX() + Rnd.INSTANCE.get(-50, 50), npc.getY() + Rnd.INSTANCE.get(-50, 50), npc.getZ(), npc.getHeading(), true, 60000, false);
 				break;
 		}
 		

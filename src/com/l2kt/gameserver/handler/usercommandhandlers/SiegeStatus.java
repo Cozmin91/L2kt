@@ -47,7 +47,7 @@ public class SiegeStatus implements IUserCommandHandler
 				continue;
 			
 			for (Player member : clan.getOnlineMembers())
-				StringUtil.append(sb, "<tr><td width=170>", member.getName(), "</td><td width=100>", (castle.getSiegeZone().isInsideZone(member)) ? IN_PROGRESS : OUTSIDE_ZONE, "</td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td width=170>", member.getName(), "</td><td width=100>", (castle.getSiegeZone().isInsideZone(member)) ? IN_PROGRESS : OUTSIDE_ZONE, "</td></tr>");
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(0);
 			html.setFile("data/html/siege_status.htm");

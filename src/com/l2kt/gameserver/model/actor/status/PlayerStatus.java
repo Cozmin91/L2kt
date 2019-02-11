@@ -74,7 +74,7 @@ public class PlayerStatus extends PlayableStatus
 			
 			if (!isDOT)
 			{
-				if (getActiveChar().isStunned() && Rnd.get(10) == 0)
+				if (getActiveChar().isStunned() && Rnd.INSTANCE.get(10) == 0)
 					getActiveChar().stopStunning(true);
 			}
 		}
@@ -104,7 +104,7 @@ public class PlayerStatus extends PlayableStatus
 			
 			// Check and calculate transfered damage
 			final Summon summon = getActiveChar().getPet();
-			if (summon != null && summon instanceof Servitor && MathUtil.checkIfInRange(900, getActiveChar(), summon, true))
+			if (summon != null && summon instanceof Servitor && MathUtil.INSTANCE.checkIfInRange(900, getActiveChar(), summon, true))
 			{
 				tDmg = (int) value * (int) getActiveChar().getStat().calcStat(Stats.TRANSFER_DAMAGE_PERCENT, 0, null, null) / 100;
 				
@@ -156,7 +156,7 @@ public class PlayerStatus extends PlayableStatus
 						if (attacker != null)
 						{
 							attacker.getAI().setIntention(CtrlIntention.ACTIVE);
-							attacker.sendPacket(ActionFailed.STATIC_PACKET);
+							attacker.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 						}
 						
 						// let the DuelManager know of his defeat

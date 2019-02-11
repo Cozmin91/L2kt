@@ -35,7 +35,7 @@ public class Extractable implements ISkillHandler
 		}
 		
 		final Player player = activeChar.getActingPlayer();
-		final int chance = Rnd.get(100000);
+		final int chance = Rnd.INSTANCE.get(100000);
 		
 		boolean created = false;
 		int chanceIndex = 0;

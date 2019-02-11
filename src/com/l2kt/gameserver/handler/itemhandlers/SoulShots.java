@@ -48,7 +48,7 @@ public class SoulShots implements IItemHandler
 		
 		// Consume Soulshots if player has enough of them.
 		int ssCount = weaponItem.getSoulShotCount();
-		if (weaponItem.getReducedSoulShot() > 0 && Rnd.get(100) < weaponItem.getReducedSoulShotChance())
+		if (weaponItem.getReducedSoulShot() > 0 && Rnd.INSTANCE.get(100) < weaponItem.getReducedSoulShotChance())
 			ssCount = weaponItem.getReducedSoulShot();
 		
 		if (!activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), ssCount, null, false))

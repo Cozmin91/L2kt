@@ -101,7 +101,7 @@ public class Q275_DarkWingedSpies extends Quest
 			case DARKWING_BAT:
 				if (st.dropItemsAlways(DARKWING_BAT_FANG, 1, 70))
 					st.set("cond", "2");
-				else if (Rnd.get(100) < 10 && st.getQuestItemsCount(DARKWING_BAT_FANG) > 10 && st.getQuestItemsCount(DARKWING_BAT_FANG) < 66)
+				else if (Rnd.INSTANCE.get(100) < 10 && st.getQuestItemsCount(DARKWING_BAT_FANG) > 10 && st.getQuestItemsCount(DARKWING_BAT_FANG) < 66)
 				{
 					// Spawn of Varangka Tracker on the npc position.
 					addSpawn(VARANGKA_TRACKER, npc, true, 0, true);

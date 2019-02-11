@@ -47,7 +47,7 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 		if (player.getSkillLevel(_skillId) >= _skillLevel)
 			return;
 		
-		final L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLevel);
+		final L2Skill skill = SkillTable.INSTANCE.getInfo(_skillId, _skillLevel);
 		if (skill == null)
 			return;
 		
@@ -82,16 +82,16 @@ public final class RequestExEnchantSkill extends L2GameClientPacket
 		int skillLevel = _skillLevel;
 		
 		// Try to enchant skill.
-		if (Rnd.get(100) <= esn.getEnchantRate(player.getLevel()))
+		if (Rnd.INSTANCE.get(100) <= esn.getEnchantRate(player.getLevel()))
 		{
 			player.addSkill(skill, true);
 			player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_HAVE_SUCCEEDED_IN_ENCHANTING_THE_SKILL_S1).addSkillName(_skillId, _skillLevel));
 		}
 		else
 		{
-			skillLevel = SkillTable.getInstance().getMaxLevel(_skillId);
+			skillLevel = SkillTable.INSTANCE.getMaxLevel(_skillId);
 			
-			player.addSkill(SkillTable.getInstance().getInfo(_skillId, skillLevel), true);
+			player.addSkill(SkillTable.INSTANCE.getInfo(_skillId, skillLevel), true);
 			player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.YOU_HAVE_FAILED_TO_ENCHANT_THE_SKILL_S1).addSkillName(_skillId, _skillLevel));
 		}
 		

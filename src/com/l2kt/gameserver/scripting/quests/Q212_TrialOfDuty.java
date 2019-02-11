@@ -282,7 +282,7 @@ public class Q212_TrialOfDuty extends Quest
 		{
 			case 20190:
 			case 20191:
-				if (cond == 2 && Rnd.get(10) < 1)
+				if (cond == 2 && Rnd.INSTANCE.get(10) < 1)
 				{
 					st.playSound(QuestState.SOUND_BEFORE_BATTLE);
 					addSpawn(27119, npc, false, 120000, true);
@@ -309,7 +309,7 @@ public class Q212_TrialOfDuty extends Quest
 				break;
 			
 			case 20144:
-				if ((cond == 7 || cond == 8) && Rnd.get(100) < 33)
+				if ((cond == 7 || cond == 8) && Rnd.INSTANCE.get(100) < 33)
 				{
 					if (cond == 7)
 					{
@@ -331,7 +331,7 @@ public class Q212_TrialOfDuty extends Quest
 				break;
 			
 			case 20270:
-				if (cond == 14 && Rnd.nextBoolean())
+				if (cond == 14 && Rnd.INSTANCE.nextBoolean())
 				{
 					if (!st.hasQuestItems(ATHEBALDT_SKULL))
 					{

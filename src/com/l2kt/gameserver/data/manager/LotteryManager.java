@@ -339,7 +339,7 @@ public class LotteryManager
 				
 				while (found)
 				{
-					luckynum = Rnd.get(20) + 1;
+					luckynum = Rnd.INSTANCE.get(20) + 1;
 					found = false;
 					
 					for (int j = 0; j < i; j++)

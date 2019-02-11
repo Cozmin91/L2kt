@@ -23,28 +23,28 @@ public final class Logout extends L2GameClientPacket
 		
 		if (player.getActiveEnchantItem() != null || player.isLocked())
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		if (player.isInsideZone(ZoneId.NO_RESTART))
 		{
 			player.sendPacket(SystemMessageId.NO_LOGOUT_HERE);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
-		if (AttackStanceTaskManager.getInstance().isInAttackStance(player))
+		if (AttackStanceTaskManager.INSTANCE.isInAttackStance(player))
 		{
 			player.sendPacket(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		if (player.isFestivalParticipant() && SevenSignsFestival.getInstance().isFestivalInitialized())
 		{
 			player.sendPacket(SystemMessageId.NO_LOGOUT_HERE);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		

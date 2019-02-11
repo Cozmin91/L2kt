@@ -25,7 +25,7 @@ public class CastleMagician extends Folk
 	@Override
 	public void showChatWindow(Player player, int val)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		String filename = "data/html/castlemagician/magician-no.htm";
 		
 		int condition = validateCondition(player);

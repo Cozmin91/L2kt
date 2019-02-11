@@ -85,7 +85,7 @@ public class CabalBuffer extends Folk
 				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
 				
 				// Send ActionFailed to the player in order to avoid he stucks
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 		}
 	}
@@ -165,9 +165,9 @@ public class CabalBuffer extends Folk
 					// Pickup a random message from string arrays.
 					String text;
 					if (_caster.getCollisionHeight() > 30)
-						text = Rnd.get(MESSAGES_LOSER);
+						text = Rnd.INSTANCE.get(MESSAGES_LOSER);
 					else
-						text = Rnd.get(MESSAGES_WINNER);
+						text = Rnd.INSTANCE.get(MESSAGES_WINNER);
 					
 					if (text.indexOf("%player_cabal_winner%") > -1)
 					{
@@ -213,7 +213,7 @@ public class CabalBuffer extends Folk
 		{
 			int skillLevel = (player.getLevel() > 40) ? 1 : 2;
 			
-			final L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
+			final L2Skill skill = SkillTable.INSTANCE.getInfo(skillId, skillLevel);
 			if (player.getFirstEffect(skill) == null)
 			{
 				skill.getEffects(_caster, player);

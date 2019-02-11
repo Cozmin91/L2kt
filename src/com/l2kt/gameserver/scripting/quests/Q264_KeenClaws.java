@@ -75,7 +75,7 @@ public class Q264_KeenClaws extends Quest
 					htmltext = "30136-05.htm";
 					st.takeItems(WOLF_CLAW, -1);
 					
-					final int n = Rnd.get(17);
+					final int n = Rnd.INSTANCE.get(17);
 					if (n == 0)
 					{
 						st.giveItems(WOODEN_HELMET, 1);
@@ -117,10 +117,10 @@ public class Q264_KeenClaws extends Quest
 		
 		if (npc.getNpcId() == 20003)
 		{
-			if (st.dropItems(WOLF_CLAW, Rnd.nextBoolean() ? 2 : 4, 50, 500000))
+			if (st.dropItems(WOLF_CLAW, Rnd.INSTANCE.nextBoolean() ? 2 : 4, 50, 500000))
 				st.set("cond", "2");
 		}
-		else if (st.dropItemsAlways(WOLF_CLAW, (Rnd.get(5) < 4) ? 1 : 2, 50))
+		else if (st.dropItemsAlways(WOLF_CLAW, (Rnd.INSTANCE.get(5) < 4) ? 1 : 2, 50))
 			st.set("cond", "2");
 		
 		return null;

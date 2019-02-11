@@ -291,7 +291,7 @@ public class Q605_AllianceWithKetraOrcs extends Quest
 		
 		// Support for Q606.
 		final QuestState st2 = st.getPlayer().getQuestState(qn2);
-		if (st2 != null && Rnd.nextBoolean() && CHANCES_MANE.containsKey(npcId))
+		if (st2 != null && Rnd.INSTANCE.nextBoolean() && CHANCES_MANE.containsKey(npcId))
 		{
 			st2.dropItems(VARKA_MANE, 1, 0, CHANCES_MANE.get(npcId));
 			return null;

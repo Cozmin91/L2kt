@@ -35,7 +35,7 @@ public final class AttackRequest extends L2GameClientPacket
 		if (activeChar.isInObserverMode())
 		{
 			activeChar.sendPacket(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE);
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			activeChar.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -48,7 +48,7 @@ public final class AttackRequest extends L2GameClientPacket
 		
 		if (target == null)
 		{
-			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
+			activeChar.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -59,7 +59,7 @@ public final class AttackRequest extends L2GameClientPacket
 			if ((target.getObjectId() != activeChar.getObjectId()) && !activeChar.isInStoreMode() && activeChar.getActiveRequester() == null)
 				target.onForcedAttack(activeChar);
 			else
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 	}
 }

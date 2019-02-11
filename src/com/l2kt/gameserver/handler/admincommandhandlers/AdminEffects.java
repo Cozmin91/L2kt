@@ -104,20 +104,20 @@ public class AdminEffects implements IAdminCommandHandler
 				if (type.equals("ssqinfo"))
 				{
 					if (state.equals("dawn"))
-						packet = SSQInfo.DAWN_SKY_PACKET;
+						packet = SSQInfo.Companion.getDAWN_SKY_PACKET();
 					else if (state.equals("dusk"))
-						packet = SSQInfo.DUSK_SKY_PACKET;
+						packet = SSQInfo.Companion.getDUSK_SKY_PACKET();
 					else if (state.equals("red"))
-						packet = SSQInfo.RED_SKY_PACKET;
+						packet = SSQInfo.Companion.getRED_SKY_PACKET();
 					else if (state.equals("regular"))
-						packet = SSQInfo.REGULAR_SKY_PACKET;
+						packet = SSQInfo.Companion.getREGULAR_SKY_PACKET();
 				}
 				else if (type.equals("sky"))
 				{
 					if (state.equals("night"))
-						packet = SunSet.STATIC_PACKET;
+						packet = SunSet.Companion.getSTATIC_PACKET();
 					else if (state.equals("day"))
-						packet = SunRise.STATIC_PACKET;
+						packet = SunRise.Companion.getSTATIC_PACKET();
 					else if (state.equals("red"))
 						packet = new ExRedSky(10);
 				}
@@ -209,7 +209,7 @@ public class AdminEffects implements IAdminCommandHandler
 				
 				final int val = Integer.parseInt(st.nextToken());
 				if (val > 0 && val < 5)
-					activeChar.doCast(SkillTable.getInstance().getInfo(7029, val));
+					activeChar.doCast(SkillTable.INSTANCE.getInfo(7029, val));
 			}
 			catch (Exception e)
 			{

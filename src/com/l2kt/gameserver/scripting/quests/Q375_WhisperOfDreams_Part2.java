@@ -89,7 +89,7 @@ public class Q375_WhisperOfDreams_Part2 extends Quest
 					st.playSound(QuestState.SOUND_MIDDLE);
 					st.takeItems(KARIK_HORN, 100);
 					st.takeItems(CAVE_HOWLER_SKULL, 100);
-					st.giveItems(REWARDS[Rnd.get(REWARDS.length)], 1);
+					st.giveItems(REWARDS[Rnd.INSTANCE.get(REWARDS.length)], 1);
 				}
 				else
 					htmltext = "30515-04.htm";

@@ -58,7 +58,7 @@ public class Monastery extends L2AttackableAIScript
 				{
 					case 22124:
 					case 22126:
-						npc.doCast(SkillTable.getInstance().getInfo(4589, 8));
+						npc.doCast(SkillTable.INSTANCE.getInfo(4589, 8));
 						break;
 					
 					default:
@@ -107,7 +107,7 @@ public class Monastery extends L2AttackableAIScript
 						case 22124:
 						case 22126:
 						case 22127:
-							npc.doCast(SkillTable.getInstance().getInfo(4589, 8));
+							npc.doCast(SkillTable.INSTANCE.getInfo(4589, 8));
 							break;
 						
 						default:

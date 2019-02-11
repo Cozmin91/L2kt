@@ -52,14 +52,14 @@ public final class PlainsOfDion extends L2AttackableAIScript
 	{
 		if (npc.isScriptValue(0))
 		{
-			npc.broadcastNpcSay(MONSTERS_MSG[Rnd.get(5)].replace("$s1", attacker.getName()));
+			npc.broadcastNpcSay(MONSTERS_MSG[Rnd.INSTANCE.get(5)].replace("$s1", attacker.getName()));
 			
 			for (Monster obj : npc.getKnownTypeInRadius(Monster.class, 300))
 			{
 				if (!obj.isAttackingNow() && !obj.isDead() && ArraysUtil.contains(MONSTERS, obj.getNpcId()))
 				{
 					attack(obj, attacker);
-					obj.broadcastNpcSay(MONSTERS_ASSIST_MSG[Rnd.get(3)]);
+					obj.broadcastNpcSay(MONSTERS_ASSIST_MSG[Rnd.INSTANCE.get(3)]);
 				}
 			}
 			npc.setScriptValue(1);

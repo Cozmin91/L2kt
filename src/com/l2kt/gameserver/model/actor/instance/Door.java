@@ -204,11 +204,11 @@ public class Door extends Creature implements IGeoObject
 			{
 				player.setRequestedGate(this);
 				player.sendPacket(new ConfirmDlg((!isOpened()) ? 1140 : 1141));
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 			else
 				// Send a Server->Client ActionFailed to the Player in order to avoid that the client wait another packet
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 	}
 	
@@ -249,7 +249,7 @@ public class Door extends Creature implements IGeoObject
 				player.sendPacket(new DoorStatusUpdate(this));
 		}
 		else
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	@Override
@@ -465,7 +465,7 @@ public class Door extends Creature implements IGeoObject
 			// calculate time for automatic state change
 			int time = open ? getTemplate().getCloseTime() : getTemplate().getOpenTime();
 			if (getTemplate().getRandomTime() > 0)
-				time += Rnd.get(getTemplate().getRandomTime());
+				time += Rnd.INSTANCE.get(getTemplate().getRandomTime());
 			
 			// try to schedule automatic state change
 			if (time > 0)

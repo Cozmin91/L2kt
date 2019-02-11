@@ -300,7 +300,7 @@ public class Q333_HuntOfTheBlackLion extends Quest
 					
 					st.giveItems(LION_EYE, 1);
 					
-					final int random = Rnd.get(100);
+					final int random = Rnd.INSTANCE.get(100);
 					if (random < 25)
 						st.giveItems(HEALING_POTION, 20);
 					else if (random < 50)
@@ -316,7 +316,7 @@ public class Q333_HuntOfTheBlackLion extends Quest
 					
 					st.giveItems(LION_EYE, 1);
 					
-					final int random = Rnd.get(100);
+					final int random = Rnd.INSTANCE.get(100);
 					if (random < 25)
 						st.giveItems(HEALING_POTION, 25);
 					else if (random < 50)
@@ -330,7 +330,7 @@ public class Q333_HuntOfTheBlackLion extends Quest
 				{
 					htmltext = "30735-19b.htm";
 					
-					final int random = Rnd.get(100);
+					final int random = Rnd.INSTANCE.get(100);
 					if (random < 25)
 						st.giveItems(HEALING_POTION, 50);
 					else if (random < 50)
@@ -383,8 +383,8 @@ public class Q333_HuntOfTheBlackLion extends Quest
 				else
 					st.takeItems(CARGO_BOX_4, 1);
 				
-				final int i0 = Rnd.get(100);
-				final int i1 = Rnd.get(100);
+				final int i0 = Rnd.INSTANCE.get(100);
+				final int i1 = Rnd.INSTANCE.get(100);
 				if (i0 < 40)
 				{
 					if (i1 < 33)
@@ -462,7 +462,7 @@ public class Q333_HuntOfTheBlackLion extends Quest
 					htmltext = "30736-04m.htm";
 					st.giveItems(IMPERIAL_DIAMOND, 1);
 				}
-				else if (Rnd.nextBoolean())
+				else if (Rnd.INSTANCE.nextBoolean())
 				{
 					htmltext = "30736-04n.htm";
 					
@@ -499,7 +499,7 @@ public class Q333_HuntOfTheBlackLion extends Quest
 			{
 				if (state < 3)
 				{
-					final int i0 = Rnd.get(100);
+					final int i0 = Rnd.INSTANCE.get(100);
 					if (i0 < 5)
 						htmltext = "30736-08a.htm";
 					else if (i0 < 10)
@@ -557,7 +557,7 @@ public class Q333_HuntOfTheBlackLion extends Quest
 				st.takeItems(STATUE_SHILIEN_ARM, 1);
 				st.takeItems(STATUE_SHILIEN_LEG, 1);
 				
-				if (Rnd.nextBoolean())
+				if (Rnd.INSTANCE.nextBoolean())
 				{
 					htmltext = "30471-04.htm";
 					st.giveItems(COMPLETE_STATUE, 1);
@@ -575,7 +575,7 @@ public class Q333_HuntOfTheBlackLion extends Quest
 				st.takeItems(TABLET_FRAGMENT_3, 1);
 				st.takeItems(TABLET_FRAGMENT_4, 1);
 				
-				if (Rnd.nextBoolean())
+				if (Rnd.INSTANCE.nextBoolean())
 				{
 					htmltext = "30471-07.htm";
 					st.giveItems(COMPLETE_TABLET, 1);

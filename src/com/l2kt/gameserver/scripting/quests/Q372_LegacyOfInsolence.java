@@ -406,7 +406,7 @@ public class Q372_LegacyOfInsolence extends Quest
 		
 		// Retrieve array with rewards.
 		final int[][] rewards = REWARDS_MATRICE[rewardType];
-		final int chance = Rnd.get(100);
+		final int chance = Rnd.INSTANCE.get(100);
 		
 		for (int[] reward : rewards)
 		{

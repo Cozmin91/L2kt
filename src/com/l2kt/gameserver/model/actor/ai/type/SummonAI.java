@@ -175,7 +175,7 @@ public class SummonAI extends PlayableAI
 		final Player owner = ((Summon) _actor).getOwner();
 		
 		// Must have a owner, the attacker can't be the owner and the owner must be in a short radius. The owner must be under attack stance (the summon CAN'T be under attack stance with current writing style).
-		if (owner == null || owner == attacker || !owner.isInsideRadius(_actor, 2 * AVOID_RADIUS, true, false) || !AttackStanceTaskManager.getInstance().isInAttackStance(owner))
+		if (owner == null || owner == attacker || !owner.isInsideRadius(_actor, 2 * AVOID_RADIUS, true, false) || !AttackStanceTaskManager.INSTANCE.isInAttackStance(owner))
 			return;
 		
 		// Current summon intention must be ACTIVE or FOLLOW type.
@@ -188,7 +188,7 @@ public class SummonAI extends PlayableAI
 		
 		final int ownerX = owner.getX();
 		final int ownerY = owner.getY();
-		final double angle = Math.toRadians(Rnd.get(-90, 90)) + Math.atan2(ownerY - _actor.getY(), ownerX - _actor.getX());
+		final double angle = Math.toRadians(Rnd.INSTANCE.get(-90, 90)) + Math.atan2(ownerY - _actor.getY(), ownerX - _actor.getX());
 		
 		final int targetX = ownerX + (int) (AVOID_RADIUS * Math.cos(angle));
 		final int targetY = ownerY + (int) (AVOID_RADIUS * Math.sin(angle));

@@ -32,8 +32,8 @@ public class FleeingNPCs extends L2AttackableAIScript
 	public String onAttack(Npc npc, Creature attacker, int damage, L2Skill skill)
 	{
 		// Calculate random coords.
-		final int rndX = npc.getX() + Rnd.get(-Config.MAX_DRIFT_RANGE, Config.MAX_DRIFT_RANGE);
-		final int rndY = npc.getY() + Rnd.get(-Config.MAX_DRIFT_RANGE, Config.MAX_DRIFT_RANGE);
+		final int rndX = npc.getX() + Rnd.INSTANCE.get(-Config.MAX_DRIFT_RANGE, Config.MAX_DRIFT_RANGE);
+		final int rndY = npc.getY() + Rnd.INSTANCE.get(-Config.MAX_DRIFT_RANGE, Config.MAX_DRIFT_RANGE);
 		
 		// Wait the NPC to be immobile to move him again. Also check destination point.
 		if (!npc.isMoving() && GeoEngine.getInstance().canMoveToTarget(npc.getX(), npc.getY(), npc.getZ(), rndX, rndY, npc.getZ()))

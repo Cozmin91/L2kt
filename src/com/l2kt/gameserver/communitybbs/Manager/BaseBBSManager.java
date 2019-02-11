@@ -32,14 +32,14 @@ public abstract class BaseBBSManager
 		if (html.length() < 4090)
 		{
 			player.sendPacket(new ShowBoard(html, "101"));
-			player.sendPacket(ShowBoard.STATIC_SHOWBOARD_102);
-			player.sendPacket(ShowBoard.STATIC_SHOWBOARD_103);
+			player.sendPacket(ShowBoard.Companion.getSTATIC_SHOWBOARD_102());
+			player.sendPacket(ShowBoard.Companion.getSTATIC_SHOWBOARD_103());
 		}
 		else if (html.length() < 8180)
 		{
 			player.sendPacket(new ShowBoard(html.substring(0, 4090), "101"));
 			player.sendPacket(new ShowBoard(html.substring(4090, html.length()), "102"));
-			player.sendPacket(ShowBoard.STATIC_SHOWBOARD_103);
+			player.sendPacket(ShowBoard.Companion.getSTATIC_SHOWBOARD_103());
 		}
 		else if (html.length() < 12270)
 		{

@@ -79,23 +79,23 @@ class BlowfishEngine {
      * @param table
      */
     private fun processTable(xl: Int, xr: Int, table: IntArray) {
-        var xl = xl
-        var xr = xr
+        var actualXl = xl
+        var actualXr = xr
         val size = table.size
         var s = 0
         while (s < size) {
-            xl = xl xor P[0]
+            actualXl = actualXl xor P[0]
             var i = 1
             while (i < ROUNDS) {
-                xr = xr xor (func(xl) xor P[i])
-                xl = xl xor (func(xr) xor P[i + 1])
+                actualXr = actualXr xor (func(actualXl) xor P[i])
+                actualXl = actualXl xor (func(actualXr) xor P[i + 1])
                 i += 2
             }
-            xr = xr xor P[ROUNDS + 1]
-            table[s] = xr
-            table[s + 1] = xl
-            xr = xl // end of cycle swap
-            xl = table[s]
+            actualXr = actualXr xor P[ROUNDS + 1]
+            table[s] = actualXr
+            table[s + 1] = actualXl
+            actualXr = actualXl // end of cycle swap
+            actualXl = table[s]
             s += 2
         }
     }

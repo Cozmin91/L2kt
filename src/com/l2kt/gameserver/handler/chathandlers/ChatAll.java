@@ -17,7 +17,7 @@ public class ChatAll implements IChatHandler
 	@Override
 	public void handleChat(int type, Player activeChar, String params, String text)
 	{
-		if (!FloodProtectors.performAction(activeChar.getClient(), Action.GLOBAL_CHAT))
+		if (!FloodProtectors.INSTANCE.performAction(activeChar.getClient(), Action.GLOBAL_CHAT))
 			return;
 		
 		final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);

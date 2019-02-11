@@ -127,7 +127,7 @@ public class Q642_APowerfulPrimevalCreature extends Quest
 		
 		if (npc.getNpcId() == ANCIENT_EGG)
 		{
-			if (Rnd.get(100) < 1)
+			if (Rnd.INSTANCE.get(100) < 1)
 			{
 				st.giveItems(DINOSAUR_EGG, 1);
 				
@@ -137,7 +137,7 @@ public class Q642_APowerfulPrimevalCreature extends Quest
 					st.playSound(QuestState.SOUND_ITEMGET);
 			}
 		}
-		else if (Rnd.get(100) < 33)
+		else if (Rnd.INSTANCE.get(100) < 33)
 		{
 			st.rewardItems(DINOSAUR_TISSUE, 1);
 			

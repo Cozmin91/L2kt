@@ -353,7 +353,7 @@ public class AutoSpawnManager
 				}
 				
 				int locationCount = locationList.length;
-				int locationIndex = Rnd.get(locationCount);
+				int locationIndex = Rnd.INSTANCE.get(locationCount);
 				
 				// If random spawning is disabled, the spawn at the next set of co-ordinates after the last. If the index is greater than the number of possible spawns, reset the counter to zero.
 				if (!spawnInst.isRandomSpawn())
@@ -387,7 +387,7 @@ public class AutoSpawnManager
 					newSpawn.setRespawnDelay(spawnInst._resDelay);
 				
 				// Add the new spawn information to the spawn table, but do not store it.
-				SpawnTable.getInstance().addNewSpawn(newSpawn, false);
+				SpawnTable.INSTANCE.addNewSpawn(newSpawn, false);
 				Npc npcInst = null;
 				
 				if (spawnInst._spawnCount == 1)
@@ -403,7 +403,7 @@ public class AutoSpawnManager
 						npcInst = newSpawn.doSpawn(false);
 						
 						// To prevent spawning of more than one NPC in the exact same spot, move it slightly by a small random offset.
-						npcInst.setXYZ(npcInst.getX() + Rnd.get(50), npcInst.getY() + Rnd.get(50), npcInst.getZ());
+						npcInst.setXYZ(npcInst.getX() + Rnd.INSTANCE.get(50), npcInst.getY() + Rnd.INSTANCE.get(50), npcInst.getZ());
 						
 						// Add the NPC instance to the list of managed instances.
 						spawnInst.addNpcInstance(npcInst);
@@ -458,7 +458,7 @@ public class AutoSpawnManager
 					if (npcInst == null)
 						continue;
 					
-					SpawnTable.getInstance().deleteSpawn(npcInst.getSpawn(), false);
+					SpawnTable.INSTANCE.deleteSpawn(npcInst.getSpawn(), false);
 					npcInst.deleteMe();
 					spawnInst.removeNpcInstance(npcInst);
 				}

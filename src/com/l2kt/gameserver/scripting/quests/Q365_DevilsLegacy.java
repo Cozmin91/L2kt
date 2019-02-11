@@ -63,9 +63,9 @@ public class Q365_DevilsLegacy extends Quest
 				st.takeItems(57, 600);
 				
 				int i0;
-				if (Rnd.get(100) < 80)
+				if (Rnd.INSTANCE.get(100) < 80)
 				{
-					i0 = Rnd.get(100);
+					i0 = Rnd.INSTANCE.get(100);
 					if (i0 < 1)
 						st.giveItems(955, 1);
 					else if (i0 < 4)
@@ -81,7 +81,7 @@ public class Q365_DevilsLegacy extends Quest
 				}
 				else
 				{
-					i0 = Rnd.get(1000);
+					i0 = Rnd.INSTANCE.get(1000);
 					if (i0 < 10)
 						st.giveItems(951, 1);
 					else if (i0 < 40)
@@ -102,7 +102,7 @@ public class Q365_DevilsLegacy extends Quest
 					htmltext = "30092-06.htm";
 					
 					// Curse effect !
-					final L2Skill skill = SkillTable.getInstance().getInfo(4082, 1);
+					final L2Skill skill = SkillTable.INSTANCE.getInfo(4082, 1);
 					if (skill != null && player.getFirstEffect(skill) == null)
 						skill.getEffects(npc, player);
 				}

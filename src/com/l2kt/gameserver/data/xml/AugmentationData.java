@@ -188,40 +188,40 @@ public class AugmentationData implements IXmlReader
 		switch (lifeStoneGrade)
 		{
 			case AbstractRefinePacket.GRADE_NONE:
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_NG_SKILL_CHANCE)
+				if (Rnd.INSTANCE.get(1, 100) <= Config.AUGMENTATION_NG_SKILL_CHANCE)
 					generateSkill = true;
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_NG_GLOW_CHANCE)
+				if (Rnd.INSTANCE.get(1, 100) <= Config.AUGMENTATION_NG_GLOW_CHANCE)
 					generateGlow = true;
 				break;
 			case AbstractRefinePacket.GRADE_MID:
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_MID_SKILL_CHANCE)
+				if (Rnd.INSTANCE.get(1, 100) <= Config.AUGMENTATION_MID_SKILL_CHANCE)
 					generateSkill = true;
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_MID_GLOW_CHANCE)
+				if (Rnd.INSTANCE.get(1, 100) <= Config.AUGMENTATION_MID_GLOW_CHANCE)
 					generateGlow = true;
 				break;
 			case AbstractRefinePacket.GRADE_HIGH:
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_HIGH_SKILL_CHANCE)
+				if (Rnd.INSTANCE.get(1, 100) <= Config.AUGMENTATION_HIGH_SKILL_CHANCE)
 					generateSkill = true;
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_HIGH_GLOW_CHANCE)
+				if (Rnd.INSTANCE.get(1, 100) <= Config.AUGMENTATION_HIGH_GLOW_CHANCE)
 					generateGlow = true;
 				break;
 			case AbstractRefinePacket.GRADE_TOP:
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_TOP_SKILL_CHANCE)
+				if (Rnd.INSTANCE.get(1, 100) <= Config.AUGMENTATION_TOP_SKILL_CHANCE)
 					generateSkill = true;
-				if (Rnd.get(1, 100) <= Config.AUGMENTATION_TOP_GLOW_CHANCE)
+				if (Rnd.INSTANCE.get(1, 100) <= Config.AUGMENTATION_TOP_GLOW_CHANCE)
 					generateGlow = true;
 				break;
 		}
 		
-		if (!generateSkill && Rnd.get(1, 100) <= Config.AUGMENTATION_BASESTAT_CHANCE)
-			stat34 = Rnd.get(BASESTAT_STR, BASESTAT_MEN);
+		if (!generateSkill && Rnd.INSTANCE.get(1, 100) <= Config.AUGMENTATION_BASESTAT_CHANCE)
+			stat34 = Rnd.INSTANCE.get(BASESTAT_STR, BASESTAT_MEN);
 			
 		// Second: decide which grade the augmentation result is going to have:
 		// 0:yellow, 1:blue, 2:purple, 3:red
 		// The chances used here are most likely custom,
 		// whats known is: you cant have yellow with skill(or baseStatModifier)
 		// noGrade stone can not have glow, mid only with skill, high has a chance(custom), top allways glow
-		int resultColor = Rnd.get(0, 100);
+		int resultColor = Rnd.INSTANCE.get(0, 100);
 		if (stat34 == 0 && !generateSkill)
 		{
 			if (resultColor <= (15 * lifeStoneGrade) + 40)
@@ -246,13 +246,13 @@ public class AugmentationData implements IXmlReader
 			switch (resultColor)
 			{
 				case 1: // blue skill
-					stat34 = _blueSkills.get(lifeStoneLevel).get(Rnd.get(0, _blueSkills.get(lifeStoneLevel).size() - 1));
+					stat34 = _blueSkills.get(lifeStoneLevel).get(Rnd.INSTANCE.get(0, _blueSkills.get(lifeStoneLevel).size() - 1));
 					break;
 				case 2: // purple skill
-					stat34 = _purpleSkills.get(lifeStoneLevel).get(Rnd.get(0, _purpleSkills.get(lifeStoneLevel).size() - 1));
+					stat34 = _purpleSkills.get(lifeStoneLevel).get(Rnd.INSTANCE.get(0, _purpleSkills.get(lifeStoneLevel).size() - 1));
 					break;
 				case 3: // red skill
-					stat34 = _redSkills.get(lifeStoneLevel).get(Rnd.get(0, _redSkills.get(lifeStoneLevel).size() - 1));
+					stat34 = _redSkills.get(lifeStoneLevel).get(Rnd.INSTANCE.get(0, _redSkills.get(lifeStoneLevel).size() - 1));
 					break;
 			}
 			skill = _allSkills.get(stat34).getSkill();
@@ -282,24 +282,24 @@ public class AugmentationData implements IXmlReader
 		int offset;
 		if (stat34 == 0)
 		{
-			int temp = Rnd.get(2, 3);
+			int temp = Rnd.INSTANCE.get(2, 3);
 			int colorOffset = resultColor * (10 * STAT_SUBBLOCKSIZE) + temp * STAT_BLOCKSIZE + 1;
 			offset = (lifeStoneLevel * STAT_SUBBLOCKSIZE) + colorOffset;
 			
-			stat34 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
+			stat34 = Rnd.INSTANCE.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
 			if (generateGlow && lifeStoneGrade >= 2)
 				offset = (lifeStoneLevel * STAT_SUBBLOCKSIZE) + (temp - 2) * STAT_BLOCKSIZE + lifeStoneGrade * (10 * STAT_SUBBLOCKSIZE) + 1;
 			else
-				offset = (lifeStoneLevel * STAT_SUBBLOCKSIZE) + (temp - 2) * STAT_BLOCKSIZE + Rnd.get(0, 1) * (10 * STAT_SUBBLOCKSIZE) + 1;
+				offset = (lifeStoneLevel * STAT_SUBBLOCKSIZE) + (temp - 2) * STAT_BLOCKSIZE + Rnd.INSTANCE.get(0, 1) * (10 * STAT_SUBBLOCKSIZE) + 1;
 		}
 		else
 		{
 			if (!generateGlow)
-				offset = (lifeStoneLevel * STAT_SUBBLOCKSIZE) + Rnd.get(0, 1) * STAT_BLOCKSIZE + 1;
+				offset = (lifeStoneLevel * STAT_SUBBLOCKSIZE) + Rnd.INSTANCE.get(0, 1) * STAT_BLOCKSIZE + 1;
 			else
-				offset = (lifeStoneLevel * STAT_SUBBLOCKSIZE) + Rnd.get(0, 1) * STAT_BLOCKSIZE + (lifeStoneGrade + resultColor) / 2 * (10 * STAT_SUBBLOCKSIZE) + 1;
+				offset = (lifeStoneLevel * STAT_SUBBLOCKSIZE) + Rnd.INSTANCE.get(0, 1) * STAT_BLOCKSIZE + (lifeStoneGrade + resultColor) / 2 * (10 * STAT_SUBBLOCKSIZE) + 1;
 		}
-		stat12 = Rnd.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
+		stat12 = Rnd.INSTANCE.get(offset, offset + STAT_SUBBLOCKSIZE - 1);
 		
 		return new L2Augmentation(((stat34 << 16) + stat12), skill);
 	}

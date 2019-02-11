@@ -96,7 +96,7 @@ public class StaticObject extends WorldObject
 					player.sendPacket(getMap());
 				
 				// Send ActionFailed to the player in order to avoid he stucks
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 		}
 	}
@@ -115,13 +115,13 @@ public class StaticObject extends WorldObject
 			html.replace("%staticid%", getStaticObjectId());
 			html.replace("%class%", getClass().getSimpleName());
 			player.sendPacket(html);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		
 		if (player.getTarget() != this)
 			player.setTarget(this);
 		else
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	@Override

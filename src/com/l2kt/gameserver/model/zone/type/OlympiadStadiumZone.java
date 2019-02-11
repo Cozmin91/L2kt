@@ -68,7 +68,7 @@ public class OlympiadStadiumZone extends SpawnZoneType
 			if (character instanceof Player)
 			{
 				character.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-				character.sendPacket(ExOlympiadMatchEnd.STATIC_PACKET);
+				character.sendPacket(ExOlympiadMatchEnd.Companion.getSTATIC_PACKET());
 			}
 		}
 	}
@@ -95,7 +95,7 @@ public class OlympiadStadiumZone extends SpawnZoneType
 				if (character instanceof Player)
 				{
 					character.sendPacket(sm);
-					character.sendPacket(ExOlympiadMatchEnd.STATIC_PACKET);
+					character.sendPacket(ExOlympiadMatchEnd.Companion.getSTATIC_PACKET());
 				}
 			}
 		}

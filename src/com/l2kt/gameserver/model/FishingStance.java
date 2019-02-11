@@ -66,7 +66,7 @@ public class FishingStance
 	 */
 	private int getRandomFishType(int group)
 	{
-		int check = Rnd.get(100);
+		int check = Rnd.INSTANCE.get(100);
 		int type = 1;
 		switch (group)
 		{
@@ -233,14 +233,14 @@ public class FishingStance
 			return 1;
 		
 		// Random aspect : 35% to get -1 level, 15% to get +1 level.
-		final int check = Rnd.get(100);
+		final int check = Rnd.INSTANCE.get(100);
 		if (check < 35)
 			level--;
 		else if (check < 50)
 			level++;
 		
 		// Return a number from 1 to 27, no matter what.
-		return MathUtil.limit(level, 1, 27);
+		return MathUtil.INSTANCE.limit(level, 1, 27);
 	}
 	
 	/**
@@ -315,13 +315,13 @@ public class FishingStance
 			if (_stop == 0)
 			{
 				_stop = 1;
-				int check = Rnd.get(100);
+				int check = Rnd.INSTANCE.get(100);
 				if (check >= 70)
 					_mode = _mode == 0 ? 1 : 0;
 				
 				if (_isUpperGrade)
 				{
-					check = Rnd.get(100);
+					check = Rnd.INSTANCE.get(100);
 					if (check >= 90)
 						_deceptiveMode = _deceptiveMode == 0 ? 1 : 0;
 				}
@@ -342,7 +342,7 @@ public class FishingStance
 	public void useRealing(int dmg, int penalty)
 	{
 		_anim = 2;
-		if (Rnd.get(100) > 90)
+		if (Rnd.INSTANCE.get(100) > 90)
 		{
 			_fisher.sendPacket(SystemMessageId.FISH_RESISTED_ATTEMPT_TO_BRING_IT_IN);
 			_goodUse = 0;
@@ -398,7 +398,7 @@ public class FishingStance
 	public void usePomping(int dmg, int penalty)
 	{
 		_anim = 1;
-		if (Rnd.get(100) > 90)
+		if (Rnd.INSTANCE.get(100) > 90)
 		{
 			_fisher.sendPacket(SystemMessageId.FISH_RESISTED_ATTEMPT_TO_BRING_IT_IN);
 			_goodUse = 0;
@@ -538,7 +538,7 @@ public class FishingStance
 				if (_fish.getType(_lure.isNightLure()) == -1)
 					return;
 				
-				if (_fish.getGuts() > Rnd.get(1000))
+				if (_fish.getGuts() > Rnd.INSTANCE.get(1000))
 				{
 					// Stop task.
 					if (_lookingForFish != null)
@@ -554,7 +554,7 @@ public class FishingStance
 					
 					if (isUpperGrade)
 					{
-						_deceptiveMode = Rnd.get(100) >= 90 ? 1 : 0;
+						_deceptiveMode = Rnd.INSTANCE.get(100) >= 90 ? 1 : 0;
 						_lureType = 2;
 					}
 					else
@@ -562,7 +562,7 @@ public class FishingStance
 						_deceptiveMode = 0;
 						_lureType = isNoob ? 0 : 1;
 					}
-					_mode = Rnd.get(100) >= 80 ? 1 : 0;
+					_mode = Rnd.INSTANCE.get(100) >= 80 ? 1 : 0;
 					
 					_fisher.broadcastPacket(new ExFishingStartCombat(_fisher, _time, _fish.getHp(), _mode, _lureType, _deceptiveMode));
 					_fisher.sendPacket(new PlaySound(1, "SF_S_01"));
@@ -610,7 +610,7 @@ public class FishingStance
 	{
 		if (win)
 		{
-			if (Rnd.get(100) < 5)
+			if (Rnd.INSTANCE.get(100) < 5)
 			{
 				int npcId = 18319 + Math.min(_fisher.getLevel() / 11, 7); // 18319-18326
 				

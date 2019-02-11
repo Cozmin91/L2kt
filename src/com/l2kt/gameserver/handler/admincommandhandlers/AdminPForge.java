@@ -172,7 +172,7 @@ public class AdminPForge implements IAdminCommandHandler
 		
 		// First use of sb.
 		for (int i = 0; i < format.length(); i++)
-			StringUtil.append(sb, format.charAt(i), " : <edit var=\"v", i, "\" width=100><br1>");
+			StringUtil.INSTANCE.append(sb, format.charAt(i), " : <edit var=\"v", i, "\" width=100><br1>");
 		html.replace("%valueditors%", sb.toString());
 		
 		// Cleanup sb.
@@ -180,7 +180,7 @@ public class AdminPForge implements IAdminCommandHandler
 		
 		// Second use of sb.
 		for (int i = 0; i < format.length(); i++)
-			StringUtil.append(sb, " \\$v", i);
+			StringUtil.INSTANCE.append(sb, " \\$v", i);
 		
 		html.basicReplace("%send%", sb.toString());
 		activeChar.sendPacket(html);

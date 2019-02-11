@@ -61,14 +61,14 @@ public class RequestProcureCropList extends L2GameClientPacket
 		final CastleManorManager manor = CastleManorManager.getInstance();
 		if (manor.isUnderMaintenance())
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		final Folk folk = player.getCurrentFolk();
 		if (!(folk instanceof ManorManagerNpc) || !folk.canInteract(player))
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -83,18 +83,18 @@ public class RequestProcureCropList extends L2GameClientPacket
 			final ItemInstance item = player.getInventory().getItemByObjectId(i.getObjectId());
 			if (item == null || item.getCount() < i.getValue() || item.getItemId() != i.getId())
 			{
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			
 			final CropProcure cp = i.getCropProcure();
 			if (cp == null || cp.getAmount() < i.getValue())
 			{
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			
-			final Item template = ItemTable.getInstance().getTemplate(i.getRewardId());
+			final Item template = ItemTable.INSTANCE.getTemplate(i.getRewardId());
 			weight += (i.getValue() * template.getWeight());
 			
 			if (!template.isStackable())
@@ -118,7 +118,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 		// Proceed the purchase
 		for (CropHolder i : _items)
 		{
-			final int rewardPrice = ItemTable.getInstance().getTemplate(i.getRewardId()).getReferencePrice();
+			final int rewardPrice = ItemTable.INSTANCE.getTemplate(i.getRewardId()).getReferencePrice();
 			if (rewardPrice == 0)
 				continue;
 			

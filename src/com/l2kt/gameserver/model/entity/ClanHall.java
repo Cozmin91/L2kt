@@ -609,7 +609,7 @@ public class ClanHall
 					{
 						if (ClanHallManager.getInstance().loaded())
 						{
-							AuctionManager.getInstance().initNPC(getId());
+							AuctionManager.INSTANCE.initNPC(getId());
 							ClanHallManager.getInstance().setFree(getId());
 							clan.broadcastToOnlineMembers(SystemMessage.getSystemMessage(SystemMessageId.THE_CLAN_HALL_FEE_IS_ONE_WEEK_OVERDUE_THEREFORE_THE_CLAN_HALL_OWNERSHIP_HAS_BEEN_REVOKED));
 						}

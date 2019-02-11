@@ -101,8 +101,8 @@ public class Q622_SpecialtyLiquorDelivery extends Quest
 		}
 		else if (event.equalsIgnoreCase("31267-02.htm"))
 		{
-			if (Rnd.get(5) < 1)
-				st.giveItems(RECIPES[Rnd.get(RECIPES.length)], 1);
+			if (Rnd.INSTANCE.get(5) < 1)
+				st.giveItems(RECIPES[Rnd.INSTANCE.get(RECIPES.length)], 1);
 			else
 			{
 				st.rewardItems(ADENA, 18800);

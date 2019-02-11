@@ -29,18 +29,18 @@ public class ClanPenalty implements IUserCommandHandler
 		
 		// Join a clan penalty.
 		if (activeChar.getClanJoinExpiryTime() > currentTime)
-			StringUtil.append(sb, "<tr><td width=170>Unable to join a clan.</td><td width=100 align=center>", sdf.format(activeChar.getClanJoinExpiryTime()), "</td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td width=170>Unable to join a clan.</td><td width=100 align=center>", sdf.format(activeChar.getClanJoinExpiryTime()), "</td></tr>");
 		
 		// Create a clan penalty.
 		if (activeChar.getClanCreateExpiryTime() > currentTime)
-			StringUtil.append(sb, "<tr><td width=170>Unable to create a clan.</td><td width=100 align=center>", sdf.format(activeChar.getClanCreateExpiryTime()), "</td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td width=170>Unable to create a clan.</td><td width=100 align=center>", sdf.format(activeChar.getClanCreateExpiryTime()), "</td></tr>");
 		
 		final Clan clan = activeChar.getClan();
 		if (clan != null)
 		{
 			// Invitation in a clan penalty.
 			if (clan.getCharPenaltyExpiryTime() > currentTime)
-				StringUtil.append(sb, "<tr><td width=170>Unable to invite a clan member.</td><td width=100 align=center>", sdf.format(clan.getCharPenaltyExpiryTime()), "</td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td width=170>Unable to invite a clan member.</td><td width=100 align=center>", sdf.format(clan.getCharPenaltyExpiryTime()), "</td></tr>");
 			
 			// Alliance penalties.
 			final int penaltyType = clan.getAllyPenaltyType();
@@ -51,19 +51,19 @@ public class ClanPenalty implements IUserCommandHandler
 				{
 					// Unable to join an alliance.
 					if (penaltyType == Clan.PENALTY_TYPE_CLAN_LEAVED || penaltyType == Clan.PENALTY_TYPE_CLAN_DISMISSED)
-						StringUtil.append(sb, "<tr><td width=170>Unable to join an alliance.</td><td width=100 align=center>", sdf.format(expiryTime), "</td></tr>");
+						StringUtil.INSTANCE.append(sb, "<tr><td width=170>Unable to join an alliance.</td><td width=100 align=center>", sdf.format(expiryTime), "</td></tr>");
 					// Unable to invite a new alliance member.
 					else if (penaltyType == Clan.PENALTY_TYPE_DISMISS_CLAN)
-						StringUtil.append(sb, "<tr><td width=170>Unable to invite a new alliance member.</td><td width=100 align=center>", sdf.format(expiryTime), "</td></tr>");
+						StringUtil.INSTANCE.append(sb, "<tr><td width=170>Unable to invite a new alliance member.</td><td width=100 align=center>", sdf.format(expiryTime), "</td></tr>");
 					// Unable to create an alliance.
 					else if (penaltyType == Clan.PENALTY_TYPE_DISSOLVE_ALLY)
-						StringUtil.append(sb, "<tr><td width=170>Unable to create an alliance.</td><td width=100 align=center>", sdf.format(expiryTime), "</td></tr>");
+						StringUtil.INSTANCE.append(sb, "<tr><td width=170>Unable to create an alliance.</td><td width=100 align=center>", sdf.format(expiryTime), "</td></tr>");
 				}
 			}
 			
 			// Clan dissolution request.
 			if (clan.getDissolvingExpiryTime() > currentTime)
-				StringUtil.append(sb, "<tr><td width=170>The request to dissolve the clan is currently being processed.  (Restrictions are now going to be imposed on the use of clan functions.)</td><td width=100 align=center>", sdf.format(clan.getDissolvingExpiryTime()), "</td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td width=170>The request to dissolve the clan is currently being processed.  (Restrictions are now going to be imposed on the use of clan functions.)</td><td width=100 align=center>", sdf.format(clan.getDissolvingExpiryTime()), "</td></tr>");
 			
 			boolean registeredOnAnySiege = false;
 			for (Castle castle : CastleManager.getInstance().getCastles())
@@ -77,7 +77,7 @@ public class ClanPenalty implements IUserCommandHandler
 			
 			// Unable to dissolve a clan.
 			if (clan.getAllyId() != 0 || clan.isAtWar() || clan.hasCastle() || clan.hasHideout() || registeredOnAnySiege)
-				StringUtil.append(sb, "<tr><td width=170>Unable to dissolve a clan.</td><td></td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td width=170>Unable to dissolve a clan.</td><td></td></tr>");
 		}
 		
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);

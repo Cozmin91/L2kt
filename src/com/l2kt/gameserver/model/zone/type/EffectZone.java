@@ -114,7 +114,7 @@ public class EffectZone extends ZoneType
 						
 						for (Creature temp : _characters.values())
 						{
-							if (temp.isDead() || Rnd.get(100) >= _chance)
+							if (temp.isDead() || Rnd.INSTANCE.get(100) >= _chance)
 								continue;
 							
 							for (IntIntHolder entry : _skills)

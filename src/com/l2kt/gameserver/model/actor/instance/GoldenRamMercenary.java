@@ -104,7 +104,7 @@ public class GoldenRamMercenary extends Folk
 		html.setFile(filename);
 		html.replace("%objectId%", getObjectId());
 		player.sendPacket(html);
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	@Override
@@ -128,7 +128,7 @@ public class GoldenRamMercenary extends Folk
 				{
 					qs.takeItems(GOLDEN_RAM, coins);
 					setTarget(player);
-					doCast(SkillTable.getInstance().getInfo(buffData[0], buffData[1]));
+					doCast(SkillTable.INSTANCE.getInfo(buffData[0], buffData[1]));
 					val = 4;
 				}
 				

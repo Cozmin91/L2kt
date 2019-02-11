@@ -17,6 +17,6 @@ public final class RequestShowMiniMap extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
-		activeChar.sendPacket(ShowMiniMap.REGULAR_MAP);
+		activeChar.sendPacket(ShowMiniMap.Companion.getREGULAR_MAP());
 	}
 }

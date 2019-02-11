@@ -55,7 +55,7 @@ public class RaidBoss extends Monster
 				if (!isInCombat())
 				{
 					// Gordon is excluded too.
-					if (getNpcId() != 29095 && Rnd.nextBoolean())
+					if (getNpcId() != 29095 && Rnd.INSTANCE.nextBoolean())
 					{
 						// Spawn must exist.
 						final L2Spawn spawn = getSpawn();
@@ -68,7 +68,7 @@ public class RaidBoss extends Monster
 					}
 				}
 				// Randomized attack if the boss is already attacking.
-				else if (Rnd.get(5) == 0)
+				else if (Rnd.INSTANCE.get(5) == 0)
 					((AttackableAI) getAI()).aggroReconsider();
 			}
 			
@@ -82,7 +82,7 @@ public class RaidBoss extends Monster
 						return;
 					
 					// Randomized attack if the boss is already attacking.
-					if (Rnd.get(3) == 0)
+					if (Rnd.INSTANCE.get(3) == 0)
 						((AttackableAI) minion.getAI()).aggroReconsider();
 				}
 			}
@@ -114,14 +114,14 @@ public class RaidBoss extends Monster
 				{
 					for (Player member : party.getMembers())
 					{
-						RaidPointManager.getInstance().addPoints(member, getNpcId(), (getLevel() / 2) + Rnd.get(-5, 5));
+						RaidPointManager.getInstance().addPoints(member, getNpcId(), (getLevel() / 2) + Rnd.INSTANCE.get(-5, 5));
 						if (member.isNoble())
 							Hero.getInstance().setRBkilled(member.getObjectId(), getNpcId());
 					}
 				}
 				else
 				{
-					RaidPointManager.getInstance().addPoints(player, getNpcId(), (getLevel() / 2) + Rnd.get(-5, 5));
+					RaidPointManager.getInstance().addPoints(player, getNpcId(), (getLevel() / 2) + Rnd.INSTANCE.get(-5, 5));
 					if (player.isNoble())
 						Hero.getInstance().setRBkilled(player.getObjectId(), getNpcId());
 				}

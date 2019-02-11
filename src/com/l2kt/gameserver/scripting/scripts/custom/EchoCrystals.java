@@ -45,7 +45,7 @@ public class EchoCrystals extends Quest
 		String htmltext = "";
 		QuestState st = player.getQuestState(qn);
 		
-		if (st != null && StringUtil.isDigit(event))
+		if (st != null && StringUtil.INSTANCE.isDigit(event))
 		{
 			int score = Integer.parseInt(event);
 			if (SCORES.containsKey(score))

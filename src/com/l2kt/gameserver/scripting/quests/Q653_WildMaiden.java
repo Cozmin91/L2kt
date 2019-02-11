@@ -69,11 +69,11 @@ public class Q653_WildMaiden extends Quest
 		}
 		else if (event.equalsIgnoreCase("apparition_npc"))
 		{
-			int chance = Rnd.get(4);
+			int chance = Rnd.INSTANCE.get(4);
 			
 			// Loop to avoid to spawn to the same place.
 			while (chance == _currentPosition)
-				chance = Rnd.get(4);
+				chance = Rnd.INSTANCE.get(4);
 			
 			// Register new position.
 			_currentPosition = chance;

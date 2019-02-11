@@ -129,7 +129,7 @@ public final class ChanceCondition
 	
 	public boolean trigger(int event)
 	{
-		return _triggerType.check(event) && (_chance < 0 || Rnd.get(100) < _chance);
+		return _triggerType.check(event) && (_chance < 0 || Rnd.INSTANCE.get(100) < _chance);
 	}
 	
 	@Override

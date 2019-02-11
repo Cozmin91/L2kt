@@ -741,7 +741,7 @@ public class SignsPriest extends Folk
 						if (playerCabal != winningCabal || playerCabal != sealAvariceOwner)
 						{
 							player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DAWN);
-							player.sendPacket(ActionFailed.STATIC_PACKET);
+							player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 							return;
 						}
 						break;
@@ -750,7 +750,7 @@ public class SignsPriest extends Folk
 						if (playerCabal != winningCabal || playerCabal != sealAvariceOwner)
 						{
 							player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DUSK);
-							player.sendPacket(ActionFailed.STATIC_PACKET);
+							player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 							return;
 						}
 						break;
@@ -770,7 +770,7 @@ public class SignsPriest extends Folk
 						if (playerCabal != winningCabal || playerCabal != sealGnosisOwner)
 						{
 							player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DAWN);
-							player.sendPacket(ActionFailed.STATIC_PACKET);
+							player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 							return;
 						}
 						break;
@@ -779,7 +779,7 @@ public class SignsPriest extends Folk
 						if (playerCabal != winningCabal || playerCabal != sealGnosisOwner)
 						{
 							player.sendPacket(SystemMessageId.CAN_BE_USED_BY_DUSK);
-							player.sendPacket(ActionFailed.STATIC_PACKET);
+							player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 							return;
 						}
 						break;
@@ -799,7 +799,7 @@ public class SignsPriest extends Folk
 		player.sendPacket(html);
 		
 		// Send a Server->Client ActionFailed to the Player in order to avoid that the client wait another packet
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	private void showChatWindow(Player player, int val, String suffix, boolean isDescription)

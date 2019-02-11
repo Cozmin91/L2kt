@@ -31,7 +31,7 @@ public final class RequestPetGetItem extends L2GameClientPacket
 		final Pet pet = (Pet) activeChar.getPet();
 		if (pet.isDead() || pet.isOutOfControl())
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		

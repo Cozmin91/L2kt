@@ -291,7 +291,7 @@ public class Q611_AllianceWithVarkaSilenos extends Quest
 		
 		// Support for Q612.
 		final QuestState st2 = st.getPlayer().getQuestState(qn2);
-		if (st2 != null && Rnd.nextBoolean() && CHANCES_MOLAR.containsKey(npcId))
+		if (st2 != null && Rnd.INSTANCE.nextBoolean() && CHANCES_MOLAR.containsKey(npcId))
 		{
 			st2.dropItems(MOLAR_OF_KETRA_ORC, 1, 0, CHANCES_MOLAR.get(npcId));
 			return null;

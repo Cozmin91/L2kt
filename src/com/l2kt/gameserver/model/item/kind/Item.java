@@ -1,10 +1,5 @@
 package com.l2kt.gameserver.model.item.kind;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Logger;
-
 import com.l2kt.gameserver.data.ItemTable;
 import com.l2kt.gameserver.model.WorldObject;
 import com.l2kt.gameserver.model.actor.Creature;
@@ -12,13 +7,7 @@ import com.l2kt.gameserver.model.actor.Summon;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.holder.IntIntHolder;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
-import com.l2kt.gameserver.model.item.type.ActionType;
-import com.l2kt.gameserver.model.item.type.ArmorType;
-import com.l2kt.gameserver.model.item.type.CrystalType;
-import com.l2kt.gameserver.model.item.type.EtcItemType;
-import com.l2kt.gameserver.model.item.type.ItemType;
-import com.l2kt.gameserver.model.item.type.MaterialType;
-import com.l2kt.gameserver.model.item.type.WeaponType;
+import com.l2kt.gameserver.model.item.type.*;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
 import com.l2kt.gameserver.scripting.Quest;
@@ -27,6 +16,11 @@ import com.l2kt.gameserver.skills.basefuncs.Func;
 import com.l2kt.gameserver.skills.basefuncs.FuncTemplate;
 import com.l2kt.gameserver.skills.conditions.Condition;
 import com.l2kt.gameserver.templates.StatsSet;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * This class contains all informations concerning the item (weapon, armor, etc). Mother class of :
@@ -124,7 +118,7 @@ public abstract class Item
 		_weight = set.getInteger("weight", 0);
 		_materialType = set.getEnum("material", MaterialType.class, MaterialType.STEEL);
 		_duration = set.getInteger("duration", -1);
-		_bodyPart = ItemTable._slots.get(set.getString("bodypart", "none"));
+		_bodyPart = ItemTable.INSTANCE.getSlots().get(set.getString("bodypart", "none"));
 		_referencePrice = set.getInteger("price", 0);
 		_crystalType = set.getEnum("crystal_type", CrystalType.class, CrystalType.NONE);
 		_crystalCount = set.getInteger("crystal_count", 0);

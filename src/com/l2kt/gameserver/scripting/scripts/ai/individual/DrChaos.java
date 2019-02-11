@@ -192,7 +192,7 @@ public class DrChaos extends L2AttackableAIScript
 		
 		if (GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM) == NORMAL)
 		{
-			_pissedOffTimer -= Rnd.get(1, 5); // remove 1-5 secs.
+			_pissedOffTimer -= Rnd.INSTANCE.get(1, 5); // remove 1-5 secs.
 			
 			if (_pissedOffTimer > 20)
 				htmltext = "<html><body>Doctor Chaos:<br>What?! Who are you? How did you come here?<br>You really look suspicious... Aren't those filthy members of Black Anvil guild send you? No? Mhhhhh... I don't trust you!</body></html>";
@@ -226,7 +226,7 @@ public class DrChaos extends L2AttackableAIScript
 		npc.broadcastNpcSay("Urggh! You will pay dearly for this insult.");
 		
 		// "lock" Dr. Chaos for regular RB time (36H fixed +- 24H random)
-		long respawnTime = (36 + Rnd.get(-24, 24)) * 3600000;
+		long respawnTime = (36 + Rnd.INSTANCE.get(-24, 24)) * 3600000;
 		
 		GrandBossManager.getInstance().setBossStatus(CHAOS_GOLEM, DEAD);
 		startQuestTimer("reset_drchaos", respawnTime, null, null, false);
@@ -243,7 +243,7 @@ public class DrChaos extends L2AttackableAIScript
 	public String onAttackAct(Npc npc, Player victim)
 	{
 		// Choose a message from 3 choices (1/100), and make him speak.
-		final int chance = Rnd.get(300);
+		final int chance = Rnd.INSTANCE.get(300);
 		if (chance < 3)
 			npc.broadcastNpcSay(SHOUTS[chance]);
 		

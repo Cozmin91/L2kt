@@ -66,11 +66,11 @@ public class Q651_RunawayYouth extends Quest
 		}
 		else if (event.equalsIgnoreCase("apparition_npc"))
 		{
-			int chance = Rnd.get(3);
+			int chance = Rnd.INSTANCE.get(3);
 			
 			// Loop to avoid to spawn to the same place.
 			while (chance == _currentPosition)
-				chance = Rnd.get(3);
+				chance = Rnd.INSTANCE.get(3);
 			
 			// Register new position.
 			_currentPosition = chance;

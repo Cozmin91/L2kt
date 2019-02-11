@@ -46,7 +46,7 @@ public final class RequestOustFromPartyRoom extends L2GameClientPacket
 			member.setPartyRoom(0);
 			
 			// Close the PartyRoom window
-			member.sendPacket(ExClosePartyRoom.STATIC_PACKET);
+			member.sendPacket(ExClosePartyRoom.Companion.getSTATIC_PACKET());
 			
 			// Add player back on waiting list
 			PartyMatchWaitingList.getInstance().addPlayer(member);

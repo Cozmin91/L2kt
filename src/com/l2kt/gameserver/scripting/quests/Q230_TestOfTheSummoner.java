@@ -200,14 +200,14 @@ public class Q230_TestOfTheSummoner extends Quest
 			st.playSound(QuestState.SOUND_MIDDLE);
 			st.takeItems(GALATEA_LETTER, 1);
 			
-			final int random = Rnd.get(5);
+			final int random = Rnd.INSTANCE.get(5);
 			
 			st.giveItems(LARA_LISTS[random][0], 1);
 			st.set("Lara", String.valueOf(random + 1)); // avoid 0
 		}
 		else if (event.equals("30063-04.htm")) // Lara later to give a list out
 		{
-			final int random = Rnd.get(5);
+			final int random = Rnd.INSTANCE.get(5);
 			
 			st.playSound(QuestState.SOUND_ITEMGET);
 			st.giveItems(LARA_LISTS[random][0], 1);
@@ -229,7 +229,7 @@ public class Q230_TestOfTheSummoner extends Quest
 			st.giveItems(CRYSTAL_OF_PROGRESS_1, 1); // give Starting Crystal
 			
 			npc.setTarget(player);
-			npc.doCast(SkillTable.getInstance().getInfo(4126, 1));
+			npc.doCast(SkillTable.INSTANCE.getInfo(4126, 1));
 		}
 		// CAMONIELL
 		else if (event.equals("30636-02.htm"))
@@ -247,7 +247,7 @@ public class Q230_TestOfTheSummoner extends Quest
 			st.giveItems(CRYSTAL_OF_PROGRESS_2, 1);
 			
 			npc.setTarget(player);
-			npc.doCast(SkillTable.getInstance().getInfo(4126, 1));
+			npc.doCast(SkillTable.INSTANCE.getInfo(4126, 1));
 		}
 		// BELTHUS
 		else if (event.equals("30637-02.htm"))
@@ -265,7 +265,7 @@ public class Q230_TestOfTheSummoner extends Quest
 			st.giveItems(CRYSTAL_OF_PROGRESS_3, 1);
 			
 			npc.setTarget(player);
-			npc.doCast(SkillTable.getInstance().getInfo(4126, 1));
+			npc.doCast(SkillTable.INSTANCE.getInfo(4126, 1));
 		}
 		// BASILLA
 		else if (event.equals("30638-02.htm"))
@@ -283,7 +283,7 @@ public class Q230_TestOfTheSummoner extends Quest
 			st.giveItems(CRYSTAL_OF_PROGRESS_4, 1);
 			
 			npc.setTarget(player);
-			npc.doCast(SkillTable.getInstance().getInfo(4126, 1));
+			npc.doCast(SkillTable.INSTANCE.getInfo(4126, 1));
 		}
 		// CELESTIEL
 		else if (event.equals("30639-02.htm"))
@@ -301,7 +301,7 @@ public class Q230_TestOfTheSummoner extends Quest
 			st.giveItems(CRYSTAL_OF_PROGRESS_5, 1);
 			
 			npc.setTarget(player);
-			npc.doCast(SkillTable.getInstance().getInfo(4126, 1));
+			npc.doCast(SkillTable.INSTANCE.getInfo(4126, 1));
 		}
 		// BRYNTHEA
 		else if (event.equals("30640-02.htm"))
@@ -319,7 +319,7 @@ public class Q230_TestOfTheSummoner extends Quest
 			st.giveItems(CRYSTAL_OF_PROGRESS_6, 1);
 			
 			npc.setTarget(player);
-			npc.doCast(SkillTable.getInstance().getInfo(4126, 1));
+			npc.doCast(SkillTable.INSTANCE.getInfo(4126, 1));
 		}
 		
 		return htmltext;

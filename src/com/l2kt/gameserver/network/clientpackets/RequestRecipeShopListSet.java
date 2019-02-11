@@ -47,7 +47,7 @@ public final class RequestRecipeShopListSet extends L2GameClientPacket
 		if (player.isInsideZone(ZoneId.NO_STORE))
 		{
 			player.sendPacket(SystemMessageId.NO_PRIVATE_WORKSHOP_HERE);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		

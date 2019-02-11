@@ -107,7 +107,7 @@ public class Q355_FamilyHonor extends Quest
 			{
 				st.takeItems(WORK_OF_BERONA, 1);
 				
-				final int appraising = Rnd.get(100);
+				final int appraising = Rnd.INSTANCE.get(100);
 				if (appraising < 20)
 					htmltext = "30929-2.htm";
 				else if (appraising < 40)
@@ -182,7 +182,7 @@ public class Q355_FamilyHonor extends Quest
 			return null;
 		
 		final int[] chances = CHANCES.get(npc.getNpcId());
-		final int random = Rnd.get(100);
+		final int random = Rnd.INSTANCE.get(100);
 		
 		if (random < chances[1])
 			st.dropItemsAlways((random < chances[0]) ? GALIBREDO_BUST : WORK_OF_BERONA, 1, 0);

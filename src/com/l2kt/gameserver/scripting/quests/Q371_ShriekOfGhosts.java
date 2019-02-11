@@ -93,7 +93,7 @@ public class Q371_ShriekOfGhosts extends Quest
 		{
 			if (st.hasQuestItems(PORCELAIN))
 			{
-				int chance = Rnd.get(100);
+				int chance = Rnd.INSTANCE.get(100);
 				
 				st.takeItems(PORCELAIN, 1);
 				
@@ -171,7 +171,7 @@ public class Q371_ShriekOfGhosts extends Quest
 			return null;
 		
 		final int[] chances = CHANCES.get(npc.getNpcId());
-		final int random = Rnd.get(100);
+		final int random = Rnd.INSTANCE.get(100);
 		
 		if (random < chances[1])
 			st.dropItemsAlways((random < chances[0]) ? URN : PORCELAIN, 1, 0);

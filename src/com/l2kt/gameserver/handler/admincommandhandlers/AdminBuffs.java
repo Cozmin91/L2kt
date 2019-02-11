@@ -183,7 +183,7 @@ public class AdminBuffs implements IAdminCommandHandler
 		{
 			L2Effect e = effects[i];
 			if (e != null)
-				StringUtil.append(sb, "<tr><td>", e.getSkill().getName(), "</td><td>", (e.getSkill().isToggle()) ? "toggle" : e.getPeriod() - e.getTime() + "s", "</td><td><a action=\"bypass -h admin_stopbuff ", target.getObjectId(), " ", e.getSkill().getId(), "\">Remove</a></td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td>", e.getSkill().getName(), "</td><td>", (e.getSkill().isToggle()) ? "toggle" : e.getPeriod() - e.getTime() + "s", "</td><td><a action=\"bypass -h admin_stopbuff ", target.getObjectId(), " ", e.getSkill().getId(), "\">Remove</a></td></tr>");
 		}
 		
 		sb.append("</table><br><table width=\"100%\" bgcolor=444444><tr>");
@@ -191,12 +191,12 @@ public class AdminBuffs implements IAdminCommandHandler
 		{
 			int pagenr = x + 1;
 			if (page == pagenr)
-				StringUtil.append(sb, "<td>Page ", pagenr, "</td>");
+				StringUtil.INSTANCE.append(sb, "<td>Page ", pagenr, "</td>");
 			else
-				StringUtil.append(sb, "<td><a action=\"bypass -h admin_getbuffs ", target.getName(), " ", x + 1, "\"> Page ", pagenr, "</a></td>");
+				StringUtil.INSTANCE.append(sb, "<td><a action=\"bypass -h admin_getbuffs ", target.getName(), " ", x + 1, "\"> Page ", pagenr, "</a></td>");
 		}
 		
-		StringUtil.append(sb, "</tr></table><br><center><button value=\"Remove All\" action=\"bypass -h admin_stopallbuffs ", target.getObjectId(), "\" width=75 height=21 back=\"L2UI_ch3.Btn1_normalOn\" fore=\"L2UI_ch3.Btn1_normal\"></html>");
+		StringUtil.INSTANCE.append(sb, "</tr></table><br><center><button value=\"Remove All\" action=\"bypass -h admin_stopallbuffs ", target.getObjectId(), "\" width=75 height=21 back=\"L2UI_ch3.Btn1_normalOn\" fore=\"L2UI_ch3.Btn1_normal\"></html>");
 		
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setHtml(sb.toString());

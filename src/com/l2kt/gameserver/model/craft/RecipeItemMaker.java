@@ -54,14 +54,14 @@ public class RecipeItemMaker implements Runnable
 		
 		if (_player.isAlikeDead() || _target.isAlikeDead())
 		{
-			_player.sendPacket(ActionFailed.STATIC_PACKET);
+			_player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			abort();
 			return;
 		}
 		
 		if (_player.isProcessingTransaction() || _target.isProcessingTransaction())
 		{
-			_target.sendPacket(ActionFailed.STATIC_PACKET);
+			_target.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			abort();
 			return;
 		}
@@ -69,7 +69,7 @@ public class RecipeItemMaker implements Runnable
 		// Validate skill level.
 		if (_recipe.getLevel() > _skillLevel)
 		{
-			_player.sendPacket(ActionFailed.STATIC_PACKET);
+			_player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			abort();
 			return;
 		}
@@ -160,7 +160,7 @@ public class RecipeItemMaker implements Runnable
 		}
 		
 		// Success ; we reward the player and update the craft window.
-		if (Rnd.get(100) < _recipe.getSuccessRate())
+		if (Rnd.INSTANCE.get(100) < _recipe.getSuccessRate())
 		{
 			rewardPlayer();
 			updateMakeInfo(true);

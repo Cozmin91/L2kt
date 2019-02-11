@@ -281,7 +281,7 @@ public class Q215_TrialOfThePilgrim extends Quest
 							}
 						}
 						else if (cond == 13)
-							htmltext = (Rnd.nextBoolean()) ? "30362-02.htm" : "30362-02a.htm";
+							htmltext = (Rnd.INSTANCE.nextBoolean()) ? "30362-02.htm" : "30362-02a.htm";
 						else if (cond == 14)
 							htmltext = "30362-07.htm";
 						else if (cond == 15)

@@ -61,7 +61,7 @@ public final class TradeDone extends L2GameClientPacket
 		if (owner.getActiveEnchantItem() != null)
 		{
 			owner.setActiveEnchantItem(null);
-			owner.sendPacket(EnchantResult.CANCELLED);
+			owner.sendPacket(EnchantResult.Companion.getCANCELLED());
 			owner.sendPacket(SystemMessageId.ENCHANT_SCROLL_CANCELLED);
 		}
 		
@@ -69,7 +69,7 @@ public final class TradeDone extends L2GameClientPacket
 		if (partner.getActiveEnchantItem() != null)
 		{
 			partner.setActiveEnchantItem(null);
-			partner.sendPacket(EnchantResult.CANCELLED);
+			partner.sendPacket(EnchantResult.Companion.getCANCELLED());
 			partner.sendPacket(SystemMessageId.ENCHANT_SCROLL_CANCELLED);
 		}
 		

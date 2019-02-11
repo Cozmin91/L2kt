@@ -95,7 +95,7 @@ public class Q294_CovertBusiness extends Quest
 			return null;
 		
 		int count = 1;
-		final int chance = Rnd.get(10);
+		final int chance = Rnd.INSTANCE.get(10);
 		final boolean isBarded = (npc.getNpcId() == 20370);
 		
 		if (chance < 3)

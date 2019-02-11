@@ -118,9 +118,9 @@ public class MacroList
 			final StringBuilder sb = new StringBuilder(300);
 			for (L2Macro.L2MacroCmd cmd : macro.commands)
 			{
-				StringUtil.append(sb, cmd.type, ",", cmd.d1, ",", cmd.d2);
+				StringUtil.INSTANCE.append(sb, cmd.type, ",", cmd.d1, ",", cmd.d2);
 				if (cmd.cmd != null && cmd.cmd.length() > 0)
-					StringUtil.append(sb, ",", cmd.cmd);
+					StringUtil.INSTANCE.append(sb, ",", cmd.cmd);
 				
 				sb.append(';');
 			}

@@ -135,7 +135,7 @@ public class Q367_ElectrifyingRecharge extends Quest
 				{
 					htmltext = "30673-06.htm";
 					st.takeItems(5879, 1);
-					st.rewardItems(REWARD[Rnd.get(REWARD.length)], 1);
+					st.rewardItems(REWARD[Rnd.INSTANCE.get(REWARD.length)], 1);
 					st.playSound(QuestState.SOUND_FINISH);
 				}
 				break;
@@ -154,7 +154,7 @@ public class Q367_ElectrifyingRecharge extends Quest
 		{
 			if (st.hasQuestItems(LORAIN_LAMP))
 			{
-				int randomItem = Rnd.get(5876, 5880);
+				int randomItem = Rnd.INSTANCE.get(5876, 5880);
 				
 				st.takeItems(LORAIN_LAMP, 1);
 				st.giveItems(randomItem, 1);

@@ -46,7 +46,7 @@ public class PetFood implements IItemHandler
 	
 	public boolean useFood(Playable activeChar, int magicId, ItemInstance item)
 	{
-		L2Skill skill = SkillTable.getInstance().getInfo(magicId, 1);
+		L2Skill skill = SkillTable.INSTANCE.getInfo(magicId, 1);
 		if (skill != null)
 		{
 			if (activeChar instanceof Pet)

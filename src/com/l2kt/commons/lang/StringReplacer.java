@@ -7,14 +7,14 @@ package com.l2kt.commons.lang;
 public final class StringReplacer
 {
 	private static final String DELIM_STR = "{}";
-	
+
 	private final StringBuilder _sb;
-	
+
 	public StringReplacer(String source)
 	{
 		_sb = new StringBuilder(source);
 	}
-	
+
 	/**
 	 * Replace all occurences of a String for another String.
 	 * @param pattern : The String to replace.
@@ -26,7 +26,7 @@ public final class StringReplacer
 		while ((point = _sb.indexOf(pattern)) != -1)
 			_sb.replace(point, point + pattern.length(), replacement);
 	}
-	
+
 	/**
 	 * Replace all delimiters '{}' by the String representation of any objects. Important things to note:
 	 * <ul>
@@ -40,18 +40,18 @@ public final class StringReplacer
 	{
 		int index;
 		int newIndex = 0;
-		
+
 		for (Object obj : args)
 		{
 			index = _sb.indexOf(DELIM_STR, newIndex);
 			if (index == -1)
 				break;
-			
+
 			newIndex = index + 2;
 			_sb.replace(index, newIndex, (obj == null) ? null : obj.toString());
 		}
 	}
-	
+
 	/**
 	 * Replace the first occurence of a String for another String.
 	 * @param pattern : The String to replace.
@@ -62,7 +62,7 @@ public final class StringReplacer
 		final int point = _sb.indexOf(pattern);
 		_sb.replace(point, point + pattern.length(), replacement);
 	}
-	
+
 	/**
 	 * Replace the last occurence of a String for another String.
 	 * @param pattern : The String to replace.
@@ -73,7 +73,7 @@ public final class StringReplacer
 		final int point = _sb.lastIndexOf(pattern);
 		_sb.replace(point, point + pattern.length(), replacement);
 	}
-	
+
 	@Override
 	public String toString()
 	{

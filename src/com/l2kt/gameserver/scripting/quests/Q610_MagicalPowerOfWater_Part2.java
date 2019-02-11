@@ -217,7 +217,7 @@ public class Q610_MagicalPowerOfWater_Part2 extends Quest
 		if (raid != null && raid.getRaidStatus() == StatusEnum.ALIVE)
 		{
 			// set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-			raid.getSpawn().setLoc(104771, -36993, -1149, Rnd.get(65536));
+			raid.getSpawn().setLoc(104771, -36993, -1149, Rnd.INSTANCE.get(65536));
 			
 			// teleport raid from secret place
 			raid.teleToLocation(104771, -36993, -1149, 100);

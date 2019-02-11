@@ -1,9 +1,9 @@
 package com.l2kt.gameserver.skills;
 
+import com.l2kt.gameserver.skills.basefuncs.Func;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.l2kt.gameserver.skills.basefuncs.Func;
 
 /**
  * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...). In fact, each calculator is a table of Func object in which each Func represents a mathematic function : <BR>
@@ -20,20 +20,20 @@ public final class Calculator
 {
 	/** Empty Func table definition */
 	private static final Func[] _emptyFuncs = new Func[0];
-	
+
 	/** Table of Func object */
 	private Func[] _functions;
-	
+
 	public Calculator()
 	{
 		_functions = _emptyFuncs;
 	}
-	
+
 	public Calculator(Calculator c)
 	{
 		_functions = c._functions;
 	}
-	
+
 	/**
 	 * @return the number of Funcs in the Calculator.
 	 */
@@ -41,7 +41,7 @@ public final class Calculator
 	{
 		return _functions.length;
 	}
-	
+
 	/**
 	 * Add a Func to the Calculator.
 	 * @param f
@@ -50,21 +50,21 @@ public final class Calculator
 	{
 		Func[] funcs = _functions;
 		Func[] tmp = new Func[funcs.length + 1];
-		
+
 		final int order = f.order;
 		int i;
-		
+
 		for (i = 0; i < funcs.length && order >= funcs[i].order; i++)
 			tmp[i] = funcs[i];
-		
+
 		tmp[i] = f;
-		
+
 		for (; i < funcs.length; i++)
 			tmp[i + 1] = funcs[i];
-		
+
 		_functions = tmp;
 	}
-	
+
 	/**
 	 * Remove a Func from the Calculator.
 	 * @param f
@@ -73,24 +73,24 @@ public final class Calculator
 	{
 		Func[] funcs = _functions;
 		Func[] tmp = new Func[funcs.length - 1];
-		
+
 		int i;
-		
+
 		for (i = 0; i < funcs.length && f != funcs[i]; i++)
 			tmp[i] = funcs[i];
-		
+
 		if (i == funcs.length)
 			return;
-		
+
 		for (i++; i < funcs.length; i++)
 			tmp[i - 1] = funcs[i];
-		
+
 		if (tmp.length == 0)
 			_functions = _emptyFuncs;
 		else
 			_functions = tmp;
 	}
-	
+
 	/**
 	 * Remove each Func with the specified owner of the Calculator.
 	 * @param owner
@@ -99,7 +99,7 @@ public final class Calculator
 	public synchronized List<Stats> removeOwner(Object owner)
 	{
 		List<Stats> modifiedStats = new ArrayList<>();
-		
+
 		for (Func func : _functions)
 		{
 			if (func.funcOwner == owner)
@@ -110,7 +110,7 @@ public final class Calculator
 		}
 		return modifiedStats;
 	}
-	
+
 	/**
 	 * Run each Func of the Calculator.
 	 * @param env

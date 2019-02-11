@@ -379,7 +379,7 @@ public class Auction
 	/** Remove auctions */
 	public void deleteAuctionFromDB()
 	{
-		AuctionManager.getInstance().getAuctions().remove(this);
+		AuctionManager.INSTANCE.getAuctions().remove(this);
 		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("DELETE FROM auction WHERE itemId=?");
@@ -407,8 +407,8 @@ public class Auction
 			// If seller hasn't sell clanHall, the auction is dropped. Money of seller is lost.
 			if (_highestBidderId == 0 && _sellerId > 0)
 			{
-				int aucId = AuctionManager.getInstance().getAuctionIndex(_id);
-				AuctionManager.getInstance().getAuctions().remove(aucId);
+				int aucId = AuctionManager.INSTANCE.getAuctionIndex(_id);
+				AuctionManager.INSTANCE.getAuctions().remove(aucId);
 				
 				// Retrieves the seller.
 				Clan owner = ClanTable.getInstance().getClanByName(_sellerClanName);
@@ -469,7 +469,7 @@ public class Auction
 	/** Confirm an auction */
 	public void confirmAuction()
 	{
-		AuctionManager.getInstance().getAuctions().add(this);
+		AuctionManager.INSTANCE.getAuctions().add(this);
 		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
 		{
 			PreparedStatement statement = con.prepareStatement("INSERT INTO auction (id, sellerId, sellerName, sellerClanName, itemId, itemName, startingBid, currentBid, endDate) VALUES (?,?,?,?,?,?,?,?,?)");

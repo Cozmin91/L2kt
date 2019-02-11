@@ -71,7 +71,7 @@ public class Q258_BringWolfPelts extends Quest
 				else
 				{
 					st.takeItems(WOLF_PELT, -1);
-					int randomNumber = Rnd.get(16);
+					int randomNumber = Rnd.INSTANCE.get(16);
 					
 					// Reward is based on a random number (1D16).
 					if (randomNumber == 0)

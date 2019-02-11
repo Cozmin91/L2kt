@@ -116,7 +116,7 @@ public class Q328_SenseForBusiness extends Quest
 		
 		if (npcId < 20069)
 		{
-			final int rnd = Rnd.get(100);
+			final int rnd = Rnd.INSTANCE.get(100);
 			if (rnd < (chance + 1))
 				st.dropItemsAlways((rnd < chance) ? MONSTER_EYE_CARCASS : MONSTER_EYE_LENS, 1, 0);
 		}

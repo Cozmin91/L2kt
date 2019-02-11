@@ -27,7 +27,7 @@ public class RequestGiveNickName extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 		
-		if (!StringUtil.isValidString(_title, "^[a-zA-Z0-9 !@#$&()\\-`.+,/\"]*{0,16}$"))
+		if (!StringUtil.INSTANCE.isValidString(_title, "^[a-zA-Z0-9 !@#$&()\\-`.+,/\"]*{0,16}$"))
 		{
 			activeChar.sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER);
 			return;

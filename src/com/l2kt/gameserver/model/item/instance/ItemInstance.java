@@ -136,7 +136,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 	{
 		super(objectId);
 		_itemId = itemId;
-		_item = ItemTable.getInstance().getTemplate(itemId);
+		_item = ItemTable.INSTANCE.getTemplate(itemId);
 		
 		if (_itemId == 0 || _item == null)
 			throw new IllegalArgumentException();
@@ -587,7 +587,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 	{
 		if (player.isFlying())
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -596,28 +596,28 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 		{
 			if (player.isInParty())
 			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			
 			final Castle castle = CastleManager.getInstance().getCastle(player);
 			if (castle == null)
 			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			
 			final MercenaryTicket ticket = castle.getTicket(_itemId);
 			if (ticket == null)
 			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 			
 			if (!player.isCastleLord(castle.getCastleId()))
 			{
 				player.sendPacket(SystemMessageId.THIS_IS_NOT_A_MERCENARY_OF_A_CASTLE_THAT_YOU_OWN_AND_SO_CANNOT_CANCEL_POSITIONING);
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return;
 			}
 		}
@@ -892,7 +892,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 			return null;
 		}
 		
-		final Item item = ItemTable.getInstance().getTemplate(itemId);
+		final Item item = ItemTable.INSTANCE.getTemplate(itemId);
 		if (item == null)
 			return null;
 		
@@ -964,7 +964,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 			_itm.setDropperObjectId(_dropper != null ? _dropper.getObjectId() : 0); // Set the dropper Id for the knownlist packets in sendInfo
 			_itm.spawnMe(_x, _y, _z);
 			
-			ItemsOnGroundTaskManager.getInstance().add(_itm, _dropper);
+			ItemsOnGroundTaskManager.INSTANCE.add(_itm, _dropper);
 			
 			_itm.setDropperObjectId(0); // Set the dropper Id back to 0 so it no longer shows the drop packet
 		}
@@ -1213,7 +1213,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 	@Override
 	public void decayMe()
 	{
-		ItemsOnGroundTaskManager.getInstance().remove(this);
+		ItemsOnGroundTaskManager.INSTANCE.remove(this);
 		
 		super.decayMe();
 	}

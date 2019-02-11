@@ -59,17 +59,17 @@ public final class SelectorThread<T extends MMOClient<?>> extends Thread
 	{
 		super.setName("SelectorThread-" + super.getId());
 		
-		HELPER_BUFFER_SIZE = sc.HELPER_BUFFER_SIZE;
-		HELPER_BUFFER_COUNT = sc.HELPER_BUFFER_COUNT;
-		MAX_SEND_PER_PASS = sc.MAX_SEND_PER_PASS;
-		MAX_READ_PER_PASS = sc.MAX_READ_PER_PASS;
+		HELPER_BUFFER_SIZE = sc.getHELPER_BUFFER_SIZE();
+		HELPER_BUFFER_COUNT = sc.getHELPER_BUFFER_COUNT();
+		MAX_SEND_PER_PASS = sc.getMAX_SEND_PER_PASS();
+		MAX_READ_PER_PASS = sc.getMAX_READ_PER_PASS();
 		
-		SLEEP_TIME = sc.SLEEP_TIME;
-		TCP_NODELAY = sc.TCP_NODELAY;
+		SLEEP_TIME = sc.getSLEEP_TIME();
+		TCP_NODELAY = sc.getTCP_NODELAY();
 		
-		DIRECT_WRITE_BUFFER = ByteBuffer.allocateDirect(sc.WRITE_BUFFER_SIZE).order(BYTE_ORDER);
-		WRITE_BUFFER = ByteBuffer.wrap(new byte[sc.WRITE_BUFFER_SIZE]).order(BYTE_ORDER);
-		READ_BUFFER = ByteBuffer.wrap(new byte[sc.READ_BUFFER_SIZE]).order(BYTE_ORDER);
+		DIRECT_WRITE_BUFFER = ByteBuffer.allocateDirect(sc.getWRITE_BUFFER_SIZE()).order(BYTE_ORDER);
+		WRITE_BUFFER = ByteBuffer.wrap(new byte[sc.getWRITE_BUFFER_SIZE()]).order(BYTE_ORDER);
+		READ_BUFFER = ByteBuffer.wrap(new byte[sc.getREAD_BUFFER_SIZE()]).order(BYTE_ORDER);
 		
 		STRING_BUFFER = new NioNetStringBuffer(64 * 1024);
 		

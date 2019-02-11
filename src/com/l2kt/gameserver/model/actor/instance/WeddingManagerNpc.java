@@ -44,7 +44,7 @@ public class WeddingManagerNpc extends Folk
 				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
 				
 				// Send ActionFailed to the player in order to avoid he stucks
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				
 				// Shouldn't be able to see wedding content if the mod isn't activated on configs
 				if (!Config.ALLOW_WEDDING)
@@ -230,7 +230,7 @@ public class WeddingManagerNpc extends Folk
 		final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(file);
 		html.replace("%objectId%", getObjectId());
-		html.replace("%adenasCost%", StringUtil.formatNumber(Config.WEDDING_PRICE));
+		html.replace("%adenasCost%", StringUtil.INSTANCE.formatNumber(Config.WEDDING_PRICE));
 		html.replace("%needOrNot%", Config.WEDDING_FORMALWEAR ? "will" : "won't");
 		player.sendPacket(html);
 	}

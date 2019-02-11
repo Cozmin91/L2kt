@@ -152,7 +152,7 @@ public class DerbyTrackManagerNpc extends Folk
 			html.replace("1race", DerbyTrackManager.getInstance().getRaceNumber());
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		else if (command.equals("ShowOdds"))
 		{
@@ -178,7 +178,7 @@ public class DerbyTrackManagerNpc extends Folk
 			html.replace("1race", DerbyTrackManager.getInstance().getRaceNumber());
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		else if (command.equals("ShowInfo"))
 		{
@@ -193,7 +193,7 @@ public class DerbyTrackManagerNpc extends Folk
 			}
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		else if (command.equals("ShowTickets"))
 		{
@@ -207,7 +207,7 @@ public class DerbyTrackManagerNpc extends Folk
 				if (ticket.getEnchantLevel() == DerbyTrackManager.getInstance().getRaceNumber())
 					continue;
 				
-				StringUtil.append(sb, "<tr><td><a action=\"bypass -h npc_%objectId%_ShowTicket ", ticket.getObjectId(), "\">", ticket.getEnchantLevel(), " Race Number</a></td><td align=right><font color=\"LEVEL\">", ticket.getCustomType1(), "</font> Number</td><td align=right><font color=\"LEVEL\">", ticket.getCustomType2() * 100, "</font> Adena</td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td><a action=\"bypass -h npc_%objectId%_ShowTicket ", ticket.getObjectId(), "\">", ticket.getEnchantLevel(), " Race Number</a></td><td align=right><font color=\"LEVEL\">", ticket.getCustomType1(), "</font> Number</td><td align=right><font color=\"LEVEL\">", ticket.getCustomType2() * 100, "</font> Adena</td></tr>");
 			}
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -215,7 +215,7 @@ public class DerbyTrackManagerNpc extends Folk
 			html.replace("%tickets%", sb.toString());
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		else if (command.startsWith("ShowTicket"))
 		{
@@ -257,7 +257,7 @@ public class DerbyTrackManagerNpc extends Folk
 			html.replace("%objectId%", getObjectId());
 			html.replace("%ticketObjectId%", val);
 			player.sendPacket(html);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		else if (command.startsWith("CalculateWin"))
 		{
@@ -306,14 +306,14 @@ public class DerbyTrackManagerNpc extends Folk
 			
 			// Retrieve the few latest entries.
 			for (HistoryInfo info : DerbyTrackManager.getInstance().getLastHistoryEntries())
-				StringUtil.append(sb, "<tr><td><font color=\"LEVEL\">", info.getRaceId(), "</font> th</td><td><font color=\"LEVEL\">", (raceNumber == info.getRaceId()) ? 0 : info.getFirst() + 1, "</font> Lane </td><td><font color=\"LEVEL\">", (raceNumber == info.getRaceId()) ? 0 : info.getSecond() + 1, "</font> Lane</td><td align=right><font color=00ffff>", String.format(Locale.ENGLISH, "%.2f", info.getOddRate()), "</font> Times</td></tr>");
+				StringUtil.INSTANCE.append(sb, "<tr><td><font color=\"LEVEL\">", info.getRaceId(), "</font> th</td><td><font color=\"LEVEL\">", (raceNumber == info.getRaceId()) ? 0 : info.getFirst() + 1, "</font> Lane </td><td><font color=\"LEVEL\">", (raceNumber == info.getRaceId()) ? 0 : info.getSecond() + 1, "</font> Lane</td><td align=right><font color=00ffff>", String.format(Locale.ENGLISH, "%.2f", info.getOddRate()), "</font> Times</td></tr>");
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile(getHtmlPath(getTemplate().getNpcId(), 9));
 			html.replace("%infos%", sb.toString());
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		else
 			super.onBypassFeedback(player, command);

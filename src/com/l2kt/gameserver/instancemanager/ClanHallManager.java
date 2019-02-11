@@ -23,12 +23,12 @@ import java.util.logging.Logger;
 public class ClanHallManager
 {
 	protected static final Logger _log = Logger.getLogger(ClanHallManager.class.getName());
-	
+
 	private final Map<String, List<ClanHall>> _allClanHalls;
 	private final Map<Integer, ClanHall> _clanHall;
 	private final Map<Integer, ClanHall> _freeClanHall;
 	private boolean _loaded = false;
-	
+
 	public static ClanHallManager getInstance()
 	{
 		return SingletonHolder._instance;
@@ -38,7 +38,7 @@ public class ClanHallManager
 	{
 		return _loaded;
 	}
-	
+
 	protected ClanHallManager()
 	{
 		_allClanHalls = new HashMap<>();
@@ -46,7 +46,7 @@ public class ClanHallManager
 		_freeClanHall = new HashMap<>();
 		load();
 	}
-	
+
 	/** Load All Clan Hall */
 	private final void load()
 	{
@@ -56,7 +56,7 @@ public class ClanHallManager
 			String Name, Desc, Location;
 			long paidUntil = 0;
 			boolean paid = false;
-			
+
 			PreparedStatement statement = con.prepareStatement("SELECT * FROM clanhall ORDER BY id");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next())
@@ -70,14 +70,14 @@ public class ClanHallManager
 				paidUntil = rs.getLong("paidUntil");
 				grade = rs.getInt("Grade");
 				paid = rs.getBoolean("paid");
-				
+
 				ClanHall ch = new ClanHall(id, Name, ownerId, lease, Desc, Location, paidUntil, grade, paid);
-				
+
 				if (!_allClanHalls.containsKey(Location))
 					_allClanHalls.put(Location, new ArrayList<ClanHall>());
-				
+
 				_allClanHalls.get(Location).add(ch);
-				
+
 				if (ownerId > 0)
 				{
 					final Clan owner = ClanTable.getInstance().getClan(ownerId);
@@ -90,14 +90,14 @@ public class ClanHallManager
 					ch.free();
 				}
 				_freeClanHall.put(id, ch);
-				
-				Auction auc = AuctionManager.getInstance().getAuction(id);
+
+				Auction auc = AuctionManager.INSTANCE.getAuction(id);
 				if (auc == null && lease > 0)
-					AuctionManager.getInstance().initNPC(id);
+					AuctionManager.INSTANCE.initNPC(id);
 			}
 			rs.close();
 			statement.close();
-			
+
 			_log.info("ClanHallManager: Loaded " + getClanHalls().size() + " clan halls.");
 			_log.info("ClanHallManager: Loaded " + getFreeClanHalls().size() + " free clan halls.");
 			_loaded = true;
@@ -107,7 +107,7 @@ public class ClanHallManager
 			_log.log(Level.WARNING, "Exception: ClanHallManager.load(): " + e.getMessage(), e);
 		}
 	}
-	
+
 	/**
 	 * @return Map with all free ClanHalls
 	 */
@@ -115,7 +115,7 @@ public class ClanHallManager
 	{
 		return _freeClanHall;
 	}
-	
+
 	/**
 	 * @return Map with all ClanHalls that have owner
 	 */
@@ -123,7 +123,7 @@ public class ClanHallManager
 	{
 		return _clanHall;
 	}
-	
+
 	/**
 	 * @param location
 	 * @return Map with all ClanHalls which are in location
@@ -132,10 +132,10 @@ public class ClanHallManager
 	{
 		if (!_allClanHalls.containsKey(location))
 			return null;
-		
+
 		return _allClanHalls.get(location);
 	}
-	
+
 	/**
 	 * @param chId the clanHall id to check.
 	 * @return true if the clanHall is free.
@@ -144,7 +144,7 @@ public class ClanHallManager
 	{
 		return _freeClanHall.containsKey(chId);
 	}
-	
+
 	/**
 	 * Free a ClanHall
 	 * @param chId the id of clanHall to release.
@@ -156,7 +156,7 @@ public class ClanHallManager
 		_freeClanHall.get(chId).free();
 		_clanHall.remove(chId);
 	}
-	
+
 	/**
 	 * Set owner status for a clan hall.
 	 * @param chId the clanHall id to make checks on.
@@ -171,11 +171,11 @@ public class ClanHallManager
 		}
 		else
 			_clanHall.get(chId).free();
-		
+
 		ClanTable.getInstance().getClan(clan.getClanId()).setHideout(chId);
 		_clanHall.get(chId).setOwner(clan);
 	}
-	
+
 	/**
 	 * @param clanHallId the id to use.
 	 * @return a clanHall by its id.
@@ -184,18 +184,18 @@ public class ClanHallManager
 	{
 		if (_clanHall.containsKey(clanHallId))
 			return _clanHall.get(clanHallId);
-		
+
 		if (_freeClanHall.containsKey(clanHallId))
 			return _freeClanHall.get(clanHallId);
-		
+
 		_log.warning("ClanHall (id: " + clanHallId + ") isn't found in clanhall table.");
 		return null;
 	}
-	
+
 	public final ClanHall getNearbyClanHall(int x, int y, int maxDist)
 	{
 		ClanHallZone zone = null;
-		
+
 		for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet())
 		{
 			zone = ch.getValue().getZone();
@@ -210,7 +210,7 @@ public class ClanHallManager
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @param clan the clan to use.
 	 * @return a clanHall by its owner.
@@ -224,7 +224,7 @@ public class ClanHallManager
 		}
 		return null;
 	}
-	
+
 	private static class SingletonHolder
 	{
 		protected static final ClanHallManager _instance = new ClanHallManager();

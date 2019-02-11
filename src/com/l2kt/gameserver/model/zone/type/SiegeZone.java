@@ -72,7 +72,7 @@ public class SiegeZone extends SpawnZoneType
 				activeChar.sendPacket(SystemMessageId.LEFT_COMBAT_ZONE);
 				activeChar.exitOnNoLandingZone();
 				
-				PvpFlagTaskManager.getInstance().add(activeChar, Config.PVP_NORMAL_TIME);
+				PvpFlagTaskManager.INSTANCE.add(activeChar, Config.PVP_NORMAL_TIME);
 				
 				// Set pvp flag
 				if (activeChar.getPvpFlag() == 0)

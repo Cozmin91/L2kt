@@ -1,18 +1,17 @@
 package com.l2kt.gameserver.skills;
 
+import com.l2kt.gameserver.model.item.kind.Item;
+import com.l2kt.gameserver.skills.conditions.Condition;
+import com.l2kt.gameserver.templates.StatsSet;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-
-import com.l2kt.gameserver.model.item.kind.Item;
-import com.l2kt.gameserver.skills.conditions.Condition;
-import com.l2kt.gameserver.templates.StatsSet;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 
 /**
  * @author mkizub, JIV
@@ -28,33 +27,33 @@ public final class DocumentItem extends DocumentBase
 		public int currentLevel;
 		public Item item;
 	}
-	
+
 	private NewItem _currentItem;
 	private final List<Item> _itemsInFile = new ArrayList<>();
-	
+
 	public DocumentItem(File file)
 	{
 		super(file);
 	}
-	
+
 	@Override
 	protected StatsSet getStatsSet()
 	{
 		return _currentItem.set;
 	}
-	
+
 	@Override
 	protected String getTableValue(String name)
 	{
 		return _tables.get(name)[_currentItem.currentLevel];
 	}
-	
+
 	@Override
 	protected String getTableValue(String name, int idx)
 	{
 		return _tables.get(name)[idx - 1];
 	}
-	
+
 	@Override
 	protected void parseDocument(Document doc)
 	{
@@ -62,7 +61,7 @@ public final class DocumentItem extends DocumentBase
 		{
 			if ("list".equalsIgnoreCase(n.getNodeName()))
 			{
-				
+
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
 					if ("item".equalsIgnoreCase(d.getNodeName()))
@@ -83,20 +82,20 @@ public final class DocumentItem extends DocumentBase
 			}
 		}
 	}
-	
+
 	protected void parseItem(Node n) throws InvocationTargetException
 	{
 		int itemId = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
 		String className = n.getAttributes().getNamedItem("type").getNodeValue();
 		String itemName = n.getAttributes().getNamedItem("name").getNodeValue();
-		
+
 		_currentItem.id = itemId;
 		_currentItem.name = itemName;
 		_currentItem.type = className;
 		_currentItem.set = new StatsSet();
 		_currentItem.set.set("item_id", itemId);
 		_currentItem.set.set("name", itemName);
-		
+
 		Node first = n.getFirstChild();
 		for (n = first; n != null; n = n.getNextSibling())
 		{
@@ -123,14 +122,14 @@ public final class DocumentItem extends DocumentBase
 				Condition condition = parseCondition(n.getFirstChild(), _currentItem.item);
 				Node msg = n.getAttributes().getNamedItem("msg");
 				Node msgId = n.getAttributes().getNamedItem("msgId");
-				
+
 				if (condition != null && msg != null)
 					condition.setMessage(msg.getNodeValue());
 				else if (condition != null && msgId != null)
 				{
 					condition.setMessageId(Integer.decode(getValue(msgId.getNodeValue(), null)));
 					Node addName = n.getAttributes().getNamedItem("addName");
-					
+
 					if (addName != null && Integer.decode(getValue(msgId.getNodeValue(), null)) > 0)
 						condition.addName();
 				}
@@ -140,7 +139,7 @@ public final class DocumentItem extends DocumentBase
 		// bah! in this point item doesn't have to be still created
 		makeItem();
 	}
-	
+
 	private void makeItem() throws InvocationTargetException
 	{
 		if (_currentItem.item != null)
@@ -155,7 +154,7 @@ public final class DocumentItem extends DocumentBase
 			throw new InvocationTargetException(e);
 		}
 	}
-	
+
 	public List<Item> getItemList()
 	{
 		return _itemsInFile;

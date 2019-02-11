@@ -70,7 +70,7 @@ public class Q645_GhostsOfBatur extends Quest
 			st.set("cond", "1");
 			st.playSound(QuestState.SOUND_ACCEPT);
 		}
-		else if (StringUtil.isDigit(event))
+		else if (StringUtil.INSTANCE.isDigit(event))
 		{
 			htmltext = "32017-07.htm";
 			st.takeItems(CURSED_GRAVE_GOODS, -1);

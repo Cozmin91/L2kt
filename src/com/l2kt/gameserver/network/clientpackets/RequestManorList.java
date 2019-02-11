@@ -21,6 +21,6 @@ public class RequestManorList extends L2GameClientPacket
 		if (player == null)
 			return;
 		
-		player.sendPacket(ExSendManorList.STATIC_PACKET);
+		player.sendPacket(ExSendManorList.Companion.getSTATIC_PACKET());
 	}
 }

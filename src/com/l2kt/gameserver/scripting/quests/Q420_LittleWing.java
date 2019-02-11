@@ -200,7 +200,7 @@ public class Q420_LittleWing extends Quest
 			{
 				st.takeItems(FAIRY_DUST, 1);
 				giveRandomPet(st, true);
-				if (Rnd.get(20) == 1)
+				if (Rnd.INSTANCE.get(20) == 1)
 					st.giveItems(HATCHLING_SOFT_LEATHER, 1);
 				else
 				{
@@ -548,7 +548,7 @@ public class Q420_LittleWing extends Quest
 			case 20597:
 			case 20598:
 			case 20599:
-				if (st.hasQuestItems(DELUXE_FAIRY_STONE) && Rnd.get(100) < 30)
+				if (st.hasQuestItems(DELUXE_FAIRY_STONE) && Rnd.INSTANCE.get(100) < 30)
 				{
 					st.set("deluxestone", "2");
 					st.playSound(QuestState.SOUND_MIDDLE);
@@ -582,7 +582,7 @@ public class Q420_LittleWing extends Quest
 	private static void giveRandomPet(QuestState st, boolean hasFairyDust)
 	{
 		int pet = DRAGONFLUTE_OF_TWILIGHT;
-		int chance = Rnd.get(100);
+		int chance = Rnd.INSTANCE.get(100);
 		if (st.hasQuestItems(EGG_OF_DRAKE_EXARION))
 		{
 			st.takeItems(EGG_OF_DRAKE_EXARION, 1);

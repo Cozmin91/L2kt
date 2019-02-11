@@ -101,7 +101,7 @@ public class GrandBossTeleporters extends Quest
 		else if (event.equalsIgnoreCase("baium_story"))
 			htmltext = "31862-02.htm";
 		else if (event.equalsIgnoreCase("baium_exit"))
-			player.teleToLocation(Rnd.get(BAIUM_OUT), 100);
+			player.teleToLocation(Rnd.INSTANCE.get(BAIUM_OUT), 100);
 		else if (event.equalsIgnoreCase("31540"))
 		{
 			if (st.hasQuestItems(7267))
@@ -172,7 +172,7 @@ public class GrandBossTeleporters extends Quest
 						st.takeItems(3865, 1);
 						ZoneManager.getInstance().getZoneById(110001, BossZone.class).allowPlayerEntry(player, 30);
 						
-						player.teleToLocation(175300 + Rnd.get(-350, 350), 115180 + Rnd.get(-1000, 1000), -7709, 0);
+						player.teleToLocation(175300 + Rnd.INSTANCE.get(-350, 350), 115180 + Rnd.INSTANCE.get(-1000, 1000), -7709, 0);
 						
 						if (status == Antharas.DORMANT)
 						{
@@ -186,7 +186,7 @@ public class GrandBossTeleporters extends Quest
 				break;
 			
 			case 31859:
-				player.teleToLocation(79800 + Rnd.get(600), 151200 + Rnd.get(1100), -3534, 0);
+				player.teleToLocation(79800 + Rnd.INSTANCE.get(600), 151200 + Rnd.INSTANCE.get(1100), -3534, 0);
 				break;
 			
 			case 31385:
@@ -249,7 +249,7 @@ public class GrandBossTeleporters extends Quest
 				break;
 			
 			case 32107:
-				player.teleToLocation(Rnd.get(SAILREN_OUT), 100);
+				player.teleToLocation(Rnd.INSTANCE.get(SAILREN_OUT), 100);
 				break;
 			
 			case 32109:
@@ -272,7 +272,7 @@ public class GrandBossTeleporters extends Quest
 								if (member.getLevel() < 70)
 									return "32109-06.htm";
 								
-								if (!MathUtil.checkIfInRange(1000, player, member, true))
+								if (!MathUtil.INSTANCE.checkIfInRange(1000, player, member, true))
 									return "32109-07.htm";
 							}
 							

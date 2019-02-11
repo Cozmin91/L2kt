@@ -51,7 +51,7 @@ class GameServerThread(private val _connection: Socket) : Thread() {
 
         // Ensure no further processing for this connection if server is considered as banned.
         if (GameServerThread.isBannedGameserverIP(connectionIpAddress)) {
-            LOGGER.info("Banned gameserver with IP {} tried to register.", connectionIpAddress)
+            LOGGER.info("Banned gameserver with IP {} tried to register.", connectionIpAddress!!)
             forceClose(LoginServerFail.REASON_IP_BANNED)
             return
         }
@@ -119,7 +119,7 @@ class GameServerThread(private val _connection: Socket) : Thread() {
                 LOGGER.info(
                     "GameServer [{}] {} is now set as disconnected.",
                     serverId,
-                    GameServerManager.serverNames[serverId]
+                    GameServerManager.serverNames[serverId]!!
                 )
             }
             LoginServer.gameServerListener.removeGameServer(this)
@@ -250,7 +250,7 @@ class GameServerThread(private val _connection: Socket) : Thread() {
             try {
                 gameServerInfo!!.hostName = InetAddress.getByName(gameServerAuth.hostName).hostAddress
             } catch (e: UnknownHostException) {
-                LOGGER.error("Couldn't resolve hostname '{}'.", e, gameServerAuth.hostName)
+                LOGGER.error("Couldn't resolve hostname '{}'.", e, gameServerAuth.hostName!!)
                 gameServerInfo!!.hostName = _connectionIp
             }
 
@@ -263,8 +263,8 @@ class GameServerThread(private val _connection: Socket) : Thread() {
         LOGGER.info(
             "Hooked [{}] {} gameserver on: {}.",
             serverId,
-            GameServerManager.serverNames[serverId],
-            gameServerInfo!!.hostName
+            GameServerManager.serverNames[serverId]!!,
+            gameServerInfo!!.hostName!!
         )
     }
 

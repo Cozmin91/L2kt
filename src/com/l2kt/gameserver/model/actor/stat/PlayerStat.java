@@ -111,7 +111,7 @@ public class PlayerStat extends PlayableStat
 			final Pet pet = (Pet) getActiveChar().getPet();
 			if (pet.getStat().getExp() <= (pet.getTemplate().getPetDataEntry(81).getMaxExp() + 10000) && !pet.isDead())
 			{
-				if (MathUtil.checkIfInShortRadius(Config.PARTY_RANGE, pet, getActiveChar(), true))
+				if (MathUtil.INSTANCE.checkIfInShortRadius(Config.PARTY_RANGE, pet, getActiveChar(), true))
 				{
 					int ratio = pet.getPetData().getExpType();
 					long petExp = 0;

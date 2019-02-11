@@ -109,7 +109,7 @@ public class Q348_AnArrogantSearch extends Quest
 		{
 			st.set("cond", "24");
 			st.playSound(QuestState.SOUND_MIDDLE);
-			st.rewardItems(57, Rnd.get(1, 2) * 12000);
+			st.rewardItems(57, Rnd.INSTANCE.get(1, 2) * 12000);
 		}
 		else if (event.equalsIgnoreCase("30864-37.htm"))
 		{
@@ -598,7 +598,7 @@ public class Q348_AnArrogantSearch extends Quest
 			case PLANTINUM_TRIBE_OVERLORD:
 			case PLANTINUM_TRIBE_SHAMAN:
 				final int cond = st.getInt("cond");
-				if ((cond == 24 || cond == 25) && Rnd.get(500) < 1 && st.hasQuestItems(WHITE_FABRIC_TRIBE))
+				if ((cond == 24 || cond == 25) && Rnd.INSTANCE.get(500) < 1 && st.hasQuestItems(WHITE_FABRIC_TRIBE))
 				{
 					st.takeItems(WHITE_FABRIC_TRIBE, 1);
 					st.giveItems(BLOODED_FABRIC, 1);
@@ -660,7 +660,7 @@ public class Q348_AnArrogantSearch extends Quest
 			
 			case SEAL_ANGEL:
 			case GUARDIAN_ANGEL:
-				if ((cond == 26 || cond == 29) && Rnd.get(4) < 1 && st.hasQuestItems(WHITE_FABRIC_ANGELS))
+				if ((cond == 26 || cond == 29) && Rnd.INSTANCE.get(4) < 1 && st.hasQuestItems(WHITE_FABRIC_ANGELS))
 				{
 					st.playSound(QuestState.SOUND_ITEMGET);
 					st.takeItems(WHITE_FABRIC_ANGELS, 1);

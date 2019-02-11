@@ -206,7 +206,7 @@ public class EnterWorld extends L2GameClientPacket
 		
 		// if player is DE, check for shadow sense skill at night
 		if (player.getRace() == ClassRace.DARK_ELF && player.hasSkill(L2Skill.SKILL_SHADOW_SENSE))
-			player.sendPacket(SystemMessage.getSystemMessage((GameTimeTaskManager.getInstance().isNight()) ? SystemMessageId.NIGHT_S1_EFFECT_APPLIES : SystemMessageId.DAY_S1_EFFECT_DISAPPEARS).addSkillName(L2Skill.SKILL_SHADOW_SENSE));
+			player.sendPacket(SystemMessage.getSystemMessage((GameTimeTaskManager.INSTANCE.isNight()) ? SystemMessageId.NIGHT_S1_EFFECT_APPLIES : SystemMessageId.DAY_S1_EFFECT_DISAPPEARS).addSkillName(L2Skill.SKILL_SHADOW_SENSE));
 		
 		player.getMacroses().sendUpdate();
 		player.sendPacket(new UserInfo(player));
@@ -282,7 +282,7 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			player.sendPacket(SystemMessageId.NEW_MAIL);
 			player.sendPacket(new PlaySound("systemmsg_e.1233"));
-			player.sendPacket(ExMailArrived.STATIC_PACKET);
+			player.sendPacket(ExMailArrived.Companion.getSTATIC_PACKET());
 		}
 		
 		// Clan notice, if active.
@@ -321,7 +321,7 @@ public class EnterWorld extends L2GameClientPacket
 		if (!player.isGM() && (!player.isInSiege() || player.getSiegeState() < 2) && player.isInsideZone(ZoneId.SIEGE))
 			player.teleToLocation(MapRegionData.TeleportType.TOWN);
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	@Override

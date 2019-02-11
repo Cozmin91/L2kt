@@ -48,7 +48,7 @@ public final class FusionSkill
 			((EffectFusion) effect).increaseEffect();
 		else
 		{
-			L2Skill force = SkillTable.getInstance().getInfo(_fusionId, _fusionLevel);
+			L2Skill force = SkillTable.INSTANCE.getInfo(_fusionId, _fusionLevel);
 			if (force != null)
 				force.getEffects(_caster, _target, null);
 			else
@@ -74,7 +74,7 @@ public final class FusionSkill
 		{
 			try
 			{
-				if (!MathUtil.checkIfInRange(_skillCastRange, _caster, _target, true))
+				if (!MathUtil.INSTANCE.checkIfInRange(_skillCastRange, _caster, _target, true))
 					_caster.abortCast();
 				
 				if (!GeoEngine.getInstance().canSeeTarget(_caster, _target))

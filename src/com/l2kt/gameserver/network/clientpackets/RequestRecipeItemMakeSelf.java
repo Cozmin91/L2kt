@@ -20,7 +20,7 @@ public final class RequestRecipeItemMakeSelf extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (!FloodProtectors.performAction(getClient(), FloodProtectors.Action.MANUFACTURE))
+		if (!FloodProtectors.INSTANCE.performAction(getClient(), FloodProtectors.Action.MANUFACTURE))
 			return;
 		
 		final Player player = getClient().getActiveChar();

@@ -42,7 +42,7 @@ public class IntIntHolder
 	 */
 	public final L2Skill getSkill()
 	{
-		return SkillTable.getInstance().getInfo(_id, _value);
+		return SkillTable.INSTANCE.getInfo(_id, _value);
 	}
 	
 	@Override

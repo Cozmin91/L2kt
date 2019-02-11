@@ -53,7 +53,7 @@ public class Q379_FantasyWine extends Quest
 			st.takeItems(LEAF, 80);
 			st.takeItems(STONE, 100);
 			
-			final int rand = Rnd.get(10);
+			final int rand = Rnd.INSTANCE.get(10);
 			if (rand < 3)
 			{
 				htmltext = "30074-6.htm";

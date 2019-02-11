@@ -419,7 +419,7 @@ public class Q233_TestOfTheWarSpirit extends Quest
 			case NOBLE_ANT_LEADER:
 				if (st.hasQuestItems(INSECT_DIAGRAM_BOOK))
 				{
-					int rndAnt = Rnd.get(100);
+					int rndAnt = Rnd.INSTANCE.get(100);
 					if (rndAnt > 70)
 					{
 						if (st.hasQuestItems(KIRUNA_THIGHBONE))
@@ -441,7 +441,7 @@ public class Q233_TestOfTheWarSpirit extends Quest
 			
 			case LETO_LIZARDMAN_SHAMAN:
 			case LETO_LIZARDMAN_OVERLORD:
-				if (st.hasQuestItems(PEKIRON_TOTEM) && Rnd.nextBoolean())
+				if (st.hasQuestItems(PEKIRON_TOTEM) && Rnd.INSTANCE.nextBoolean())
 				{
 					if (!st.hasQuestItems(TONAR_SKULL))
 						st.dropItemsAlways(TONAR_SKULL, 1, 1);
@@ -457,7 +457,7 @@ public class Q233_TestOfTheWarSpirit extends Quest
 				break;
 			
 			case MEDUSA:
-				if (st.hasQuestItems(MANAKIA_TOTEM) && Rnd.nextBoolean())
+				if (st.hasQuestItems(MANAKIA_TOTEM) && Rnd.INSTANCE.nextBoolean())
 				{
 					if (!st.hasQuestItems(HERMODT_RIBBONE))
 						st.dropItemsAlways(HERMODT_RIBBONE, 1, 1);

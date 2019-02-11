@@ -19,7 +19,7 @@ public class RequestSocialAction extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (!FloodProtectors.performAction(getClient(), FloodProtectors.Action.SOCIAL))
+		if (!FloodProtectors.INSTANCE.performAction(getClient(), FloodProtectors.Action.SOCIAL))
 			return;
 		
 		final Player activeChar = getClient().getActiveChar();

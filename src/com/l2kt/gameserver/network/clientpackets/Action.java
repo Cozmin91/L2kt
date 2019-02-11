@@ -34,20 +34,20 @@ public final class Action extends L2GameClientPacket
 		if (player.isInObserverMode())
 		{
 			player.sendPacket(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		if (player.getActiveRequester() != null)
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
 		final WorldObject target = (player.getTargetId() == _objectId) ? player.getTarget() : World.getInstance().getObject(_objectId);
 		if (target == null)
 		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		
@@ -55,7 +55,7 @@ public final class Action extends L2GameClientPacket
 		if (targetPlayer != null && targetPlayer.getDuelState() == Duel.DuelState.DEAD)
 		{
 			player.sendPacket(SystemMessageId.OTHER_PARTY_IS_FROZEN);
-			player.sendPacket(ActionFailed.STATIC_PACKET);
+			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		

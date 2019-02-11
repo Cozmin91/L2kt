@@ -142,7 +142,7 @@ public class Q350_EnhanceYourWeapon extends Quest
 		if (npcInfo == null)
 			return null;
 		
-		final int chance = Rnd.get(1000);
+		final int chance = Rnd.INSTANCE.get(1000);
 		
 		// Handle npc leveling info type.
 		switch (npcInfo.getAbsorbCrystalType())

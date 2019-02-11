@@ -122,12 +122,12 @@ public class Boat extends Creature
 						final double dy = point.getY() - getY();
 						final double distance = Math.sqrt(dx * dx + dy * dy);
 						if (distance > 1) // vertical movement heading check
-							setHeading(MathUtil.calculateHeadingFrom(getX(), getY(), point.getX(), point.getY()));
+							setHeading(MathUtil.INSTANCE.calculateHeadingFrom(getX(), getY(), point.getX(), point.getY()));
 						
 						m._moveStartTime = System.currentTimeMillis();
 						_move = m;
 						
-						MovementTaskManager.getInstance().add(this);
+						MovementTaskManager.INSTANCE.add(this);
 						broadcastPacket(new VehicleDeparture(this));
 						return true;
 					}

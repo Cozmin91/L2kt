@@ -57,7 +57,7 @@ public final class RequestPreviewItem extends L2GameClientPacket
 		
 		if (_count < 1 || _listId >= 4000000)
 		{
-			sendPacket(ActionFailed.STATIC_PACKET);
+			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		

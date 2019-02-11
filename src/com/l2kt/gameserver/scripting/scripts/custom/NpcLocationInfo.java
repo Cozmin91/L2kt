@@ -207,14 +207,14 @@ public class NpcLocationInfo extends Quest
 		if (st == null)
 			return htmltext;
 		
-		if (StringUtil.isDigit(event))
+		if (StringUtil.INSTANCE.isDigit(event))
 		{
 			htmltext = null;
 			int npcId = Integer.parseInt(event);
 			
 			if (ArraysUtil.contains(RADARS, npcId))
 			{
-				for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable())
+				for (L2Spawn spawn : SpawnTable.INSTANCE.getSpawnTable())
 				{
 					if (npcId == spawn.getNpcId())
 					{

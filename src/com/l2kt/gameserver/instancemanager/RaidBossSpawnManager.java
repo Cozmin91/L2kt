@@ -1,5 +1,15 @@
 package com.l2kt.gameserver.instancemanager;
 
+import com.l2kt.L2DatabaseFactory;
+import com.l2kt.commons.concurrent.ThreadPool;
+import com.l2kt.commons.random.Rnd;
+import com.l2kt.gameserver.data.SpawnTable;
+import com.l2kt.gameserver.data.xml.NpcData;
+import com.l2kt.gameserver.model.L2Spawn;
+import com.l2kt.gameserver.model.actor.instance.RaidBoss;
+import com.l2kt.gameserver.model.actor.template.NpcTemplate;
+import com.l2kt.gameserver.templates.StatsSet;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,16 +21,6 @@ import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.l2kt.L2DatabaseFactory;
-import com.l2kt.commons.concurrent.ThreadPool;
-import com.l2kt.commons.random.Rnd;
-import com.l2kt.gameserver.data.SpawnTable;
-import com.l2kt.gameserver.data.xml.NpcData;
-import com.l2kt.gameserver.model.L2Spawn;
-import com.l2kt.gameserver.model.actor.instance.RaidBoss;
-import com.l2kt.gameserver.model.actor.template.NpcTemplate;
-import com.l2kt.gameserver.templates.StatsSet;
 
 /**
  * @author godson
@@ -143,7 +143,7 @@ public class RaidBossSpawnManager
 			boss.setRaidStatus(StatusEnum.DEAD);
 			
 			// getRespawnMinDelay() is used as fixed timer, while getRespawnMaxDelay() is used as random timer.
-			final int respawnDelay = boss.getSpawn().getRespawnMinDelay() + Rnd.get(-boss.getSpawn().getRespawnMaxDelay(), boss.getSpawn().getRespawnMaxDelay());
+			final int respawnDelay = boss.getSpawn().getRespawnMinDelay() + Rnd.INSTANCE.get(-boss.getSpawn().getRespawnMaxDelay(), boss.getSpawn().getRespawnMaxDelay());
 			final long respawnTime = Calendar.getInstance().getTimeInMillis() + (respawnDelay * 3600000);
 			
 			info.set("currentHP", boss.getMaxHp());
@@ -181,7 +181,7 @@ public class RaidBossSpawnManager
 		
 		final long time = Calendar.getInstance().getTimeInMillis();
 		
-		SpawnTable.getInstance().addNewSpawn(spawnDat, false);
+		SpawnTable.INSTANCE.addNewSpawn(spawnDat, false);
 		
 		if (respawnTime == 0L || (time > respawnTime))
 		{
@@ -252,7 +252,7 @@ public class RaidBossSpawnManager
 		if (!_spawns.containsKey(bossId))
 			return;
 		
-		SpawnTable.getInstance().deleteSpawn(spawnDat, false);
+		SpawnTable.INSTANCE.deleteSpawn(spawnDat, false);
 		_spawns.remove(bossId);
 		
 		if (_bosses.containsKey(bossId))

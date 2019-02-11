@@ -76,7 +76,7 @@ public class Q345_MethodToRaiseTheDead extends Quest
 		{
 			if (st.getInt("cond") == 3)
 			{
-				final int chance = Rnd.get(3);
+				final int chance = Rnd.INSTANCE.get(3);
 				if (chance == 0)
 				{
 					st.set("cond", "6");
@@ -161,7 +161,7 @@ public class Q345_MethodToRaiseTheDead extends Quest
 								st.rewardItems(57, 3040 + amount);
 								
 								// Reward can be either an Imperial Diamond or bills.
-								if (Rnd.get(100) < 10)
+								if (Rnd.INSTANCE.get(100) < 10)
 									st.giveItems(IMPERIAL_DIAMOND, 1);
 								else
 									st.giveItems(BILL_OF_IASON_HEINE, 5);
@@ -208,9 +208,9 @@ public class Q345_MethodToRaiseTheDead extends Quest
 		if (st == null)
 			return null;
 		
-		if (Rnd.get(4) == 0)
+		if (Rnd.INSTANCE.get(4) == 0)
 		{
-			final int randomPart = Rnd.get(VICTIM_ARM_BONE, VICTIM_SPINE);
+			final int randomPart = Rnd.INSTANCE.get(VICTIM_ARM_BONE, VICTIM_SPINE);
 			if (!st.hasQuestItems(randomPart))
 			{
 				st.playSound(QuestState.SOUND_ITEMGET);

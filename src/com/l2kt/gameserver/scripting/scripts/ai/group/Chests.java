@@ -111,7 +111,7 @@ public class Chests extends L2AttackableAIScript
 				chest.setInteracted();
 				
 				// If it's the first interaction, check if this is a box or mimic.
-				if (Rnd.get(100) < 40)
+				if (Rnd.INSTANCE.get(100) < 40)
 				{
 					switch (skill.getId())
 					{
@@ -126,7 +126,7 @@ public class Chests extends L2AttackableAIScript
 							final int chance = ((skill.getId() == SKILL_BOX_KEY) ? 60 : 100) - keyLevelNeeded * 40;
 							
 							// Success, die with rewards.
-							if (Rnd.get(100) < chance)
+							if (Rnd.INSTANCE.get(100) < chance)
 							{
 								chest.setSpecialDrop();
 								chest.doDie(caster);
@@ -137,7 +137,7 @@ public class Chests extends L2AttackableAIScript
 							break;
 						
 						default:
-							chest.doCast(SkillTable.getInstance().getInfo(4143, Math.min(10, Math.round(npc.getLevel() / 10))));
+							chest.doCast(SkillTable.INSTANCE.getInfo(4143, Math.min(10, Math.round(npc.getLevel() / 10))));
 							break;
 					}
 				}
@@ -162,8 +162,8 @@ public class Chests extends L2AttackableAIScript
 				chest.setInteracted();
 				
 				// If it was a box, cast a suicide type skill.
-				if (Rnd.get(100) < 40)
-					chest.doCast(SkillTable.getInstance().getInfo(4143, Math.min(10, Math.round(npc.getLevel() / 10))));
+				if (Rnd.INSTANCE.get(100) < 40)
+					chest.doCast(SkillTable.INSTANCE.getInfo(4143, Math.min(10, Math.round(npc.getLevel() / 10))));
 			}
 		}
 		return super.onAttack(npc, attacker, damage, skill);

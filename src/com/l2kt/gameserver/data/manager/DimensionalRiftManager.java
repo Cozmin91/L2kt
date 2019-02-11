@@ -89,7 +89,7 @@ public class DimensionalRiftManager implements IXmlReader
 							final L2Spawn spawnDat = new L2Spawn(template);
 							spawnDat.setLoc(riftRoom.getRandomX(), riftRoom.getRandomY(), DimensionalRiftRoom.Z_VALUE, -1);
 							spawnDat.setRespawnDelay(delay);
-							SpawnTable.getInstance().addNewSpawn(spawnDat, false);
+							SpawnTable.INSTANCE.addNewSpawn(spawnDat, false);
 							
 							riftRoom.getSpawns().add(spawnDat);
 						}
@@ -241,7 +241,7 @@ public class DimensionalRiftManager implements IXmlReader
 			member.destroyItemByItemId("RiftEntrance", DIMENSIONAL_FRAGMENT, count, null, true);
 		
 		// Creates an instance of the rift.
-		new DimensionalRift(party, Rnd.get(availableRooms));
+		new DimensionalRift(party, Rnd.INSTANCE.get(availableRooms));
 	}
 	
 	/**

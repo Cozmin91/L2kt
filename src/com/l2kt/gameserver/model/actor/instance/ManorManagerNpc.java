@@ -29,7 +29,7 @@ public class ManorManagerNpc extends Merchant
 		{
 			if (CastleManorManager.getInstance().isUnderMaintenance())
 			{
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				player.sendPacket(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE);
 				return;
 			}

@@ -49,7 +49,7 @@ public class WalkerAI extends CreatureAI
 		
 		// We freeze the NPC and store it on WalkerTaskManager, which will release it in the future.
 		if (node.getDelay() > 0)
-			WalkerTaskManager.getInstance().add(getActor(), node.getDelay());
+			WalkerTaskManager.INSTANCE.add(getActor(), node.getDelay());
 		else
 			moveToNextPoint();
 	}

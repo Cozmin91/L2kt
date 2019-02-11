@@ -78,7 +78,7 @@ public final class Guard extends Attackable
 				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
 				
 				// Send a Server->Client ActionFailed to the Player in order to avoid that the client wait another packet
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				
 				// Some guards have no HTMs on retail. Bypass the chat window if such guard is met.
 				switch (getNpcId())
@@ -97,7 +97,7 @@ public final class Guard extends Attackable
 				}
 				
 				if (hasRandomAnimation())
-					onRandomAnimation(Rnd.get(8));
+					onRandomAnimation(Rnd.INSTANCE.get(8));
 				
 				List<Quest> scripts = getTemplate().getEventQuests(EventType.QUEST_START);
 				if (scripts != null && !scripts.isEmpty())

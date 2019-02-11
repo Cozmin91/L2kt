@@ -430,7 +430,7 @@ public final class FestivalGuide extends Folk
 		player.sendPacket(html);
 		
 		// Send ActionFailed to the player in order to avoid he stucks
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	private void showChatWindow(Player player, int val, String suffix, boolean isDescription)
@@ -459,7 +459,7 @@ public final class FestivalGuide extends Folk
 		player.sendPacket(html);
 		
 		// Send ActionFailed to the player in order to avoid he stucks
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 	
 	private static final String getStatsTable()

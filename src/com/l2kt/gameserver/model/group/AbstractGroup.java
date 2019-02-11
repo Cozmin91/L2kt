@@ -136,6 +136,6 @@ public abstract class AbstractGroup
 	 */
 	public Player getRandomPlayer()
 	{
-		return Rnd.get(getMembers());
+		return Rnd.INSTANCE.get(getMembers());
 	}
 }

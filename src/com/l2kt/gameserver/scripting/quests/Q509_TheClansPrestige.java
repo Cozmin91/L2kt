@@ -118,7 +118,7 @@ public class Q509_TheClansPrestige extends Quest
 		if (st == null)
 			return htmltext;
 		
-		if (StringUtil.isDigit(event))
+		if (StringUtil.INSTANCE.isDigit(event))
 		{
 			htmltext = "31331-" + event + ".htm";
 			st.setState(STATE_STARTED);
@@ -173,7 +173,7 @@ public class Q509_TheClansPrestige extends Quest
 					htmltext = "31331-" + raid + "a.htm";
 				else
 				{
-					final int reward = Rnd.get(reward_list[raid - 1][2], reward_list[raid - 1][3]);
+					final int reward = Rnd.INSTANCE.get(reward_list[raid - 1][2], reward_list[raid - 1][3]);
 					
 					htmltext = "31331-" + raid + "b.htm";
 					st.takeItems(item, 1);

@@ -22,7 +22,7 @@ public class DungeonGatekeeper extends Folk
 	@Override
 	public void onBypassFeedback(Player player, String command)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken(); // Get actual command
@@ -139,6 +139,6 @@ public class DungeonGatekeeper extends Folk
 		if (list != null && !player.isAlikeDead())
 			player.teleToLocation(list, 20);
 		
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 }

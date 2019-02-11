@@ -131,7 +131,7 @@ public class Q508_AClansReputation extends Quest
 		if (st == null)
 			return htmltext;
 		
-		if (StringUtil.isDigit(event))
+		if (StringUtil.INSTANCE.isDigit(event))
 		{
 			htmltext = "30868-" + event + ".htm";
 			st.setState(STATE_STARTED);
@@ -186,7 +186,7 @@ public class Q508_AClansReputation extends Quest
 					htmltext = "30868-" + raid + "a.htm";
 				else
 				{
-					final int reward = Rnd.get(reward_list[raid - 1][2], reward_list[raid - 1][3]);
+					final int reward = Rnd.INSTANCE.get(reward_list[raid - 1][2], reward_list[raid - 1][3]);
 					
 					htmltext = "30868-" + raid + "b.htm";
 					st.takeItems(item, 1);

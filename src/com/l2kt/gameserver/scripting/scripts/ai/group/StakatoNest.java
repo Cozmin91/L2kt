@@ -52,7 +52,7 @@ public class StakatoNest extends L2AttackableAIScript
 	@Override
 	public String onAttack(Npc npc, Creature attacker, int damage, L2Skill skill)
 	{
-		if (npc.getCurrentHp() / npc.getMaxHp() < 0.3 && Rnd.get(100) < 5)
+		if (npc.getCurrentHp() / npc.getMaxHp() < 0.3 && Rnd.INSTANCE.get(100) < 5)
 		{
 			for (Monster follower : npc.getKnownTypeInRadius(Monster.class, 400))
 			{

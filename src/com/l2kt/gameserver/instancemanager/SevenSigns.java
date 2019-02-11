@@ -1191,7 +1191,7 @@ public class SevenSigns
 			teleLosingCabalFromDungeons(getCabalHighestScore());
 			
 			// Spawns NPCs and change sky color.
-			BroadcastExtensionsKt.toAllOnlinePlayers(SSQInfo.sendSky());
+			BroadcastExtensionsKt.toAllOnlinePlayers(SSQInfo.Companion.sendSky());
 			spawnSevenSignsNPC();
 			
 			_log.info("SevenSigns: The " + _activePeriod.getName() + " period has begun!");

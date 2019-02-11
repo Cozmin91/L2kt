@@ -90,7 +90,7 @@ public class Q329_CuriosityOfADwarf extends Quest
 		if (st == null)
 			return null;
 		
-		final int chance = Rnd.get(100);
+		final int chance = Rnd.INSTANCE.get(100);
 		if (chance < 2)
 			st.dropItemsAlways(GOLEM_HEARTSTONE, 1, 0);
 		else if (chance < ((npc.getNpcId() == 20083) ? 44 : 50))

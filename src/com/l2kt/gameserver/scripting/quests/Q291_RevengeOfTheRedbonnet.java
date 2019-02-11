@@ -74,7 +74,7 @@ public class Q291_RevengeOfTheRedbonnet extends Quest
 					htmltext = "30553-05.htm";
 					st.takeItems(BLACK_WOLF_PELT, -1);
 					
-					int random = Rnd.get(100);
+					int random = Rnd.INSTANCE.get(100);
 					if (random < 3)
 						st.rewardItems(GRANDMA_PEARL, 1);
 					else if (random < 21)

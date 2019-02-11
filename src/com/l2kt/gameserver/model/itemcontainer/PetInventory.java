@@ -97,7 +97,7 @@ public class PetInventory extends Inventory
 				else
 				{
 					final ItemInstance droppedItem = dropItem("drop", item.getObjectId(), item.getCount(), petOwner, getOwner());
-					droppedItem.dropMe(getOwner(), getOwner().getX() + Rnd.get(-70, 70), getOwner().getY() + Rnd.get(-70, 70), getOwner().getZ() + 30);
+					droppedItem.dropMe(getOwner(), getOwner().getX() + Rnd.INSTANCE.get(-70, 70), getOwner().getY() + Rnd.INSTANCE.get(-70, 70), getOwner().getZ() + 30);
 				}
 				
 			}

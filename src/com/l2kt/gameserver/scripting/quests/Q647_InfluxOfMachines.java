@@ -47,7 +47,7 @@ public class Q647_InfluxOfMachines extends Quest
 		else if (event.equalsIgnoreCase("32069-06.htm"))
 		{
 			st.takeItems(DESTROYED_GOLEM_SHARD, -1);
-			st.giveItems(Rnd.get(4963, 4972), 1);
+			st.giveItems(Rnd.INSTANCE.get(4963, 4972), 1);
 			st.playSound(QuestState.SOUND_FINISH);
 			st.exitQuest(true);
 		}

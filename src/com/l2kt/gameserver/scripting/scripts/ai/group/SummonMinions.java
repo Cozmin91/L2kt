@@ -79,7 +79,7 @@ public class SummonMinions extends L2AttackableAIScript
 				for (int val : MINIONS.get(npcId))
 					addSpawn(val, npc, true, 0, false);
 				
-				npc.broadcastNpcSay(Rnd.get(ORCS_WORDS));
+				npc.broadcastNpcSay(Rnd.INSTANCE.get(ORCS_WORDS));
 			}
 			npc.setScriptValue(1);
 		}

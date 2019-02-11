@@ -182,7 +182,7 @@ public final class Q125_TheNameOfEvil_1 extends Quest
 					case ULU_KAIMU:
 						if (cond == 5)
 						{
-							npc.doCast(SkillTable.getInstance().getInfo(5089, 1));
+							npc.doCast(SkillTable.INSTANCE.getInfo(5089, 1));
 							htmltext = "32119-01.htm";
 						}
 						else if (cond == 6)
@@ -192,7 +192,7 @@ public final class Q125_TheNameOfEvil_1 extends Quest
 					case BALU_KAIMU:
 						if (cond == 6)
 						{
-							npc.doCast(SkillTable.getInstance().getInfo(5089, 1));
+							npc.doCast(SkillTable.INSTANCE.getInfo(5089, 1));
 							htmltext = "32120-01.htm";
 						}
 						else if (cond == 7)
@@ -202,7 +202,7 @@ public final class Q125_TheNameOfEvil_1 extends Quest
 					case CHUTA_KAIMU:
 						if (cond == 7)
 						{
-							npc.doCast(SkillTable.getInstance().getInfo(5089, 1));
+							npc.doCast(SkillTable.INSTANCE.getInfo(5089, 1));
 							htmltext = "32121-01.htm";
 						}
 						else if (cond == 8)

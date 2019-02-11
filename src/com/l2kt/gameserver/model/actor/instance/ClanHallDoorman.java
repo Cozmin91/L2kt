@@ -25,7 +25,7 @@ public class ClanHallDoorman extends Doorman
 	@Override
 	public void showChatWindow(Player player)
 	{
-		player.sendPacket(ActionFailed.STATIC_PACKET);
+		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		
 		if (_clanHall == null)
 			return;

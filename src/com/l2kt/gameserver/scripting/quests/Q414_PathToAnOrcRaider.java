@@ -187,7 +187,7 @@ public class Q414_PathToAnOrcRaider extends Quest
 			case GOBLIN_TOMB_RAIDER_LEADER:
 				if (cond == 1)
 				{
-					if (st.getQuestItemsCount(GREEN_BLOOD) <= Rnd.get(20))
+					if (st.getQuestItemsCount(GREEN_BLOOD) <= Rnd.INSTANCE.get(20))
 					{
 						st.playSound(QuestState.SOUND_ITEMGET);
 						st.giveItems(GREEN_BLOOD, 1);
@@ -206,7 +206,7 @@ public class Q414_PathToAnOrcRaider extends Quest
 				break;
 			
 			case UMBAR_ORC:
-				if ((cond == 3 || cond == 4) && st.getQuestItemsCount(HEAD_OF_BETRAYER) < 2 && Rnd.get(10) < 2)
+				if ((cond == 3 || cond == 4) && st.getQuestItemsCount(HEAD_OF_BETRAYER) < 2 && Rnd.INSTANCE.get(10) < 2)
 				{
 					if (cond == 3)
 						st.set("cond", "4");

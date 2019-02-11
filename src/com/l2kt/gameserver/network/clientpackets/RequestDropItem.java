@@ -30,7 +30,7 @@ public final class RequestDropItem extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		if (!FloodProtectors.performAction(getClient(), FloodProtectors.Action.DROP_ITEM))
+		if (!FloodProtectors.INSTANCE.performAction(getClient(), FloodProtectors.Action.DROP_ITEM))
 			return;
 		
 		final Player activeChar = getClient().getActiveChar();

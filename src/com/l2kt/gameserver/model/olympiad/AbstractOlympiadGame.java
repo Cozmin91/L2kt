@@ -174,7 +174,7 @@ public abstract class AbstractOlympiadGame
 			// Remove Hero Skills
 			if (player.isHero())
 			{
-				for (L2Skill skill : SkillTable.getHeroSkills())
+				for (L2Skill skill : SkillTable.INSTANCE.getHeroSkills())
 					player.removeSkill(skill.getId(), false);
 			}
 			
@@ -238,7 +238,7 @@ public abstract class AbstractOlympiadGame
 	 */
 	protected static final void buffPlayer(Player player)
 	{
-		L2Skill skill = SkillTable.getInstance().getInfo(1204, 2); // Windwalk 2
+		L2Skill skill = SkillTable.INSTANCE.getInfo(1204, 2); // Windwalk 2
 		if (skill != null)
 		{
 			skill.getEffects(player, player);
@@ -247,7 +247,7 @@ public abstract class AbstractOlympiadGame
 		
 		if (!player.isMageClass())
 		{
-			skill = SkillTable.getInstance().getInfo(1086, 1); // Haste 1
+			skill = SkillTable.INSTANCE.getInfo(1086, 1); // Haste 1
 			if (skill != null)
 			{
 				skill.getEffects(player, player);
@@ -332,7 +332,7 @@ public abstract class AbstractOlympiadGame
 			// Add Hero Skills
 			if (player.isHero())
 			{
-				for (L2Skill skill : SkillTable.getHeroSkills())
+				for (L2Skill skill : SkillTable.INSTANCE.getHeroSkills())
 					player.addSkill(skill, false);
 			}
 			player.sendSkillList();

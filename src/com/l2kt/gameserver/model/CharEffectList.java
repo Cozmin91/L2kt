@@ -246,7 +246,7 @@ public class CharEffectList
 		if (checkSkill._effectTemplates == null || checkSkill._effectTemplates.isEmpty())
 			return false;
 		
-		final String stackType = checkSkill._effectTemplates.get(0).stackType;
+		final String stackType = checkSkill._effectTemplates.get(0).getStackType();
 		if (stackType == null || "none".equals(stackType))
 			return false;
 		

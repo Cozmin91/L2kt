@@ -25,28 +25,28 @@ public final class RequestRestart extends L2GameClientPacket
 		
 		if (player.getActiveEnchantItem() != null || player.isLocked() || player.isInStoreMode())
 		{
-			sendPacket(RestartResponse.valueOf(false));
+			sendPacket(RestartResponse.Companion.valueOf(false));
 			return;
 		}
 		
 		if (player.isInsideZone(ZoneId.NO_RESTART))
 		{
 			player.sendPacket(SystemMessageId.NO_RESTART_HERE);
-			sendPacket(RestartResponse.valueOf(false));
+			sendPacket(RestartResponse.Companion.valueOf(false));
 			return;
 		}
 		
-		if (AttackStanceTaskManager.getInstance().isInAttackStance(player))
+		if (AttackStanceTaskManager.INSTANCE.isInAttackStance(player))
 		{
 			player.sendPacket(SystemMessageId.CANT_RESTART_WHILE_FIGHTING);
-			sendPacket(RestartResponse.valueOf(false));
+			sendPacket(RestartResponse.Companion.valueOf(false));
 			return;
 		}
 		
 		if (player.isFestivalParticipant() && SevenSignsFestival.getInstance().isFestivalInitialized())
 		{
 			player.sendPacket(SystemMessageId.NO_RESTART_HERE);
-			sendPacket(RestartResponse.valueOf(false));
+			sendPacket(RestartResponse.Companion.valueOf(false));
 			return;
 		}
 		
@@ -63,10 +63,10 @@ public final class RequestRestart extends L2GameClientPacket
 		client.setActiveChar(null);
 		client.setState(L2GameClient.GameClientState.AUTHED);
 		
-		sendPacket(RestartResponse.valueOf(true));
+		sendPacket(RestartResponse.Companion.valueOf(true));
 		
 		// send char list
-		final CharSelectInfo cl = new CharSelectInfo(client.getAccountName(), client.getSessionId().playOkID1);
+		final CharSelectInfo cl = new CharSelectInfo(client.getAccountName(), client.getSessionId().getPlayOkID1());
 		sendPacket(cl);
 		client.setCharSelectSlot(cl.getCharacterSlots());
 	}

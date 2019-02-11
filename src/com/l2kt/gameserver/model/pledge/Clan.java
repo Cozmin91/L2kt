@@ -237,7 +237,7 @@ public class Clan
 				int id = rs.getInt("skill_id");
 				int level = rs.getInt("skill_level");
 				
-				final L2Skill skill = SkillTable.getInstance().getInfo(id, level);
+				final L2Skill skill = SkillTable.INSTANCE.getInfo(id, level);
 				if (skill == null)
 					continue;
 				
@@ -747,7 +747,7 @@ public class Clan
 			player.broadcastUserInfo();
 			
 			// Disable clan tab.
-			player.sendPacket(PledgeShowMemberListDeleteAll.STATIC_PACKET);
+			player.sendPacket(PledgeShowMemberListDeleteAll.Companion.getSTATIC_PACKET());
 		}
 		else
 		{
@@ -1180,7 +1180,7 @@ public class Clan
 	{
 		for (Player member : getOnlineMembers())
 		{
-			member.sendPacket(PledgeShowMemberListDeleteAll.STATIC_PACKET);
+			member.sendPacket(PledgeShowMemberListDeleteAll.Companion.getSTATIC_PACKET());
 			member.sendPacket(new PledgeShowMemberListAll(this, 0));
 			
 			for (SubPledge sp : getAllSubPledges())
@@ -1437,7 +1437,7 @@ public class Clan
 		// Store the online members (used in 2 positions, can't merge)
 		final Player[] members = getOnlineMembers();
 		
-		_reputationScore = MathUtil.limit(value, -100000000, 100000000);
+		_reputationScore = MathUtil.INSTANCE.limit(value, -100000000, 100000000);
 		
 		// Refresh clan windows of all clan members, and reward/remove skills.
 		if (needRefresh)
@@ -1720,7 +1720,7 @@ public class Clan
 			return;
 		}
 		
-		if (!StringUtil.isAlphaNumeric(allyName))
+		if (!StringUtil.INSTANCE.isAlphaNumeric(allyName))
 		{
 			player.sendPacket(SystemMessageId.INCORRECT_ALLIANCE_NAME);
 			return;

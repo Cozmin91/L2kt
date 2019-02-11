@@ -116,7 +116,7 @@ public class Q380_BringOutTheFlavorOfIngredients extends Quest
 				else if (cond == 6)
 				{
 					st.giveItems(RITRON_JELLY, 1);
-					if (Rnd.get(100) < 55)
+					if (Rnd.INSTANCE.get(100) < 55)
 						htmltext = "30069-11.htm";
 					else
 					{

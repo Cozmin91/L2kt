@@ -154,7 +154,7 @@ public abstract class Summon extends Playable
 				player.sendPacket(new PetStatusShow(this));
 				
 				// Send ActionFailed to the player in order to avoid he stucks
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
 		}
 		else
@@ -173,7 +173,7 @@ public abstract class Summon extends Playable
 				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
 				
 				// Send ActionFailed to the player in order to avoid he stucks
-				player.sendPacket(ActionFailed.STATIC_PACKET);
+				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				
 				if (GeoEngine.getInstance().canSeeTarget(player, this))
 					player.getAI().setIntention(CtrlIntention.FOLLOW, this);
@@ -289,7 +289,7 @@ public abstract class Summon extends Playable
 		// Disable beastshots
 		for (int itemId : getOwner().getAutoSoulShot())
 		{
-			switch (ItemTable.getInstance().getTemplate(itemId).getDefaultAction())
+			switch (ItemTable.INSTANCE.getTemplate(itemId).getDefaultAction())
 			{
 				case summon_soulshot:
 				case summon_spiritshot:
@@ -350,7 +350,7 @@ public abstract class Summon extends Playable
 			// Disable beastshots
 			for (int itemId : owner.getAutoSoulShot())
 			{
-				switch (ItemTable.getInstance().getTemplate(itemId).getDefaultAction())
+				switch (ItemTable.INSTANCE.getTemplate(itemId).getDefaultAction())
 				{
 					case summon_soulshot:
 					case summon_spiritshot:
@@ -571,7 +571,7 @@ public abstract class Summon extends Playable
 			if (getOwner() != null && getOwner().isInOlympiadMode() && !getOwner().isOlympiadStart())
 			{
 				// if Player is in Olympia and the match isn't already start, send ActionFailed
-				sendPacket(ActionFailed.STATIC_PACKET);
+				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return false;
 			}
 			
@@ -673,7 +673,7 @@ public abstract class Summon extends Playable
 			actingPlayer.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
 			
 			// Send ActionFailed to the Player
-			actingPlayer.sendPacket(ActionFailed.STATIC_PACKET);
+			actingPlayer.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return;
 		}
 		

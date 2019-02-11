@@ -325,7 +325,7 @@ public class Q224_TestOfSagittarius extends Quest
 			case LETO_LIZARDMAN_OVERLORD:
 				if (st.getInt("cond") == 13)
 				{
-					if (((st.getQuestItemsCount(BLOOD_OF_LIZARDMAN) - 120) * 5) > Rnd.get(100))
+					if (((st.getQuestItemsCount(BLOOD_OF_LIZARDMAN) - 120) * 5) > Rnd.INSTANCE.get(100))
 					{
 						st.playSound(QuestState.SOUND_BEFORE_BATTLE);
 						st.takeItems(BLOOD_OF_LIZARDMAN, -1);

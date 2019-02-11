@@ -40,14 +40,14 @@ public class PrimevalIsle extends L2AttackableAIScript
 	
 	private static final int ANCIENT_EGG = 18344;
 	
-	private static final L2Skill ANESTHESIA = SkillTable.getInstance().getInfo(5085, 1);
-	private static final L2Skill POISON = SkillTable.getInstance().getInfo(5086, 1);
+	private static final L2Skill ANESTHESIA = SkillTable.INSTANCE.getInfo(5085, 1);
+	private static final L2Skill POISON = SkillTable.INSTANCE.getInfo(5086, 1);
 	
 	public PrimevalIsle()
 	{
 		super("ai/group");
 		
-		for (L2Spawn npc : SpawnTable.getInstance().getSpawnTable())
+		for (L2Spawn npc : SpawnTable.INSTANCE.getSpawnTable())
 			if (ArraysUtil.contains(MOBIDS, npc.getNpcId()) && npc.getNpc() != null && npc.getNpc() instanceof Attackable)
 				((Attackable) npc.getNpc()).seeThroughSilentMove(true);
 	}

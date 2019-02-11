@@ -144,7 +144,7 @@ public class Q325_GrimCollector extends Quest
 				st.takeItems(RIB_BONE, 1);
 				st.takeItems(THIGH_BONE, 1);
 				
-				if (Rnd.get(10) < 9)
+				if (Rnd.INSTANCE.get(10) < 9)
 					st.giveItems(COMPLETE_SKELETON, 1);
 				else
 					htmltext = "30342-04.htm";
@@ -208,7 +208,7 @@ public class Q325_GrimCollector extends Quest
 		
 		if (st.hasQuestItems(ANATOMY_DIAGRAM))
 		{
-			final int chance = Rnd.get(100);
+			final int chance = Rnd.INSTANCE.get(100);
 			for (IntIntHolder drop : DROPLIST.get(npc.getNpcId()))
 			{
 				if (chance < drop.getValue())

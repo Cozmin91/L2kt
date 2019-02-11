@@ -61,7 +61,7 @@ public class CastleTeleportZone extends ZoneType
 			return;
 		
 		for (Player player : getKnownTypeInside(Player.class))
-			player.teleToLocation(Rnd.get(_spawnLoc[0], _spawnLoc[1]), Rnd.get(_spawnLoc[2], _spawnLoc[3]), _spawnLoc[4], 0);
+			player.teleToLocation(Rnd.INSTANCE.get(_spawnLoc[0], _spawnLoc[1]), Rnd.INSTANCE.get(_spawnLoc[2], _spawnLoc[3]), _spawnLoc[4], 0);
 	}
 	
 	public int getCastleId()

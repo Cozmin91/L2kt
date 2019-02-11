@@ -47,7 +47,7 @@ public class FishData implements IXmlReader
 	 */
 	public Fish getFish(int lvl, int type, int group)
 	{
-		return Rnd.get(_fish.stream().filter(f -> f.getLevel() == lvl && f.getType() == type && f.getGroup() == group).collect(Collectors.toList()));
+		return Rnd.INSTANCE.get(_fish.stream().filter(f -> f.getLevel() == lvl && f.getType() == type && f.getGroup() == group).collect(Collectors.toList()));
 	}
 	
 	public static FishData getInstance()

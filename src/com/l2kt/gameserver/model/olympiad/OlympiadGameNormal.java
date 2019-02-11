@@ -53,12 +53,12 @@ abstract public class OlympiadGameNormal extends AbstractOlympiadGame
 		
 		while (list.size() > 1)
 		{
-			playerOneObjectId = list.remove(Rnd.get(list.size()));
+			playerOneObjectId = list.remove(Rnd.INSTANCE.get(list.size()));
 			playerOne = World.getInstance().getPlayer(playerOneObjectId);
 			if (playerOne == null || !playerOne.isOnline())
 				continue;
 			
-			playerTwo = World.getInstance().getPlayer(list.remove(Rnd.get(list.size())));
+			playerTwo = World.getInstance().getPlayer(list.remove(Rnd.INSTANCE.get(list.size())));
 			if (playerTwo == null || !playerTwo.isOnline())
 			{
 				list.add(playerOneObjectId);

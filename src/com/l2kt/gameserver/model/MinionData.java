@@ -67,7 +67,7 @@ public class MinionData
 	{
 		if (_minionAmountMax > _minionAmountMin)
 		{
-			_minionAmount = Rnd.get(_minionAmountMin, _minionAmountMax);
+			_minionAmount = Rnd.INSTANCE.get(_minionAmountMin, _minionAmountMax);
 			return _minionAmount;
 		}
 		

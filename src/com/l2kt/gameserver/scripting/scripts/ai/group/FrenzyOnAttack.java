@@ -20,7 +20,7 @@ import com.l2kt.gameserver.scripting.scripts.ai.L2AttackableAIScript;
  */
 public class FrenzyOnAttack extends L2AttackableAIScript
 {
-	private static final L2Skill ULTIMATE_BUFF = SkillTable.getInstance().getInfo(4318, 1);
+	private static final L2Skill ULTIMATE_BUFF = SkillTable.INSTANCE.getInfo(4318, 1);
 	
 	private static final String[] ORCS_WORDS =
 	{
@@ -45,9 +45,9 @@ public class FrenzyOnAttack extends L2AttackableAIScript
 	public String onAttack(Npc npc, Creature attacker, int damage, L2Skill skill)
 	{
 		// The only requirements are HPs < 25% and not already under the buff. It's not 100% aswell.
-		if (npc.getCurrentHp() / npc.getMaxHp() < 0.25 && npc.getFirstEffect(ULTIMATE_BUFF) == null && Rnd.get(10) == 0)
+		if (npc.getCurrentHp() / npc.getMaxHp() < 0.25 && npc.getFirstEffect(ULTIMATE_BUFF) == null && Rnd.INSTANCE.get(10) == 0)
 		{
-			npc.broadcastNpcSay(Rnd.get(ORCS_WORDS));
+			npc.broadcastNpcSay(Rnd.INSTANCE.get(ORCS_WORDS));
 			npc.setTarget(npc);
 			npc.doCast(ULTIMATE_BUFF);
 		}

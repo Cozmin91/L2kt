@@ -115,7 +115,7 @@ public class Q352_HelpRoodRaiseANewPet extends Quest
 			return null;
 		
 		final int npcId = npc.getNpcId();
-		final int random = Rnd.get(100);
+		final int random = Rnd.INSTANCE.get(100);
 		final int chance = (npcId == 20786 || npcId == 21644) ? 44 : 58;
 		
 		if (random < chance)

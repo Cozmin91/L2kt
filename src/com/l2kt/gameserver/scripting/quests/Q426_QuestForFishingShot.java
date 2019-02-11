@@ -413,7 +413,7 @@ public class Q426_QuestForFishingShot extends Quest
 			drop = MOBSspecial.get(npcId)[1];
 		}
 		
-		if (Rnd.get(1000) <= chance)
+		if (Rnd.INSTANCE.get(1000) <= chance)
 			drop++;
 		
 		if (drop != 0)
