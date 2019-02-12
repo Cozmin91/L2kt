@@ -655,7 +655,7 @@ public abstract class Creature extends WorldObject
 			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null));
 			
 			// Calculate physical damages
-			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.soulshot);
+			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.getSoulshot());
 		}
 		
 		// Get the Attack Reuse Delay of the Weapon
@@ -674,7 +674,7 @@ public abstract class Creature extends WorldObject
 		}
 		
 		// Create a new hit task with Medium priority
-		ThreadPool.schedule(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk);
+		ThreadPool.schedule(new HitTask(target, damage1, crit1, miss1, attack.getSoulshot(), shld1), sAtk);
 		
 		// Calculate and set the disable delay of the bow in function of the Attack Speed
 		_disableBowAttackEndTime += (sAtk + reuse);
@@ -726,7 +726,7 @@ public abstract class Creature extends WorldObject
 			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null));
 			
 			// Calculate physical damages of hit 1
-			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.soulshot);
+			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.getSoulshot());
 			damage1 /= 2;
 		}
 		
@@ -740,15 +740,15 @@ public abstract class Creature extends WorldObject
 			crit2 = Formulas.calcCrit(getStat().getCriticalHit(target, null));
 			
 			// Calculate physical damages of hit 2
-			damage2 = (int) Formulas.calcPhysDam(this, target, null, shld2, crit2, attack.soulshot);
+			damage2 = (int) Formulas.calcPhysDam(this, target, null, shld2, crit2, attack.getSoulshot());
 			damage2 /= 2;
 		}
 		
 		// Create a new hit task with Medium priority for hit 1
-		ThreadPool.schedule(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk / 2);
+		ThreadPool.schedule(new HitTask(target, damage1, crit1, miss1, attack.getSoulshot(), shld1), sAtk / 2);
 		
 		// Create a new hit task with Medium priority for hit 2 with a higher delay
-		ThreadPool.schedule(new HitTask(target, damage2, crit2, miss2, attack.soulshot, shld2), sAtk);
+		ThreadPool.schedule(new HitTask(target, damage2, crit2, miss2, attack.getSoulshot(), shld2), sAtk);
 		
 		// Add those hits to the Server-Client packet Attack
 		attack.hit(attack.createHit(target, damage1, miss1, crit1, shld1), attack.createHit(target, damage2, miss2, crit2, shld2));
@@ -867,14 +867,14 @@ public abstract class Creature extends WorldObject
 			crit1 = Formulas.calcCrit(getStat().getCriticalHit(target, null));
 			
 			// Calculate physical damages
-			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.soulshot);
+			damage1 = (int) Formulas.calcPhysDam(this, target, null, shld1, crit1, attack.getSoulshot());
 			
 			if (attackpercent != 100)
 				damage1 = (int) (damage1 * attackpercent / 100);
 		}
 		
 		// Create a new hit task with Medium priority
-		ThreadPool.schedule(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk);
+		ThreadPool.schedule(new HitTask(target, damage1, crit1, miss1, attack.getSoulshot(), shld1), sAtk);
 		
 		// Add this hit to the Server-Client packet Attack
 		attack.hit(attack.createHit(target, damage1, miss1, crit1, shld1));

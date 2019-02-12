@@ -5,7 +5,7 @@ import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
 
 class RequestExOustFromMPCC : L2GameClientPacket() {
-    private var _name: String? = null
+    private var _name: String = ""
 
     override fun readImpl() {
         _name = readS()

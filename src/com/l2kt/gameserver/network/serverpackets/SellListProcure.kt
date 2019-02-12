@@ -3,15 +3,13 @@ package com.l2kt.gameserver.network.serverpackets
 import com.l2kt.gameserver.data.manager.CastleManorManager
 import com.l2kt.gameserver.model.actor.instance.Player
 import com.l2kt.gameserver.model.item.instance.ItemInstance
-import java.util.*
 
 class SellListProcure(player: Player, castleId: Int) : L2GameServerPacket() {
-    private val _sellList: MutableMap<ItemInstance, Int>
+    private val _sellList: MutableMap<ItemInstance, Int> = mutableMapOf()
 
     private val _money: Int = player.adena
 
     init {
-        _sellList = HashMap()
 
         for (c in CastleManorManager.getInstance().getCropProcure(castleId, false)) {
             val item = player.inventory!!.getItemByItemId(c.id)

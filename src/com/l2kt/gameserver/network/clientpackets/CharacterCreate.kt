@@ -18,7 +18,7 @@ import com.l2kt.gameserver.network.serverpackets.CharSelectInfo
 import com.l2kt.gameserver.scripting.Quest
 
 class CharacterCreate : L2GameClientPacket() {
-    private var _name: String? = null
+    private var _name: String = ""
     private var _race: Int = 0
     private var _sex: Byte = 0
     private var _classId: Int = 0
@@ -74,8 +74,8 @@ class CharacterCreate : L2GameClientPacket() {
         }
 
         // Invalid name length, or name typo.
-        if (!StringUtil.isValidString(_name!!, "^[A-Za-z0-9]{3,16}$")) {
-            sendPacket(if (_name!!.length > 16) CharCreateFail.REASON_16_ENG_CHARS else CharCreateFail.REASON_INCORRECT_NAME)
+        if (!StringUtil.isValidString(_name, "^[A-Za-z0-9]{3,16}$")) {
+            sendPacket(if (_name.length > 16) CharCreateFail.REASON_16_ENG_CHARS else CharCreateFail.REASON_INCORRECT_NAME)
             return
         }
 

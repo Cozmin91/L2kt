@@ -5,7 +5,7 @@ import com.l2kt.gameserver.network.SystemMessageId
 
 class RequestMakeMacro : L2GameClientPacket() {
 
-    private var _macro: L2Macro? = null
+    private lateinit var _macro: L2Macro
     private var _commandsLenght = 0
 
     override fun readImpl() {

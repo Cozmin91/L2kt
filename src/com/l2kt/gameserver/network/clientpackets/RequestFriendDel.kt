@@ -9,7 +9,7 @@ import com.l2kt.gameserver.network.serverpackets.SystemMessage
 
 class RequestFriendDel : L2GameClientPacket() {
 
-    private var _name: String? = null
+    private var _name: String = ""
 
     override fun readImpl() {
         _name = readS()
@@ -22,7 +22,7 @@ class RequestFriendDel : L2GameClientPacket() {
         if (friendId == -1 || !player.friendList.contains(friendId)) {
             player.sendPacket(
                 SystemMessage.getSystemMessage(SystemMessageId.S1_NOT_ON_YOUR_FRIENDS_LIST).addString(
-                    _name!!
+                    _name
                 )
             )
             return
@@ -31,7 +31,7 @@ class RequestFriendDel : L2GameClientPacket() {
         // Player deleted from your friendlist
         player.sendPacket(
             SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST).addString(
-                _name!!
+                _name
             )
         )
 

@@ -9,7 +9,7 @@ import java.sql.SQLException
 
 class RequestChangePetName : L2GameClientPacket() {
 
-    private lateinit var _name: String
+    private var _name: String = ""
 
     override fun readImpl() {
         _name = readS()

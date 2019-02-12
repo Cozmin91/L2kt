@@ -7,7 +7,7 @@ import com.l2kt.gameserver.network.serverpackets.PledgeShowMemberListDelete
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
 
 class RequestOustPledgeMember : L2GameClientPacket() {
-    private var _target: String? = null
+    private var _target: String = ""
 
     override fun readImpl() {
         _target = readS()

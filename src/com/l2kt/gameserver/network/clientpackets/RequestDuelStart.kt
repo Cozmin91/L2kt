@@ -6,7 +6,7 @@ import com.l2kt.gameserver.network.serverpackets.ExDuelAskStart
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
 
 class RequestDuelStart : L2GameClientPacket() {
-    private var _player: String? = null
+    private var _player: String = ""
     private var _partyDuel: Int = 0
 
     override fun readImpl() {

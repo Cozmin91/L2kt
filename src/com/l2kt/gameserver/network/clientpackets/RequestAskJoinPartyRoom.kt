@@ -6,7 +6,7 @@ import com.l2kt.gameserver.network.serverpackets.ExAskJoinPartyRoom
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
 
 class RequestAskJoinPartyRoom : L2GameClientPacket() {
-    private var _name: String? = null
+    private var _name: String = ""
 
     override fun readImpl() {
         _name = readS()

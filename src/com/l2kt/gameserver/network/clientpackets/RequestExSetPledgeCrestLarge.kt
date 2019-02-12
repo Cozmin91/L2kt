@@ -7,7 +7,7 @@ import com.l2kt.gameserver.network.SystemMessageId
 
 class RequestExSetPledgeCrestLarge : L2GameClientPacket() {
     private var _length: Int = 0
-    private var _data: ByteArray? = null
+    private lateinit var _data: ByteArray
 
     override fun readImpl() {
         _length = readD()

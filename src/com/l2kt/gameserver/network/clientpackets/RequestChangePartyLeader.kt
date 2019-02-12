@@ -3,7 +3,7 @@ package com.l2kt.gameserver.network.clientpackets
 import com.l2kt.gameserver.network.SystemMessageId
 
 class RequestChangePartyLeader : L2GameClientPacket() {
-    private var _name: String? = null
+    private var _name: String = ""
 
     override fun readImpl() {
         _name = readS()

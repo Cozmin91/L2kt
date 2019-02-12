@@ -16,7 +16,7 @@ import com.l2kt.gameserver.network.serverpackets.SystemMessage
 class RequestBuyItem : L2GameClientPacket() {
 
     private var _listId: Int = 0
-    private lateinit var _items: Array<IntIntHolder?>
+    private var _items: MutableList<IntIntHolder> = mutableListOf()
 
     override fun readImpl() {
         _listId = readD()
@@ -24,22 +24,21 @@ class RequestBuyItem : L2GameClientPacket() {
         if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != _buf.remaining())
             return
 
-        _items = arrayOfNulls(count)
         for (i in 0 until count) {
             val itemId = readD()
             val cnt = readD()
 
             if (itemId < 1 || cnt < 1) {
-                _items = emptyArray()
+                _items = mutableListOf()
                 return
             }
 
-            _items[i] = IntIntHolder(itemId, cnt)
+            _items.add(i, IntIntHolder(itemId, cnt))
         }
     }
 
     override fun runImpl() {
-        if (_items.isNullOrEmpty())
+        if (_items.isEmpty())
             return
 
         val player = client.activeChar ?: return
@@ -67,8 +66,8 @@ class RequestBuyItem : L2GameClientPacket() {
         var slots = 0
         var weight = 0
 
-        for (i in _items.filterNotNull()) {
-            var price = -1
+        for (i in _items) {
+            var price: Int
 
             val product = buyList.getProductByItemId(i.id) ?: return
 
@@ -127,7 +126,7 @@ class RequestBuyItem : L2GameClientPacket() {
         }
 
         // Proceed the purchase
-        for (i in _items.filterNotNull()) {
+        for (i in _items) {
             val product = buyList.getProductByItemId(i.id) ?: continue
 
             if (product.hasLimitedStock()) {

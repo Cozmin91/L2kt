@@ -16,7 +16,7 @@ import java.util.*
 class RequestBuySeed : L2GameClientPacket() {
 
     private var _manorId: Int = 0
-    private lateinit var _items: MutableList<IntIntHolder>
+    private var _items: MutableList<IntIntHolder> = mutableListOf()
 
     override fun readImpl() {
         _manorId = readD()
@@ -25,7 +25,6 @@ class RequestBuySeed : L2GameClientPacket() {
         if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != _buf.remaining())
             return
 
-        _items = ArrayList(count)
         for (i in 0 until count) {
             val itemId = readD()
             val cnt = readD()
@@ -35,7 +34,7 @@ class RequestBuySeed : L2GameClientPacket() {
                 return
             }
 
-            _items.add(IntIntHolder(itemId, cnt))
+            _items.add(i, IntIntHolder(itemId, cnt))
         }
     }
 
@@ -74,7 +73,7 @@ class RequestBuySeed : L2GameClientPacket() {
 
         val _productInfo = HashMap<Int, SeedProduction>()
 
-        for (ih in _items!!) {
+        for (ih in _items) {
             val sp = manor.getSeedProduct(_manorId, ih.id, false)
             if (sp == null || sp.price <= 0 || sp.amount < ih.value || Integer.MAX_VALUE / ih.value < sp.price) {
                 sendPacket(ActionFailed.STATIC_PACKET)

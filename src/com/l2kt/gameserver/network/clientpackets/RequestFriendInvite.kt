@@ -7,7 +7,7 @@ import com.l2kt.gameserver.network.serverpackets.FriendAddRequest
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
 
 class RequestFriendInvite : L2GameClientPacket() {
-    private var _name: String? = null
+    private var _name: String = ""
 
     override fun readImpl() {
         _name = readS()
@@ -45,7 +45,7 @@ class RequestFriendInvite : L2GameClientPacket() {
             // Player already is in your friendlist
             activeChar.sendPacket(
                 SystemMessage.getSystemMessage(SystemMessageId.S1_ALREADY_IN_FRIENDS_LIST).addString(
-                    _name!!
+                    _name
                 )
             )
             return
@@ -61,6 +61,6 @@ class RequestFriendInvite : L2GameClientPacket() {
             )
             friend.sendPacket(FriendAddRequest(activeChar.name))
         } else
-            activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER).addString(_name!!))
+            activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER).addString(_name))
     }
 }

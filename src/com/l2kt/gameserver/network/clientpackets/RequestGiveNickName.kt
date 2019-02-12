@@ -6,8 +6,8 @@ import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
 
 class RequestGiveNickName : L2GameClientPacket() {
-    private var _target: String? = null
-    private var _title: String? = null
+    private var _target: String = ""
+    private var _title: String = ""
 
     override fun readImpl() {
         _target = readS()
@@ -17,13 +17,13 @@ class RequestGiveNickName : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        if (!StringUtil.isValidString(_title!!, "^[a-zA-Z0-9 !@#$&()\\-`.+,/\"]*{0,16}$")) {
+        if (!StringUtil.isValidString(_title, "^[a-zA-Z0-9 !@#$&()\\-`.+,/\"]*{0,16}$")) {
             activeChar.sendPacket(SystemMessageId.NOT_WORKING_PLEASE_TRY_AGAIN_LATER)
             return
         }
 
         // Noblesse can bestow a title to themselves
-        if (activeChar.isNoble && _target!!.matches(activeChar.name.toRegex())) {
+        if (activeChar.isNoble && _target.matches(activeChar.name.toRegex())) {
             activeChar.title = _title
             activeChar.sendPacket(SystemMessageId.TITLE_CHANGED)
             activeChar.broadcastTitleInfo()
@@ -50,7 +50,7 @@ class RequestGiveNickName : L2GameClientPacket() {
                         activeChar.sendPacket(
                             SystemMessage.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_TITLE_CHANGED_TO_S2).addCharName(
                                 playerMember
-                            ).addString(_title!!)
+                            ).addString(_title)
                         )
 
                     playerMember.broadcastTitleInfo()

@@ -6,7 +6,7 @@ import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage
  * @author zabbix Lets drink to code!
  */
 class RequestLinkHtml : L2GameClientPacket() {
-    private var _link: String? = null
+    private var _link: String = ""
 
     override fun readImpl() {
         _link = readS()
@@ -15,11 +15,11 @@ class RequestLinkHtml : L2GameClientPacket() {
     public override fun runImpl() {
         client.activeChar ?: return
 
-        if (_link!!.contains("..") || !_link!!.contains(".htm"))
+        if (_link.contains("..") || !_link.contains(".htm"))
             return
 
         val html = NpcHtmlMessage(0)
-        html.setFile(_link!!)
+        html.setFile(_link)
         sendPacket(html)
     }
 }

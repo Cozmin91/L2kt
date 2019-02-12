@@ -6,7 +6,7 @@ import com.l2kt.gameserver.network.SystemMessageId
 
 class RequestBlock : L2GameClientPacket() {
 
-    private var _name: String? = null
+    private var _name: String = ""
     private var _type: Int = 0
 
     override fun readImpl() {

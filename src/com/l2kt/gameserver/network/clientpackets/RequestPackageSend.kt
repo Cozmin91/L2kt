@@ -8,10 +8,9 @@ import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.InventoryUpdate
 import com.l2kt.gameserver.network.serverpackets.StatusUpdate
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
-import java.util.*
 
 class RequestPackageSend : L2GameClientPacket() {
-    private var _items: MutableList<IntIntHolder>? = null
+    private var _items: MutableList<IntIntHolder> = mutableListOf()
     private var _objectID: Int = 0
 
     override fun readImpl() {
@@ -21,18 +20,16 @@ class RequestPackageSend : L2GameClientPacket() {
         if (count < 0 || count > Config.MAX_ITEM_IN_PACKET)
             return
 
-        _items = ArrayList(count)
-
         for (i in 0 until count) {
             val id = readD()
             val cnt = readD()
 
-            _items!!.add(IntIntHolder(id, cnt))
+            _items.add(i, IntIntHolder(id, cnt))
         }
     }
 
     override fun runImpl() {
-        if (_items == null || _items!!.isEmpty() || !Config.ALLOW_FREIGHT)
+        if (_items.isEmpty() || !Config.ALLOW_FREIGHT)
             return
 
         val player = client.activeChar ?: return
@@ -60,11 +57,11 @@ class RequestPackageSend : L2GameClientPacket() {
             return
 
         // Freight price from config or normal price per item slot (30)
-        val fee = _items!!.size * Config.ALT_GAME_FREIGHT_PRICE
+        val fee = _items.size * Config.ALT_GAME_FREIGHT_PRICE
         var currentAdena = player.adena
         var slots = 0
 
-        for (i in _items!!) {
+        for (i in _items) {
             val count = i.value
 
             // Check validity of requested item

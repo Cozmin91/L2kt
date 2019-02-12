@@ -5,7 +5,7 @@ import com.l2kt.gameserver.model.World
 import com.l2kt.gameserver.network.serverpackets.*
 
 class RequestGMCommand : L2GameClientPacket() {
-    private lateinit var _targetName: String
+    private var _targetName: String = ""
     private var _command: Int = 0
 
     override fun readImpl() {

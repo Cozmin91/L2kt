@@ -18,14 +18,14 @@ import java.util.logging.Logger
 
 class RequestBypassToServer : L2GameClientPacket() {
 
-    private var _command: String? = null
+    private var _command: String = ""
 
     override fun readImpl() {
         _command = readS()
     }
 
     override fun runImpl() {
-        if (_command.isNullOrEmpty())
+        if (_command.isEmpty())
             return
 
         if (!FloodProtectors.performAction(client, FloodProtectors.Action.SERVER_BYPASS))
@@ -33,8 +33,8 @@ class RequestBypassToServer : L2GameClientPacket() {
 
         val player = client.activeChar ?: return
 
-        if (_command!!.startsWith("admin_")) {
-            val command = _command!!.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
+        if (_command.startsWith("admin_")) {
+            val command = _command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
 
             val ach = AdminCommandHandler.getInstance().getHandler(command)
             if (ach == null) {
@@ -59,8 +59,8 @@ class RequestBypassToServer : L2GameClientPacket() {
                 GMAUDIT_LOG.info(player.name + " [" + player.objectId + "] used '" + _command + "' command on: " + if (player.target != null) player.target.name else "none")
 
             ach.useAdminCommand(_command, player)
-        } else if (_command!!.startsWith("player_help ")) {
-            val path = _command!!.substring(12)
+        } else if (_command.startsWith("player_help ")) {
+            val path = _command.substring(12)
             if (path.indexOf("..") != -1)
                 return
 
@@ -73,47 +73,47 @@ class RequestBypassToServer : L2GameClientPacket() {
                 html.setItemId(Integer.parseInt(cmd[1]))
             html.disableValidation()
             player.sendPacket(html)
-        } else if (_command!!.startsWith("npc_")) {
+        } else if (_command.startsWith("npc_")) {
             if (!player.validateBypass(_command))
                 return
 
-            val endOfId = _command!!.indexOf('_', 5)
+            val endOfId = _command.indexOf('_', 5)
             val id: String
             id = if (endOfId > 0)
-                _command!!.substring(4, endOfId)
+                _command.substring(4, endOfId)
             else
-                _command!!.substring(4)
+                _command.substring(4)
 
             try {
                 val `object` = World.getInstance().getObject(Integer.parseInt(id))
 
                 if (`object` != null && `object` is Npc && endOfId > 0 && `object`.canInteract(player))
-                    `object`.onBypassFeedback(player, _command!!.substring(endOfId + 1))
+                    `object`.onBypassFeedback(player, _command.substring(endOfId + 1))
 
                 player.sendPacket(ActionFailed.STATIC_PACKET)
             } catch (nfe: NumberFormatException) {
             }
 
-        } else if (_command!!.startsWith("manor_menu_select?")) {
+        } else if (_command.startsWith("manor_menu_select?")) {
             val `object` = player.target
             if (`object` is Npc)
                 `object`.onBypassFeedback(player, _command)
-        } else if (_command!!.startsWith("bbs_") || _command!!.startsWith("_bbs") || _command!!.startsWith("_friend") || _command!!.startsWith(
+        } else if (_command.startsWith("bbs_") || _command.startsWith("_bbs") || _command.startsWith("_friend") || _command.startsWith(
                 "_mail"
-            ) || _command!!.startsWith("_block")
+            ) || _command.startsWith("_block")
         ) {
             CommunityBoard.getInstance().handleCommands(client, _command)
-        } else if (_command!!.startsWith("Quest ")) {
+        } else if (_command.startsWith("Quest ")) {
             if (!player.validateBypass(_command))
                 return
 
-            val str = _command!!.substring(6).trim { it <= ' ' }.split(" ".toRegex(), 2).toTypedArray()
+            val str = _command.substring(6).trim { it <= ' ' }.split(" ".toRegex(), 2).toTypedArray()
             if (str.size == 1)
                 player.processQuestEvent(str[0], "")
             else
                 player.processQuestEvent(str[0], str[1])
-        } else if (_command!!.startsWith("_match")) {
-            val params = _command!!.substring(_command!!.indexOf("?") + 1)
+        } else if (_command.startsWith("_match")) {
+            val params = _command.substring(_command.indexOf("?") + 1)
             val st = StringTokenizer(params, "&")
             val heroclass =
                 Integer.parseInt(st.nextToken().split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
@@ -132,7 +132,7 @@ class RequestBypassToServer : L2GameClientPacket() {
             val heroid = Hero.getInstance().getHeroByClass(heroclass)
             if (heroid > 0)
                 Hero.getInstance().showHeroDiary(player, heroclass, heroid, heropage)
-        } else if (_command!!.startsWith("arenachange"))
+        } else if (_command.startsWith("arenachange"))
         // change
         {
             val isManager = player.currentFolk is OlympiadManagerNpc

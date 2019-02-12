@@ -6,14 +6,14 @@ import com.l2kt.gameserver.model.pledge.Clan
 import com.l2kt.gameserver.network.SystemMessageId
 
 class AllyDismiss : L2GameClientPacket() {
-    private var _clanName: String? = null
+    private var _clanName: String = ""
 
     override fun readImpl() {
         _clanName = readS()
     }
 
     override fun runImpl() {
-        if (_clanName == null)
+        if (_clanName.isEmpty())
             return
 
         val player = client.activeChar ?: return
