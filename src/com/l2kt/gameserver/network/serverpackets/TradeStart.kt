@@ -14,7 +14,7 @@ class TradeStart(private val _activeChar: Player) : L2GameServerPacket() {
             return
 
         writeC(0x1E)
-        writeD(_activeChar.activeTradeList.partner.objectId)
+        writeD(_activeChar.activeTradeList.partner!!.objectId)
         writeH(_itemList.size)
 
         for (temp in _itemList) {

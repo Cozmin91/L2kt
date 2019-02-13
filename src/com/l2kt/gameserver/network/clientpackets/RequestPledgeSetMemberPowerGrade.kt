@@ -31,7 +31,7 @@ class RequestPledgeSetMemberPowerGrade : L2GameClientPacket() {
         member.powerGrade = _powerGrade
         clan.broadcastToOnlineMembers(
             PledgeShowMemberListUpdate(member),
-            SystemMessage.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_PRIVILEGE_CHANGED_TO_S2).addString(member.name).addNumber(
+            SystemMessage.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_PRIVILEGE_CHANGED_TO_S2).addString(member.name!!).addNumber(
                 _powerGrade
             )
         )

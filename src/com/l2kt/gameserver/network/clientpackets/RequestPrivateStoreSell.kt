@@ -10,15 +10,13 @@ import com.l2kt.gameserver.network.SystemMessageId
 class RequestPrivateStoreSell : L2GameClientPacket() {
 
     private var _storePlayerId: Int = 0
-    private lateinit var _items: Array<ItemRequest?>
+    private var _items: MutableList<ItemRequest> = mutableListOf()
 
     override fun readImpl() {
         _storePlayerId = readD()
         val count = readD()
         if (count <= 0 || count > Config.MAX_ITEM_IN_PACKET || count * BATCH_LENGTH != _buf.remaining())
             return
-
-        _items = arrayOfNulls(count)
 
         for (i in 0 until count) {
             val objectId = readD()
@@ -29,7 +27,7 @@ class RequestPrivateStoreSell : L2GameClientPacket() {
             val price = readD()
 
             if (objectId < 1 || itemId < 1 || cnt < 1 || price < 0) {
-                _items = emptyArray()
+                _items = mutableListOf()
                 return
             }
             _items[i] = ItemRequest(objectId, itemId, cnt.toInt(), price)

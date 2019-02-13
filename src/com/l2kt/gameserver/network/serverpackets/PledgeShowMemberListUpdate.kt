@@ -33,8 +33,8 @@ class PledgeShowMemberListUpdate : L2GameServerPacket {
         _hasSponsor = if (member.sponsor != 0 || member.apprentice != 0) 1 else 0
 
         if (_isOnline != 0) {
-            _race = member.playerInstance.race.ordinal
-            _sex = member.playerInstance.appearance.sex.ordinal
+            _race = member.playerInstance!!.race.ordinal
+            _sex = member.playerInstance!!.appearance.sex.ordinal
         } else {
             _sex = 0
             _race = 0

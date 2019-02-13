@@ -23,7 +23,7 @@ public class ChatAll implements IChatHandler
 		final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 		for (Player player : activeChar.getKnownTypeInRadius(Player.class, 1250))
 		{
-			if (!BlockList.isBlocked(player, activeChar))
+			if (!BlockList.Companion.isBlocked(player, activeChar))
 				player.sendPacket(cs);
 		}
 		activeChar.sendPacket(cs);

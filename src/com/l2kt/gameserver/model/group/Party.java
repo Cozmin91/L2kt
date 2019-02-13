@@ -174,7 +174,7 @@ public class Party extends AbstractGroup
 	{
 		for (Player member : _members)
 		{
-			if (!BlockList.isBlocked(member, broadcaster))
+			if (!BlockList.Companion.isBlocked(member, broadcaster))
 				member.sendPacket(msg);
 		}
 	}

@@ -29,12 +29,12 @@ class RequestOustPledgeMember : L2GameClientPacket() {
             return
         }
 
-        if (player.name.equals(_target!!, ignoreCase = true)) {
+        if (player.name.equals(_target, ignoreCase = true)) {
             player.sendPacket(SystemMessageId.YOU_CANNOT_DISMISS_YOURSELF)
             return
         }
 
-        if (member.isOnline && member.playerInstance.isInCombat) {
+        if (member.isOnline && member.playerInstance != null && member.playerInstance!!.isInCombat) {
             player.sendPacket(SystemMessageId.CLAN_MEMBER_CANNOT_BE_DISMISSED_DURING_COMBAT)
             return
         }
@@ -52,13 +52,13 @@ class RequestOustPledgeMember : L2GameClientPacket() {
 
         clan.broadcastToOnlineMembers(
             SystemMessage.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_EXPELLED).addString(
-                member.name
+                member.name ?: ""
             )
         )
         player.sendPacket(SystemMessageId.YOU_HAVE_SUCCEEDED_IN_EXPELLING_CLAN_MEMBER)
         player.sendPacket(SystemMessageId.YOU_MUST_WAIT_BEFORE_ACCEPTING_A_NEW_MEMBER)
 
         if (member.isOnline)
-            member.playerInstance.sendPacket(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED)
+            member.playerInstance?.sendPacket(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED)
     }
 }

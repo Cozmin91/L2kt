@@ -39,7 +39,7 @@ public class ChatTell implements IChatHandler
 			return;
 		}
 		
-		if (!activeChar.isGM() && (receiver.isInRefusalMode() || BlockList.isBlocked(receiver, activeChar)))
+		if (!activeChar.isGM() && (receiver.isInRefusalMode() || BlockList.Companion.isBlocked(receiver, activeChar)))
 		{
 			activeChar.sendPacket(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);
 			return;

@@ -49,7 +49,7 @@ class AddTradeItem : L2GameClientPacket() {
         if (item != null) {
             player.sendPacket(TradeOwnAdd(item))
             player.sendPacket(TradeItemUpdate(trade, player))
-            trade.partner.sendPacket(TradeOtherAdd(item))
+            trade.partner?.sendPacket(TradeOtherAdd(item))
         }
     }
 }

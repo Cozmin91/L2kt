@@ -50,13 +50,13 @@ class RequestMakeMacro : L2GameClientPacket() {
         }
 
         // Enter the name of the macro.
-        if (_macro!!.name.isEmpty()) {
+        if (_macro.name.isEmpty()) {
             player.sendPacket(SystemMessageId.ENTER_THE_MACRO_NAME)
             return
         }
 
         // Macro descriptions may contain up to 32 characters.
-        if (_macro!!.descr.length > 32) {
+        if (_macro.descr.length > 32) {
             player.sendPacket(SystemMessageId.MACRO_DESCRIPTION_MAX_32_CHARS)
             return
         }
@@ -65,6 +65,6 @@ class RequestMakeMacro : L2GameClientPacket() {
     }
 
     companion object {
-        private val MAX_MACRO_LENGTH = 12
+        private const val MAX_MACRO_LENGTH = 12
     }
 }

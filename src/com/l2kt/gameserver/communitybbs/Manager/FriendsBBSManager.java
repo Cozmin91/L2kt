@@ -154,7 +154,7 @@ public class FriendsBBSManager extends BaseBBSManager
 				list.addAll(player.getBlockList().getBlockList());
 				
 				for (Integer blockId : list)
-					BlockList.removeFromBlockList(player, blockId);
+					BlockList.Companion.removeFromBlockList(player, blockId);
 				
 				player.getSelectedBlocksList().clear();
 				showBlockList(player, false);
@@ -164,7 +164,7 @@ public class FriendsBBSManager extends BaseBBSManager
 			else if (action.equals("del"))
 			{
 				for (Integer blockId : player.getSelectedBlocksList())
-					BlockList.removeFromBlockList(player, blockId);
+					BlockList.Companion.removeFromBlockList(player, blockId);
 				
 				player.getSelectedBlocksList().clear();
 				showBlockList(player, false);

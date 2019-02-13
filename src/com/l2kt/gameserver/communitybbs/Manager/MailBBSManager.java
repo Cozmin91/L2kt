@@ -613,7 +613,7 @@ public class MailBBSManager extends BaseBBSManager
 		{
 			if (playerToTest.getObjectId() == objectId)
 			{
-				if (BlockList.isInBlockList(playerToTest, player))
+				if (BlockList.Companion.isInBlockList(playerToTest, player))
 					return true;
 				
 				return false;

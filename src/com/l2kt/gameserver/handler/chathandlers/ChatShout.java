@@ -27,7 +27,7 @@ public class ChatShout implements IChatHandler
 		
 		for (Player player : World.getInstance().getPlayers())
 		{
-			if (!BlockList.isBlocked(player, activeChar) && region == MapRegionData.getInstance().getMapRegion(player.getX(), player.getY()))
+			if (!BlockList.Companion.isBlocked(player, activeChar) && region == MapRegionData.getInstance().getMapRegion(player.getX(), player.getY()))
 				player.sendPacket(cs);
 		}
 	}

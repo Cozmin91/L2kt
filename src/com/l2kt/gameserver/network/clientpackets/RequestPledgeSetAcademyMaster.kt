@@ -92,8 +92,8 @@ class RequestPledgeSetAcademyMaster : L2GameClientPacket() {
 
             sm = SystemMessage.getSystemMessage(SystemMessageId.S2_HAS_BEEN_DESIGNATED_AS_APPRENTICE_OF_CLAN_MEMBER_S1)
         }
-        sm.addString(sponsorMember.name)
-        sm.addString(apprenticeMember.name)
+        sm.addString(sponsorMember.name!!)
+        sm.addString(apprenticeMember.name!!)
 
         if (sponsor != activeChar && sponsor != apprentice)
             activeChar.sendPacket(sm)
