@@ -34,7 +34,7 @@ class RequestBypassToServer : L2GameClientPacket() {
         val player = client.activeChar ?: return
 
         if (_command.startsWith("admin_")) {
-            val command = _command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
+            val command = _command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()[0]
 
             val ach = AdminCommandHandler.getInstance().getHandler(command)
             if (ach == null) {
@@ -65,7 +65,7 @@ class RequestBypassToServer : L2GameClientPacket() {
                 return
 
             val st = StringTokenizer(path)
-            val cmd = st.nextToken().split("#".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val cmd = st.nextToken().split("#").dropLastWhile { it.isEmpty() }.toTypedArray()
 
             val html = NpcHtmlMessage(0)
             html.setFile("data/html/help/" + cmd[0])
@@ -102,7 +102,7 @@ class RequestBypassToServer : L2GameClientPacket() {
                 "_mail"
             ) || _command.startsWith("_block")
         ) {
-            CommunityBoard.getInstance().handleCommands(client, _command)
+            CommunityBoard.handleCommands(client, _command)
         } else if (_command.startsWith("Quest ")) {
             if (!player.validateBypass(_command))
                 return
@@ -116,9 +116,9 @@ class RequestBypassToServer : L2GameClientPacket() {
             val params = _command.substring(_command.indexOf("?") + 1)
             val st = StringTokenizer(params, "&")
             val heroclass =
-                Integer.parseInt(st.nextToken().split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
+                Integer.parseInt(st.nextToken().split("=").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
             val heropage =
-                Integer.parseInt(st.nextToken().split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
+                Integer.parseInt(st.nextToken().split("=").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
             val heroid = Hero.getInstance().getHeroByClass(heroclass)
             if (heroid > 0)
                 Hero.getInstance().showHeroFights(player, heroclass, heroid, heropage)
@@ -126,9 +126,9 @@ class RequestBypassToServer : L2GameClientPacket() {
             val params = _command.substring(_command.indexOf("?") + 1)
             val st = StringTokenizer(params, "&")
             val heroclass =
-                Integer.parseInt(st.nextToken().split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
+                Integer.parseInt(st.nextToken().split("=").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
             val heropage =
-                Integer.parseInt(st.nextToken().split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
+                Integer.parseInt(st.nextToken().split("=").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
             val heroid = Hero.getInstance().getHeroByClass(heroclass)
             if (heroid > 0)
                 Hero.getInstance().showHeroDiary(player, heroclass, heroid, heropage)

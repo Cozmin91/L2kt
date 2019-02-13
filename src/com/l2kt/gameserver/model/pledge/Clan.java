@@ -1,20 +1,12 @@
 package com.l2kt.gameserver.model.pledge;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.l2kt.Config;
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.commons.logging.CLogger;
 import com.l2kt.commons.math.MathUtil;
+import com.l2kt.gameserver.communitybbs.BB.Forum;
+import com.l2kt.gameserver.communitybbs.Manager.ForumsBBSManager;
 import com.l2kt.gameserver.data.SkillTable;
 import com.l2kt.gameserver.data.cache.CrestCache;
 import com.l2kt.gameserver.data.manager.CastleManager;
@@ -24,23 +16,16 @@ import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.entity.Castle;
 import com.l2kt.gameserver.model.entity.Siege;
-
-import com.l2kt.gameserver.communitybbs.BB.Forum;
-import com.l2kt.gameserver.communitybbs.Manager.ForumsBBSManager;
 import com.l2kt.gameserver.model.itemcontainer.ClanWarehouse;
 import com.l2kt.gameserver.model.itemcontainer.ItemContainer;
 import com.l2kt.gameserver.network.SystemMessageId;
-import com.l2kt.gameserver.network.serverpackets.ItemList;
-import com.l2kt.gameserver.network.serverpackets.L2GameServerPacket;
-import com.l2kt.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
-import com.l2kt.gameserver.network.serverpackets.PledgeShowInfoUpdate;
-import com.l2kt.gameserver.network.serverpackets.PledgeShowMemberListAll;
-import com.l2kt.gameserver.network.serverpackets.PledgeShowMemberListDeleteAll;
-import com.l2kt.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
-import com.l2kt.gameserver.network.serverpackets.PledgeSkillList;
-import com.l2kt.gameserver.network.serverpackets.PledgeSkillListAdd;
-import com.l2kt.gameserver.network.serverpackets.SystemMessage;
-import com.l2kt.gameserver.network.serverpackets.UserInfo;
+import com.l2kt.gameserver.network.serverpackets.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Clan system is one of the major features of the game. Clans unite players and let them influence the world of Lineage 2.<br>
@@ -459,12 +444,12 @@ public class Clan
 		
 		if (Config.ENABLE_COMMUNITY_BOARD && _level >= 2 && _forum == null)
 		{
-			final Forum forum = ForumsBBSManager.getInstance().getForumByName("ClanRoot");
+			final Forum forum = ForumsBBSManager.INSTANCE.getForumByName("ClanRoot");
 			if (forum != null)
 			{
 				_forum = forum.getChildByName(_name);
 				if (_forum == null)
-					_forum = ForumsBBSManager.getInstance().createNewForum(_name, forum, Forum.CLAN, Forum.CLANMEMBERONLY, _clanId);
+					_forum = ForumsBBSManager.INSTANCE.createNewForum(_name, forum, Forum.CLAN, Forum.CLANMEMBERONLY, _clanId);
 			}
 		}
 	}

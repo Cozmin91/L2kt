@@ -70,22 +70,22 @@ class NpcHtmlMessage(private val _npcObjId: Int) : L2GameServerPacket() {
     }
 
     fun basicReplace(pattern: String, value: String) {
-        _html = _html.replace(pattern.toRegex(), value)
+        _html = _html.replace(pattern, value)
     }
 
     fun replace(pattern: String, value: String) {
-        _html = _html.replace(pattern.toRegex(), value.replace("\\$".toRegex(), "\\\\\\$"))
+        _html = _html.replace(pattern, value.replace("\\$", "\\\\\\$"))
     }
 
     fun replace(pattern: String, value: Int) {
-        _html = _html.replace(pattern.toRegex(), Integer.toString(value))
+        _html = _html.replace(pattern, value.toString())
     }
 
     fun replace(pattern: String, value: Long) {
-        _html = _html.replace(pattern.toRegex(), java.lang.Long.toString(value))
+        _html = _html.replace(pattern, value.toString())
     }
 
     fun replace(pattern: String, value: Double) {
-        _html = _html.replace(pattern.toRegex(), java.lang.Double.toString(value))
+        _html = _html.replace(pattern, value.toString())
     }
 }

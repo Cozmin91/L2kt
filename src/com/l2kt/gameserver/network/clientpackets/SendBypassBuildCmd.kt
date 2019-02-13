@@ -16,7 +16,7 @@ class SendBypassBuildCmd : L2GameClientPacket() {
     override fun runImpl() {
         val player = client.activeChar ?: return
 
-        val command = "admin_" + _command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[0]
+        val command = "admin_" + _command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()[0]
 
         val ach = AdminCommandHandler.getInstance().getHandler(command)
         if (ach == null) {

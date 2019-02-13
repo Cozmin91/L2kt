@@ -11,6 +11,6 @@ class RequestShowBoard : L2GameClientPacket() {
     }
 
     override fun runImpl() {
-        CommunityBoard.getInstance().handleCommands(client, Config.BBS_DEFAULT)
+        CommunityBoard.handleCommands(client, Config.BBS_DEFAULT)
     }
 }

@@ -119,7 +119,7 @@ object GameServer {
 
         printSection("Community server")
         if (Config.ENABLE_COMMUNITY_BOARD)
-            ForumsBBSManager.getInstance().initRoot()
+            ForumsBBSManager.initRoot()
         else
             LOGGER.info("Community server is disabled.")
 
@@ -209,7 +209,7 @@ object GameServer {
 
         printSection("System")
         Runtime.getRuntime().addShutdownHook(Shutdown.instance)
-        ForumsBBSManager.getInstance()
+        ForumsBBSManager
 
         if (Config.DEADLOCK_DETECTOR) {
             LOGGER.info("Deadlock detector is enabled. Timer: {}s.", Config.DEADLOCK_CHECK_INTERVAL)

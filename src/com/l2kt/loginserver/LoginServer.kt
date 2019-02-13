@@ -123,15 +123,15 @@ object LoginServer {
 
         try {
             LineNumberReader(FileReader(banFile)).use { reader ->
-                reader.forEachLine {
-                    var line = it
+                reader.forEachLine { currentLine ->
+                    var line = currentLine
                     var parts: Array<String>
                     line = line.trim{ it <= ' ' }
                     if (line.isNotEmpty() && line[0] != '#') {
-                        parts = line.split("#".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        parts = line.split("#").dropLastWhile { it.isEmpty() }.toTypedArray()
 
                         line = parts[0]
-                        parts = line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        parts = line.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
 
                         val address = parts[0]
                         var duration: Long = 0

@@ -117,7 +117,7 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
 
                     var highScoreData = SevenSignsFestival.getInstance().getHighestScoreData(CabalType.DUSK, festivalId)
                     var partyMembers: MutableList<String> =
-                        highScoreData.getString("members").split(",".toRegex()).dropLastWhile { it.isEmpty() }.toMutableList()
+                        highScoreData.getString("members").split(",").dropLastWhile { it.isEmpty() }.toMutableList()
 
                     writeC(partyMembers.size)
 
@@ -129,7 +129,7 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
 
                     highScoreData = SevenSignsFestival.getInstance().getHighestScoreData(CabalType.DAWN, festivalId)
                     partyMembers =
-                            highScoreData.getString("members").split(",".toRegex()).dropLastWhile { it.isEmpty() }
+                            highScoreData.getString("members").split(",").dropLastWhile { it.isEmpty() }
                                 .toMutableList()
 
                     writeC(partyMembers.size)

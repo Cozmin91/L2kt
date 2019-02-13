@@ -38,9 +38,9 @@ class EffectZone(id: Int) : ZoneType(id) {
         else if (name == "defaultStatus")
             _isEnabled = java.lang.Boolean.parseBoolean(value)
         else if (name == "skill") {
-            val skills = value.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val skills = value.split(";").dropLastWhile { it.isEmpty() }.toTypedArray()
             for (skill in skills) {
-                val skillSplit = skill.split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val skillSplit = skill.split("-").dropLastWhile { it.isEmpty() }.toTypedArray()
                 if (skillSplit.size != 2)
                     ZoneType.LOGGER.warn("Invalid skill format {} for {}.", skill, toString())
                 else {

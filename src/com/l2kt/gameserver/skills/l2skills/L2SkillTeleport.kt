@@ -19,7 +19,7 @@ class L2SkillTeleport(set: StatsSet) : L2Skill(set) {
 
         val coords = set.getString("teleCoords", null)
         if (coords != null) {
-            val valuesSplit = coords.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val valuesSplit = coords.split(",").dropLastWhile { it.isEmpty() }.toTypedArray()
             _loc = Location(
                 Integer.parseInt(valuesSplit[0]),
                 Integer.parseInt(valuesSplit[1]),

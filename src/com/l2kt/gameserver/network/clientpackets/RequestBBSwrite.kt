@@ -24,6 +24,6 @@ class RequestBBSwrite : L2GameClientPacket() {
     }
 
     override fun runImpl() {
-        CommunityBoard.getInstance().handleWriteCommands(client, _url, _arg1, _arg2, _arg3, _arg4, _arg5)
+        CommunityBoard.handleWriteCommands(client, _url, _arg1, _arg2, _arg3, _arg4, _arg5)
     }
 }

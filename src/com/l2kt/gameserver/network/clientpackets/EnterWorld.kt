@@ -239,7 +239,7 @@ class EnterWorld : L2GameClientPacket() {
         player.sendPacket(QuestList(player))
 
         // Unread mails make a popup appears.
-        if (Config.ENABLE_COMMUNITY_BOARD && MailBBSManager.getInstance().checkUnreadMail(player) > 0) {
+        if (Config.ENABLE_COMMUNITY_BOARD && MailBBSManager.checkUnreadMail(player) > 0) {
             player.sendPacket(SystemMessageId.NEW_MAIL)
             player.sendPacket(PlaySound("systemmsg_e.1233"))
             player.sendPacket(ExMailArrived.STATIC_PACKET)
@@ -252,10 +252,10 @@ class EnterWorld : L2GameClientPacket() {
             html.replace("%clan_name%", clan.name)
             html.replace(
                 "%notice_text%",
-                clan.notice.replace("\r\n".toRegex(), "<br>").replace(
-                    "action".toRegex(),
+                clan.notice.replace("\r\n", "<br>").replace(
+                    "action",
                     ""
-                ).replace("bypass".toRegex(), "")
+                ).replace("bypass", "")
             )
             sendPacket(html)
         } else if (Config.SERVER_NEWS) {

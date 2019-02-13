@@ -1,14 +1,10 @@
 package com.l2kt.commons.lang
 
+import com.l2kt.commons.logging.CLogger
 import java.text.NumberFormat
-import java.util.Arrays
-import java.util.Collections
-import java.util.Locale
-import java.util.regex.Matcher
+import java.util.*
 import java.util.regex.Pattern
 import java.util.regex.PatternSyntaxException
-
-import com.l2kt.commons.logging.CLogger
 
 object StringUtil {
     val DIGITS = "0123456789"
@@ -80,7 +76,7 @@ object StringUtil {
      * @return an anagram of the given string.
      */
     fun scrambleString(string: String): String {
-        val letters = Arrays.asList(*string.split("".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
+        val letters = Arrays.asList(*string.split("").dropLastWhile { it.isEmpty() }.toTypedArray())
         letters.shuffle()
 
         val sb = StringBuilder(string.length)

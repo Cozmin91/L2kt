@@ -15,7 +15,7 @@ class ItemFilter : Filter {
         if (record.loggerName != "item")
             return false
 
-        val messageList = record.message.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val messageList = record.message.split(":").dropLastWhile { it.isEmpty() }.toTypedArray()
         if (messageList.size < 2 || !EXCLUDE_PROCESS.contains(messageList[1]))
             return true
 

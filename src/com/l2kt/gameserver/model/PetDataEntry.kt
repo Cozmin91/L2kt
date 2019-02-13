@@ -34,7 +34,7 @@ class PetDataEntry(stats: StatsSet) {
 
         val speed = stats.getString("speedOnRide", null)
         if (speed != null) {
-            val speeds = speed.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val speeds = speed.split(";").dropLastWhile { it.isEmpty() }.toTypedArray()
             mountBaseSpeed = Integer.parseInt(speeds[0])
             mountSwimSpeed = Integer.parseInt(speeds[2])
             mountFlySpeed = Integer.parseInt(speeds[4])

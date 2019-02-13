@@ -54,7 +54,7 @@ class Say2 : L2GameClientPacket() {
             CHAT_LOG.log(record)
         }
 
-        _text = _text.replace("\\\\n".toRegex(), "")
+        _text = _text.replace("\\\\n", "")
 
         val handler = ChatHandler.getInstance().getHandler(_type)
         if (handler == null) {
