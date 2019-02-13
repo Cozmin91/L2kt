@@ -33,7 +33,7 @@ class RequestRefineCancel : L2GameClientPacket() {
         }
 
         // get the price
-        var price = 0
+        var price: Int
         when (targetItem.item.crystalType) {
             CrystalType.C -> price = when {
                 targetItem.crystalCount < 1720 -> 95000
@@ -41,17 +41,16 @@ class RequestRefineCancel : L2GameClientPacket() {
                 else -> 210000
             }
 
-            CrystalType.B -> if (targetItem.crystalCount < 1746)
-                price = 240000
+            CrystalType.B -> price = if (targetItem.crystalCount < 1746)
+                240000
             else
-                price = 270000
+                270000
 
-            CrystalType.A -> if (targetItem.crystalCount < 2160)
-                price = 330000
-            else if (targetItem.crystalCount < 2824)
-                price = 390000
-            else
-                price = 420000
+            CrystalType.A -> price = when {
+                targetItem.crystalCount < 2160 -> 330000
+                targetItem.crystalCount < 2824 -> 390000
+                else -> 420000
+            }
 
             CrystalType.S -> price = 480000
 

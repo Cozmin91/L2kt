@@ -14,8 +14,8 @@ import java.util.logging.Logger
  */
 class RequestSendFriendMsg : L2GameClientPacket() {
 
-    private var _message: String? = null
-    private var _reciever: String? = null
+    private var _message: String = ""
+    private var _reciever: String = ""
 
     override fun readImpl() {
         _message = readS()
@@ -23,7 +23,7 @@ class RequestSendFriendMsg : L2GameClientPacket() {
     }
 
     override fun runImpl() {
-        if (_message == null || _message!!.isEmpty() || _message!!.length > 300)
+        if (_message.isEmpty() || _message.length > 300)
             return
 
         val activeChar = client.activeChar ?: return
@@ -42,7 +42,7 @@ class RequestSendFriendMsg : L2GameClientPacket() {
             CHAT_LOG.log(record)
         }
 
-        targetPlayer.sendPacket(L2FriendSay(activeChar.name, _reciever!!, _message!!))
+        targetPlayer.sendPacket(L2FriendSay(activeChar.name, _reciever, _message))
     }
 
     companion object {

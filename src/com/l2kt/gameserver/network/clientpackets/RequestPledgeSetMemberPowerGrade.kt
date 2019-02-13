@@ -11,7 +11,7 @@ import com.l2kt.gameserver.network.serverpackets.SystemMessage
  */
 class RequestPledgeSetMemberPowerGrade : L2GameClientPacket() {
     private var _powerGrade: Int = 0
-    private var _member: String? = null
+    private var _member: String = ""
 
     override fun readImpl() {
         _member = readS()

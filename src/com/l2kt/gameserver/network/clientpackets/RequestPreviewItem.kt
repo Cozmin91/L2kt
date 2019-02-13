@@ -68,7 +68,7 @@ class RequestPreviewItem : L2GameClientPacket() {
         _listId = buyList.listId
 
         for (i in 0 until _count) {
-            val itemId = _items!![i]
+            val itemId = _items[i]
 
             val product = buyList.getProductByItemId(itemId) ?: return
 
@@ -78,11 +78,11 @@ class RequestPreviewItem : L2GameClientPacket() {
             if (slot < 0)
                 continue
 
-            if (_itemList!!.containsKey(slot)) {
+            if (_itemList.containsKey(slot)) {
                 activeChar.sendPacket(SystemMessageId.YOU_CAN_NOT_TRY_THOSE_ITEMS_ON_AT_THE_SAME_TIME)
                 return
             }
-            _itemList!![slot] = itemId
+            _itemList[slot] = itemId
 
             totalPrice += Config.WEAR_PRICE
             if (totalPrice > Integer.MAX_VALUE)
@@ -95,8 +95,8 @@ class RequestPreviewItem : L2GameClientPacket() {
             return
         }
 
-        if (!_itemList!!.isEmpty()) {
-            activeChar.sendPacket(ShopPreviewInfo(_itemList!!))
+        if (!_itemList.isEmpty()) {
+            activeChar.sendPacket(ShopPreviewInfo(_itemList))
 
             // Schedule task
             ThreadPool.schedule({

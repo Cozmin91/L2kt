@@ -1,7 +1,7 @@
 package com.l2kt.gameserver.network.clientpackets
 
 class RequestRecipeShopMessageSet : L2GameClientPacket() {
-    private var _name: String? = null
+    private var _name: String = ""
 
     override fun readImpl() {
         _name = readS()
@@ -10,7 +10,7 @@ class RequestRecipeShopMessageSet : L2GameClientPacket() {
     override fun runImpl() {
         val player = client.activeChar ?: return
 
-        if (_name != null && _name!!.length > MAX_MSG_LENGTH)
+        if (_name.isEmpty() || _name.length > MAX_MSG_LENGTH)
             return
 
         if (player.createList != null)

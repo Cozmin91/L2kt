@@ -64,6 +64,7 @@ class RequestCrystallizeItem : L2GameClientPacket() {
 
             CrystalType.S -> if (skillLevel <= 4)
                 canCrystallize = false
+            else -> canCrystallize = false
         }
 
         if (!canCrystallize) {

@@ -122,8 +122,8 @@ class RequestBypassToServer : L2GameClientPacket() {
             val heroid = Hero.getInstance().getHeroByClass(heroclass)
             if (heroid > 0)
                 Hero.getInstance().showHeroFights(player, heroclass, heroid, heropage)
-        } else if (_command!!.startsWith("_diary")) {
-            val params = _command!!.substring(_command!!.indexOf("?") + 1)
+        } else if (_command.startsWith("_diary")) {
+            val params = _command.substring(_command.indexOf("?") + 1)
             val st = StringTokenizer(params, "&")
             val heroclass =
                 Integer.parseInt(st.nextToken().split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
@@ -147,7 +147,7 @@ class RequestBypassToServer : L2GameClientPacket() {
                 return
             }
 
-            val arenaId = Integer.parseInt(_command!!.substring(12).trim { it <= ' ' })
+            val arenaId = Integer.parseInt(_command.substring(12).trim { it <= ' ' })
             player.enterOlympiadObserverMode(arenaId)
         }// Navigate throught Manor windows
     }

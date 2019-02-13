@@ -44,7 +44,7 @@ class RequestBuySeed : L2GameClientPacket() {
 
         val player = client.activeChar ?: return
 
-        if (_items.isNullOrEmpty()) {
+        if (_items.isEmpty()) {
             sendPacket(ActionFailed.STATIC_PACKET)
             return
         }

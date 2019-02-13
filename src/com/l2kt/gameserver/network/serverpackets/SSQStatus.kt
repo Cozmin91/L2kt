@@ -116,18 +116,13 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
                     writeD(duskScore)
 
                     var highScoreData = SevenSignsFestival.getInstance().getHighestScoreData(CabalType.DUSK, festivalId)
-                    var partyMembers: Array<String>? =
-                        highScoreData.getString("members").split(",".toRegex()).dropLastWhile { it.isEmpty() }
-                            .toTypedArray()
+                    var partyMembers: MutableList<String> =
+                        highScoreData.getString("members").split(",".toRegex()).dropLastWhile { it.isEmpty() }.toMutableList()
 
-                    if (partyMembers != null) {
-                        writeC(partyMembers.size)
+                    writeC(partyMembers.size)
 
-                        for (partyMember in partyMembers)
-                            writeS(partyMember)
-                    } else {
-                        writeC(0)
-                    }
+                    for (partyMember in partyMembers)
+                        writeS(partyMember)
 
                     // Dawn Score \\
                     writeD(dawnScore)
@@ -135,16 +130,12 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
                     highScoreData = SevenSignsFestival.getInstance().getHighestScoreData(CabalType.DAWN, festivalId)
                     partyMembers =
                             highScoreData.getString("members").split(",".toRegex()).dropLastWhile { it.isEmpty() }
-                                .toTypedArray()
+                                .toMutableList()
 
-                    if (partyMembers != null) {
-                        writeC(partyMembers.size)
+                    writeC(partyMembers.size)
 
-                        for (partyMember in partyMembers)
-                            writeS(partyMember)
-                    } else {
-                        writeC(0)
-                    }
+                    for (partyMember in partyMembers)
+                        writeS(partyMember)
                 }
             }
             3 -> {

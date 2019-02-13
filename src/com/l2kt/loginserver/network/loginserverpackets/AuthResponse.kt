@@ -11,6 +11,6 @@ class AuthResponse(serverId: Int) : ServerBasePacket() {
     init {
         writeC(0x02)
         writeC(serverId)
-        writeS(GameServerManager.serverNames[serverId])
+        writeS(GameServerManager.serverNames[serverId].orEmpty())
     }
 }

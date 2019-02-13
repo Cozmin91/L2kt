@@ -7,12 +7,12 @@ import com.l2kt.gameserver.communitybbs.CommunityBoard
  * @author -Wooden-
  */
 class RequestBBSwrite : L2GameClientPacket() {
-    private var _url: String? = null
-    private var _arg1: String? = null
-    private var _arg2: String? = null
-    private var _arg3: String? = null
-    private var _arg4: String? = null
-    private var _arg5: String? = null
+    private var _url: String = ""
+    private var _arg1: String = ""
+    private var _arg2: String = ""
+    private var _arg3: String = ""
+    private var _arg4: String = ""
+    private var _arg5: String = ""
 
     override fun readImpl() {
         _url = readS()

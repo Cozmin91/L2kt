@@ -11,7 +11,7 @@ class GameServerAuth(decrypt: ByteArray) : ClientBasePacket(decrypt) {
     private val _acceptAlternativeId: Boolean
     val maxPlayers: Int
     val port: Int
-    val hostName: String?
+    val hostName: String
 
     init {
 

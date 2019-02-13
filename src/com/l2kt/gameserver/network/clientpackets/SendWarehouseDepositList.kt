@@ -66,11 +66,11 @@ class SendWarehouseDepositList : L2GameClientPacket() {
             return
 
         // Freight price from config or normal price per item slot (30)
-        val fee = _items!!.size * 30
+        val fee = _items.size * 30
         var currentAdena = player.adena
         var slots = 0
 
-        for (i in _items!!) {
+        for (i in _items) {
             val item = player.checkItemManipulation(i.id, i.value) ?: return
 
             // Calculate needed adena and slots
@@ -101,7 +101,7 @@ class SendWarehouseDepositList : L2GameClientPacket() {
 
         // Proceed to the transfer
         val playerIU = InventoryUpdate()
-        for (i in _items!!) {
+        for (i in _items) {
             // Check validity of requested item
             val oldItem = player.checkItemManipulation(i.id, i.value) ?: return
 

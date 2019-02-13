@@ -60,7 +60,7 @@ class RequestProcureCropList : L2GameClientPacket() {
         var slots = 0
         var weight = 0
 
-        for (i in _items!!) {
+        for (i in _items) {
             val item = player.inventory!!.getItemByObjectId(i.objectId)
             if (item == null || item.count < i.value || item.itemId != i.id) {
                 sendPacket(ActionFailed.STATIC_PACKET)
@@ -93,7 +93,7 @@ class RequestProcureCropList : L2GameClientPacket() {
         }
 
         // Proceed the purchase
-        for (i in _items!!) {
+        for (i in _items) {
             val rewardPrice = ItemTable.getTemplate(i.rewardId)!!.referencePrice
             if (rewardPrice == 0)
                 continue

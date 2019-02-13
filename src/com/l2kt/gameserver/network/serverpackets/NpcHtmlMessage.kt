@@ -8,7 +8,7 @@ import com.l2kt.gameserver.data.cache.HtmCache
  * TOOLTIP NAME MIN MAX HEIGHT DISABLED ALIGN MSG LINK HREF ACTION
  */
 class NpcHtmlMessage(private val _npcObjId: Int) : L2GameServerPacket() {
-    private var _html: String? = null
+    private var _html: String = ""
     private var _itemId = 0
     private var _validate = true
 
@@ -20,23 +20,23 @@ class NpcHtmlMessage(private val _npcObjId: Int) : L2GameServerPacket() {
 
         activeChar.clearBypass()
         var i = 0
-        while (i < _html!!.length) {
-            var start = _html!!.indexOf("\"bypass ", i)
-            val finish = _html!!.indexOf("\"", start + 1)
+        while (i < _html.length) {
+            var start = _html.indexOf("\"bypass ", i)
+            val finish = _html.indexOf("\"", start + 1)
             if (start < 0 || finish < 0)
                 break
 
-            if (_html!!.substring(start + 8, start + 10) == "-h")
-                start += 11
+            start += if (_html.substring(start + 8, start + 10) == "-h")
+                11
             else
-                start += 8
+                8
 
             i = finish
-            val finish2 = _html!!.indexOf("$", start)
-            if (finish2 < finish && finish2 > 0)
-                activeChar.addBypass2(_html!!.substring(start, finish2).trim { it <= ' ' })
+            val finish2 = _html.indexOf("$", start)
+            if (finish2 in 1..(finish - 1))
+                activeChar.addBypass2(_html.substring(start, finish2).trim { it <= ' ' })
             else
-                activeChar.addBypass(_html!!.substring(start, finish).trim { it <= ' ' })
+                activeChar.addBypass(_html.substring(start, finish).trim { it <= ' ' })
             i++
         }
     }
@@ -70,22 +70,22 @@ class NpcHtmlMessage(private val _npcObjId: Int) : L2GameServerPacket() {
     }
 
     fun basicReplace(pattern: String, value: String) {
-        _html = _html!!.replace(pattern.toRegex(), value)
+        _html = _html.replace(pattern.toRegex(), value)
     }
 
     fun replace(pattern: String, value: String) {
-        _html = _html!!.replace(pattern.toRegex(), value.replace("\\$".toRegex(), "\\\\\\$"))
+        _html = _html.replace(pattern.toRegex(), value.replace("\\$".toRegex(), "\\\\\\$"))
     }
 
     fun replace(pattern: String, value: Int) {
-        _html = _html!!.replace(pattern.toRegex(), Integer.toString(value))
+        _html = _html.replace(pattern.toRegex(), Integer.toString(value))
     }
 
     fun replace(pattern: String, value: Long) {
-        _html = _html!!.replace(pattern.toRegex(), java.lang.Long.toString(value))
+        _html = _html.replace(pattern.toRegex(), java.lang.Long.toString(value))
     }
 
     fun replace(pattern: String, value: Double) {
-        _html = _html!!.replace(pattern.toRegex(), java.lang.Double.toString(value))
+        _html = _html.replace(pattern.toRegex(), java.lang.Double.toString(value))
     }
 }
