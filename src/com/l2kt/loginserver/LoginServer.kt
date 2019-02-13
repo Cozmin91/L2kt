@@ -126,7 +126,7 @@ object LoginServer {
                 reader.forEachLine {
                     var line = it
                     var parts: Array<String>
-                    line = line.trim()
+                    line = line.trim{ it <= ' ' }
                     if (line.isNotEmpty() && line[0] != '#') {
                         parts = line.split("#".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 

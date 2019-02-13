@@ -10,7 +10,7 @@ class SendBypassBuildCmd : L2GameClientPacket() {
     private var _command: String = ""
 
     override fun readImpl() {
-        _command = readS().trim()
+        _command = readS().trim{ it <= ' ' }
     }
 
     override fun runImpl() {

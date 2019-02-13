@@ -19,7 +19,7 @@ class RequestMakeMacro : L2GameClientPacket() {
         if (count > MAX_MACRO_LENGTH)
             count = MAX_MACRO_LENGTH
 
-        val commands = arrayOfNulls<L2Macro.L2MacroCmd>(count)
+        val commands = mutableListOf<L2Macro.L2MacroCmd>()
 
         for (i in 0 until count) {
             val entry = readC()
@@ -29,7 +29,7 @@ class RequestMakeMacro : L2GameClientPacket() {
             val command = readS()
 
             _commandsLenght += command.length
-            commands[i] = L2Macro.L2MacroCmd(entry, type, d1, d2, command)
+            commands.add(i, L2Macro.L2MacroCmd(entry, type, d1, d2, command))
         }
         _macro = L2Macro(id, icon, name, desc, acronym, commands)
     }

@@ -17,7 +17,7 @@ object SQLAccountManager {
 
         Config.loadAccountManager()
 
-        Scanner(System.`in`).use {
+        Scanner(System.`in`).use { it ->
             while (true) {
                 println("Please choose an option:")
                 println()
@@ -33,20 +33,20 @@ object SQLAccountManager {
                 }
 
                 if (mode == "1" || mode == "2" || mode == "3") {
-                    while (username.trim().isEmpty()) {
+                    while (username.trim{ it <= ' ' }.isEmpty()) {
                         print("Username: ")
                         username = it.next().toLowerCase()
                     }
 
                     if (mode == "1") {
-                        while (password.trim().isEmpty()) {
+                        while (password.trim{ it <= ' ' }.isEmpty()) {
                             print("Password: ")
                             password = it.next()
                         }
                     }
 
                     if (mode == "1" || mode == "2") {
-                        while (level.trim().isEmpty()) {
+                        while (level.trim{ it <= ' ' }.isEmpty()) {
                             print("Access level: ")
                             level = it.next()
                         }
@@ -54,8 +54,8 @@ object SQLAccountManager {
                 }
 
                 when(mode){
-                    "1" -> addOrUpdateAccount(username.trim(), password.trim(), level.trim())
-                    "2" -> changeAccountLevel(username.trim(), level.trim())
+                    "1" -> addOrUpdateAccount(username.trim{ it <= ' ' }, password.trim{ it <= ' ' }, level.trim{ it <= ' ' })
+                    "2" -> changeAccountLevel(username.trim{ it <= ' ' }, level.trim{ it <= ' ' })
                     "3" -> {
                         print("WARNING: This will not delete the gameserver data (characters, items, etc..)")
                         print(" it will only delete the account login server data.")
@@ -64,7 +64,7 @@ object SQLAccountManager {
 
                         val yesno = it.next()
                         if (yesno != null && yesno.equals("Y", ignoreCase = true)) {
-                            deleteAccount(username.trim())
+                            deleteAccount(username.trim{ it <= ' ' })
                         } else {
                             println("Deletion cancelled.")
                         }

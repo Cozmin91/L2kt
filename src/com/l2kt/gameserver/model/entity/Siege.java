@@ -145,7 +145,7 @@ public class Siege implements Siegable
 		
 		getCastle().spawnSiegeGuardsOrMercenaries();
 		
-		getCastle().getSiegeZone().setIsActive(true);
+		getCastle().getSiegeZone().setActive(true);
 		getCastle().getSiegeZone().updateZoneStatusForCharactersInside();
 		
 		_siegeEndDate = Calendar.getInstance();
@@ -222,7 +222,7 @@ public class Siege implements Siegable
 		// Respawn/repair castle doors.
 		getCastle().spawnDoors(false);
 		
-		getCastle().getSiegeZone().setIsActive(false);
+		getCastle().getSiegeZone().setActive(false);
 		getCastle().getSiegeZone().updateZoneStatusForCharactersInside();
 	}
 	

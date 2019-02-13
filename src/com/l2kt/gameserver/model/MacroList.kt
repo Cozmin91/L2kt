@@ -158,7 +158,7 @@ class MacroList(private val _owner: Player) {
                         commands.add(mcmd)
                     }
 
-                    val m = L2Macro(id, icon, name, descr, acronym, commands.toTypedArray())
+                    val m = L2Macro(id, icon, name, descr, acronym, commands)
                     _macroses[m.id] = m
                 }
                 rset.close()
