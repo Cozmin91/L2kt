@@ -8,7 +8,7 @@ import com.l2kt.gameserver.network.serverpackets.PledgeReceiveMemberInfo
  */
 class RequestPledgeMemberInfo : L2GameClientPacket() {
     private var _pledgeType: Int = 0
-    private var _player: String? = null
+    private var _player: String = ""
 
     override fun readImpl() {
         _pledgeType = readD()

@@ -294,7 +294,6 @@ class L2GameClient(con: MMOConnection<L2GameClient>) : MMOClient<MMOConnection<L
                 L2GameClient.GameClientState.CONNECTED -> "[IP: " + (if (address == null) "disconnected" else address.hostAddress) + "]"
                 L2GameClient.GameClientState.AUTHED -> "[Account: " + accountName + " - IP: " + (if (address == null) "disconnected" else address.hostAddress) + "]"
                 L2GameClient.GameClientState.IN_GAME -> "[Character: " + (if (activeChar == null) "disconnected" else activeChar!!.name) + " - Account: " + accountName + " - IP: " + (if (address == null) "disconnected" else address.hostAddress) + "]"
-                else -> throw IllegalStateException("Missing state on switch")
             }
         } catch (e: NullPointerException) {
             "[Character read failed due to disconnect]"

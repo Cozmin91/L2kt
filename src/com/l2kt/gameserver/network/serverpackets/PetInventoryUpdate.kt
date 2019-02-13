@@ -2,12 +2,11 @@ package com.l2kt.gameserver.network.serverpackets
 
 import com.l2kt.gameserver.model.item.instance.ItemInfo
 import com.l2kt.gameserver.model.item.instance.ItemInstance
-import java.util.*
 
 /**
  * @author Yme, Advi
  */
-class PetInventoryUpdate @JvmOverloads constructor(private val _items: MutableList<ItemInfo> = ArrayList()) :
+class PetInventoryUpdate @JvmOverloads constructor(private val _items: MutableList<ItemInfo> = mutableListOf()) :
     L2GameServerPacket() {
 
     fun addItem(item: ItemInstance?) {
@@ -33,8 +32,7 @@ class PetInventoryUpdate @JvmOverloads constructor(private val _items: MutableLi
     fun addItems(items: List<ItemInstance>?) {
         if (items != null)
             for (item in items)
-                if (item != null)
-                    _items.add(ItemInfo(item))
+                _items.add(ItemInfo(item))
     }
 
     override fun writeImpl() {

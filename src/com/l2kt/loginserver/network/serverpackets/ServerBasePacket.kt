@@ -53,15 +53,8 @@ abstract class ServerBasePacket protected constructor() {
         bao.write((value shr 56 and 0xff).toInt())
     }
 
-    protected fun writeS(text: String?) {
-        try {
-            if (text != null) {
-                bao.write(text.toByteArray(charset("UTF-16LE")))
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
+    protected fun writeS(text: String) {
+        bao.write(text.toByteArray(charset("UTF-16LE")))
         bao.write(0)
         bao.write(0)
     }

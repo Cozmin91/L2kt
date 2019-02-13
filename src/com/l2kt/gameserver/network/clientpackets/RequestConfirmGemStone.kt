@@ -1,7 +1,5 @@
 package com.l2kt.gameserver.network.clientpackets
 
-import com.l2kt.gameserver.model.actor.instance.Player
-import com.l2kt.gameserver.model.item.instance.ItemInstance
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.ExConfirmVariationGemstone
 
@@ -38,7 +36,7 @@ class RequestConfirmGemStone : AbstractRefinePacket() {
         }
 
         // Check for gemstone count
-        val ls = AbstractRefinePacket.getLifeStone(refinerItem.itemId) ?: return
+        AbstractRefinePacket.getLifeStone(refinerItem.itemId) ?: return
 
         if (_gemStoneCount != AbstractRefinePacket.getGemStoneCount(targetItem.item.crystalType)) {
             activeChar.sendPacket(SystemMessageId.GEMSTONE_QUANTITY_IS_INCORRECT)

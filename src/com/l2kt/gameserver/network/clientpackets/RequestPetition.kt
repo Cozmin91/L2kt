@@ -8,7 +8,7 @@ import com.l2kt.gameserver.network.serverpackets.PlaySound
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
 
 class RequestPetition : L2GameClientPacket() {
-    private var _content: String? = null
+    private var _content: String = ""
     private var _type: Int = 0 // 1 = on : 0 = off;
 
     override fun readImpl() {
@@ -50,7 +50,7 @@ class RequestPetition : L2GameClientPacket() {
             return
         }
 
-        if (_content!!.length > 255) {
+        if (_content.length > 255) {
             activeChar.sendPacket(SystemMessageId.PETITION_MAX_CHARS_255)
             return
         }

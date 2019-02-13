@@ -36,7 +36,7 @@ class RequestExSetPledgeCrestLarge : L2GameClientPacket() {
             return
         }
 
-        if (_length == 0 || _data!!.isEmpty()) {
+        if (_length == 0 || _data.isEmpty()) {
             if (clan.crestLargeId != 0) {
                 clan.changeLargeCrest(0)
                 player.sendPacket(SystemMessageId.CLAN_CREST_HAS_BEEN_DELETED)
@@ -48,7 +48,7 @@ class RequestExSetPledgeCrestLarge : L2GameClientPacket() {
             }
 
             val crestId = IdFactory.getInstance().nextId
-            if (CrestCache.getInstance().saveCrest(CrestCache.CrestType.PLEDGE_LARGE, crestId, _data!!)) {
+            if (CrestCache.getInstance().saveCrest(CrestCache.CrestType.PLEDGE_LARGE, crestId, _data)) {
                 clan.changeLargeCrest(crestId)
                 player.sendPacket(SystemMessageId.CLAN_EMBLEM_WAS_SUCCESSFULLY_REGISTERED)
             }

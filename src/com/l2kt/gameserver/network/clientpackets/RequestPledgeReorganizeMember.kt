@@ -9,9 +9,9 @@ import com.l2kt.gameserver.network.serverpackets.PledgeReceiveMemberInfo
  */
 class RequestPledgeReorganizeMember : L2GameClientPacket() {
     private var _isMemberSelected: Int = 0
-    private var _memberName: String? = null
+    private var _memberName: String = ""
     private var _newPledgeType: Int = 0
-    private var _selectedMember: String? = null
+    private var _selectedMember: String = ""
 
     override fun readImpl() {
         _isMemberSelected = readD()

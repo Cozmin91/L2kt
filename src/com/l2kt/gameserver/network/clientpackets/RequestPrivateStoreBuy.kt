@@ -55,7 +55,7 @@ class RequestPrivateStoreBuy : L2GameClientPacket() {
             return
         }
 
-        if (storePlayer.storeType == Player.StoreType.PACKAGE_SELL && storeList.items.size > _items!!.size)
+        if (storePlayer.storeType == Player.StoreType.PACKAGE_SELL && storeList.items.size > _items.size)
             return
 
         if (!storeList.privateStoreBuy(player, _items))
@@ -68,6 +68,6 @@ class RequestPrivateStoreBuy : L2GameClientPacket() {
     }
 
     companion object {
-        private val BATCH_LENGTH = 12 // length of one item
+        private const val BATCH_LENGTH = 12 // length of one item
     }
 }

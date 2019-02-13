@@ -11,9 +11,9 @@ import com.l2kt.gameserver.network.serverpackets.SystemMessage
  * @author -Wooden-
  */
 class RequestPledgeSetAcademyMaster : L2GameClientPacket() {
-    private var _currPlayerName: String? = null
+    private var _currPlayerName: String = ""
     private var _set: Int = 0 // 1 set, 0 delete
-    private var _targetPlayerName: String? = null
+    private var _targetPlayerName: String = ""
 
     override fun readImpl() {
         _set = readD()

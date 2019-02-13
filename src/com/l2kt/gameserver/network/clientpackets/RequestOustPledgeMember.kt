@@ -48,7 +48,7 @@ class RequestOustPledgeMember : L2GameClientPacket() {
         if (clan.isSubPledgeLeader(member.objectId))
             clan.broadcastClanStatus() // refresh clan tab
         else
-            clan.broadcastToOnlineMembers(PledgeShowMemberListDelete(_target!!))
+            clan.broadcastToOnlineMembers(PledgeShowMemberListDelete(_target))
 
         clan.broadcastToOnlineMembers(
             SystemMessage.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_EXPELLED).addString(

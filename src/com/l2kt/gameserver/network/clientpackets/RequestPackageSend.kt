@@ -99,7 +99,7 @@ class RequestPackageSend : L2GameClientPacket() {
 
         // Proceed to the transfer
         val playerIU = InventoryUpdate()
-        for (i in _items!!) {
+        for (i in _items) {
             val objectId = i.id
             val count = i.value
 

@@ -284,7 +284,7 @@ class L2GamePacketHandler : IPacketHandler<L2GameClient>, IClientFactory<L2GameC
                 -> msg = RequestRecordInfo()
 
                 0xd0 -> {
-                    var id2 = -1
+                    val id2: Int
                     if (buf.remaining() >= 2) {
                         id2 = buf.short.toInt() and 0xffff
                     } else {
