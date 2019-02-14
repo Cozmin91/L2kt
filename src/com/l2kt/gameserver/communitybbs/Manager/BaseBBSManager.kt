@@ -35,7 +35,7 @@ abstract class BaseBBSManager {
      * @param player : the requester.
      */
     fun loadStaticHtm(file: String, player: Player) {
-        separateAndSend(HtmCache.getInstance().getHtm(CB_PATH + folder + file), player)
+        separateAndSend(HtmCache.getHtm(CB_PATH + folder + file), player)
     }
 
     companion object {

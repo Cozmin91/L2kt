@@ -13,7 +13,7 @@ class RequestHennaItemInfo : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        val template = HennaData.getInstance().getHenna(_symbolId) ?: return
+        val template = HennaData.getHenna(_symbolId) ?: return
 
         activeChar.sendPacket(HennaItemInfo(template, activeChar))
     }

@@ -33,26 +33,26 @@ public class AdminAnnouncements implements IAdminCommandHandler
 				switch (tokens[1])
 				{
 					case "list":
-						AnnouncementData.getInstance().listAnnouncements(activeChar);
+						AnnouncementData.INSTANCE.listAnnouncements(activeChar);
 						break;
 					
 					case "all":
 					case "all_auto":
 						final boolean isAuto = tokens[1].equalsIgnoreCase("all_auto");
 						for (Player player : World.getInstance().getPlayers())
-							AnnouncementData.getInstance().showAnnouncements(player, isAuto);
+							AnnouncementData.INSTANCE.showAnnouncements(player, isAuto);
 						
-						AnnouncementData.getInstance().listAnnouncements(activeChar);
+						AnnouncementData.INSTANCE.listAnnouncements(activeChar);
 						break;
 					
 					case "add":
 						String[] split = tokens[2].split(" ", 2); // boolean string
 						boolean crit = Boolean.parseBoolean(split[0]);
 						
-						if (!AnnouncementData.getInstance().addAnnouncement(split[1], crit, false, -1, -1, -1))
+						if (!AnnouncementData.INSTANCE.addAnnouncement(split[1], crit, false, -1, -1, -1))
 							activeChar.sendMessage("Invalid //announce message content ; can't be null or empty.");
 						
-						AnnouncementData.getInstance().listAnnouncements(activeChar);
+						AnnouncementData.INSTANCE.listAnnouncements(activeChar);
 						break;
 					
 					case "add_auto":
@@ -64,15 +64,15 @@ public class AdminAnnouncements implements IAdminCommandHandler
 						final int limit = Integer.parseInt(split[4]);
 						final String msg = split[5];
 						
-						if (!AnnouncementData.getInstance().addAnnouncement(msg, crit, auto, idelay, delay, limit))
+						if (!AnnouncementData.INSTANCE.addAnnouncement(msg, crit, auto, idelay, delay, limit))
 							activeChar.sendMessage("Invalid //announce message content ; can't be null or empty.");
 						
-						AnnouncementData.getInstance().listAnnouncements(activeChar);
+						AnnouncementData.INSTANCE.listAnnouncements(activeChar);
 						break;
 					
 					case "del":
-						AnnouncementData.getInstance().delAnnouncement(Integer.parseInt(tokens[2]));
-						AnnouncementData.getInstance().listAnnouncements(activeChar);
+						AnnouncementData.INSTANCE.delAnnouncement(Integer.parseInt(tokens[2]));
+						AnnouncementData.INSTANCE.listAnnouncements(activeChar);
 						break;
 					
 					default:
@@ -86,7 +86,7 @@ public class AdminAnnouncements implements IAdminCommandHandler
 			}
 		}
 		else if (command.startsWith("admin_ann") || command.startsWith("admin_say"))
-			AnnouncementData.getInstance().handleAnnounce(command, 10, command.startsWith("admin_say"));
+			AnnouncementData.INSTANCE.handleAnnounce(command, 10, command.startsWith("admin_say"));
 		
 		return true;
 	}

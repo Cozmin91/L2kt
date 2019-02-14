@@ -59,7 +59,7 @@ class RequestAcquireSkill : L2GameClientPacket() {
                 }
 
                 // Get spellbook and try to consume it.
-                val bookId = SpellbookData.getInstance().getBookForSkill(_skillId, _skillLevel)
+                val bookId = SpellbookData.getBookForSkill(_skillId, _skillLevel)
                 if (bookId > 0 && !player.destroyItemByItemId("SkillLearn", bookId, 1, folk, true)) {
                     player.sendPacket(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL)
                     folk.showSkillList(player)
@@ -90,7 +90,7 @@ class RequestAcquireSkill : L2GameClientPacket() {
                 if (skillLvl != _skillLevel - 1)
                     return
 
-                val fsn = SkillTreeData.getInstance().getFishingSkillFor(player, _skillId, _skillLevel) ?: return
+                val fsn = SkillTreeData.getFishingSkillFor(player, _skillId, _skillLevel) ?: return
 
                 if (!player.destroyItemByItemId("Consume", fsn.itemId, fsn.itemCount, folk, true)) {
                     player.sendPacket(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL)
@@ -114,7 +114,7 @@ class RequestAcquireSkill : L2GameClientPacket() {
                 if (!player.isClanLeader)
                     return
 
-                val csn = SkillTreeData.getInstance().getClanSkillFor(player, _skillId, _skillLevel) ?: return
+                val csn = SkillTreeData.getClanSkillFor(player, _skillId, _skillLevel) ?: return
 
                 if (player.clan.reputationScore < csn.cost) {
                     player.sendPacket(SystemMessageId.ACQUIRE_SKILL_FAILED_BAD_CLAN_REP_SCORE)

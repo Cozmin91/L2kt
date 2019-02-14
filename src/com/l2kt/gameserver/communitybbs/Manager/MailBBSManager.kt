@@ -222,7 +222,7 @@ object MailBBSManager : BaseBBSManager() {
         maxIndex = if (page == 1) page * 9 else page * 10 - 1
         minIndex = maxIndex - 9
 
-        var content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "mail/mail.htm")
+        var content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "mail/mail.htm")
         content = content!!.replace("%inbox%", Integer.toString(getMailCount(player.objectId, MailType.INBOX, "", "")))
         content =
                 content.replace("%sentbox%", Integer.toString(getMailCount(player.objectId, MailType.SENTBOX, "", "")))
@@ -410,7 +410,7 @@ object MailBBSManager : BaseBBSManager() {
             return
         }
 
-        var content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "mail/mail-show.htm")
+        var content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "mail/mail-show.htm")
 
         val link = mail.location!!.bypass + "&nbsp;&gt;&nbsp;" + mail.subject
         content = content!!.replace("%maillink%", link)
@@ -688,12 +688,12 @@ object MailBBSManager : BaseBBSManager() {
     }
 
     private fun showWriteView(player: Player) {
-        val content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "mail/mail-write.htm")
+        val content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "mail/mail-write.htm")
         BaseBBSManager.separateAndSend(content, player)
     }
 
     private fun showWriteView(player: Player, mail: Mail) {
-        var content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "mail/mail-reply.htm")
+        var content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "mail/mail-reply.htm")
 
         val link =
             mail.location!!.bypass + "&nbsp;&gt;&nbsp;<a action=\"bypass _bbsmail;view;" + mail.mailId + "\">" + mail.subject + "</a>&nbsp;&gt;&nbsp;"

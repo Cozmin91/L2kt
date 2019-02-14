@@ -83,11 +83,11 @@ public class CastleGatekeeper extends Folk
 			if (getCastle().getSiege().isInProgress())
 			{
 				final NpcSay cs = new NpcSay(getObjectId(), 1, getNpcId(), "The defenders of " + getCastle().getName() + " castle have been teleported to the inner castle.");
-				final int region = MapRegionData.getInstance().getMapRegion(getX(), getY());
+				final int region = MapRegionData.INSTANCE.getMapRegion(getX(), getY());
 				
 				for (Player player : World.getInstance().getPlayers())
 				{
-					if (region == MapRegionData.getInstance().getMapRegion(player.getX(), player.getY()))
+					if (region == MapRegionData.INSTANCE.getMapRegion(player.getX(), player.getY()))
 						player.sendPacket(cs);
 				}
 			}

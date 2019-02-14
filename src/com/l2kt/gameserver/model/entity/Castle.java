@@ -654,7 +654,7 @@ public class Castle
 					continue;
 				
 				// Generate templates, feed them with ticket information.
-				final NpcTemplate template = NpcData.getInstance().getTemplate(ticket.getNpcId());
+				final NpcTemplate template = NpcData.INSTANCE.getTemplate(ticket.getNpcId());
 				if (template == null)
 					continue;
 				

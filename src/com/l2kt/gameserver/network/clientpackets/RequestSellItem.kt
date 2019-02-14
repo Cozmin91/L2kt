@@ -80,7 +80,7 @@ class RequestSellItem : L2GameClientPacket() {
             htmlFolder = "merchant"
 
         if (!htmlFolder.isEmpty()) {
-            val content = HtmCache.getInstance().getHtm("data/html/" + htmlFolder + "/" + merchant.npcId + "-sold.htm")
+            val content = HtmCache.getHtm("data/html/" + htmlFolder + "/" + merchant.npcId + "-sold.htm")
             if (content != null) {
                 val html = NpcHtmlMessage(merchant.objectId)
                 html.setHtml(content)

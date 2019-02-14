@@ -71,7 +71,7 @@ public final class ClassMaster extends Folk
 			{
 				final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/classmaster/ok.htm");
-				html.replace("%name%", PlayerData.getInstance().getClassNameById(val));
+				html.replace("%name%", PlayerData.INSTANCE.getClassNameById(val));
 				player.sendPacket(html);
 			}
 		}
@@ -160,13 +160,13 @@ public final class ClassMaster extends Folk
 							continue;
 						
 						if (validateClassId(currentClassId, cid))
-							StringUtil.INSTANCE.append(menu, "<a action=\"bypass -h npc_%objectId%_change_class ", cid.getId(), "\">", PlayerData.getInstance().getClassNameById(cid.getId()), "</a><br>");
+							StringUtil.INSTANCE.append(menu, "<a action=\"bypass -h npc_%objectId%_change_class ", cid.getId(), "\">", PlayerData.INSTANCE.getClassNameById(cid.getId()), "</a><br>");
 					}
 					
 					if (menu.length() > 0)
 					{
 						html.setFile("data/html/classmaster/template.htm");
-						html.replace("%name%", PlayerData.getInstance().getClassNameById(currentClassId.getId()));
+						html.replace("%name%", PlayerData.INSTANCE.getClassNameById(currentClassId.getId()));
 						html.replace("%menu%", menu.toString());
 					}
 					else

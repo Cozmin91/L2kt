@@ -65,11 +65,11 @@ class L2SkillTeleport(set: StatsSet) : L2Skill(set) {
                 }
             } else {
                 if (_recallType.equals("Castle", ignoreCase = true))
-                    loc = MapRegionData.getInstance().getLocationToTeleport(obj, MapRegionData.TeleportType.CASTLE)
+                    loc = MapRegionData.getLocationToTeleport(obj, MapRegionData.TeleportType.CASTLE)
                 else if (_recallType.equals("ClanHall", ignoreCase = true))
-                    loc = MapRegionData.getInstance().getLocationToTeleport(obj, MapRegionData.TeleportType.CLAN_HALL)
+                    loc = MapRegionData.getLocationToTeleport(obj, MapRegionData.TeleportType.CLAN_HALL)
                 else
-                    loc = MapRegionData.getInstance().getLocationToTeleport(obj, MapRegionData.TeleportType.TOWN)
+                    loc = MapRegionData.getLocationToTeleport(obj, MapRegionData.TeleportType.TOWN)
             }
 
             if (loc != null) {

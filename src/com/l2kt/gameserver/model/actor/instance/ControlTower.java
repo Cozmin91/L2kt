@@ -1,15 +1,12 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.l2kt.gameserver.data.xml.NpcData;
+import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.model.L2Spawn;
 import com.l2kt.gameserver.model.WorldObject;
 import com.l2kt.gameserver.model.actor.Creature;
 import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
-import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.entity.Siege;
 import com.l2kt.gameserver.model.entity.Siege.SiegeSide;
@@ -17,6 +14,9 @@ import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.ActionFailed;
 import com.l2kt.gameserver.network.serverpackets.MoveToPawn;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ControlTower extends Npc
 {
@@ -99,7 +99,7 @@ public class ControlTower extends Npc
 				// Spawn a little version of it. This version is a simple NPC, cleaned on siege end.
 				try
 				{
-					final L2Spawn spawn = new L2Spawn(NpcData.getInstance().getTemplate(13003));
+					final L2Spawn spawn = new L2Spawn(NpcData.INSTANCE.getTemplate(13003));
 					spawn.setLoc(getPosition());
 					
 					final Npc tower = spawn.doSpawn(false);

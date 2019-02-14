@@ -27,7 +27,7 @@ class RequestRecipeItemMakeSelf : L2GameClientPacket() {
             return
         }
 
-        val recipe = RecipeData.getInstance().getRecipeList(_recipeId) ?: return
+        val recipe = RecipeData.getRecipeList(_recipeId) ?: return
 
         if (recipe.isDwarven) {
             if (!player.dwarvenRecipeBook.contains(recipe))

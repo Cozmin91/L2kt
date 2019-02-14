@@ -604,7 +604,7 @@ public class Quest
 	{
 		try
 		{
-			final NpcTemplate template = NpcData.getInstance().getTemplate(npcId);
+			final NpcTemplate template = NpcData.INSTANCE.getTemplate(npcId);
 			if (template == null)
 				return null;
 			
@@ -715,9 +715,9 @@ public class Quest
 	public String getHtmlText(String fileName)
 	{
 		if (isRealQuest())
-			return HtmCache.getInstance().getHtmForce("./data/html/scripts/quests/" + getName() + "/" + fileName);
+			return HtmCache.INSTANCE.getHtmForce("./data/html/scripts/quests/" + getName() + "/" + fileName);
 		
-		return HtmCache.getInstance().getHtmForce("./data/html/scripts/" + getDescr() + "/" + getName() + "/" + fileName);
+		return HtmCache.INSTANCE.getHtmForce("./data/html/scripts/" + getDescr() + "/" + getName() + "/" + fileName);
 	}
 	
 	/**
@@ -727,7 +727,7 @@ public class Quest
 	 */
 	public void addEventId(int npcId, EventType eventType)
 	{
-		final NpcTemplate t = NpcData.getInstance().getTemplate(npcId);
+		final NpcTemplate t = NpcData.INSTANCE.getTemplate(npcId);
 		if (t != null)
 			t.addQuestEvent(eventType, this);
 	}
@@ -739,7 +739,7 @@ public class Quest
 	 */
 	public void addEventIds(int npcId, EventType... eventTypes)
 	{
-		final NpcTemplate t = NpcData.getInstance().getTemplate(npcId);
+		final NpcTemplate t = NpcData.INSTANCE.getTemplate(npcId);
 		if (t != null)
 			for (EventType eventType : eventTypes)
 				t.addQuestEvent(eventType, this);

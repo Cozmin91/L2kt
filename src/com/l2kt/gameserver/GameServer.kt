@@ -79,40 +79,40 @@ object GameServer {
 
         StringUtil.printSection("World")
         World.getInstance()
-        MapRegionData.getInstance()
-        AnnouncementData.getInstance()
+        MapRegionData
+        AnnouncementData
         ServerMemoTable.getInstance()
 
         StringUtil.printSection("Skills")
         SkillTable
-        SkillTreeData.getInstance()
+        SkillTreeData
 
         StringUtil.printSection("Items")
         ItemTable
-        SummonItemData.getInstance()
-        HennaData.getInstance()
+        SummonItemData
+        HennaData
         BuyListManager.getInstance()
-        MultisellData.getInstance()
-        RecipeData.getInstance()
-        ArmorSetData.getInstance()
-        FishData.getInstance()
-        SpellbookData.getInstance()
-        SoulCrystalData.getInstance()
+        MultisellData
+        RecipeData
+        ArmorSetData
+        FishData
+        SpellbookData
+        SoulCrystalData
         AugmentationData.getInstance()
         CursedWeaponManager.getInstance()
 
         StringUtil.printSection("Admins")
-        AdminData.getInstance()
+        AdminData
         BookmarkTable
         MovieMakerManager.getInstance()
         PetitionManager.getInstance()
 
         StringUtil.printSection("Characters")
-        PlayerData.getInstance()
+        PlayerData
         PlayerInfoTable
-        NewbieBuffData.getInstance()
-        TeleportLocationData.getInstance()
-        HtmCache.getInstance()
+        NewbieBuffData
+        TeleportLocationData
+        HtmCache
         PartyMatchWaitingList.getInstance()
         PartyMatchRoomList.getInstance()
         RaidPointManager.getInstance()
@@ -124,7 +124,7 @@ object GameServer {
             LOGGER.info("Community server is disabled.")
 
         printSection("Clans")
-        CrestCache.getInstance()
+        CrestCache
         ClanTable.getInstance()
         AuctionManager
         ClanHallManager.getInstance()
@@ -158,11 +158,11 @@ object GameServer {
 
         printSection("NPCs")
         BufferManager.getInstance()
-        HerbDropData.getInstance()
-        NpcData.getInstance()
-        WalkerRouteData.getInstance()
-        DoorData.getInstance().spawn()
-        StaticObjectData.getInstance()
+        HerbDropData
+        NpcData
+        WalkerRouteData
+        DoorData.spawn()
+        StaticObjectData
         SpawnTable
         RaidBossSpawnManager.getInstance()
         GrandBossManager.getInstance()
@@ -178,7 +178,7 @@ object GameServer {
         FourSepulchersManager.getInstance()
 
         printSection("Quests & Scripts")
-        ScriptData.getInstance()
+        ScriptData
 
         if (Config.ALLOW_BOAT) {
             BoatManager.getInstance()

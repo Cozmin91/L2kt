@@ -25,7 +25,7 @@ public class PartyMatchRoom
 		_id = id;
 		_title = title;
 		_loot = loot;
-		_location = MapRegionData.getInstance().getClosestLocation(owner.getX(), owner.getY());
+		_location = MapRegionData.INSTANCE.getClosestLocation(owner.getX(), owner.getY());
 		_minlvl = minlvl;
 		_maxlvl = maxlvl;
 		_maxmem = maxmem;

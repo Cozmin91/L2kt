@@ -39,7 +39,7 @@ public class SeedHandler implements IItemHandler
 		if (seed == null)
 			return;
 		
-		if (seed.getCastleId() != MapRegionData.getInstance().getAreaCastle(playable.getX(), playable.getY()))
+		if (seed.getCastleId() != MapRegionData.INSTANCE.getAreaCastle(playable.getX(), playable.getY()))
 		{
 			playable.sendPacket(SystemMessageId.THIS_SEED_MAY_NOT_BE_SOWN_HERE);
 			return;

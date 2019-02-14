@@ -45,7 +45,7 @@ class RequestBypassToServer : L2GameClientPacket() {
                 return
             }
 
-            if (!AdminData.getInstance().hasAccess(command, player.accessLevel)) {
+            if (!AdminData.hasAccess(command, player.accessLevel)) {
                 player.sendMessage("You don't have the access rights to use this command.")
                 L2GameClientPacket.LOGGER.warn(
                     "{} tried to use admin command '{}' without proper Access Level.",
@@ -107,7 +107,7 @@ class RequestBypassToServer : L2GameClientPacket() {
             if (!player.validateBypass(_command))
                 return
 
-            val str = _command.substring(6).trim { it <= ' ' }.split(" ".toRegex(), 2).toTypedArray()
+            val str = _command.substring(6).trim { it <= ' ' }.split("[ ]".toRegex(), 2).toTypedArray()
             if (str.size == 1)
                 player.processQuestEvent(str[0], "")
             else

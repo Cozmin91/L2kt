@@ -33,14 +33,14 @@ public class AdminDoorControl implements IAdminCommandHandler
 		{
 			if (command.equals("admin_openall"))
 			{
-				for (Door door : DoorData.getInstance().getDoors())
+				for (Door door : DoorData.INSTANCE.getDoors())
 					door.openMe();
 			}
 			else
 			{
 				try
 				{
-					final Door door = DoorData.getInstance().getDoor(Integer.parseInt(command.substring(11)));
+					final Door door = DoorData.INSTANCE.getDoor(Integer.parseInt(command.substring(11)));
 					if (door != null)
 						door.openMe();
 					else
@@ -61,14 +61,14 @@ public class AdminDoorControl implements IAdminCommandHandler
 		{
 			if (command.equals("admin_closeall"))
 			{
-				for (Door door : DoorData.getInstance().getDoors())
+				for (Door door : DoorData.INSTANCE.getDoors())
 					door.closeMe();
 			}
 			else
 			{
 				try
 				{
-					final Door door = DoorData.getInstance().getDoor(Integer.parseInt(command.substring(12)));
+					final Door door = DoorData.INSTANCE.getDoor(Integer.parseInt(command.substring(12)));
 					if (door != null)
 						door.closeMe();
 					else

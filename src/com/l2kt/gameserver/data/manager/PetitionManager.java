@@ -182,7 +182,7 @@ public final class PetitionManager
 		_pendingPetitions.put(petition.getId(), petition);
 		
 		// Notify all GMs that a new petition has been submitted.
-		AdminData.getInstance().broadcastToGMs(new CreatureSay(player.getObjectId(), 17, "Petition System", (player.getName() + " has submitted a new petition.")));
+		AdminData.INSTANCE.broadcastToGMs(new CreatureSay(player.getObjectId(), 17, "Petition System", (player.getName() + " has submitted a new petition.")));
 		
 		return petition.getId();
 	}

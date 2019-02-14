@@ -13,7 +13,7 @@ class RequestAllyCrest : L2GameClientPacket() {
     override fun runImpl() {
         val player = client.activeChar ?: return
 
-        val data = CrestCache.getInstance().getCrest(CrestCache.CrestType.ALLY, _crestId) ?: return
+        val data = CrestCache.getCrest(CrestCache.CrestType.ALLY, _crestId) ?: return
 
         player.sendPacket(AllyCrest(_crestId, data))
     }

@@ -54,7 +54,7 @@ class RequestAcquireSkillInfo : L2GameClientPacket() {
                 val gsn = player.template.findSkill(_skillId, _skillLevel)
                 if (gsn != null) {
                     asi = AcquireSkillInfo(_skillId, _skillLevel, gsn.correctedCost, 0)
-                    val bookId = SpellbookData.getInstance().getBookForSkill(_skillId, _skillLevel)
+                    val bookId = SpellbookData.getBookForSkill(_skillId, _skillLevel)
                     if (bookId != 0)
                         asi.addRequirement(99, bookId, 1, 50)
                     sendPacket(asi)
@@ -72,7 +72,7 @@ class RequestAcquireSkillInfo : L2GameClientPacket() {
                 if (skillLvl != _skillLevel - 1)
                     return
 
-                val fsn = SkillTreeData.getInstance().getFishingSkillFor(player, _skillId, _skillLevel)
+                val fsn = SkillTreeData.getFishingSkillFor(player, _skillId, _skillLevel)
                 if (fsn != null) {
                     asi = AcquireSkillInfo(_skillId, _skillLevel, 0, 1)
                     asi.addRequirement(4, fsn.itemId, fsn.itemCount, 0)
@@ -85,7 +85,7 @@ class RequestAcquireSkillInfo : L2GameClientPacket() {
                 if (!player.isClanLeader)
                     return
 
-                val csn = SkillTreeData.getInstance().getClanSkillFor(player, _skillId, _skillLevel)
+                val csn = SkillTreeData.getClanSkillFor(player, _skillId, _skillLevel)
                 if (csn != null) {
                     asi = AcquireSkillInfo(skill.id, skill.level, csn.cost, 2)
                     if (Config.LIFE_CRYSTAL_NEEDED && csn.itemId != 0)

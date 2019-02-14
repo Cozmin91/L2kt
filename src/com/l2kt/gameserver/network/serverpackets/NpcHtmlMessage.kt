@@ -66,7 +66,7 @@ class NpcHtmlMessage(private val _npcObjId: Int) : L2GameServerPacket() {
     }
 
     fun setFile(filename: String) {
-        setHtml(HtmCache.getInstance().getHtmForce(filename))
+        setHtml(HtmCache.getHtmForce(filename))
     }
 
     fun basicReplace(pattern: String, value: String) {

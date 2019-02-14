@@ -91,7 +91,7 @@ public class DerbyTrackManager
 		{
 			for (int i = 31003; i < 31027; i++)
 			{
-				final NpcTemplate template = NpcData.getInstance().getTemplate(i);
+				final NpcTemplate template = NpcData.INSTANCE.getTemplate(i);
 				if (template == null)
 					continue;
 				

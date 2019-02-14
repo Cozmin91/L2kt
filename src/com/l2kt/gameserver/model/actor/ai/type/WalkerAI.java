@@ -27,7 +27,7 @@ public class WalkerAI extends CreatureAI
 	{
 		super(creature);
 		
-		_route = WalkerRouteData.getInstance().getWalkerRoute(getActor().getNpcId());
+		_route = WalkerRouteData.INSTANCE.getWalkerRoute(getActor().getNpcId());
 		if (!_route.isEmpty())
 			setIntention(CtrlIntention.MOVE_TO, _route.get(_index));
 	}

@@ -58,7 +58,7 @@ public final class Gatekeeper extends Folk
 				return;
 			
 			// Retrieve the list.
-			final TeleportLocation list = TeleportLocationData.getInstance().getTeleportLocation(Integer.parseInt(st.nextToken()));
+			final TeleportLocation list = TeleportLocationData.INSTANCE.getTeleportLocation(Integer.parseInt(st.nextToken()));
 			if (list == null)
 				return;
 			
@@ -120,9 +120,9 @@ public final class Gatekeeper extends Folk
 				{
 					final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					
-					String content = HtmCache.getInstance().getHtm("data/html/teleporter/half/" + getNpcId() + ".htm");
+					String content = HtmCache.INSTANCE.getHtm("data/html/teleporter/half/" + getNpcId() + ".htm");
 					if (content == null)
-						content = HtmCache.getInstance().getHtmForce("data/html/teleporter/" + getNpcId() + "-1.htm");
+						content = HtmCache.INSTANCE.getHtmForce("data/html/teleporter/" + getNpcId() + "-1.htm");
 					
 					html.setHtml(content);
 					html.replace("%objectId%", getObjectId());

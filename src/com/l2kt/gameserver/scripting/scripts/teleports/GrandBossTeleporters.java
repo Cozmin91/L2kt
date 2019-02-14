@@ -177,7 +177,7 @@ public class GrandBossTeleporters extends Quest
 						if (status == Antharas.DORMANT)
 						{
 							GrandBossManager.getInstance().setBossStatus(Antharas.ANTHARAS, Antharas.WAITING);
-							ScriptData.getInstance().getQuest("Antharas").startQuestTimer("beginning", Config.WAIT_TIME_ANTHARAS, null, null, false);
+							ScriptData.INSTANCE.getQuest("Antharas").startQuestTimer("beginning", Config.WAIT_TIME_ANTHARAS, null, null, false);
 						}
 					}
 					else
@@ -207,7 +207,7 @@ public class GrandBossTeleporters extends Quest
 						if (status == Valakas.DORMANT)
 						{
 							GrandBossManager.getInstance().setBossStatus(Valakas.VALAKAS, Valakas.WAITING);
-							ScriptData.getInstance().getQuest("Valakas").startQuestTimer("beginning", Config.WAIT_TIME_VALAKAS, null, null, false);
+							ScriptData.INSTANCE.getQuest("Valakas").startQuestTimer("beginning", Config.WAIT_TIME_VALAKAS, null, null, false);
 						}
 					}
 					else
@@ -220,15 +220,15 @@ public class GrandBossTeleporters extends Quest
 				break;
 			
 			case 31384:
-				DoorData.getInstance().getDoor(24210004).openMe();
+				DoorData.INSTANCE.getDoor(24210004).openMe();
 				break;
 			
 			case 31686:
-				DoorData.getInstance().getDoor(24210006).openMe();
+				DoorData.INSTANCE.getDoor(24210006).openMe();
 				break;
 			
 			case 31687:
-				DoorData.getInstance().getDoor(24210005).openMe();
+				DoorData.INSTANCE.getDoor(24210005).openMe();
 				break;
 			
 			case 31540:
@@ -291,7 +291,7 @@ public class GrandBossTeleporters extends Quest
 								}
 							}
 							GrandBossManager.getInstance().setBossStatus(Sailren.SAILREN, Sailren.FIGHTING);
-							ScriptData.getInstance().getQuest("Sailren").startQuestTimer("beginning", 60000, null, null, false);
+							ScriptData.INSTANCE.getQuest("Sailren").startQuestTimer("beginning", 60000, null, null, false);
 						}
 						else if (status == Sailren.DEAD)
 							htmltext = "32109-04.htm";

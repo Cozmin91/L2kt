@@ -37,7 +37,7 @@ class RequestExEnchantSkill : L2GameClientPacket() {
 
         val skill = SkillTable.getInfo(_skillId, _skillLevel) ?: return
 
-        val esn = SkillTreeData.getInstance().getEnchantSkillFor(player, _skillId, _skillLevel) ?: return
+        val esn = SkillTreeData.getEnchantSkillFor(player, _skillId, _skillLevel) ?: return
 
         // Check exp and sp neccessary to enchant skill.
         if (player.sp < esn.sp) {

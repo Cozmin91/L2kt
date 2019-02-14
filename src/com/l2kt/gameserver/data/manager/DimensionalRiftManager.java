@@ -1,17 +1,10 @@
 package com.l2kt.gameserver.data.manager;
 
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import com.l2kt.Config;
 import com.l2kt.commons.data.xml.IXmlReader;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.data.SpawnTable;
 import com.l2kt.gameserver.data.xml.NpcData;
-
 import com.l2kt.gameserver.model.L2Spawn;
 import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.instance.Player;
@@ -21,9 +14,14 @@ import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.model.rift.DimensionalRift;
 import com.l2kt.gameserver.model.rift.DimensionalRiftRoom;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
+
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Loads and stores available {@link DimensionalRiftRoom}s for the {@link DimensionalRift} system.
@@ -75,7 +73,7 @@ public class DimensionalRiftManager implements IXmlReader
 					int delay = Integer.parseInt(spawnAttrs.getNamedItem("delay").getNodeValue());
 					int count = Integer.parseInt(spawnAttrs.getNamedItem("count").getNodeValue());
 					
-					final NpcTemplate template = NpcData.getInstance().getTemplate(mobId);
+					final NpcTemplate template = NpcData.INSTANCE.getTemplate(mobId);
 					if (template == null)
 					{
 						LOGGER.warn("Template " + mobId + " not found!");

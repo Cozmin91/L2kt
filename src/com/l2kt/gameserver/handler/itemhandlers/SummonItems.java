@@ -45,7 +45,7 @@ public class SummonItems implements IItemHandler
 		if (activeChar.isAllSkillsDisabled() || activeChar.isCastingNow())
 			return;
 		
-		final IntIntHolder sitem = SummonItemData.getInstance().getSummonItem(item.getItemId());
+		final IntIntHolder sitem = SummonItemData.INSTANCE.getSummonItem(item.getItemId());
 		
 		if ((activeChar.getPet() != null || activeChar.isMounted()) && sitem.getValue() > 0)
 		{
@@ -63,7 +63,7 @@ public class SummonItems implements IItemHandler
 		if (npcId == 0)
 			return;
 		
-		final NpcTemplate npcTemplate = NpcData.getInstance().getTemplate(npcId);
+		final NpcTemplate npcTemplate = NpcData.INSTANCE.getTemplate(npcId);
 		if (npcTemplate == null)
 			return;
 		

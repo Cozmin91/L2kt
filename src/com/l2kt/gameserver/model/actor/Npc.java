@@ -449,7 +449,7 @@ public class Npc extends Creature
 			if (quest.isEmpty())
 				showQuestWindowGeneral(player, this);
 			else
-				showQuestWindowSingle(player, this, ScriptData.getInstance().getQuest(quest));
+				showQuestWindowSingle(player, this, ScriptData.INSTANCE.getQuest(quest));
 		}
 		else if (command.startsWith("Chat"))
 		{
@@ -510,11 +510,11 @@ public class Npc extends Creature
 		}
 		else if (command.startsWith("multisell"))
 		{
-			MultisellData.getInstance().separateAndSend(command.substring(9).trim(), player, this, false);
+			MultisellData.INSTANCE.separateAndSend(command.substring(9).trim(), player, this, false);
 		}
 		else if (command.startsWith("exc_multisell"))
 		{
-			MultisellData.getInstance().separateAndSend(command.substring(13).trim(), player, this, true);
+			MultisellData.INSTANCE.separateAndSend(command.substring(13).trim(), player, this, true);
 		}
 		else if (command.startsWith("Augment"))
 		{
@@ -729,7 +729,7 @@ public class Npc extends Creature
 		else
 			filename = "data/html/default/" + npcId + "-" + val + ".htm";
 		
-		if (HtmCache.getInstance().isLoadable(filename))
+		if (HtmCache.INSTANCE.isLoadable(filename))
 			return filename;
 		
 		return "data/html/npcdefault.htm";
@@ -1005,13 +1005,13 @@ public class Npc extends Creature
 		// Calculate the min and max level between which the player must be to obtain buff.
 		if (player.isMageClass())
 		{
-			lowestLevel = NewbieBuffData.getInstance().getMagicLowestLevel();
-			higestLevel = NewbieBuffData.getInstance().getMagicHighestLevel();
+			lowestLevel = NewbieBuffData.INSTANCE.getMagicLowestLevel();
+			higestLevel = NewbieBuffData.INSTANCE.getMagicHighestLevel();
 		}
 		else
 		{
-			lowestLevel = NewbieBuffData.getInstance().getPhysicLowestLevel();
-			higestLevel = NewbieBuffData.getInstance().getPhysicHighestLevel();
+			lowestLevel = NewbieBuffData.INSTANCE.getPhysicLowestLevel();
+			higestLevel = NewbieBuffData.INSTANCE.getPhysicHighestLevel();
 		}
 		
 		// If the player is too high level, display a message and return.
@@ -1035,7 +1035,7 @@ public class Npc extends Creature
 		}
 		
 		// Go through the NewbieBuffData list and cast skills.
-		for (NewbieBuff buff : NewbieBuffData.getInstance().getBuffs())
+		for (NewbieBuff buff : NewbieBuffData.INSTANCE.getBuffs())
 		{
 			if (buff.isMagicClassBuff() == player.isMageClass() && playerLevel >= buff.getLowerLevel() && playerLevel <= buff.getUpperLevel())
 			{
@@ -1057,7 +1057,7 @@ public class Npc extends Creature
 	 */
 	protected boolean showPkDenyChatWindow(Player player, String type)
 	{
-		final String content = HtmCache.getInstance().getHtm("data/html/" + type + "/" + getNpcId() + "-pk.htm");
+		final String content = HtmCache.INSTANCE.getHtm("data/html/" + type + "/" + getNpcId() + "-pk.htm");
 		if (content != null)
 		{
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());

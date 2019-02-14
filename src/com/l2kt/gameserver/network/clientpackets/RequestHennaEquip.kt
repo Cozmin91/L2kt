@@ -14,7 +14,7 @@ class RequestHennaEquip : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        val henna = HennaData.getInstance().getHenna(_symbolId) ?: return
+        val henna = HennaData.getHenna(_symbolId) ?: return
 
         if (!henna.canBeUsedBy(activeChar)) {
             activeChar.sendPacket(SystemMessageId.CANT_DRAW_SYMBOL)

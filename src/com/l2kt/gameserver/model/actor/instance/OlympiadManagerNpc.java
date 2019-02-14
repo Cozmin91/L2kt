@@ -159,7 +159,7 @@ public class OlympiadManagerNpc extends Folk
 					break;
 				
 				case 7: // Rewards
-					MultisellData.getInstance().separateAndSend("102", player, this, false);
+					MultisellData.INSTANCE.separateAndSend("102", player, this, false);
 					break;
 				
 				case 10: // Give tokens to player

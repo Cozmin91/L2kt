@@ -237,19 +237,19 @@ public class Clan
 			LOGGER.error("Error while restoring clan.", e);
 		}
 		
-		if (_crestId != 0 && CrestCache.getInstance().getCrest(CrestCache.CrestType.PLEDGE, _crestId) == null)
+		if (_crestId != 0 && CrestCache.INSTANCE.getCrest(CrestCache.CrestType.PLEDGE, _crestId) == null)
 		{
 			LOGGER.warn("Removing non-existent crest for clan {}, crestId: {}.", toString(), _crestId);
 			changeClanCrest(0);
 		}
 		
-		if (_crestLargeId != 0 && CrestCache.getInstance().getCrest(CrestCache.CrestType.PLEDGE_LARGE, _crestLargeId) == null)
+		if (_crestLargeId != 0 && CrestCache.INSTANCE.getCrest(CrestCache.CrestType.PLEDGE_LARGE, _crestLargeId) == null)
 		{
 			LOGGER.warn("Removing non-existent large crest for clan {}, crestLargeId: {}.", toString(), _crestLargeId);
 			changeLargeCrest(0);
 		}
 		
-		if (_allyCrestId != 0 && CrestCache.getInstance().getCrest(CrestCache.CrestType.ALLY, _allyCrestId) == null)
+		if (_allyCrestId != 0 && CrestCache.INSTANCE.getCrest(CrestCache.CrestType.ALLY, _allyCrestId) == null)
 		{
 			LOGGER.warn("Removing non-existent ally crest for clan {}, allyCrestId: {}.", toString(), _allyCrestId);
 			changeAllyCrest(0, true);
@@ -1928,7 +1928,7 @@ public class Clan
 	{
 		// Delete previous crest if existing.
 		if (_crestId != 0)
-			CrestCache.getInstance().removeCrest(CrestCache.CrestType.PLEDGE, _crestId);
+			CrestCache.INSTANCE.removeCrest(CrestCache.CrestType.PLEDGE, _crestId);
 		
 		_crestId = crestId;
 		
@@ -1961,7 +1961,7 @@ public class Clan
 		{
 			// Delete previous crest if existing.
 			if (_allyCrestId != 0)
-				CrestCache.getInstance().removeCrest(CrestCache.CrestType.ALLY, _allyCrestId);
+				CrestCache.INSTANCE.removeCrest(CrestCache.CrestType.ALLY, _allyCrestId);
 			
 			query = "UPDATE clan_data SET ally_crest_id = ? WHERE ally_id = ?";
 			allyId = _allyId;
@@ -2007,7 +2007,7 @@ public class Clan
 	{
 		// Delete previous crest if existing.
 		if (_crestLargeId != 0)
-			CrestCache.getInstance().removeCrest(CrestCache.CrestType.PLEDGE_LARGE, _crestLargeId);
+			CrestCache.INSTANCE.removeCrest(CrestCache.CrestType.PLEDGE_LARGE, _crestLargeId);
 		
 		_crestLargeId = crestId;
 		

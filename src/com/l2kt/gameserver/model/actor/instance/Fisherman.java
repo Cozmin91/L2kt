@@ -92,10 +92,10 @@ public class Fisherman extends Merchant
 	
 	public static void showFishSkillList(Player player)
 	{
-		final List<FishingSkillNode> skills = SkillTreeData.getInstance().getFishingSkillsFor(player);
+		final List<FishingSkillNode> skills = SkillTreeData.INSTANCE.getFishingSkillsFor(player);
 		if (skills.isEmpty())
 		{
-			final int minlevel = SkillTreeData.getInstance().getRequiredLevelForNextFishingSkill(player);
+			final int minlevel = SkillTreeData.INSTANCE.getRequiredLevelForNextFishingSkill(player);
 			if (minlevel > 0)
 				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN_S1).addNumber(minlevel));
 			else

@@ -186,7 +186,7 @@ public class Boat extends Creature
 		player.setInsideZone(ZoneId.PEACE, false);
 		player.sendPacket(SystemMessageId.EXIT_PEACEFUL_ZONE);
 		
-		final Location loc = (location.equals(Location.DUMMY_LOC)) ? MapRegionData.getInstance().getLocationToTeleport(this, MapRegionData.TeleportType.TOWN) : location;
+		final Location loc = (location.equals(Location.DUMMY_LOC)) ? MapRegionData.INSTANCE.getLocationToTeleport(this, MapRegionData.TeleportType.TOWN) : location;
 		if (player.isOnline())
 			player.teleToLocation(loc.getX(), loc.getY(), loc.getZ(), 0);
 		else

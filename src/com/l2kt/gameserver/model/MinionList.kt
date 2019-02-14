@@ -34,7 +34,7 @@ class MinionList(private val _master: Monster) {
         // We generate new instances. We can't reuse existing instances, since previous monsters can still exist.
         for (data in _master.template.minionData) {
             // Get the template of the Minion to spawn
-            val template = NpcData.getInstance().getTemplate(data.minionId) ?: continue
+            val template = NpcData.getTemplate(data.minionId) ?: continue
 
             for (i in 0 until data.amount) {
                 val minion = Monster(IdFactory.getInstance().nextId, template)

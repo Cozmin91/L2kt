@@ -1106,7 +1106,7 @@ public class Attackable extends Npc
 		// Herbs.
 		if (getTemplate().getDropHerbGroup() > 0)
 		{
-			for (DropCategory cat : HerbDropData.getInstance().getHerbDroplist(getTemplate().getDropHerbGroup()))
+			for (DropCategory cat : HerbDropData.INSTANCE.getHerbDroplist(getTemplate().getDropHerbGroup()))
 			{
 				final IntIntHolder item = calculateCategorizedHerbItem(cat, levelModifier);
 				if (item != null)

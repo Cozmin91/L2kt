@@ -44,7 +44,7 @@ class RequestRecipeShopMakeItem : L2GameClientPacket() {
         if (!MathUtil.checkIfInRange(150, player, manufacturer, true))
             return
 
-        val recipe = RecipeData.getInstance().getRecipeList(_recipeId) ?: return
+        val recipe = RecipeData.getRecipeList(_recipeId) ?: return
 
         if (recipe.isDwarven) {
             if (!manufacturer.dwarvenRecipeBook.contains(recipe))

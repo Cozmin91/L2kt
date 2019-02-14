@@ -35,6 +35,5 @@ class ConditionPlayerState(private val _check: PlayerState, private val _require
 
             ConditionPlayerState.PlayerState.OLYMPIAD -> return if (player == null) !_required else player.isInOlympiadMode == _required
         }
-        return !_required
     }
 }

@@ -149,7 +149,7 @@ class RequestBuyItem : L2GameClientPacket() {
 
             if (!htmlFolder.isEmpty()) {
                 val content =
-                    HtmCache.getInstance().getHtm("data/html/" + htmlFolder + "/" + merchant.npcId + "-bought.htm")
+                    HtmCache.getHtm("data/html/" + htmlFolder + "/" + merchant.npcId + "-bought.htm")
                 if (content != null) {
                     val html = NpcHtmlMessage(merchant.objectId)
                     html.setHtml(content)

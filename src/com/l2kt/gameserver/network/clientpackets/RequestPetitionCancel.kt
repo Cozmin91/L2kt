@@ -33,7 +33,7 @@ class RequestPetitionCancel : L2GameClientPacket() {
 
                     // Notify all GMs that the player's pending petition has been cancelled.
                     val msgContent = activeChar.name + " has canceled a pending petition."
-                    AdminData.getInstance()
+                    AdminData
                         .broadcastToGMs(CreatureSay(activeChar.objectId, 17, "Petition System", msgContent))
                 } else
                     activeChar.sendPacket(SystemMessageId.FAILED_CANCEL_PETITION_TRY_LATER)

@@ -461,7 +461,7 @@ class FishingStance(private val _fisher: Player?) {
         }
 
         // Define which fish we gonna catch.
-        _fish = FishData.getInstance().getFish(randomFishLvl, getRandomFishType(group), group)
+        _fish = FishData.getFish(randomFishLvl, getRandomFishType(group), group)
         if (_fish == null) {
             end(false)
             return
@@ -575,7 +575,7 @@ class FishingStance(private val _fisher: Player?) {
             if (Rnd[100] < 5) {
                 val npcId = 18319 + Math.min(_fisher!!.level / 11, 7) // 18319-18326
 
-                val npc = PenaltyMonster(IdFactory.getInstance().nextId, NpcData.getInstance().getTemplate(npcId))
+                val npc = PenaltyMonster(IdFactory.getInstance().nextId, NpcData.getTemplate(npcId))
                 npc.setXYZ(_fisher.x, _fisher.y, _fisher.z + 20)
                 npc.setCurrentHpMp(npc.maxHp.toDouble(), npc.maxMp.toDouble())
                 npc.heading = _fisher.heading

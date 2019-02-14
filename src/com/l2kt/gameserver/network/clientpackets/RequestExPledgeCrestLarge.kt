@@ -13,7 +13,7 @@ class RequestExPledgeCrestLarge : L2GameClientPacket() {
     override fun runImpl() {
         val player = client.activeChar ?: return
 
-        val data = CrestCache.getInstance().getCrest(CrestCache.CrestType.PLEDGE_LARGE, _crestId) ?: return
+        val data = CrestCache.getCrest(CrestCache.CrestType.PLEDGE_LARGE, _crestId) ?: return
 
         player.sendPacket(ExPledgeCrestLarge(_crestId, data))
     }

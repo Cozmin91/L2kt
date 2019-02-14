@@ -64,7 +64,7 @@ public class Merchant extends Folk
 			final List<ItemInstance> items = player.getInventory().getSellableItems();
 			if (items.isEmpty())
 			{
-				final String content = HtmCache.getInstance().getHtm("data/html/" + ((this instanceof Fisherman) ? "fisherman" : "merchant") + "/" + getNpcId() + "-empty.htm");
+				final String content = HtmCache.INSTANCE.getHtm("data/html/" + ((this instanceof Fisherman) ? "fisherman" : "merchant") + "/" + getNpcId() + "-empty.htm");
 				if (content != null)
 				{
 					final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -89,7 +89,7 @@ public class Merchant extends Folk
 			if (st.countTokens() < 1)
 				return;
 			
-			MultisellData.getInstance().separateAndSend(st.nextToken(), player, this, false);
+			MultisellData.INSTANCE.separateAndSend(st.nextToken(), player, this, false);
 		}
 		else if (actualCommand.equalsIgnoreCase("Multisell_Shadow"))
 		{
@@ -112,7 +112,7 @@ public class Merchant extends Folk
 			if (st.countTokens() < 1)
 				return;
 			
-			MultisellData.getInstance().separateAndSend(st.nextToken(), player, this, true);
+			MultisellData.INSTANCE.separateAndSend(st.nextToken(), player, this, true);
 		}
 		else if (actualCommand.equalsIgnoreCase("Newbie_Exc_Multisell"))
 		{
@@ -120,7 +120,7 @@ public class Merchant extends Folk
 				return;
 			
 			if (player.isNewbie())
-				MultisellData.getInstance().separateAndSend(st.nextToken(), player, this, true);
+				MultisellData.INSTANCE.separateAndSend(st.nextToken(), player, this, true);
 			else
 				showChatWindow(player, "data/html/exchangelvlimit.htm");
 		}

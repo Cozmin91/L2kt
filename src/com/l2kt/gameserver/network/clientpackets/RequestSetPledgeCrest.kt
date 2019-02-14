@@ -48,7 +48,7 @@ class RequestSetPledgeCrest : L2GameClientPacket() {
             }
 
             val crestId = IdFactory.getInstance().nextId
-            if (CrestCache.getInstance().saveCrest(CrestCache.CrestType.PLEDGE, crestId, _data)) {
+            if (CrestCache.saveCrest(CrestCache.CrestType.PLEDGE, crestId, _data)) {
                 clan.changeClanCrest(crestId)
                 player.sendPacket(SystemMessageId.CLAN_EMBLEM_WAS_SUCCESSFULLY_REGISTERED)
             }

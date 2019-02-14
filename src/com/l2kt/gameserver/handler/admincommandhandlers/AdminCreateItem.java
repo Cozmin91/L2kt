@@ -119,7 +119,7 @@ public class AdminCreateItem implements IAdminCommandHandler
 				{
 					try
 					{
-						final ArmorSet set = ArmorSetData.getInstance().getSet(Integer.parseInt(st.nextToken()));
+						final ArmorSet set = ArmorSetData.INSTANCE.getSet(Integer.parseInt(st.nextToken()));
 						if (set == null)
 						{
 							activeChar.sendMessage("This chest has no set.");
@@ -150,7 +150,7 @@ public class AdminCreateItem implements IAdminCommandHandler
 				int i = 0;
 				
 				final StringBuilder sb = new StringBuilder();
-				for (ArmorSet set : ArmorSetData.getInstance().getSets())
+				for (ArmorSet set : ArmorSetData.INSTANCE.getSets())
 				{
 					final boolean isNextLine = i % 2 == 0;
 					if (isNextLine)

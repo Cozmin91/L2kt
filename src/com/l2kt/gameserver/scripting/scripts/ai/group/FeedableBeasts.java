@@ -1,9 +1,5 @@
 package com.l2kt.gameserver.scripting.scripts.ai.group;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.commons.util.ArraysUtil;
 import com.l2kt.gameserver.data.xml.NpcData;
@@ -22,6 +18,10 @@ import com.l2kt.gameserver.scripting.EventType;
 import com.l2kt.gameserver.scripting.QuestState;
 import com.l2kt.gameserver.scripting.quests.Q020_BringUpWithLove;
 import com.l2kt.gameserver.scripting.scripts.ai.L2AttackableAIScript;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FeedableBeasts extends L2AttackableAIScript
 {
@@ -607,7 +607,7 @@ public class FeedableBeasts extends L2AttackableAIScript
 			if (player.getTrainedBeast() != null)
 				player.getTrainedBeast().deleteMe();
 			
-			NpcTemplate template = NpcData.getInstance().getTemplate(nextNpcId);
+			NpcTemplate template = NpcData.INSTANCE.getTemplate(nextNpcId);
 			TamedBeast nextNpc = new TamedBeast(IdFactory.getInstance().getNextId(), template, player, food, npc.getPosition());
 			nextNpc.setRunning();
 			

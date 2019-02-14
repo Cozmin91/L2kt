@@ -368,7 +368,7 @@ public abstract class Creature extends WorldObject
 	
 	public void teleToLocation(MapRegionData.TeleportType teleportWhere)
 	{
-		teleToLocation(MapRegionData.getInstance().getLocationToTeleport(this, teleportWhere), 20);
+		teleToLocation(MapRegionData.INSTANCE.getLocationToTeleport(this, teleportWhere), 20);
 	}
 	
 	/**
@@ -3837,7 +3837,7 @@ public abstract class Creature extends WorldObject
 		if (target instanceof Creature)
 			return target.isInsideZone(ZoneId.PEACE) || attacker.isInsideZone(ZoneId.PEACE);
 		
-		return (MapRegionData.getTown(target.getX(), target.getY(), target.getZ()) != null || attacker.isInsideZone(ZoneId.PEACE));
+		return (MapRegionData.INSTANCE.getTown(target.getX(), target.getY(), target.getZ()) != null || attacker.isInsideZone(ZoneId.PEACE));
 	}
 	
 	/**

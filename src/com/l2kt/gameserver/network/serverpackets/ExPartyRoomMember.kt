@@ -15,7 +15,7 @@ class ExPartyRoomMember(private val _room: PartyMatchRoom, private val _mode: In
             writeS(member.name)
             writeD(member.activeClass)
             writeD(member.level)
-            writeD(MapRegionData.getInstance().getClosestLocation(member.x, member.y))
+            writeD(MapRegionData.getClosestLocation(member.x, member.y))
             if (_room.owner == member)
                 writeD(1)
             else {

@@ -21,7 +21,7 @@ class RequestRecipeBookDestroy : L2GameClientPacket() {
             return
         }
 
-        val recipe = RecipeData.getInstance().getRecipeList(_recipeId) ?: return
+        val recipe = RecipeData.getRecipeList(_recipeId) ?: return
 
         player.unregisterRecipeList(_recipeId)
         player.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED).addItemName(recipe.recipeId))

@@ -13,6 +13,6 @@ class RequestHennaList : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        activeChar.sendPacket(HennaEquipList(activeChar, HennaData.getInstance().getAvailableHennasFor(activeChar)))
+        activeChar.sendPacket(HennaEquipList(activeChar, HennaData.getAvailableHennasFor(activeChar)))
     }
 }

@@ -41,23 +41,23 @@ class EnterWorld : L2GameClientPacket() {
         val objectId = player.objectId
 
         if (player.isGM) {
-            if (Config.GM_STARTUP_INVULNERABLE && AdminData.getInstance().hasAccess(
+            if (Config.GM_STARTUP_INVULNERABLE && AdminData.hasAccess(
                     "admin_setinvul",
                     player.accessLevel
                 )
             )
                 player.setIsMortal(false)
 
-            if (Config.GM_STARTUP_INVISIBLE && AdminData.getInstance().hasAccess("admin_hide", player.accessLevel))
+            if (Config.GM_STARTUP_INVISIBLE && AdminData.hasAccess("admin_hide", player.accessLevel))
                 player.appearance.setInvisible()
 
-            if (Config.GM_STARTUP_SILENCE && AdminData.getInstance().hasAccess("admin_silence", player.accessLevel))
+            if (Config.GM_STARTUP_SILENCE && AdminData.hasAccess("admin_silence", player.accessLevel))
                 player.isInRefusalMode = true
 
-            if (Config.GM_STARTUP_AUTO_LIST && AdminData.getInstance().hasAccess("admin_gmlist", player.accessLevel))
-                AdminData.getInstance().addGm(player, false)
+            if (Config.GM_STARTUP_AUTO_LIST && AdminData.hasAccess("admin_gmlist", player.accessLevel))
+                AdminData.addGm(player, false)
             else
-                AdminData.getInstance().addGm(player, true)
+                AdminData.addGm(player, true)
         }
 
         // Set dead status if applies
@@ -159,7 +159,7 @@ class EnterWorld : L2GameClientPacket() {
         // Announcements, welcome & Seven signs period messages
         player.sendPacket(SystemMessageId.WELCOME_TO_LINEAGE)
         player.sendPacket(SevenSigns.getInstance().currentPeriod.messageId)
-        AnnouncementData.getInstance().showAnnouncements(player, false)
+        AnnouncementData.showAnnouncements(player, false)
 
         // if player is DE, check for shadow sense skill at night
         if (player.race == ClassRace.DARK_ELF && player.hasSkill(L2Skill.SKILL_SHADOW_SENSE))
@@ -197,7 +197,7 @@ class EnterWorld : L2GameClientPacket() {
                             val questName = rs.getString("name")
 
                             // Test quest existence.
-                            val quest = ScriptData.getInstance().getQuest(questName)
+                            val quest = ScriptData.getQuest(questName)
                             if (quest == null) {
                                 L2GameClientPacket.LOGGER.warn(
                                     "Unknown quest {} for player {}.",

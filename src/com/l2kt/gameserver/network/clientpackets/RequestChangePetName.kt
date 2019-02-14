@@ -42,7 +42,7 @@ class RequestChangePetName : L2GameClientPacket() {
         }
 
         // Name is a npc name.
-        if (NpcData.getInstance().getTemplateByName(_name) != null)
+        if (NpcData.getTemplateByName(_name) != null)
             return
 
         // Name already exists on another pet.

@@ -43,7 +43,7 @@ public class L2AttackableAIScript extends Quest
 	protected void registerNpcs()
 	{
 		// register all mobs here...
-		for (NpcTemplate template : NpcData.getInstance().getAllNpcs())
+		for (NpcTemplate template : NpcData.INSTANCE.getAllNpcs())
 		{
 			try
 			{

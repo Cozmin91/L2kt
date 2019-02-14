@@ -158,7 +158,7 @@ object FriendsBBSManager : BaseBBSManager() {
 
     private fun showFriendsList(player: Player, delMsg: Boolean) {
         var content: String? =
-            HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "friend/friend-list.htm") ?: return
+            HtmCache.getHtm(BaseBBSManager.CB_PATH + "friend/friend-list.htm") ?: return
 
         // Retrieve player's friendlist and selected
         val list = player.friendList
@@ -216,7 +216,7 @@ object FriendsBBSManager : BaseBBSManager() {
 
     private fun showBlockList(player: Player, delMsg: Boolean) {
         var content: String? =
-            HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "friend/friend-blocklist.htm") ?: return
+            HtmCache.getHtm(BaseBBSManager.CB_PATH + "friend/friend-blocklist.htm") ?: return
 
         // Retrieve player's blocklist and selected
         val list = player.blockList.blockList
@@ -274,7 +274,7 @@ object FriendsBBSManager : BaseBBSManager() {
 
     fun showMailWrite(player: Player) {
         var content: String? =
-            HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "friend/friend-mail.htm") ?: return
+            HtmCache.getHtm(BaseBBSManager.CB_PATH + "friend/friend-mail.htm") ?: return
 
         val sb = StringBuilder()
         for (id in player.selectedFriendList) {

@@ -194,7 +194,7 @@ public abstract class WorldObject
 		
 		if (type == PolyType.NPC)
 		{
-			final NpcTemplate template = NpcData.getInstance().getTemplate(id);
+			final NpcTemplate template = NpcData.INSTANCE.getTemplate(id);
 			if (template == null)
 				return false;
 			

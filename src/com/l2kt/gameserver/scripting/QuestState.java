@@ -848,7 +848,7 @@ public final class QuestState
 	
 	public void showTutorialHTML(String html)
 	{
-		_player.sendPacket(new TutorialShowHtml(HtmCache.getInstance().getHtmForce("data/html/scripts/quests/Tutorial/" + html)));
+		_player.sendPacket(new TutorialShowHtml(HtmCache.INSTANCE.getHtmForce("data/html/scripts/quests/Tutorial/" + html)));
 	}
 	
 	public void closeTutorialHtml()

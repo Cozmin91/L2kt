@@ -24,11 +24,11 @@ public class PaganTeleporters extends Quest
 	public String onAdvEvent(String event, Npc npc, Player player)
 	{
 		if (event.equalsIgnoreCase("Close_Door1"))
-			DoorData.getInstance().getDoor(19160001).closeMe();
+			DoorData.INSTANCE.getDoor(19160001).closeMe();
 		else if (event.equalsIgnoreCase("Close_Door2"))
 		{
-			DoorData.getInstance().getDoor(19160010).closeMe();
-			DoorData.getInstance().getDoor(19160011).closeMe();
+			DoorData.INSTANCE.getDoor(19160010).closeMe();
+			DoorData.INSTANCE.getDoor(19160011).closeMe();
 		}
 		return null;
 	}
@@ -46,7 +46,7 @@ public class PaganTeleporters extends Quest
 			case 32034:
 				if (st.hasQuestItems(VISITOR_MARK) || st.hasQuestItems(PAGAN_MARK))
 				{
-					DoorData.getInstance().getDoor(19160001).openMe();
+					DoorData.INSTANCE.getDoor(19160001).openMe();
 					startQuestTimer("Close_Door1", 10000, npc, player, false);
 					htmltext = "FadedMark.htm";
 				}
@@ -58,7 +58,7 @@ public class PaganTeleporters extends Quest
 				break;
 			
 			case 32035:
-				DoorData.getInstance().getDoor(19160001).openMe();
+				DoorData.INSTANCE.getDoor(19160001).openMe();
 				startQuestTimer("Close_Door1", 10000, npc, player, false);
 				htmltext = "FadedMark.htm";
 				break;
@@ -68,16 +68,16 @@ public class PaganTeleporters extends Quest
 					htmltext = "32036-1.htm";
 				else
 				{
-					DoorData.getInstance().getDoor(19160010).openMe();
-					DoorData.getInstance().getDoor(19160011).openMe();
+					DoorData.INSTANCE.getDoor(19160010).openMe();
+					DoorData.INSTANCE.getDoor(19160011).openMe();
 					startQuestTimer("Close_Door2", 10000, npc, player, false);
 					htmltext = "32036-2.htm";
 				}
 				break;
 			
 			case 32037:
-				DoorData.getInstance().getDoor(19160010).openMe();
-				DoorData.getInstance().getDoor(19160011).openMe();
+				DoorData.INSTANCE.getDoor(19160010).openMe();
+				DoorData.INSTANCE.getDoor(19160011).openMe();
 				startQuestTimer("Close_Door2", 10000, npc, player, false);
 				htmltext = "FadedMark.htm";
 				break;

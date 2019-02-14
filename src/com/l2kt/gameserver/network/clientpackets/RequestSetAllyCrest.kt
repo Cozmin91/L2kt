@@ -37,7 +37,7 @@ class RequestSetAllyCrest : L2GameClientPacket() {
             }
         } else {
             val crestId = IdFactory.getInstance().nextId
-            if (CrestCache.getInstance().saveCrest(CrestCache.CrestType.ALLY, crestId, _data)) {
+            if (CrestCache.saveCrest(CrestCache.CrestType.ALLY, crestId, _data)) {
                 clan.changeAllyCrest(crestId, false)
                 player.sendPacket(SystemMessageId.CLAN_EMBLEM_WAS_SUCCESSFULLY_REGISTERED)
             }

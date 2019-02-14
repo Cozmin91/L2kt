@@ -1,5 +1,10 @@
 package com.l2kt.gameserver.instancemanager;
 
+import com.l2kt.L2DatabaseFactory;
+import com.l2kt.gameserver.data.xml.NpcData;
+import com.l2kt.gameserver.model.actor.instance.GrandBoss;
+import com.l2kt.gameserver.templates.StatsSet;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,11 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.l2kt.L2DatabaseFactory;
-import com.l2kt.gameserver.data.xml.NpcData;
-import com.l2kt.gameserver.model.actor.instance.GrandBoss;
-import com.l2kt.gameserver.templates.StatsSet;
 
 /**
  * This class handles the status of all Grand Bosses, and manages L2BossZone zones.
@@ -78,7 +78,7 @@ public class GrandBossManager
 	public void setBossStatus(int bossId, int status)
 	{
 		_bossStatus.put(bossId, status);
-		_log.info("GrandBossManager: Updated " + NpcData.getInstance().getTemplate(bossId).getName() + " (id: " + bossId + ") status to " + status);
+		_log.info("GrandBossManager: Updated " + NpcData.INSTANCE.getTemplate(bossId).getName() + " (id: " + bossId + ") status to " + status);
 		updateDb(bossId, true);
 	}
 	

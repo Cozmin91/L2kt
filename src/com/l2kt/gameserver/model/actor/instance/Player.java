@@ -623,7 +623,7 @@ public final class Player extends Playable
 	 */
 	public final PlayerTemplate getBaseTemplate()
 	{
-		return PlayerData.getInstance().getTemplate(_baseClass);
+		return PlayerData.INSTANCE.getTemplate(_baseClass);
 	}
 	
 	/** Return the L2PcTemplate link to the Player. */
@@ -635,7 +635,7 @@ public final class Player extends Playable
 	
 	public void setTemplate(ClassId newclass)
 	{
-		super.setTemplate(PlayerData.getInstance().getTemplate(newclass));
+		super.setTemplate(PlayerData.INSTANCE.getTemplate(newclass));
 	}
 	
 	/**
@@ -831,7 +831,7 @@ public final class Player extends Playable
 	
 	public void processQuestEvent(String questName, String event)
 	{
-		Quest quest = ScriptData.getInstance().getQuest(questName);
+		Quest quest = ScriptData.INSTANCE.getQuest(questName);
 		if (quest == null)
 			return;
 		
@@ -4511,7 +4511,7 @@ public final class Player extends Playable
 		Ride mount = new Ride(getObjectId(), Ride.ACTION_MOUNT, npcId);
 		if (setMount(npcId, getLevel(), mount.getMountType()))
 		{
-			_petTemplate = (PetTemplate) NpcData.getInstance().getTemplate(npcId);
+			_petTemplate = (PetTemplate) NpcData.INSTANCE.getTemplate(npcId);
 			_petData = _petTemplate.getPetDataEntry(getLevel());
 			_mountObjectId = controlItemId;
 			
@@ -4834,11 +4834,11 @@ public final class Player extends Playable
 	public void setAccessLevel(int level)
 	{
 		// Retrieve the AccessLevel. Even if not existing, it returns user level.
-		AccessLevel accessLevel = AdminData.getInstance().getAccessLevel(level);
+		AccessLevel accessLevel = AdminData.INSTANCE.getAccessLevel(level);
 		if (accessLevel == null)
 		{
 			WorldObject.LOGGER.warn("An invalid access level {} has been granted for {}, therefore it has been reset.", level, toString());
-			accessLevel = AdminData.getInstance().getAccessLevel(0);
+			accessLevel = AdminData.INSTANCE.getAccessLevel(0);
 		}
 		
 		_accessLevel = accessLevel;
@@ -4849,7 +4849,7 @@ public final class Player extends Playable
 			setTitle(accessLevel.getName());
 			
 			// We log master access.
-			if (level == AdminData.getInstance().getMasterAccessLevel())
+			if (level == AdminData.INSTANCE.getMasterAccessLevel())
 				WorldObject.LOGGER.info("{} has logged in with Master access level.", getName());
 		}
 		
@@ -4857,11 +4857,11 @@ public final class Player extends Playable
 		if (accessLevel.isGm())
 		{
 			// A little hack to avoid Enterworld config to be replaced.
-			if (!AdminData.getInstance().isRegisteredAsGM(this))
-				AdminData.getInstance().addGm(this, false);
+			if (!AdminData.INSTANCE.isRegisteredAsGM(this))
+				AdminData.INSTANCE.addGm(this, false);
 		}
 		else
-			AdminData.getInstance().deleteGm(this);
+			AdminData.INSTANCE.deleteGm(this);
 		
 		getAppearance().setNameColor(accessLevel.getNameColor());
 		getAppearance().setTitleColor(accessLevel.getTitleColor());
@@ -4975,7 +4975,7 @@ public final class Player extends Playable
 			while (rset.next())
 			{
 				final int activeClassId = rset.getInt("classid");
-				final PlayerTemplate template = PlayerData.getInstance().getTemplate(activeClassId);
+				final PlayerTemplate template = PlayerData.INSTANCE.getTemplate(activeClassId);
 				final PcAppearance app = new PcAppearance(rset.getByte("face"), rset.getByte("hairColor"), rset.getByte("hairStyle"), Sex.values()[rset.getInt("sex")]);
 				
 				player = new Player(objectId, template, rset.getString("account_name"), app);
@@ -5269,7 +5269,7 @@ public final class Player extends Playable
 			{
 				while (rs.next())
 				{
-					final Recipe recipe = RecipeData.getInstance().getRecipeList(rs.getInt("recipeId"));
+					final Recipe recipe = RecipeData.INSTANCE.getRecipeList(rs.getInt("recipeId"));
 					if (recipe.isDwarven())
 						registerDwarvenRecipeList(recipe);
 					else
@@ -5821,7 +5821,7 @@ public final class Player extends Playable
 					final int symbolId = rs.getInt("symbol_id");
 					if (symbolId != 0)
 					{
-						final Henna henna = HennaData.getInstance().getHenna(symbolId);
+						final Henna henna = HennaData.INSTANCE.getHenna(symbolId);
 						if (henna != null)
 							_henna[slot - 1] = henna;
 					}
@@ -7710,7 +7710,7 @@ public final class Player extends Playable
 			
 			_subClasses.put(subclass.getClassIndex(), subclass);
 			
-			PlayerData.getInstance().getTemplate(classId).getSkills().stream().filter(s -> s.getMinLvl() <= 40).collect(Collectors.groupingBy(s -> s.getId(), Collectors.maxBy(COMPARE_SKILLS_BY_LVL))).forEach((i, s) ->
+			PlayerData.INSTANCE.getTemplate(classId).getSkills().stream().filter(s -> s.getMinLvl() <= 40).collect(Collectors.groupingBy(s -> s.getId(), Collectors.maxBy(COMPARE_SKILLS_BY_LVL))).forEach((i, s) ->
 			{
 				storeSkill(s.get().getSkill(), classIndex);
 			});
@@ -7824,7 +7824,7 @@ public final class Player extends Playable
 		_activeClass = classId;
 		
 		// Set the template of the Player
-		setTemplate(PlayerData.getInstance().getTemplate(classId));
+		setTemplate(PlayerData.INSTANCE.getTemplate(classId));
 	}
 	
 	/**
@@ -8410,7 +8410,7 @@ public final class Player extends Playable
 			
 			// If the Player is a GM, remove it from the GM List
 			if (isGM())
-				AdminData.getInstance().deleteGm(this);
+				AdminData.INSTANCE.deleteGm(this);
 			
 			// Check if the Player is in observer mode to set its position to its position before entering in observer mode
 			if (isInObserverMode())

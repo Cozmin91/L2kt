@@ -34,7 +34,7 @@ public class Recipes implements IItemHandler
 			return;
 		}
 		
-		final Recipe recipe = RecipeData.getInstance().getRecipeByItemId(item.getItemId());
+		final Recipe recipe = RecipeData.INSTANCE.getRecipeByItemId(item.getItemId());
 		if (recipe == null)
 			return;
 		

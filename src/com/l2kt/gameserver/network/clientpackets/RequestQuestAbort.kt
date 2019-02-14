@@ -12,7 +12,7 @@ class RequestQuestAbort : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        val qe = ScriptData.getInstance().getQuest(_questId) ?: return
+        val qe = ScriptData.getQuest(_questId) ?: return
 
         val qs = activeChar.getQuestState(qe.name)
         qs?.exitQuest(true)

@@ -1460,7 +1460,7 @@ public class ClanHallManagerNpc extends Merchant
 			}
 			else if (actualCommand.equalsIgnoreCase("goto"))
 			{
-				final TeleportLocation list = TeleportLocationData.getInstance().getTeleportLocation(Integer.parseInt(val));
+				final TeleportLocation list = TeleportLocationData.INSTANCE.getTeleportLocation(Integer.parseInt(val));
 				if (list != null && player.reduceAdena("Teleport", list.getPrice(), this, true))
 					player.teleToLocation(list, 0);
 				

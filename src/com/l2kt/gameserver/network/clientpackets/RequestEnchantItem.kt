@@ -116,7 +116,7 @@ class RequestEnchantItem : AbstractEnchantPacket() {
                         // Checks if player is wearing a chest item
                         val chestItem = activeChar.inventory!!.getPaperdollItem(Inventory.PAPERDOLL_CHEST)
                         if (chestItem != null) {
-                            val armorSet = ArmorSetData.getInstance().getSet(chestItem.itemId)
+                            val armorSet = ArmorSetData.getSet(chestItem.itemId)
                             if (armorSet != null && armorSet.isEnchanted6(activeChar))
                             // has all parts of set enchanted to 6 or more
                             {
@@ -149,7 +149,7 @@ class RequestEnchantItem : AbstractEnchantPacket() {
                         // Checks if player is wearing a chest item
                         val chestItem = activeChar.inventory!!.getPaperdollItem(Inventory.PAPERDOLL_CHEST)
                         if (chestItem != null) {
-                            val armorSet = ArmorSetData.getInstance().getSet(chestItem.itemId)
+                            val armorSet = ArmorSetData.getSet(chestItem.itemId)
                             if (armorSet != null && armorSet.isEnchanted6(activeChar))
                             // has all parts of set enchanted to 6 or more
                             {

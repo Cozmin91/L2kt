@@ -88,9 +88,9 @@ object ClanBBSManager : BaseBBSManager() {
             return
         }
 
-        var content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-mail.htm")
-        content = content!!.replace("%clanid%".toRegex(), Integer.toString(clanId))
-        content = content.replace("%clanName%".toRegex(), clan.name)
+        var content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-mail.htm")
+        content = content.replace("%clanid%", Integer.toString(clanId))
+        content = content.replace("%clanName%", clan.name)
         BaseBBSManager.separateAndSend(content, player)
     }
 
@@ -103,8 +103,8 @@ object ClanBBSManager : BaseBBSManager() {
             return
         }
 
-        var content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-management.htm")
-        content = content!!.replace("%clanid%".toRegex(), Integer.toString(clan.clanId))
+        var content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-management.htm")
+        content = content!!.replace("%clanid%", Integer.toString(clan.clanId))
         BaseBBSManager.send1001(content, player)
         BaseBBSManager.send1002(player, clan.introduction, "", "")
     }
@@ -120,8 +120,8 @@ object ClanBBSManager : BaseBBSManager() {
             return
         }
 
-        var content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-notice.htm")
-        content = content!!.replace("%clanid%".toRegex(), Integer.toString(clan.clanId))
+        var content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-notice.htm")
+        content = content.replace("%clanid%", Integer.toString(clan.clanId))
         content = content.replace("%enabled%", "[" + clan.isNoticeEnabled.toString() + "]")
         content = content.replace("%flag%", (!clan.isNoticeEnabled).toString())
         BaseBBSManager.send1001(content, player)
@@ -130,7 +130,7 @@ object ClanBBSManager : BaseBBSManager() {
 
     private fun sendClanList(player: Player, index: Int) {
         var index = index
-        var content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "clan/clanlist.htm")
+        var content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "clan/clanlist.htm")
 
         // Player got a clan, show the associated header.
         val sb = StringBuilder()
@@ -144,7 +144,7 @@ object ClanBBSManager : BaseBBSManager() {
                 "\">[GO TO MY CLAN]</a></td></tr></table>"
             )
 
-        content = content!!.replace("%homebar%", sb.toString())
+        content = content.replace("%homebar%", sb.toString())
 
         if (index < 1)
             index = 1
@@ -228,17 +228,17 @@ object ClanBBSManager : BaseBBSManager() {
         // Load different HTM following player case, 3 possibilites : randomer, member, clan leader.
         var content: String?
         when {
-            player.clanId != clanId -> content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "clan/clanhome.htm")
-            player.isClanLeader -> content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-leader.htm")
-            else -> content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-member.htm")
+            player.clanId != clanId -> content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "clan/clanhome.htm")
+            player.isClanLeader -> content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-leader.htm")
+            else -> content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-member.htm")
         }
 
-        content = content!!.replace("%clanid%".toRegex(), Integer.toString(clan.clanId))
+        content = content.replace("%clanid%", Integer.toString(clan.clanId))
         content = content.replace("%clanIntro%", clan.introduction)
         content = content.replace("%clanName%", clan.name)
         content = content.replace("%clanLvL%", Integer.toString(clan.level))
         content = content.replace("%clanMembers%", Integer.toString(clan.membersCount))
-        content = content.replace("%clanLeader%".toRegex(), clan.leaderName)
+        content = content.replace("%clanLeader%", clan.leaderName)
         content = content.replace("%allyName%", if (clan.allyId > 0) clan.allyName else "")
         BaseBBSManager.separateAndSend(content, player)
     }

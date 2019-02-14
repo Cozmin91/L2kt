@@ -87,7 +87,7 @@ public final class Auctioneer extends Folk
 		{
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile("data/html/auction/location.htm");
-			html.replace("%location%", MapRegionData.getInstance().getClosestTownName(player.getX(), player.getY()));
+			html.replace("%location%", MapRegionData.INSTANCE.getClosestTownName(player.getX(), player.getY()));
 			html.replace("%LOCATION%", getPictureName(player));
 			html.replace("%AGIT_LINK_BACK%", "bypass -h npc_" + getObjectId() + "_start");
 			player.sendPacket(html);
@@ -507,7 +507,7 @@ public final class Auctioneer extends Folk
 	
 	private static String getPictureName(Player plyr)
 	{
-		switch (MapRegionData.getInstance().getMapRegion(plyr.getX(), plyr.getY()))
+		switch (MapRegionData.INSTANCE.getMapRegion(plyr.getX(), plyr.getY()))
 		{
 			case 5:
 				return "GLUDIO";

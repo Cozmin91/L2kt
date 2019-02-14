@@ -1,19 +1,5 @@
 package com.l2kt.gameserver.model.entity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.gameserver.data.manager.CastleManager;
@@ -25,7 +11,6 @@ import com.l2kt.gameserver.model.World;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.item.instance.ItemInstance;
-
 import com.l2kt.gameserver.model.itemcontainer.Inventory;
 import com.l2kt.gameserver.model.olympiad.Olympiad;
 import com.l2kt.gameserver.model.pledge.Clan;
@@ -35,6 +20,15 @@ import com.l2kt.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import com.l2kt.gameserver.network.serverpackets.SocialAction;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
 import com.l2kt.gameserver.templates.StatsSet;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Hero
 {
@@ -258,7 +252,7 @@ public class Hero
 				
 				if (action == ACTION_RAID_KILLED)
 				{
-					NpcTemplate template = NpcData.getInstance().getTemplate(param);
+					NpcTemplate template = NpcData.INSTANCE.getTemplate(param);
 					if (template != null)
 						entry.set("action", template.getName() + " was defeated");
 				}
@@ -325,7 +319,7 @@ public class Hero
 				if (charId == charOneId)
 				{
 					String name = PlayerInfoTable.INSTANCE.getPlayerName(charTwoId);
-					String cls = PlayerData.getInstance().getClassNameById(charTwoClass);
+					String cls = PlayerData.INSTANCE.getClassNameById(charTwoClass);
 					if (name != null && cls != null)
 					{
 						StatsSet fight = new StatsSet();
@@ -360,7 +354,7 @@ public class Hero
 				else if (charId == charTwoId)
 				{
 					String name = PlayerInfoTable.INSTANCE.getPlayerName(charOneId);
-					String cls = PlayerData.getInstance().getClassNameById(charOneClass);
+					String cls = PlayerData.INSTANCE.getClassNameById(charOneClass);
 					if (name != null && cls != null)
 					{
 						StatsSet fight = new StatsSet();
@@ -744,7 +738,7 @@ public class Hero
 	{
 		setDiaryData(charId, ACTION_RAID_KILLED, npcId);
 		
-		NpcTemplate template = NpcData.getInstance().getTemplate(npcId);
+		NpcTemplate template = NpcData.INSTANCE.getTemplate(npcId);
 		
 		if (_heroDiaries.containsKey(charId) && template != null)
 		{

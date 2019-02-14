@@ -19,7 +19,7 @@ class RequestPetition : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        if (!AdminData.getInstance().isGmOnline(false)) {
+        if (!AdminData.isGmOnline(false)) {
             activeChar.sendPacket(SystemMessageId.NO_GM_PROVIDING_SERVICE_NOW)
             activeChar.sendPacket(PlaySound("systemmsg_e.702"))
             return

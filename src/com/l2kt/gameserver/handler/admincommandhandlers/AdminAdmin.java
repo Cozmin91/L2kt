@@ -59,7 +59,7 @@ public class AdminAdmin implements IAdminCommandHandler
 		if (command.startsWith("admin_admin"))
 			showMainPage(activeChar, command);
 		else if (command.startsWith("admin_gmlist"))
-			activeChar.sendMessage((AdminData.getInstance().showOrHideGm(activeChar)) ? "Removed from GMList." : "Registered into GMList.");
+			activeChar.sendMessage((AdminData.INSTANCE.showOrHideGm(activeChar)) ? "Removed from GMList." : "Registered into GMList.");
 		else if (command.startsWith("admin_kill"))
 		{
 			StringTokenizer st = new StringTokenizer(command, " ");
@@ -164,12 +164,12 @@ public class AdminAdmin implements IAdminCommandHandler
 					String type = st.nextToken();
 					if (type.startsWith("admin"))
 					{
-						AdminData.getInstance().reload();
+						AdminData.INSTANCE.reload();
 						activeChar.sendMessage("Admin data has been reloaded.");
 					}
 					else if (type.startsWith("announcement"))
 					{
-						AnnouncementData.getInstance().reload();
+						AnnouncementData.INSTANCE.reload();
 						activeChar.sendMessage("The content of announcements.xml has been reloaded.");
 					}
 					else if (type.startsWith("config"))
@@ -179,7 +179,7 @@ public class AdminAdmin implements IAdminCommandHandler
 					}
 					else if (type.startsWith("crest"))
 					{
-						CrestCache.getInstance().reload();
+						CrestCache.INSTANCE.reload();
 						activeChar.sendMessage("Crests have been reloaded.");
 					}
 					else if (type.startsWith("cw"))
@@ -189,12 +189,12 @@ public class AdminAdmin implements IAdminCommandHandler
 					}
 					else if (type.startsWith("door"))
 					{
-						DoorData.getInstance().reload();
+						DoorData.INSTANCE.reload();
 						activeChar.sendMessage("Doors instance has been reloaded.");
 					}
 					else if (type.startsWith("htm"))
 					{
-						HtmCache.getInstance().reload();
+						HtmCache.INSTANCE.reload();
 						activeChar.sendMessage("The HTM cache has been reloaded.");
 					}
 					else if (type.startsWith("item"))
@@ -204,17 +204,17 @@ public class AdminAdmin implements IAdminCommandHandler
 					}
 					else if (type.equals("multisell"))
 					{
-						MultisellData.getInstance().reload();
+						MultisellData.INSTANCE.reload();
 						activeChar.sendMessage("The multisell instance has been reloaded.");
 					}
 					else if (type.equals("npc"))
 					{
-						NpcData.getInstance().reload();
+						NpcData.INSTANCE.reload();
 						activeChar.sendMessage("NPCs templates have been reloaded.");
 					}
 					else if (type.startsWith("npcwalker"))
 					{
-						WalkerRouteData.getInstance().reload();
+						WalkerRouteData.INSTANCE.reload();
 						activeChar.sendMessage("Walker routes have been reloaded.");
 					}
 					else if (type.startsWith("skill"))
@@ -224,7 +224,7 @@ public class AdminAdmin implements IAdminCommandHandler
 					}
 					else if (type.startsWith("teleport"))
 					{
-						TeleportLocationData.getInstance().reload();
+						TeleportLocationData.INSTANCE.reload();
 						activeChar.sendMessage("Teleport locations have been reloaded.");
 					}
 					else if (type.startsWith("zone"))

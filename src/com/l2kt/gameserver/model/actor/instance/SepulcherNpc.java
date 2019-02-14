@@ -238,7 +238,7 @@ public class SepulcherNpc extends Folk
 	public void openNextDoor(int npcId)
 	{
 		final int doorId = FourSepulchersManager.getInstance().getHallGateKeepers().get(npcId);
-		final Door door = DoorData.getInstance().getDoor(doorId);
+		final Door door = DoorData.INSTANCE.getDoor(doorId);
 		
 		// Open the door.
 		door.openMe();

@@ -14,7 +14,7 @@ public class ManufactureItem extends IntIntHolder
 	{
 		super(recipeId, cost);
 		
-		_isDwarven = RecipeData.getInstance().getRecipeList(recipeId).isDwarven();
+		_isDwarven = RecipeData.INSTANCE.getRecipeList(recipeId).isDwarven();
 	}
 	
 	public boolean isDwarven()

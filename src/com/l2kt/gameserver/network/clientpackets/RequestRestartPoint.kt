@@ -61,7 +61,7 @@ class RequestRestartPoint : L2GameClientPacket() {
             if (clan == null || !clan.hasHideout())
                 return
 
-            loc = MapRegionData.getInstance().getLocationToTeleport(player, MapRegionData.TeleportType.CLAN_HALL)
+            loc = MapRegionData.getLocationToTeleport(player, MapRegionData.TeleportType.CLAN_HALL)
 
             val ch = ClanHallManager.getInstance().getClanHallByOwner(clan)
             if (ch != null) {
@@ -74,19 +74,19 @@ class RequestRestartPoint : L2GameClientPacket() {
             loc = if (siege != null) {
                 val side = siege.getSide(clan)
                 if (side == Siege.SiegeSide.DEFENDER || side == Siege.SiegeSide.OWNER)
-                    MapRegionData.getInstance().getLocationToTeleport(player, MapRegionData.TeleportType.CASTLE)
+                    MapRegionData.getLocationToTeleport(player, MapRegionData.TeleportType.CASTLE)
                 else if (side == Siege.SiegeSide.ATTACKER)
-                    MapRegionData.getInstance().getLocationToTeleport(player, MapRegionData.TeleportType.TOWN)
+                    MapRegionData.getLocationToTeleport(player, MapRegionData.TeleportType.TOWN)
                 else
                     return
             } else {
                 if (clan == null || !clan.hasCastle())
                     return
 
-                MapRegionData.getInstance().getLocationToTeleport(player, MapRegionData.TeleportType.CASTLE)
+                MapRegionData.getLocationToTeleport(player, MapRegionData.TeleportType.CASTLE)
             }
         } else if (_requestType == 3)
-            loc = MapRegionData.getInstance().getLocationToTeleport(player, MapRegionData.TeleportType.SIEGE_FLAG)
+            loc = MapRegionData.getLocationToTeleport(player, MapRegionData.TeleportType.SIEGE_FLAG)
         else if (_requestType == 4) {
             if (!player.isGM && !player.isFestivalParticipant)
                 return
@@ -98,7 +98,7 @@ class RequestRestartPoint : L2GameClientPacket() {
 
             loc = JAIL_LOCATION
         } else
-            loc = MapRegionData.getInstance().getLocationToTeleport(
+            loc = MapRegionData.getLocationToTeleport(
                 player,
                 MapRegionData.TeleportType.TOWN
             )// Nothing has been found, use regular "To town" behavior.

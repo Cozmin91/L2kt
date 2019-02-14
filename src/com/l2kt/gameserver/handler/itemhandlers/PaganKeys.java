@@ -48,8 +48,8 @@ public class PaganKeys implements IItemHandler
 			case 8056:
 				if (doorId == 23150004 || doorId == 23150003)
 				{
-					DoorData.getInstance().getDoor(23150003).openMe();
-					DoorData.getInstance().getDoor(23150004).openMe();
+					DoorData.INSTANCE.getDoor(23150003).openMe();
+					DoorData.INSTANCE.getDoor(23150004).openMe();
 				}
 				else
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
@@ -66,7 +66,7 @@ public class PaganKeys implements IItemHandler
 					case 19160007:
 					case 19160008:
 					case 19160009:
-						DoorData.getInstance().getDoor(doorId).openMe();
+						DoorData.INSTANCE.getDoor(doorId).openMe();
 						break;
 					
 					default:
@@ -80,7 +80,7 @@ public class PaganKeys implements IItemHandler
 				{
 					case 19160012:
 					case 19160013:
-						DoorData.getInstance().getDoor(doorId).openMe();
+						DoorData.INSTANCE.getDoor(doorId).openMe();
 						break;
 					
 					default:

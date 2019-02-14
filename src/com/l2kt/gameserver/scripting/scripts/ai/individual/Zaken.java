@@ -514,7 +514,7 @@ public class Zaken extends L2AttackableAIScript
 	{
 		if (GameTimeTaskManager.INSTANCE.getGameTime() == 0)
 		{
-			final Door door = DoorData.getInstance().getDoor(21240006);
+			final Door door = DoorData.INSTANCE.getDoor(21240006);
 			if (door != null)
 				door.openMe();
 		}

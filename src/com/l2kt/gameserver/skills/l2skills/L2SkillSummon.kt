@@ -1,17 +1,15 @@
 package com.l2kt.gameserver.skills.l2skills
 
 import com.l2kt.gameserver.data.xml.NpcData
+import com.l2kt.gameserver.geoengine.GeoEngine
+import com.l2kt.gameserver.idfactory.IdFactory
 import com.l2kt.gameserver.model.L2Skill
 import com.l2kt.gameserver.model.WorldObject
 import com.l2kt.gameserver.model.actor.Creature
-import com.l2kt.gameserver.model.actor.instance.Cubic
 import com.l2kt.gameserver.model.actor.instance.Player
 import com.l2kt.gameserver.model.actor.instance.Servitor
 import com.l2kt.gameserver.model.actor.instance.SiegeSummon
-import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.base.Experience
-import com.l2kt.gameserver.geoengine.GeoEngine
-import com.l2kt.gameserver.idfactory.IdFactory
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.templates.StatsSet
 
@@ -148,18 +146,14 @@ class L2SkillSummon(set: StatsSet) : L2Skill(set) {
             return
 
         val summon: Servitor
-        val summonTemplate = NpcData.getInstance().getTemplate(_npcId)
-        if (summonTemplate == null) {
-            L2Skill._log.warning("Summon attempt for nonexisting NPC ID: $_npcId, skill ID: $id")
-            return
-        }
+        val summonTemplate = NpcData.getTemplate(_npcId)
 
-        if (summonTemplate.isType("SiegeSummon"))
+        if (summonTemplate != null && summonTemplate.isType("SiegeSummon"))
             summon = SiegeSummon(IdFactory.getInstance().nextId, summonTemplate, caster, this)
         else
             summon = Servitor(IdFactory.getInstance().nextId, summonTemplate, caster, this)
 
-        summon.name = summonTemplate.name
+        summon.name = summonTemplate?.name ?: ""
         summon.title = caster.name
         summon.expPenalty = _expPenalty
 

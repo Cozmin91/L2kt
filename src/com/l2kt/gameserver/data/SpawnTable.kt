@@ -33,7 +33,7 @@ object SpawnTable {
                 var spawnDat: L2Spawn
 
                 while (rset.next()) {
-                    val template1 = NpcData.getInstance().getTemplate(rset.getInt("npc_templateid"))
+                    val template1 = NpcData.getTemplate(rset.getInt("npc_templateid"))
                     if (template1 != null) {
                         if (template1.isType("SiegeGuard")) {
                             // Don't spawn guards, they're spawned during castle sieges.

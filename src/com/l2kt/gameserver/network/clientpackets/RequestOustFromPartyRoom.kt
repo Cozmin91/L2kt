@@ -42,7 +42,7 @@ class RequestOustFromPartyRoom : L2GameClientPacket() {
                 PartyMatchList(
                     member,
                     0,
-                    MapRegionData.getInstance().getClosestLocation(member.x, member.y),
+                    MapRegionData.getClosestLocation(member.x, member.y),
                     member.level
                 )
             )

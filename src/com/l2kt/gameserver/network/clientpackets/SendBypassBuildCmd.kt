@@ -27,7 +27,7 @@ class SendBypassBuildCmd : L2GameClientPacket() {
             return
         }
 
-        if (!AdminData.getInstance().hasAccess(command, player.accessLevel)) {
+        if (!AdminData.hasAccess(command, player.accessLevel)) {
             player.sendMessage("You don't have the access right to use this command.")
             L2GameClientPacket.LOGGER.warn(
                 "{} tried to use admin command '{}', but has no access to use it.",

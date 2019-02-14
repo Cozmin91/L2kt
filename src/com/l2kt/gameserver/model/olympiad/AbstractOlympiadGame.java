@@ -1,9 +1,5 @@
 package com.l2kt.gameserver.model.olympiad;
 
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.l2kt.gameserver.data.SkillTable;
 import com.l2kt.gameserver.data.xml.MapRegionData;
 import com.l2kt.gameserver.model.L2Skill;
@@ -22,6 +18,10 @@ import com.l2kt.gameserver.network.serverpackets.ExOlympiadMode;
 import com.l2kt.gameserver.network.serverpackets.InventoryUpdate;
 import com.l2kt.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class AbstractOlympiadGame
 {
@@ -352,7 +352,7 @@ public abstract class AbstractOlympiadGame
 		if (loc.equals(Location.DUMMY_LOC))
 			return;
 		
-		final TownZone town = MapRegionData.getTown(loc.getX(), loc.getY(), loc.getZ());
+		final TownZone town = MapRegionData.INSTANCE.getTown(loc.getX(), loc.getY(), loc.getZ());
 		if (town != null)
 			loc = town.getRandomLoc();
 		

@@ -401,7 +401,7 @@ public class VillageMaster extends Folk
 						sb = new StringBuilder(300);
 						
 						if (checkVillageMaster(player.getBaseClass()))
-							StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h npc_%objectId%_Subclass 5 0\">", PlayerData.getInstance().getClassNameById(player.getBaseClass()), "</a><br>");
+							StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h npc_%objectId%_Subclass 5 0\">", PlayerData.INSTANCE.getClassNameById(player.getBaseClass()), "</a><br>");
 						
 						for (SubClass subclass : player.getSubClasses().values())
 						{
@@ -428,17 +428,17 @@ public class VillageMaster extends Folk
 					
 					html.setFile("data/html/villagemaster/SubClass_Modify.htm");
 					if (player.getSubClasses().containsKey(1))
-						html.replace("%sub1%", PlayerData.getInstance().getClassNameById(player.getSubClasses().get(1).getClassId()));
+						html.replace("%sub1%", PlayerData.INSTANCE.getClassNameById(player.getSubClasses().get(1).getClassId()));
 					else
 						html.replace("<a action=\"bypass -h npc_%objectId%_Subclass 6 1\">%sub1%</a><br>", "");
 					
 					if (player.getSubClasses().containsKey(2))
-						html.replace("%sub2%", PlayerData.getInstance().getClassNameById(player.getSubClasses().get(2).getClassId()));
+						html.replace("%sub2%", PlayerData.INSTANCE.getClassNameById(player.getSubClasses().get(2).getClassId()));
 					else
 						html.replace("<a action=\"bypass -h npc_%objectId%_Subclass 6 2\">%sub2%</a><br>", "");
 					
 					if (player.getSubClasses().containsKey(3))
-						html.replace("%sub3%", PlayerData.getInstance().getClassNameById(player.getSubClasses().get(3).getClassId()));
+						html.replace("%sub3%", PlayerData.INSTANCE.getClassNameById(player.getSubClasses().get(3).getClassId()));
 					else
 						html.replace("<a action=\"bypass -h npc_%objectId%_Subclass 6 3\">%sub3%</a><br>", "");
 					break;
@@ -867,7 +867,7 @@ public class VillageMaster extends Folk
 			return;
 		}
 		
-		final List<ClanSkillNode> skills = SkillTreeData.getInstance().getClanSkillsFor(player);
+		final List<ClanSkillNode> skills = SkillTreeData.INSTANCE.getClanSkillsFor(player);
 		if (skills.isEmpty())
 		{
 			final NpcHtmlMessage html = new NpcHtmlMessage(0);

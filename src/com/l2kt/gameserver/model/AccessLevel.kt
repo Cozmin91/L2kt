@@ -35,7 +35,7 @@ class AccessLevel(set: StatsSet) {
     fun hasChildAccess(access: AccessLevel): Boolean {
         // No child access has been found ; we check if a child level has been set. If yes, then we dig into AdminData to find back the AccessLevel and we set it for future usage.
         if (_childAccess == null && _childLevel > 0)
-            _childAccess = AdminData.getInstance().getAccessLevel(_childLevel)
+            _childAccess = AdminData.getAccessLevel(_childLevel)
 
         return _childAccess != null && (_childAccess!!.level == access.level || _childAccess!!.hasChildAccess(access))
     }

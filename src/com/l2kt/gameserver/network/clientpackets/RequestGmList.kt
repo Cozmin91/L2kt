@@ -8,6 +8,6 @@ class RequestGmList : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        AdminData.getInstance().sendListToPlayer(activeChar)
+        AdminData.sendListToPlayer(activeChar)
     }
 }

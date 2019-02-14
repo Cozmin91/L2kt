@@ -1,23 +1,23 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.List;
-
 import com.l2kt.gameserver.data.manager.ZoneManager;
 import com.l2kt.gameserver.data.xml.NpcData;
+import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.model.L2Spawn;
 import com.l2kt.gameserver.model.WorldObject;
 import com.l2kt.gameserver.model.actor.Creature;
 import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
-import com.l2kt.gameserver.model.zone.CastleZoneType;
-import com.l2kt.gameserver.model.zone.ZoneType;
-import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.entity.Siege.SiegeSide;
+import com.l2kt.gameserver.model.zone.CastleZoneType;
+import com.l2kt.gameserver.model.zone.ZoneType;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.ActionFailed;
 import com.l2kt.gameserver.network.serverpackets.MoveToPawn;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.util.List;
 
 public class FlameTower extends Npc
 {
@@ -91,7 +91,7 @@ public class FlameTower extends Npc
 			// Spawn a little version of it. This version is a simple NPC, cleaned on siege end.
 			try
 			{
-				final L2Spawn spawn = new L2Spawn(NpcData.getInstance().getTemplate(13005));
+				final L2Spawn spawn = new L2Spawn(NpcData.INSTANCE.getTemplate(13005));
 				spawn.setLoc(getPosition());
 				
 				final Npc tower = spawn.doSpawn(false);

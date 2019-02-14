@@ -79,7 +79,7 @@ public class Doorman extends Folk
 		st.nextToken();
 		
 		while (st.hasMoreTokens())
-			DoorData.getInstance().getDoor(Integer.parseInt(st.nextToken())).openMe();
+			DoorData.INSTANCE.getDoor(Integer.parseInt(st.nextToken())).openMe();
 	}
 	
 	protected void closeDoors(Player player, String command)
@@ -88,7 +88,7 @@ public class Doorman extends Folk
 		st.nextToken();
 		
 		while (st.hasMoreTokens())
-			DoorData.getInstance().getDoor(Integer.parseInt(st.nextToken())).closeMe();
+			DoorData.INSTANCE.getDoor(Integer.parseInt(st.nextToken())).closeMe();
 	}
 	
 	protected void cannotManageDoors(Player player)
@@ -102,7 +102,7 @@ public class Doorman extends Folk
 	
 	protected void doTeleport(Player player, String command)
 	{
-		final TeleportLocation list = TeleportLocationData.getInstance().getTeleportLocation(Integer.parseInt(command.substring(5).trim()));
+		final TeleportLocation list = TeleportLocationData.INSTANCE.getTeleportLocation(Integer.parseInt(command.substring(5).trim()));
 		if (list != null && !player.isAlikeDead())
 			player.teleToLocation(list, 0);
 		

@@ -17,7 +17,7 @@ public class SymbolMaker extends Folk
 	public void onBypassFeedback(Player player, String command)
 	{
 		if (command.equals("Draw"))
-			player.sendPacket(new HennaEquipList(player, HennaData.getInstance().getAvailableHennasFor(player)));
+			player.sendPacket(new HennaEquipList(player, HennaData.INSTANCE.getAvailableHennasFor(player)));
 		else if (command.equals("RemoveList"))
 		{
 			boolean hasHennas = false;

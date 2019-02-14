@@ -37,7 +37,7 @@ import java.util.logging.Logger;
 
 public abstract class L2Skill implements IChanceSkillTrigger
 {
-	protected static final Logger _log = Logger.getLogger(L2Skill.class.getName());
+	public static final Logger _log = Logger.getLogger(L2Skill.class.getName());
 	
 	private static final WorldObject[] _emptyTargetList = new WorldObject[0];
 	

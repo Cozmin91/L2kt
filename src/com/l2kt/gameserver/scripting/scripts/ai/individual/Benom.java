@@ -89,7 +89,7 @@ public class Benom extends L2AttackableAIScript
 				if (_isPrisonOpened)
 					talker.teleToLocation(12589, -49044, -3008, 0);
 				else
-					return HtmCache.getInstance().getHtm("data/html/doormen/35506-2.htm");
+					return HtmCache.INSTANCE.getHtm("data/html/doormen/35506-2.htm");
 				break;
 		}
 		return super.onTalk(npc, talker);

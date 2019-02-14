@@ -1,17 +1,13 @@
 package com.l2kt.gameserver.skills.l2skills
 
-import java.util.logging.Level
-
 import com.l2kt.commons.random.Rnd
 import com.l2kt.gameserver.data.xml.NpcData
 import com.l2kt.gameserver.model.L2Skill
 import com.l2kt.gameserver.model.L2Spawn
 import com.l2kt.gameserver.model.WorldObject
 import com.l2kt.gameserver.model.actor.Creature
-import com.l2kt.gameserver.model.actor.Npc
-import com.l2kt.gameserver.model.actor.template.NpcTemplate
-
 import com.l2kt.gameserver.templates.StatsSet
+import java.util.logging.Level
 
 class L2SkillSpawn(set: StatsSet) : L2Skill(set) {
     private val _npcId: Int = set.getInteger("npcId", 0)
@@ -28,11 +24,7 @@ class L2SkillSpawn(set: StatsSet) : L2Skill(set) {
             return
         }
 
-        val template = NpcData.getInstance().getTemplate(_npcId)
-        if (template == null) {
-            L2Skill._log.warning("Spawn of the nonexisting NPC ID: $_npcId, skill ID: $id")
-            return
-        }
+        val template = NpcData.getTemplate(_npcId)
 
         try {
             val spawn = L2Spawn(template)

@@ -333,7 +333,7 @@ public class RaidBossSpawnManager
 	
 	public NpcTemplate getValidTemplate(int bossId)
 	{
-		NpcTemplate template = NpcData.getInstance().getTemplate(bossId);
+		NpcTemplate template = NpcData.INSTANCE.getTemplate(bossId);
 		if (template == null)
 			return null;
 		

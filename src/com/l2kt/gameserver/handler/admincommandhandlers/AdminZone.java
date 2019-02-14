@@ -1,7 +1,5 @@
 package com.l2kt.gameserver.handler.admincommandhandlers;
 
-import java.util.StringTokenizer;
-
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.gameserver.data.manager.ZoneManager;
 import com.l2kt.gameserver.data.xml.MapRegionData;
@@ -10,8 +8,9 @@ import com.l2kt.gameserver.model.World;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.zone.ZoneId;
 import com.l2kt.gameserver.model.zone.ZoneType;
-
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import java.util.StringTokenizer;
 
 public class AdminZone implements IAdminCommandHandler
 {
@@ -74,9 +73,9 @@ public class AdminZone implements IAdminCommandHandler
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setFile("data/html/admin/zone.htm");
 		
-		html.replace("%MAPREGION%", "[x:" + MapRegionData.getMapRegionX(x) + " y:" + MapRegionData.getMapRegionY(y) + "]");
+		html.replace("%MAPREGION%", "[x:" + MapRegionData.INSTANCE.getMapRegionX(x) + " y:" + MapRegionData.INSTANCE.getMapRegionY(y) + "]");
 		html.replace("%GEOREGION%", rx + "_" + ry);
-		html.replace("%CLOSESTTOWN%", MapRegionData.getInstance().getClosestTownName(x, y));
+		html.replace("%CLOSESTTOWN%", MapRegionData.INSTANCE.getClosestTownName(x, y));
 		html.replace("%CURRENTLOC%", x + ", " + y + ", " + player.getZ());
 		
 		final StringBuilder sb = new StringBuilder(100);

@@ -27,10 +27,10 @@ public class Q350_EnhanceYourWeapon extends Quest
 		addStartNpc(30115, 30194, 30856);
 		addTalkId(30115, 30194, 30856);
 		
-		for (int npcId : SoulCrystalData.getInstance().getLevelingInfos().keySet())
+		for (int npcId : SoulCrystalData.INSTANCE.getLevelingInfos().keySet())
 			addKillId(npcId);
 		
-		for (int crystalId : SoulCrystalData.getInstance().getSoulCrystals().keySet())
+		for (int crystalId : SoulCrystalData.INSTANCE.getSoulCrystals().keySet())
 			addItemUse(crystalId);
 	}
 	
@@ -96,7 +96,7 @@ public class Q350_EnhanceYourWeapon extends Quest
 				for (ItemInstance item : player.getInventory().getItems())
 				{
 					// Crystal found, show "how to" html.
-					if (SoulCrystalData.getInstance().getSoulCrystals().get(item.getItemId()) != null)
+					if (SoulCrystalData.INSTANCE.getSoulCrystals().get(item.getItemId()) != null)
 						return npc.getNpcId() + "-03.htm";
 				}
 				// No crystal found, offer a new crystal.
@@ -121,7 +121,7 @@ public class Q350_EnhanceYourWeapon extends Quest
 		final Attackable mob = ((Attackable) target);
 		
 		// Mob is dead or not registered in _npcInfos.
-		if (mob.isDead() || !SoulCrystalData.getInstance().getLevelingInfos().containsKey(mob.getNpcId()))
+		if (mob.isDead() || !SoulCrystalData.INSTANCE.getLevelingInfos().containsKey(mob.getNpcId()))
 			return null;
 		
 		// Add user to mob's absorber list.
@@ -138,7 +138,7 @@ public class Q350_EnhanceYourWeapon extends Quest
 			return null;
 		
 		// Retrieve individual mob informations.
-		final LevelingInfo npcInfo = SoulCrystalData.getInstance().getLevelingInfos().get(npc.getNpcId());
+		final LevelingInfo npcInfo = SoulCrystalData.INSTANCE.getLevelingInfos().get(npc.getNpcId());
 		if (npcInfo == null)
 			return null;
 		
@@ -184,7 +184,7 @@ public class Q350_EnhanceYourWeapon extends Quest
 		// Iterate through player's inventory to find crystal(s).
 		for (ItemInstance item : player.getInventory().getItems())
 		{
-			SoulCrystal data = SoulCrystalData.getInstance().getSoulCrystals().get(item.getItemId());
+			SoulCrystal data = SoulCrystalData.INSTANCE.getSoulCrystals().get(item.getItemId());
 			if (data == null)
 				continue;
 			

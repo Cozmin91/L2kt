@@ -21,7 +21,7 @@ class RecipeItemMakeInfo : L2GameServerPacket {
     }
 
     override fun writeImpl() {
-        val recipe = RecipeData.getInstance().getRecipeList(_id)
+        val recipe = RecipeData.getRecipeList(_id)
         if (recipe != null) {
             writeC(0xD7)
 

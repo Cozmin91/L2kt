@@ -18,7 +18,7 @@ class ExManagePartyRoomMember(
         writeS(_activeChar.name)
         writeD(_activeChar.activeClass)
         writeD(_activeChar.level)
-        writeD(MapRegionData.getInstance().getClosestLocation(_activeChar.x, _activeChar.y))
+        writeD(MapRegionData.getClosestLocation(_activeChar.x, _activeChar.y))
         if (_room.owner == _activeChar)
             writeD(1)
         else {

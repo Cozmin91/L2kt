@@ -454,7 +454,7 @@ public class Door extends Creature implements IGeoObject
 		if (triggerId > 0)
 		{
 			// get door and trigger state change
-			Door door = DoorData.getInstance().getDoor(triggerId);
+			Door door = DoorData.INSTANCE.getDoor(triggerId);
 			if (door != null)
 				door.changeState(open, true);
 		}

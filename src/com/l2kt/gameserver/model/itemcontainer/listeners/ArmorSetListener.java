@@ -32,7 +32,7 @@ public class ArmorSetListener implements OnEquipListener
 			return;
 		
 		// checks if there is armorset for chest item that player worns
-		final ArmorSet armorSet = ArmorSetData.getInstance().getSet(chestItem.getItemId());
+		final ArmorSet armorSet = ArmorSetData.INSTANCE.getSet(chestItem.getItemId());
 		if (armorSet == null)
 			return;
 		
@@ -100,7 +100,7 @@ public class ArmorSetListener implements OnEquipListener
 		
 		if (slot == Inventory.PAPERDOLL_CHEST)
 		{
-			final ArmorSet armorSet = ArmorSetData.getInstance().getSet(item.getItemId());
+			final ArmorSet armorSet = ArmorSetData.INSTANCE.getSet(item.getItemId());
 			if (armorSet == null)
 				return;
 			
@@ -115,7 +115,7 @@ public class ArmorSetListener implements OnEquipListener
 			if (chestItem == null)
 				return;
 			
-			final ArmorSet armorSet = ArmorSetData.getInstance().getSet(chestItem.getItemId());
+			final ArmorSet armorSet = ArmorSetData.INSTANCE.getSet(chestItem.getItemId());
 			if (armorSet == null)
 				return;
 			

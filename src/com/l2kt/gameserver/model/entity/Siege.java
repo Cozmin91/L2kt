@@ -909,7 +909,7 @@ public class Siege implements Siegable
 		{
 			try
 			{
-				final L2Spawn spawn = new L2Spawn(NpcData.getInstance().getTemplate(ts.getId()));
+				final L2Spawn spawn = new L2Spawn(NpcData.INSTANCE.getTemplate(ts.getId()));
 				spawn.setLoc(ts);
 				
 				final ControlTower tower = (ControlTower) spawn.doSpawn(false);
@@ -933,7 +933,7 @@ public class Siege implements Siegable
 		{
 			try
 			{
-				final L2Spawn spawn = new L2Spawn(NpcData.getInstance().getTemplate(ts.getId()));
+				final L2Spawn spawn = new L2Spawn(NpcData.INSTANCE.getTemplate(ts.getId()));
 				spawn.setLoc(ts);
 				
 				final FlameTower tower = (FlameTower) spawn.doSpawn(false);

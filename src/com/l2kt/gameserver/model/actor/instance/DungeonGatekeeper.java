@@ -135,7 +135,7 @@ public class DungeonGatekeeper extends Folk
 	
 	private static void doTeleport(Player player, int val)
 	{
-		final TeleportLocation list = TeleportLocationData.getInstance().getTeleportLocation(val);
+		final TeleportLocation list = TeleportLocationData.INSTANCE.getTeleportLocation(val);
 		if (list != null && !player.isAlikeDead())
 			player.teleToLocation(list, 20);
 		

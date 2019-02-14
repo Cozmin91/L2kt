@@ -95,8 +95,8 @@ class CharInfo(private val _activeChar: Player) : L2GameServerPacket() {
         writeF(_activeChar.stat.attackSpeedMultiplier.toDouble()) // attack speed multiplier
 
         if (_activeChar.mountType != 0) {
-            writeF(NpcData.getInstance().getTemplate(_activeChar.mountNpcId).collisionRadius)
-            writeF(NpcData.getInstance().getTemplate(_activeChar.mountNpcId).collisionHeight)
+            writeF(NpcData.getTemplate(_activeChar.mountNpcId)!!.collisionRadius)
+            writeF(NpcData.getTemplate(_activeChar.mountNpcId)!!.collisionHeight)
         } else {
             writeF(_activeChar.collisionRadius)
             writeF(_activeChar.collisionHeight)

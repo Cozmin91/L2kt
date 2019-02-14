@@ -1,15 +1,5 @@
 package com.l2kt.gameserver.handler.admincommandhandlers;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.commons.math.MathUtil;
@@ -18,6 +8,7 @@ import com.l2kt.gameserver.data.sql.PlayerInfoTable;
 import com.l2kt.gameserver.data.xml.NpcData;
 import com.l2kt.gameserver.data.xml.PlayerData;
 import com.l2kt.gameserver.handler.IAdminCommandHandler;
+import com.l2kt.gameserver.instancemanager.ClanHallManager;
 import com.l2kt.gameserver.model.World;
 import com.l2kt.gameserver.model.WorldObject;
 import com.l2kt.gameserver.model.actor.Npc;
@@ -28,14 +19,16 @@ import com.l2kt.gameserver.model.base.ClassId;
 import com.l2kt.gameserver.model.base.Sex;
 import com.l2kt.gameserver.model.group.Party;
 import com.l2kt.gameserver.model.pledge.Clan;
-
-import com.l2kt.gameserver.instancemanager.ClanHallManager;
 import com.l2kt.gameserver.network.L2GameClient;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.AbstractNpcInfo.NpcInfo;
 import com.l2kt.gameserver.network.serverpackets.GMViewItemList;
 import com.l2kt.gameserver.network.serverpackets.HennaInfo;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.*;
 
 public class AdminEditChar implements IAdminCommandHandler
 {
@@ -332,7 +325,7 @@ public class AdminEditChar implements IAdminCommandHandler
 					}
 					
 					// Name is a npc name.
-					if (NpcData.getInstance().getTemplateByName(newName) != null)
+					if (NpcData.INSTANCE.getTemplateByName(newName) != null)
 					{
 						activeChar.sendPacket(SystemMessageId.INCORRECT_NAME_TRY_AGAIN);
 						return false;
@@ -735,7 +728,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		html.replace("%class%", player.getTemplate().getClassName());
 		html.replace("%ordinal%", player.getClassId().ordinal());
 		html.replace("%classid%", player.getClassId().toString());
-		html.replace("%baseclass%", PlayerData.getInstance().getClassNameById(player.getBaseClass()));
+		html.replace("%baseclass%", PlayerData.INSTANCE.getClassNameById(player.getBaseClass()));
 		html.replace("%x%", player.getX());
 		html.replace("%y%", player.getY());
 		html.replace("%z%", player.getZ());

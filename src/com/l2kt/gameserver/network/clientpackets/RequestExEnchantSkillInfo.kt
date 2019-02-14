@@ -35,7 +35,7 @@ class RequestExEnchantSkillInfo : L2GameClientPacket() {
         if (!folk.template.canTeach(player.classId))
             return
 
-        val esn = SkillTreeData.getInstance().getEnchantSkillFor(player, _skillId, _skillLevel) ?: return
+        val esn = SkillTreeData.getEnchantSkillFor(player, _skillId, _skillLevel) ?: return
 
         val esi = ExEnchantSkillInfo(_skillId, _skillLevel, esn.sp, esn.exp, esn.getEnchantRate(player.level))
         if (Config.ES_SP_BOOK_NEEDED && esn.item != null)

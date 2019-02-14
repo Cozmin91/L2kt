@@ -4246,7 +4246,7 @@ public class SevenSignsFestival
 				}
 			}
 			
-			NpcTemplate witchTemplate = NpcData.getInstance().getTemplate(_witchSpawn._npcId);
+			NpcTemplate witchTemplate = NpcData.INSTANCE.getTemplate(_witchSpawn._npcId);
 			
 			// Spawn the festival witch for this arena
 			try
@@ -4356,7 +4356,7 @@ public class SevenSignsFestival
 					if (spawnType == 1 && isFestivalArcher(currSpawn._npcId))
 						continue;
 					
-					NpcTemplate npcTemplate = NpcData.getInstance().getTemplate(currSpawn._npcId);
+					NpcTemplate npcTemplate = NpcData.INSTANCE.getTemplate(currSpawn._npcId);
 					
 					try
 					{

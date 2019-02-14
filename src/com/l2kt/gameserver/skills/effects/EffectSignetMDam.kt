@@ -32,7 +32,7 @@ class EffectSignetMDam(env: Env, template: EffectTemplate) : L2Effect(env, templ
     override fun onStart(): Boolean {
         val template: NpcTemplate
         if (skill is L2SkillSignetCasttime)
-            template = NpcData.getInstance().getTemplate((skill as L2SkillSignetCasttime)._effectNpcId)
+            template = NpcData.getTemplate((skill as L2SkillSignetCasttime)._effectNpcId)!!
         else
             return false
 

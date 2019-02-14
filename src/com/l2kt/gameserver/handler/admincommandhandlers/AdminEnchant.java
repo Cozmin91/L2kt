@@ -157,7 +157,7 @@ public class AdminEnchant implements IAdminCommandHandler
 						final ItemInstance chestItem = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST);
 						if (chestItem != null)
 						{
-							final ArmorSet armorSet = ArmorSetData.getInstance().getSet(chestItem.getItemId());
+							final ArmorSet armorSet = ArmorSetData.INSTANCE.getSet(chestItem.getItemId());
 							if (armorSet != null)
 							{
 								final int skillId = armorSet.getEnchant6skillId();
@@ -176,7 +176,7 @@ public class AdminEnchant implements IAdminCommandHandler
 						final ItemInstance chestItem = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST);
 						if (chestItem != null)
 						{
-							final ArmorSet armorSet = ArmorSetData.getInstance().getSet(chestItem.getItemId());
+							final ArmorSet armorSet = ArmorSetData.INSTANCE.getSet(chestItem.getItemId());
 							if (armorSet != null && armorSet.isEnchanted6(player)) // has all parts of set enchanted to 6 or more
 							{
 								final int skillId = armorSet.getEnchant6skillId();

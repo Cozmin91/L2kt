@@ -27,7 +27,7 @@ object RegionBBSManager : BaseBBSManager() {
     override val folder: String get() = "region/"
 
     private fun showRegionsList(player: Player) {
-        val content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "region/castlelist.htm")
+        val content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "region/castlelist.htm")
 
         val sb = StringBuilder(500)
         for (castle in CastleManager.getInstance().castles) {
@@ -55,7 +55,7 @@ object RegionBBSManager : BaseBBSManager() {
         val castle = CastleManager.getInstance().getCastleById(castleId)
         val owner = ClanTable.getInstance().getClan(castle.ownerId)
 
-        var content = HtmCache.getInstance().getHtm(BaseBBSManager.CB_PATH + "region/castle.htm")
+        var content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "region/castle.htm")
 
         content = content!!.replace("%castleName%", castle.name)
         content = content.replace("%tax%", Integer.toString(castle.taxPercent))

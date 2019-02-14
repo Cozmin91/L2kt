@@ -1,17 +1,15 @@
 package com.l2kt.gameserver.skills.l2skills
 
-import com.l2kt.gameserver.model.L2Effect
 import com.l2kt.gameserver.model.L2Skill
 import com.l2kt.gameserver.model.ShotType
 import com.l2kt.gameserver.model.WorldObject
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.Playable
 import com.l2kt.gameserver.model.actor.instance.Cubic
-import com.l2kt.gameserver.model.actor.instance.Player
-import com.l2kt.gameserver.skills.Formulas
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.StatusUpdate
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
+import com.l2kt.gameserver.skills.Formulas
 import com.l2kt.gameserver.templates.StatsSet
 import kotlin.experimental.and
 
@@ -42,7 +40,7 @@ class L2SkillDrain(set: StatsSet) : L2Skill(set) {
             val damage = Formulas.calcMagicDam(activeChar, obj, this, shld, sps, bsps, mcrit).toInt()
 
             if (damage > 0) {
-                var _drain = 0
+                var _drain: Int
                 val _cp = obj.currentCp.toInt()
                 val _hp = obj.currentHp.toInt()
                 _drain = if (isPlayable && _cp > 0) {

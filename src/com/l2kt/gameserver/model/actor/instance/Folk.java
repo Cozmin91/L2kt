@@ -88,7 +88,7 @@ public class Folk extends Npc
 			return;
 		}
 		
-		final List<EnchantSkillNode> skills = SkillTreeData.getInstance().getEnchantSkillsFor(player);
+		final List<EnchantSkillNode> skills = SkillTreeData.INSTANCE.getEnchantSkillsFor(player);
 		if (skills.isEmpty())
 		{
 			player.sendPacket(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT);

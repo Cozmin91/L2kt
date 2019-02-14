@@ -80,7 +80,7 @@ class CharacterCreate : L2GameClientPacket() {
         }
 
         // Your name is already taken by a NPC.
-        if (NpcData.getInstance().getTemplateByName(_name) != null) {
+        if (NpcData.getTemplateByName(_name) != null) {
             sendPacket(CharCreateFail.REASON_INCORRECT_NAME)
             return
         }
@@ -98,7 +98,7 @@ class CharacterCreate : L2GameClientPacket() {
         }
 
         // The class id related to this template is post-newbie.
-        val template = PlayerData.getInstance().getTemplate(_classId)
+        val template = PlayerData.getTemplate(_classId)
         if (template == null || template.classBaseLevel > 1) {
             sendPacket(CharCreateFail.REASON_CREATION_FAILED)
             return
@@ -163,7 +163,7 @@ class CharacterCreate : L2GameClientPacket() {
         // Tutorial runs here.
         if (!Config.DISABLE_TUTORIAL) {
             if (player.getQuestState("Tutorial") == null) {
-                val quest = ScriptData.getInstance().getQuest("Tutorial")
+                val quest = ScriptData.getQuest("Tutorial")
                 if (quest != null)
                     quest.newQuestState(player).state = Quest.STATE_STARTED
             }

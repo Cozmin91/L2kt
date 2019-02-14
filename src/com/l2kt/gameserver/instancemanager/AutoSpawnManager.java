@@ -374,7 +374,7 @@ public class AutoSpawnManager
 				final int heading = locationList[locationIndex].getHeading();
 				
 				// Fetch the template for this NPC ID and create a new spawn.
-				NpcTemplate npcTemp = NpcData.getInstance().getTemplate(spawnInst.getNpcId());
+				NpcTemplate npcTemp = NpcData.INSTANCE.getTemplate(spawnInst.getNpcId());
 				if (npcTemp == null)
 				{
 					_log.warning("Couldnt find npcId: " + spawnInst.getNpcId() + ".");
@@ -412,7 +412,7 @@ public class AutoSpawnManager
 				
 				// Announce to all players that the spawn has taken place, with the nearest town location.
 				if (npcInst != null && spawnInst.isBroadcasting())
-					BroadcastExtensionsKt.announceToOnlinePlayers("The " + npcInst.getName() + " has spawned near " + MapRegionData.getInstance().getClosestTownName(npcInst.getX(), npcInst.getY()) + "!");
+					BroadcastExtensionsKt.announceToOnlinePlayers("The " + npcInst.getName() + " has spawned near " + MapRegionData.INSTANCE.getClosestTownName(npcInst.getX(), npcInst.getY()) + "!");
 				
 				// If there is no despawn time, do not create a despawn task.
 				if (spawnInst.getDespawnDelay() > 0)

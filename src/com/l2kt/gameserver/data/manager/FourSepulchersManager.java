@@ -211,7 +211,7 @@ public class FourSepulchersManager
 		{
 			while (rs.next())
 			{
-				final NpcTemplate template = NpcData.getInstance().getTemplate(rs.getInt("npc_templateid"));
+				final NpcTemplate template = NpcData.INSTANCE.getTemplate(rs.getInt("npc_templateid"));
 				if (template == null)
 				{
 					LOGGER.warn("Data missing in NPC table for ID: {}.", rs.getInt("npc_templateid"));
@@ -239,7 +239,7 @@ public class FourSepulchersManager
 		{
 			try
 			{
-				final NpcTemplate template = NpcData.getInstance().getTemplate(keyNpc.getValue());
+				final NpcTemplate template = NpcData.INSTANCE.getTemplate(keyNpc.getValue());
 				if (template == null)
 				{
 					LOGGER.warn("Data missing in NPC table for ID: {}.", keyNpc.getValue());
@@ -288,7 +288,7 @@ public class FourSepulchersManager
 						
 						while (rs2.next())
 						{
-							final NpcTemplate template = NpcData.getInstance().getTemplate(rs2.getInt("npc_templateid"));
+							final NpcTemplate template = NpcData.INSTANCE.getTemplate(rs2.getInt("npc_templateid"));
 							if (template == null)
 							{
 								LOGGER.warn("Data missing in NPC table for ID: {}.", rs2.getInt("npc_templateid"));
@@ -354,7 +354,7 @@ public class FourSepulchersManager
 		// Generate spawns and refresh locations.
 		for (Entry<Integer, SpawnLocation> entry : newLoc.entrySet())
 		{
-			final NpcTemplate template = NpcData.getInstance().getTemplate(entry.getKey());
+			final NpcTemplate template = NpcData.INSTANCE.getTemplate(entry.getKey());
 			if (template == null)
 			{
 				LOGGER.warn("Data missing in NPC table for ID: {}.", entry.getKey());
@@ -386,7 +386,7 @@ public class FourSepulchersManager
 		{
 			try
 			{
-				final NpcTemplate template = NpcData.getInstance().getTemplate(victimNpc.getValue());
+				final NpcTemplate template = NpcData.INSTANCE.getTemplate(victimNpc.getValue());
 				if (template == null)
 				{
 					LOGGER.warn("Data missing in NPC table for ID: {}.", victimNpc.getValue());
@@ -409,7 +409,7 @@ public class FourSepulchersManager
 	{
 		for (int i = 31921; i <= 31924; i++)
 		{
-			final NpcTemplate template = NpcData.getInstance().getTemplate(i);
+			final NpcTemplate template = NpcData.INSTANCE.getTemplate(i);
 			if (template == null)
 				continue;
 			
@@ -622,7 +622,7 @@ public class FourSepulchersManager
 			{
 				try
 				{
-					NpcTemplate template = NpcData.getInstance().getTemplate(18149);
+					NpcTemplate template = NpcData.INSTANCE.getTemplate(18149);
 					if (template == null)
 					{
 						LOGGER.warn("Data missing in NPC table for ID: 18149.");
@@ -903,7 +903,7 @@ public class FourSepulchersManager
 		// Close all doors.
 		for (int doorId : _hallGateKeepers.values())
 		{
-			final Door door = DoorData.getInstance().getDoor(doorId);
+			final Door door = DoorData.INSTANCE.getDoor(doorId);
 			if (door != null)
 				door.closeMe();
 		}
