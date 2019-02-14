@@ -56,7 +56,7 @@ class SendWarehouseDepositList : L2GameClientPacket() {
         if (folk == null || !folk.isWarehouse || !folk.canInteract(player))
             return
 
-        if (!isPrivate && !player.accessLevel.allowTransaction()) {
+        if (!isPrivate && !player.accessLevel.allowTransaction) {
             player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT)
             return
         }

@@ -30,7 +30,7 @@ class RequestPrivateStoreSell : L2GameClientPacket() {
                 _items = mutableListOf()
                 return
             }
-            _items[i] = ItemRequest(objectId, itemId, cnt.toInt(), price)
+            _items.add(i, ItemRequest(objectId, cnt.toInt(), price, itemId))
         }
     }
 
@@ -53,7 +53,7 @@ class RequestPrivateStoreSell : L2GameClientPacket() {
 
         val storeList = storePlayer.buyList ?: return
 
-        if (!player.accessLevel.allowTransaction()) {
+        if (!player.accessLevel.allowTransaction) {
             player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT)
             return
         }

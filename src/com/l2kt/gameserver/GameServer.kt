@@ -109,7 +109,7 @@ object GameServer {
 
         StringUtil.printSection("Characters")
         PlayerData.getInstance()
-        PlayerInfoTable.getInstance()
+        PlayerInfoTable
         NewbieBuffData.getInstance()
         TeleportLocationData.getInstance()
         HtmCache.getInstance()

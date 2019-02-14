@@ -86,13 +86,13 @@ class CharacterCreate : L2GameClientPacket() {
         }
 
         // You already have the maximum amount of characters for this account.
-        if (PlayerInfoTable.getInstance().getCharactersInAcc(client.accountName) >= 7) {
+        if (PlayerInfoTable.getCharactersInAcc(client.accountName ?: "") >= 7) {
             sendPacket(CharCreateFail.REASON_TOO_MANY_CHARACTERS)
             return
         }
 
         // The name already exists.
-        if (PlayerInfoTable.getInstance().getPlayerObjectId(_name) > 0) {
+        if (PlayerInfoTable.getPlayerObjectId(_name) > 0) {
             sendPacket(CharCreateFail.REASON_NAME_ALREADY_EXISTS)
             return
         }

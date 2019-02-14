@@ -2,10 +2,9 @@ package com.l2kt.gameserver.network.serverpackets
 
 import com.l2kt.gameserver.model.actor.instance.Player
 import com.l2kt.gameserver.model.holder.Timestamp
-import kotlin.streams.toList
 
 class SkillCoolTime(cha: Player) : L2GameServerPacket() {
-    private var _reuseTimeStamps: List<Timestamp> = cha.reuseTimeStamps.stream().filter { r -> r.hasNotPassed() }.toList()
+    private var _reuseTimeStamps: List<Timestamp> = cha.reuseTimeStamps.filter { r -> r.hasNotPassed() }
 
     override fun writeImpl() {
         writeC(0xc1)

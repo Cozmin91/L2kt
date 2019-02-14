@@ -279,7 +279,7 @@ public class Hero
 			
 			_heroDiaries.put(charId, _diary);
 			
-			_log.info("Hero: Loaded " + entries + " diary entries for hero: " + PlayerInfoTable.getInstance().getPlayerName(charId));
+			_log.info("Hero: Loaded " + entries + " diary entries for hero: " + PlayerInfoTable.INSTANCE.getPlayerName(charId));
 		}
 		catch (SQLException e)
 		{
@@ -324,7 +324,7 @@ public class Hero
 				
 				if (charId == charOneId)
 				{
-					String name = PlayerInfoTable.getInstance().getPlayerName(charTwoId);
+					String name = PlayerInfoTable.INSTANCE.getPlayerName(charTwoId);
 					String cls = PlayerData.getInstance().getClassNameById(charTwoClass);
 					if (name != null && cls != null)
 					{
@@ -359,7 +359,7 @@ public class Hero
 				}
 				else if (charId == charTwoId)
 				{
-					String name = PlayerInfoTable.getInstance().getPlayerName(charOneId);
+					String name = PlayerInfoTable.INSTANCE.getPlayerName(charOneId);
 					String cls = PlayerData.getInstance().getClassNameById(charOneClass);
 					if (name != null && cls != null)
 					{
@@ -403,7 +403,7 @@ public class Hero
 			_heroCounts.put(charId, heroCountData);
 			_heroFights.put(charId, _fights);
 			
-			_log.info("Hero: Loaded " + numberOfFights + " fights for: " + PlayerInfoTable.getInstance().getPlayerName(charId));
+			_log.info("Hero: Loaded " + numberOfFights + " fights for: " + PlayerInfoTable.INSTANCE.getPlayerName(charId));
 		}
 		catch (SQLException e)
 		{
@@ -448,7 +448,7 @@ public class Hero
 		
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setFile("data/html/olympiad/herodiary.htm");
-		html.replace("%heroname%", PlayerInfoTable.getInstance().getPlayerName(charid));
+		html.replace("%heroname%", PlayerInfoTable.INSTANCE.getPlayerName(charid));
 		html.replace("%message%", _heroMessages.get(charid));
 		html.disableValidation();
 		
@@ -510,7 +510,7 @@ public class Hero
 		
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setFile("data/html/olympiad/herohistory.htm");
-		html.replace("%heroname%", PlayerInfoTable.getInstance().getPlayerName(charid));
+		html.replace("%heroname%", PlayerInfoTable.INSTANCE.getPlayerName(charid));
 		html.disableValidation();
 		
 		if (!list.isEmpty())

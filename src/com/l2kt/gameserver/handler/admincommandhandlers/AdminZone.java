@@ -81,7 +81,7 @@ public class AdminZone implements IAdminCommandHandler
 		
 		final StringBuilder sb = new StringBuilder(100);
 		
-		for (ZoneId zone : ZoneId.VALUES)
+		for (ZoneId zone : ZoneId.Companion.getVALUES())
 		{
 			if (player.isInsideZone(zone))
 				StringUtil.INSTANCE.append(sb, zone, "<br1>");

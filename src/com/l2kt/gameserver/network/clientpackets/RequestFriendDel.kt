@@ -18,7 +18,7 @@ class RequestFriendDel : L2GameClientPacket() {
     override fun runImpl() {
         val player = client.activeChar ?: return
 
-        val friendId = PlayerInfoTable.getInstance().getPlayerObjectId(_name)
+        val friendId = PlayerInfoTable.getPlayerObjectId(_name)
         if (friendId == -1 || !player.friendList.contains(friendId)) {
             player.sendPacket(
                 SystemMessage.getSystemMessage(SystemMessageId.S1_NOT_ON_YOUR_FRIENDS_LIST).addString(

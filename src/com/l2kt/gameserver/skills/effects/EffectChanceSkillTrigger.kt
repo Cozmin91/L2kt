@@ -34,11 +34,11 @@ class EffectChanceSkillTrigger(env: Env, template: EffectTemplate) : L2Effect(en
         super.onExit()
     }
 
-    override fun getTriggeredChanceId(): Int {
+    override val triggeredChanceId: Int get() {
         return _triggeredId
     }
 
-    override fun getTriggeredChanceLevel(): Int {
+    override val triggeredChanceLevel: Int get() {
         return _triggeredLevel
     }
 
@@ -46,7 +46,7 @@ class EffectChanceSkillTrigger(env: Env, template: EffectTemplate) : L2Effect(en
         return _triggeredId > 1
     }
 
-    override fun getTriggeredChanceCondition(): ChanceCondition? {
+    override val triggeredChanceCondition: ChanceCondition? get() {
         return _chanceCondition
     }
 }

@@ -22,14 +22,14 @@ class RequestBlock : L2GameClientPacket() {
         when (_type) {
             BLOCK, UNBLOCK -> {
                 // Can't block/unblock inexisting or self.
-                val targetId = PlayerInfoTable.getInstance().getPlayerObjectId(_name)
+                val targetId = PlayerInfoTable.getPlayerObjectId(_name)
                 if (targetId <= 0 || activeChar.objectId == targetId) {
                     activeChar.sendPacket(SystemMessageId.FAILED_TO_REGISTER_TO_IGNORE_LIST)
                     return
                 }
 
                 // Can't block a GM character.
-                if (PlayerInfoTable.getInstance().getPlayerAccessLevel(targetId) > 0) {
+                if (PlayerInfoTable.getPlayerAccessLevel(targetId) > 0) {
                     activeChar.sendPacket(SystemMessageId.YOU_MAY_NOT_IMPOSE_A_BLOCK_ON_GM)
                     return
                 }

@@ -785,7 +785,7 @@ public class VillageMaster extends Folk
 			final Player leaderPlayer = leaderSubPledge.getPlayerInstance();
 			if (leaderPlayer != null)
 			{
-				leaderPlayer.setPledgeClass(ClanMember.calculatePledgeClass(leaderPlayer));
+				leaderPlayer.setPledgeClass(ClanMember.Companion.calculatePledgeClass(leaderPlayer));
 				leaderPlayer.sendPacket(new UserInfo(leaderPlayer));
 			}
 		}
@@ -849,7 +849,7 @@ public class VillageMaster extends Folk
 		final Player leaderPlayer = leaderSubPledge.getPlayerInstance();
 		if (leaderPlayer != null)
 		{
-			leaderPlayer.setPledgeClass(ClanMember.calculatePledgeClass(leaderPlayer));
+			leaderPlayer.setPledgeClass(ClanMember.Companion.calculatePledgeClass(leaderPlayer));
 			leaderPlayer.sendPacket(new UserInfo(leaderPlayer));
 		}
 		

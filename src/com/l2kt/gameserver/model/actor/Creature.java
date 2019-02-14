@@ -93,7 +93,7 @@ public abstract class Creature extends WorldObject
 	private ChanceSkillList _chanceSkills;
 	protected FusionSkill _fusionSkill;
 	
-	private final byte[] _zones = new byte[ZoneId.VALUES.length];
+	private final byte[] _zones = new byte[ZoneId.Companion.getVALUES().length];
 	protected byte _zoneValidateCounter = 4;
 	
 	public Creature(int objectId, CreatureTemplate template)

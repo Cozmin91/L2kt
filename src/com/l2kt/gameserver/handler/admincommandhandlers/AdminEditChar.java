@@ -339,7 +339,7 @@ public class AdminEditChar implements IAdminCommandHandler
 					}
 					
 					// Name already exists.
-					if (PlayerInfoTable.getInstance().getPlayerObjectId(newName) > 0)
+					if (PlayerInfoTable.INSTANCE.getPlayerObjectId(newName) > 0)
 					{
 						activeChar.sendPacket(SystemMessageId.INCORRECT_NAME_TRY_AGAIN);
 						return false;
@@ -348,7 +348,7 @@ public class AdminEditChar implements IAdminCommandHandler
 					final Player player = (Player) target;
 					
 					player.setName(newName);
-					PlayerInfoTable.getInstance().updatePlayerData(player, false);
+					PlayerInfoTable.INSTANCE.updatePlayerData(player, false);
 					player.sendMessage("Your name has been changed by a GM.");
 					player.broadcastUserInfo();
 					player.store();

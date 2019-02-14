@@ -47,7 +47,7 @@ class RequestPackageSend : L2GameClientPacket() {
         if ((folk == null || !player.isInsideRadius(folk, Npc.INTERACTION_DISTANCE, false, false)) && !player.isGM)
             return
 
-        if (warehouse is PcFreight && !player.accessLevel.allowTransaction()) {
+        if (warehouse is PcFreight && !player.accessLevel.allowTransaction) {
             player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT)
             return
         }

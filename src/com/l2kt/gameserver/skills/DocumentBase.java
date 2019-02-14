@@ -255,7 +255,7 @@ abstract class DocumentBase
 		if (attrs.getNamedItem("activationChance") != null)
 			activationChance = Integer.parseInt(getValue(attrs.getNamedItem("activationChance").getNodeValue(), template));
 		
-		ChanceCondition chance = ChanceCondition.parse(chanceCond, activationChance);
+		ChanceCondition chance = ChanceCondition.Companion.parse(chanceCond, activationChance);
 		
 		if (chance == null && isChanceSkillTrigger)
 			throw new NoSuchElementException("Invalid chance condition: " + chanceCond + " " + activationChance);

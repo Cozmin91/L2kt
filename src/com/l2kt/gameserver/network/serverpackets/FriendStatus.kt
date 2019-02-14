@@ -14,7 +14,7 @@ import com.l2kt.gameserver.model.World
  */
 class FriendStatus(private val _objid: Int) : L2GameServerPacket() {
     private val _online: Boolean = World.getInstance().getPlayer(_objid) != null
-    private val _name: String = PlayerInfoTable.getInstance().getPlayerName(_objid)
+    private val _name: String = PlayerInfoTable.getPlayerName(_objid) ?: ""
 
     override fun writeImpl() {
         writeC(0x7b)

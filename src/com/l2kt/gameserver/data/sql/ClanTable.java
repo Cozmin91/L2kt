@@ -179,7 +179,7 @@ public class ClanTable
 		leader.setPlayerInstance(player);
 		clan.store();
 		player.setClan(clan);
-		player.setPledgeClass(ClanMember.calculatePledgeClass(player));
+		player.setPledgeClass(ClanMember.Companion.calculatePledgeClass(player));
 		player.setClanPrivileges(Clan.CP_ALL);
 		
 		_clans.put(clan.getClanId(), clan);

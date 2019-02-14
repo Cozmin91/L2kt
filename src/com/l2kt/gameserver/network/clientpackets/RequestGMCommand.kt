@@ -17,7 +17,7 @@ class RequestGMCommand : L2GameClientPacket() {
         val activeChar = client.activeChar ?: return
 
         // prevent non gm or low level GMs from viewing player stuff
-        if (!activeChar.isGM || !activeChar.accessLevel.allowAltG())
+        if (!activeChar.isGM || !activeChar.accessLevel.allowAltG)
             return
 
         val target = World.getInstance().getPlayer(_targetName)

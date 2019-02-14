@@ -104,7 +104,7 @@ public final class World
 	
 	public Player getPlayer(String name)
 	{
-		return _players.get(PlayerInfoTable.getInstance().getPlayerObjectId(name));
+		return _players.get(PlayerInfoTable.INSTANCE.getPlayerObjectId(name));
 	}
 	
 	public Player getPlayer(int objectId)

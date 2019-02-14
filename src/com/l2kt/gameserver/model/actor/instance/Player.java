@@ -507,7 +507,7 @@ public final class Player extends Playable
 		player.setAccessLevel(Config.DEFAULT_ACCESS_LEVEL);
 		
 		// Cache few informations into CharNameTable.
-		PlayerInfoTable.getInstance().addPlayer(objectId, accountName, name, player.getAccessLevel().getLevel());
+		PlayerInfoTable.INSTANCE.addPlayer(objectId, accountName, name, player.getAccessLevel().getLevel());
 		
 		// Set the base class ID to that of the actual class ID.
 		player.setBaseClass(player.getClassId());
@@ -4867,7 +4867,7 @@ public final class Player extends Playable
 		getAppearance().setTitleColor(accessLevel.getTitleColor());
 		broadcastUserInfo();
 		
-		PlayerInfoTable.getInstance().updatePlayerData(this, true);
+		PlayerInfoTable.INSTANCE.updatePlayerData(this, true);
 	}
 	
 	public void setAccountAccesslevel(int level)
@@ -5080,7 +5080,7 @@ public final class Player extends Playable
 					player.setHero(true);
 				
 				// Set pledge class rank.
-				player.setPledgeClass(ClanMember.calculatePledgeClass(player));
+				player.setPledgeClass(ClanMember.Companion.calculatePledgeClass(player));
 				
 				// Retrieve from the database all secondary data of this Player and reward expertise/lucky skills if necessary.
 				// Note that Clan, Noblesse and Hero skills are given separately and not here.

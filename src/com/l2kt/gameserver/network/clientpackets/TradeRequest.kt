@@ -21,7 +21,7 @@ class TradeRequest : L2GameClientPacket() {
     override fun runImpl() {
         val player = client.activeChar ?: return
 
-        if (!player.accessLevel.allowTransaction()) {
+        if (!player.accessLevel.allowTransaction) {
             player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT)
             return
         }

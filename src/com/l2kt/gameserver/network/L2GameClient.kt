@@ -526,13 +526,12 @@ class L2GameClient(con: MMOConnection<L2GameClient>) : MMOClient<MMOConnection<L
             if (objid < 0)
                 return
 
-            PlayerInfoTable.getInstance().removePlayer(objid)
+            PlayerInfoTable.removePlayer(objid)
 
             try {
                 L2DatabaseFactory.connection.use { con ->
-                    var statement: PreparedStatement
+                    var statement: PreparedStatement = con.prepareStatement("DELETE FROM character_friends WHERE char_id=? OR friend_id=?")
 
-                    statement = con.prepareStatement("DELETE FROM character_friends WHERE char_id=? OR friend_id=?")
                     statement.setInt(1, objid)
                     statement.setInt(2, objid)
                     statement.execute()

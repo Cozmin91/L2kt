@@ -11,7 +11,7 @@ class PledgePowerGradeList(private val _ranks: Set<Int>, private val _members: C
         writeD(_ranks.size)
         for (rank in _ranks) {
             writeD(rank)
-            writeD(_members.stream().filter { m -> m.powerGrade == rank }.count().toInt())
+            writeD(_members.filter { m -> m.powerGrade == rank }.count())
         }
     }
 }

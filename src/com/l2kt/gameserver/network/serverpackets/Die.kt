@@ -18,7 +18,7 @@ class Die(private val _activeChar: Creature) : L2GameServerPacket() {
     init {
 
         if (_activeChar is Player) {
-            _allowFixedRes = _activeChar.accessLevel.allowFixedRes()
+            _allowFixedRes = _activeChar.accessLevel.allowFixedRes
             _clan = _activeChar.clan
 
         } else if (_activeChar is Attackable)

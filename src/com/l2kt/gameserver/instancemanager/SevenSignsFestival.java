@@ -3761,7 +3761,7 @@ public class SevenSignsFestival
 			
 			final List<String> partyMembers = new ArrayList<>();
 			for (int partyMember : getPreviousParticipants(oracle, festivalId))
-				partyMembers.add(PlayerInfoTable.getInstance().getPlayerName(partyMember));
+				partyMembers.add(PlayerInfoTable.INSTANCE.getPlayerName(partyMember));
 			
 			// Update the highest scores and party list.
 			set.set("date", String.valueOf(System.currentTimeMillis()));

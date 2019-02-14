@@ -55,7 +55,7 @@ class SendWarehouseWithdrawList : L2GameClientPacket() {
         if (folk == null || !folk.isWarehouse || !folk.canInteract(player))
             return
 
-        if (warehouse !is PcWarehouse && !player.accessLevel.allowTransaction()) {
+        if (warehouse !is PcWarehouse && !player.accessLevel.allowTransaction) {
             player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT)
             return
         }

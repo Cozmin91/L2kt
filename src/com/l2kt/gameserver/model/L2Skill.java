@@ -408,7 +408,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		_triggeredLevel = set.getInteger("triggeredLevel", 0);
 		_chanceType = set.getString("chanceType", "");
 		if (!_chanceType.isEmpty())
-			_chanceCondition = ChanceCondition.parse(set);
+			_chanceCondition = ChanceCondition.Companion.parse(set);
 		
 		_isDebuff = set.getBool("isDebuff", false);
 		_isOffensive = set.getBool("offensive", isSkillTypeOffensive());

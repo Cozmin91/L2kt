@@ -14,7 +14,7 @@ class RequestFriendList : L2GameClientPacket() {
         activeChar.sendPacket(SystemMessageId.FRIEND_LIST_HEADER)
 
         for (id in activeChar.friendList) {
-            val friendName = PlayerInfoTable.getInstance().getPlayerName(id) ?: continue
+            val friendName = PlayerInfoTable.getPlayerName(id) ?: continue
 
             val friend = World.getInstance().getPlayer(id)
 

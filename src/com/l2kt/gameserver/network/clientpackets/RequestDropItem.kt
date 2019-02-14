@@ -50,7 +50,7 @@ class RequestDropItem : L2GameClientPacket() {
         if (!item.isStackable && _count > 1)
             return
 
-        if (!activeChar.accessLevel.allowTransaction()) {
+        if (!activeChar.accessLevel.allowTransaction) {
             activeChar.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT)
             return
         }

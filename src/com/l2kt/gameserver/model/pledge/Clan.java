@@ -353,14 +353,14 @@ public class Clan
 		
 		if (exLeader != null)
 		{
-			exLeader.setPledgeClass(ClanMember.calculatePledgeClass(exLeader));
+			exLeader.setPledgeClass(ClanMember.Companion.calculatePledgeClass(exLeader));
 			exLeader.broadcastUserInfo();
 			exLeader.checkItemRestriction();
 		}
 		
 		if (newLeader != null)
 		{
-			newLeader.setPledgeClass(ClanMember.calculatePledgeClass(newLeader));
+			newLeader.setPledgeClass(ClanMember.Companion.calculatePledgeClass(newLeader));
 			newLeader.setClanPrivileges(CP_ALL);
 			
 			if (_level >= Config.MINIMUM_CLAN_LEVEL)
@@ -617,7 +617,7 @@ public class Clan
 		_members.put(member.getObjectId(), member);
 		member.setPlayerInstance(player);
 		player.setClan(this);
-		player.setPledgeClass(ClanMember.calculatePledgeClass(player));
+		player.setPledgeClass(ClanMember.Companion.calculatePledgeClass(player));
 		
 		// Update siege flag, if needed.
 		for (Castle castle : CastleManager.getInstance().getCastles())
@@ -728,7 +728,7 @@ public class Clan
 			if (exMember.getPledgeType() != SUBUNIT_ACADEMY)
 				player.setClanJoinExpiryTime(clanJoinExpiryTime);
 			
-			player.setPledgeClass(ClanMember.calculatePledgeClass(player));
+			player.setPledgeClass(ClanMember.Companion.calculatePledgeClass(player));
 			player.broadcastUserInfo();
 			
 			// Disable clan tab.
