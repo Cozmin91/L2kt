@@ -50,7 +50,7 @@ public class ScrollOfResurrection implements IItemHandler
 		final Player targetPlayer = target.getActingPlayer();
 		
 		// Check if target isn't in a active siege zone.
-		final Siege siege = CastleManager.getInstance().getActiveSiege(targetPlayer);
+		final Siege siege = CastleManager.INSTANCE.getActiveSiege(targetPlayer);
 		if (siege != null)
 		{
 			activeChar.sendPacket(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE);

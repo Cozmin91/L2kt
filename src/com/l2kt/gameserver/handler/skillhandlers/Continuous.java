@@ -118,7 +118,7 @@ public class Continuous implements ISkillHandler
 				// can be removed after the duel (player & target must be in the same duel)
 				if (target instanceof Player && ((Player) target).isInDuel() && (skill.getSkillType() == L2SkillType.DEBUFF || skill.getSkillType() == L2SkillType.BUFF) && player != null && player.getDuelId() == ((Player) target).getDuelId())
 				{
-					DuelManager dm = DuelManager.getInstance();
+					DuelManager dm = DuelManager.INSTANCE;
 					for (L2Effect buff : skill.getEffects(activeChar, target, new Env(shld, ss, sps, bsps)))
 						if (buff != null)
 							dm.onBuff(((Player) target), buff);

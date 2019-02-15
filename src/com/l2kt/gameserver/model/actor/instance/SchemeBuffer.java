@@ -88,7 +88,7 @@ public class SchemeBuffer extends Folk
 				player.sendMessage("You don't have a pet.");
 			else if (cost == 0 || player.reduceAdena("NPC Buffer", cost, this, true))
 			{
-				for (int skillId : BufferManager.getInstance().getScheme(player.getObjectId(), schemeName))
+				for (int skillId : BufferManager.INSTANCE.getScheme(player.getObjectId(), schemeName))
 					SkillTable.INSTANCE.getInfo(skillId, SkillTable.INSTANCE.getMaxLevel(skillId)).getEffects(this, target);
 			}
 		}
@@ -104,7 +104,7 @@ public class SchemeBuffer extends Folk
 			final int skillId = Integer.parseInt(st.nextToken());
 			final int page = Integer.parseInt(st.nextToken());
 			
-			final List<Integer> skills = BufferManager.getInstance().getScheme(player.getObjectId(), schemeName);
+			final List<Integer> skills = BufferManager.INSTANCE.getScheme(player.getObjectId(), schemeName);
 			
 			if (currentCommand.startsWith("skillselect") && !schemeName.equalsIgnoreCase("none"))
 			{
@@ -129,7 +129,7 @@ public class SchemeBuffer extends Folk
 					return;
 				}
 				
-				final Map<String, ArrayList<Integer>> schemes = BufferManager.getInstance().getPlayerSchemes(player.getObjectId());
+				final Map<String, ArrayList<Integer>> schemes = BufferManager.INSTANCE.getPlayerSchemes(player.getObjectId());
 				if (schemes != null)
 				{
 					if (schemes.size() == Config.BUFFER_MAX_SCHEMES)
@@ -145,7 +145,7 @@ public class SchemeBuffer extends Folk
 					}
 				}
 				
-				BufferManager.getInstance().setScheme(player.getObjectId(), schemeName.trim(), new ArrayList<Integer>());
+				BufferManager.INSTANCE.setScheme(player.getObjectId(), schemeName.trim(), new ArrayList<Integer>());
 				showGiveBuffsWindow(player);
 			}
 			catch (Exception e)
@@ -158,7 +158,7 @@ public class SchemeBuffer extends Folk
 			try
 			{
 				final String schemeName = st.nextToken();
-				final Map<String, ArrayList<Integer>> schemes = BufferManager.getInstance().getPlayerSchemes(player.getObjectId());
+				final Map<String, ArrayList<Integer>> schemes = BufferManager.INSTANCE.getPlayerSchemes(player.getObjectId());
 				
 				if (schemes != null && schemes.containsKey(schemeName))
 					schemes.remove(schemeName);
@@ -193,7 +193,7 @@ public class SchemeBuffer extends Folk
 	{
 		final StringBuilder sb = new StringBuilder(200);
 		
-		final Map<String, ArrayList<Integer>> schemes = BufferManager.getInstance().getPlayerSchemes(player.getObjectId());
+		final Map<String, ArrayList<Integer>> schemes = BufferManager.INSTANCE.getPlayerSchemes(player.getObjectId());
 		if (schemes == null || schemes.isEmpty())
 			sb.append("<font color=\"LEVEL\">You haven't defined any scheme.</font>");
 		else
@@ -227,7 +227,7 @@ public class SchemeBuffer extends Folk
 	private void showEditSchemeWindow(Player player, String groupType, String schemeName, int page)
 	{
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
-		final List<Integer> schemeSkills = BufferManager.getInstance().getScheme(player.getObjectId(), schemeName);
+		final List<Integer> schemeSkills = BufferManager.INSTANCE.getScheme(player.getObjectId(), schemeName);
 		
 		html.setFile(getHtmlPath(getNpcId(), 2));
 		html.replace("%schemename%", schemeName);
@@ -248,7 +248,7 @@ public class SchemeBuffer extends Folk
 	private String getGroupSkillList(Player player, String groupType, String schemeName, int page)
 	{
 		// Retrieve the entire skills list based on group type.
-		List<Integer> skills = BufferManager.getInstance().getSkillsIdsByType(groupType);
+		List<Integer> skills = BufferManager.INSTANCE.getSkillsIdsByType(groupType);
 		if (skills.isEmpty())
 			return "That group doesn't contain any skills.";
 		
@@ -260,7 +260,7 @@ public class SchemeBuffer extends Folk
 		// Cut skills list up to page number.
 		skills = skills.subList((page - 1) * PAGE_LIMIT, Math.min(page * PAGE_LIMIT, skills.size()));
 		
-		final List<Integer> schemeSkills = BufferManager.getInstance().getScheme(player.getObjectId(), schemeName);
+		final List<Integer> schemeSkills = BufferManager.INSTANCE.getScheme(player.getObjectId(), schemeName);
 		final StringBuilder sb = new StringBuilder(skills.size() * 150);
 		
 		int row = 0;
@@ -271,23 +271,23 @@ public class SchemeBuffer extends Folk
 			if (skillId < 100)
 			{
 				if (schemeSkills.contains(skillId))
-					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill00", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.getInstance().getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillunselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomout2\" fore=\"L2UI_CH3.mapbutton_zoomout1\"></td>");
+					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill00", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.INSTANCE.getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillunselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomout2\" fore=\"L2UI_CH3.mapbutton_zoomout1\"></td>");
 				else
-					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill00", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.getInstance().getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomin2\" fore=\"L2UI_CH3.mapbutton_zoomin1\"></td>");
+					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill00", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.INSTANCE.getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomin2\" fore=\"L2UI_CH3.mapbutton_zoomin1\"></td>");
 			}
 			else if (skillId < 1000)
 			{
 				if (schemeSkills.contains(skillId))
-					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill0", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.getInstance().getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillunselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomout2\" fore=\"L2UI_CH3.mapbutton_zoomout1\"></td>");
+					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill0", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.INSTANCE.getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillunselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomout2\" fore=\"L2UI_CH3.mapbutton_zoomout1\"></td>");
 				else
-					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill0", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.getInstance().getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomin2\" fore=\"L2UI_CH3.mapbutton_zoomin1\"></td>");
+					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill0", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.INSTANCE.getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomin2\" fore=\"L2UI_CH3.mapbutton_zoomin1\"></td>");
 			}
 			else
 			{
 				if (schemeSkills.contains(skillId))
-					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.getInstance().getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillunselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomout2\" fore=\"L2UI_CH3.mapbutton_zoomout1\"></td>");
+					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.INSTANCE.getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillunselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomout2\" fore=\"L2UI_CH3.mapbutton_zoomout1\"></td>");
 				else
-					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.getInstance().getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomin2\" fore=\"L2UI_CH3.mapbutton_zoomin1\"></td>");
+					StringUtil.INSTANCE.append(sb, "<td height=40 width=40><img src=\"icon.skill", skillId, "\" width=32 height=32></td><td width=190>", SkillTable.INSTANCE.getInfo(skillId, 1).getName(), "<br1><font color=\"B09878\">", BufferManager.INSTANCE.getAvailableBuff(skillId).getDescription(), "</font></td><td><button action=\"bypass npc_%objectId%_skillselect ", groupType, " ", schemeName, " ", skillId, " ", page, "\" width=32 height=32 back=\"L2UI_CH3.mapbutton_zoomin2\" fore=\"L2UI_CH3.mapbutton_zoomin1\"></td>");
 			}
 			
 			sb.append("</tr></table><img src=\"L2UI.SquareGray\" width=277 height=1>");
@@ -325,7 +325,7 @@ public class SchemeBuffer extends Folk
 		sb.append("<table>");
 		
 		int count = 0;
-		for (String type : BufferManager.getInstance().getSkillTypes())
+		for (String type : BufferManager.INSTANCE.getSkillTypes())
 		{
 			if (count == 0)
 				sb.append("<tr>");
@@ -362,7 +362,7 @@ public class SchemeBuffer extends Folk
 		
 		int fee = 0;
 		for (int sk : list)
-			fee += BufferManager.getInstance().getAvailableBuff(sk).getValue();
+			fee += BufferManager.INSTANCE.getAvailableBuff(sk).getValue();
 		
 		return fee;
 	}

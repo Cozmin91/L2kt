@@ -13,16 +13,16 @@ class RequestPetitionCancel : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        if (PetitionManager.getInstance().isPlayerInConsultation(activeChar)) {
+        if (PetitionManager.isPlayerInConsultation(activeChar)) {
             if (activeChar.isGM)
-                PetitionManager.getInstance().endActivePetition(activeChar)
+                PetitionManager.endActivePetition(activeChar)
             else
                 activeChar.sendPacket(SystemMessageId.PETITION_UNDER_PROCESS)
         } else {
-            if (PetitionManager.getInstance().isPlayerPetitionPending(activeChar)) {
-                if (PetitionManager.getInstance().cancelActivePetition(activeChar)) {
+            if (PetitionManager.isPlayerPetitionPending(activeChar)) {
+                if (PetitionManager.cancelActivePetition(activeChar)) {
                     val numRemaining =
-                        Config.MAX_PETITIONS_PER_PLAYER - PetitionManager.getInstance().getPlayerTotalPetitionCount(
+                        Config.MAX_PETITIONS_PER_PLAYER - PetitionManager.getPlayerTotalPetitionCount(
                             activeChar
                         )
                     activeChar.sendPacket(

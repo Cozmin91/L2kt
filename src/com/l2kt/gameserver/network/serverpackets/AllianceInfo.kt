@@ -17,18 +17,17 @@ class AllianceInfo(allianceId: Int) : L2GameServerPacket() {
     lateinit var allies: Array<ClanInfo>
 
     init {
-        val leader = ClanTable.getInstance().getClan(allianceId)
+        val leader = ClanTable.getClan(allianceId)!!
         name = leader.allyName
         leaderC = leader.name
         leaderP = leader.leaderName
 
-        val allies = ClanTable.getInstance().getClanAllies(allianceId)
-        var idx = 0
+        val allies = ClanTable.getClanAllies(allianceId)
         var total = 0
         var online = 0
-        for (clan in allies) {
+        for ((idx, clan) in allies.withIndex()) {
             val ci = ClanInfo(clan)
-            this.allies[idx++] = ci
+            this.allies[idx] = ci
             total += ci.total
             online += ci.online
         }

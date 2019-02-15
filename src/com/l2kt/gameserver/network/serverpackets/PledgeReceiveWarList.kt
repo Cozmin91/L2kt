@@ -14,7 +14,7 @@ class PledgeReceiveWarList(private val _clanList: Set<Int>, private val _tab: In
 
         var index = 0
         for (clanId in _clanList) {
-            val clan = ClanTable.getInstance().getClan(clanId) ?: continue
+            val clan = ClanTable.getClan(clanId) ?: continue
 
             if (_tab != 0) {
                 if (index < _page * 13) {

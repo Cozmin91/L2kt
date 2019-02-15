@@ -417,7 +417,7 @@ public class Npc extends Creature
 			if (getCastle().getOwnerId() > 0)
 			{
 				html.setFile("data/html/territorystatus.htm");
-				Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
+				Clan clan = ClanTable.INSTANCE.getClan(getCastle().getOwnerId());
 				html.replace("%clanname%", clan.getName());
 				html.replace("%clanleadername%", clan.getLeaderName());
 			}
@@ -536,7 +536,7 @@ public class Npc extends Creature
 			try
 			{
 				Byte b1 = Byte.parseByte(command.substring(10)); // Selected Area: Recruit, Soldier etc
-				DimensionalRiftManager.getInstance().start(player, b1, this);
+				DimensionalRiftManager.INSTANCE.start(player, b1, this);
 			}
 			catch (Exception e)
 			{

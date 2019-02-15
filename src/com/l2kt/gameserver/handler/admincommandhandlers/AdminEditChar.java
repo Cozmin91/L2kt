@@ -585,7 +585,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				html.replace("%clan_name%", clan.getName());
 				html.replace("%clan_leader%", clan.getLeaderName());
 				html.replace("%clan_level%", clan.getLevel());
-				html.replace("%clan_has_castle%", (clan.hasCastle()) ? CastleManager.getInstance().getCastleById(clan.getCastleId()).getName() : "No");
+				html.replace("%clan_has_castle%", (clan.hasCastle()) ? CastleManager.INSTANCE.getCastleById(clan.getCastleId()).getName() : "No");
 				html.replace("%clan_has_clanhall%", (clan.hasHideout()) ? ClanHallManager.getInstance().getClanHallById(clan.getHideoutId()).getName() : "No");
 				html.replace("%clan_points%", clan.getReputationScore());
 				html.replace("%clan_players_count%", clan.getMembersCount());

@@ -23,7 +23,7 @@ class RequestStartPledgeWar : L2GameClientPacket() {
             return
         }
 
-        val attackedClan = ClanTable.getInstance().getClanByName(_pledgeName)
+        val attackedClan = ClanTable.getClanByName(_pledgeName)
         if (attackedClan == null) {
             player.sendPacket(SystemMessageId.CLAN_WAR_CANNOT_DECLARED_CLAN_NOT_EXIST)
             return
@@ -77,7 +77,7 @@ class RequestStartPledgeWar : L2GameClientPacket() {
             return
         }
 
-        ClanTable.getInstance().storeClansWars(player.clanId, attackedClan.clanId)
+        ClanTable.storeClansWars(player.clanId, attackedClan.clanId)
 
         for (member in attackedClan.onlineMembers)
             member.broadcastUserInfo()

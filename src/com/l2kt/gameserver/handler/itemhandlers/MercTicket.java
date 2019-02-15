@@ -33,7 +33,7 @@ public class MercTicket implements IItemHandler
 		if (activeChar == null)
 			return;
 		
-		final Castle castle = CastleManager.getInstance().getCastle(activeChar);
+		final Castle castle = CastleManager.INSTANCE.getCastle(activeChar);
 		if (castle == null)
 			return;
 		

@@ -15,7 +15,7 @@ abstract class CastleZoneType protected constructor(id: Int) : ZoneType(id) {
     val castle: Castle?
         get() {
             if (_castleId > 0 && _castle == null)
-                _castle = CastleManager.getInstance().getCastleById(_castleId)
+                _castle = CastleManager.getCastleById(_castleId)
 
             return _castle
         }

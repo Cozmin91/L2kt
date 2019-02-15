@@ -42,7 +42,7 @@ public final class L2Augmentation
 		public AugmentationStatBoni(int augmentationId)
 		{
 			_active = false;
-			List<AugmentationData.AugStat> as = AugmentationData.getInstance().getAugStatsById(augmentationId);
+			List<AugmentationData.AugStat> as = AugmentationData.INSTANCE.getAugStatsById(augmentationId);
 
 			_stats = new Stats[as.size()];
 			_values = new float[as.size()];

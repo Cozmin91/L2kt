@@ -15,7 +15,7 @@ public class ClanLeaderTransfer extends ScheduledQuest
 	@Override
 	public final void onStart()
 	{
-		for (Clan clan : ClanTable.getInstance().getClans())
+		for (Clan clan : ClanTable.INSTANCE.getClans())
 		{
 			if (clan.getNewLeaderId() <= 0)
 				continue;

@@ -119,7 +119,7 @@ class RequestDuelAnswerStart : L2GameClientPacket() {
                 )
             }
 
-            DuelManager.getInstance().addDuel(requestor, activeChar, _partyDuel == 1)
+            DuelManager.addDuel(requestor, activeChar, _partyDuel == 1)
         } else {
             if (_partyDuel == 1)
                 requestor.sendPacket(SystemMessageId.THE_OPPOSING_PARTY_HAS_DECLINED_YOUR_CHALLENGE_TO_A_DUEL)

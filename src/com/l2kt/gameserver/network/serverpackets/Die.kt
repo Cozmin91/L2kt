@@ -36,7 +36,7 @@ class Die(private val _activeChar: Creature) : L2GameServerPacket() {
         if (_clan != null) {
             var side: Siege.SiegeSide? = null
 
-            val siege = CastleManager.getInstance().getActiveSiege(_activeChar)
+            val siege = CastleManager.getActiveSiege(_activeChar)
             if (siege != null)
                 side = siege.getSide(_clan)
 

@@ -30,17 +30,17 @@ class RequestPetition : L2GameClientPacket() {
             return
         }
 
-        if (PetitionManager.getInstance().isPlayerPetitionPending(activeChar)) {
+        if (PetitionManager.isPlayerPetitionPending(activeChar)) {
             activeChar.sendPacket(SystemMessageId.ONLY_ONE_ACTIVE_PETITION_AT_TIME)
             return
         }
 
-        if (PetitionManager.getInstance().pendingPetitions.size == Config.MAX_PETITIONS_PENDING) {
+        if (PetitionManager.pendingPetitions.size == Config.MAX_PETITIONS_PENDING) {
             activeChar.sendPacket(SystemMessageId.PETITION_SYSTEM_CURRENT_UNAVAILABLE)
             return
         }
 
-        val totalPetitions = PetitionManager.getInstance().getPlayerTotalPetitionCount(activeChar) + 1
+        val totalPetitions = PetitionManager.getPlayerTotalPetitionCount(activeChar) + 1
         if (totalPetitions > Config.MAX_PETITIONS_PER_PLAYER) {
             activeChar.sendPacket(
                 SystemMessage.getSystemMessage(SystemMessageId.WE_HAVE_RECEIVED_S1_PETITIONS_TODAY).addNumber(
@@ -55,7 +55,7 @@ class RequestPetition : L2GameClientPacket() {
             return
         }
 
-        val petitionId = PetitionManager.getInstance().submitPetition(activeChar, _content, _type)
+        val petitionId = PetitionManager.submitPetition(activeChar, _content, _type)
 
         activeChar.sendPacket(
             SystemMessage.getSystemMessage(SystemMessageId.PETITION_ACCEPTED_RECENT_NO_S1).addNumber(
@@ -69,7 +69,7 @@ class RequestPetition : L2GameClientPacket() {
         )
         activeChar.sendPacket(
             SystemMessage.getSystemMessage(SystemMessageId.S1_PETITION_ON_WAITING_LIST).addNumber(
-                PetitionManager.getInstance().pendingPetitions.size
+                PetitionManager.pendingPetitions.size
             )
         )
     }

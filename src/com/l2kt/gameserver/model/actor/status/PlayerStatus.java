@@ -160,7 +160,7 @@ public class PlayerStatus extends PlayableStatus
 						}
 						
 						// let the DuelManager know of his defeat
-						DuelManager.getInstance().onPlayerDefeat(getActiveChar());
+						DuelManager.INSTANCE.onPlayerDefeat(getActiveChar());
 					}
 					value = 1;
 				}

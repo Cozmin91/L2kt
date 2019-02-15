@@ -147,7 +147,7 @@ object DoorData : IXmlReader {
 
         _doors.clear()
 
-        for (castle in CastleManager.getInstance().castles)
+        for (castle in CastleManager.castles)
             castle.doors.clear()
 
         load()
@@ -165,7 +165,7 @@ object DoorData : IXmlReader {
             door.spawnMe()
 
         // load doors upgrades
-        for (castle in CastleManager.getInstance().castles)
+        for (castle in CastleManager.castles)
             castle.loadDoorUpgrade()
     }
 

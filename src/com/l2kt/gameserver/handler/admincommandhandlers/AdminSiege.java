@@ -61,7 +61,7 @@ public class AdminSiege implements IAdminCommandHandler
 		if (command.startsWith("admin_clanhall"))
 			clanhall = ClanHallManager.getInstance().getClanHallById(Integer.parseInt(st.nextToken()));
 		else if (st.hasMoreTokens())
-			castle = CastleManager.getInstance().getCastleByName(st.nextToken());
+			castle = CastleManager.INSTANCE.getCastleByName(st.nextToken());
 		
 		if (clanhall == null && (castle == null || castle.getCastleId() < 0))
 		{
@@ -213,7 +213,7 @@ public class AdminSiege implements IAdminCommandHandler
 					activeChar.teleToLocation(zone.getRandomLoc(), 0);
 			}
 			
-			final Clan owner = ClanTable.getInstance().getClan(clanhall.getOwnerId());
+			final Clan owner = ClanTable.INSTANCE.getClan(clanhall.getOwnerId());
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(0);
 			html.setFile("data/html/admin/clanhall.htm");
@@ -233,7 +233,7 @@ public class AdminSiege implements IAdminCommandHandler
 		html.setFile("data/html/admin/castles.htm");
 		
 		final StringBuilder sb = new StringBuilder();
-		for (Castle castle : CastleManager.getInstance().getCastles())
+		for (Castle castle : CastleManager.INSTANCE.getCastles())
 		{
 			if (castle != null)
 			{

@@ -5,12 +5,7 @@ import com.l2kt.L2DatabaseFactory
 import com.l2kt.commons.concurrent.ThreadPool
 import com.l2kt.commons.lang.StringUtil
 import com.l2kt.commons.logging.CLogger
-
-import com.l2kt.gameserver.data.manager.BufferManager
-import com.l2kt.gameserver.data.manager.CastleManorManager
-import com.l2kt.gameserver.data.manager.CoupleManager
-import com.l2kt.gameserver.data.manager.FishingChampionshipManager
-import com.l2kt.gameserver.data.manager.ZoneManager
+import com.l2kt.gameserver.data.manager.*
 import com.l2kt.gameserver.data.sql.ServerMemoTable
 import com.l2kt.gameserver.extensions.announceToOnlinePlayers
 import com.l2kt.gameserver.extensions.toAllOnlinePlayers
@@ -89,21 +84,21 @@ class Shutdown : Thread {
             Hero.getInstance().shutdown()
             LOGGER.info("Hero data has been saved.")
 
-            CastleManorManager.getInstance().storeMe()
+            CastleManorManager.storeMe()
             LOGGER.info("Manors data has been saved.")
 
             FishingChampionshipManager.getInstance().shutdown()
             LOGGER.info("Fishing Championship data has been saved.")
 
-            BufferManager.getInstance().saveSchemes()
+            BufferManager.saveSchemes()
             LOGGER.info("BufferTable data has been saved.")
 
             if (Config.ALLOW_WEDDING) {
-                CoupleManager.getInstance().save()
+                CoupleManager.save()
                 LOGGER.info("CoupleManager data has been saved.")
             }
 
-            ServerMemoTable.getInstance().storeMe()
+            ServerMemoTable.storeMe()
             LOGGER.info("ServerMemo data has been saved.")
 
             ItemsOnGroundTaskManager.save()

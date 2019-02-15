@@ -11,7 +11,7 @@ class SellListProcure(player: Player, castleId: Int) : L2GameServerPacket() {
 
     init {
 
-        for (c in CastleManorManager.getInstance().getCropProcure(castleId, false)) {
+        for (c in CastleManorManager.getCropProcure(castleId, false)) {
             val item = player.inventory!!.getItemByItemId(c.id)
             if (item != null && c.amount > 0)
                 _sellList[item] = c.amount

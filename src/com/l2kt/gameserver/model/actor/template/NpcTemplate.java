@@ -170,7 +170,7 @@ public class NpcTemplate extends CreatureTemplate
 		addSkills(set.getList("skills"));
 		
 		// Set the Castle.
-		for (Castle castle : CastleManager.getInstance().getCastles())
+		for (Castle castle : CastleManager.INSTANCE.getCastles())
 		{
 			if (castle.getRelatedNpcIds().contains(_npcId))
 			{

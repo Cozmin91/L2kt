@@ -107,13 +107,13 @@ public class Hero
 					
 					if (clanId > 0)
 					{
-						clanName = ClanTable.getInstance().getClan(clanId).getName();
-						clanCrest = ClanTable.getInstance().getClan(clanId).getCrestId();
+						clanName = ClanTable.INSTANCE.getClan(clanId).getName();
+						clanCrest = ClanTable.INSTANCE.getClan(clanId).getCrestId();
 						
 						if (allyId > 0)
 						{
-							allyName = ClanTable.getInstance().getClan(clanId).getAllyName();
-							allyCrest = ClanTable.getInstance().getClan(clanId).getAllyCrestId();
+							allyName = ClanTable.INSTANCE.getClan(clanId).getAllyName();
+							allyCrest = ClanTable.INSTANCE.getClan(clanId).getAllyCrestId();
 						}
 					}
 					
@@ -160,13 +160,13 @@ public class Hero
 					
 					if (clanId > 0)
 					{
-						clanName = ClanTable.getInstance().getClan(clanId).getName();
-						clanCrest = ClanTable.getInstance().getClan(clanId).getCrestId();
+						clanName = ClanTable.INSTANCE.getClan(clanId).getName();
+						clanCrest = ClanTable.INSTANCE.getClan(clanId).getCrestId();
 						
 						if (allyId > 0)
 						{
-							allyName = ClanTable.getInstance().getClan(clanId).getAllyName();
-							allyCrest = ClanTable.getInstance().getClan(clanId).getAllyCrestId();
+							allyName = ClanTable.INSTANCE.getClan(clanId).getAllyName();
+							allyCrest = ClanTable.INSTANCE.getClan(clanId).getAllyCrestId();
 						}
 					}
 					
@@ -260,7 +260,7 @@ public class Hero
 					entry.set("action", "Gained Hero status");
 				else if (action == ACTION_CASTLE_TAKEN)
 				{
-					Castle castle = CastleManager.getInstance().getCastleById(param);
+					Castle castle = CastleManager.INSTANCE.getCastleById(param);
 					if (castle != null)
 						entry.set("action", castle.getName() + " Castle was successfuly taken");
 				}
@@ -688,13 +688,13 @@ public class Hero
 							
 							if (clanId > 0)
 							{
-								clanName = ClanTable.getInstance().getClan(clanId).getName();
-								clanCrest = ClanTable.getInstance().getClan(clanId).getCrestId();
+								clanName = ClanTable.INSTANCE.getClan(clanId).getName();
+								clanCrest = ClanTable.INSTANCE.getClan(clanId).getCrestId();
 								
 								if (allyId > 0)
 								{
-									allyName = ClanTable.getInstance().getClan(clanId).getAllyName();
-									allyCrest = ClanTable.getInstance().getClan(clanId).getAllyCrestId();
+									allyName = ClanTable.INSTANCE.getClan(clanId).getAllyName();
+									allyCrest = ClanTable.INSTANCE.getClan(clanId).getAllyCrestId();
 								}
 							}
 							
@@ -765,7 +765,7 @@ public class Hero
 	{
 		setDiaryData(charId, ACTION_CASTLE_TAKEN, castleId);
 		
-		Castle castle = CastleManager.getInstance().getCastleById(castleId);
+		Castle castle = CastleManager.INSTANCE.getCastleById(castleId);
 		
 		if (_heroDiaries.containsKey(charId) && castle != null)
 		{

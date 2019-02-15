@@ -4,7 +4,7 @@ import com.l2kt.gameserver.data.manager.CastleManorManager
 
 class ExShowSeedInfo(private val _manorId: Int, nextPeriod: Boolean, private val _hideButtons: Boolean) :
     L2GameServerPacket() {
-    val manor = CastleManorManager.getInstance()
+    val manor = CastleManorManager
     private val _seeds = if (nextPeriod && !manor.isManorApproved) null else manor.getSeedProduction(_manorId, nextPeriod)
 
 
@@ -27,7 +27,7 @@ class ExShowSeedInfo(private val _manorId: Int, nextPeriod: Boolean, private val
             writeD(seed.startAmount) // Started amount
             writeD(seed.price) // Sell Price
 
-            val s = CastleManorManager.getInstance().getSeed(seed.id)
+            val s = CastleManorManager.getSeed(seed.id)
             if (s == null) {
                 writeD(0) // Seed level
                 writeC(0x01) // Reward 1

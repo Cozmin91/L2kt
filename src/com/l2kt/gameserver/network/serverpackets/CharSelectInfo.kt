@@ -162,7 +162,7 @@ class CharSelectInfo : L2GameServerPacket {
                         val deleteTime = rset.getLong("deletetime")
                         if (deleteTime > 0) {
                             if (System.currentTimeMillis() > deleteTime) {
-                                val clan = ClanTable.getInstance().getClan(rset.getInt("clanid"))
+                                val clan = ClanTable.getClan(rset.getInt("clanid"))
                                 clan?.removeClanMember(objectId, 0)
 
                                 L2GameClient.deleteCharByObjId(objectId)

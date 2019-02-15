@@ -30,7 +30,7 @@ public class AdminShop implements IAdminCommandHandler
 			{
 				final int val = Integer.parseInt(command.substring(10));
 				
-				final NpcBuyList list = BuyListManager.getInstance().getBuyList(val);
+				final NpcBuyList list = BuyListManager.INSTANCE.getBuyList(val);
 				if (list == null)
 					activeChar.sendMessage("Invalid buylist id.");
 				else

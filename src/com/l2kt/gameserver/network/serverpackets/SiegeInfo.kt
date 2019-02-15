@@ -17,7 +17,7 @@ class SiegeInfo(private val _castle: Castle) : L2GameServerPacket() {
 
         var clan: Clan? = null
         if (_castle.ownerId > 0)
-            clan = ClanTable.getInstance().getClan(_castle.ownerId)
+            clan = ClanTable.getClan(_castle.ownerId)
 
         if (clan != null) {
             writeS(clan.name)

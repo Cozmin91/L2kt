@@ -148,7 +148,7 @@ public class Castle
 		
 		if (_name.equalsIgnoreCase("Schuttgart") || _name.equalsIgnoreCase("Goddard"))
 		{
-			Castle rune = CastleManager.getInstance().getCastleByName("rune");
+			Castle rune = CastleManager.INSTANCE.getCastleByName("rune");
 			if (rune != null)
 			{
 				int runeTax = (int) (amount * rune._taxRate);
@@ -160,7 +160,7 @@ public class Castle
 		
 		if (!_name.equalsIgnoreCase("aden") && !_name.equalsIgnoreCase("Rune") && !_name.equalsIgnoreCase("Schuttgart") && !_name.equalsIgnoreCase("Goddard")) // If current castle instance is not Aden, Rune, Goddard or Schuttgart.
 		{
-			Castle aden = CastleManager.getInstance().getCastleByName("aden");
+			Castle aden = CastleManager.INSTANCE.getCastleByName("aden");
 			if (aden != null)
 			{
 				int adenTax = (int) (amount * aden._taxRate); // Find out what Aden gets from the current castle instance's income
@@ -327,7 +327,7 @@ public class Castle
 		if (_ownerId > 0 && (clan == null || clan.getClanId() != _ownerId))
 		{
 			// Try to find clan instance of the old owner.
-			Clan oldOwner = ClanTable.getInstance().getClan(_ownerId);
+			Clan oldOwner = ClanTable.INSTANCE.getClan(_ownerId);
 			if (oldOwner != null)
 			{
 				// Dismount the old leader if he was riding a wyvern.
@@ -364,7 +364,7 @@ public class Castle
 		if (_ownerId <= 0)
 			return;
 		
-		final Clan clan = ClanTable.getInstance().getClan(_ownerId);
+		final Clan clan = ClanTable.INSTANCE.getClan(_ownerId);
 		if (clan == null)
 			return;
 		
@@ -542,7 +542,7 @@ public class Castle
 		else
 		{
 			_ownerId = 0; // Remove owner
-			CastleManorManager.getInstance().resetManorData(_castleId);
+			CastleManorManager.INSTANCE.resetManorData(_castleId);
 		}
 		
 		if (clan != null)

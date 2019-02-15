@@ -8,6 +8,6 @@ class RequestCursedWeaponList : L2GameClientPacket() {
 
     override fun runImpl() {
         val player = client.activeChar ?: return
-        player.sendPacket(ExCursedWeaponList(CursedWeaponManager.getInstance().cursedWeaponsIds))
+        player.sendPacket(ExCursedWeaponList(CursedWeaponManager.cursedWeaponsIds))
     }
 }

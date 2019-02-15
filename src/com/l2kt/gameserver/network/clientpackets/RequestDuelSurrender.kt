@@ -6,6 +6,6 @@ class RequestDuelSurrender : L2GameClientPacket() {
     override fun readImpl() {}
 
     override fun runImpl() {
-        DuelManager.getInstance().doSurrender(client.activeChar)
+        DuelManager.doSurrender(client.activeChar)
     }
 }

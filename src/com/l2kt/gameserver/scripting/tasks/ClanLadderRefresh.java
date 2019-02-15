@@ -13,7 +13,7 @@ public final class ClanLadderRefresh extends ScheduledQuest
 	@Override
 	public final void onStart()
 	{
-		ClanTable.getInstance().refreshClansLadder(true);
+		ClanTable.INSTANCE.refreshClansLadder(true);
 	}
 	
 	@Override

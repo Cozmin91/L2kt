@@ -75,7 +75,7 @@ public class VillageMaster extends Folk
 			if (cmdParams.isEmpty())
 				return;
 			
-			ClanTable.getInstance().createClan(player, cmdParams);
+			ClanTable.INSTANCE.createClan(player, cmdParams);
 		}
 		else if (actualCommand.equalsIgnoreCase("create_academy"))
 		{
@@ -183,7 +183,7 @@ public class VillageMaster extends Folk
 				return;
 			}
 			
-			for (Castle castle : CastleManager.getInstance().getCastles())
+			for (Castle castle : CastleManager.INSTANCE.getCastles())
 			{
 				if (castle.getSiege().checkSides(clan))
 				{
@@ -203,10 +203,10 @@ public class VillageMaster extends Folk
 				clan.setDissolvingExpiryTime(System.currentTimeMillis() + Config.ALT_CLAN_DISSOLVE_DAYS * 86400000L);
 				clan.updateClanInDB();
 				
-				ClanTable.getInstance().scheduleRemoveClan(clan);
+				ClanTable.INSTANCE.scheduleRemoveClan(clan);
 			}
 			else
-				ClanTable.getInstance().destroyClan(clan);
+				ClanTable.INSTANCE.destroyClan(clan);
 			
 			// The clan leader should take the XP penalty of a full death.
 			player.deathPenalty(false, false, false);
@@ -729,7 +729,7 @@ public class VillageMaster extends Folk
 			return;
 		}
 		
-		for (Clan tempClan : ClanTable.getInstance().getClans())
+		for (Clan tempClan : ClanTable.INSTANCE.getClans())
 		{
 			if (tempClan.getSubPledge(clanName) != null)
 			{

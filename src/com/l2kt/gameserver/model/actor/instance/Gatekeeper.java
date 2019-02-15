@@ -63,7 +63,7 @@ public final class Gatekeeper extends Folk
 				return;
 			
 			// Siege is currently in progress in this location.
-			if (CastleManager.getInstance().getActiveSiege(list.getX(), list.getY(), list.getZ()) != null)
+			if (CastleManager.INSTANCE.getActiveSiege(list.getX(), list.getY(), list.getZ()) != null)
 			{
 				player.sendPacket(SystemMessageId.CANNOT_PORT_VILLAGE_IN_SIEGE);
 				return;

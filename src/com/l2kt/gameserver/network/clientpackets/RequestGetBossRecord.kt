@@ -13,9 +13,9 @@ class RequestGetBossRecord : L2GameClientPacket() {
     override fun runImpl() {
         val player = client.activeChar ?: return
 
-        val points = RaidPointManager.getInstance().getPointsByOwnerId(player.objectId)
-        val ranking = RaidPointManager.getInstance().calculateRanking(player.objectId)
-        val list = RaidPointManager.getInstance().getList(player)
+        val points = RaidPointManager.getPointsByOwnerId(player.objectId)
+        val ranking = RaidPointManager.calculateRanking(player.objectId)
+        val list = RaidPointManager.getList(player)
 
         player.sendPacket(ExGetBossRecord(ranking, points, list))
     }

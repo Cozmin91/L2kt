@@ -1599,7 +1599,7 @@ public final class Player extends Playable
 		final Clan clan = getClan();
 		if (clan != null && clan.getLeader().getPlayerInstance() == this)
 		{
-			final Castle castle = CastleManager.getInstance().getCastleByOwner(clan);
+			final Castle castle = CastleManager.INSTANCE.getCastleByOwner(clan);
 			return castle != null && castle.getCastleId() == castleId;
 		}
 		return false;
@@ -2118,8 +2118,8 @@ public final class Player extends Playable
 			sendPacket(su);
 			
 			// Cursed Weapon
-			if (CursedWeaponManager.getInstance().isCursed(newitem.getItemId()))
-				CursedWeaponManager.getInstance().activate(this, newitem);
+			if (CursedWeaponManager.INSTANCE.isCursed(newitem.getItemId()))
+				CursedWeaponManager.INSTANCE.activate(this, newitem);
 			// If you pickup arrows and a bow is equipped, try to equip them if no arrows is currently equipped.
 			else if (item.getItem().getItemType() == EtcItemType.ARROW && getAttackType() == WeaponType.BOW && getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND) == null)
 				checkAndEquipArrows();
@@ -2178,8 +2178,8 @@ public final class Player extends Playable
 				final ItemInstance createdItem = _inventory.addItem(process, itemId, count, this, reference);
 				
 				// Cursed Weapon
-				if (CursedWeaponManager.getInstance().isCursed(createdItem.getItemId()))
-					CursedWeaponManager.getInstance().activate(this, createdItem);
+				if (CursedWeaponManager.INSTANCE.isCursed(createdItem.getItemId()))
+					CursedWeaponManager.INSTANCE.activate(this, createdItem);
 				// If you pickup arrows and a bow is equipped, try to equip them if no arrows is currently equipped.
 				else if (item.getItemType() == EtcItemType.ARROW && getAttackType() == WeaponType.BOW && getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND) == null)
 					checkAndEquipArrows();
@@ -2659,7 +2659,7 @@ public final class Player extends Playable
 		// Can't use ressurect skills on siege if you are defender and control towers is not alive, if you are attacker and flag isn't spawned or if you aren't part of that siege.
 		else if (skill.getSkillType() == L2SkillType.RESURRECT)
 		{
-			final Siege siege = CastleManager.getInstance().getActiveSiege(this);
+			final Siege siege = CastleManager.INSTANCE.getActiveSiege(this);
 			if (siege != null)
 			{
 				if (getClan() == null)
@@ -2877,7 +2877,7 @@ public final class Player extends Playable
 		if (isInDuel() && (needCpUpdate || needHpUpdate))
 		{
 			ExDuelUpdateUserInfo update = new ExDuelUpdateUserInfo(this);
-			DuelManager.getInstance().broadcastToOppositeTeam(this, update);
+			DuelManager.INSTANCE.broadcastToOppositeTeam(this, update);
 		}
 	}
 	
@@ -3114,7 +3114,7 @@ public final class Player extends Playable
 			item.destroyMe("Consume", this, null);
 		}
 		// Cursed Weapons are not distributed
-		else if (CursedWeaponManager.getInstance().isCursed(item.getItemId()))
+		else if (CursedWeaponManager.INSTANCE.isCursed(item.getItemId()))
 		{
 			addItem("Pickup", item, null, true);
 		}
@@ -3409,7 +3409,7 @@ public final class Player extends Playable
 			if (answer == 1)
 			{
 				// Create the couple
-				CoupleManager.getInstance().addCouple(requester, this);
+				CoupleManager.INSTANCE.addCouple(requester, this);
 				
 				// Then "finish the job"
 				WeddingManagerNpc.justMarried(requester, this);
@@ -3482,7 +3482,7 @@ public final class Player extends Playable
 			setExpBeforeDeath(0);
 			
 			if (isCursedWeaponEquipped())
-				CursedWeaponManager.getInstance().drop(_cursedWeaponEquippedId, killer);
+				CursedWeaponManager.INSTANCE.drop(_cursedWeaponEquippedId, killer);
 			else
 			{
 				if (pk == null || !pk.isCursedWeaponEquipped())
@@ -3645,7 +3645,7 @@ public final class Player extends Playable
 		// Don't rank up the CW if it was a summon.
 		if (isCursedWeaponEquipped() && target instanceof Player)
 		{
-			CursedWeaponManager.getInstance().increaseKills(_cursedWeaponEquippedId);
+			CursedWeaponManager.INSTANCE.increaseKills(_cursedWeaponEquippedId);
 			return;
 		}
 		
@@ -5008,7 +5008,7 @@ public final class Player extends Playable
 				
 				int clanId = rset.getInt("clanid");
 				if (clanId > 0)
-					player.setClan(ClanTable.getInstance().getClan(clanId));
+					player.setClan(ClanTable.INSTANCE.getClan(clanId));
 				
 				if (player.getClan() != null)
 				{
@@ -5066,7 +5066,7 @@ public final class Player extends Playable
 				player.setPunishLevel(rset.getInt("punish_level"));
 				player.setPunishTimer((player.getPunishLevel() == PunishLevel.NONE) ? 0 : rset.getLong("punish_timer"));
 				
-				CursedWeaponManager.getInstance().checkPlayer(player);
+				CursedWeaponManager.INSTANCE.checkPlayer(player);
 				
 				player.setAllianceWithVarkaKetra(rset.getInt("varka_ketra_ally"));
 				
@@ -6102,7 +6102,7 @@ public final class Player extends Playable
 			
 			if (getClan() != null)
 			{
-				final Siege siege = CastleManager.getInstance().getActiveSiege(this);
+				final Siege siege = CastleManager.INSTANCE.getActiveSiege(this);
 				if (siege != null)
 				{
 					// Check if a siege is in progress and if attacker and the Player aren't in the Defender clan
@@ -6139,7 +6139,7 @@ public final class Player extends Playable
 		{
 			if (getClan() != null)
 			{
-				final Siege siege = CastleManager.getInstance().getActiveSiege(this);
+				final Siege siege = CastleManager.INSTANCE.getActiveSiege(this);
 				return (siege != null && siege.checkSide(getClan(), SiegeSide.ATTACKER));
 			}
 		}
@@ -6398,7 +6398,7 @@ public final class Player extends Playable
 		// Siege summon checks. Both checks send a message to the player if it return false.
 		if (skill.isSiegeSummonSkill())
 		{
-			final Siege siege = CastleManager.getInstance().getActiveSiege(this);
+			final Siege siege = CastleManager.INSTANCE.getActiveSiege(this);
 			if (siege == null || !siege.checkSide(getClan(), SiegeSide.ATTACKER) || (isInSiege() && isInsideZone(ZoneId.CASTLE)))
 			{
 				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_CALL_PET_FROM_THIS_LOCATION));
@@ -6622,7 +6622,7 @@ public final class Player extends Playable
 				}
 		}
 		
-		if ((sklTargetType == L2Skill.SkillTargetType.TARGET_HOLY && !checkIfOkToCastSealOfRule(CastleManager.getInstance().getCastle(this), false, skill, target)) || (sklType == L2SkillType.SIEGEFLAG && !L2SkillSiegeFlag.Companion.checkIfOkToPlaceFlag(this, false)) || (sklType == L2SkillType.STRSIEGEASSAULT && !checkIfOkToUseStriderSiegeAssault(skill)) || (sklType == L2SkillType.SUMMON_FRIEND && !(checkSummonerStatus() && checkSummonTargetStatus(target))))
+		if ((sklTargetType == L2Skill.SkillTargetType.TARGET_HOLY && !checkIfOkToCastSealOfRule(CastleManager.INSTANCE.getCastle(this), false, skill, target)) || (sklType == L2SkillType.SIEGEFLAG && !L2SkillSiegeFlag.Companion.checkIfOkToPlaceFlag(this, false)) || (sklType == L2SkillType.STRSIEGEASSAULT && !checkIfOkToUseStriderSiegeAssault(skill)) || (sklType == L2SkillType.SUMMON_FRIEND && !(checkSummonerStatus() && checkSummonTargetStatus(target))))
 		{
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			abortCast();
@@ -6654,7 +6654,7 @@ public final class Player extends Playable
 	
 	public boolean checkIfOkToUseStriderSiegeAssault(L2Skill skill)
 	{
-		final Siege siege = CastleManager.getInstance().getActiveSiege(this);
+		final Siege siege = CastleManager.INSTANCE.getActiveSiege(this);
 		
 		SystemMessage sm;
 		
@@ -7964,7 +7964,7 @@ public final class Player extends Playable
 	public void onPlayerEnter()
 	{
 		if (isCursedWeaponEquipped())
-			CursedWeaponManager.getInstance().getCursedWeapon(getCursedWeaponEquippedId()).cursedOnLogin();
+			CursedWeaponManager.INSTANCE.getCursedWeapon(getCursedWeaponEquippedId()).cursedOnLogin();
 		
 		// Add to the GameTimeTask to keep inform about activity time.
 		GameTimeTaskManager.INSTANCE.add(this);
@@ -8252,7 +8252,7 @@ public final class Player extends Playable
 			return null;
 		
 		// Can't trade a cursed weapon.
-		if (CursedWeaponManager.getInstance().isCursed(item.getItemId()))
+		if (CursedWeaponManager.INSTANCE.isCursed(item.getItemId()))
 			return null;
 		
 		return item;
@@ -8431,7 +8431,7 @@ public final class Player extends Playable
 			clearDepositedFreight();
 			
 			if (isCursedWeaponEquipped())
-				CursedWeaponManager.getInstance().getCursedWeapon(_cursedWeaponEquippedId).setPlayer(null);
+				CursedWeaponManager.INSTANCE.getCursedWeapon(_cursedWeaponEquippedId).setPlayer(null);
 			
 			if (getClanId() > 0)
 				getClan().broadcastToOtherOnlineMembers(new PledgeShowMemberListUpdate(this), this);
@@ -9634,14 +9634,14 @@ public final class Player extends Playable
 	@Override
 	public final void teleToLocation(Location loc, int randomOffset)
 	{
-		if (DimensionalRiftManager.getInstance().checkIfInRiftZone(getX(), getY(), getZ(), true))
+		if (DimensionalRiftManager.INSTANCE.checkIfInRiftZone(getX(), getY(), getZ(), true))
 		{
 			sendMessage("You have been sent to the waiting room.");
 			
 			if (isInParty() && getParty().isInDimensionalRift())
 				getParty().getDimensionalRift().usedTeleport(this);
 			
-			loc = DimensionalRiftManager.getInstance().getRoom((byte) 0, (byte) 0).getTeleportLoc();
+			loc = DimensionalRiftManager.INSTANCE.getRoom((byte) 0, (byte) 0).getTeleportLoc();
 		}
 		super.teleToLocation(loc, randomOffset);
 	}

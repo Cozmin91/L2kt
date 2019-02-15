@@ -216,7 +216,7 @@ public class AdminSpawn implements IAdminCommandHandler
 				if (st.hasMoreTokens())
 					height = Math.min(Integer.parseInt(st.nextToken()), 3);
 				
-				FenceManager.getInstance().addFence(activeChar.getX(), activeChar.getY(), activeChar.getZ(), type, sizeX, sizeY, height);
+				FenceManager.INSTANCE.addFence(activeChar.getX(), activeChar.getY(), activeChar.getZ(), type, sizeX, sizeY, height);
 				
 				listFences(activeChar);
 			}
@@ -234,7 +234,7 @@ public class AdminSpawn implements IAdminCommandHandler
 				WorldObject object = World.getInstance().getObject(Integer.parseInt(st.nextToken()));
 				if (object instanceof Fence)
 				{
-					FenceManager.getInstance().removeFence((Fence) object);
+					FenceManager.INSTANCE.removeFence((Fence) object);
 					
 					if (st.hasMoreTokens())
 						listFences(activeChar);
@@ -376,7 +376,7 @@ public class AdminSpawn implements IAdminCommandHandler
 	
 	private static void listFences(Player activeChar)
 	{
-		final List<Fence> fences = FenceManager.getInstance().getFences();
+		final List<Fence> fences = FenceManager.INSTANCE.getFences();
 		final StringBuilder sb = new StringBuilder();
 		
 		sb.append("<html><body>Total Fences: " + fences.size() + "<br><br>");

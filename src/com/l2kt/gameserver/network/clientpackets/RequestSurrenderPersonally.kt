@@ -16,7 +16,7 @@ class RequestSurrenderPersonally : L2GameClientPacket() {
 
         val playerClan = activeChar.clan ?: return
 
-        val clan = ClanTable.getInstance().getClanByName(_pledgeName) ?: return
+        val clan = ClanTable.getClanByName(_pledgeName) ?: return
 
         if (!playerClan.isAtWarWith(clan.clanId) || activeChar.wantsPeace()) {
             activeChar.sendPacket(SystemMessageId.FAILED_TO_PERSONALLY_SURRENDER)
@@ -30,6 +30,6 @@ class RequestSurrenderPersonally : L2GameClientPacket() {
                 _pledgeName
             )
         )
-        ClanTable.getInstance().checkSurrender(playerClan, clan)
+        ClanTable.checkSurrender(playerClan, clan)
     }
 }

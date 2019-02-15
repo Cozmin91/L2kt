@@ -152,7 +152,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private static void showShopList(Player activeChar, int listId)
 	{
-		final NpcBuyList buyList = BuyListManager.getInstance().getBuyList(listId);
+		final NpcBuyList buyList = BuyListManager.INSTANCE.getBuyList(listId);
 		if (buyList == null)
 		{
 			activeChar.sendMessage("BuyList template is unknown for id: " + listId + ".");
@@ -174,7 +174,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	
 	private static void showShop(Player activeChar, int npcId)
 	{
-		final List<NpcBuyList> buyLists = BuyListManager.getInstance().getBuyListsByNpcId(npcId);
+		final List<NpcBuyList> buyLists = BuyListManager.INSTANCE.getBuyListsByNpcId(npcId);
 		if (buyLists.isEmpty())
 		{
 			activeChar.sendMessage("No buyLists found for id: " + npcId + ".");

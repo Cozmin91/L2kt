@@ -87,7 +87,7 @@ public class Siege implements Siegable
 		// Add castle owner as defender (add owner first so that they are on the top of the defender list)
 		if (_castle.getOwnerId() > 0)
 		{
-			final Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
+			final Clan clan = ClanTable.INSTANCE.getClan(getCastle().getOwnerId());
 			if (clan != null)
 				_registeredClans.put(clan, SiegeSide.OWNER);
 		}
@@ -101,7 +101,7 @@ public class Siege implements Siegable
 			ResultSet rs = ps.executeQuery();
 			while (rs.next())
 			{
-				final Clan clan = ClanTable.getInstance().getClan(rs.getInt("clan_id"));
+				final Clan clan = ClanTable.INSTANCE.getClan(rs.getInt("clan_id"));
 				if (clan != null)
 					_registeredClans.put(clan, Enum.valueOf(SiegeSide.class, rs.getString("type")));
 			}
@@ -132,7 +132,7 @@ public class Siege implements Siegable
 			return;
 		}
 		
-		_formerOwner = ClanTable.getInstance().getClan(_castle.getOwnerId());
+		_formerOwner = ClanTable.INSTANCE.getClan(_castle.getOwnerId());
 		
 		changeStatus(SiegeStatus.IN_PROGRESS); // Flag so that same siege instance cannot be started again
 		
@@ -169,7 +169,7 @@ public class Siege implements Siegable
 		
 		if (getCastle().getOwnerId() > 0)
 		{
-			Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
+			Clan clan = ClanTable.INSTANCE.getClan(getCastle().getOwnerId());
 			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_S1_VICTORIOUS_OVER_S2_S_SIEGE).addString(clan.getName()).addString(getCastle().getName()));
 			
 			// An initial clan was holding the castle and is different of current owner.
@@ -288,7 +288,7 @@ public class Siege implements Siegable
 	 */
 	public void updateClansReputation()
 	{
-		final Clan owner = ClanTable.getInstance().getClan(_castle.getOwnerId());
+		final Clan owner = ClanTable.INSTANCE.getClan(_castle.getOwnerId());
 		if (_formerOwner != null)
 		{
 			// Defenders fail
@@ -383,7 +383,7 @@ public class Siege implements Siegable
 		final List<Clan> attackers = getAttackerClans();
 		final List<Clan> defenders = getDefenderClans();
 		
-		final Clan castleOwner = ClanTable.getInstance().getClan(getCastle().getOwnerId());
+		final Clan castleOwner = ClanTable.INSTANCE.getClan(getCastle().getOwnerId());
 		
 		// No defending clans and only one attacker, end siege.
 		if (defenders.isEmpty() && attackers.size() == 1)
@@ -549,7 +549,7 @@ public class Siege implements Siegable
 		// Add back the owner after cleaning the map.
 		if (getCastle().getOwnerId() > 0)
 		{
-			final Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
+			final Clan clan = ClanTable.INSTANCE.getClan(getCastle().getOwnerId());
 			if (clan != null)
 				_registeredClans.put(clan, SiegeSide.OWNER);
 		}
@@ -583,7 +583,7 @@ public class Siege implements Siegable
 		
 		int allyId = 0;
 		if (getCastle().getOwnerId() != 0)
-			allyId = ClanTable.getInstance().getClan(getCastle().getOwnerId()).getAllyId();
+			allyId = ClanTable.INSTANCE.getClan(getCastle().getOwnerId()).getAllyId();
 		
 		// If the castle owning clan got an alliance
 		if (allyId != 0)
@@ -637,7 +637,7 @@ public class Siege implements Siegable
 		if (allyId != 0)
 		{
 			// Verify through the clans list for existing clans
-			for (Clan alliedClan : ClanTable.getInstance().getClans())
+			for (Clan alliedClan : ClanTable.INSTANCE.getClans())
 			{
 				// If a clan with same allyId is found (so, same alliance)
 				if (alliedClan.getAllyId() == allyId)
@@ -746,7 +746,7 @@ public class Siege implements Siegable
 	 */
 	public boolean checkIfAlreadyRegisteredForSameDay(Clan clan)
 	{
-		for (Castle castle : CastleManager.getInstance().getCastles())
+		for (Castle castle : CastleManager.INSTANCE.getCastles())
 		{
 			final Siege siege = castle.getSiege();
 			if (siege == this)

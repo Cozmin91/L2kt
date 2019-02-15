@@ -59,7 +59,7 @@ class RequestMoveToLocationInVehicle : L2GameClientPacket() {
                 return
             }
         } else {
-            boat = BoatManager.getInstance().getBoat(_boatId)
+            boat = BoatManager.getBoat(_boatId)
             if (boat == null || !boat.isInsideRadius(activeChar, 300, true, false)) {
                 activeChar.sendPacket(ActionFailed.STATIC_PACKET)
                 return

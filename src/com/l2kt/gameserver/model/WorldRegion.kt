@@ -10,15 +10,14 @@ import com.l2kt.gameserver.model.zone.ZoneType
 import com.l2kt.gameserver.model.zone.type.DerbyTrackZone
 import com.l2kt.gameserver.model.zone.type.PeaceZone
 import com.l2kt.gameserver.model.zone.type.TownZone
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 
 class WorldRegion(private val _tileX: Int, private val _tileY: Int) {
     private val _objects = ConcurrentHashMap<Int, WorldObject>()
 
-    private val _surroundingRegions = ArrayList<WorldRegion>()
-    private val _zones = ArrayList<ZoneType>()
+    val surroundingRegions = mutableListOf<WorldRegion>()
+    val zones = mutableListOf<ZoneType>()
 
     /**
      * This function turns this region's AI on or off.
@@ -64,12 +63,6 @@ class WorldRegion(private val _tileX: Int, private val _tileY: Int) {
     val objects: Collection<WorldObject>
         get() = _objects.values
 
-    val surroundingRegions: List<WorldRegion>
-        get() = _surroundingRegions
-
-    val zones: List<ZoneType>
-        get() = _zones
-
     val playersCount: Int
         get() = _playersCount.get()
 
@@ -79,7 +72,7 @@ class WorldRegion(private val _tileX: Int, private val _tileY: Int) {
      */
     val isEmptyNeighborhood: Boolean
         get() {
-            for (neighbor in _surroundingRegions) {
+            for (neighbor in surroundingRegions) {
                 if (neighbor.playersCount != 0)
                     return false
             }
@@ -91,15 +84,15 @@ class WorldRegion(private val _tileX: Int, private val _tileY: Int) {
     }
 
     fun addSurroundingRegion(region: WorldRegion) {
-        _surroundingRegions.add(region)
+        surroundingRegions.add(region)
     }
 
     fun addZone(zone: ZoneType) {
-        _zones.add(zone)
+        zones.add(zone)
     }
 
     fun removeZone(zone: ZoneType) {
-        _zones.remove(zone)
+        zones.remove(zone)
     }
 
     fun revalidateZones(character: Creature) {
@@ -107,19 +100,15 @@ class WorldRegion(private val _tileX: Int, private val _tileY: Int) {
         if (character.isTeleporting)
             return
 
-        _zones.forEach { z -> z.revalidateInZone(character) }
+        zones.forEach { z -> z.revalidateInZone(character) }
     }
 
     fun removeFromZones(character: Creature) {
-        _zones.forEach { z -> z.removeCharacter(character) }
+        zones.forEach { z -> z.removeCharacter(character) }
     }
 
     fun containsZone(zoneId: Int): Boolean {
-        for (z in _zones) {
-            if (z.id == zoneId)
-                return true
-        }
-        return false
+        return zones.filter { x->x.id == zoneId }.any()
     }
 
     fun checkEffectRangeInsidePeaceZone(skill: L2Skill, loc: Location): Boolean {
@@ -129,7 +118,7 @@ class WorldRegion(private val _tileX: Int, private val _tileY: Int) {
         val left = loc.x + range
         val right = loc.x - range
 
-        for (e in _zones) {
+        for (e in zones) {
             if (e is TownZone && e.isPeaceZone || e is DerbyTrackZone || e is PeaceZone) {
                 if (e.isInsideZone(loc.x, up, loc.z))
                     return false

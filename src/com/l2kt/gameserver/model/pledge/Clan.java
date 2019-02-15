@@ -620,7 +620,7 @@ public class Clan
 		player.setPledgeClass(ClanMember.Companion.calculatePledgeClass(player));
 		
 		// Update siege flag, if needed.
-		for (Castle castle : CastleManager.getInstance().getCastles())
+		for (Castle castle : CastleManager.INSTANCE.getCastles())
 		{
 			final Siege siege = castle.getSiege();
 			if (!siege.isInProgress())
@@ -693,7 +693,7 @@ public class Clan
 		
 		// Unequip castle related items.
 		if (hasCastle())
-			CastleManager.getInstance().getCastleById(_castleId).checkItemsForMember(exMember);
+			CastleManager.INSTANCE.getCastleById(_castleId).checkItemsForMember(exMember);
 		
 		if (exMember.isOnline())
 		{
@@ -1062,7 +1062,7 @@ public class Clan
 	
 	public void broadcastToOnlineAllyMembers(L2GameServerPacket packet)
 	{
-		for (Clan clan : ClanTable.getInstance().getClanAllies(_allyId))
+		for (Clan clan : ClanTable.INSTANCE.getClanAllies(_allyId))
 			clan.broadcastToOnlineMembers(packet);
 	}
 	
@@ -1646,7 +1646,7 @@ public class Clan
 		}
 		
 		// Check if clans are registered as opponents on the same siege.
-		for (Castle castle : CastleManager.getInstance().getCastles())
+		for (Castle castle : CastleManager.INSTANCE.getCastles())
 		{
 			if (castle.getSiege().isOnOppositeSide(leaderClan, targetClan))
 			{
@@ -1661,7 +1661,7 @@ public class Clan
 			return false;
 		}
 		
-		if (ClanTable.getInstance().getClanAllies(player.getAllyId()).size() >= Config.ALT_MAX_NUM_OF_CLANS_IN_ALLY)
+		if (ClanTable.INSTANCE.getClanAllies(player.getAllyId()).size() >= Config.ALT_MAX_NUM_OF_CLANS_IN_ALLY)
 		{
 			player.sendPacket(SystemMessageId.YOU_HAVE_EXCEEDED_THE_LIMIT);
 			return false;
@@ -1717,13 +1717,13 @@ public class Clan
 			return;
 		}
 		
-		if (ClanTable.getInstance().isAllyExists(allyName))
+		if (ClanTable.INSTANCE.isAllyExists(allyName))
 		{
 			player.sendPacket(SystemMessageId.ALLIANCE_ALREADY_EXISTS);
 			return;
 		}
 		
-		for (Castle castle : CastleManager.getInstance().getCastles())
+		for (Castle castle : CastleManager.INSTANCE.getCastles())
 		{
 			if (castle.getSiege().isInProgress() && castle.getSiege().checkSides(this))
 			{
@@ -1755,9 +1755,9 @@ public class Clan
 		}
 		
 		// For every clan in alliance, check if it is currently registered on siege.
-		for (Clan clan : ClanTable.getInstance().getClanAllies(_allyId))
+		for (Clan clan : ClanTable.INSTANCE.getClanAllies(_allyId))
 		{
-			for (Castle castle : CastleManager.getInstance().getCastles())
+			for (Castle castle : CastleManager.INSTANCE.getCastles())
 			{
 				if (castle.getSiege().isInProgress() && castle.getSiege().checkSides(clan))
 				{
@@ -1770,7 +1770,7 @@ public class Clan
 		broadcastToOnlineAllyMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.ALLIANCE_DISOLVED));
 		
 		long currentTime = System.currentTimeMillis();
-		for (Clan clan : ClanTable.getInstance().getClans())
+		for (Clan clan : ClanTable.INSTANCE.getClans())
 		{
 			if (clan.getAllyId() == _allyId && clan.getClanId() != _clanId)
 			{
@@ -1987,7 +1987,7 @@ public class Clan
 		}
 		else
 		{
-			for (Clan clan : ClanTable.getInstance().getClans())
+			for (Clan clan : ClanTable.INSTANCE.getClans())
 			{
 				if (clan.getAllyId() == _allyId)
 				{
@@ -2033,7 +2033,7 @@ public class Clan
 	 */
 	public boolean isRegisteredOnSiege()
 	{
-		for (Castle castle : CastleManager.getInstance().getCastles())
+		for (Castle castle : CastleManager.INSTANCE.getCastles())
 			if (castle.getSiege().checkSides(this))
 				return true;
 			

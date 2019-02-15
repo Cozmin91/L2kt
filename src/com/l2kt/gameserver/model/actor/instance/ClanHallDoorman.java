@@ -32,7 +32,7 @@ public class ClanHallDoorman extends Doorman
 		
 		final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		
-		final Clan owner = ClanTable.getInstance().getClan(_clanHall.getOwnerId());
+		final Clan owner = ClanTable.INSTANCE.getClan(_clanHall.getOwnerId());
 		if (isOwnerClan(player))
 		{
 			html.setFile("data/html/clanHallDoormen/doormen.htm");

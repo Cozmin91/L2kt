@@ -15,7 +15,7 @@ import java.util.*
  */
 class DimensionalRiftRoom(val type: Byte, set: StatsSet) {
 
-    val spawns: List<L2Spawn> = ArrayList()
+    val spawns: MutableList<L2Spawn> = ArrayList()
     val id: Byte
 
     private val _xMin: Int

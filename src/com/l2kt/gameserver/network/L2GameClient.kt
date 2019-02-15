@@ -137,7 +137,7 @@ class L2GameClient(con: MMOConnection<L2GameClient>) : MMOClient<MMOConnection<L
                 val clanId = rs.getInt(1)
                 var answer: Byte = 0
                 if (clanId != 0) {
-                    val clan = ClanTable.getInstance().getClan(clanId)
+                    val clan = ClanTable.getClan(clanId)
 
                     if (clan == null)
                         answer = 0 // jeezes!

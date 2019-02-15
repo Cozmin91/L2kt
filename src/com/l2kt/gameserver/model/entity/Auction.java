@@ -264,10 +264,10 @@ public class Auction
 			quantity *= 0.9; // Take 10% tax fee if needed
 			
 		// avoid overflow on return
-		final int limit = Integer.MAX_VALUE - ClanTable.getInstance().getClanByName(Clan).getWarehouse().getAdena();
+		final int limit = Integer.MAX_VALUE - ClanTable.INSTANCE.getClanByName(Clan).getWarehouse().getAdena();
 		quantity = Math.min(quantity, limit);
 		
-		ClanTable.getInstance().getClanByName(Clan).getWarehouse().addItem("Outbidded", 57, quantity, null, null);
+		ClanTable.INSTANCE.getClanByName(Clan).getWarehouse().addItem("Outbidded", 57, quantity, null, null);
 	}
 	
 	/**
@@ -365,7 +365,7 @@ public class Auction
 		Clan biddingClan;
 		for (Bidder b : _bidders.values())
 		{
-			biddingClan = ClanTable.getInstance().getClanByName(b.getClanName());
+			biddingClan = ClanTable.INSTANCE.getClanByName(b.getClanName());
 			biddingClan.setAuctionBiddedAt(0);
 			
 			if (biddingClan != newOwner)
@@ -411,7 +411,7 @@ public class Auction
 				AuctionManager.INSTANCE.getAuctions().remove(aucId);
 				
 				// Retrieves the seller.
-				Clan owner = ClanTable.getInstance().getClanByName(_sellerClanName);
+				Clan owner = ClanTable.INSTANCE.getClanByName(_sellerClanName);
 				owner.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.CLANHALL_NOT_SOLD));
 				return;
 			}
@@ -425,7 +425,7 @@ public class Auction
 			
 			deleteAuctionFromDB();
 			
-			Clan newOwner = ClanTable.getInstance().getClanByName(_bidders.get(_highestBidderId).getClanName());
+			Clan newOwner = ClanTable.INSTANCE.getClanByName(_bidders.get(_highestBidderId).getClanName());
 			removeBids(newOwner);
 			ClanHallManager.getInstance().setOwner(_itemId, newOwner);
 		}
@@ -454,7 +454,7 @@ public class Auction
 		}
 		
 		returnItem(_bidders.get(bidder).getClanName(), _bidders.get(bidder).getBid(), true);
-		ClanTable.getInstance().getClanByName(_bidders.get(bidder).getClanName()).setAuctionBiddedAt(0);
+		ClanTable.INSTANCE.getClanByName(_bidders.get(bidder).getClanName()).setAuctionBiddedAt(0);
 		_bidders.clear();
 		loadBid();
 	}
@@ -463,7 +463,7 @@ public class Auction
 	public void cancelAuction()
 	{
 		deleteAuctionFromDB();
-		removeBids(ClanTable.getInstance().getClanByName(_sellerClanName));
+		removeBids(ClanTable.INSTANCE.getClanByName(_sellerClanName));
 	}
 	
 	/** Confirm an auction */

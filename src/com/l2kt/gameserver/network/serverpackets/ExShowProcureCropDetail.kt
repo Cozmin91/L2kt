@@ -9,8 +9,8 @@ class ExShowProcureCropDetail(private val _cropId: Int) : L2GameServerPacket() {
 
     init {
 
-        for (c in CastleManager.getInstance().castles) {
-            val cropItem = CastleManorManager.getInstance().getCropProcure(c.castleId, _cropId, false)
+        for (c in CastleManager.castles) {
+            val cropItem = CastleManorManager.getCropProcure(c.castleId, _cropId, false)
             if (cropItem != null && cropItem.amount > 0)
                 _castleCrops[c.castleId] = cropItem
         }

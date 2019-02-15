@@ -13,7 +13,7 @@ class RequestSiegeAttackerList : L2GameClientPacket() {
     override fun runImpl() {
         client.activeChar ?: return
 
-        val castle = CastleManager.getInstance().getCastleById(_castleId) ?: return
+        val castle = CastleManager.getCastleById(_castleId) ?: return
 
         sendPacket(SiegeAttackerList(castle))
     }

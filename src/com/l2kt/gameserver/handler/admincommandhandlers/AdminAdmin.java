@@ -184,7 +184,7 @@ public class AdminAdmin implements IAdminCommandHandler
 					}
 					else if (type.startsWith("cw"))
 					{
-						CursedWeaponManager.getInstance().reload();
+						CursedWeaponManager.INSTANCE.reload();
 						activeChar.sendMessage("Cursed weapons have been reloaded.");
 					}
 					else if (type.startsWith("door"))

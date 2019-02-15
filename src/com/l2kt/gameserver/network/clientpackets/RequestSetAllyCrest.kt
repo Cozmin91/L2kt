@@ -26,7 +26,7 @@ class RequestSetAllyCrest : L2GameClientPacket() {
         if (player == null || player.allyId == 0)
             return
 
-        val clan = ClanTable.getInstance().getClan(player.allyId)
+        val clan = ClanTable.getClan(player.allyId) ?: return
         if (player.clanId != clan.clanId || !player.isClanLeader)
             return
 

@@ -190,10 +190,10 @@ object MapRegionData : IXmlReader {
                 }
             } else if (teleportType == TeleportType.CASTLE) {
                 // Check if the player is part of a castle owning clan.
-                var castle = CastleManager.getInstance().getCastleByOwner(creature.clan)
+                var castle = CastleManager.getCastleByOwner(creature.clan)
                 if (castle == null) {
                     // If not, check if he is in defending side.
-                    castle = CastleManager.getInstance().getCastle(creature)
+                    castle = CastleManager.getCastle(creature)
                     if (!(castle != null && castle.siege.isInProgress && castle.siege.checkSides(
                             creature.clan,
                             SiegeSide.DEFENDER,
@@ -206,7 +206,7 @@ object MapRegionData : IXmlReader {
                 if (castle != null && castle.castleId > 0)
                     return castle.castleZone.randomLoc
             } else if (teleportType == TeleportType.SIEGE_FLAG) {
-                val siege = CastleManager.getInstance().getActiveSiege(creature)
+                val siege = CastleManager.getActiveSiege(creature)
                 if (siege != null) {
                     val flag = siege.getFlag(creature.clan)
                     if (flag != null)
@@ -216,7 +216,7 @@ object MapRegionData : IXmlReader {
         }
 
         // Check if the player needs to be teleported in second closest town, during an active siege.
-        val castle = CastleManager.getInstance().getCastle(creature)
+        val castle = CastleManager.getCastle(creature)
         if (castle != null && castle.siege.isInProgress)
             return if (creature.karma > 0) castle.siegeZone.randomChaoticLoc else castle.siegeZone.randomLoc
 

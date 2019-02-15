@@ -98,11 +98,11 @@ public class WeddingManagerNpc extends Folk
 				sendHtmlMessage(player, "data/html/mods/wedding/notfound.htm");
 		}
 		else if (command.startsWith("Divorce"))
-			CoupleManager.getInstance().deleteCouple(player.getCoupleId());
+			CoupleManager.INSTANCE.deleteCouple(player.getCoupleId());
 		else if (command.startsWith("GoToLove"))
 		{
 			// Find the partner using the couple id.
-			final int partnerId = CoupleManager.getInstance().getPartnerId(player.getCoupleId(), player.getObjectId());
+			final int partnerId = CoupleManager.INSTANCE.getPartnerId(player.getCoupleId(), player.getObjectId());
 			if (partnerId == 0)
 			{
 				player.sendMessage("Your partner can't be found.");
@@ -123,7 +123,7 @@ public class WeddingManagerNpc extends Folk
 				return;
 			}
 			
-			if (partner.getClan() != null && CastleManager.getInstance().getCastleByOwner(partner.getClan()) != null && CastleManager.getInstance().getCastleByOwner(partner.getClan()).getSiege().isInProgress())
+			if (partner.getClan() != null && CastleManager.INSTANCE.getCastleByOwner(partner.getClan()) != null && CastleManager.INSTANCE.getCastleByOwner(partner.getClan()).getSiege().isInProgress())
 			{
 				player.sendMessage("As your partner is in siege, you can't go to him/her.");
 				return;

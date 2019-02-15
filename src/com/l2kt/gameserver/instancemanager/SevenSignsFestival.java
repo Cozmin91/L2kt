@@ -3385,7 +3385,7 @@ public class SevenSignsFestival
 					final String clanName = rset.getString("clan_name");
 					if (clanName != null)
 					{
-						final Clan clan = ClanTable.getInstance().getClanByName(clanName);
+						final Clan clan = ClanTable.INSTANCE.getClanByName(clanName);
 						if (clan != null)
 						{
 							clan.addReputationScore(100);

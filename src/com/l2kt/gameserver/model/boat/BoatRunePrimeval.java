@@ -90,25 +90,25 @@ public class BoatRunePrimeval implements Runnable
 		switch (_cycle)
 		{
 			case 0:
-				BoatManager.getInstance().dockBoat(BoatManager.RUNE_HARBOR, false);
-				BoatManager.getInstance().broadcastPackets(RUNE_DOCK[0], PRIMEVAL_DOCK, LEAVING_RUNE, RUNE_SOUND);
+				BoatManager.INSTANCE.dockBoat(BoatManager.RUNE_HARBOR, false);
+				BoatManager.INSTANCE.broadcastPackets(RUNE_DOCK[0], PRIMEVAL_DOCK, LEAVING_RUNE, RUNE_SOUND);
 				_boat.payForRide(8925, 1, OUST_LOC_1);
 				_boat.executePath(RUNE_TO_PRIMEVAL);
 				break;
 			case 1:
-				BoatManager.getInstance().broadcastPackets(PRIMEVAL_DOCK, RUNE_DOCK[0], ARRIVED_AT_PRIMEVAL, ARRIVED_AT_PRIMEVAL_2, PRIMEVAL_SOUND);
+				BoatManager.INSTANCE.broadcastPackets(PRIMEVAL_DOCK, RUNE_DOCK[0], ARRIVED_AT_PRIMEVAL, ARRIVED_AT_PRIMEVAL_2, PRIMEVAL_SOUND);
 				ThreadPool.schedule(this, 180000);
 				break;
 			case 2:
-				BoatManager.getInstance().broadcastPackets(PRIMEVAL_DOCK, RUNE_DOCK[0], LEAVING_PRIMEVAL, PRIMEVAL_SOUND);
+				BoatManager.INSTANCE.broadcastPackets(PRIMEVAL_DOCK, RUNE_DOCK[0], LEAVING_PRIMEVAL, PRIMEVAL_SOUND);
 				_boat.payForRide(8924, 1, OUST_LOC_2);
 				_boat.executePath(PRIMEVAL_TO_RUNE);
 				break;
 			case 3:
-				if (BoatManager.getInstance().isBusyDock(BoatManager.RUNE_HARBOR))
+				if (BoatManager.INSTANCE.isBusyDock(BoatManager.RUNE_HARBOR))
 				{
 					if (_shoutCount == 0)
-						BoatManager.getInstance().broadcastPacket(RUNE_DOCK[0], PRIMEVAL_DOCK, BUSY_RUNE);
+						BoatManager.INSTANCE.broadcastPacket(RUNE_DOCK[0], PRIMEVAL_DOCK, BUSY_RUNE);
 					
 					_shoutCount++;
 					if (_shoutCount > 35)
@@ -117,11 +117,11 @@ public class BoatRunePrimeval implements Runnable
 					ThreadPool.schedule(this, 5000);
 					return;
 				}
-				BoatManager.getInstance().dockBoat(BoatManager.RUNE_HARBOR, true);
+				BoatManager.INSTANCE.dockBoat(BoatManager.RUNE_HARBOR, true);
 				_boat.executePath(RUNE_DOCK);
 				break;
 			case 4:
-				BoatManager.getInstance().broadcastPackets(RUNE_DOCK[0], PRIMEVAL_DOCK, ARRIVED_AT_RUNE, ARRIVED_AT_RUNE_2, RUNE_SOUND);
+				BoatManager.INSTANCE.broadcastPackets(RUNE_DOCK[0], PRIMEVAL_DOCK, ARRIVED_AT_RUNE, ARRIVED_AT_RUNE_2, RUNE_SOUND);
 				ThreadPool.schedule(this, 180000);
 				break;
 		}
@@ -134,12 +134,12 @@ public class BoatRunePrimeval implements Runnable
 	
 	public static void load()
 	{
-		final Boat boat = BoatManager.getInstance().getNewBoat(5, 34381, -37680, -3610, 40785);
+		final Boat boat = BoatManager.INSTANCE.getNewBoat(5, 34381, -37680, -3610, 40785);
 		if (boat != null)
 		{
 			boat.registerEngine(new BoatRunePrimeval(boat));
 			boat.runEngine(180000);
-			BoatManager.getInstance().dockBoat(BoatManager.RUNE_HARBOR, true);
+			BoatManager.INSTANCE.dockBoat(BoatManager.RUNE_HARBOR, true);
 		}
 	}
 }

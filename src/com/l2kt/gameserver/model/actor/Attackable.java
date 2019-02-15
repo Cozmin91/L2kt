@@ -1031,7 +1031,7 @@ public class Attackable extends Npc
 		// level modifier in %'s (will be subtracted from drop chance)
 		final int levelModifier = calculateLevelModifierForDrop(player);
 		
-		CursedWeaponManager.getInstance().checkDrop(this, player);
+		CursedWeaponManager.INSTANCE.checkDrop(this, player);
 		
 		// now throw all categorized drops and handle spoil.
 		for (DropCategory cat : npcTemplate.getDropData())

@@ -30,8 +30,8 @@ object RegionBBSManager : BaseBBSManager() {
         val content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "region/castlelist.htm")
 
         val sb = StringBuilder(500)
-        for (castle in CastleManager.getInstance().castles) {
-            val owner = ClanTable.getInstance().getClan(castle.ownerId)
+        for (castle in CastleManager.castles) {
+            val owner = ClanTable.getClan(castle.ownerId)
 
             StringUtil.append(
                 sb,
@@ -48,16 +48,16 @@ object RegionBBSManager : BaseBBSManager() {
                 "</td><td width=5></td></tr></table><br1><img src=\"L2UI.Squaregray\" width=605 height=1><br1>"
             )
         }
-        BaseBBSManager.separateAndSend(content!!.replace("%castleList%", sb.toString()), player)
+        BaseBBSManager.separateAndSend(content.replace("%castleList%", sb.toString()), player)
     }
 
     private fun showRegion(player: Player, castleId: Int) {
-        val castle = CastleManager.getInstance().getCastleById(castleId)
-        val owner = ClanTable.getInstance().getClan(castle.ownerId)
+        val castle = CastleManager.getCastleById(castleId) ?: return
+        val owner = ClanTable.getClan(castle.ownerId)
 
         var content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "region/castle.htm")
 
-        content = content!!.replace("%castleName%", castle.name)
+        content = content.replace("%castleName%", castle.name)
         content = content.replace("%tax%", Integer.toString(castle.taxPercent))
         content = content.replace("%lord%", if (owner != null) owner.leaderName else "None")
         content = content.replace(
@@ -77,7 +77,7 @@ object RegionBBSManager : BaseBBSManager() {
             sb.append("<br><br><table width=610 bgcolor=A7A19A><tr><td width=5></td><td width=200>Clan Hall Name</td><td width=200>Owning Clan</td><td width=200>Clan Leader Name</td><td width=5></td></tr></table><br1>")
 
             for (ch in clanHalls) {
-                val chOwner = ClanTable.getInstance().getClan(ch.ownerId)
+                val chOwner = ClanTable.getClan(ch.ownerId)
 
                 StringUtil.append(
                     sb,

@@ -4,7 +4,7 @@ import com.l2kt.gameserver.data.manager.CastleManorManager
 import com.l2kt.gameserver.model.manor.Seed
 
 class ExShowManorDefaultInfo(private val _hideButtons: Boolean) : L2GameServerPacket() {
-    private val _crops: List<Seed> = CastleManorManager.getInstance().crops
+    private val _crops: List<Seed> = CastleManorManager.crops
 
     override fun writeImpl() {
         writeC(0xFE)

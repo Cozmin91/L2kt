@@ -35,7 +35,7 @@ public class SeedHandler implements IItemHandler
 			return;
 		}
 		
-		final Seed seed = CastleManorManager.getInstance().getSeed(item.getItemId());
+		final Seed seed = CastleManorManager.INSTANCE.getSeed(item.getItemId());
 		if (seed == null)
 			return;
 		

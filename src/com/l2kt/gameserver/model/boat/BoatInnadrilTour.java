@@ -102,47 +102,47 @@ public class BoatInnadrilTour implements Runnable
 		switch (_cycle)
 		{
 			case 0:
-				BoatManager.getInstance().broadcastPacket(DOCK, DOCK, LEAVE_INNADRIL5);
+				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, LEAVE_INNADRIL5);
 				_boat.broadcastPacket(INNADRIL_SOUND_LEAVE_5MIN);
 				ThreadPool.schedule(this, 240000);
 				break;
 			case 1:
-				BoatManager.getInstance().broadcastPacket(DOCK, DOCK, LEAVE_INNADRIL1);
+				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, LEAVE_INNADRIL1);
 				_boat.broadcastPacket(INNADRIL_SOUND_LEAVE_1MIN);
 				ThreadPool.schedule(this, 40000);
 				break;
 			case 2:
-				BoatManager.getInstance().broadcastPacket(DOCK, DOCK, LEAVE_INNADRIL0);
+				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, LEAVE_INNADRIL0);
 				_boat.broadcastPacket(INNADRIL_SOUND_LEAVE_1MIN);
 				ThreadPool.schedule(this, 20000);
 				break;
 			case 3:
-				BoatManager.getInstance().broadcastPackets(DOCK, DOCK, LEAVING_INNADRIL, INNADRIL_SOUND);
+				BoatManager.INSTANCE.broadcastPackets(DOCK, DOCK, LEAVING_INNADRIL, INNADRIL_SOUND);
 				_boat.payForRide(0, 1, OUST_LOC);
 				_boat.executePath(TOUR);
 				ThreadPool.schedule(this, 650000);
 				break;
 			case 4:
-				BoatManager.getInstance().broadcastPacket(DOCK, DOCK, ARRIVAL20);
+				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, ARRIVAL20);
 				ThreadPool.schedule(this, 300000);
 				break;
 			case 5:
-				BoatManager.getInstance().broadcastPacket(DOCK, DOCK, ARRIVAL15);
+				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, ARRIVAL15);
 				ThreadPool.schedule(this, 300000);
 				break;
 			case 6:
-				BoatManager.getInstance().broadcastPacket(DOCK, DOCK, ARRIVAL10);
+				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, ARRIVAL10);
 				ThreadPool.schedule(this, 300000);
 				break;
 			case 7:
-				BoatManager.getInstance().broadcastPacket(DOCK, DOCK, ARRIVAL5);
+				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, ARRIVAL5);
 				ThreadPool.schedule(this, 240000);
 				break;
 			case 8:
-				BoatManager.getInstance().broadcastPacket(DOCK, DOCK, ARRIVAL1);
+				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, ARRIVAL1);
 				break;
 			case 9:
-				BoatManager.getInstance().broadcastPackets(DOCK, DOCK, ARRIVED_AT_INNADRIL, INNADRIL_SOUND);
+				BoatManager.INSTANCE.broadcastPackets(DOCK, DOCK, ARRIVED_AT_INNADRIL, INNADRIL_SOUND);
 				ThreadPool.schedule(this, 300000);
 				break;
 		}
@@ -153,7 +153,7 @@ public class BoatInnadrilTour implements Runnable
 	
 	public static void load()
 	{
-		final Boat boat = BoatManager.getInstance().getNewBoat(4, 111264, 226240, -3610, 32768);
+		final Boat boat = BoatManager.INSTANCE.getNewBoat(4, 111264, 226240, -3610, 32768);
 		if (boat != null)
 		{
 			boat.registerEngine(new BoatInnadrilTour(boat));

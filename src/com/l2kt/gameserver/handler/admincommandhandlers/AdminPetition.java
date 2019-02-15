@@ -35,39 +35,39 @@ public class AdminPetition implements IAdminCommandHandler
 		}
 		
 		if (command.equals("admin_view_petitions"))
-			PetitionManager.getInstance().sendPendingPetitionList(activeChar);
+			PetitionManager.INSTANCE.sendPendingPetitionList(activeChar);
 		else if (command.startsWith("admin_view_petition"))
-			PetitionManager.getInstance().viewPetition(activeChar, petitionId);
+			PetitionManager.INSTANCE.viewPetition(activeChar, petitionId);
 		else if (command.startsWith("admin_accept_petition"))
 		{
-			if (PetitionManager.getInstance().isPlayerInConsultation(activeChar))
+			if (PetitionManager.INSTANCE.isPlayerInConsultation(activeChar))
 			{
 				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ONLY_ONE_ACTIVE_PETITION_AT_TIME));
 				return true;
 			}
 			
-			if (PetitionManager.getInstance().isPetitionInProcess(petitionId))
+			if (PetitionManager.INSTANCE.isPetitionInProcess(petitionId))
 			{
 				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
 				return true;
 			}
 			
-			if (!PetitionManager.getInstance().acceptPetition(activeChar, petitionId))
+			if (!PetitionManager.INSTANCE.acceptPetition(activeChar, petitionId))
 				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_UNDER_PETITION_CONSULTATION));
 		}
 		else if (command.startsWith("admin_reject_petition"))
 		{
-			if (!PetitionManager.getInstance().rejectPetition(activeChar, petitionId))
+			if (!PetitionManager.INSTANCE.rejectPetition(activeChar, petitionId))
 				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FAILED_CANCEL_PETITION_TRY_LATER));
 		}
 		else if (command.equals("admin_reset_petitions"))
 		{
-			if (PetitionManager.getInstance().isPetitionInProcess())
+			if (PetitionManager.INSTANCE.isPetitionInProcess())
 			{
 				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
 				return false;
 			}
-			PetitionManager.getInstance().getPendingPetitions().clear();
+			PetitionManager.INSTANCE.getPendingPetitions().clear();
 		}
 		return true;
 	}

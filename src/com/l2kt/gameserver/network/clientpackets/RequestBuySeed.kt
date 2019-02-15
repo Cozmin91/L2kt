@@ -49,13 +49,13 @@ class RequestBuySeed : L2GameClientPacket() {
             return
         }
 
-        val manor = CastleManorManager.getInstance()
+        val manor = CastleManorManager
         if (manor.isUnderMaintenance) {
             sendPacket(ActionFailed.STATIC_PACKET)
             return
         }
 
-        val castle = CastleManager.getInstance().getCastleById(_manorId)
+        val castle = CastleManager.getCastleById(_manorId)
         if (castle == null) {
             sendPacket(ActionFailed.STATIC_PACKET)
             return

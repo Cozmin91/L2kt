@@ -27,7 +27,7 @@ public class ManorManagerNpc extends Merchant
 	{
 		if (command.startsWith("manor_menu_select"))
 		{
-			if (CastleManorManager.getInstance().isUnderMaintenance())
+			if (CastleManorManager.INSTANCE.isUnderMaintenance())
 			{
 				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				player.sendPacket(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE);

@@ -106,7 +106,7 @@ class EnterWorld : L2GameClientPacket() {
             if (clanHall != null && !clanHall.paid)
                 player.sendPacket(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW)
 
-            for (castle in CastleManager.getInstance().castles) {
+            for (castle in CastleManager.castles) {
                 val siege = castle.siege
                 if (!siege.isInProgress)
                     continue
@@ -148,7 +148,7 @@ class EnterWorld : L2GameClientPacket() {
 
         // Engage and notify partner.
         if (Config.ALLOW_WEDDING) {
-            for ((key, couple) in CoupleManager.getInstance().couples) {
+            for ((key, couple) in CoupleManager.couples) {
                 if (couple.id == objectId || couple.value == objectId) {
                     player.coupleId = key
                     break
@@ -264,7 +264,7 @@ class EnterWorld : L2GameClientPacket() {
             sendPacket(html)
         }
 
-        PetitionManager.getInstance().checkPetitionMessages(player)
+        PetitionManager.checkPetitionMessages(player)
 
         player.onPlayerEnter()
 
@@ -274,8 +274,8 @@ class EnterWorld : L2GameClientPacket() {
         if (Olympiad.getInstance().playerInStadia(player))
             player.teleToLocation(MapRegionData.TeleportType.TOWN)
 
-        if (DimensionalRiftManager.getInstance().checkIfInRiftZone(player.x, player.y, player.z, false))
-            DimensionalRiftManager.getInstance().teleportToWaitingRoom(player)
+        if (DimensionalRiftManager.checkIfInRiftZone(player.x, player.y, player.z, false))
+            DimensionalRiftManager.teleportToWaitingRoom(player)
 
         if (player.clanJoinExpiryTime > System.currentTimeMillis())
             player.sendPacket(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED)

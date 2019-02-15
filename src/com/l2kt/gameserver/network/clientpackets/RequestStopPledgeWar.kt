@@ -16,7 +16,7 @@ class RequestStopPledgeWar : L2GameClientPacket() {
 
         val playerClan = player.clan ?: return
 
-        val clan = ClanTable.getInstance().getClanByName(_pledgeName) ?: return
+        val clan = ClanTable.getClanByName(_pledgeName) ?: return
 
         if (player.clanPrivileges and Clan.CP_CL_PLEDGE_WAR != Clan.CP_CL_PLEDGE_WAR) {
             player.sendPacket(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT)
@@ -35,7 +35,7 @@ class RequestStopPledgeWar : L2GameClientPacket() {
             }
         }
 
-        ClanTable.getInstance().deleteClansWars(playerClan.clanId, clan.clanId)
+        ClanTable.deleteClansWars(playerClan.clanId, clan.clanId)
 
         for (member in clan.onlineMembers)
             member.broadcastUserInfo()

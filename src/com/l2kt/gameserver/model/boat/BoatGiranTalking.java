@@ -151,43 +151,43 @@ public class BoatGiranTalking implements Runnable
 		switch (_cycle)
 		{
 			case 0:
-				BoatManager.getInstance().broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], LEAVE_GIRAN5);
+				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], LEAVE_GIRAN5);
 				_boat.broadcastPacket(GIRAN_SOUND_LEAVE_5MIN);
 				ThreadPool.schedule(this, 240000);
 				break;
 			case 1:
-				BoatManager.getInstance().broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], LEAVE_GIRAN1);
+				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], LEAVE_GIRAN1);
 				_boat.broadcastPacket(GIRAN_SOUND_LEAVE_1MIN);
 				ThreadPool.schedule(this, 40000);
 				break;
 			case 2:
-				BoatManager.getInstance().broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], LEAVE_GIRAN0);
+				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], LEAVE_GIRAN0);
 				_boat.broadcastPacket(GIRAN_SOUND_LEAVE_1MIN);
 				ThreadPool.schedule(this, 20000);
 				break;
 			case 3:
-				BoatManager.getInstance().broadcastPackets(GIRAN_DOCK, TALKING_DOCK[0], LEAVING_GIRAN, ARRIVAL_TALKING15);
+				BoatManager.INSTANCE.broadcastPackets(GIRAN_DOCK, TALKING_DOCK[0], LEAVING_GIRAN, ARRIVAL_TALKING15);
 				_boat.broadcastPacket(GIRAN_SOUND);
 				_boat.payForRide(3946, 1, OUST_LOC_1);
 				_boat.executePath(GIRAN_TO_TALKING);
 				ThreadPool.schedule(this, 250000);
 				break;
 			case 4:
-				BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, ARRIVAL_TALKING10);
+				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, ARRIVAL_TALKING10);
 				ThreadPool.schedule(this, 300000);
 				break;
 			case 5:
-				BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, ARRIVAL_TALKING5);
+				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, ARRIVAL_TALKING5);
 				ThreadPool.schedule(this, 240000);
 				break;
 			case 6:
-				BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, ARRIVAL_TALKING1);
+				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, ARRIVAL_TALKING1);
 				break;
 			case 7:
-				if (BoatManager.getInstance().isBusyDock(BoatManager.TALKING_ISLAND))
+				if (BoatManager.INSTANCE.isBusyDock(BoatManager.TALKING_ISLAND))
 				{
 					if (_shoutCount == 0)
-						BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, BUSY_TALKING);
+						BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, BUSY_TALKING);
 					
 					_shoutCount++;
 					if (_shoutCount > 35)
@@ -196,58 +196,58 @@ public class BoatGiranTalking implements Runnable
 					ThreadPool.schedule(this, 5000);
 					return;
 				}
-				BoatManager.getInstance().dockBoat(BoatManager.TALKING_ISLAND, true);
+				BoatManager.INSTANCE.dockBoat(BoatManager.TALKING_ISLAND, true);
 				_boat.executePath(TALKING_DOCK);
 				break;
 			case 8:
-				BoatManager.getInstance().broadcastPackets(TALKING_DOCK[0], GIRAN_DOCK, ARRIVED_AT_TALKING, ARRIVED_AT_TALKING_2);
+				BoatManager.INSTANCE.broadcastPackets(TALKING_DOCK[0], GIRAN_DOCK, ARRIVED_AT_TALKING, ARRIVED_AT_TALKING_2);
 				_boat.broadcastPacket(TALKING_SOUND);
 				ThreadPool.schedule(this, 300000);
 				break;
 			case 9:
-				BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, LEAVE_TALKING5);
+				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, LEAVE_TALKING5);
 				_boat.broadcastPacket(TALKING_SOUND_LEAVE_5MIN);
 				ThreadPool.schedule(this, 240000);
 				break;
 			case 10:
-				BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, LEAVE_TALKING1);
+				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, LEAVE_TALKING1);
 				_boat.broadcastPacket(TALKING_SOUND_LEAVE_1MIN);
 				ThreadPool.schedule(this, 40000);
 				break;
 			case 11:
-				BoatManager.getInstance().broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, LEAVE_TALKING0);
+				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, LEAVE_TALKING0);
 				_boat.broadcastPacket(TALKING_SOUND_LEAVE_1MIN);
 				ThreadPool.schedule(this, 20000);
 				break;
 			case 12:
-				BoatManager.getInstance().dockBoat(BoatManager.TALKING_ISLAND, false);
-				BoatManager.getInstance().broadcastPackets(TALKING_DOCK[0], GIRAN_DOCK, LEAVING_TALKING);
+				BoatManager.INSTANCE.dockBoat(BoatManager.TALKING_ISLAND, false);
+				BoatManager.INSTANCE.broadcastPackets(TALKING_DOCK[0], GIRAN_DOCK, LEAVING_TALKING);
 				_boat.broadcastPacket(TALKING_SOUND);
 				_boat.payForRide(3945, 1, OUST_LOC_2);
 				_boat.executePath(TALKING_TO_GIRAN);
 				ThreadPool.schedule(this, 200000);
 				break;
 			case 13:
-				BoatManager.getInstance().broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN20);
+				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN20);
 				ThreadPool.schedule(this, 300000);
 				break;
 			case 14:
-				BoatManager.getInstance().broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN15);
+				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN15);
 				ThreadPool.schedule(this, 300000);
 				break;
 			case 15:
-				BoatManager.getInstance().broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN10);
+				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN10);
 				ThreadPool.schedule(this, 300000);
 				break;
 			case 16:
-				BoatManager.getInstance().broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN5);
+				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN5);
 				ThreadPool.schedule(this, 240000);
 				break;
 			case 17:
-				BoatManager.getInstance().broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN1);
+				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN1);
 				break;
 			case 18:
-				BoatManager.getInstance().broadcastPackets(GIRAN_DOCK, TALKING_DOCK[0], ARRIVED_AT_GIRAN, ARRIVED_AT_GIRAN_2);
+				BoatManager.INSTANCE.broadcastPackets(GIRAN_DOCK, TALKING_DOCK[0], ARRIVED_AT_GIRAN, ARRIVED_AT_GIRAN_2);
 				_boat.broadcastPacket(GIRAN_SOUND);
 				ThreadPool.schedule(this, 300000);
 				break;
@@ -261,7 +261,7 @@ public class BoatGiranTalking implements Runnable
 	
 	public static void load()
 	{
-		final Boat boat = BoatManager.getInstance().getNewBoat(2, 48950, 190613, -3610, 60800);
+		final Boat boat = BoatManager.INSTANCE.getNewBoat(2, 48950, 190613, -3610, 60800);
 		if (boat != null)
 		{
 			boat.registerEngine(new BoatGiranTalking(boat));

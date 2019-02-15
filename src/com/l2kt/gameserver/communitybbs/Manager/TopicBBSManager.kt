@@ -67,7 +67,7 @@ object TopicBBSManager : BaseBBSManager() {
                 }
 
                 val post = PostBBSManager.getPostByTopic(topic)
-                post?.deleteMe(topic)
+                post.deleteMe(topic)
 
                 topic.deleteMe(forum)
                 parseCmd("_bbsmemo", player)
@@ -220,7 +220,7 @@ object TopicBBSManager : BaseBBSManager() {
             )
 
         var pageNumber: Int = forum.topicSize / 8
-        if (pageNumber * 8 != ClanTable.getInstance().clans.size)
+        if (pageNumber * 8 != ClanTable.clans.size)
             pageNumber++
 
         for (i in 1..pageNumber) {

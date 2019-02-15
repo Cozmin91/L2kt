@@ -23,13 +23,13 @@ class RequestConfirmSiegeWaitingList : L2GameClientPacket() {
         if (player.clan == null)
             return
 
-        val castle = CastleManager.getInstance().getCastleById(_castleId) ?: return
+        val castle = CastleManager.getCastleById(_castleId) ?: return
 
         // Check if leader of the clan who owns the castle?
         if (castle.ownerId != player.clanId || !player.isClanLeader)
             return
 
-        val clan = ClanTable.getInstance().getClan(_clanId) ?: return
+        val clan = ClanTable.getClan(_clanId) ?: return
 
         if (!castle.siege.isRegistrationOver) {
             if (_approved == 1) {

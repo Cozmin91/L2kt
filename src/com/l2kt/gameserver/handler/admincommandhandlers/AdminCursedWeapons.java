@@ -44,7 +44,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 			if (!command.contains("menu"))
 			{
 				activeChar.sendMessage("====== Cursed Weapons: ======");
-				for (CursedWeapon cw : CursedWeaponManager.getInstance().getCursedWeapons())
+				for (CursedWeapon cw : CursedWeaponManager.INSTANCE.getCursedWeapons())
 				{
 					activeChar.sendMessage(cw.getName() + " (" + cw.getItemId() + ")");
 					if (cw.isActive())
@@ -83,7 +83,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 			else
 			{
 				final StringBuilder sb = new StringBuilder(2000);
-				for (CursedWeapon cw : CursedWeaponManager.getInstance().getCursedWeapons())
+				for (CursedWeapon cw : CursedWeaponManager.INSTANCE.getCursedWeapons())
 				{
 					StringUtil.INSTANCE.append(sb, "<table width=280><tr><td>Name:</td><td>", cw.getName(), "</td></tr>");
 					
@@ -130,7 +130,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 				else
 				{
 					parameter = parameter.replace('_', ' ');
-					for (CursedWeapon cwp : CursedWeaponManager.getInstance().getCursedWeapons())
+					for (CursedWeapon cwp : CursedWeaponManager.INSTANCE.getCursedWeapons())
 					{
 						if (cwp.getName().toLowerCase().contains(parameter.toLowerCase()))
 						{
@@ -140,7 +140,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 					}
 				}
 				
-				final CursedWeapon cw = CursedWeaponManager.getInstance().getCursedWeapon(id);
+				final CursedWeapon cw = CursedWeaponManager.INSTANCE.getCursedWeapon(id);
 				if (cw == null)
 				{
 					activeChar.sendMessage("Unknown cursed weapon ID.");

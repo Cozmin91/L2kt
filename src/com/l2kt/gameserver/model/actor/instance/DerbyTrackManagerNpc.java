@@ -41,7 +41,7 @@ public class DerbyTrackManagerNpc extends Folk
 	{
 		if (command.startsWith("BuyTicket"))
 		{
-			if (DerbyTrackManager.getInstance().getCurrentRaceState() != DerbyTrackManager.RaceState.ACCEPTING_BETS)
+			if (DerbyTrackManager.INSTANCE.getCurrentRaceState() != DerbyTrackManager.RaceState.ACCEPTING_BETS)
 			{
 				player.sendPacket(SystemMessageId.MONSRACE_TICKETS_NOT_AVAILABLE);
 				super.onBypassFeedback(player, "Chat 0");
@@ -70,7 +70,7 @@ public class DerbyTrackManagerNpc extends Folk
 				{
 					int n = i + 1;
 					search = "Mob" + n;
-					html.replace(search, DerbyTrackManager.getInstance().getRunnerName(i));
+					html.replace(search, DerbyTrackManager.INSTANCE.getRunnerName(i));
 				}
 				search = "No1";
 				if (val == 0)
@@ -89,7 +89,7 @@ public class DerbyTrackManagerNpc extends Folk
 				html.setFile(getHtmlPath(npcId, 3));
 				html.replace("0place", player.getRace(0));
 				search = "Mob1";
-				replace = DerbyTrackManager.getInstance().getRunnerName(player.getRace(0) - 1);
+				replace = DerbyTrackManager.INSTANCE.getRunnerName(player.getRace(0) - 1);
 				html.replace(search, replace);
 				search = "0adena";
 				
@@ -109,7 +109,7 @@ public class DerbyTrackManagerNpc extends Folk
 				html.setFile(getHtmlPath(npcId, 4));
 				html.replace("0place", player.getRace(0));
 				search = "Mob1";
-				replace = DerbyTrackManager.getInstance().getRunnerName(player.getRace(0) - 1);
+				replace = DerbyTrackManager.INSTANCE.getRunnerName(player.getRace(0) - 1);
 				html.replace(search, replace);
 				search = "0adena";
 				int price = TICKET_PRICES[player.getRace(1) - 1];
@@ -137,26 +137,26 @@ public class DerbyTrackManagerNpc extends Folk
 				
 				ItemInstance item = new ItemInstance(IdFactory.getInstance().getNextId(), 4443);
 				item.setCount(1);
-				item.setEnchantLevel(DerbyTrackManager.getInstance().getRaceNumber());
+				item.setEnchantLevel(DerbyTrackManager.INSTANCE.getRaceNumber());
 				item.setCustomType1(ticket);
 				item.setCustomType2(TICKET_PRICES[priceId - 1] / 100);
 				
 				player.addItem("Race", item, player, false);
-				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ACQUIRED_S1_S2).addNumber(DerbyTrackManager.getInstance().getRaceNumber()).addItemName(4443));
+				player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.ACQUIRED_S1_S2).addNumber(DerbyTrackManager.INSTANCE.getRaceNumber()).addItemName(4443));
 				
 				// Refresh lane bet.
-				DerbyTrackManager.getInstance().setBetOnLane(ticket, TICKET_PRICES[priceId - 1], true);
+				DerbyTrackManager.INSTANCE.setBetOnLane(ticket, TICKET_PRICES[priceId - 1], true);
 				super.onBypassFeedback(player, "Chat 0");
 				return;
 			}
-			html.replace("1race", DerbyTrackManager.getInstance().getRaceNumber());
+			html.replace("1race", DerbyTrackManager.INSTANCE.getRaceNumber());
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);
 			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
 		else if (command.equals("ShowOdds"))
 		{
-			if (DerbyTrackManager.getInstance().getCurrentRaceState() == DerbyTrackManager.RaceState.ACCEPTING_BETS)
+			if (DerbyTrackManager.INSTANCE.getCurrentRaceState() == DerbyTrackManager.RaceState.ACCEPTING_BETS)
 			{
 				player.sendPacket(SystemMessageId.MONSRACE_NO_PAYOUT_INFO);
 				super.onBypassFeedback(player, "Chat 0");
@@ -169,13 +169,13 @@ public class DerbyTrackManagerNpc extends Folk
 			{
 				final int n = i + 1;
 				
-				html.replace("Mob" + n, DerbyTrackManager.getInstance().getRunnerName(i));
+				html.replace("Mob" + n, DerbyTrackManager.INSTANCE.getRunnerName(i));
 				
 				// Odd
-				final double odd = DerbyTrackManager.getInstance().getOdds().get(i);
+				final double odd = DerbyTrackManager.INSTANCE.getOdds().get(i);
 				html.replace("Odd" + n, (odd > 0D) ? String.format(Locale.ENGLISH, "%.1f", odd) : "&$804;");
 			}
-			html.replace("1race", DerbyTrackManager.getInstance().getRaceNumber());
+			html.replace("1race", DerbyTrackManager.INSTANCE.getRaceNumber());
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);
 			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -189,7 +189,7 @@ public class DerbyTrackManagerNpc extends Folk
 			{
 				int n = i + 1;
 				String search = "Mob" + n;
-				html.replace(search, DerbyTrackManager.getInstance().getRunnerName(i));
+				html.replace(search, DerbyTrackManager.INSTANCE.getRunnerName(i));
 			}
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);
@@ -204,7 +204,7 @@ public class DerbyTrackManagerNpc extends Folk
 			for (ItemInstance ticket : player.getInventory().getAllItemsByItemId(4443))
 			{
 				// Don't list current race tickets.
-				if (ticket.getEnchantLevel() == DerbyTrackManager.getInstance().getRaceNumber())
+				if (ticket.getEnchantLevel() == DerbyTrackManager.INSTANCE.getRaceNumber())
 					continue;
 				
 				StringUtil.INSTANCE.append(sb, "<tr><td><a action=\"bypass -h npc_%objectId%_ShowTicket ", ticket.getObjectId(), "\">", ticket.getEnchantLevel(), " Race Number</a></td><td align=right><font color=\"LEVEL\">", ticket.getCustomType1(), "</font> Number</td><td align=right><font color=\"LEVEL\">", ticket.getCustomType2() * 100, "</font> Adena</td></tr>");
@@ -240,7 +240,7 @@ public class DerbyTrackManagerNpc extends Folk
 			final int bet = ticket.getCustomType2() * 100;
 			
 			// Retrieve HistoryInfo for that race.
-			final HistoryInfo info = DerbyTrackManager.getInstance().getHistoryInfo(raceId);
+			final HistoryInfo info = DerbyTrackManager.INSTANCE.getHistoryInfo(raceId);
 			if (info == null)
 			{
 				super.onBypassFeedback(player, "Chat 0");
@@ -282,7 +282,7 @@ public class DerbyTrackManagerNpc extends Folk
 			final int bet = ticket.getCustomType2() * 100;
 			
 			// Retrieve HistoryInfo for that race.
-			final HistoryInfo info = DerbyTrackManager.getInstance().getHistoryInfo(raceId);
+			final HistoryInfo info = DerbyTrackManager.INSTANCE.getHistoryInfo(raceId);
 			if (info == null)
 			{
 				super.onBypassFeedback(player, "Chat 0");
@@ -302,10 +302,10 @@ public class DerbyTrackManagerNpc extends Folk
 			final StringBuilder sb = new StringBuilder();
 			
 			// Retrieve current race number.
-			final int raceNumber = DerbyTrackManager.getInstance().getRaceNumber();
+			final int raceNumber = DerbyTrackManager.INSTANCE.getRaceNumber();
 			
 			// Retrieve the few latest entries.
-			for (HistoryInfo info : DerbyTrackManager.getInstance().getLastHistoryEntries())
+			for (HistoryInfo info : DerbyTrackManager.INSTANCE.getLastHistoryEntries())
 				StringUtil.INSTANCE.append(sb, "<tr><td><font color=\"LEVEL\">", info.getRaceId(), "</font> th</td><td><font color=\"LEVEL\">", (raceNumber == info.getRaceId()) ? 0 : info.getFirst() + 1, "</font> Lane </td><td><font color=\"LEVEL\">", (raceNumber == info.getRaceId()) ? 0 : info.getSecond() + 1, "</font> Lane</td><td align=right><font color=00ffff>", String.format(Locale.ENGLISH, "%.2f", info.getOddRate()), "</font> Times</td></tr>");
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -323,7 +323,7 @@ public class DerbyTrackManagerNpc extends Folk
 	public void addKnownObject(WorldObject object)
 	{
 		if (object instanceof Player)
-			((Player) object).sendPacket(DerbyTrackManager.getInstance().getRacePacket());
+			((Player) object).sendPacket(DerbyTrackManager.INSTANCE.getRacePacket());
 	}
 	
 	@Override
@@ -335,7 +335,7 @@ public class DerbyTrackManagerNpc extends Folk
 		{
 			final Player player = ((Player) object);
 			
-			for (Npc npc : DerbyTrackManager.getInstance().getRunners())
+			for (Npc npc : DerbyTrackManager.INSTANCE.getRunners())
 				player.sendPacket(new DeleteObject(npc));
 		}
 	}

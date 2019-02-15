@@ -66,7 +66,7 @@ public class ClanPenalty implements IUserCommandHandler
 				StringUtil.INSTANCE.append(sb, "<tr><td width=170>The request to dissolve the clan is currently being processed.  (Restrictions are now going to be imposed on the use of clan functions.)</td><td width=100 align=center>", sdf.format(clan.getDissolvingExpiryTime()), "</td></tr>");
 			
 			boolean registeredOnAnySiege = false;
-			for (Castle castle : CastleManager.getInstance().getCastles())
+			for (Castle castle : CastleManager.INSTANCE.getCastles())
 			{
 				if (castle.getSiege().checkSides(clan))
 				{

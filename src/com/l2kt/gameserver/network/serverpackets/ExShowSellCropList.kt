@@ -16,13 +16,13 @@ class ExShowSellCropList(inventory: PcInventory, manorId: Int) : L2GameServerPac
         _castleCrops = HashMap()
         _cropsItems = HashMap()
 
-        for (cropId in CastleManorManager.getInstance().cropIds) {
+        for (cropId in CastleManorManager.cropIds) {
             val item = inventory.getItemByItemId(cropId)
             if (item != null)
                 _cropsItems[cropId] = item
         }
 
-        for (crop in CastleManorManager.getInstance().getCropProcure(_manorId, false)) {
+        for (crop in CastleManorManager.getCropProcure(_manorId, false)) {
             if (_cropsItems.containsKey(crop.id) && crop.amount > 0)
                 _castleCrops[crop.id] = crop
         }
@@ -36,7 +36,7 @@ class ExShowSellCropList(inventory: PcInventory, manorId: Int) : L2GameServerPac
         writeD(_cropsItems.size)
 
         for (item in _cropsItems.values) {
-            val seed = CastleManorManager.getInstance().getSeedByCrop(item.itemId)
+            val seed = CastleManorManager.getSeedByCrop(item.itemId)
 
             writeD(item.objectId)
             writeD(item.itemId)

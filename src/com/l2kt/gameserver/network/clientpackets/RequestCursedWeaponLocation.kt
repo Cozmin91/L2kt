@@ -12,7 +12,7 @@ class RequestCursedWeaponLocation : L2GameClientPacket() {
         val player = client.activeChar ?: return
 
         val list = ArrayList<CursedWeaponInfo>()
-        for (cw in CursedWeaponManager.getInstance().cursedWeapons) {
+        for (cw in CursedWeaponManager.cursedWeapons) {
             if (!cw.isActive)
                 continue
 

@@ -53,7 +53,7 @@ public final class MercenaryManagerNpc extends Folk
 			final StringTokenizer st = new StringTokenizer(command, " ");
 			st.nextToken();
 			
-			final NpcBuyList buyList = BuyListManager.getInstance().getBuyList(Integer.parseInt(getNpcId() + st.nextToken()));
+			final NpcBuyList buyList = BuyListManager.INSTANCE.getBuyList(Integer.parseInt(getNpcId() + st.nextToken()));
 			if (buyList == null || !buyList.isNpcAllowed(getNpcId()))
 				return;
 			

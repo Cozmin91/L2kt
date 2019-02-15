@@ -21,7 +21,7 @@ class RequestGMCommand : L2GameClientPacket() {
             return
 
         val target = World.getInstance().getPlayer(_targetName)
-        val clan = ClanTable.getInstance().getClanByName(_targetName)
+        val clan = ClanTable.getClanByName(_targetName)
 
         if (target == null && (clan == null || _command != 6))
             return

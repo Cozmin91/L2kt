@@ -42,7 +42,7 @@ class RequestProcureCropList : L2GameClientPacket() {
 
         val player = client.activeChar ?: return
 
-        val manor = CastleManorManager.getInstance()
+        val manor = CastleManorManager
         if (manor.isUnderMaintenance) {
             sendPacket(ActionFailed.STATIC_PACKET)
             return
@@ -145,7 +145,7 @@ class RequestProcureCropList : L2GameClientPacket() {
         val cropProcure: CropProcure?
             get() {
                 if (_cp == null)
-                    _cp = CastleManorManager.getInstance().getCropProcure(manorId, id, false)
+                    _cp = CastleManorManager.getCropProcure(manorId, id, false)
 
                 return _cp
             }
@@ -153,7 +153,7 @@ class RequestProcureCropList : L2GameClientPacket() {
         val rewardId: Int
             get() {
                 if (_rewardId == 0)
-                    _rewardId = CastleManorManager.getInstance().getSeedByCrop(_cp!!.id)!!.getReward(_cp!!.reward)
+                    _rewardId = CastleManorManager.getSeedByCrop(_cp!!.id)!!.getReward(_cp!!.reward)
 
                 return _rewardId
             }

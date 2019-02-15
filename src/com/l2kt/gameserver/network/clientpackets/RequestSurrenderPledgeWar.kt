@@ -23,7 +23,7 @@ class RequestSurrenderPledgeWar : L2GameClientPacket() {
             return
         }
 
-        val clan = ClanTable.getInstance().getClanByName(_pledgeName) ?: return
+        val clan = ClanTable.getClanByName(_pledgeName) ?: return
 
         if (!playerClan.isAtWarWith(clan.clanId)) {
             activeChar.sendPacket(SystemMessageId.NOT_INVOLVED_IN_WAR)
@@ -36,6 +36,6 @@ class RequestSurrenderPledgeWar : L2GameClientPacket() {
                 _pledgeName
             )
         )
-        ClanTable.getInstance().deleteClansWars(playerClan.clanId, clan.clanId)
+        ClanTable.deleteClansWars(playerClan.clanId, clan.clanId)
     }
 }

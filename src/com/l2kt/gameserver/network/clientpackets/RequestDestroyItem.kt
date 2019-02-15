@@ -48,7 +48,7 @@ class RequestDestroyItem : L2GameClientPacket() {
             return
         }
 
-        if (!itemToRemove.isDestroyable || CursedWeaponManager.getInstance().isCursed(itemId)) {
+        if (!itemToRemove.isDestroyable || CursedWeaponManager.isCursed(itemId)) {
             player.sendPacket(if (itemToRemove.isHeroItem) SystemMessageId.HERO_WEAPONS_CANT_DESTROYED else SystemMessageId.CANNOT_DISCARD_THIS_ITEM)
             return
         }

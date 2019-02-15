@@ -11,7 +11,7 @@ class ExShowSeedSetting(private val _manorId: Int) : L2GameServerPacket() {
     private val _next = HashMap<Int, SeedProduction>()
 
     init {
-        val manor = CastleManorManager.getInstance()
+        val manor = CastleManorManager
         _seeds = manor.getSeedsForCastle(_manorId)
 
         for (s in _seeds) {

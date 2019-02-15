@@ -1,20 +1,8 @@
 package com.l2kt.gameserver.data.manager;
 
-import java.lang.reflect.Constructor;
-import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.data.xml.IXmlReader;
 import com.l2kt.commons.lang.StringUtil;
-
 import com.l2kt.gameserver.model.World;
 import com.l2kt.gameserver.model.WorldObject;
 import com.l2kt.gameserver.model.WorldRegion;
@@ -27,10 +15,16 @@ import com.l2kt.gameserver.model.zone.form.ZoneCuboid;
 import com.l2kt.gameserver.model.zone.form.ZoneCylinder;
 import com.l2kt.gameserver.model.zone.form.ZoneNPoly;
 import com.l2kt.gameserver.model.zone.type.BossZone;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import java.lang.reflect.Constructor;
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Loads and stores zones, based on their {@link ZoneType}.
@@ -39,31 +33,31 @@ public class ZoneManager implements IXmlReader
 {
 	private static final String DELETE_GRAND_BOSS_LIST = "DELETE FROM grandboss_list";
 	private static final String INSERT_GRAND_BOSS_LIST = "INSERT INTO grandboss_list (player_id,zone) VALUES (?,?)";
-	
+
 	private final Map<Class<? extends ZoneType>, Map<Integer, ? extends ZoneType>> _zones = new HashMap<>();
 	private final Map<Integer, ItemInstance> _debugItems = new ConcurrentHashMap<>();
-	
+
 	private int _lastDynamicId = 0;
-	
+
 	protected ZoneManager()
 	{
 		load();
 	}
-	
+
 	@Override
 	public void load()
 	{
 		parseFile("./data/xml/zones");
 		LOGGER.info("Loaded {} zones classes and total {} zones.", _zones.size(), _zones.values().stream().mapToInt(Map::size).sum());
 	}
-	
+
 	@Override
 	public void parseDocument(Document doc, Path path)
 	{
 		_lastDynamicId = (_lastDynamicId / 1000) * 1000 + 1000;
-		
+
 		final String zoneType = StringUtil.INSTANCE.getNameWithoutExtension(path.toFile().getName());
-		
+
 		// Create the Constructor, based on file name. It is reused by every zone.
 		Constructor<?> zoneConstructor;
 		try
@@ -75,7 +69,7 @@ public class ZoneManager implements IXmlReader
 			LOGGER.error("The zone type {} doesn't exist. Abort zones loading for {}.", e, zoneType, path.toFile().getName());
 			return;
 		}
-		
+
 		forEach(doc, "list", listNode -> forEach(listNode, "zone", zoneNode ->
 		{
 			final NamedNodeMap attrs = zoneNode.getAttributes();
@@ -91,11 +85,11 @@ public class ZoneManager implements IXmlReader
 				LOGGER.error("The zone id {} couldn't be instantiated.", e, zoneId);
 				return;
 			}
-			
+
 			final String zoneShape = parseString(attrs, "shape");
 			final int minZ = parseInteger(attrs, "minZ");
 			final int maxZ = parseInteger(attrs, "maxZ");
-			
+
 			final List<IntIntHolder> nodes = new ArrayList<>();
 			forEach(zoneNode, "node", nodeNode ->
 			{
@@ -107,13 +101,13 @@ public class ZoneManager implements IXmlReader
 				LOGGER.warn("Missing nodes for zone {} in file {}.", zoneId, zoneType);
 				return;
 			}
-			
+
 			forEach(zoneNode, "stat", statNode ->
 			{
 				final NamedNodeMap statAttrs = statNode.getAttributes();
 				temp.setParameter(parseString(statAttrs, "name"), parseString(statAttrs, "val"));
 			});
-			
+
 			if (temp instanceof SpawnZoneType)
 			{
 				forEach(zoneNode, "spawn", spawnNode ->
@@ -122,7 +116,7 @@ public class ZoneManager implements IXmlReader
 					((SpawnZoneType) temp).addLoc(parseLocation(spawnNode), parseBoolean(spawnAttrs, "isChaotic", false));
 				});
 			}
-			
+
 			final IntIntHolder[] coords = nodes.toArray(new IntIntHolder[nodes.size()]);
 			switch (zoneShape)
 			{
@@ -167,9 +161,9 @@ public class ZoneManager implements IXmlReader
 					LOGGER.warn("Unknown {} shape in file {}.", zoneShape, zoneType);
 					return;
 			}
-			
+
 			addZone(zoneId, temp);
-			
+
 			final WorldRegion[][] regions = World.getInstance().getWorldRegions();
 			for (int x = 0; x < regions.length; x++)
 			{
@@ -181,7 +175,7 @@ public class ZoneManager implements IXmlReader
 			}
 		}));
 	}
-	
+
 	/**
 	 * Reload zones using following steps :
 	 * <ul>
@@ -196,24 +190,24 @@ public class ZoneManager implements IXmlReader
 	{
 		// Save boss zones data.
 		save();
-		
+
 		// Remove zones from world.
 		for (WorldRegion[] regions : World.getInstance().getWorldRegions())
 		{
 			for (WorldRegion region : regions)
 				region.getZones().clear();
 		}
-		
+
 		// Clear _zones and _debugItems Maps.
 		_zones.clear();
 		clearDebugItems();
-		
+
 		// Reset dynamic id.
 		_lastDynamicId = 0;
-		
+
 		// Load all zones.
 		load();
-		
+
 		// Revalidate creatures in zones.
 		for (WorldObject object : World.getInstance().getObjects())
 		{
@@ -221,7 +215,7 @@ public class ZoneManager implements IXmlReader
 				((Creature) object).revalidateZone(true);
 		}
 	}
-	
+
 	/**
 	 * Save boss zone data.<br>
 	 * <br>
@@ -235,7 +229,7 @@ public class ZoneManager implements IXmlReader
 			PreparedStatement ps = con.prepareStatement(DELETE_GRAND_BOSS_LIST);
 			ps.executeUpdate();
 			ps.close();
-			
+
 			// store actual data
 			ps = con.prepareStatement(INSERT_GRAND_BOSS_LIST);
 			for (ZoneType zone : _zones.get(BossZone.class).values())
@@ -256,7 +250,7 @@ public class ZoneManager implements IXmlReader
 		}
 		LOGGER.info("Saved boss zones data.");
 	}
-	
+
 	/**
 	 * Add a new zone into _zones {@link Map}. If the zone type doesn't exist, generate the entry first.
 	 * @param id : The zone id to add.
@@ -276,7 +270,7 @@ public class ZoneManager implements IXmlReader
 		else
 			map.put(id, zone);
 	}
-	
+
 	/**
 	 * @param <T> : The {@link ZoneType} children class.
 	 * @param type : The Class type to refer.
@@ -287,7 +281,7 @@ public class ZoneManager implements IXmlReader
 	{
 		return (Collection<T>) _zones.get(type).values();
 	}
-	
+
 	/**
 	 * @param id : The zone id to retrieve.
 	 * @return the first zone matching id.
@@ -301,7 +295,7 @@ public class ZoneManager implements IXmlReader
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @param <T> : The {@link ZoneType} children class.
 	 * @param id : The zone id to retrieve.
@@ -313,7 +307,7 @@ public class ZoneManager implements IXmlReader
 	{
 		return (T) _zones.get(type).get(id);
 	}
-	
+
 	/**
 	 * @param object : The object position to refer.
 	 * @return all zones based on object position.
@@ -322,7 +316,7 @@ public class ZoneManager implements IXmlReader
 	{
 		return getZones(object.getX(), object.getY(), object.getZ());
 	}
-	
+
 	/**
 	 * @param <T> : The {@link ZoneType} children class.
 	 * @param object : The object position to refer.
@@ -333,10 +327,10 @@ public class ZoneManager implements IXmlReader
 	{
 		if (object == null)
 			return null;
-		
+
 		return getZone(object.getX(), object.getY(), object.getZ(), type);
 	}
-	
+
 	/**
 	 * @param x : The X location to check.
 	 * @param y : The Y location to check.
@@ -352,7 +346,7 @@ public class ZoneManager implements IXmlReader
 		}
 		return temp;
 	}
-	
+
 	/**
 	 * @param x : The X location to check.
 	 * @param y : The Y location to check.
@@ -369,7 +363,7 @@ public class ZoneManager implements IXmlReader
 		}
 		return temp;
 	}
-	
+
 	/**
 	 * @param <T> : The {@link ZoneType} children class.
 	 * @param x : The X location to check.
@@ -387,7 +381,7 @@ public class ZoneManager implements IXmlReader
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @param <T> : The {@link ZoneType} children class.
 	 * @param x : The X location to check.
@@ -406,7 +400,7 @@ public class ZoneManager implements IXmlReader
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Add an {@link ItemInstance} on debug list. Used to visualize zones.
 	 * @param item : The item to add.
@@ -415,7 +409,7 @@ public class ZoneManager implements IXmlReader
 	{
 		_debugItems.put(item.getObjectId(), item);
 	}
-	
+
 	/**
 	 * Remove all {@link ItemInstance} debug items from the world and clear _debugItems {@link Map}.
 	 */
@@ -423,15 +417,15 @@ public class ZoneManager implements IXmlReader
 	{
 		for (ItemInstance item : _debugItems.values())
 			item.decayMe();
-		
+
 		_debugItems.clear();
 	}
-	
+
 	public static final ZoneManager getInstance()
 	{
 		return SingletonHolder.INSTANCE;
 	}
-	
+
 	private static class SingletonHolder
 	{
 		protected static final ZoneManager INSTANCE = new ZoneManager();

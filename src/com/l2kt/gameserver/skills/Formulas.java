@@ -409,7 +409,7 @@ public final class Formulas
 		if (clan == null)
 			return false;
 		
-		final Siege siege = CastleManager.getInstance().getActiveSiege(player);
+		final Siege siege = CastleManager.INSTANCE.getActiveSiege(player);
 		if (siege == null || !siege.checkSide(clan, Siege.SiegeSide.ATTACKER))
 			return false;
 		

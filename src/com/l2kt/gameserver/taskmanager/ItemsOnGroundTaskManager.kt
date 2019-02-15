@@ -54,7 +54,7 @@ object ItemsOnGroundTaskManager : Runnable {
                                 item.spawnMe(rs.getInt(5), rs.getInt(6), rs.getInt(7))
 
                                 // If item is on a Castle ground, verify if it's an allowed ticket. If yes, add it to associated castle.
-                                val castle = CastleManager.getInstance().getCastle(item)
+                                val castle = CastleManager.getCastle(item)
                                 if (castle?.getTicket(item.itemId) != null)
                                     castle.addDroppedTicket(item)
 
@@ -110,7 +110,7 @@ object ItemsOnGroundTaskManager : Runnable {
             item.isEquipable -> Config.EQUIPABLE_ITEM_AUTO_DESTROY_TIME.toLong()
             else -> {
                 // If item is on a Castle ground, verify if it's an allowed ticket. If yes, the associated timer is always 0.
-                val castle = CastleManager.getInstance().getCastle(item)
+                val castle = CastleManager.getCastle(item)
                 (if (castle?.getTicket(item.itemId) != null) 0 else Config.ITEM_AUTO_DESTROY_TIME).toLong()
             }
         }
@@ -146,7 +146,7 @@ object ItemsOnGroundTaskManager : Runnable {
                         // Get item and destroy time interval.
 
                         // Cursed Items not saved to ground, prevent double save.
-                        if (CursedWeaponManager.getInstance().isCursed(item.itemId))
+                        if (CursedWeaponManager.isCursed(item.itemId))
                             continue
 
                         st.setInt(1, item.objectId)

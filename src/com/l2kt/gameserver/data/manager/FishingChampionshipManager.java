@@ -1,12 +1,5 @@
 package com.l2kt.gameserver.data.manager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import com.l2kt.Config;
 import com.l2kt.L2DatabaseFactory;
 import com.l2kt.commons.concurrent.ThreadPool;
@@ -15,11 +8,17 @@ import com.l2kt.commons.logging.CLogger;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.data.ItemTable;
 import com.l2kt.gameserver.data.sql.ServerMemoTable;
-
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  * The championship tournament is held on a weekly cycle. During the competition, players vie to catch the biggest fish. The results are ranked based on the size of the fish they caught, with the biggest fish determining the winner.<br>
@@ -97,7 +96,7 @@ public class FishingChampionshipManager
 	
 	private void restoreData()
 	{
-		_endDate = ServerMemoTable.getInstance().getLong("fishChampionshipEnd", 0);
+		_endDate = ServerMemoTable.INSTANCE.getLong("fishChampionshipEnd", 0);
 		
 		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
              PreparedStatement ps = con.prepareStatement(SELECT))
@@ -431,7 +430,7 @@ public class FishingChampionshipManager
 	
 	public void shutdown()
 	{
-		ServerMemoTable.getInstance().set("fishChampionshipEnd", _endDate);
+		ServerMemoTable.INSTANCE.set("fishChampionshipEnd", _endDate);
 		
 		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
 			PreparedStatement ps = con.prepareStatement(DELETE);

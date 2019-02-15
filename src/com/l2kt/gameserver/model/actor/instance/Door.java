@@ -46,7 +46,7 @@ public class Door extends Creature implements IGeoObject
 		super(objectId, template);
 		
 		// assign door to a castle
-		_castle = CastleManager.getInstance().getCastleById(template.getCastle());
+		_castle = CastleManager.INSTANCE.getCastleById(template.getCastle());
 		if (_castle != null)
 			_castle.getDoors().add(this);
 		

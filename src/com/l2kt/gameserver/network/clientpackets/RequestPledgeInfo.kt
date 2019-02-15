@@ -13,7 +13,7 @@ class RequestPledgeInfo : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        val clan = ClanTable.getInstance().getClan(_clanId) ?: return
+        val clan = ClanTable.getClan(_clanId) ?: return
 
         activeChar.sendPacket(PledgeInfo(clan))
     }

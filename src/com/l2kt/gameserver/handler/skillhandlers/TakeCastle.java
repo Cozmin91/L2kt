@@ -29,7 +29,7 @@ public class TakeCastle implements ISkillHandler
 		if (!player.isClanLeader())
 			return;
 		
-		final Castle castle = CastleManager.getInstance().getCastle(player);
+		final Castle castle = CastleManager.INSTANCE.getCastle(player);
 		if (castle == null || !player.checkIfOkToCastSealOfRule(castle, true, skill, targets[0]))
 			return;
 		

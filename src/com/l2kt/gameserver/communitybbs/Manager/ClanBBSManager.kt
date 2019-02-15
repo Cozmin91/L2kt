@@ -45,7 +45,7 @@ object ClanBBSManager : BaseBBSManager() {
             if (Integer.valueOf(ar2) != player.clanId)
                 return
 
-            val clan = ClanTable.getInstance().getClan(player.clanId) ?: return
+            val clan = ClanTable.getClan(player.clanId) ?: return
 
             clan.setIntroduction(ar3, true)
             sendClanManagement(player, Integer.valueOf(ar2))
@@ -59,7 +59,7 @@ object ClanBBSManager : BaseBBSManager() {
             if (Integer.valueOf(ar2) != player.clanId)
                 return
 
-            val clan = ClanTable.getInstance().getClan(player.clanId) ?: return
+            val clan = ClanTable.getClan(player.clanId) ?: return
 
             // Retrieve clans members, and store them under a String.
             val members = StringBuilder()
@@ -80,7 +80,7 @@ object ClanBBSManager : BaseBBSManager() {
 
 
     private fun sendClanMail(player: Player, clanId: Int) {
-        val clan = ClanTable.getInstance().getClan(clanId) ?: return
+        val clan = ClanTable.getClan(clanId) ?: return
 
         if (player.clanId != clanId || !player.isClanLeader) {
             player.sendPacket(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED)
@@ -95,7 +95,7 @@ object ClanBBSManager : BaseBBSManager() {
     }
 
     private fun sendClanManagement(player: Player, clanId: Int) {
-        val clan = ClanTable.getInstance().getClan(clanId) ?: return
+        val clan = ClanTable.getClan(clanId) ?: return
 
         if (player.clanId != clanId || !player.isClanLeader) {
             player.sendPacket(SystemMessageId.ONLY_THE_CLAN_LEADER_IS_ENABLED)
@@ -110,7 +110,7 @@ object ClanBBSManager : BaseBBSManager() {
     }
 
     private fun sendClanNotice(player: Player, clanId: Int) {
-        val clan = ClanTable.getInstance().getClan(clanId)
+        val clan = ClanTable.getClan(clanId)
         if (clan == null || player.clanId != clanId)
             return
 
@@ -154,7 +154,7 @@ object ClanBBSManager : BaseBBSManager() {
 
         // List of clans.
         var i = 0
-        for (cl in ClanTable.getInstance().clans) {
+        for (cl in ClanTable.clans) {
             if (i > (index + 1) * 7)
                 break
 
@@ -187,8 +187,8 @@ object ClanBBSManager : BaseBBSManager() {
             )
 
         i = 0
-        var pageNumber = ClanTable.getInstance().clans.size / 8
-        if (pageNumber * 8 != ClanTable.getInstance().clans.size)
+        var pageNumber = ClanTable.clans.size / 8
+        if (pageNumber * 8 != ClanTable.clans.size)
             pageNumber++
 
         i = 1
@@ -217,7 +217,7 @@ object ClanBBSManager : BaseBBSManager() {
     }
 
     private fun sendClanDetails(player: Player, clanId: Int) {
-        val clan = ClanTable.getInstance().getClan(clanId) ?: return
+        val clan = ClanTable.getClan(clanId) ?: return
 
         if (clan.level < 2) {
             player.sendPacket(SystemMessageId.NO_CB_IN_MY_CLAN)

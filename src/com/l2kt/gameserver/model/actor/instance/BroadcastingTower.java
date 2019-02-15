@@ -32,7 +32,7 @@ public final class BroadcastingTower extends Folk
 			final int y = Integer.parseInt(st.nextToken());
 			final int z = Integer.parseInt(st.nextToken());
 			
-			if (command.startsWith("observeSiege") && CastleManager.getInstance().getActiveSiege(x, y, z) == null)
+			if (command.startsWith("observeSiege") && CastleManager.INSTANCE.getActiveSiege(x, y, z) == null)
 			{
 				player.sendPacket(SystemMessageId.ONLY_VIEW_SIEGE);
 				return;

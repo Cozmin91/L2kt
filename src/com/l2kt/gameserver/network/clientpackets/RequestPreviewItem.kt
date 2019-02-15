@@ -62,7 +62,7 @@ class RequestPreviewItem : L2GameClientPacket() {
         // Get the current merchant targeted by the player
         val merchant = (if (target is Merchant) target else null) ?: return
 
-        val buyList = BuyListManager.getInstance().getBuyList(_listId) ?: return
+        val buyList = BuyListManager.getBuyList(_listId) ?: return
 
         var totalPrice = 0
         _listId = buyList.listId

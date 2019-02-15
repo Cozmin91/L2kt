@@ -31,7 +31,7 @@ class RequestRestartPoint : L2GameClientPacket() {
 
         // Schedule a respawn delay if player is part of a clan registered in an active siege.
         if (player.clan != null) {
-            val siege = CastleManager.getInstance().getActiveSiege(player)
+            val siege = CastleManager.getActiveSiege(player)
             if (siege != null && siege.checkSide(player.clan, Siege.SiegeSide.ATTACKER)) {
                 ThreadPool.schedule({ portPlayer(player) }, Config.ATTACKERS_RESPAWN_DELAY.toLong())
                 return
@@ -70,7 +70,7 @@ class RequestRestartPoint : L2GameClientPacket() {
                     player.restoreExp(function.lvl.toDouble())
             }
         } else if (_requestType == 2) {
-            val siege = CastleManager.getInstance().getActiveSiege(player)
+            val siege = CastleManager.getActiveSiege(player)
             loc = if (siege != null) {
                 val side = siege.getSide(clan)
                 if (side == Siege.SiegeSide.DEFENDER || side == Siege.SiegeSide.OWNER)

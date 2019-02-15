@@ -140,7 +140,7 @@ public class Merchant extends Folk
 	
 	private final void showWearWindow(Player player, int val)
 	{
-		final NpcBuyList buyList = BuyListManager.getInstance().getBuyList(val);
+		final NpcBuyList buyList = BuyListManager.INSTANCE.getBuyList(val);
 		if (buyList == null || !buyList.isNpcAllowed(getNpcId()))
 			return;
 		
@@ -150,7 +150,7 @@ public class Merchant extends Folk
 	
 	protected final void showBuyWindow(Player player, int val)
 	{
-		final NpcBuyList buyList = BuyListManager.getInstance().getBuyList(val);
+		final NpcBuyList buyList = BuyListManager.INSTANCE.getBuyList(val);
 		if (buyList == null || !buyList.isNpcAllowed(getNpcId()))
 			return;
 		

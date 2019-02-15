@@ -10,7 +10,7 @@ class BuyListSeed(private val _money: Int, private val _manorId: Int) : L2GameSe
     init {
 
         _list = ArrayList()
-        for (s in CastleManorManager.getInstance().getSeedProduction(_manorId, false)) {
+        for (s in CastleManorManager.getSeedProduction(_manorId, false)) {
             if (s.amount > 0 && s.price > 0)
                 _list.add(s)
         }

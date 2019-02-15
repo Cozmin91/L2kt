@@ -44,7 +44,7 @@ class RequestBuyItem : L2GameClientPacket() {
         val player = client.activeChar ?: return
 
         // We retrieve the buylist.
-        val buyList = BuyListManager.getInstance().getBuyList(_listId) ?: return
+        val buyList = BuyListManager.getBuyList(_listId) ?: return
 
         var castleTaxRate = 0.0
         var merchant: Npc? = null

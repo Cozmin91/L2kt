@@ -117,7 +117,7 @@ public class CastleChamberlain extends Merchant
 				sendFileMessage(player, "data/html/chamberlain/noprivs.htm");
 			else
 			{
-				final Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
+				final Clan clan = ClanTable.INSTANCE.getClan(getCastle().getOwnerId());
 				
 				final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/chamberlain/report.htm");
@@ -326,7 +326,7 @@ public class CastleChamberlain extends Merchant
 			if (!validatePrivileges(player, Clan.CP_CS_MANOR_ADMIN))
 				return;
 			
-			final CastleManorManager manor = CastleManorManager.getInstance();
+			final CastleManorManager manor = CastleManorManager.INSTANCE;
 			if (manor.isUnderMaintenance())
 			{
 				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());

@@ -1054,7 +1054,7 @@ public class SevenSigns
 					else if (newSealOwner == CabalType.DUSK)
 						BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.DUSK_OBTAINED_STRIFE));
 					
-					CastleManager.getInstance().validateTaxes(newSealOwner);
+					CastleManager.INSTANCE.validateTaxes(newSealOwner);
 					break;
 			}
 		}
@@ -1111,7 +1111,7 @@ public class SevenSigns
 					SevenSignsFestival.getInstance().startFestivalManager();
 					
 					// Reset castles certificates count.
-					CastleManager.getInstance().resetCertificates();
+					CastleManager.INSTANCE.resetCertificates();
 					
 					// Send message that Competition has begun.
 					BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.QUEST_EVENT_PERIOD_BEGUN));

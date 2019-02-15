@@ -174,7 +174,7 @@ class CharInfo(private val _activeChar: Player) : L2GameServerPacket() {
         writeD(_activeChar.appearance.titleColor)
 
         if (_activeChar.isCursedWeaponEquipped)
-            writeD(CursedWeaponManager.getInstance().getCurrentStage(_activeChar.cursedWeaponEquippedId) - 1)
+            writeD(CursedWeaponManager.getCurrentStage(_activeChar.cursedWeaponEquippedId) - 1)
         else
             writeD(0x00)
     }

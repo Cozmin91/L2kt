@@ -16,7 +16,7 @@ class RequestReplySurrenderPledgeWar : L2GameClientPacket() {
 
         if (_answer == 1) {
             requestor.deathPenalty(false, false, false)
-            ClanTable.getInstance().deleteClansWars(requestor.clanId, activeChar.clanId)
+            ClanTable.deleteClansWars(requestor.clanId, activeChar.clanId)
         }
 
         activeChar.onTransactionRequest(requestor)

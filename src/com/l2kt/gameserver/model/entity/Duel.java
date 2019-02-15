@@ -675,7 +675,7 @@ public class Duel
 		
 		// Cleanup.
 		_playerConditions.clear();
-		DuelManager.getInstance().removeDuel(_duelId);
+		DuelManager.INSTANCE.removeDuel(_duelId);
 	}
 	
 	/**

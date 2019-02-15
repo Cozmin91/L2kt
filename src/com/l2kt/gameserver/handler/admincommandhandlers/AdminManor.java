@@ -21,7 +21,7 @@ public class AdminManor implements IAdminCommandHandler
 	{
 		if (command.startsWith("admin_manor"))
 		{
-			final CastleManorManager manor = CastleManorManager.getInstance();
+			final CastleManorManager manor = CastleManorManager.INSTANCE;
 			
 			final NpcHtmlMessage msg = new NpcHtmlMessage(0);
 			msg.setFile("data/html/admin/manor.htm");
@@ -29,7 +29,7 @@ public class AdminManor implements IAdminCommandHandler
 			msg.replace("%change%", manor.getNextModeChange());
 			
 			final StringBuilder sb = new StringBuilder(3400);
-			for (Castle c : CastleManager.getInstance().getCastles())
+			for (Castle c : CastleManager.INSTANCE.getCastles())
 			{
 				StringUtil.INSTANCE.append(sb, "<tr><td width=110>Name:</td><td width=160><font color=008000>" + c.getName() + "</font></td></tr>");
 				StringUtil.INSTANCE.append(sb, "<tr><td>Current period cost:</td><td><font color=FF9900>", StringUtil.INSTANCE.formatNumber(manor.getManorCost(c.getCastleId(), false)), " Adena</font></td></tr>");

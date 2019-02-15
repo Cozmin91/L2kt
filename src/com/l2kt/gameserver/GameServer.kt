@@ -81,7 +81,7 @@ object GameServer {
         World.getInstance()
         MapRegionData
         AnnouncementData
-        ServerMemoTable.getInstance()
+        ServerMemoTable
 
         StringUtil.printSection("Skills")
         SkillTable
@@ -91,21 +91,21 @@ object GameServer {
         ItemTable
         SummonItemData
         HennaData
-        BuyListManager.getInstance()
+        BuyListManager
         MultisellData
         RecipeData
         ArmorSetData
         FishData
         SpellbookData
         SoulCrystalData
-        AugmentationData.getInstance()
-        CursedWeaponManager.getInstance()
+        AugmentationData
+        CursedWeaponManager
 
         StringUtil.printSection("Admins")
         AdminData
         BookmarkTable
-        MovieMakerManager.getInstance()
-        PetitionManager.getInstance()
+        MovieMakerManager
+        PetitionManager
 
         StringUtil.printSection("Characters")
         PlayerData
@@ -115,7 +115,7 @@ object GameServer {
         HtmCache
         PartyMatchWaitingList.getInstance()
         PartyMatchRoomList.getInstance()
-        RaidPointManager.getInstance()
+        RaidPointManager
 
         printSection("Community server")
         if (Config.ENABLE_COMMUNITY_BOARD)
@@ -125,7 +125,7 @@ object GameServer {
 
         printSection("Clans")
         CrestCache
-        ClanTable.getInstance()
+        ClanTable
         AuctionManager
         ClanHallManager.getInstance()
 
@@ -136,7 +136,7 @@ object GameServer {
         ZoneManager.getInstance()
 
         printSection("Castles")
-        CastleManager.getInstance()
+        CastleManager
 
         printSection("Task Managers")
         AttackStanceTaskManager
@@ -154,10 +154,10 @@ object GameServer {
         SevenSignsFestival.getInstance()
 
         printSection("Manor Manager")
-        CastleManorManager.getInstance()
+        CastleManorManager
 
         printSection("NPCs")
-        BufferManager.getInstance()
+        BufferManager
         HerbDropData
         NpcData
         WalkerRouteData
@@ -167,7 +167,7 @@ object GameServer {
         RaidBossSpawnManager.getInstance()
         GrandBossManager.getInstance()
         DayNightSpawnManager.getInstance()
-        DimensionalRiftManager.getInstance()
+        DimensionalRiftManager
 
         printSection("Olympiads & Heroes")
         OlympiadGameManager.getInstance()
@@ -181,7 +181,7 @@ object GameServer {
         ScriptData
 
         if (Config.ALLOW_BOAT) {
-            BoatManager.getInstance()
+            BoatManager
             BoatGiranTalking.load()
             BoatGludinRune.load()
             BoatInnadrilTour.load()
@@ -190,11 +190,11 @@ object GameServer {
         }
 
         printSection("Events")
-        DerbyTrackManager.getInstance()
+        DerbyTrackManager
         LotteryManager.getInstance()
 
         if (Config.ALLOW_WEDDING)
-            CoupleManager.getInstance()
+            CoupleManager
 
         if (Config.ALT_FISH_CHAMPIONSHIP_ENABLED)
             FishingChampionshipManager.getInstance()

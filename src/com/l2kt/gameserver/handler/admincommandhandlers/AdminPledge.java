@@ -60,7 +60,7 @@ public class AdminPledge implements IAdminCommandHandler
 						
 						long cet = player.getClanCreateExpiryTime();
 						player.setClanCreateExpiryTime(0);
-						Clan clan = ClanTable.getInstance().createClan(player, parameter);
+						Clan clan = ClanTable.INSTANCE.createClan(player, parameter);
 						if (clan != null)
 							activeChar.sendMessage("Clan " + parameter + " have been created. Clan leader is " + player.getName() + ".");
 						else
@@ -85,7 +85,7 @@ public class AdminPledge implements IAdminCommandHandler
 					
 					if (action.equals("dismiss"))
 					{
-						ClanTable.getInstance().destroyClan(player.getClan());
+						ClanTable.INSTANCE.destroyClan(player.getClan());
 						
 						if (player.getClan() == null)
 							activeChar.sendMessage("The clan is now disbanded.");

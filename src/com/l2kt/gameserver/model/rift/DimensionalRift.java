@@ -161,19 +161,19 @@ public class DimensionalRift
 		
 		if (!party.isLeader(player))
 		{
-			DimensionalRiftManager.getInstance().showHtmlFile(player, "data/html/seven_signs/rift/NotPartyLeader.htm", npc);
+			DimensionalRiftManager.INSTANCE.showHtmlFile(player, "data/html/seven_signs/rift/NotPartyLeader.htm", npc);
 			return;
 		}
 		
 		if (_currentJumps == Config.RIFT_MAX_JUMPS)
 		{
-			DimensionalRiftManager.getInstance().showHtmlFile(player, "data/html/seven_signs/rift/UsedAllJumps.htm", npc);
+			DimensionalRiftManager.INSTANCE.showHtmlFile(player, "data/html/seven_signs/rift/UsedAllJumps.htm", npc);
 			return;
 		}
 		
 		if (_hasJumped)
 		{
-			DimensionalRiftManager.getInstance().showHtmlFile(player, "data/html/seven_signs/rift/AlreadyTeleported.htm", npc);
+			DimensionalRiftManager.INSTANCE.showHtmlFile(player, "data/html/seven_signs/rift/AlreadyTeleported.htm", npc);
 			return;
 		}
 		_hasJumped = true;
@@ -198,7 +198,7 @@ public class DimensionalRift
 		
 		if (!party.isLeader(player))
 		{
-			DimensionalRiftManager.getInstance().showHtmlFile(player, "data/html/seven_signs/rift/NotPartyLeader.htm", npc);
+			DimensionalRiftManager.INSTANCE.showHtmlFile(player, "data/html/seven_signs/rift/NotPartyLeader.htm", npc);
 			return;
 		}
 		
@@ -217,7 +217,7 @@ public class DimensionalRift
 		_completedRooms.add(_room.getId());
 		
 		// Compute free rooms for the Party.
-		final List<DimensionalRiftRoom> list = DimensionalRiftManager.getInstance().getFreeRooms(type, canUseBossRoom).stream().filter(r -> !_completedRooms.contains(r.getId())).collect(Collectors.toList());
+		final List<DimensionalRiftRoom> list = DimensionalRiftManager.INSTANCE.getFreeRooms(type, canUseBossRoom).stream().filter(r -> !_completedRooms.contains(r.getId())).collect(Collectors.toList());
 		
 		// If no rooms are found, simply break the Party Rift.
 		if (list.isEmpty())
@@ -249,7 +249,7 @@ public class DimensionalRift
 		if (_party != null)
 		{
 			for (Player member : getAvailablePlayers(_party))
-				DimensionalRiftManager.getInstance().teleportToWaitingRoom(member);
+				DimensionalRiftManager.INSTANCE.teleportToWaitingRoom(member);
 			
 			_party.setDimensionalRift(null);
 			_party = null;

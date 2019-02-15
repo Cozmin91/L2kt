@@ -16,13 +16,13 @@ public class ChatPetition implements IChatHandler
 	@Override
 	public void handleChat(int type, Player activeChar, String target, String text)
 	{
-		if (!PetitionManager.getInstance().isPlayerInConsultation(activeChar))
+		if (!PetitionManager.INSTANCE.isPlayerInConsultation(activeChar))
 		{
 			activeChar.sendPacket(SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT);
 			return;
 		}
 		
-		PetitionManager.getInstance().sendActivePetitionMessage(activeChar, text);
+		PetitionManager.INSTANCE.sendActivePetitionMessage(activeChar, text);
 	}
 	
 	@Override

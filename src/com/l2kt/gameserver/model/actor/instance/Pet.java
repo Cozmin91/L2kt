@@ -224,7 +224,7 @@ public class Pet extends Summon
 		final ItemInstance target = (ItemInstance) object;
 		
 		// Can't pickup cursed weapons.
-		if (CursedWeaponManager.getInstance().isCursed(target.getItemId()))
+		if (CursedWeaponManager.INSTANCE.isCursed(target.getItemId()))
 		{
 			getOwner().sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1).addItemName(target.getItemId()));
 			return;

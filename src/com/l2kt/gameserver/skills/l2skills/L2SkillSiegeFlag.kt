@@ -63,7 +63,7 @@ class L2SkillSiegeFlag(set: StatsSet) : L2Skill(set) {
          * @return true if the player can place a flag.
          */
         fun checkIfOkToPlaceFlag(player: Player?, isCheckOnly: Boolean): Boolean {
-            val siege = CastleManager.getInstance().getActiveSiege(player!!)
+            val siege = CastleManager.getActiveSiege(player!!)
 
             val sm: SystemMessage
             sm = when {

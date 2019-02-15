@@ -16,7 +16,7 @@ class RequestReplyStopPledgeWar : L2GameClientPacket() {
         val requestor = activeChar.activeRequester ?: return
 
         if (_answer == 1)
-            ClanTable.getInstance().deleteClansWars(requestor.clanId, activeChar.clanId)
+            ClanTable.deleteClansWars(requestor.clanId, activeChar.clanId)
         else
             requestor.sendPacket(SystemMessageId.REQUEST_TO_END_WAR_HAS_BEEN_DENIED)
 

@@ -26,13 +26,13 @@ public final class RaidPointReset extends ScheduledQuest
 	public final void onStart()
 	{
 		// Calculate ranks for the first 100 players.
-		final Map<Integer, Integer> ranks = RaidPointManager.getInstance().getWinners();
+		final Map<Integer, Integer> ranks = RaidPointManager.INSTANCE.getWinners();
 		
 		// A temporary Map used to gather points for each clan. In the end we reward all clans.
 		final Map<Clan, Integer> rewards = new HashMap<>();
 		
 		// Iterate clans.
-		for (Clan clan : ClanTable.getInstance().getClans())
+		for (Clan clan : ClanTable.INSTANCE.getClans())
 		{
 			// Don't bother with low level clans.
 			if (clan.getLevel() < 5)
@@ -101,7 +101,7 @@ public final class RaidPointReset extends ScheduledQuest
 			entry.getKey().addReputationScore(entry.getValue());
 		
 		// Cleanup the data.
-		RaidPointManager.getInstance().cleanUp();
+		RaidPointManager.INSTANCE.cleanUp();
 	}
 	
 	@Override

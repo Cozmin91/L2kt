@@ -16,7 +16,7 @@ class RequestReplyStartPledgeWar : L2GameClientPacket() {
         val requestor = activeChar.activeRequester ?: return
 
         if (_answer == 1)
-            ClanTable.getInstance().storeClansWars(requestor.clanId, activeChar.clanId)
+            ClanTable.storeClansWars(requestor.clanId, activeChar.clanId)
         else
             requestor.sendPacket(SystemMessageId.WAR_PROCLAMATION_HAS_BEEN_REFUSED)
 

@@ -145,7 +145,7 @@ public class ClanHall
 					if (_isFree)
 						return;
 					
-					final Clan clan = ClanTable.getInstance().getClan(getOwnerId());
+					final Clan clan = ClanTable.INSTANCE.getClan(getOwnerId());
 					if (clan.getWarehouse().getAdena() >= _fee || !_cwh)
 					{
 						int fee = (getEndTime() == -1) ? _tempFee : _fee;
@@ -584,7 +584,7 @@ public class ClanHall
 					return;
 				}
 				
-				final Clan clan = ClanTable.getInstance().getClan(getOwnerId());
+				final Clan clan = ClanTable.INSTANCE.getClan(getOwnerId());
 				if (clan.getWarehouse().getAdena() >= getLease())
 				{
 					if (_paidUntil != 0)

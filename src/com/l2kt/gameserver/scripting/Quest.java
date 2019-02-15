@@ -1342,7 +1342,7 @@ public class Quest
 	
 	public final Siege addSiegeNotify(int castleId)
 	{
-		final Siege siege = CastleManager.getInstance().getCastleById(castleId).getSiege();
+		final Siege siege = CastleManager.INSTANCE.getCastleById(castleId).getSiege();
 		siege.addQuestEvent(this);
 		return siege;
 	}

@@ -23,7 +23,7 @@ class RequestJoinSiege : L2GameClientPacket() {
             return
         }
 
-        val castle = CastleManager.getInstance().getCastleById(_castleId) ?: return
+        val castle = CastleManager.getCastleById(_castleId) ?: return
 
         if (_isJoining == 1) {
             if (System.currentTimeMillis() < player.clan.dissolvingExpiryTime) {

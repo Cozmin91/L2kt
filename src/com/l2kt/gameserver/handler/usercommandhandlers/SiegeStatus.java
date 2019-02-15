@@ -40,7 +40,7 @@ public class SiegeStatus implements IUserCommandHandler
 		
 		final StringBuilder sb = new StringBuilder();
 		
-		for (Castle castle : CastleManager.getInstance().getCastles())
+		for (Castle castle : CastleManager.INSTANCE.getCastles())
 		{
 			// Search on lists : as a clan can only be registered in a single siege, break after one case is found.
 			if (!castle.getSiege().isInProgress() || !castle.getSiege().checkSides(clan, Siege.SiegeSide.ATTACKER, Siege.SiegeSide.DEFENDER, Siege.SiegeSide.OWNER))

@@ -201,10 +201,10 @@ public class Cubic
 			// Duel targeting
 			if (_owner.isInDuel())
 			{
-				Player PlayerA = DuelManager.getInstance().getDuel(_owner.getDuelId()).getPlayerA();
-				Player PlayerB = DuelManager.getInstance().getDuel(_owner.getDuelId()).getPlayerB();
+				Player PlayerA = DuelManager.INSTANCE.getDuel(_owner.getDuelId()).getPlayerA();
+				Player PlayerB = DuelManager.INSTANCE.getDuel(_owner.getDuelId()).getPlayerB();
 				
-				if (DuelManager.getInstance().getDuel(_owner.getDuelId()).isPartyDuel())
+				if (DuelManager.INSTANCE.getDuel(_owner.getDuelId()).isPartyDuel())
 				{
 					Party partyA = PlayerA.getParty();
 					Party partyB = PlayerB.getParty();
@@ -468,7 +468,7 @@ public class Cubic
 				for (L2Effect debuff : skill.getEffects(activeCubic.getOwner(), target))
 				{
 					if (debuff != null)
-						DuelManager.getInstance().onBuff(((Player) target), debuff);
+						DuelManager.INSTANCE.onBuff(((Player) target), debuff);
 				}
 			}
 			else
@@ -553,7 +553,7 @@ public class Cubic
 							for (L2Effect debuff : skill.getEffects(activeCubic.getOwner(), target))
 							{
 								if (debuff != null)
-									DuelManager.getInstance().onBuff(((Player) target), debuff);
+									DuelManager.INSTANCE.onBuff(((Player) target), debuff);
 							}
 						}
 						else
@@ -624,7 +624,7 @@ public class Cubic
 		
 		// if owner is in a duel but not in a party duel, then it is the same as he does not have a party
 		if (_owner.isInDuel())
-			if (!DuelManager.getInstance().getDuel(_owner.getDuelId()).isPartyDuel())
+			if (!DuelManager.INSTANCE.getDuel(_owner.getDuelId()).isPartyDuel())
 				party = null;
 			
 		if (party != null && !_owner.isInOlympiadMode())

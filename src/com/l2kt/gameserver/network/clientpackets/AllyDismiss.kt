@@ -34,7 +34,7 @@ class AllyDismiss : L2GameClientPacket() {
             return
         }
 
-        val clan = ClanTable.getInstance().getClanByName(_clanName)
+        val clan = ClanTable.getClanByName(_clanName)
         if (clan == null) {
             player.sendPacket(SystemMessageId.CLAN_DOESNT_EXISTS)
             return

@@ -195,10 +195,10 @@ public class Party extends AbstractGroup
 	public void disband()
 	{
 		// Cancel current rift session.
-		DimensionalRiftManager.getInstance().onPartyEdit(this);
+		DimensionalRiftManager.INSTANCE.onPartyEdit(this);
 		
 		// Cancel party duel based on leader, as it will affect all players anyway.
-		DuelManager.getInstance().onPartyEdit(getLeader());
+		DuelManager.INSTANCE.onPartyEdit(getLeader());
 		
 		// Delete the CommandChannel, or remove Party from it.
 		if (_commandChannel != null)
@@ -382,10 +382,10 @@ public class Party extends AbstractGroup
 		broadcastPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_JOINED_PARTY).addCharName(player));
 		
 		// Cancel current rift session.
-		DimensionalRiftManager.getInstance().onPartyEdit(this);
+		DimensionalRiftManager.INSTANCE.onPartyEdit(this);
 		
 		// Cancel party duel based on leader, as it will affect all players anyway.
-		DuelManager.getInstance().onPartyEdit(getLeader());
+		DuelManager.INSTANCE.onPartyEdit(getLeader());
 		
 		// Add player to party.
 		_members.add(player);
@@ -433,10 +433,10 @@ public class Party extends AbstractGroup
 		else
 		{
 			// Cancel current rift session.
-			DimensionalRiftManager.getInstance().onPartyEdit(this);
+			DimensionalRiftManager.INSTANCE.onPartyEdit(this);
 			
 			// Cancel party duel based on leader, as it will affect all players anyway.
-			DuelManager.getInstance().onPartyEdit(getLeader());
+			DuelManager.INSTANCE.onPartyEdit(getLeader());
 			
 			_members.remove(player);
 			recalculateLevel();

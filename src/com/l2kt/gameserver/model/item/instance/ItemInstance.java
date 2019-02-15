@@ -600,7 +600,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 				return;
 			}
 			
-			final Castle castle = CastleManager.getInstance().getCastle(player);
+			final Castle castle = CastleManager.INSTANCE.getCastle(player);
 			if (castle == null)
 			{
 				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -982,7 +982,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 		player.broadcastPacket(new GetItem(this, player.getObjectId()));
 		
 		// Unregister dropped ticket from castle, if that item is on a castle area and is a valid ticket.
-		final Castle castle = CastleManager.getInstance().getCastle(player);
+		final Castle castle = CastleManager.INSTANCE.getCastle(player);
 		if (castle != null && castle.getTicket(_itemId) != null)
 			castle.removeDroppedTicket(this);
 		

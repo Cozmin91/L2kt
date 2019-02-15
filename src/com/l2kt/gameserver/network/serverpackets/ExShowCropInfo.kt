@@ -4,7 +4,7 @@ import com.l2kt.gameserver.data.manager.CastleManorManager
 
 class ExShowCropInfo(private val _manorId: Int, nextPeriod: Boolean, private val _hideButtons: Boolean) :
     L2GameServerPacket() {
-    private val manor = CastleManorManager.getInstance()
+    private val manor = CastleManorManager
     private val _crops = if (nextPeriod && !manor.isManorApproved) null else manor.getCropProcure(_manorId, nextPeriod)
 
     override fun writeImpl() {
@@ -26,7 +26,7 @@ class ExShowCropInfo(private val _manorId: Int, nextPeriod: Boolean, private val
             writeD(crop.price)
             writeC(crop.reward)
 
-            val seed = CastleManorManager.getInstance().getSeedByCrop(crop.id)
+            val seed = CastleManorManager.getSeedByCrop(crop.id)
             if (seed == null) {
                 writeD(0) // Seed level
                 writeC(0x01) // Reward 1

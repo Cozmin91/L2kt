@@ -39,7 +39,7 @@ class RequestSetCrop : L2GameClientPacket() {
         if (_items.isEmpty())
             return
 
-        val manor = CastleManorManager.getInstance()
+        val manor = CastleManorManager
         if (!manor.isModifiablePeriod) {
             sendPacket(ActionFailed.STATIC_PACKET)
             return
