@@ -566,14 +566,14 @@ public final class Player extends Playable
 		// Add Creature functionalities.
 		super.addFuncsToNewCharacter();
 		
-		addStatFunc(FuncMaxCpMul.getInstance());
+		addStatFunc(FuncMaxCpMul.INSTANCE);
 		
-		addStatFunc(FuncHennaSTR.getInstance());
-		addStatFunc(FuncHennaDEX.getInstance());
-		addStatFunc(FuncHennaINT.getInstance());
-		addStatFunc(FuncHennaMEN.getInstance());
-		addStatFunc(FuncHennaCON.getInstance());
-		addStatFunc(FuncHennaWIT.getInstance());
+		addStatFunc(FuncHennaSTR.INSTANCE);
+		addStatFunc(FuncHennaDEX.INSTANCE);
+		addStatFunc(FuncHennaINT.INSTANCE);
+		addStatFunc(FuncHennaMEN.INSTANCE);
+		addStatFunc(FuncHennaCON.INSTANCE);
+		addStatFunc(FuncHennaWIT.INSTANCE);
 	}
 	
 	@Override

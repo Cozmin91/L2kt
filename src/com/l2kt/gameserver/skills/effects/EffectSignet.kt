@@ -25,9 +25,9 @@ class EffectSignet(env: Env, template: EffectTemplate) : L2Effect(env, template)
 
     override fun onStart(): Boolean {
         if (skill is L2SkillSignet)
-            _skill = SkillTable.getInfo((skill as L2SkillSignet).effectId, level)
+            _skill = SkillTable.getInfo((skill as L2SkillSignet).signetEffectId, level)
         else if (skill is L2SkillSignetCasttime)
-            _skill = SkillTable.getInfo((skill as L2SkillSignetCasttime).effectId, level)
+            _skill = SkillTable.getInfo((skill as L2SkillSignetCasttime).signetEffectId, level)
 
         _actor = effected as EffectPoint
         _srcInArena = effector.isInArena

@@ -7,6 +7,7 @@ import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.function.ToIntFunction
+import kotlin.collections.HashMap
 
 /**
  * Loads and stores Raid Points.<br></br>
@@ -15,7 +16,7 @@ import java.util.function.ToIntFunction
  */
 object RaidPointManager {
 
-    private val _entries = ConcurrentHashMap<Int, MutableMap<Int, Int>>()
+    private val _entries = ConcurrentHashMap<Int, HashMap<Int, Int>>()
     private val LOGGER = CLogger(RaidPointManager::class.java.name)
 
     private const val LOAD_DATA = "SELECT * FROM character_raid_points"
@@ -61,7 +62,9 @@ object RaidPointManager {
                             val bossId = rs.getInt("boss_id")
                             val points = rs.getInt("points")
 
-                            val playerData: MutableMap<Int, Int> = _entries[objectId]!!
+                            val playerData: HashMap<Int, Int> = _entries[objectId] ?: HashMap<Int, Int>()
+
+
 
                             playerData[bossId] = points
                             _entries[objectId] = playerData

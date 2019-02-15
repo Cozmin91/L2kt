@@ -105,7 +105,7 @@ public abstract class Creature extends WorldObject
 		// Set its template to the new Creature
 		_template = template;
 		
-		_calculators = new Calculator[Stats.NUM_STATS];
+		_calculators = new Calculator[Stats.Companion.getNUM_STATS()];
 		addFuncsToNewCharacter();
 	}
 	
@@ -118,24 +118,24 @@ public abstract class Creature extends WorldObject
 	 */
 	public void addFuncsToNewCharacter()
 	{
-		addStatFunc(FuncPAtkMod.getInstance());
-		addStatFunc(FuncMAtkMod.getInstance());
-		addStatFunc(FuncPDefMod.getInstance());
-		addStatFunc(FuncMDefMod.getInstance());
+		addStatFunc(FuncPAtkMod.INSTANCE);
+		addStatFunc(FuncMAtkMod.INSTANCE);
+		addStatFunc(FuncPDefMod.INSTANCE);
+		addStatFunc(FuncMDefMod.INSTANCE);
 		
-		addStatFunc(FuncMaxHpMul.getInstance());
-		addStatFunc(FuncMaxMpMul.getInstance());
+		addStatFunc(FuncMaxHpMul.INSTANCE);
+		addStatFunc(FuncMaxMpMul.INSTANCE);
 		
-		addStatFunc(FuncAtkAccuracy.getInstance());
-		addStatFunc(FuncAtkEvasion.getInstance());
+		addStatFunc(FuncAtkAccuracy.INSTANCE);
+		addStatFunc(FuncAtkEvasion.INSTANCE);
 		
-		addStatFunc(FuncPAtkSpeed.getInstance());
-		addStatFunc(FuncMAtkSpeed.getInstance());
+		addStatFunc(FuncPAtkSpeed.INSTANCE);
+		addStatFunc(FuncMAtkSpeed.INSTANCE);
 		
-		addStatFunc(FuncMoveSpeed.getInstance());
+		addStatFunc(FuncMoveSpeed.INSTANCE);
 		
-		addStatFunc(FuncAtkCritical.getInstance());
-		addStatFunc(FuncMAtkCritical.getInstance());
+		addStatFunc(FuncAtkCritical.INSTANCE);
+		addStatFunc(FuncMAtkCritical.INSTANCE);
 	}
 	
 	protected void initCharStatusUpdateValues()
@@ -2544,7 +2544,7 @@ public abstract class Creature extends WorldObject
 			return;
 		
 		// Select the Calculator of the affected state in the Calculator set
-		int stat = f.stat.ordinal();
+		int stat = f.getStat().ordinal();
 		
 		synchronized (_calculators)
 		{
@@ -2565,7 +2565,7 @@ public abstract class Creature extends WorldObject
 		List<Stats> modifiedStats = new ArrayList<>();
 		for (Func f : funcs)
 		{
-			modifiedStats.add(f.stat);
+			modifiedStats.add(f.getStat());
 			addStatFunc(f);
 		}
 		broadcastModifiedStats(modifiedStats);

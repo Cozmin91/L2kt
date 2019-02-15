@@ -138,7 +138,7 @@ abstract class DocumentBase
 	
 	protected void attachFunc(Node n, Object template, String name, Condition attachCond)
 	{
-		Stats stat = Stats.valueOfXml(n.getAttributes().getNamedItem("stat").getNodeValue());
+		Stats stat = Stats.Companion.valueOfXml(n.getAttributes().getNamedItem("stat").getNodeValue());
 		String order = n.getAttributes().getNamedItem("order").getNodeValue();
 		Lambda lambda = getLambda(n, template);
 		int ord = Integer.decode(getValue(order, template));
@@ -202,7 +202,7 @@ abstract class DocumentBase
 		if (attrs.getNamedItem("abnormal") != null)
 		{
 			String abn = attrs.getNamedItem("abnormal").getNodeValue();
-			abnormal = AbnormalEffect.getByName(abn);
+			abnormal = AbnormalEffect.Companion.getByName(abn);
 		}
 		
 		String stackType = "none";
@@ -594,7 +594,7 @@ abstract class DocumentBase
 	protected Condition parseSkillCondition(Node n)
 	{
 		NamedNodeMap attrs = n.getAttributes();
-		Stats stat = Stats.valueOfXml(attrs.getNamedItem("stat").getNodeValue());
+		Stats stat = Stats.Companion.valueOfXml(attrs.getNamedItem("stat").getNodeValue());
 		return new ConditionSkillStats(stat);
 	}
 	
