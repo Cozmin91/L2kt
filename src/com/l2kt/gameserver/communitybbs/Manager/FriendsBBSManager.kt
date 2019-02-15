@@ -157,8 +157,8 @@ object FriendsBBSManager : BaseBBSManager() {
         "DELETE FROM character_friends WHERE (char_id = ? AND friend_id = ?) OR (char_id = ? AND friend_id = ?)"
 
     private fun showFriendsList(player: Player, delMsg: Boolean) {
-        var content: String? =
-            HtmCache.getHtm(BaseBBSManager.CB_PATH + "friend/friend-list.htm") ?: return
+        var content: String =
+            HtmCache.getHtm(BaseBBSManager.CB_PATH + "friend/friend-list.htm")
 
         // Retrieve player's friendlist and selected
         val list = player.friendList
@@ -185,7 +185,7 @@ object FriendsBBSManager : BaseBBSManager() {
                 "<br1>"
             )
         }
-        content = content!!.replace("%friendslist%", sb.toString())
+        content = content.replace("%friendslist%", sb.toString())
 
         // Cleanup sb.
         sb.setLength(0)
@@ -215,8 +215,8 @@ object FriendsBBSManager : BaseBBSManager() {
     }
 
     private fun showBlockList(player: Player, delMsg: Boolean) {
-        var content: String? =
-            HtmCache.getHtm(BaseBBSManager.CB_PATH + "friend/friend-blocklist.htm") ?: return
+        var content: String =
+            HtmCache.getHtm(BaseBBSManager.CB_PATH + "friend/friend-blocklist.htm")
 
         // Retrieve player's blocklist and selected
         val list = player.blockList.blockList
@@ -243,7 +243,7 @@ object FriendsBBSManager : BaseBBSManager() {
                 "<br1>"
             )
         }
-        content = content!!.replace("%blocklist%", sb.toString())
+        content = content.replace("%blocklist%", sb.toString())
 
         // Cleanup sb.
         sb.setLength(0)

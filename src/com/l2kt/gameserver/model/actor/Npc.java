@@ -587,7 +587,7 @@ public class Npc extends Creature
 		if (quest == null)
 		{
 			final NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
-			html.setHtml(Quest.getNoQuestMsg());
+			html.setHtml(Quest.noQuestMsg);
 			player.sendPacket(html);
 			
 			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -606,7 +606,7 @@ public class Npc extends Creature
 			if (quest.isRealQuest() && player.getAllQuests(false).size() >= 25)
 			{
 				final NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
-				html.setHtml(Quest.getTooMuchQuestsMsg());
+				html.setHtml(Quest.tooMuchQuestsMsg);
 				player.sendPacket(html);
 				
 				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());

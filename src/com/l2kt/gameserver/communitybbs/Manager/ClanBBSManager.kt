@@ -186,7 +186,6 @@ object ClanBBSManager : BaseBBSManager() {
                 "\" back=\"l2ui_ch3.prev1_down\" fore=\"l2ui_ch3.prev1\" width=16 height=16 ></td>"
             )
 
-        i = 0
         var pageNumber = ClanTable.clans.size / 8
         if (pageNumber * 8 != ClanTable.clans.size)
             pageNumber++
