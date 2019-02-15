@@ -68,7 +68,7 @@ object DimensionalRiftManager : IXmlReader {
                     // Store it.
                     _rooms[type]?.set(riftRoom.id, riftRoom)
 
-                    forEach(roomNode, "spawn") { spawnNode ->
+                    forEach(roomNode, "spawn") innerLoop@{ spawnNode ->
                         val spawnAttrs = spawnNode.attributes
 
                         val mobId = Integer.parseInt(spawnAttrs.getNamedItem("mobId").nodeValue)
@@ -78,7 +78,7 @@ object DimensionalRiftManager : IXmlReader {
                         val template = NpcData.getTemplate(mobId)
                         if (template == null) {
                             IXmlReader.LOGGER.warn("Template $mobId not found!")
-                            return@forEach
+                            return@innerLoop
                         }
 
                         try {

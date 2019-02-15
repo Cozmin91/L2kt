@@ -53,7 +53,7 @@ public class Servitor extends Summon
 		else
 			_nextItemConsumeTime = _totalLifeTime - _totalLifeTime / (_itemConsumeSteps + 1);
 		
-		_summonLifeTask = ThreadPool.scheduleAtFixedRate(new SummonLifetime(getOwner(), this), 1000, 1000);
+		_summonLifeTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new SummonLifetime(getOwner(), this), 1000, 1000);
 	}
 	
 	@Override

@@ -65,7 +65,7 @@ public final class TamedBeast extends FeedableBeast
 		_foodId = foodId;
 		
 		// Generate AI task.
-		_aiTask = ThreadPool.scheduleAtFixedRate(new AiTask(), TASK_INTERVAL, TASK_INTERVAL);
+		_aiTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new AiTask(), TASK_INTERVAL, TASK_INTERVAL);
 		
 		spawnMe(loc);
 	}

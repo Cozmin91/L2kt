@@ -254,7 +254,7 @@ object ClanTable {
         if (clan == null)
             return
 
-        ThreadPool.schedule({
+        ThreadPool.schedule(Runnable{
             if (clan.dissolvingExpiryTime != 0L)
                 destroyClan(clan)
         }, Math.max(clan.dissolvingExpiryTime - System.currentTimeMillis(), 60000))

@@ -154,7 +154,7 @@ public class Olympiad
 				if (_validationEnd > Calendar.getInstance().getTimeInMillis())
 				{
 					loadNoblesRank();
-					_scheduledValdationTask = ThreadPool.schedule(new ValidationEndTask(), getMillisToValidationEnd());
+					_scheduledValdationTask = ThreadPool.INSTANCE.schedule(new ValidationEndTask(), getMillisToValidationEnd());
 				}
 				else
 				{
@@ -287,7 +287,7 @@ public class Olympiad
 		if (_scheduledOlympiadEnd != null)
 			_scheduledOlympiadEnd.cancel(true);
 		
-		_scheduledOlympiadEnd = ThreadPool.schedule(new OlympiadEndTask(), getMillisToOlympiadEnd());
+		_scheduledOlympiadEnd = ThreadPool.INSTANCE.schedule(new OlympiadEndTask(), getMillisToOlympiadEnd());
 		
 		updateCompStatus();
 	}
@@ -316,7 +316,7 @@ public class Olympiad
 			_validationEnd = validationEnd.getTimeInMillis() + VALIDATION_PERIOD;
 			
 			loadNoblesRank();
-			_scheduledValdationTask = ThreadPool.schedule(new ValidationEndTask(), getMillisToValidationEnd());
+			_scheduledValdationTask = ThreadPool.INSTANCE.schedule(new ValidationEndTask(), getMillisToValidationEnd());
 		}
 	}
 	
@@ -361,7 +361,7 @@ public class Olympiad
 			_log.info("Olympiad: Event starts/started : " + _compStart.getTime());
 		}
 		
-		_scheduledCompStart = ThreadPool.schedule(() ->
+		_scheduledCompStart = ThreadPool.INSTANCE.schedule(() ->
 		{
 			if (isOlympiadEnd())
 				return;
@@ -371,15 +371,15 @@ public class Olympiad
 			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_STARTED));
 			_log.info("Olympiad: Olympiad game started.");
 			
-			_gameManager = ThreadPool.scheduleAtFixedRate(OlympiadGameManager.getInstance(), 30000, 30000);
+			_gameManager = ThreadPool.INSTANCE.scheduleAtFixedRate(OlympiadGameManager.getInstance(), 30000, 30000);
 			if (Config.ALT_OLY_ANNOUNCE_GAMES)
-				_gameAnnouncer = ThreadPool.scheduleAtFixedRate(new OlympiadAnnouncer(), 30000, 500);
+				_gameAnnouncer = ThreadPool.INSTANCE.scheduleAtFixedRate(new OlympiadAnnouncer(), 30000, 500);
 			
 			long regEnd = getMillisToCompEnd() - 600000;
 			if (regEnd > 0)
-				ThreadPool.schedule(() -> BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.OLYMPIAD_REGISTRATION_PERIOD_ENDED)), regEnd);
+				ThreadPool.INSTANCE.schedule(() -> BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.OLYMPIAD_REGISTRATION_PERIOD_ENDED)), regEnd);
 			
-			_scheduledCompEnd = ThreadPool.schedule(() ->
+			_scheduledCompEnd = ThreadPool.INSTANCE.schedule(() ->
 			{
 				if (isOlympiadEnd())
 					return;
@@ -429,7 +429,7 @@ public class Olympiad
 		if (_scheduledOlympiadEnd != null)
 			_scheduledOlympiadEnd.cancel(true);
 		
-		_scheduledOlympiadEnd = ThreadPool.schedule(new OlympiadEndTask(), 0);
+		_scheduledOlympiadEnd = ThreadPool.INSTANCE.schedule(new OlympiadEndTask(), 0);
 	}
 	
 	protected long getMillisToValidationEnd()
@@ -507,7 +507,7 @@ public class Olympiad
 	
 	private void scheduleWeeklyChange()
 	{
-		_scheduledWeeklyTask = ThreadPool.scheduleAtFixedRate(() ->
+		_scheduledWeeklyTask = ThreadPool.INSTANCE.scheduleAtFixedRate(() ->
 		{
 			addWeeklyPoints();
 			_log.info("Olympiad: Added weekly points to nobles.");
@@ -538,7 +538,7 @@ public class Olympiad
 	
 	public boolean playerInStadia(Player player)
 	{
-		return ZoneManager.getInstance().getZone(player, OlympiadStadiumZone.class) != null;
+		return ZoneManager.INSTANCE.getZone(player, OlympiadStadiumZone.class) != null;
 	}
 	
 	/**

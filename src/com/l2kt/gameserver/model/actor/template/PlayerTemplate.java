@@ -1,18 +1,17 @@
 package com.l2kt.gameserver.model.actor.template;
 
-import java.util.List;
-
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.commons.util.ArraysUtil;
 import com.l2kt.gameserver.data.ItemTable;
 import com.l2kt.gameserver.model.base.ClassId;
 import com.l2kt.gameserver.model.base.ClassRace;
 import com.l2kt.gameserver.model.base.Sex;
-import com.l2kt.gameserver.model.item.kind.Weapon;
-
 import com.l2kt.gameserver.model.holder.skillnode.GeneralSkillNode;
+import com.l2kt.gameserver.model.item.kind.Weapon;
 import com.l2kt.gameserver.model.location.Location;
 import com.l2kt.gameserver.templates.StatsSet;
+
+import java.util.List;
 
 /**
  * A datatype extending {@link CreatureTemplate}, used to retain Player template informations such as classId, specific collision values for female, hp/mp/cp tables, etc.<br>

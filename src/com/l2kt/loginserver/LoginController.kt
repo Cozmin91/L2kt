@@ -135,8 +135,8 @@ object LoginController {
         clients.remove(account)
     }
 
-    fun getAuthedClient(account: String): LoginClient {
-        return clients[account]!!
+    fun getAuthedClient(account: String): LoginClient? {
+        return clients[account]
     }
 
     /**

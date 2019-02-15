@@ -722,7 +722,7 @@ public class Pet extends Summon
 		stopFeed();
 		
 		if (!isDead() && getOwner().getPet() == this)
-			_feedTask = ThreadPool.scheduleAtFixedRate(new FeedTask(), 10000, 10000);
+			_feedTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new FeedTask(), 10000, 10000);
 	}
 	
 	/**

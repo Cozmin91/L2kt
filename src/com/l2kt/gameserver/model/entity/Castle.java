@@ -96,7 +96,7 @@ public class Castle
 		_name = name;
 		
 		// Feed _siegeZone.
-		for (SiegeZone zone : ZoneManager.getInstance().getAllZones(SiegeZone.class))
+		for (SiegeZone zone : ZoneManager.INSTANCE.getAllZones(SiegeZone.class))
 		{
 			if (zone.getSiegeObjectId() == _castleId)
 			{
@@ -106,7 +106,7 @@ public class Castle
 		}
 		
 		// Feed _castleZone.
-		for (CastleZone zone : ZoneManager.getInstance().getAllZones(CastleZone.class))
+		for (CastleZone zone : ZoneManager.INSTANCE.getAllZones(CastleZone.class))
 		{
 			if (zone.getCastleId() == _castleId)
 			{
@@ -116,7 +116,7 @@ public class Castle
 		}
 		
 		// Feed _teleZone.
-		for (CastleTeleportZone zone : ZoneManager.getInstance().getAllZones(CastleTeleportZone.class))
+		for (CastleTeleportZone zone : ZoneManager.INSTANCE.getAllZones(CastleTeleportZone.class))
 		{
 			if (zone.getCastleId() == _castleId)
 			{

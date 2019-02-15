@@ -87,7 +87,7 @@ public class Fishing implements ISkillHandler
 		int z = 0;
 		
 		// Pick the fishing zone.
-		final FishingZone zone = ZoneManager.getInstance().getZone(x, y, FishingZone.class);
+		final FishingZone zone = ZoneManager.INSTANCE.getZone(x, y, FishingZone.class);
 		if (zone != null)
 		{
 			z = zone.getWaterZ();

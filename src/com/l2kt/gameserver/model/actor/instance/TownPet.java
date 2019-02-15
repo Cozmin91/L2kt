@@ -21,7 +21,7 @@ public class TownPet extends Folk
 		super(objectId, template);
 		setRunning();
 		
-		_aiTask = ThreadPool.scheduleAtFixedRate(new RandomWalkTask(), 1000, 10000);
+		_aiTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new RandomWalkTask(), 1000, 10000);
 	}
 	
 	@Override

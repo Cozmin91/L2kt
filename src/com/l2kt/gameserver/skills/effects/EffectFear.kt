@@ -56,7 +56,7 @@ class EffectFear(env: Env, template: EffectTemplate) : L2Effect(env, template) {
         return true
     }
 
-    override fun onSameEffect(effect: L2Effect): Boolean {
+    override fun onSameEffect(effect: L2Effect?): Boolean {
         return false
     }
 

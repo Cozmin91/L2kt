@@ -143,7 +143,7 @@ public final class OlympiadGameTask implements Runnable
 		_game = game;
 		_state = GameState.BEGIN;
 		_needAnnounce = false;
-		ThreadPool.execute(this);
+		ThreadPool.INSTANCE.execute(this);
 	}
 	
 	@Override
@@ -254,7 +254,7 @@ public final class OlympiadGameTask implements Runnable
 					return;
 				}
 			}
-			ThreadPool.schedule(this, delay * 1000);
+			ThreadPool.INSTANCE.schedule(this, delay * 1000);
 		}
 		catch (Exception e)
 		{
@@ -274,7 +274,7 @@ public final class OlympiadGameTask implements Runnable
 			
 			_log.log(Level.WARNING, "Exception in " + _state + ", trying to port players back: " + e.getMessage(), e);
 			_state = GameState.GAME_STOPPED;
-			ThreadPool.schedule(this, 1000);
+			ThreadPool.INSTANCE.schedule(this, 1000);
 		}
 	}
 	

@@ -29,7 +29,7 @@ import com.l2kt.gameserver.templates.StatsSet;
 
 public class Zaken extends L2AttackableAIScript
 {
-	private static final BossZone ZONE = ZoneManager.getInstance().getZoneById(110000, BossZone.class);
+	private static final BossZone ZONE = ZoneManager.INSTANCE.getZoneById(110000, BossZone.class);
 	private static final Set<Player> VICTIMS = ConcurrentHashMap.newKeySet();
 	
 	private static final Location[] LOCS =

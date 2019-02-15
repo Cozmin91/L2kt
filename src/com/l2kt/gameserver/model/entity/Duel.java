@@ -97,10 +97,10 @@ public class Duel
 		savePlayerConditions();
 		
 		// Start task, used for countdowns and startDuel method call. Can be shutdowned if the check task commands it.
-		_startTask = ThreadPool.scheduleAtFixedRate(new StartTask(), 1000, 1000);
+		_startTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new StartTask(), 1000, 1000);
 		
 		// Check task, used to verify if duel is disturbed.
-		_checkTask = ThreadPool.scheduleAtFixedRate(new CheckTask(), 1000, 1000);
+		_checkTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new CheckTask(), 1000, 1000);
 	}
 	
 	/**

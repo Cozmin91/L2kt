@@ -125,9 +125,9 @@ public class ClanHall
 			
 			long currentTime = System.currentTimeMillis();
 			if (_endDate > currentTime)
-				ThreadPool.schedule(new FunctionTask(cwh), _endDate - currentTime);
+				ThreadPool.INSTANCE.schedule(new FunctionTask(cwh), _endDate - currentTime);
 			else
-				ThreadPool.execute(new FunctionTask(cwh));
+				ThreadPool.INSTANCE.execute(new FunctionTask(cwh));
 		}
 		
 		private class FunctionTask implements Runnable
@@ -156,7 +156,7 @@ public class ClanHall
 						if (_cwh)
 							clan.getWarehouse().destroyItemByItemId("CH_function_fee", 57, fee, null, null);
 						
-						ThreadPool.schedule(new FunctionTask(true), getRate());
+						ThreadPool.INSTANCE.schedule(new FunctionTask(true), getRate());
 					}
 					else
 						removeFunction(getType());
@@ -549,16 +549,16 @@ public class ClanHall
 	{
 		long currentTime = System.currentTimeMillis();
 		if (_paidUntil > currentTime)
-			ThreadPool.schedule(new FeeTask(), _paidUntil - currentTime);
+			ThreadPool.INSTANCE.schedule(new FeeTask(), _paidUntil - currentTime);
 		else if (!_paid && !forced)
 		{
 			if (System.currentTimeMillis() + 86400000 <= _paidUntil + CH_RATE)
-				ThreadPool.schedule(new FeeTask(), System.currentTimeMillis() + 86400000);
+				ThreadPool.INSTANCE.schedule(new FeeTask(), System.currentTimeMillis() + 86400000);
 			else
-				ThreadPool.schedule(new FeeTask(), (_paidUntil + CH_RATE) - System.currentTimeMillis());
+				ThreadPool.INSTANCE.schedule(new FeeTask(), (_paidUntil + CH_RATE) - System.currentTimeMillis());
 		}
 		else
-			ThreadPool.schedule(new FeeTask(), 0);
+			ThreadPool.INSTANCE.schedule(new FeeTask(), 0);
 	}
 	
 	/** Fee Task */
@@ -580,7 +580,7 @@ public class ClanHall
 				
 				if (_paidUntil > time)
 				{
-					ThreadPool.schedule(new FeeTask(), _paidUntil - time);
+					ThreadPool.INSTANCE.schedule(new FeeTask(), _paidUntil - time);
 					return;
 				}
 				
@@ -597,7 +597,7 @@ public class ClanHall
 					
 					clan.getWarehouse().destroyItemByItemId("CH_rental_fee", 57, getLease(), null, null);
 					
-					ThreadPool.schedule(new FeeTask(), _paidUntil - time);
+					ThreadPool.INSTANCE.schedule(new FeeTask(), _paidUntil - time);
 					_paid = true;
 					updateDb();
 				}
@@ -614,7 +614,7 @@ public class ClanHall
 							clan.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.THE_CLAN_HALL_FEE_IS_ONE_WEEK_OVERDUE_THEREFORE_THE_CLAN_HALL_OWNERSHIP_HAS_BEEN_REVOKED));
 						}
 						else
-							ThreadPool.schedule(new FeeTask(), 3000);
+							ThreadPool.INSTANCE.schedule(new FeeTask(), 3000);
 					}
 					else
 					{
@@ -622,9 +622,9 @@ public class ClanHall
 						clan.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW).addNumber(getLease()));
 						
 						if (time + 86400000 <= _paidUntil + CH_RATE)
-							ThreadPool.schedule(new FeeTask(), time + 86400000);
+							ThreadPool.INSTANCE.schedule(new FeeTask(), time + 86400000);
 						else
-							ThreadPool.schedule(new FeeTask(), (_paidUntil + CH_RATE) - time);
+							ThreadPool.INSTANCE.schedule(new FeeTask(), (_paidUntil + CH_RATE) - time);
 					}
 				}
 			}

@@ -33,7 +33,7 @@ abstract class ZoneForm {
             item.count = id
             item.spawnMe(x, y, z + 5)
 
-            ZoneManager.getInstance().addDebugItem(item)
+            ZoneManager.addDebugItem(item)
         }
     }
 }

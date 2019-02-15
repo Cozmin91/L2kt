@@ -1,38 +1,27 @@
 package com.l2kt.gameserver.model.actor.ai.type;
 
-import java.util.List;
-import java.util.concurrent.Future;
-import java.util.stream.Collectors;
-
 import com.l2kt.Config;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.math.MathUtil;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.commons.util.ArraysUtil;
+import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.model.L2Skill;
 import com.l2kt.gameserver.model.WorldObject;
+import com.l2kt.gameserver.model.actor.*;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
-import com.l2kt.gameserver.model.zone.ZoneId;
-
-import com.l2kt.gameserver.geoengine.GeoEngine;
-import com.l2kt.gameserver.model.actor.Attackable;
-import com.l2kt.gameserver.model.actor.Creature;
-import com.l2kt.gameserver.model.actor.Npc;
-import com.l2kt.gameserver.model.actor.Playable;
-import com.l2kt.gameserver.model.actor.Summon;
-import com.l2kt.gameserver.model.actor.instance.Door;
-import com.l2kt.gameserver.model.actor.instance.FestivalMonster;
-import com.l2kt.gameserver.model.actor.instance.FriendlyMonster;
-import com.l2kt.gameserver.model.actor.instance.Guard;
-import com.l2kt.gameserver.model.actor.instance.Monster;
-import com.l2kt.gameserver.model.actor.instance.Player;
-import com.l2kt.gameserver.model.actor.instance.RiftInvader;
+import com.l2kt.gameserver.model.actor.instance.*;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.AIType;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.SkillType;
 import com.l2kt.gameserver.model.location.Location;
+import com.l2kt.gameserver.model.zone.ZoneId;
 import com.l2kt.gameserver.scripting.EventType;
 import com.l2kt.gameserver.scripting.Quest;
 import com.l2kt.gameserver.templates.skills.L2EffectType;
+
+import java.util.List;
+import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 public class AttackableAI extends CreatureAI implements Runnable
 {
@@ -246,7 +235,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 		
 		// If not idle - create an AI task (schedule onEvtThink repeatedly)
 		if (_aiTask == null)
-			_aiTask = ThreadPool.scheduleAtFixedRate(this, 1000, 1000);
+			_aiTask = ThreadPool.INSTANCE.scheduleAtFixedRate(this, 1000, 1000);
 	}
 	
 	/**

@@ -31,7 +31,7 @@ public class BitSetIDFactory extends IdFactory
 		super();
 		initialize();
 		
-		ThreadPool.scheduleAtFixedRate(new BitSetCapacityCheck(), 30000, 30000);
+		ThreadPool.INSTANCE.scheduleAtFixedRate(new BitSetCapacityCheck(), 30000, 30000);
 	}
 	
 	private void initialize()

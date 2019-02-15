@@ -1712,7 +1712,7 @@ public final class Player extends Playable
 			// Schedule a sit down task to wait for the animation to finish
 			getAI().setIntention(CtrlIntention.REST);
 			
-			ThreadPool.schedule(() -> setIsParalyzed(false), 2500);
+			ThreadPool.INSTANCE.schedule(() -> setIsParalyzed(false), 2500);
 			setIsParalyzed(true);
 		}
 	}
@@ -1730,7 +1730,7 @@ public final class Player extends Playable
 			broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_STANDING));
 			
 			// Schedule a stand up task to wait for the animation to finish
-			ThreadPool.schedule(() ->
+			ThreadPool.INSTANCE.schedule(() ->
 			{
 				setSitting(false);
 				setIsParalyzed(false);
@@ -2526,7 +2526,7 @@ public final class Player extends Playable
 		if (protect)
 		{
 			if (_protectTask == null)
-				_protectTask = ThreadPool.schedule(() ->
+				_protectTask = ThreadPool.INSTANCE.schedule(() ->
 				{
 					setSpawnProtection(false);
 					sendMessage("The spawn protection has ended.");
@@ -3147,7 +3147,7 @@ public final class Player extends Playable
 		}
 		
 		// Schedule a paralyzed task to wait for the animation to finish
-		ThreadPool.schedule(() -> setIsParalyzed(false), (int) (700 / getStat().getMovementSpeedMultiplier()));
+		ThreadPool.INSTANCE.schedule(() -> setIsParalyzed(false), (int) (700 / getStat().getMovementSpeedMultiplier()));
 		setIsParalyzed(true);
 	}
 	
@@ -4702,14 +4702,14 @@ public final class Player extends Playable
 			_controlItemId = getPet().getControlItemId();
 			sendPacket(new SetupGauge(GaugeColor.GREEN, getCurrentFeed() * 10000 / getFeedConsume(), _petData.getMaxMeal() * 10000 / getFeedConsume()));
 			if (!isDead())
-				_mountFeedTask = ThreadPool.scheduleAtFixedRate(new FeedTask(), 10000, 10000);
+				_mountFeedTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new FeedTask(), 10000, 10000);
 		}
 		else if (_canFeed)
 		{
 			setCurrentFeed(_petData.getMaxMeal());
 			sendPacket(new SetupGauge(GaugeColor.GREEN, getCurrentFeed() * 10000 / getFeedConsume(), _petData.getMaxMeal() * 10000 / getFeedConsume()));
 			if (!isDead())
-				_mountFeedTask = ThreadPool.scheduleAtFixedRate(new FeedTask(), 10000, 10000);
+				_mountFeedTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new FeedTask(), 10000, 10000);
 		}
 	}
 	
@@ -6971,7 +6971,7 @@ public final class Player extends Playable
 	{
 		_inventoryDisable = true;
 		
-		ThreadPool.schedule(() -> _inventoryDisable = false, 1500);
+		ThreadPool.INSTANCE.schedule(() -> _inventoryDisable = false, 1500);
 	}
 	
 	/**
@@ -8024,7 +8024,7 @@ public final class Player extends Playable
 			startFeed(_mountNpcId);
 		
 		// Schedule a paralyzed task to wait for the animation to finish
-		ThreadPool.schedule(() -> setIsParalyzed(false), (int) (2000 / getStat().getMovementSpeedMultiplier()));
+		ThreadPool.INSTANCE.schedule(() -> setIsParalyzed(false), (int) (2000 / getStat().getMovementSpeedMultiplier()));
 		setIsParalyzed(true);
 	}
 	
@@ -8696,7 +8696,7 @@ public final class Player extends Playable
 					_punishTimer = delayInMilliseconds;
 					
 					// start the countdown
-					_punishTask = ThreadPool.schedule(() -> setPunishLevel(PunishLevel.NONE, 0), _punishTimer);
+					_punishTask = ThreadPool.INSTANCE.schedule(() -> setPunishLevel(PunishLevel.NONE, 0), _punishTimer);
 					sendMessage("Chatting has been suspended for " + delayInMinutes + " minute(s).");
 				}
 				else
@@ -8720,7 +8720,7 @@ public final class Player extends Playable
 					_punishTimer = delayInMilliseconds;
 					
 					// start the countdown
-					_punishTask = ThreadPool.schedule(() -> setPunishLevel(PunishLevel.NONE, 0), _punishTimer);
+					_punishTask = ThreadPool.INSTANCE.schedule(() -> setPunishLevel(PunishLevel.NONE, 0), _punishTimer);
 					sendMessage("You are jailed for " + delayInMinutes + " minutes.");
 				}
 				
@@ -8776,7 +8776,7 @@ public final class Player extends Playable
 			// If punish timer exists, restart punishtask.
 			if (_punishTimer > 0)
 			{
-				_punishTask = ThreadPool.schedule(() -> setPunishLevel(PunishLevel.NONE, 0), _punishTimer);
+				_punishTask = ThreadPool.INSTANCE.schedule(() -> setPunishLevel(PunishLevel.NONE, 0), _punishTimer);
 				sendMessage("You are still " + getPunishLevel().string() + " for " + Math.round(_punishTimer / 60000f) + " minutes.");
 			}
 			
@@ -8838,7 +8838,7 @@ public final class Player extends Playable
 			_shortBuffTask = null;
 		}
 		
-		_shortBuffTask = ThreadPool.schedule(() ->
+		_shortBuffTask = ThreadPool.INSTANCE.schedule(() ->
 		{
 			sendPacket(new ShortBuffStatusUpdate(0, 0, 0));
 			setShortBuffTaskSkillId(0);
@@ -9003,7 +9003,7 @@ public final class Player extends Playable
 		if (getMountType() == 2)
 		{
 			if (_dismountTask == null)
-				_dismountTask = ThreadPool.schedule(() -> dismount(), 5000);
+				_dismountTask = ThreadPool.INSTANCE.schedule(() -> dismount(), 5000);
 			
 			sendPacket(SystemMessageId.AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN);
 		}
@@ -9038,7 +9038,7 @@ public final class Player extends Playable
 	 */
 	public void removeFromBossZone()
 	{
-		for (BossZone zone : ZoneManager.getInstance().getAllZones(BossZone.class))
+		for (BossZone zone : ZoneManager.INSTANCE.getAllZones(BossZone.class))
 			zone.removePlayer(this);
 	}
 	
@@ -9102,7 +9102,7 @@ public final class Player extends Playable
 			_chargeTask = null;
 		}
 		
-		_chargeTask = ThreadPool.schedule(() -> clearCharges(), 600000);
+		_chargeTask = ThreadPool.INSTANCE.schedule(this::clearCharges, 600000);
 	}
 	
 	/**

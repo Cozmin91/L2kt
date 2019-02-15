@@ -27,7 +27,7 @@ import com.l2kt.gameserver.templates.StatsSet;
 
 public class QueenAnt extends L2AttackableAIScript
 {
-	private static final BossZone ZONE = ZoneManager.getInstance().getZoneById(110017, BossZone.class);
+	private static final BossZone ZONE = ZoneManager.INSTANCE.getZoneById(110017, BossZone.class);
 	
 	private static final int QUEEN = 29001;
 	private static final int LARVA = 29002;

@@ -93,7 +93,7 @@ public class SiegeFlag extends Npc
 			_clan.broadcastToOnlineMembers(SystemMessage.Companion.getSystemMessage(SystemMessageId.BASE_UNDER_ATTACK));
 			
 			setScriptValue(1);
-			ThreadPool.schedule(() -> setScriptValue(0), 30000);
+			ThreadPool.INSTANCE.schedule(() -> setScriptValue(0), 30000);
 		}
 		super.reduceCurrentHp(damage, attacker, skill);
 	}

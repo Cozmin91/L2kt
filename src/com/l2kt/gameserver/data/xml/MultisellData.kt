@@ -99,7 +99,7 @@ object MultisellData : IXmlReader {
         player.multiSell = list
     }
 
-    fun getList(listName: String): ListContainer {
-        return _entries[listName.hashCode()]!!
+    fun getList(listName: String): ListContainer? {
+        return _entries[listName.hashCode()]
     }
 }

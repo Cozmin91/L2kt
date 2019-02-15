@@ -22,8 +22,8 @@ class MacroList(private val _owner: Player) {
         _macroId = 1000
     }
 
-    fun getMacro(id: Int): L2Macro {
-        return _macroses[id - 1]!!
+    fun getMacro(id: Int): L2Macro? {
+        return _macroses[id - 1]
     }
 
     fun registerMacro(macro: L2Macro) {

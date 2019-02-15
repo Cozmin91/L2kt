@@ -152,7 +152,7 @@ public class Siege implements Siegable
 		_siegeEndDate.add(Calendar.MINUTE, Config.SIEGE_LENGTH);
 		
 		// Schedule a task to prepare auto siege end
-		ThreadPool.schedule(new EndSiegeTask(getCastle()), 1000);
+		ThreadPool.INSTANCE.schedule(new EndSiegeTask(getCastle()), 1000);
 		
 		BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.SIEGE_OF_S1_HAS_STARTED).addString(getCastle().getName()));
 		BroadcastExtensionsKt.toAllOnlinePlayers(new PlaySound("systemmsg_e.17"));
@@ -704,7 +704,7 @@ public class Siege implements Siegable
 			if (_siegeTask != null)
 				_siegeTask.cancel(false);
 			
-			_siegeTask = ThreadPool.schedule(new SiegeTask(getCastle()), 1000);
+			_siegeTask = ThreadPool.INSTANCE.schedule(new SiegeTask(getCastle()), 1000);
 		}
 	}
 	
@@ -805,7 +805,7 @@ public class Siege implements Siegable
 		if (_siegeTask != null)
 		{
 			_siegeTask.cancel(true);
-			_siegeTask = ThreadPool.schedule(new SiegeTask(getCastle()), 1000);
+			_siegeTask = ThreadPool.INSTANCE.schedule(new SiegeTask(getCastle()), 1000);
 		}
 		
 		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection();
@@ -1014,27 +1014,27 @@ public class Siege implements Siegable
 			if (timeRemaining > 3600000)
 			{
 				announceToPlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_HOURS_UNTIL_SIEGE_CONCLUSION).addNumber(2), true);
-				ThreadPool.schedule(new EndSiegeTask(_castle), timeRemaining - 3600000);
+				ThreadPool.INSTANCE.schedule(new EndSiegeTask(_castle), timeRemaining - 3600000);
 			}
 			else if (timeRemaining <= 3600000 && timeRemaining > 600000)
 			{
 				announceToPlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_MINUTES_UNTIL_SIEGE_CONCLUSION).addNumber(Math.round(timeRemaining / 60000)), true);
-				ThreadPool.schedule(new EndSiegeTask(_castle), timeRemaining - 600000);
+				ThreadPool.INSTANCE.schedule(new EndSiegeTask(_castle), timeRemaining - 600000);
 			}
 			else if (timeRemaining <= 600000 && timeRemaining > 300000)
 			{
 				announceToPlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_MINUTES_UNTIL_SIEGE_CONCLUSION).addNumber(Math.round(timeRemaining / 60000)), true);
-				ThreadPool.schedule(new EndSiegeTask(_castle), timeRemaining - 300000);
+				ThreadPool.INSTANCE.schedule(new EndSiegeTask(_castle), timeRemaining - 300000);
 			}
 			else if (timeRemaining <= 300000 && timeRemaining > 10000)
 			{
 				announceToPlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_MINUTES_UNTIL_SIEGE_CONCLUSION).addNumber(Math.round(timeRemaining / 60000)), true);
-				ThreadPool.schedule(new EndSiegeTask(_castle), timeRemaining - 10000);
+				ThreadPool.INSTANCE.schedule(new EndSiegeTask(_castle), timeRemaining - 10000);
 			}
 			else if (timeRemaining <= 10000 && timeRemaining > 0)
 			{
 				announceToPlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.CASTLE_SIEGE_S1_SECONDS_LEFT).addNumber(Math.round(timeRemaining / 1000)), true);
-				ThreadPool.schedule(new EndSiegeTask(_castle), timeRemaining);
+				ThreadPool.INSTANCE.schedule(new EndSiegeTask(_castle), timeRemaining);
 			}
 			else
 				_castle.getSiege().endSiege();
@@ -1062,7 +1062,7 @@ public class Siege implements Siegable
 				final long regTimeRemaining = getSiegeRegistrationEndDate() - Calendar.getInstance().getTimeInMillis();
 				if (regTimeRemaining > 0)
 				{
-					_siegeTask = ThreadPool.schedule(new SiegeTask(_castle), regTimeRemaining);
+					_siegeTask = ThreadPool.INSTANCE.schedule(new SiegeTask(_castle), regTimeRemaining);
 					return;
 				}
 				
@@ -1072,22 +1072,22 @@ public class Siege implements Siegable
 			final long timeRemaining = getSiegeDate().getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
 			
 			if (timeRemaining > 86400000)
-				_siegeTask = ThreadPool.schedule(new SiegeTask(_castle), timeRemaining - 86400000);
+				_siegeTask = ThreadPool.INSTANCE.schedule(new SiegeTask(_castle), timeRemaining - 86400000);
 			else if (timeRemaining <= 86400000 && timeRemaining > 13600000)
 			{
 				BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.REGISTRATION_TERM_FOR_S1_ENDED).addString(getCastle().getName()));
 				changeStatus(SiegeStatus.REGISTRATION_OVER);
 				clearPendingClans();
-				_siegeTask = ThreadPool.schedule(new SiegeTask(_castle), timeRemaining - 13600000);
+				_siegeTask = ThreadPool.INSTANCE.schedule(new SiegeTask(_castle), timeRemaining - 13600000);
 			}
 			else if (timeRemaining <= 13600000 && timeRemaining > 600000)
-				_siegeTask = ThreadPool.schedule(new SiegeTask(_castle), timeRemaining - 600000);
+				_siegeTask = ThreadPool.INSTANCE.schedule(new SiegeTask(_castle), timeRemaining - 600000);
 			else if (timeRemaining <= 600000 && timeRemaining > 300000)
-				_siegeTask = ThreadPool.schedule(new SiegeTask(_castle), timeRemaining - 300000);
+				_siegeTask = ThreadPool.INSTANCE.schedule(new SiegeTask(_castle), timeRemaining - 300000);
 			else if (timeRemaining <= 300000 && timeRemaining > 10000)
-				_siegeTask = ThreadPool.schedule(new SiegeTask(_castle), timeRemaining - 10000);
+				_siegeTask = ThreadPool.INSTANCE.schedule(new SiegeTask(_castle), timeRemaining - 10000);
 			else if (timeRemaining <= 10000 && timeRemaining > 0)
-				_siegeTask = ThreadPool.schedule(new SiegeTask(_castle), timeRemaining);
+				_siegeTask = ThreadPool.INSTANCE.schedule(new SiegeTask(_castle), timeRemaining);
 			else
 				_castle.getSiege().startSiege();
 		}

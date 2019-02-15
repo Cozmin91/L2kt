@@ -122,7 +122,7 @@ public class FlameTower extends Npc
 			final int maxIndex = _upgradeLevel * 2;
 			for (int i = 0; i < maxIndex; i++)
 			{
-				final ZoneType zone = ZoneManager.getInstance().getZoneById(_zoneList.get(i));
+				final ZoneType zone = ZoneManager.INSTANCE.getZoneById(_zoneList.get(i));
 				if (zone != null && zone instanceof CastleZoneType)
 					((CastleZoneType) zone).setEnabled(state);
 			}

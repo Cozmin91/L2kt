@@ -491,14 +491,14 @@ class FishingStance(private val _fisher: Player?) {
 
             val timer = System.currentTimeMillis() + _fish!!.waitTime.toLong() + 10000
 
-            _lookingForFish = ThreadPool.scheduleAtFixedRate({
+            _lookingForFish = ThreadPool.scheduleAtFixedRate(Runnable{
                 if (System.currentTimeMillis() >= timer) {
                     end(false)
-                    return@scheduleAtFixedRate
+                    return@Runnable
                 }
 
                 if (_fish!!.getType(_lure!!.isNightLure) == -1)
-                    return@scheduleAtFixedRate
+                    return@Runnable
 
                 if (_fish!!.guts > Rnd[1000]) {
                     // Stop task.
@@ -544,9 +544,9 @@ class FishingStance(private val _fisher: Player?) {
     }
 
     private fun fishCombatTask(_fisher: Player): ScheduledFuture<*>? {
-        return ThreadPool.scheduleAtFixedRate({
+        return ThreadPool.scheduleAtFixedRate(Runnable{
             if (_fish == null)
-                return@scheduleAtFixedRate
+                return@Runnable
 
             // The fish got away.
             if (_fishCurHp >= _fish!!.hp * 2) {
@@ -587,7 +587,7 @@ class FishingStance(private val _fisher: Player?) {
                 _fisher!!.sendPacket(SystemMessageId.YOU_CAUGHT_SOMETHING)
                 _fisher.addItem("Fishing", _fish!!.id, 1, null, true)
 
-                FishingChampionshipManager.getInstance().newFish(_fisher, _lure!!.itemId)
+                FishingChampionshipManager.newFish(_fisher, _lure!!.itemId)
             }
         }
 

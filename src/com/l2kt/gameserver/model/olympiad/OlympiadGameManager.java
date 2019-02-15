@@ -21,7 +21,7 @@ public class OlympiadGameManager implements Runnable
 	
 	protected OlympiadGameManager()
 	{
-		final Collection<OlympiadStadiumZone> zones = ZoneManager.getInstance().getAllZones(OlympiadStadiumZone.class);
+		final Collection<OlympiadStadiumZone> zones = ZoneManager.INSTANCE.getAllZones(OlympiadStadiumZone.class);
 		if (zones == null || zones.isEmpty())
 			throw new Error("No olympiad stadium zones defined !");
 		

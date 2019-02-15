@@ -1,31 +1,26 @@
 package com.l2kt.gameserver.model.actor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.math.MathUtil;
 import com.l2kt.gameserver.data.xml.MapRegionData;
-import com.l2kt.gameserver.model.item.instance.ItemInstance;
-import com.l2kt.gameserver.model.item.kind.Weapon;
-import com.l2kt.gameserver.model.zone.ZoneId;
-
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
 import com.l2kt.gameserver.model.actor.ai.type.BoatAI;
 import com.l2kt.gameserver.model.actor.ai.type.CreatureAI;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.actor.stat.BoatStat;
 import com.l2kt.gameserver.model.actor.template.CreatureTemplate;
+import com.l2kt.gameserver.model.item.instance.ItemInstance;
+import com.l2kt.gameserver.model.item.kind.Weapon;
 import com.l2kt.gameserver.model.location.BoatLocation;
 import com.l2kt.gameserver.model.location.Location;
 import com.l2kt.gameserver.model.location.SpawnLocation;
+import com.l2kt.gameserver.model.zone.ZoneId;
 import com.l2kt.gameserver.network.SystemMessageId;
-import com.l2kt.gameserver.network.serverpackets.L2GameServerPacket;
-import com.l2kt.gameserver.network.serverpackets.SystemMessage;
-import com.l2kt.gameserver.network.serverpackets.VehicleDeparture;
-import com.l2kt.gameserver.network.serverpackets.VehicleInfo;
-import com.l2kt.gameserver.network.serverpackets.VehicleStarted;
+import com.l2kt.gameserver.network.serverpackets.*;
 import com.l2kt.gameserver.taskmanager.MovementTaskManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Boat extends Creature
 {
@@ -63,7 +58,7 @@ public class Boat extends Creature
 	public void runEngine(int delay)
 	{
 		if (_engine != null)
-			ThreadPool.schedule(_engine, delay);
+			ThreadPool.INSTANCE.schedule(_engine, delay);
 	}
 	
 	public void executePath(BoatLocation[] path)

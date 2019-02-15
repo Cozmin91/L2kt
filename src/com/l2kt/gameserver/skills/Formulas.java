@@ -262,7 +262,7 @@ public final class Formulas
 			// Mother Tree effect is calculated at last
 			if (player.isInsideZone(ZoneId.MOTHER_TREE))
 			{
-				MotherTreeZone zone = ZoneManager.getInstance().getZone(player, MotherTreeZone.class);
+				MotherTreeZone zone = ZoneManager.INSTANCE.getZone(player, MotherTreeZone.class);
 				int hpBonus = zone == null ? 0 : zone.getHpRegenBonus();
 				hpRegenBonus += hpBonus;
 			}
@@ -308,7 +308,7 @@ public final class Formulas
 			// Mother Tree effect is calculated at last
 			if (player.isInsideZone(ZoneId.MOTHER_TREE))
 			{
-				MotherTreeZone zone = ZoneManager.getInstance().getZone(player, MotherTreeZone.class);
+				MotherTreeZone zone = ZoneManager.INSTANCE.getZone(player, MotherTreeZone.class);
 				int mpBonus = zone == null ? 0 : zone.getMpRegenBonus();
 				mpRegenBonus += mpBonus;
 			}

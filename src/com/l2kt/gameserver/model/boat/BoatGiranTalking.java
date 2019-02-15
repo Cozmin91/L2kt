@@ -153,32 +153,32 @@ public class BoatGiranTalking implements Runnable
 			case 0:
 				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], LEAVE_GIRAN5);
 				_boat.broadcastPacket(GIRAN_SOUND_LEAVE_5MIN);
-				ThreadPool.schedule(this, 240000);
+				ThreadPool.INSTANCE.schedule(this, 240000);
 				break;
 			case 1:
 				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], LEAVE_GIRAN1);
 				_boat.broadcastPacket(GIRAN_SOUND_LEAVE_1MIN);
-				ThreadPool.schedule(this, 40000);
+				ThreadPool.INSTANCE.schedule(this, 40000);
 				break;
 			case 2:
 				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], LEAVE_GIRAN0);
 				_boat.broadcastPacket(GIRAN_SOUND_LEAVE_1MIN);
-				ThreadPool.schedule(this, 20000);
+				ThreadPool.INSTANCE.schedule(this, 20000);
 				break;
 			case 3:
 				BoatManager.INSTANCE.broadcastPackets(GIRAN_DOCK, TALKING_DOCK[0], LEAVING_GIRAN, ARRIVAL_TALKING15);
 				_boat.broadcastPacket(GIRAN_SOUND);
 				_boat.payForRide(3946, 1, OUST_LOC_1);
 				_boat.executePath(GIRAN_TO_TALKING);
-				ThreadPool.schedule(this, 250000);
+				ThreadPool.INSTANCE.schedule(this, 250000);
 				break;
 			case 4:
 				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, ARRIVAL_TALKING10);
-				ThreadPool.schedule(this, 300000);
+				ThreadPool.INSTANCE.schedule(this, 300000);
 				break;
 			case 5:
 				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, ARRIVAL_TALKING5);
-				ThreadPool.schedule(this, 240000);
+				ThreadPool.INSTANCE.schedule(this, 240000);
 				break;
 			case 6:
 				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, ARRIVAL_TALKING1);
@@ -193,7 +193,7 @@ public class BoatGiranTalking implements Runnable
 					if (_shoutCount > 35)
 						_shoutCount = 0;
 					
-					ThreadPool.schedule(this, 5000);
+					ThreadPool.INSTANCE.schedule(this, 5000);
 					return;
 				}
 				BoatManager.INSTANCE.dockBoat(BoatManager.TALKING_ISLAND, true);
@@ -202,22 +202,22 @@ public class BoatGiranTalking implements Runnable
 			case 8:
 				BoatManager.INSTANCE.broadcastPackets(TALKING_DOCK[0], GIRAN_DOCK, ARRIVED_AT_TALKING, ARRIVED_AT_TALKING_2);
 				_boat.broadcastPacket(TALKING_SOUND);
-				ThreadPool.schedule(this, 300000);
+				ThreadPool.INSTANCE.schedule(this, 300000);
 				break;
 			case 9:
 				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, LEAVE_TALKING5);
 				_boat.broadcastPacket(TALKING_SOUND_LEAVE_5MIN);
-				ThreadPool.schedule(this, 240000);
+				ThreadPool.INSTANCE.schedule(this, 240000);
 				break;
 			case 10:
 				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, LEAVE_TALKING1);
 				_boat.broadcastPacket(TALKING_SOUND_LEAVE_1MIN);
-				ThreadPool.schedule(this, 40000);
+				ThreadPool.INSTANCE.schedule(this, 40000);
 				break;
 			case 11:
 				BoatManager.INSTANCE.broadcastPacket(TALKING_DOCK[0], GIRAN_DOCK, LEAVE_TALKING0);
 				_boat.broadcastPacket(TALKING_SOUND_LEAVE_1MIN);
-				ThreadPool.schedule(this, 20000);
+				ThreadPool.INSTANCE.schedule(this, 20000);
 				break;
 			case 12:
 				BoatManager.INSTANCE.dockBoat(BoatManager.TALKING_ISLAND, false);
@@ -225,23 +225,23 @@ public class BoatGiranTalking implements Runnable
 				_boat.broadcastPacket(TALKING_SOUND);
 				_boat.payForRide(3945, 1, OUST_LOC_2);
 				_boat.executePath(TALKING_TO_GIRAN);
-				ThreadPool.schedule(this, 200000);
+				ThreadPool.INSTANCE.schedule(this, 200000);
 				break;
 			case 13:
 				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN20);
-				ThreadPool.schedule(this, 300000);
+				ThreadPool.INSTANCE.schedule(this, 300000);
 				break;
 			case 14:
 				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN15);
-				ThreadPool.schedule(this, 300000);
+				ThreadPool.INSTANCE.schedule(this, 300000);
 				break;
 			case 15:
 				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN10);
-				ThreadPool.schedule(this, 300000);
+				ThreadPool.INSTANCE.schedule(this, 300000);
 				break;
 			case 16:
 				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN5);
-				ThreadPool.schedule(this, 240000);
+				ThreadPool.INSTANCE.schedule(this, 240000);
 				break;
 			case 17:
 				BoatManager.INSTANCE.broadcastPacket(GIRAN_DOCK, TALKING_DOCK[0], ARRIVAL_GIRAN1);
@@ -249,7 +249,7 @@ public class BoatGiranTalking implements Runnable
 			case 18:
 				BoatManager.INSTANCE.broadcastPackets(GIRAN_DOCK, TALKING_DOCK[0], ARRIVED_AT_GIRAN, ARRIVED_AT_GIRAN_2);
 				_boat.broadcastPacket(GIRAN_SOUND);
-				ThreadPool.schedule(this, 300000);
+				ThreadPool.INSTANCE.schedule(this, 300000);
 				break;
 		}
 		_shoutCount = 0;

@@ -1,12 +1,8 @@
 package com.l2kt.gameserver.model;
 
-import java.lang.reflect.Constructor;
-import java.util.logging.Logger;
-
 import com.l2kt.Config;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.random.Rnd;
-
 import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.idfactory.IdFactory;
 import com.l2kt.gameserver.model.actor.Attackable;
@@ -16,6 +12,9 @@ import com.l2kt.gameserver.model.actor.instance.Monster;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.location.Location;
 import com.l2kt.gameserver.model.location.SpawnLocation;
+
+import java.lang.reflect.Constructor;
+import java.util.logging.Logger;
 
 /**
  * This class manages the spawn and respawn a {@link Npc}.<br>
@@ -346,7 +345,7 @@ public final class L2Spawn implements Runnable
 			final int respawnTime = getRespawnTime() * 1000;
 			
 			// Schedule respawn of the NPC
-			ThreadPool.schedule(this, respawnTime);
+			ThreadPool.INSTANCE.schedule(this, respawnTime);
 		}
 	}
 	

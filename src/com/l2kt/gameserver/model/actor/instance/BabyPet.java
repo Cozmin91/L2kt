@@ -102,7 +102,7 @@ public final class BabyPet extends Pet
 	private final void startCastTask()
 	{
 		if (_majorHeal != null && _castTask == null && !isDead()) // cast task is not yet started and not dead (will start on revive)
-			_castTask = ThreadPool.scheduleAtFixedRate(new CastTask(this), 3000, 1000);
+			_castTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new CastTask(this), 3000, 1000);
 	}
 	
 	private final void stopCastTask()

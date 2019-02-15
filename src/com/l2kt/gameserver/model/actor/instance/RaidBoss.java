@@ -46,7 +46,7 @@ public class RaidBoss extends Monster
 		super.onSpawn();
 		
 		// "AI task" for regular bosses.
-		_maintenanceTask = ThreadPool.scheduleAtFixedRate(() ->
+		_maintenanceTask = ThreadPool.INSTANCE.scheduleAtFixedRate(() ->
 		{
 			// Don't bother with dead bosses.
 			if (!isDead())

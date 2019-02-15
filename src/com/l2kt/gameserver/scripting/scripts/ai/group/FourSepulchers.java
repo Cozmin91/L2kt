@@ -42,7 +42,7 @@ public class FourSepulchers extends L2AttackableAIScript
 		{
 			if (!npc.isDead() && npc.isVisible())
 			{
-				FourSepulchersManager.getInstance().spawnKeyBox(npc);
+				FourSepulchersManager.INSTANCE.spawnKeyBox(npc);
 				npc.broadcastNpcSay("Thank you for saving me.");
 				npc.deleteMe();
 			}
@@ -131,7 +131,7 @@ public class FourSepulchers extends L2AttackableAIScript
 			case 18217:
 			case 18218:
 			case 18219:
-				FourSepulchersManager.getInstance().spawnKeyBox(npc);
+				FourSepulchersManager.INSTANCE.spawnKeyBox(npc);
 				break;
 			
 			case 18150: // Victims.
@@ -142,7 +142,7 @@ public class FourSepulchers extends L2AttackableAIScript
 			case 18155:
 			case 18156:
 			case 18157:
-				FourSepulchersManager.getInstance().spawnExecutionerOfHalisha(npc);
+				FourSepulchersManager.INSTANCE.spawnExecutionerOfHalisha(npc);
 				cancelQuestTimer("safety", npc, null);
 				break;
 			
@@ -154,7 +154,7 @@ public class FourSepulchers extends L2AttackableAIScript
 			case 18146:
 			case 18147:
 			case 18148:
-				FourSepulchersManager.getInstance().testViscountMobsAnnihilation(npc.getScriptValue());
+				FourSepulchersManager.INSTANCE.testViscountMobsAnnihilation(npc.getScriptValue());
 				break;
 			
 			case 18220:
@@ -178,7 +178,7 @@ public class FourSepulchers extends L2AttackableAIScript
 			case 18238:
 			case 18239:
 			case 18240:
-				FourSepulchersManager.getInstance().testDukeMobsAnnihilation(npc.getScriptValue());
+				FourSepulchersManager.INSTANCE.testDukeMobsAnnihilation(npc.getScriptValue());
 				break;
 			
 			case 25339: // Shadows.
@@ -222,7 +222,7 @@ public class FourSepulchers extends L2AttackableAIScript
 							player.addItem("Quest", cupId, 1, player, true);
 					}
 				}
-				FourSepulchersManager.getInstance().spawnEmperorsGraveNpc(npc.getScriptValue());
+				FourSepulchersManager.INSTANCE.spawnEmperorsGraveNpc(npc.getScriptValue());
 				break;
 		}
 		return super.onKill(npc, killer);

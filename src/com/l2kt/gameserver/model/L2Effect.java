@@ -1,15 +1,6 @@
 package com.l2kt.gameserver.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.l2kt.commons.concurrent.ThreadPool;
-
 import com.l2kt.gameserver.model.actor.Creature;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.actor.instance.Servitor;
@@ -27,6 +18,14 @@ import com.l2kt.gameserver.skills.effects.EffectTemplate;
 import com.l2kt.gameserver.templates.skills.L2EffectFlag;
 import com.l2kt.gameserver.templates.skills.L2EffectType;
 import com.l2kt.gameserver.templates.skills.L2SkillType;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class L2Effect
 {
@@ -260,9 +259,9 @@ public abstract class L2Effect
 			stopEffectTask();
 			final int initialDelay = Math.max((_period - _periodFirstTime) * 1000, 5);
 			if (_count > 1)
-				_currentFuture = ThreadPool.scheduleAtFixedRate(new EffectTask(), initialDelay, _period * 1000);
+				_currentFuture = ThreadPool.INSTANCE.scheduleAtFixedRate(new EffectTask(), initialDelay, _period * 1000);
 			else
-				_currentFuture = ThreadPool.schedule(new EffectTask(), initialDelay);
+				_currentFuture = ThreadPool.INSTANCE.schedule(new EffectTask(), initialDelay);
 		}
 		if (_state == EffectState.ACTING)
 		{

@@ -892,7 +892,7 @@ public class Quest
 	
 	public final void notifyAggro(Npc npc, Player player, boolean isPet)
 	{
-		ThreadPool.execute(new OnAggroEnter(npc, player, isPet));
+		ThreadPool.INSTANCE.execute(new OnAggroEnter(npc, player, isPet));
 	}
 	
 	public String onAggro(Npc npc, Player player, boolean isPet)
@@ -981,7 +981,7 @@ public class Quest
 	{
 		for (int zoneId : zoneIds)
 		{
-			final ZoneType zone = ZoneManager.getInstance().getZoneById(zoneId);
+			final ZoneType zone = ZoneManager.INSTANCE.getZoneById(zoneId);
 			if (zone != null)
 				zone.addQuestEvent(EventType.ON_ENTER_ZONE, this);
 		}
@@ -1015,7 +1015,7 @@ public class Quest
 	{
 		for (int zoneId : zoneIds)
 		{
-			final ZoneType zone = ZoneManager.getInstance().getZoneById(zoneId);
+			final ZoneType zone = ZoneManager.INSTANCE.getZoneById(zoneId);
 			if (zone != null)
 				zone.addQuestEvent(EventType.ON_EXIT_ZONE, this);
 		}
@@ -1271,7 +1271,7 @@ public class Quest
 	
 	public final void notifySkillSee(Npc npc, Player caster, L2Skill skill, WorldObject[] targets, boolean isPet)
 	{
-		ThreadPool.execute(new OnSkillSee(npc, caster, skill, targets, isPet));
+		ThreadPool.INSTANCE.execute(new OnSkillSee(npc, caster, skill, targets, isPet));
 	}
 	
 	public String onSkillSee(Npc npc, Player caster, L2Skill skill, WorldObject[] targets, boolean isPet)

@@ -46,10 +46,10 @@ class DamageZone(id: Int) : CastleZoneType(id) {
 
             synchronized(this) {
                 if (_task == null) {
-                    _task = ThreadPool.scheduleAtFixedRate({
+                    _task = ThreadPool.scheduleAtFixedRate(Runnable{
                         if (_characters.isEmpty() || _hpDamage <= 0 || castle != null && (!isEnabled || !castle!!.siege.isInProgress)) {
                             stopTask()
-                            return@scheduleAtFixedRate
+                            return@Runnable
                         }
 
                         // Effect all people inside the zone.

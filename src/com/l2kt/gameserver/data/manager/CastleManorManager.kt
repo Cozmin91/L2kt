@@ -161,7 +161,7 @@ object CastleManorManager : IXmlReader {
 
             // Schedule autosave
             ThreadPool.scheduleAtFixedRate(
-                { this.storeMe() },
+                Runnable { this.storeMe() },
                 Config.ALT_MANOR_SAVE_PERIOD_RATE.toLong(),
                 Config.ALT_MANOR_SAVE_PERIOD_RATE.toLong()
             )
@@ -214,7 +214,7 @@ object CastleManorManager : IXmlReader {
         }
 
         // Schedule mode change
-        ThreadPool.schedule({ this.changeMode() }, _nextModeChange!!.timeInMillis - System.currentTimeMillis())
+        ThreadPool.schedule(Runnable{ this.changeMode() }, _nextModeChange!!.timeInMillis - System.currentTimeMillis())
     }
 
     fun changeMode() {

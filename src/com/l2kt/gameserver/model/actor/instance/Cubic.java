@@ -119,7 +119,7 @@ public class Cubic
 				_skills.add(SkillTable.INSTANCE.getInfo(5116, level));
 				break;
 		}
-		_disappearTask = ThreadPool.schedule(new Disappear(), totallifetime); // disappear
+		_disappearTask = ThreadPool.INSTANCE.schedule(new Disappear(), totallifetime); // disappear
 	}
 	
 	public synchronized void doAction()
@@ -139,11 +139,11 @@ public class Cubic
 			case VAMPIRIC_CUBIC:
 			case VIPER_CUBIC:
 			case ATTRACT_CUBIC:
-				_actionTask = ThreadPool.scheduleAtFixedRate(new Action(_activationchance), 0, _activationtime);
+				_actionTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new Action(_activationchance), 0, _activationtime);
 				break;
 			
 			case LIFE_CUBIC:
-				_actionTask = ThreadPool.scheduleAtFixedRate(new Heal(), 0, _activationtime);
+				_actionTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new Heal(), 0, _activationtime);
 				break;
 		}
 	}

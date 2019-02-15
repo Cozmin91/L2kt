@@ -506,7 +506,7 @@ public final class FestivalGuide extends Folk
 	{
 		super.onSpawn();
 		
-		PeaceZone zone = ZoneManager.getInstance().getZone(this, PeaceZone.class);
+		PeaceZone zone = ZoneManager.INSTANCE.getZone(this, PeaceZone.class);
 		
 		// Festival Witches are spawned inside festival, out of peace zone -> skip them
 		if (zone != null)

@@ -34,7 +34,7 @@ import com.l2kt.gameserver.templates.StatsSet;
  */
 public class Antharas extends L2AttackableAIScript
 {
-	private static final BossZone ANTHARAS_LAIR = ZoneManager.getInstance().getZoneById(110001, BossZone.class);
+	private static final BossZone ANTHARAS_LAIR = ZoneManager.INSTANCE.getZoneById(110001, BossZone.class);
 	
 	private static final int[] ANTHARAS_IDS =
 	{

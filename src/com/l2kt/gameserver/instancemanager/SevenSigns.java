@@ -218,7 +218,7 @@ public class SevenSigns
 		}
 		
 		// Schedule a time for the next period change.
-		ThreadPool.schedule(new SevenSignsPeriodChange(), milliToChange);
+		ThreadPool.INSTANCE.schedule(new SevenSignsPeriodChange(), milliToChange);
 		
 		double numSecs = (milliToChange / 1000) % 60;
 		double countDown = ((milliToChange / 1000) - numSecs) / 60;
@@ -1198,7 +1198,7 @@ public class SevenSigns
 			
 			setCalendarForNextPeriodChange();
 			
-			ThreadPool.schedule(new SevenSignsPeriodChange(), getMilliToPeriodChange());
+			ThreadPool.INSTANCE.schedule(new SevenSignsPeriodChange(), getMilliToPeriodChange());
 		}
 	}
 	

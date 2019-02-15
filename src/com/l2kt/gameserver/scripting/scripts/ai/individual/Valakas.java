@@ -27,7 +27,7 @@ import com.l2kt.gameserver.templates.StatsSet;
 
 public class Valakas extends L2AttackableAIScript
 {
-	private static final BossZone VALAKAS_LAIR = ZoneManager.getInstance().getZoneById(110010, BossZone.class);
+	private static final BossZone VALAKAS_LAIR = ZoneManager.INSTANCE.getZoneById(110010, BossZone.class);
 	
 	public static final byte DORMANT = 0; // Valakas is spawned and no one has entered yet. Entry is unlocked.
 	public static final byte WAITING = 1; // Valakas is spawned and someone has entered, triggering a 30 minute window for additional people to enter. Entry is unlocked.

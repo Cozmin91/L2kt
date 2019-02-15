@@ -111,7 +111,7 @@ fun WorldRegion.toAllPlayersInRegion(vararg packets: L2GameServerPacket) {
  * @param packets : The packets to send.
 </T> */
 fun <T : ZoneType> toAllPlayersInZoneType(zoneType: Class<T>, vararg packets: L2GameServerPacket) {
-    for (temp in ZoneManager.getInstance().getAllZones(zoneType)) {
+    for (temp in ZoneManager.getAllZones(zoneType)) {
         for (player in temp.getKnownTypeInside(Player::class.java)) {
             for (packet in packets)
                 player.sendPacket(packet)

@@ -186,7 +186,7 @@ public class Q620_FourGoblets extends Quest
 		}
 		else if (event.equalsIgnoreCase("Enter"))
 		{
-			FourSepulchersManager.getInstance().tryEntry(npc, player);
+			FourSepulchersManager.INSTANCE.tryEntry(npc, player);
 			return null;
 		}
 		return htmltext;

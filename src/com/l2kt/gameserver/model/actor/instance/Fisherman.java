@@ -55,7 +55,7 @@ public class Fisherman extends Merchant
 				player.sendPacket(html);
 				return;
 			}
-			FishingChampionshipManager.getInstance().showChampScreen(player, getObjectId());
+			FishingChampionshipManager.INSTANCE.showChampScreen(player, getObjectId());
 		}
 		else if (command.startsWith("FishingReward"))
 		{
@@ -67,14 +67,14 @@ public class Fisherman extends Merchant
 				return;
 			}
 			
-			if (!FishingChampionshipManager.getInstance().isWinner(player.getName()))
+			if (!FishingChampionshipManager.INSTANCE.isWinner(player.getName()))
 			{
 				final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/fisherman/championship/no_fish_event_reward001.htm");
 				player.sendPacket(html);
 				return;
 			}
-			FishingChampionshipManager.getInstance().getReward(player);
+			FishingChampionshipManager.INSTANCE.getReward(player);
 		}
 		else
 			super.onBypassFeedback(player, command);

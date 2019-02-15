@@ -61,7 +61,7 @@ object RaidPointManager {
                             val bossId = rs.getInt("boss_id")
                             val points = rs.getInt("points")
 
-                            var playerData: MutableMap<Int, Int> = _entries[objectId]!!
+                            val playerData: MutableMap<Int, Int> = _entries[objectId]!!
 
                             playerData[bossId] = points
                             _entries[objectId] = playerData

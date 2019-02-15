@@ -46,7 +46,7 @@ public class AdminGm implements IAdminCommandHandler
 			activeChar.setAccessLevel(0);
 			activeChar.sendMessage("You no longer have GM status, but will be rehabilitated after " + numberOfMinutes + " minutes.");
 			
-			ThreadPool.schedule(() ->
+			ThreadPool.INSTANCE.schedule(() ->
 			{
 				if (!activeChar.isOnline())
 					return;

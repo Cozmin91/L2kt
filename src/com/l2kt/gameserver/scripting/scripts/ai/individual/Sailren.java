@@ -25,7 +25,7 @@ import com.l2kt.gameserver.templates.StatsSet;
 
 public class Sailren extends L2AttackableAIScript
 {
-	private static final BossZone SAILREN_LAIR = ZoneManager.getInstance().getZoneById(110011, BossZone.class);
+	private static final BossZone SAILREN_LAIR = ZoneManager.INSTANCE.getZoneById(110011, BossZone.class);
 	
 	public static final int SAILREN = 29065;
 	

@@ -38,20 +38,20 @@ public class AdminZone implements IAdminCommandHandler
 				String next = st.nextToken();
 				if (next.equalsIgnoreCase("all"))
 				{
-					for (ZoneType zone : ZoneManager.getInstance().getZones(activeChar))
+					for (ZoneType zone : ZoneManager.INSTANCE.getZones(activeChar))
 						zone.visualizeZone(activeChar.getZ());
 					
 					showHtml(activeChar);
 				}
 				else if (next.equalsIgnoreCase("clear"))
 				{
-					ZoneManager.getInstance().clearDebugItems();
+					ZoneManager.INSTANCE.clearDebugItems();
 					showHtml(activeChar);
 				}
 				else
 				{
 					int zoneId = Integer.parseInt(next);
-					ZoneManager.getInstance().getZoneById(zoneId).visualizeZone(activeChar.getZ());
+					ZoneManager.INSTANCE.getZoneById(zoneId).visualizeZone(activeChar.getZ());
 				}
 			}
 			catch (Exception e)

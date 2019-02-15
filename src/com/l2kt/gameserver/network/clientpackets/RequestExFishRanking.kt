@@ -10,6 +10,6 @@ class RequestExFishRanking : L2GameClientPacket() {
         val player = client.activeChar ?: return
 
         if (Config.ALT_FISH_CHAMPIONSHIP_ENABLED)
-            FishingChampionshipManager.getInstance().showMidResult(player)
+            FishingChampionshipManager.showMidResult(player)
     }
 }

@@ -475,7 +475,7 @@ public abstract class Creature extends WorldObject
 				// Verify if the bow can be used. Cancel the action if the bow can't be re-use at this moment.
 				if (_disableBowAttackEndTime > time)
 				{
-					ThreadPool.schedule(() -> getAI().notifyEvent(CtrlEvent.EVT_READY_TO_ACT), 100);
+					ThreadPool.INSTANCE.schedule(() -> getAI().notifyEvent(CtrlEvent.EVT_READY_TO_ACT), 100);
 					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 					return;
 				}
@@ -607,7 +607,7 @@ public abstract class Creature extends WorldObject
 			return;
 		
 		// Notify AI with EVT_READY_TO_ACT
-		ThreadPool.schedule(() -> getAI().notifyEvent(CtrlEvent.EVT_READY_TO_ACT), timeAtk);
+		ThreadPool.INSTANCE.schedule(() -> getAI().notifyEvent(CtrlEvent.EVT_READY_TO_ACT), timeAtk);
 	}
 	
 	/**
@@ -674,7 +674,7 @@ public abstract class Creature extends WorldObject
 		}
 		
 		// Create a new hit task with Medium priority
-		ThreadPool.schedule(new HitTask(target, damage1, crit1, miss1, attack.getSoulshot(), shld1), sAtk);
+		ThreadPool.INSTANCE.schedule(new HitTask(target, damage1, crit1, miss1, attack.getSoulshot(), shld1), sAtk);
 		
 		// Calculate and set the disable delay of the bow in function of the Attack Speed
 		_disableBowAttackEndTime += (sAtk + reuse);
@@ -745,10 +745,10 @@ public abstract class Creature extends WorldObject
 		}
 		
 		// Create a new hit task with Medium priority for hit 1
-		ThreadPool.schedule(new HitTask(target, damage1, crit1, miss1, attack.getSoulshot(), shld1), sAtk / 2);
+		ThreadPool.INSTANCE.schedule(new HitTask(target, damage1, crit1, miss1, attack.getSoulshot(), shld1), sAtk / 2);
 		
 		// Create a new hit task with Medium priority for hit 2 with a higher delay
-		ThreadPool.schedule(new HitTask(target, damage2, crit2, miss2, attack.getSoulshot(), shld2), sAtk);
+		ThreadPool.INSTANCE.schedule(new HitTask(target, damage2, crit2, miss2, attack.getSoulshot(), shld2), sAtk);
 		
 		// Add those hits to the Server-Client packet Attack
 		attack.hit(attack.createHit(target, damage1, miss1, crit1, shld1), attack.createHit(target, damage2, miss2, crit2, shld2));
@@ -874,7 +874,7 @@ public abstract class Creature extends WorldObject
 		}
 		
 		// Create a new hit task with Medium priority
-		ThreadPool.schedule(new HitTask(target, damage1, crit1, miss1, attack.getSoulshot(), shld1), sAtk);
+		ThreadPool.INSTANCE.schedule(new HitTask(target, damage1, crit1, miss1, attack.getSoulshot(), shld1), sAtk);
 		
 		// Add this hit to the Server-Client packet Attack
 		attack.hit(attack.createHit(target, damage1, miss1, crit1, shld1));
@@ -1052,7 +1052,7 @@ public abstract class Creature extends WorldObject
 			// queue herbs and potions
 			if (isCastingSimultaneouslyNow())
 			{
-				ThreadPool.schedule(() -> doSimultaneousCast(skill), 100);
+				ThreadPool.INSTANCE.schedule(() -> doSimultaneousCast(skill), 100);
 				return;
 			}
 			setIsCastingSimultaneouslyNow(true);
@@ -1179,7 +1179,7 @@ public abstract class Creature extends WorldObject
 			
 			// Before start AI Cast Broadcast Fly Effect is Need
 			if (this instanceof Player && skill.getFlyType() != null)
-				ThreadPool.schedule(new FlyToLocationTask(this, target, skill), 50);
+				ThreadPool.INSTANCE.schedule(new FlyToLocationTask(this, target, skill), 50);
 		}
 		
 		MagicUseTask mut = new MagicUseTask(targets, skill, hitTime, coolTime, simultaneously);
@@ -1205,7 +1205,7 @@ public abstract class Creature extends WorldObject
 				
 				// Create a task MagicUseTask to launch the MagicSkill at the end of the casting time (hitTime)
 				// For client animation reasons (party buffs especially) 400 ms before!
-				_skillCast2 = ThreadPool.schedule(mut, hitTime - 400);
+				_skillCast2 = ThreadPool.INSTANCE.schedule(mut, hitTime - 400);
 			}
 			else
 			{
@@ -1218,7 +1218,7 @@ public abstract class Creature extends WorldObject
 				
 				// Create a task MagicUseTask to launch the MagicSkill at the end of the casting time (hitTime)
 				// For client animation reasons (party buffs especially) 400 ms before!
-				_skillCast = ThreadPool.schedule(mut, hitTime - 400);
+				_skillCast = ThreadPool.INSTANCE.schedule(mut, hitTime - 400);
 			}
 		}
 		else
@@ -2103,7 +2103,7 @@ public abstract class Creature extends WorldObject
 		broadcastPacket(new Revive(this));
 		
 		// Schedule a paralyzed task to wait for the animation to finish
-		ThreadPool.schedule(() -> setIsParalyzed(false), (int) (2000 / getStat().getMovementSpeedMultiplier()));
+		ThreadPool.INSTANCE.schedule(() -> setIsParalyzed(false), (int) (2000 / getStat().getMovementSpeedMultiplier()));
 		setIsParalyzed(true);
 	}
 	
@@ -4105,7 +4105,7 @@ public abstract class Creature extends WorldObject
 		if (mut.hitTime == 0)
 			onMagicHitTimer(mut);
 		else
-			_skillCast = ThreadPool.schedule(mut, 400);
+			_skillCast = ThreadPool.INSTANCE.schedule(mut, 400);
 	}
 	
 	/*
@@ -4241,9 +4241,9 @@ public abstract class Creature extends WorldObject
 		else
 		{
 			if (mut.simultaneously)
-				_skillCast2 = ThreadPool.schedule(mut, mut.coolTime);
+				_skillCast2 = ThreadPool.INSTANCE.schedule(mut, mut.coolTime);
 			else
-				_skillCast = ThreadPool.schedule(mut, mut.coolTime);
+				_skillCast = ThreadPool.INSTANCE.schedule(mut, mut.coolTime);
 		}
 	}
 	
@@ -4298,7 +4298,7 @@ public abstract class Creature extends WorldObject
 				final SkillUseHolder queuedSkill = player.getQueuedSkill();
 				if (queuedSkill.getSkill() != null)
 				{
-					ThreadPool.execute(new QueuedMagicUseTask(player, queuedSkill.getSkill(), queuedSkill.isCtrlPressed(), queuedSkill.isShiftPressed()));
+					ThreadPool.INSTANCE.execute(new QueuedMagicUseTask(player, queuedSkill.getSkill(), queuedSkill.isCtrlPressed(), queuedSkill.isShiftPressed()));
 					player.setQueuedSkill(null, false, false);
 				}
 			}

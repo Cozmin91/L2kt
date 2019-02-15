@@ -108,7 +108,7 @@ public class SummonItems implements IItemHandler
 				activeChar.sendPacket(SystemMessageId.SUMMON_A_PET);
 				activeChar.setIsCastingNow(true);
 				
-				ThreadPool.schedule(new PetSummonFinalizer(activeChar, npcTemplate, item), 5000);
+				ThreadPool.INSTANCE.schedule(new PetSummonFinalizer(activeChar, npcTemplate, item), 5000);
 				break;
 			case 2: // wyvern
 				activeChar.mount(sitem.getId(), item.getObjectId());

@@ -60,7 +60,7 @@ public class StakatoNest extends L2AttackableAIScript
 				{
 					npc.setIsCastingNow(true);
 					npc.broadcastPacket(new MagicSkillUse(npc, follower, (npc.getNpcId() == CANNIBALISTIC_STAKATO_LEADER_2) ? 4072 : 4073, 1, 3000, 0));
-					ThreadPool.schedule(() ->
+					ThreadPool.INSTANCE.schedule(() ->
 					{
 						if (npc.isDead())
 							return;

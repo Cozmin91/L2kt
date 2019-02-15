@@ -104,46 +104,46 @@ public class BoatInnadrilTour implements Runnable
 			case 0:
 				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, LEAVE_INNADRIL5);
 				_boat.broadcastPacket(INNADRIL_SOUND_LEAVE_5MIN);
-				ThreadPool.schedule(this, 240000);
+				ThreadPool.INSTANCE.schedule(this, 240000);
 				break;
 			case 1:
 				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, LEAVE_INNADRIL1);
 				_boat.broadcastPacket(INNADRIL_SOUND_LEAVE_1MIN);
-				ThreadPool.schedule(this, 40000);
+				ThreadPool.INSTANCE.schedule(this, 40000);
 				break;
 			case 2:
 				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, LEAVE_INNADRIL0);
 				_boat.broadcastPacket(INNADRIL_SOUND_LEAVE_1MIN);
-				ThreadPool.schedule(this, 20000);
+				ThreadPool.INSTANCE.schedule(this, 20000);
 				break;
 			case 3:
 				BoatManager.INSTANCE.broadcastPackets(DOCK, DOCK, LEAVING_INNADRIL, INNADRIL_SOUND);
 				_boat.payForRide(0, 1, OUST_LOC);
 				_boat.executePath(TOUR);
-				ThreadPool.schedule(this, 650000);
+				ThreadPool.INSTANCE.schedule(this, 650000);
 				break;
 			case 4:
 				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, ARRIVAL20);
-				ThreadPool.schedule(this, 300000);
+				ThreadPool.INSTANCE.schedule(this, 300000);
 				break;
 			case 5:
 				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, ARRIVAL15);
-				ThreadPool.schedule(this, 300000);
+				ThreadPool.INSTANCE.schedule(this, 300000);
 				break;
 			case 6:
 				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, ARRIVAL10);
-				ThreadPool.schedule(this, 300000);
+				ThreadPool.INSTANCE.schedule(this, 300000);
 				break;
 			case 7:
 				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, ARRIVAL5);
-				ThreadPool.schedule(this, 240000);
+				ThreadPool.INSTANCE.schedule(this, 240000);
 				break;
 			case 8:
 				BoatManager.INSTANCE.broadcastPacket(DOCK, DOCK, ARRIVAL1);
 				break;
 			case 9:
 				BoatManager.INSTANCE.broadcastPackets(DOCK, DOCK, ARRIVED_AT_INNADRIL, INNADRIL_SOUND);
-				ThreadPool.schedule(this, 300000);
+				ThreadPool.INSTANCE.schedule(this, 300000);
 				break;
 		}
 		_cycle++;

@@ -1,26 +1,25 @@
 package com.l2kt.gameserver.model.actor.ai.type;
 
-import java.util.List;
-
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.math.MathUtil;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.commons.util.ArraysUtil;
+import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.model.L2Skill;
 import com.l2kt.gameserver.model.actor.Attackable;
 import com.l2kt.gameserver.model.actor.Creature;
 import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.Playable;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
-import com.l2kt.gameserver.model.zone.ZoneId;
-
-import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.actor.instance.SiegeGuard;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.AIType;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.SkillType;
 import com.l2kt.gameserver.model.entity.Siege.SiegeSide;
 import com.l2kt.gameserver.model.location.Location;
+import com.l2kt.gameserver.model.zone.ZoneId;
+
+import java.util.List;
 
 public class SiegeGuardAI extends AttackableAI
 {
@@ -108,7 +107,7 @@ public class SiegeGuardAI extends AttackableAI
 		
 		// If not idle - create an AI task (schedule onEvtThink repeatedly)
 		if (_aiTask == null)
-			_aiTask = ThreadPool.scheduleAtFixedRate(this, 1000, 1000);
+			_aiTask = ThreadPool.INSTANCE.scheduleAtFixedRate(this, 1000, 1000);
 	}
 	
 	/**

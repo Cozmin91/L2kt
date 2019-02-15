@@ -33,7 +33,7 @@ class RequestRestartPoint : L2GameClientPacket() {
         if (player.clan != null) {
             val siege = CastleManager.getActiveSiege(player)
             if (siege != null && siege.checkSide(player.clan, Siege.SiegeSide.ATTACKER)) {
-                ThreadPool.schedule({ portPlayer(player) }, Config.ATTACKERS_RESPAWN_DELAY.toLong())
+                ThreadPool.schedule(Runnable{ portPlayer(player) }, Config.ATTACKERS_RESPAWN_DELAY.toLong())
                 return
             }
         }

@@ -400,7 +400,7 @@ public class CursedWeapon
 		cancelDailyTimer();
 		
 		// Activate the "1h dropped CW" timer.
-		_dropTimer = ThreadPool.schedule(new DropTimer(), 3600000L);
+		_dropTimer = ThreadPool.INSTANCE.schedule(new DropTimer(), 3600000L);
 		
 		// Reset current stage to 1.
 		_currentStage = 1;
@@ -502,7 +502,7 @@ public class CursedWeapon
 			_hungryTime = _durationLost * 60;
 			_endTime = (System.currentTimeMillis() + _duration * 3600000L);
 			
-			_overallTimer = ThreadPool.scheduleAtFixedRate(new OverallTimer(), 60000L, 60000L);
+			_overallTimer = ThreadPool.INSTANCE.scheduleAtFixedRate(new OverallTimer(), 60000L, 60000L);
 		}
 		else
 		{
@@ -512,8 +512,8 @@ public class CursedWeapon
 				endOfLife();
 			else
 			{
-				_dailyTimer = ThreadPool.scheduleAtFixedRate(new DailyTimer(), 60000L, 60000L);
-				_overallTimer = ThreadPool.scheduleAtFixedRate(new OverallTimer(), 60000L, 60000L);
+				_dailyTimer = ThreadPool.INSTANCE.scheduleAtFixedRate(new DailyTimer(), 60000L, 60000L);
+				_overallTimer = ThreadPool.INSTANCE.scheduleAtFixedRate(new OverallTimer(), 60000L, 60000L);
 			}
 		}
 	}
@@ -533,8 +533,8 @@ public class CursedWeapon
 			
 			// Start timers.
 			_endTime = System.currentTimeMillis() + _duration * 3600000L;
-			_overallTimer = ThreadPool.scheduleAtFixedRate(new OverallTimer(), 60000L, 60000L);
-			_dropTimer = ThreadPool.schedule(new DropTimer(), 3600000L);
+			_overallTimer = ThreadPool.INSTANCE.scheduleAtFixedRate(new OverallTimer(), 60000L, 60000L);
+			_dropTimer = ThreadPool.INSTANCE.schedule(new DropTimer(), 3600000L);
 			
 			return true;
 		}
@@ -576,7 +576,7 @@ public class CursedWeapon
 		_hungryTime = _durationLost * 60;
 		
 		// Activate the daily timer.
-		_dailyTimer = ThreadPool.scheduleAtFixedRate(new DailyTimer(), 60000L, 60000L);
+		_dailyTimer = ThreadPool.INSTANCE.scheduleAtFixedRate(new DailyTimer(), 60000L, 60000L);
 		
 		// Cancel the "1h dropped CW" timer.
 		cancelDropTimer();

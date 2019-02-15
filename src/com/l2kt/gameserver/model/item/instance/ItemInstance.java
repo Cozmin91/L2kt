@@ -1,5 +1,35 @@
 package com.l2kt.gameserver.model.item.instance;
 
+import com.l2kt.Config;
+import com.l2kt.L2DatabaseFactory;
+import com.l2kt.commons.concurrent.ThreadPool;
+import com.l2kt.gameserver.data.ItemTable;
+import com.l2kt.gameserver.data.manager.CastleManager;
+import com.l2kt.gameserver.geoengine.GeoEngine;
+import com.l2kt.gameserver.idfactory.IdFactory;
+import com.l2kt.gameserver.model.L2Augmentation;
+import com.l2kt.gameserver.model.ShotType;
+import com.l2kt.gameserver.model.World;
+import com.l2kt.gameserver.model.WorldObject;
+import com.l2kt.gameserver.model.actor.Creature;
+import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
+import com.l2kt.gameserver.model.actor.instance.Player;
+import com.l2kt.gameserver.model.entity.Castle;
+import com.l2kt.gameserver.model.item.MercenaryTicket;
+import com.l2kt.gameserver.model.item.kind.Armor;
+import com.l2kt.gameserver.model.item.kind.EtcItem;
+import com.l2kt.gameserver.model.item.kind.Item;
+import com.l2kt.gameserver.model.item.kind.Weapon;
+import com.l2kt.gameserver.model.item.type.EtcItemType;
+import com.l2kt.gameserver.model.item.type.ItemType;
+import com.l2kt.gameserver.model.location.Location;
+import com.l2kt.gameserver.network.SystemMessageId;
+import com.l2kt.gameserver.network.serverpackets.*;
+import com.l2kt.gameserver.scripting.Quest;
+import com.l2kt.gameserver.scripting.QuestState;
+import com.l2kt.gameserver.skills.basefuncs.Func;
+import com.l2kt.gameserver.taskmanager.ItemsOnGroundTaskManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,41 +39,6 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-
-import com.l2kt.Config;
-import com.l2kt.L2DatabaseFactory;
-import com.l2kt.commons.concurrent.ThreadPool;
-import com.l2kt.gameserver.data.ItemTable;
-import com.l2kt.gameserver.data.manager.CastleManager;
-import com.l2kt.gameserver.model.L2Augmentation;
-import com.l2kt.gameserver.model.ShotType;
-import com.l2kt.gameserver.model.World;
-import com.l2kt.gameserver.model.WorldObject;
-import com.l2kt.gameserver.model.item.MercenaryTicket;
-import com.l2kt.gameserver.model.item.kind.Armor;
-import com.l2kt.gameserver.model.item.kind.EtcItem;
-import com.l2kt.gameserver.model.item.kind.Item;
-import com.l2kt.gameserver.model.item.kind.Weapon;
-import com.l2kt.gameserver.model.item.type.EtcItemType;
-import com.l2kt.gameserver.model.item.type.ItemType;
-
-import com.l2kt.gameserver.geoengine.GeoEngine;
-import com.l2kt.gameserver.idfactory.IdFactory;
-import com.l2kt.gameserver.model.actor.Creature;
-import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
-import com.l2kt.gameserver.model.actor.instance.Player;
-import com.l2kt.gameserver.model.entity.Castle;
-import com.l2kt.gameserver.model.location.Location;
-import com.l2kt.gameserver.network.SystemMessageId;
-import com.l2kt.gameserver.network.serverpackets.ActionFailed;
-import com.l2kt.gameserver.network.serverpackets.DropItem;
-import com.l2kt.gameserver.network.serverpackets.GetItem;
-import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2kt.gameserver.network.serverpackets.SpawnItem;
-import com.l2kt.gameserver.scripting.Quest;
-import com.l2kt.gameserver.scripting.QuestState;
-import com.l2kt.gameserver.skills.basefuncs.Func;
-import com.l2kt.gameserver.taskmanager.ItemsOnGroundTaskManager;
 
 /**
  * This class manages items.
@@ -930,7 +925,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 	 */
 	public final void dropMe(Creature dropper, int x, int y, int z)
 	{
-		ThreadPool.execute(new ItemDropTask(this, dropper, x, y, z));
+		ThreadPool.INSTANCE.execute(new ItemDropTask(this, dropper, x, y, z));
 	}
 	
 	public class ItemDropTask implements Runnable
@@ -1115,7 +1110,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 	public synchronized void setDropProtection(int ownerId, boolean isRaidParty)
 	{
 		_ownerId = ownerId;
-		_dropProtection = ThreadPool.schedule(this, (isRaidParty) ? RAID_LOOT_PROTECTION_TIME : REGULAR_LOOT_PROTECTION_TIME);
+		_dropProtection = ThreadPool.INSTANCE.schedule(this, (isRaidParty) ? RAID_LOOT_PROTECTION_TIME : REGULAR_LOOT_PROTECTION_TIME);
 	}
 	
 	public synchronized void removeDropProtection()

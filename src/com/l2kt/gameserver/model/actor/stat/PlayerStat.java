@@ -394,7 +394,7 @@ public class PlayerStat extends PlayableStat
 		// apply zone modifier before final calculation
 		if (getActiveChar().isInsideZone(ZoneId.SWAMP))
 		{
-			final SwampZone zone = ZoneManager.getInstance().getZone(getActiveChar(), SwampZone.class);
+			final SwampZone zone = ZoneManager.INSTANCE.getZone(getActiveChar(), SwampZone.class);
 			if (zone != null)
 				baseValue *= (100 + zone.getMoveBonus()) / 100.0;
 		}

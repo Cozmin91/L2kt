@@ -80,7 +80,7 @@ class Request(private val _player: Player) {
     }
 
     private fun clearRequestOnTimeout() {
-        _requestTimer = ThreadPool.schedule({ clear() }, REQUEST_TIMEOUT.toLong())
+        _requestTimer = ThreadPool.schedule(Runnable{ clear() }, REQUEST_TIMEOUT.toLong())
     }
 
     /**

@@ -469,7 +469,7 @@ public class Door extends Creature implements IGeoObject
 			
 			// try to schedule automatic state change
 			if (time > 0)
-				ThreadPool.schedule(() -> changeState(!open, false), time * 1000);
+				ThreadPool.INSTANCE.schedule(() -> changeState(!open, false), time * 1000);
 		}
 	}
 	

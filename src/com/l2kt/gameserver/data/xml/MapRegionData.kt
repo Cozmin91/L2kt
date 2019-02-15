@@ -43,7 +43,7 @@ object MapRegionData : IXmlReader {
      * @return a [TownZone] based on the overall list of existing towns, matching the townId.
      */
     fun getTown(townId: Int): TownZone? {
-        return ZoneManager.getInstance().getAllZones(TownZone::class.java).stream()
+        return ZoneManager.getAllZones(TownZone::class.java).stream()
             .filter { t -> t.townId == townId }.findFirst().orElse(null)
     }
 
@@ -54,7 +54,7 @@ object MapRegionData : IXmlReader {
      * @return a [TownZone] based on the overall list of existing towns, matching X/Y/Z points.
      */
     fun getTown(x: Int, y: Int, z: Int): TownZone? {
-        return ZoneManager.getInstance().getZone(x, y, z, TownZone::class.java)
+        return ZoneManager.getZone(x, y, z, TownZone::class.java)
     }
 
     enum class TeleportType {
@@ -225,7 +225,7 @@ object MapRegionData : IXmlReader {
             return getClosestTown(creature)!!.randomChaoticLoc
 
         // Check if player is in arena.
-        val arena = ZoneManager.getInstance().getZone(creature, ArenaZone::class.java)
+        val arena = ZoneManager.getZone(creature, ArenaZone::class.java)
         return if (arena != null) arena.randomLoc else getClosestTown(creature)!!.randomLoc
 
         // Retrieve a random spawn location of the nearest town.

@@ -24,7 +24,7 @@ internal class EffectRoot(env: Env, template: EffectTemplate) : L2Effect(env, te
         return false
     }
 
-    override fun onSameEffect(effect: L2Effect): Boolean {
+    override fun onSameEffect(effect: L2Effect?): Boolean {
         return false
     }
 

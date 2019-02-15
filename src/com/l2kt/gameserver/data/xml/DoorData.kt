@@ -3,6 +3,7 @@ package com.l2kt.gameserver.data.xml
 import com.l2kt.commons.data.xml.IXmlReader
 import com.l2kt.commons.geometry.Polygon
 import com.l2kt.gameserver.data.manager.CastleManager
+import com.l2kt.gameserver.data.xml.DoorData.forEach
 import com.l2kt.gameserver.geoengine.GeoEngine
 import com.l2kt.gameserver.geoengine.geodata.GeoStructure
 import com.l2kt.gameserver.idfactory.IdFactory
@@ -169,7 +170,7 @@ object DoorData : IXmlReader {
             castle.loadDoorUpgrade()
     }
 
-    fun getDoor(id: Int): Door {
-        return _doors[id]!!
+    fun getDoor(id: Int): Door? {
+        return _doors[id]
     }
 }

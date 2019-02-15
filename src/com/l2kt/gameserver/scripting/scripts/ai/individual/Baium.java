@@ -40,7 +40,7 @@ import com.l2kt.gameserver.templates.StatsSet;
  */
 public class Baium extends L2AttackableAIScript
 {
-	private static final BossZone BAIUM_LAIR = ZoneManager.getInstance().getZoneById(110002, BossZone.class);
+	private static final BossZone BAIUM_LAIR = ZoneManager.INSTANCE.getZoneById(110002, BossZone.class);
 	
 	private static final int STONE_BAIUM = 29025;
 	private static final int LIVE_BAIUM = 29020;

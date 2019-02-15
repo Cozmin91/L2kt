@@ -141,7 +141,7 @@ public class SepulcherNpc extends Folk
 					broadcastNpcSay("You can start at the scheduled time.");
 					return;
 				}
-				FourSepulchersManager.getInstance().spawnMonster(getNpcId());
+				FourSepulchersManager.INSTANCE.spawnMonster(getNpcId());
 				deleteMe();
 				break;
 			
@@ -202,7 +202,7 @@ public class SepulcherNpc extends Folk
 			final ItemInstance hallsKey = player.getInventory().getItemByItemId(HALLS_KEY);
 			if (hallsKey == null)
 				showHtmlFile(player, "Gatekeeper-no.htm");
-			else if (FourSepulchersManager.getInstance().isAttackTime())
+			else if (FourSepulchersManager.INSTANCE.isAttackTime())
 			{
 				switch (getNpcId())
 				{
@@ -210,7 +210,7 @@ public class SepulcherNpc extends Folk
 					case 31934:
 					case 31939:
 					case 31944:
-						FourSepulchersManager.getInstance().spawnShadow(getNpcId());
+						FourSepulchersManager.INSTANCE.spawnShadow(getNpcId());
 					default:
 					{
 						openNextDoor(getNpcId());
@@ -237,17 +237,17 @@ public class SepulcherNpc extends Folk
 	
 	public void openNextDoor(int npcId)
 	{
-		final int doorId = FourSepulchersManager.getInstance().getHallGateKeepers().get(npcId);
+		final int doorId = FourSepulchersManager.INSTANCE.getHallGateKeepers().get(npcId);
 		final Door door = DoorData.INSTANCE.getDoor(doorId);
 		
 		// Open the door.
 		door.openMe();
 		
 		// Schedule the automatic door close.
-		ThreadPool.schedule(() -> door.closeMe(), 10000);
+		ThreadPool.INSTANCE.schedule(() -> door.closeMe(), 10000);
 		
 		// Spawn the next mysterious box.
-		FourSepulchersManager.getInstance().spawnMysteriousBox(npcId);
+		FourSepulchersManager.INSTANCE.spawnMysteriousBox(npcId);
 		
 		sayInShout("The monsters have spawned!");
 	}

@@ -213,9 +213,9 @@ public class AutoSpawnManager
 				AutoSpawner rs = new AutoSpawner(objectId);
 				
 				if (spawnInst._desDelay > 0)
-					spawnTask = ThreadPool.scheduleAtFixedRate(rs, spawnInst._initDelay, spawnInst._resDelay);
+					spawnTask = ThreadPool.INSTANCE.scheduleAtFixedRate(rs, spawnInst._initDelay, spawnInst._resDelay);
 				else
-					spawnTask = ThreadPool.schedule(rs, spawnInst._initDelay);
+					spawnTask = ThreadPool.INSTANCE.schedule(rs, spawnInst._initDelay);
 				
 				_runningSpawns.put(objectId, spawnTask);
 			}
@@ -227,7 +227,7 @@ public class AutoSpawnManager
 				if (spawnTask != null)
 					spawnTask.cancel(false);
 				
-				ThreadPool.schedule(rd, 0);
+				ThreadPool.INSTANCE.schedule(rd, 0);
 			}
 			
 			spawnInst.setSpawnActive(isActive);
@@ -416,7 +416,7 @@ public class AutoSpawnManager
 				
 				// If there is no despawn time, do not create a despawn task.
 				if (spawnInst.getDespawnDelay() > 0)
-					ThreadPool.schedule(new AutoDespawner(_objectId), spawnInst.getDespawnDelay() - 1000);
+					ThreadPool.INSTANCE.schedule(new AutoDespawner(_objectId), spawnInst.getDespawnDelay() - 1000);
 			}
 			catch (Exception e)
 			{

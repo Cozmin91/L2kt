@@ -1,7 +1,5 @@
 package com.l2kt.gameserver.model.actor.ai.type;
 
-import java.util.concurrent.Future;
-
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.gameserver.model.L2Skill;
 import com.l2kt.gameserver.model.WorldObject;
@@ -11,18 +9,13 @@ import com.l2kt.gameserver.model.actor.ai.CtrlEvent;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
 import com.l2kt.gameserver.model.actor.ai.Desire;
 import com.l2kt.gameserver.model.actor.ai.NextAction;
-
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.location.Location;
 import com.l2kt.gameserver.model.location.SpawnLocation;
-import com.l2kt.gameserver.network.serverpackets.AutoAttackStart;
-import com.l2kt.gameserver.network.serverpackets.AutoAttackStop;
-import com.l2kt.gameserver.network.serverpackets.Die;
-import com.l2kt.gameserver.network.serverpackets.MoveToLocation;
-import com.l2kt.gameserver.network.serverpackets.MoveToPawn;
-import com.l2kt.gameserver.network.serverpackets.StopMove;
-import com.l2kt.gameserver.network.serverpackets.StopRotation;
+import com.l2kt.gameserver.network.serverpackets.*;
 import com.l2kt.gameserver.taskmanager.AttackStanceTaskManager;
+
+import java.util.concurrent.Future;
 
 abstract class AbstractAI
 {
@@ -541,7 +534,7 @@ abstract class AbstractAI
 		
 		// Create and Launch an AI Follow Task to execute every 1s
 		_followTarget = target;
-		_followTask = ThreadPool.scheduleAtFixedRate(new FollowTask(), 5, FOLLOW_INTERVAL);
+		_followTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new FollowTask(), 5, FOLLOW_INTERVAL);
 	}
 	
 	/**
@@ -558,7 +551,7 @@ abstract class AbstractAI
 		}
 		
 		_followTarget = target;
-		_followTask = ThreadPool.scheduleAtFixedRate(new FollowTask(range), 5, ATTACK_FOLLOW_INTERVAL);
+		_followTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new FollowTask(range), 5, ATTACK_FOLLOW_INTERVAL);
 	}
 	
 	/**

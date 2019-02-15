@@ -34,7 +34,7 @@ object ArmorSetData : IXmlReader {
         }
     }
 
-    fun getSet(chestId: Int): ArmorSet {
-        return _armorSets[chestId]!!
+    fun getSet(chestId: Int): ArmorSet? {
+        return _armorSets[chestId]
     }
 }

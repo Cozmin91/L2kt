@@ -129,7 +129,7 @@ public class Party extends AbstractGroup
 			member.broadcastUserInfo();
 		}
 		
-		_positionBroadcastTask = ThreadPool.scheduleAtFixedRate(new PositionBroadcast(), PARTY_POSITION_BROADCAST / 2, PARTY_POSITION_BROADCAST);
+		_positionBroadcastTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new PositionBroadcast(), PARTY_POSITION_BROADCAST / 2, PARTY_POSITION_BROADCAST);
 	}
 	
 	@Override

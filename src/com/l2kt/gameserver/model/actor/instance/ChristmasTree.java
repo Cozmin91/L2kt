@@ -30,7 +30,7 @@ public class ChristmasTree extends Folk
 			if (recoveryAura == null)
 				return;
 			
-			_aiTask = ThreadPool.scheduleAtFixedRate(() ->
+			_aiTask = ThreadPool.INSTANCE.scheduleAtFixedRate(() ->
 			{
 				for (Player player : getKnownTypeInRadius(Player.class, 200))
 				{

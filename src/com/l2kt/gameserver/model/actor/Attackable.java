@@ -143,7 +143,7 @@ public class Attackable extends Npc
 								{
 									_commandChannelTimer = new CommandChannelTimer(this);
 									_commandChannelLastAttack = System.currentTimeMillis();
-									ThreadPool.schedule(_commandChannelTimer, 10000); // check for last attack
+									ThreadPool.INSTANCE.schedule(_commandChannelTimer, 10000); // check for last attack
 								}
 							}
 						}
@@ -181,7 +181,7 @@ public class Attackable extends Npc
 		final List<Quest> scripts = getTemplate().getEventQuests(EventType.ON_KILL);
 		if (scripts != null)
 			for (Quest quest : scripts)
-				ThreadPool.schedule(() -> quest.notifyKill(this, killer), 3000);
+				ThreadPool.INSTANCE.schedule(() -> quest.notifyKill(this, killer), 3000);
 			
 		_attackByList.clear();
 		
@@ -1596,7 +1596,7 @@ public class Attackable extends Npc
 				_monster.setCommandChannelLastAttack(0);
 			}
 			else
-				ThreadPool.schedule(this, 10000); // 10sec
+				ThreadPool.INSTANCE.schedule(this, 10000); // 10sec
 		}
 	}
 	

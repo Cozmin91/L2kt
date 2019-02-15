@@ -1,10 +1,9 @@
 package com.l2kt.gameserver.taskmanager
 
-import java.util.concurrent.ConcurrentHashMap
-
 import com.l2kt.commons.concurrent.ThreadPool
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.ai.CtrlEvent
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Updates position of moving [Creature] periodically.
@@ -34,7 +33,7 @@ object MovementTaskManager : Runnable {
             characters.remove(character)
 
             val ai = character.ai ?: return@forEach
-            ThreadPool.execute { ai.notifyEvent(CtrlEvent.EVT_ARRIVED) }
+            ThreadPool.execute( Runnable{ ai.notifyEvent(CtrlEvent.EVT_ARRIVED) })
         }
     }
 

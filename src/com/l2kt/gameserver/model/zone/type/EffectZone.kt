@@ -73,15 +73,15 @@ class EffectZone(id: Int) : ZoneType(id) {
         if (_task == null) {
             synchronized(this) {
                 if (_task == null)
-                    _task = ThreadPool.scheduleAtFixedRate({
+                    _task = ThreadPool.scheduleAtFixedRate(Runnable{
                         if (!_isEnabled)
-                            return@scheduleAtFixedRate
+                            return@Runnable
 
                         if (_characters.isEmpty()) {
                             _task!!.cancel(true)
                             _task = null
 
-                            return@scheduleAtFixedRate
+                            return@Runnable
                         }
 
                         for (temp in _characters.values) {

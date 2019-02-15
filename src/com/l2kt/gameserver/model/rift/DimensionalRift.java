@@ -1,22 +1,21 @@
 package com.l2kt.gameserver.model.rift;
 
+import com.l2kt.Config;
+import com.l2kt.commons.concurrent.ThreadPool;
+import com.l2kt.commons.random.Rnd;
+import com.l2kt.gameserver.data.manager.DimensionalRiftManager;
+import com.l2kt.gameserver.model.WorldObject;
+import com.l2kt.gameserver.model.actor.Npc;
+import com.l2kt.gameserver.model.actor.instance.Player;
+import com.l2kt.gameserver.model.group.Party;
+import com.l2kt.gameserver.network.serverpackets.Earthquake;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
-
-import com.l2kt.Config;
-import com.l2kt.commons.concurrent.ThreadPool;
-import com.l2kt.commons.random.Rnd;
-import com.l2kt.gameserver.data.manager.DimensionalRiftManager;
-import com.l2kt.gameserver.model.WorldObject;
-
-import com.l2kt.gameserver.model.actor.Npc;
-import com.l2kt.gameserver.model.actor.instance.Player;
-import com.l2kt.gameserver.model.group.Party;
-import com.l2kt.gameserver.network.serverpackets.Earthquake;
 
 /**
  * The main core of Dimension Rift system, which is part of Seven Signs.<br>
@@ -119,19 +118,19 @@ public class DimensionalRift
 			_earthQuakeTask = null;
 		}
 		
-		_spawnTimerTask = ThreadPool.schedule(() -> _room.spawn(), Config.RIFT_SPAWN_DELAY);
+		_spawnTimerTask = ThreadPool.INSTANCE.schedule(() -> _room.spawn(), Config.RIFT_SPAWN_DELAY);
 		
 		long jumpTime = Rnd.INSTANCE.get(Config.RIFT_AUTO_JUMPS_TIME_MIN, Config.RIFT_AUTO_JUMPS_TIME_MAX) * 1000;
 		if (_room.isBossRoom())
 			jumpTime *= Config.RIFT_BOSS_ROOM_TIME_MUTIPLY;
 		
-		_earthQuakeTask = ThreadPool.schedule(() ->
+		_earthQuakeTask = ThreadPool.INSTANCE.schedule(() ->
 		{
 			for (Player member : getAvailablePlayers(_party))
 				member.sendPacket(new Earthquake(member.getX(), member.getY(), member.getZ(), 65, 9));
 		}, jumpTime - 7000);
 		
-		_teleporterTimerTask = ThreadPool.schedule(() ->
+		_teleporterTimerTask = ThreadPool.INSTANCE.schedule(() ->
 		{
 			_room.unspawn();
 			

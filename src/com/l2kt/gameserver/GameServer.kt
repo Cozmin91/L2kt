@@ -133,7 +133,7 @@ object GameServer {
         GeoEngine.getInstance()
 
         printSection("Zones")
-        ZoneManager.getInstance()
+        ZoneManager
 
         printSection("Castles")
         CastleManager
@@ -175,7 +175,7 @@ object GameServer {
         Hero.getInstance()
 
         printSection("Four Sepulchers")
-        FourSepulchersManager.getInstance()
+        FourSepulchersManager
 
         printSection("Quests & Scripts")
         ScriptData
@@ -191,13 +191,13 @@ object GameServer {
 
         printSection("Events")
         DerbyTrackManager
-        LotteryManager.getInstance()
+        LotteryManager
 
         if (Config.ALLOW_WEDDING)
             CoupleManager
 
         if (Config.ALT_FISH_CHAMPIONSHIP_ENABLED)
-            FishingChampionshipManager.getInstance()
+            FishingChampionshipManager
 
         printSection("Handlers")
         LOGGER.info("AutoSpawnHandler: Loaded {} handlers.", AutoSpawnManager.getInstance().size())
@@ -222,7 +222,7 @@ object GameServer {
 
         System.gc()
 
-        LOGGER.info("Gameserver has started, used memory: {} / {} Mo.", SysUtil.getUsedMemory(), SysUtil.getMaxMemory())
+        LOGGER.info("Gameserver has started, used memory: {} / {} Mo.", SysUtil.usedMemory, SysUtil.maxMemory)
         LOGGER.info("Maximum allowed players: {}.", Config.MAXIMUM_ONLINE_USERS)
 
         printSection("Login")

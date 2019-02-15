@@ -40,7 +40,7 @@ class FusionSkill(caster: Creature, target: Creature, skill: L2Skill) {
             else
                 _log.warning("Triggered skill [$_fusionId;$_fusionLevel] not found!")
         }
-        _geoCheckTask = ThreadPool.scheduleAtFixedRate(GeoCheckTask(), 1000, 1000)
+        _geoCheckTask = ThreadPool.scheduleAtFixedRate(GeoCheckTask(), 1000, 1000)!!
     }
 
     fun onCastAbort() {

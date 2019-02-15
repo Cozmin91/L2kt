@@ -154,7 +154,7 @@ public class RaidBossSpawnManager
 			{
 				_log.info("RaidBoss: " + boss.getName() + " - " + new SimpleDateFormat("dd-MM-yyyy HH:mm").format(respawnTime) + " (" + respawnDelay + "h).");
 				
-				_schedules.put(boss.getNpcId(), ThreadPool.schedule(new spawnSchedule(boss.getNpcId()), respawnDelay * 3600000));
+				_schedules.put(boss.getNpcId(), ThreadPool.INSTANCE.schedule(new spawnSchedule(boss.getNpcId()), respawnDelay * 3600000));
 				updateDb();
 			}
 		}
@@ -214,7 +214,7 @@ public class RaidBossSpawnManager
 		else
 		{
 			long spawnTime = respawnTime - Calendar.getInstance().getTimeInMillis();
-			_schedules.put(bossId, ThreadPool.schedule(new spawnSchedule(bossId), spawnTime));
+			_schedules.put(bossId, ThreadPool.INSTANCE.schedule(new spawnSchedule(bossId), spawnTime));
 		}
 		
 		_spawns.put(bossId, spawnDat);

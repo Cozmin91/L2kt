@@ -1,16 +1,15 @@
 package com.l2kt.gameserver.model.actor.status;
 
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Future;
-
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.model.actor.Creature;
-import com.l2kt.gameserver.model.actor.stat.CreatureStat;
-
 import com.l2kt.gameserver.model.actor.instance.Player;
+import com.l2kt.gameserver.model.actor.stat.CreatureStat;
 import com.l2kt.gameserver.skills.Formulas;
+
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Future;
 
 public class CreatureStatus
 {
@@ -145,7 +144,7 @@ public class CreatureStatus
 			final int period = Formulas.getRegeneratePeriod(getActiveChar());
 			
 			// Create the HP/MP/CP regeneration task.
-			_regTask = ThreadPool.scheduleAtFixedRate(() -> doRegeneration(), period, period);
+			_regTask = ThreadPool.INSTANCE.scheduleAtFixedRate(() -> doRegeneration(), period, period);
 		}
 	}
 	

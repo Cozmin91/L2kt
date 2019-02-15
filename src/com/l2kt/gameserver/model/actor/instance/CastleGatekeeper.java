@@ -1,14 +1,13 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.StringTokenizer;
-
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.gameserver.data.xml.MapRegionData;
 import com.l2kt.gameserver.model.World;
-
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2kt.gameserver.network.serverpackets.NpcSay;
+
+import java.util.StringTokenizer;
 
 public class CastleGatekeeper extends Folk
 {
@@ -41,7 +40,7 @@ public class CastleGatekeeper extends Folk
 					_delay = 0;
 				
 				_currentTask = true;
-				ThreadPool.schedule(new oustAllPlayers(), _delay);
+				ThreadPool.INSTANCE.schedule(new oustAllPlayers(), _delay);
 			}
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());

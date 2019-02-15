@@ -103,9 +103,9 @@ class MinionList(private val _master: Monster) {
         _minions[minion] = false
 
         if (minion.isRaidRelated && respawnTime > 0 && !_master.isAlikeDead) {
-            ThreadPool.schedule({
+            ThreadPool.schedule(Runnable{
                 // Master is visible, but minion isn't spawned back (via teleport, for example).
-                if (!_master.isAlikeDead && _master.isVisible && !_minions[minion]!!) {
+                if (!_master.isAlikeDead && _master.isVisible && _minions[minion] == false) {
                     minion.refreshID()
                     initializeNpcInstance(_master, minion)
                 }

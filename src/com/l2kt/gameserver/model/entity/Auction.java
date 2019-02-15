@@ -206,7 +206,7 @@ public class Auction
 		else
 			taskDelay = _endDate - currentTime;
 		
-		ThreadPool.schedule(new AutoEndTask(), taskDelay);
+		ThreadPool.INSTANCE.schedule(new AutoEndTask(), taskDelay);
 	}
 	
 	/** Save Auction Data End */
@@ -431,7 +431,7 @@ public class Auction
 		}
 		// Task waiting ClanHallManager is loaded every 3s
 		else
-			ThreadPool.schedule(new AutoEndTask(), 3000);
+			ThreadPool.INSTANCE.schedule(new AutoEndTask(), 3000);
 	}
 	
 	/**

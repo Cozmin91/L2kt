@@ -78,7 +78,7 @@ class RequestAuthLogin : L2LoginClientPacket() {
 
             LoginController.AuthLoginResult.ALREADY_ON_LS -> {
                 val oldClient = LoginController.getAuthedClient(info.login)
-                oldClient.close(LoginFail.REASON_ACCOUNT_IN_USE)
+                oldClient?.close(LoginFail.REASON_ACCOUNT_IN_USE)
                 LoginController.removeAuthedLoginClient(info.login)
                 client.close(LoginFail.REASON_ACCOUNT_IN_USE)
             }

@@ -1,10 +1,5 @@
 package com.l2kt.gameserver.model.actor;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.l2kt.Config;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.lang.StringUtil;
@@ -19,17 +14,9 @@ import com.l2kt.gameserver.data.xml.MultisellData;
 import com.l2kt.gameserver.data.xml.NewbieBuffData;
 import com.l2kt.gameserver.data.xml.ScriptData;
 import com.l2kt.gameserver.extensions.BroadcastExtensionsKt;
-import com.l2kt.gameserver.model.item.instance.ItemInstance;
-import com.l2kt.gameserver.model.item.kind.Item;
-import com.l2kt.gameserver.model.item.kind.Weapon;
-
 import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.idfactory.IdFactory;
-import com.l2kt.gameserver.model.L2Skill;
-import com.l2kt.gameserver.model.L2Spawn;
-import com.l2kt.gameserver.model.NewbieBuff;
-import com.l2kt.gameserver.model.ShotType;
-import com.l2kt.gameserver.model.WorldObject;
+import com.l2kt.gameserver.model.*;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
 import com.l2kt.gameserver.model.actor.instance.Merchant;
 import com.l2kt.gameserver.model.actor.instance.Monster;
@@ -41,26 +28,25 @@ import com.l2kt.gameserver.model.actor.template.NpcTemplate.AIType;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.Race;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.SkillType;
 import com.l2kt.gameserver.model.entity.Castle;
+import com.l2kt.gameserver.model.item.instance.ItemInstance;
+import com.l2kt.gameserver.model.item.kind.Item;
+import com.l2kt.gameserver.model.item.kind.Weapon;
 import com.l2kt.gameserver.model.pledge.Clan;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.clientpackets.Say2;
 import com.l2kt.gameserver.network.serverpackets.AbstractNpcInfo.NpcInfo;
-import com.l2kt.gameserver.network.serverpackets.ActionFailed;
-import com.l2kt.gameserver.network.serverpackets.ExShowVariationCancelWindow;
-import com.l2kt.gameserver.network.serverpackets.ExShowVariationMakeWindow;
-import com.l2kt.gameserver.network.serverpackets.MagicSkillUse;
-import com.l2kt.gameserver.network.serverpackets.MoveToPawn;
-import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2kt.gameserver.network.serverpackets.NpcSay;
-import com.l2kt.gameserver.network.serverpackets.ServerObjectInfo;
-import com.l2kt.gameserver.network.serverpackets.SocialAction;
-import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+import com.l2kt.gameserver.network.serverpackets.*;
 import com.l2kt.gameserver.scripting.EventType;
 import com.l2kt.gameserver.scripting.Quest;
 import com.l2kt.gameserver.scripting.QuestState;
 import com.l2kt.gameserver.taskmanager.DecayTaskManager;
 import com.l2kt.gameserver.taskmanager.RandomAnimationTaskManager;
 import com.l2kt.gameserver.templates.skills.L2SkillType;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * An instance type extending {@link Creature}, which represents a Non Playable Character (or NPC) in the world.
@@ -768,13 +754,13 @@ public class Npc extends Creature
 		}
 		else if (val >= 1 && val <= 21) // 1-20 - buttons, 21 - second buy lottery ticket window
 		{
-			if (!LotteryManager.getInstance().isStarted())
+			if (!LotteryManager.INSTANCE.isStarted())
 			{
 				// tickets can't be sold
 				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD);
 				return;
 			}
-			if (!LotteryManager.getInstance().isSellableTickets())
+			if (!LotteryManager.INSTANCE.isSellableTickets())
 			{
 				// tickets can't be sold
 				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE);
@@ -832,13 +818,13 @@ public class Npc extends Creature
 		}
 		else if (val == 22) // 22 - selected ticket with 5 numbers
 		{
-			if (!LotteryManager.getInstance().isStarted())
+			if (!LotteryManager.INSTANCE.isStarted())
 			{
 				// tickets can't be sold
 				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD);
 				return;
 			}
-			if (!LotteryManager.getInstance().isSellableTickets())
+			if (!LotteryManager.INSTANCE.isSellableTickets())
 			{
 				// tickets can't be sold
 				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE);
@@ -846,7 +832,7 @@ public class Npc extends Creature
 			}
 			
 			int price = Config.ALT_LOTTERY_TICKET_PRICE;
-			int lotonumber = LotteryManager.getInstance().getId();
+			int lotonumber = LotteryManager.INSTANCE.getId();
 			int enchant = 0;
 			int type2 = 0;
 			
@@ -864,7 +850,7 @@ public class Npc extends Creature
 			if (!player.reduceAdena("Loto", price, this, true))
 				return;
 			
-			LotteryManager.getInstance().increasePrize(price);
+			LotteryManager.INSTANCE.increasePrize(price);
 			
 			ItemInstance item = new ItemInstance(IdFactory.getInstance().getNextId(), 4442);
 			item.setCount(1);
@@ -883,7 +869,7 @@ public class Npc extends Creature
 		}
 		else if (val == 24) // 24 - Previous winning numbers/Prize claim
 		{
-			final int lotoNumber = LotteryManager.getInstance().getId();
+			final int lotoNumber = LotteryManager.INSTANCE.getId();
 			
 			final StringBuilder sb = new StringBuilder();
 			for (ItemInstance item : player.getInventory().getItems())
@@ -895,11 +881,11 @@ public class Npc extends Creature
 				{
 					StringUtil.INSTANCE.append(sb, "<a action=\"bypass -h npc_%objectId%_Loto ", item.getObjectId(), "\">", item.getCustomType1(), " Event Number ");
 					
-					int[] numbers = LotteryManager.decodeNumbers(item.getEnchantLevel(), item.getCustomType2());
+					int[] numbers = LotteryManager.INSTANCE.decodeNumbers(item.getEnchantLevel(), item.getCustomType2());
 					for (int i = 0; i < 5; i++)
 						StringUtil.INSTANCE.append(sb, numbers[i], " ");
 					
-					int[] check = LotteryManager.checkTicket(item);
+					int[] check = LotteryManager.INSTANCE.checkTicket(item);
 					if (check[0] > 0)
 					{
 						switch (check[0])
@@ -940,22 +926,22 @@ public class Npc extends Creature
 		else if (val > 25) // >25 - check lottery ticket by item object id
 		{
 			final ItemInstance item = player.getInventory().getItemByObjectId(val);
-			if (item == null || item.getItemId() != 4442 || item.getCustomType1() >= LotteryManager.getInstance().getId())
+			if (item == null || item.getItemId() != 4442 || item.getCustomType1() >= LotteryManager.INSTANCE.getId())
 				return;
 			
 			if (player.destroyItem("Loto", item, this, true))
 			{
-				final int adena = LotteryManager.checkTicket(item)[1];
+				final int adena = LotteryManager.INSTANCE.checkTicket(item)[1];
 				if (adena > 0)
 					player.addAdena("Loto", adena, this, true);
 			}
 			return;
 		}
 		html.replace("%objectId%", getObjectId());
-		html.replace("%race%", LotteryManager.getInstance().getId());
-		html.replace("%adena%", LotteryManager.getInstance().getPrize());
+		html.replace("%race%", LotteryManager.INSTANCE.getId());
+		html.replace("%adena%", LotteryManager.INSTANCE.getPrize());
 		html.replace("%ticket_price%", Config.ALT_LOTTERY_TICKET_PRICE);
-		html.replace("%enddate%", DateFormat.getDateInstance().format(LotteryManager.getInstance().getEndDate()));
+		html.replace("%enddate%", DateFormat.getDateInstance().format(LotteryManager.INSTANCE.getEndDate()));
 		player.sendPacket(html);
 		
 		// Send a Server->Client ActionFailed to the Player in order to avoid that the client wait another packet
@@ -1305,7 +1291,7 @@ public class Npc extends Creature
 	
 	public Npc scheduleDespawn(long delay)
 	{
-		ThreadPool.schedule(new DespawnTask(), delay);
+		ThreadPool.INSTANCE.schedule(new DespawnTask(), delay);
 		return this;
 	}
 	

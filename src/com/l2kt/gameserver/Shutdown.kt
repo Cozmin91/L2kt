@@ -70,7 +70,7 @@ class Shutdown : Thread {
             SevenSigns.getInstance().saveSevenSignsStatus()
             LOGGER.info("Seven Signs Festival, general data && status have been saved.")
 
-            ZoneManager.getInstance().save()
+            ZoneManager.save()
 
             RaidBossSpawnManager.getInstance().cleanUp()
             LOGGER.info("Raid Bosses data has been saved.")
@@ -87,7 +87,7 @@ class Shutdown : Thread {
             CastleManorManager.storeMe()
             LOGGER.info("Manors data has been saved.")
 
-            FishingChampionshipManager.getInstance().shutdown()
+            FishingChampionshipManager.shutdown()
             LOGGER.info("Fishing Championship data has been saved.")
 
             BufferManager.saveSchemes()

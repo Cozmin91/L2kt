@@ -94,7 +94,7 @@ public class GrandBossTeleporters extends Quest
 				st.takeItems(4295, 1);
 				
 				// allow entry for the player for the next 30 secs.
-				ZoneManager.getInstance().getZoneById(110002, BossZone.class).allowPlayerEntry(player, 30);
+				ZoneManager.INSTANCE.getZoneById(110002, BossZone.class).allowPlayerEntry(player, 30);
 				player.teleToLocation(BAIUM_IN, 0);
 			}
 		}
@@ -170,7 +170,7 @@ public class GrandBossTeleporters extends Quest
 					if (st.hasQuestItems(3865))
 					{
 						st.takeItems(3865, 1);
-						ZoneManager.getInstance().getZoneById(110001, BossZone.class).allowPlayerEntry(player, 30);
+						ZoneManager.INSTANCE.getZoneById(110001, BossZone.class).allowPlayerEntry(player, 30);
 						
 						player.teleToLocation(175300 + Rnd.INSTANCE.get(-350, 350), 115180 + Rnd.INSTANCE.get(-1000, 1000), -7709, 0);
 						
@@ -198,7 +198,7 @@ public class GrandBossTeleporters extends Quest
 					else if (st.getInt("allowEnter") == 1)
 					{
 						st.unset("allowEnter");
-						ZoneManager.getInstance().getZoneById(110010, BossZone.class).allowPlayerEntry(player, 30);
+						ZoneManager.INSTANCE.getZoneById(110010, BossZone.class).allowPlayerEntry(player, 30);
 						
 						player.teleToLocation(204328, -111874, 70, 300);
 						
@@ -279,7 +279,7 @@ public class GrandBossTeleporters extends Quest
 							// Take item from party leader.
 							st.takeItems(8784, 1);
 							
-							final BossZone nest = ZoneManager.getInstance().getZoneById(110011, BossZone.class);
+							final BossZone nest = ZoneManager.INSTANCE.getZoneById(110011, BossZone.class);
 							
 							// Teleport players.
 							for (Player member : party)

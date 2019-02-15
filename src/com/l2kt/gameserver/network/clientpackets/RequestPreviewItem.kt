@@ -99,7 +99,7 @@ class RequestPreviewItem : L2GameClientPacket() {
             activeChar.sendPacket(ShopPreviewInfo(_itemList))
 
             // Schedule task
-            ThreadPool.schedule({
+            ThreadPool.schedule(Runnable {
                 activeChar.sendPacket(SystemMessageId.NO_LONGER_TRYING_ON)
                 activeChar.sendPacket(UserInfo(activeChar))
             }, (Config.WEAR_DELAY * 1000).toLong())

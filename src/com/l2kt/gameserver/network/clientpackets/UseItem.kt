@@ -140,8 +140,8 @@ class UseItem : L2GameClientPacket() {
                 return
 
             if (activeChar.isAttackingNow)
-                ThreadPool.schedule({
-                    val itemToTest = activeChar.inventory!!.getItemByObjectId(_objectId) ?: return@schedule
+                ThreadPool.schedule(Runnable{
+                    val itemToTest = activeChar.inventory!!.getItemByObjectId(_objectId) ?: return@Runnable
 
                     activeChar.useEquippableItem(itemToTest, false)
                 }, activeChar.attackEndTime - System.currentTimeMillis())

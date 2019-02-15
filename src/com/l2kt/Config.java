@@ -1178,7 +1178,7 @@ public final class Config
         ITEM_AUTO_DESTROY_TIME = server.getProperty("AutoDestroyItemTime", 600) * 1000;
         EQUIPABLE_ITEM_AUTO_DESTROY_TIME = server.getProperty("AutoDestroyEquipableItemTime", 0) * 1000;
         SPECIAL_ITEM_DESTROY_TIME = new HashMap<>();
-        String[] data = server.getProperty("AutoDestroySpecialItemTime", (String[]) null, ",");
+        String[] data = server.getProperty("AutoDestroySpecialItemTime", new String[0], ",");
         if (data != null)
         {
             for (String itemData : data)

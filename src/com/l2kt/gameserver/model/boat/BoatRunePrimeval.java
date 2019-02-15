@@ -97,7 +97,7 @@ public class BoatRunePrimeval implements Runnable
 				break;
 			case 1:
 				BoatManager.INSTANCE.broadcastPackets(PRIMEVAL_DOCK, RUNE_DOCK[0], ARRIVED_AT_PRIMEVAL, ARRIVED_AT_PRIMEVAL_2, PRIMEVAL_SOUND);
-				ThreadPool.schedule(this, 180000);
+				ThreadPool.INSTANCE.schedule(this, 180000);
 				break;
 			case 2:
 				BoatManager.INSTANCE.broadcastPackets(PRIMEVAL_DOCK, RUNE_DOCK[0], LEAVING_PRIMEVAL, PRIMEVAL_SOUND);
@@ -114,7 +114,7 @@ public class BoatRunePrimeval implements Runnable
 					if (_shoutCount > 35)
 						_shoutCount = 0;
 					
-					ThreadPool.schedule(this, 5000);
+					ThreadPool.INSTANCE.schedule(this, 5000);
 					return;
 				}
 				BoatManager.INSTANCE.dockBoat(BoatManager.RUNE_HARBOR, true);
@@ -122,7 +122,7 @@ public class BoatRunePrimeval implements Runnable
 				break;
 			case 4:
 				BoatManager.INSTANCE.broadcastPackets(RUNE_DOCK[0], PRIMEVAL_DOCK, ARRIVED_AT_RUNE, ARRIVED_AT_RUNE_2, RUNE_SOUND);
-				ThreadPool.schedule(this, 180000);
+				ThreadPool.INSTANCE.schedule(this, 180000);
 				break;
 		}
 		_shoutCount = 0;

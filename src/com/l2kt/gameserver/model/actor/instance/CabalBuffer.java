@@ -58,7 +58,7 @@ public class CabalBuffer extends Folk
 	{
 		super(objectId, template);
 		
-		_aiTask = ThreadPool.scheduleAtFixedRate(new CabaleAI(this), 5000, 5000);
+		_aiTask = ThreadPool.INSTANCE.scheduleAtFixedRate(new CabaleAI(this), 5000, 5000);
 	}
 	
 	@Override
