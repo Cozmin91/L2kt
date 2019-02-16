@@ -63,11 +63,11 @@ class Shutdown : Thread {
             } catch (t: Throwable) {
             }
 
-            if (!SevenSigns.getInstance().isSealValidationPeriod)
-                SevenSignsFestival.getInstance().saveFestivalData(false)
+            if (!SevenSigns.isSealValidationPeriod)
+                SevenSignsFestival.saveFestivalData(false)
 
-            SevenSigns.getInstance().saveSevenSignsData()
-            SevenSigns.getInstance().saveSevenSignsStatus()
+            SevenSigns.saveSevenSignsData()
+            SevenSigns.saveSevenSignsStatus()
             LOGGER.info("Seven Signs Festival, general data && status have been saved.")
 
             ZoneManager.save()

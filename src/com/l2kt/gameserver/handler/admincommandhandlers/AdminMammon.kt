@@ -22,7 +22,7 @@ class AdminMammon : IAdminCommandHandler {
                 return false
             }
 
-            if (!SevenSigns.getInstance().isSealValidationPeriod) {
+            if (!SevenSigns.isSealValidationPeriod) {
                 activeChar.sendMessage("The competition period is currently in effect.")
                 return true
             }
@@ -58,7 +58,7 @@ class AdminMammon : IAdminCommandHandler {
             } else
                 activeChar.sendMessage("Invalid parameter '$teleportIndex' for //mammon_find.")
         } else if (command.startsWith("admin_mammon_respawn")) {
-            if (!SevenSigns.getInstance().isSealValidationPeriod) {
+            if (!SevenSigns.isSealValidationPeriod) {
                 activeChar.sendMessage("The competition period is currently in effect.")
                 return true
             }

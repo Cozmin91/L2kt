@@ -390,7 +390,7 @@ public class Castle
 	public void setTaxPercent(Player activeChar, int taxPercent)
 	{
 		int maxTax;
-		switch (SevenSigns.getInstance().getSealOwner(SealType.STRIFE))
+		switch (SevenSigns.INSTANCE.getSealOwner(SealType.STRIFE))
 		{
 			case DAWN:
 				maxTax = 25;

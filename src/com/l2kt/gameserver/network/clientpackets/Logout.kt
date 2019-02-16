@@ -29,7 +29,7 @@ class Logout : L2GameClientPacket() {
             return
         }
 
-        if (player.isFestivalParticipant && SevenSignsFestival.getInstance().isFestivalInitialized) {
+        if (player.isFestivalParticipant && SevenSignsFestival.isFestivalInitialized) {
             player.sendPacket(SystemMessageId.NO_LOGOUT_HERE)
             player.sendPacket(ActionFailed.STATIC_PACKET)
             return

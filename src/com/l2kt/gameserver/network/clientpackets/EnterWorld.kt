@@ -128,10 +128,10 @@ class EnterWorld : L2GameClientPacket() {
         }
 
         // Updating Seal of Strife Buff/Debuff
-        if (SevenSigns.getInstance().isSealValidationPeriod && SevenSigns.getInstance().getSealOwner(SealType.STRIFE) != CabalType.NORMAL) {
-            val cabal = SevenSigns.getInstance().getPlayerCabal(objectId)
+        if (SevenSigns.isSealValidationPeriod && SevenSigns.getSealOwner(SealType.STRIFE) != CabalType.NORMAL) {
+            val cabal = SevenSigns.getPlayerCabal(objectId)
             if (cabal != CabalType.NORMAL) {
-                if (cabal == SevenSigns.getInstance().getSealOwner(SealType.STRIFE))
+                if (cabal == SevenSigns.getSealOwner(SealType.STRIFE))
                     player.addSkill(SkillTable.FrequentSkill.THE_VICTOR_OF_WAR.skill, false)
                 else
                     player.addSkill(SkillTable.FrequentSkill.THE_VANQUISHED_OF_WAR.skill, false)
@@ -158,7 +158,7 @@ class EnterWorld : L2GameClientPacket() {
 
         // Announcements, welcome & Seven signs period messages
         player.sendPacket(SystemMessageId.WELCOME_TO_LINEAGE)
-        player.sendPacket(SevenSigns.getInstance().currentPeriod.messageId)
+        player.sendPacket(SevenSigns.currentPeriod.messageId)
         AnnouncementData.showAnnouncements(player, false)
 
         // if player is DE, check for shadow sense skill at night

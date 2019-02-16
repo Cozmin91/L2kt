@@ -52,13 +52,13 @@ class MercTicket : IItemHandler {
         }
 
         // Seal validation check.
-        if (!SevenSigns.getInstance().isSealValidationPeriod) {
+        if (!SevenSigns.isSealValidationPeriod) {
             activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE)
             return
         }
 
         // Seal of Strife owner check.
-        if (!ticket.isSsqType(SevenSigns.getInstance().getSealOwner(SealType.STRIFE))) {
+        if (!ticket.isSsqType(SevenSigns.getSealOwner(SealType.STRIFE))) {
             activeChar.sendPacket(SystemMessageId.THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE)
             return
         }

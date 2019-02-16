@@ -9,14 +9,14 @@ import com.l2kt.gameserver.network.SystemMessageId
 class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServerPacket() {
 
     override fun writeImpl() {
-        val winningCabal = SevenSigns.getInstance().cabalHighestScore
-        val totalDawnMembers = SevenSigns.getInstance().getTotalMembers(CabalType.DAWN)
-        val totalDuskMembers = SevenSigns.getInstance().getTotalMembers(CabalType.DUSK)
+        val winningCabal = SevenSigns.cabalHighestScore
+        val totalDawnMembers = SevenSigns.getTotalMembers(CabalType.DAWN)
+        val totalDuskMembers = SevenSigns.getTotalMembers(CabalType.DUSK)
 
         writeC(0xf5)
 
         writeC(_page)
-        writeC(SevenSigns.getInstance().currentPeriod.ordinal)
+        writeC(SevenSigns.currentPeriod.ordinal)
 
         var dawnPercent = 0
         var duskPercent = 0
@@ -24,9 +24,9 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
         when (_page) {
             1 -> {
                 // [ddd cc dd ddd c ddd c]
-                writeD(SevenSigns.getInstance().currentCycle)
+                writeD(SevenSigns.currentCycle)
 
-                when (SevenSigns.getInstance().currentPeriod) {
+                when (SevenSigns.currentPeriod) {
                     SevenSigns.PeriodType.RECRUITING -> {
                         writeD(SystemMessageId.INITIAL_PERIOD.id)
                         writeD(SystemMessageId.UNTIL_TODAY_6PM.id)
@@ -48,17 +48,17 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
                     }
                 }
 
-                writeC(SevenSigns.getInstance().getPlayerCabal(_objectId).ordinal)
-                writeC(SevenSigns.getInstance().getPlayerSeal(_objectId).ordinal)
+                writeC(SevenSigns.getPlayerCabal(_objectId).ordinal)
+                writeC(SevenSigns.getPlayerSeal(_objectId).ordinal)
 
-                writeD(SevenSigns.getInstance().getPlayerStoneContrib(_objectId)) // Seal Stones Turned-In
-                writeD(SevenSigns.getInstance().getPlayerAdenaCollect(_objectId)) // Ancient Adena to Collect
+                writeD(SevenSigns.getPlayerStoneContrib(_objectId)) // Seal Stones Turned-In
+                writeD(SevenSigns.getPlayerAdenaCollect(_objectId)) // Ancient Adena to Collect
 
-                val dawnStoneScore = SevenSigns.getInstance().getCurrentStoneScore(CabalType.DAWN)
-                val dawnFestivalScore = SevenSigns.getInstance().getCurrentFestivalScore(CabalType.DAWN)
+                val dawnStoneScore = SevenSigns.getCurrentStoneScore(CabalType.DAWN)
+                val dawnFestivalScore = SevenSigns.getCurrentFestivalScore(CabalType.DAWN)
 
-                val duskStoneScore = SevenSigns.getInstance().getCurrentStoneScore(CabalType.DUSK)
-                val duskFestivalScore = SevenSigns.getInstance().getCurrentFestivalScore(CabalType.DUSK)
+                val duskStoneScore = SevenSigns.getCurrentStoneScore(CabalType.DUSK)
+                val duskFestivalScore = SevenSigns.getCurrentFestivalScore(CabalType.DUSK)
 
                 val totalStoneScore = duskStoneScore + dawnStoneScore
 
@@ -73,8 +73,8 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
                     dawnStoneScoreProp = Math.round(dawnStoneScore.toFloat() / totalStoneScore.toFloat() * 500)
                 }
 
-                val duskTotalScore = SevenSigns.getInstance().getCurrentScore(CabalType.DUSK)
-                val dawnTotalScore = SevenSigns.getInstance().getCurrentScore(CabalType.DAWN)
+                val duskTotalScore = SevenSigns.getCurrentScore(CabalType.DUSK)
+                val dawnTotalScore = SevenSigns.getCurrentScore(CabalType.DAWN)
 
                 val totalOverallScore = duskTotalScore + dawnTotalScore
 
@@ -109,15 +109,15 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
                     writeC(festivalId + 1) // Current client-side festival ID
                     writeD(level.maxScore)
 
-                    val duskScore = SevenSignsFestival.getInstance().getHighestScore(CabalType.DUSK, festivalId)
-                    val dawnScore = SevenSignsFestival.getInstance().getHighestScore(CabalType.DAWN, festivalId)
+                    val duskScore = SevenSignsFestival.getHighestScore(CabalType.DUSK, festivalId)
+                    val dawnScore = SevenSignsFestival.getHighestScore(CabalType.DAWN, festivalId)
 
                     // Dusk Score \\
                     writeD(duskScore)
 
-                    var highScoreData = SevenSignsFestival.getInstance().getHighestScoreData(CabalType.DUSK, festivalId)
+                    var highScoreData = SevenSignsFestival.getHighestScoreData(CabalType.DUSK, festivalId)
                     var partyMembers: MutableList<String> =
-                        highScoreData.getString("members").split(",").dropLastWhile { it.isEmpty() }.toMutableList()
+                        highScoreData?.getString("members")?.split(",")?.dropLastWhile { it.isEmpty() }?.toMutableList() ?: mutableListOf()
 
                     writeC(partyMembers.size)
 
@@ -127,10 +127,9 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
                     // Dawn Score \\
                     writeD(dawnScore)
 
-                    highScoreData = SevenSignsFestival.getInstance().getHighestScoreData(CabalType.DAWN, festivalId)
+                    highScoreData = SevenSignsFestival.getHighestScoreData(CabalType.DAWN, festivalId)
                     partyMembers =
-                            highScoreData.getString("members").split(",").dropLastWhile { it.isEmpty() }
-                                .toMutableList()
+                            highScoreData?.getString("members")?.split(",")?.dropLastWhile { it.isEmpty() }?.toMutableList() ?: mutableListOf()
 
                     writeC(partyMembers.size)
 
@@ -144,10 +143,10 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
                 writeC(35) // Minimum limit for winning cabal to claim a seal
                 writeC(3) // Total number of seals
 
-                for ((seal, sealOwner) in SevenSigns.getInstance().sealOwners) {
+                for ((seal, sealOwner) in SevenSigns.sealOwners) {
 
-                    val dawnProportion = SevenSigns.getInstance().getSealProportion(seal, CabalType.DAWN)
-                    val duskProportion = SevenSigns.getInstance().getSealProportion(seal, CabalType.DUSK)
+                    val dawnProportion = SevenSigns.getSealProportion(seal, CabalType.DAWN)
+                    val duskProportion = SevenSigns.getSealProportion(seal, CabalType.DUSK)
 
                     writeC(seal.ordinal)
                     writeC(sealOwner.ordinal)
@@ -176,10 +175,10 @@ class SSQStatus(private val _objectId: Int, private val _page: Int) : L2GameServ
                 writeC(winningCabal.ordinal) // Overall predicted winner
                 writeC(3) // Total number of seals
 
-                for ((seal, sealOwner) in SevenSigns.getInstance().sealOwners) {
+                for ((seal, sealOwner) in SevenSigns.sealOwners) {
 
-                    val dawnProportion = SevenSigns.getInstance().getSealProportion(seal, CabalType.DAWN)
-                    val duskProportion = SevenSigns.getInstance().getSealProportion(seal, CabalType.DUSK)
+                    val dawnProportion = SevenSigns.getSealProportion(seal, CabalType.DAWN)
+                    val duskProportion = SevenSigns.getSealProportion(seal, CabalType.DUSK)
 
                     dawnPercent = Math.round(dawnProportion / if (totalDawnMembers == 0) 1f else totalDawnMembers.toFloat() * 100)
                     duskPercent = Math.round(duskProportion / if (totalDuskMembers == 0) 1f else totalDuskMembers.toFloat() * 100)

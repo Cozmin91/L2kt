@@ -1,28 +1,20 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.Calendar;
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
-
 import com.l2kt.Config;
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.gameserver.data.manager.CastleManorManager;
 import com.l2kt.gameserver.data.sql.ClanTable;
-
 import com.l2kt.gameserver.instancemanager.SevenSigns;
 import com.l2kt.gameserver.instancemanager.SevenSigns.CabalType;
 import com.l2kt.gameserver.instancemanager.SevenSigns.SealType;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.pledge.Clan;
 import com.l2kt.gameserver.network.SystemMessageId;
-import com.l2kt.gameserver.network.serverpackets.ActionFailed;
-import com.l2kt.gameserver.network.serverpackets.ExShowCropInfo;
-import com.l2kt.gameserver.network.serverpackets.ExShowCropSetting;
-import com.l2kt.gameserver.network.serverpackets.ExShowManorDefaultInfo;
-import com.l2kt.gameserver.network.serverpackets.ExShowSeedInfo;
-import com.l2kt.gameserver.network.serverpackets.ExShowSeedSetting;
-import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2kt.gameserver.network.serverpackets.SiegeInfo;
+import com.l2kt.gameserver.network.serverpackets.*;
+
+import java.util.Calendar;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 
 /**
  * An instance type extending {@link Merchant}, used for castle chamberlains.<br>
@@ -125,9 +117,9 @@ public class CastleChamberlain extends Merchant
 				html.replace("%clanname%", clan.getName());
 				html.replace("%clanleadername%", clan.getLeaderName());
 				html.replace("%castlename%", getCastle().getName());
-				html.replace("%ss_event%", SevenSigns.getInstance().getCurrentPeriod().getName());
+				html.replace("%ss_event%", SevenSigns.INSTANCE.getCurrentPeriod().getPeriodTypeName());
 				
-				switch (SevenSigns.getInstance().getSealOwner(SealType.AVARICE))
+				switch (SevenSigns.INSTANCE.getSealOwner(SealType.AVARICE))
 				{
 					case NORMAL:
 						html.replace("%ss_avarice%", "Not in Possession");
@@ -142,7 +134,7 @@ public class CastleChamberlain extends Merchant
 						break;
 				}
 				
-				switch (SevenSigns.getInstance().getSealOwner(SealType.GNOSIS))
+				switch (SevenSigns.INSTANCE.getSealOwner(SealType.GNOSIS))
 				{
 					case NORMAL:
 						html.replace("%ss_gnosis%", "Not in Possession");
@@ -157,7 +149,7 @@ public class CastleChamberlain extends Merchant
 						break;
 				}
 				
-				switch (SevenSigns.getInstance().getSealOwner(SealType.STRIFE))
+				switch (SevenSigns.INSTANCE.getSealOwner(SealType.STRIFE))
 				{
 					case NORMAL:
 						html.replace("%ss_strife%", "Not in Possession");
@@ -438,9 +430,9 @@ public class CastleChamberlain extends Merchant
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			
 			// Player is registered as dusk, or we aren't in the good side of competition.
-			if (SevenSigns.getInstance().isSealValidationPeriod())
+			if (SevenSigns.INSTANCE.isSealValidationPeriod())
 			{
-				if (SevenSigns.getInstance().getPlayerCabal(player.getObjectId()) == CabalType.DUSK)
+				if (SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId()) == CabalType.DUSK)
 					html.setFile("data/html/chamberlain/not-dawn-or-event.htm");
 				// We already reached the tickets limit.
 				else if (getCastle().getLeftCertificates() == 0)
@@ -467,9 +459,9 @@ public class CastleChamberlain extends Merchant
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			
 			// Player is registered as dusk, or we aren't in the good side of competition.
-			if (SevenSigns.getInstance().isSealValidationPeriod())
+			if (SevenSigns.INSTANCE.isSealValidationPeriod())
 			{
-				if (SevenSigns.getInstance().getPlayerCabal(player.getObjectId()) == CabalType.DUSK)
+				if (SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId()) == CabalType.DUSK)
 					html.setFile("data/html/chamberlain/not-dawn-or-event.htm");
 				// We already reached the tickets limit.
 				else if (getCastle().getLeftCertificates() == 0)
@@ -762,7 +754,7 @@ public class CastleChamberlain extends Merchant
 				break;
 		}
 		
-		switch (SevenSigns.getInstance().getSealOwner(SealType.STRIFE))
+		switch (SevenSigns.INSTANCE.getSealOwner(SealType.STRIFE))
 		{
 			case DUSK:
 				price *= 3;
@@ -804,7 +796,7 @@ public class CastleChamberlain extends Merchant
 				break;
 		}
 		
-		switch (SevenSigns.getInstance().getSealOwner(SealType.STRIFE))
+		switch (SevenSigns.INSTANCE.getSealOwner(SealType.STRIFE))
 		{
 			case DUSK:
 				price *= 3;

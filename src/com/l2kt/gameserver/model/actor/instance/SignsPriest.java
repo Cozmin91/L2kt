@@ -1,19 +1,19 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.Map.Entry;
-import java.util.StringTokenizer;
-
 import com.l2kt.Config;
-import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.instancemanager.SevenSigns;
 import com.l2kt.gameserver.instancemanager.SevenSigns.CabalType;
 import com.l2kt.gameserver.instancemanager.SevenSigns.SealType;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
+import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.model.itemcontainer.PcInventory;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.ActionFailed;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.util.Map.Entry;
+import java.util.StringTokenizer;
 
 public class SignsPriest extends Folk
 {
@@ -50,13 +50,13 @@ public class SignsPriest extends Folk
 			{
 				try
 				{
-					cabal = CabalType.VALUES[Integer.parseInt(command.substring(14, 15).trim())];
+					cabal = CabalType.Companion.getVALUES()[Integer.parseInt(command.substring(14, 15).trim())];
 				}
 				catch (Exception e)
 				{
 					try
 					{
-						cabal = CabalType.VALUES[Integer.parseInt(command.substring(13, 14).trim())];
+						cabal = CabalType.Companion.getVALUES()[Integer.parseInt(command.substring(13, 14).trim())];
 					}
 					catch (Exception e2)
 					{
@@ -64,7 +64,7 @@ public class SignsPriest extends Folk
 						{
 							StringTokenizer st = new StringTokenizer(command.trim());
 							st.nextToken();
-							cabal = CabalType.VALUES[Integer.parseInt(st.nextToken())];
+							cabal = CabalType.Companion.getVALUES()[Integer.parseInt(st.nextToken())];
 						}
 						catch (Exception e3)
 						{
@@ -95,7 +95,7 @@ public class SignsPriest extends Folk
 					break;
 				
 				case 33: // "I want to participate" request
-					CabalType oldCabal = SevenSigns.getInstance().getPlayerCabal(player.getObjectId());
+					CabalType oldCabal = SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId());
 					
 					if (oldCabal != CabalType.NORMAL)
 					{
@@ -158,7 +158,7 @@ public class SignsPriest extends Folk
 					break;
 				
 				case 4: // Join a Cabal - SevenSigns 4 [0]1 x
-					SealType newSeal = SealType.VALUES[Integer.parseInt(command.substring(15))];
+					SealType newSeal = SealType.Companion.getVALUES()[Integer.parseInt(command.substring(15))];
 					
 					if (player.getClassId().level() >= 2)
 					{
@@ -191,7 +191,7 @@ public class SignsPriest extends Folk
 							}
 						}
 					}
-					SevenSigns.getInstance().setPlayerInfo(player.getObjectId(), cabal, newSeal);
+					SevenSigns.INSTANCE.setPlayerInfo(player.getObjectId(), cabal, newSeal);
 					
 					if (cabal == CabalType.DAWN)
 						player.sendPacket(SystemMessageId.SEVENSIGNS_PARTECIPATION_DAWN); // Joined Dawn
@@ -220,14 +220,14 @@ public class SignsPriest extends Folk
 				case 5:
 					if (this instanceof DawnPriest)
 					{
-						if (SevenSigns.getInstance().getPlayerCabal(player.getObjectId()) == CabalType.NORMAL)
+						if (SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId()) == CabalType.NORMAL)
 							showChatWindow(player, val, "dawn_no", false);
 						else
 							showChatWindow(player, val, "dawn", false);
 					}
 					else
 					{
-						if (SevenSigns.getInstance().getPlayerCabal(player.getObjectId()) == CabalType.NORMAL)
+						if (SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId()) == CabalType.NORMAL)
 							showChatWindow(player, val, "dusk_no", false);
 						else
 							showChatWindow(player, val, "dusk", false);
@@ -245,7 +245,7 @@ public class SignsPriest extends Folk
 					int contribGreenStoneCount = contribGreenStones == null ? 0 : contribGreenStones.getCount();
 					int contribRedStoneCount = contribRedStones == null ? 0 : contribRedStones.getCount();
 					
-					int score = SevenSigns.getInstance().getPlayerContribScore(player.getObjectId());
+					int score = SevenSigns.INSTANCE.getPlayerContribScore(player.getObjectId());
 					int contributionCount = 0;
 					
 					boolean contribStonesFound = false;
@@ -306,7 +306,7 @@ public class SignsPriest extends Folk
 					}
 					else
 					{
-						score = SevenSigns.getInstance().addPlayerStoneContrib(player.getObjectId(), blueContrib, greenContrib, redContrib);
+						score = SevenSigns.INSTANCE.addPlayerStoneContrib(player.getObjectId(), blueContrib, greenContrib, redContrib);
 						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED_S1).addItemNumber(score));
 						
 						if (this instanceof DawnPriest)
@@ -327,7 +327,7 @@ public class SignsPriest extends Folk
 					int greenStoneCount = greenStones == null ? 0 : greenStones.getCount();
 					int redStoneCount = redStones == null ? 0 : redStones.getCount();
 					
-					int contribScore = SevenSigns.getInstance().getPlayerContribScore(player.getObjectId());
+					int contribScore = SevenSigns.INSTANCE.getPlayerContribScore(player.getObjectId());
 					boolean stonesFound = false;
 					
 					if (contribScore == Config.ALT_MAXIMUM_PLAYER_CONTRIB)
@@ -403,7 +403,7 @@ public class SignsPriest extends Folk
 								}
 								else
 								{
-									contribScore = SevenSigns.getInstance().addPlayerStoneContrib(player.getObjectId(), blueContribCount, greenContribCount, redContribCount);
+									contribScore = SevenSigns.INSTANCE.addPlayerStoneContrib(player.getObjectId(), blueContribCount, greenContribCount, redContribCount);
 									player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED_S1).addItemNumber(contribScore));
 									
 									if (this instanceof DawnPriest)
@@ -467,9 +467,9 @@ public class SignsPriest extends Folk
 					break;
 				
 				case 9: // Receive Contribution Rewards
-					if (SevenSigns.getInstance().isSealValidationPeriod() && SevenSigns.getInstance().getPlayerCabal(player.getObjectId()) == SevenSigns.getInstance().getCabalHighestScore())
+					if (SevenSigns.INSTANCE.isSealValidationPeriod() && SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId()) == SevenSigns.INSTANCE.getCabalHighestScore())
 					{
-						int ancientAdenaReward = SevenSigns.getInstance().getAncientAdenaReward(player.getObjectId());
+						int ancientAdenaReward = SevenSigns.INSTANCE.getAncientAdenaReward(player.getObjectId());
 						
 						if (ancientAdenaReward < 3)
 						{
@@ -676,7 +676,7 @@ public class SignsPriest extends Folk
 					break;
 				
 				case 19: // Seal Information (for when joining a cabal)
-					SealType chosenSeal = SealType.VALUES[Integer.parseInt(command.substring(16))];
+					SealType chosenSeal = SealType.Companion.getVALUES()[Integer.parseInt(command.substring(16))];
 					
 					String fileSuffix = chosenSeal.getShortName() + "_" + cabal.getShortName();
 					
@@ -691,7 +691,7 @@ public class SignsPriest extends Folk
 					else
 						sb.append("<html><body>Dusk Priestess:<br><font color=\"LEVEL\">[ Status of the Seals ]</font><br>");
 					
-					for (Entry<SealType, CabalType> entry : SevenSigns.getInstance().getSealOwners().entrySet())
+					for (Entry<SealType, CabalType> entry : SevenSigns.INSTANCE.getSealOwners().entrySet())
 					{
 						final SealType seal = entry.getKey();
 						final CabalType sealOwner = entry.getValue();
@@ -724,8 +724,8 @@ public class SignsPriest extends Folk
 		final int npcId = getTemplate().getNpcId();
 		String filename = SevenSigns.SEVEN_SIGNS_HTML_PATH;
 		
-		final CabalType playerCabal = SevenSigns.getInstance().getPlayerCabal(player.getObjectId());
-		final CabalType winningCabal = SevenSigns.getInstance().getCabalHighestScore();
+		final CabalType playerCabal = SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId());
+		final CabalType winningCabal = SevenSigns.INSTANCE.getCabalHighestScore();
 		
 		switch (npcId)
 		{
@@ -734,7 +734,7 @@ public class SignsPriest extends Folk
 				break;
 			
 			case 31113: // Merchant of Mammon
-				final CabalType sealAvariceOwner = SevenSigns.getInstance().getSealOwner(SealType.AVARICE);
+				final CabalType sealAvariceOwner = SevenSigns.INSTANCE.getSealOwner(SealType.AVARICE);
 				switch (winningCabal)
 				{
 					case DAWN:
@@ -763,7 +763,7 @@ public class SignsPriest extends Folk
 				break;
 			
 			case 31126: // Blacksmith of Mammon
-				final CabalType sealGnosisOwner = SevenSigns.getInstance().getSealOwner(SealType.GNOSIS);
+				final CabalType sealGnosisOwner = SevenSigns.INSTANCE.getSealOwner(SealType.GNOSIS);
 				switch (winningCabal)
 				{
 					case DAWN:

@@ -34,7 +34,7 @@ class MercenaryTicket(set: StatsSet) {
             _ssq.add(i, CabalType.valueOf(ssq[i]))
     }
 
-    fun isSsqType(type: CabalType): Boolean {
+    fun isSsqType(type: CabalType?): Boolean {
         return _ssq.contains(type)
     }
 }

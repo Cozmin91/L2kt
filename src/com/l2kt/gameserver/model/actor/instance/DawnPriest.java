@@ -30,20 +30,20 @@ public class DawnPriest extends SignsPriest
 		
 		String filename = SevenSigns.SEVEN_SIGNS_HTML_PATH;
 		
-		final CabalType winningCabal = SevenSigns.getInstance().getCabalHighestScore();
+		final CabalType winningCabal = SevenSigns.INSTANCE.getCabalHighestScore();
 		
-		switch (SevenSigns.getInstance().getPlayerCabal(player.getObjectId()))
+		switch (SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId()))
 		{
 			case DAWN:
-				if (SevenSigns.getInstance().isCompResultsPeriod())
+				if (SevenSigns.INSTANCE.isCompResultsPeriod())
 					filename += "dawn_priest_5.htm";
-				else if (SevenSigns.getInstance().isRecruitingPeriod())
+				else if (SevenSigns.INSTANCE.isRecruitingPeriod())
 					filename += "dawn_priest_6.htm";
-				else if (SevenSigns.getInstance().isSealValidationPeriod())
+				else if (SevenSigns.INSTANCE.isSealValidationPeriod())
 				{
 					if (winningCabal == CabalType.DAWN)
 					{
-						if (winningCabal != SevenSigns.getInstance().getSealOwner(SealType.GNOSIS))
+						if (winningCabal != SevenSigns.INSTANCE.getSealOwner(SealType.GNOSIS))
 							filename += "dawn_priest_2c.htm";
 						else
 							filename += "dawn_priest_2a.htm";
@@ -58,18 +58,18 @@ public class DawnPriest extends SignsPriest
 				break;
 			
 			case DUSK:
-				if (SevenSigns.getInstance().isSealValidationPeriod())
+				if (SevenSigns.INSTANCE.isSealValidationPeriod())
 					filename += "dawn_priest_3a.htm";
 				else
 					filename += "dawn_priest_3b.htm";
 				break;
 			
 			default:
-				if (SevenSigns.getInstance().isCompResultsPeriod())
+				if (SevenSigns.INSTANCE.isCompResultsPeriod())
 					filename += "dawn_priest_5.htm";
-				else if (SevenSigns.getInstance().isRecruitingPeriod())
+				else if (SevenSigns.INSTANCE.isRecruitingPeriod())
 					filename += "dawn_priest_6.htm";
-				else if (SevenSigns.getInstance().isSealValidationPeriod())
+				else if (SevenSigns.INSTANCE.isSealValidationPeriod())
 				{
 					if (winningCabal == CabalType.DAWN)
 						filename += "dawn_priest_4.htm";

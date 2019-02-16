@@ -167,7 +167,7 @@ class AdminSpawn : IAdminCommandHandler {
             NpcData.reload()
             SpawnTable.reloadAll()
             RaidBossSpawnManager.getInstance().reloadBosses()
-            SevenSigns.getInstance().spawnSevenSignsNPC()
+            SevenSigns.spawnSevenSignsNPC()
             AdminData.broadcastMessageToGMs("NPCs' respawn is now complete.")
         } else if (command.startsWith("admin_spawnfence")) {
             val st = StringTokenizer(command, " ")

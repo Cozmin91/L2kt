@@ -16,15 +16,15 @@ class HuntingGroundsTeleport : Quest(-1, "teleports") {
     }
 
     override fun onTalk(npc: Npc, player: Player): String? {
-        val playerCabal = SevenSigns.getInstance().getPlayerCabal(player.objectId)
+        val playerCabal = SevenSigns.getPlayerCabal(player.objectId)
         if (playerCabal == CabalType.NORMAL)
             return if (ArraysUtil.contains(DAWN_NPCS, npc.npcId)) "dawn_tele-no.htm" else "dusk_tele-no.htm"
 
         var htmltext = ""
         val check =
-            SevenSigns.getInstance().isSealValidationPeriod && playerCabal == SevenSigns.getInstance().getSealOwner(
+            SevenSigns.isSealValidationPeriod && playerCabal == SevenSigns.getSealOwner(
                 SealType.GNOSIS
-            ) && SevenSigns.getInstance().getPlayerSeal(player.objectId) == SealType.GNOSIS
+            ) && SevenSigns.getPlayerSeal(player.objectId) == SealType.GNOSIS
 
         when (npc.npcId) {
             31078, 31085 -> htmltext = if (check) "low_gludin.htm" else "hg_gludin.htm"

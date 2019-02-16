@@ -115,10 +115,10 @@ public class CastleMagician extends Folk
 		
 		if (player.isIn7sDungeon())
 		{
-			final CabalType targetCabal = SevenSigns.getInstance().getPlayerCabal(clanLeader.getObjectId());
-			if (SevenSigns.getInstance().isSealValidationPeriod())
+			final CabalType targetCabal = SevenSigns.INSTANCE.getPlayerCabal(clanLeader.getObjectId());
+			if (SevenSigns.INSTANCE.isSealValidationPeriod())
 			{
-				if (targetCabal != SevenSigns.getInstance().getCabalHighestScore())
+				if (targetCabal != SevenSigns.INSTANCE.getCabalHighestScore())
 				{
 					player.sendMessage("Couldn't teleport to clan leader. The requirements was not meet.");
 					return false;

@@ -552,7 +552,7 @@ object GeoEngine {
         for (bx in minBX..maxBX) {
             // loop over affected blocks in Y direction
             for (by in minBY..maxBY) {
-                var block: ABlock
+                var block: ABlock? = null
 
                 // conversion to dynamic block must be synchronized to prevent 2 independent threads converting same block
                 synchronized(_blocks) {

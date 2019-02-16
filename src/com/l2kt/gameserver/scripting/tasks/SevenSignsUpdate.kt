@@ -7,11 +7,11 @@ import com.l2kt.gameserver.scripting.ScheduledQuest
 class SevenSignsUpdate : ScheduledQuest(-1, "tasks") {
 
     public override fun onStart() {
-        if (!SevenSigns.getInstance().isSealValidationPeriod)
-            SevenSignsFestival.getInstance().saveFestivalData(false)
+        if (!SevenSigns.isSealValidationPeriod)
+            SevenSignsFestival.saveFestivalData(false)
 
-        SevenSigns.getInstance().saveSevenSignsData()
-        SevenSigns.getInstance().saveSevenSignsStatus()
+        SevenSigns.saveSevenSignsData()
+        SevenSigns.saveSevenSignsStatus()
     }
 
     public override fun onEnd() {}

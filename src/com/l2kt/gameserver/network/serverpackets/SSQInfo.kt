@@ -17,8 +17,8 @@ class SSQInfo private constructor(private val _state: Int) : L2GameServerPacket(
         val RED_SKY_PACKET = SSQInfo(259)
 
         fun sendSky(): SSQInfo {
-            if (SevenSigns.getInstance().isSealValidationPeriod) {
-                val winningCabal = SevenSigns.getInstance().cabalHighestScore
+            if (SevenSigns.isSealValidationPeriod) {
+                val winningCabal = SevenSigns.cabalHighestScore
                 if (winningCabal == CabalType.DAWN)
                     return DAWN_SKY_PACKET
 

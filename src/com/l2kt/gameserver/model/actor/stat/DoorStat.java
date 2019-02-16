@@ -28,7 +28,7 @@ public class DoorStat extends CreatureStat
 	{
 		double defense = getActiveChar().getTemplate().getBaseMDef();
 		
-		switch (SevenSigns.getInstance().getSealOwner(SealType.STRIFE))
+		switch (SevenSigns.INSTANCE.getSealOwner(SealType.STRIFE))
 		{
 			case DAWN:
 				defense *= 1.2;
@@ -47,7 +47,7 @@ public class DoorStat extends CreatureStat
 	{
 		double defense = getActiveChar().getTemplate().getBasePDef();
 		
-		switch (SevenSigns.getInstance().getSealOwner(SealType.STRIFE))
+		switch (SevenSigns.INSTANCE.getSealOwner(SealType.STRIFE))
 		{
 			case DAWN:
 				defense *= 1.2;

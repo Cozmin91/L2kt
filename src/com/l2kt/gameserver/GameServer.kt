@@ -150,8 +150,8 @@ object GameServer {
         WaterTaskManager
 
         printSection("Seven Signs")
-        SevenSigns.getInstance().spawnSevenSignsNPC()
-        SevenSignsFestival.getInstance()
+        SevenSigns.spawnSevenSignsNPC()
+        SevenSignsFestival
 
         printSection("Manor Manager")
         CastleManorManager

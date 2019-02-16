@@ -41,7 +41,7 @@ public final class MercenaryManagerNpc extends Folk
 		else if (command.startsWith("hire"))
 		{
 			// Can't buy new mercenaries if seal validation period isn't reached.
-			if (!SevenSigns.getInstance().isSealValidationPeriod())
+			if (!SevenSigns.INSTANCE.isSealValidationPeriod())
 			{
 				final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/mercmanager/msellerdenial.htm");
@@ -89,7 +89,7 @@ public final class MercenaryManagerNpc extends Folk
 		else if (condition == COND_OWNER)
 		{
 			// Different output depending about who is currently owning the Seal of Strife.
-			switch (SevenSigns.getInstance().getSealOwner(SealType.STRIFE))
+			switch (SevenSigns.INSTANCE.getSealOwner(SealType.STRIFE))
 			{
 				case DAWN:
 					html.setFile("data/html/mercmanager/mseller001_dawn.htm");

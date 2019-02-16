@@ -217,7 +217,7 @@ public class Party extends AbstractGroup
 			member.sendPacket(PartySmallWindowDeleteAll.Companion.getSTATIC_PACKET());
 			
 			if (member.isFestivalParticipant())
-				SevenSignsFestival.getInstance().updateParticipants(member, this);
+				SevenSignsFestival.INSTANCE.updateParticipants(member, this);
 			
 			if (member.getFusionSkill() != null)
 				member.abortCast();
@@ -442,7 +442,7 @@ public class Party extends AbstractGroup
 			recalculateLevel();
 			
 			if (player.isFestivalParticipant())
-				SevenSignsFestival.getInstance().updateParticipants(player, this);
+				SevenSignsFestival.INSTANCE.updateParticipants(player, this);
 			
 			if (player.getFusionSkill() != null)
 				player.abortCast();

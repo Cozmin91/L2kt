@@ -7,7 +7,7 @@ class ShowMiniMap(private val _mapId: Int) : L2GameServerPacket() {
     override fun writeImpl() {
         writeC(0x9d)
         writeD(_mapId)
-        writeD(SevenSigns.getInstance().currentPeriod.ordinal)
+        writeD(SevenSigns.currentPeriod.ordinal)
     }
 
     companion object {

@@ -27,15 +27,15 @@ public class DungeonGatekeeper extends Folk
 		StringTokenizer st = new StringTokenizer(command, " ");
 		String actualCommand = st.nextToken(); // Get actual command
 		
-		final CabalType sealAvariceOwner = SevenSigns.getInstance().getSealOwner(SealType.AVARICE);
-		final CabalType sealGnosisOwner = SevenSigns.getInstance().getSealOwner(SealType.GNOSIS);
-		final CabalType playerCabal = SevenSigns.getInstance().getPlayerCabal(player.getObjectId());
-		final CabalType winningCabal = SevenSigns.getInstance().getCabalHighestScore();
+		final CabalType sealAvariceOwner = SevenSigns.INSTANCE.getSealOwner(SealType.AVARICE);
+		final CabalType sealGnosisOwner = SevenSigns.INSTANCE.getSealOwner(SealType.GNOSIS);
+		final CabalType playerCabal = SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId());
+		final CabalType winningCabal = SevenSigns.INSTANCE.getCabalHighestScore();
 		
 		if (actualCommand.startsWith("necro"))
 		{
 			boolean canPort = true;
-			if (SevenSigns.getInstance().isSealValidationPeriod())
+			if (SevenSigns.INSTANCE.isSealValidationPeriod())
 			{
 				if (winningCabal == CabalType.DAWN && (playerCabal != CabalType.DAWN || sealAvariceOwner != CabalType.DAWN))
 				{
@@ -73,7 +73,7 @@ public class DungeonGatekeeper extends Folk
 		else if (actualCommand.startsWith("cata"))
 		{
 			boolean canPort = true;
-			if (SevenSigns.getInstance().isSealValidationPeriod())
+			if (SevenSigns.INSTANCE.isSealValidationPeriod())
 			{
 				if (winningCabal == CabalType.DAWN && (playerCabal != CabalType.DAWN || sealGnosisOwner != CabalType.DAWN))
 				{

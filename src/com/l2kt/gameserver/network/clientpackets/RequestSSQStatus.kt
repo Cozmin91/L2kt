@@ -17,7 +17,7 @@ class RequestSSQStatus : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        if ((SevenSigns.getInstance().isSealValidationPeriod || SevenSigns.getInstance().isCompResultsPeriod) && _page == 4)
+        if ((SevenSigns.isSealValidationPeriod || SevenSigns.isCompResultsPeriod) && _page == 4)
             return
 
         activeChar.sendPacket(SSQStatus(activeChar.objectId, _page))

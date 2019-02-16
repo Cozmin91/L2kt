@@ -31,9 +31,9 @@ class GatekeeperSpirit : Quest(-1, "teleports") {
     }
 
     override fun onFirstTalk(npc: Npc, player: Player): String? {
-        val playerCabal = SevenSigns.getInstance().getPlayerCabal(player.objectId)
-        val sealAvariceOwner = SevenSigns.getInstance().getSealOwner(SealType.AVARICE)
-        val winningCabal = SevenSigns.getInstance().cabalHighestScore
+        val playerCabal = SevenSigns.getPlayerCabal(player.objectId)
+        val sealAvariceOwner = SevenSigns.getSealOwner(SealType.AVARICE)
+        val winningCabal = SevenSigns.cabalHighestScore
 
         if (playerCabal == sealAvariceOwner && playerCabal == winningCabal) {
             when (sealAvariceOwner) {

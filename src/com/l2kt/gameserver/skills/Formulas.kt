@@ -201,7 +201,7 @@ object Formulas {
             init += if (cha.level > 10) (cha.level - 1) / 10.0 else 0.5
 
             // SevenSigns Festival modifier
-            if (SevenSignsFestival.getInstance().isFestivalInProgress && cha.isFestivalParticipant)
+            if (SevenSignsFestival.isFestivalInProgress && cha.isFestivalParticipant)
                 hpRegenMultiplier *= calcFestivalRegenModifier(cha)
             else if (calcSiegeRegenModifer(cha))
                 hpRegenMultiplier *= 1.5
@@ -255,7 +255,7 @@ object Formulas {
             init += 0.3 * ((cha.level - 1) / 10.0)
 
             // SevenSigns Festival modifier
-            if (SevenSignsFestival.getInstance().isFestivalInProgress && cha.isFestivalParticipant)
+            if (SevenSignsFestival.isFestivalInProgress && cha.isFestivalParticipant)
                 mpRegenMultiplier *= calcFestivalRegenModifier(cha)
 
             // Mother Tree effect is calculated at last
@@ -319,7 +319,7 @@ object Formulas {
     }
 
     @JvmStatic fun calcFestivalRegenModifier(player: Player): Double {
-        val festivalInfo = SevenSignsFestival.getInstance().getFestivalForPlayer(player)
+        val festivalInfo = SevenSignsFestival.getFestivalForPlayer(player)
         val festivalId = festivalInfo[1]
 
         // If the player isn't found in the festival, leave the regen rate as it is.

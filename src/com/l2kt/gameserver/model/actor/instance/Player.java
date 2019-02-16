@@ -6405,7 +6405,7 @@ public final class Player extends Playable
 				return false;
 			}
 			
-			if (SevenSigns.getInstance().isSealValidationPeriod() && SevenSigns.getInstance().getSealOwner(SealType.STRIFE) == CabalType.DAWN && SevenSigns.getInstance().getPlayerCabal(getObjectId()) == CabalType.DUSK)
+			if (SevenSigns.INSTANCE.isSealValidationPeriod() && SevenSigns.INSTANCE.getSealOwner(SealType.STRIFE) == CabalType.DAWN && SevenSigns.INSTANCE.getPlayerCabal(getObjectId()) == CabalType.DUSK)
 			{
 				sendPacket(SystemMessageId.SEAL_OF_STRIFE_FORBIDS_SUMMONING);
 				return false;
@@ -7057,7 +7057,7 @@ public final class Player extends Playable
 	 */
 	public boolean isFestivalParticipant()
 	{
-		return SevenSignsFestival.getInstance().isParticipant(this);
+		return SevenSignsFestival.INSTANCE.isParticipant(this);
 	}
 	
 	public void addAutoSoulShot(int itemId)
@@ -7972,15 +7972,15 @@ public final class Player extends Playable
 		// Teleport player if the Seven Signs period isn't the good one, or if the player isn't in a cabal.
 		if (isIn7sDungeon() && !isGM())
 		{
-			if (SevenSigns.getInstance().isSealValidationPeriod() || SevenSigns.getInstance().isCompResultsPeriod())
+			if (SevenSigns.INSTANCE.isSealValidationPeriod() || SevenSigns.INSTANCE.isCompResultsPeriod())
 			{
-				if (SevenSigns.getInstance().getPlayerCabal(getObjectId()) != SevenSigns.getInstance().getCabalHighestScore())
+				if (SevenSigns.INSTANCE.getPlayerCabal(getObjectId()) != SevenSigns.INSTANCE.getCabalHighestScore())
 				{
 					teleToLocation(MapRegionData.TeleportType.TOWN);
 					setIsIn7sDungeon(false);
 				}
 			}
-			else if (SevenSigns.getInstance().getPlayerCabal(getObjectId()) == CabalType.NORMAL)
+			else if (SevenSigns.INSTANCE.getPlayerCabal(getObjectId()) == CabalType.NORMAL)
 			{
 				teleToLocation(MapRegionData.TeleportType.TOWN);
 				setIsIn7sDungeon(false);

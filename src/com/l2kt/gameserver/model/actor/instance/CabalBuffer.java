@@ -117,7 +117,7 @@ public class CabalBuffer extends Folk
 			boolean isBuffAWinner = false;
 			boolean isBuffALoser = false;
 			
-			final CabalType winningCabal = SevenSigns.getInstance().getCabalHighestScore();
+			final CabalType winningCabal = SevenSigns.INSTANCE.getCabalHighestScore();
 			
 			// Defines which cabal is the loser.
 			CabalType losingCabal = CabalType.NORMAL;
@@ -137,7 +137,7 @@ public class CabalBuffer extends Folk
 				else
 					playersList.add(player);
 				
-				final CabalType playerCabal = SevenSigns.getInstance().getPlayerCabal(player.getObjectId());
+				final CabalType playerCabal = SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId());
 				if (playerCabal == CabalType.NORMAL)
 					continue;
 				
@@ -173,7 +173,7 @@ public class CabalBuffer extends Folk
 					{
 						for (Player nearbyPlayer : playersList)
 						{
-							if (SevenSigns.getInstance().getPlayerCabal(nearbyPlayer.getObjectId()) == winningCabal)
+							if (SevenSigns.INSTANCE.getPlayerCabal(nearbyPlayer.getObjectId()) == winningCabal)
 							{
 								text = text.replaceAll("%player_cabal_winner%", nearbyPlayer.getName());
 								break;
@@ -184,7 +184,7 @@ public class CabalBuffer extends Folk
 					{
 						for (Player nearbyPlayer : playersList)
 						{
-							if (SevenSigns.getInstance().getPlayerCabal(nearbyPlayer.getObjectId()) == losingCabal)
+							if (SevenSigns.INSTANCE.getPlayerCabal(nearbyPlayer.getObjectId()) == losingCabal)
 							{
 								text = text.replaceAll("%player_cabal_loser%", nearbyPlayer.getName());
 								break;

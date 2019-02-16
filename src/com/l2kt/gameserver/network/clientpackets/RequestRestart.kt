@@ -31,7 +31,7 @@ class RequestRestart : L2GameClientPacket() {
             return
         }
 
-        if (player.isFestivalParticipant && SevenSignsFestival.getInstance().isFestivalInitialized) {
+        if (player.isFestivalParticipant && SevenSignsFestival.isFestivalInitialized) {
             player.sendPacket(SystemMessageId.NO_RESTART_HERE)
             sendPacket(RestartResponse.valueOf(false))
             return
