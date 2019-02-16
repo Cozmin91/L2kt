@@ -2868,7 +2868,7 @@ public final class Player extends Playable
 		
 		if (isInOlympiadMode() && isOlympiadStart() && (needCpUpdate || needHpUpdate))
 		{
-			final OlympiadGameTask game = OlympiadGameManager.getInstance().getOlympiadTask(getOlympiadGameId());
+			final OlympiadGameTask game = OlympiadGameManager.INSTANCE.getOlympiadTask(getOlympiadGameId());
 			if (game != null && game.isBattleStarted())
 				game.getZone().broadcastStatusUpdate(this);
 		}
@@ -3827,7 +3827,7 @@ public final class Player extends Playable
 		PartyMatchWaitingList.INSTANCE.removePlayer(this);
 		if (_partyroom != 0)
 		{
-			PartyMatchRoom room = PartyMatchRoomList.getInstance().getRoom(_partyroom);
+			PartyMatchRoom room = PartyMatchRoomList.INSTANCE.getRoom(_partyroom);
 			if (room != null)
 				room.deleteMember(this);
 		}
@@ -5925,7 +5925,7 @@ public final class Player extends Playable
 		reduceAdena("Henna", henna.getPrice() / 5, this, false);
 		
 		// Add the recovered dyes to the player's inventory and notify them.
-		addItem("Henna", henna.getDyeId(), Henna.getRequiredDyeAmount() / 2, this, true);
+		addItem("Henna", henna.getDyeId(), Henna.Companion.getRequiredDyeAmount() / 2, this, true);
 		sendPacket(SystemMessageId.SYMBOL_DELETED);
 		return true;
 	}
@@ -5984,12 +5984,12 @@ public final class Player extends Playable
 			if (_henna[i] == null)
 				continue;
 			
-			_hennaINT += _henna[i].getINT();
-			_hennaSTR += _henna[i].getSTR();
-			_hennaMEN += _henna[i].getMEN();
-			_hennaCON += _henna[i].getCON();
-			_hennaWIT += _henna[i].getWIT();
-			_hennaDEX += _henna[i].getDEX();
+			_hennaINT += _henna[i].getInt();
+			_hennaSTR += _henna[i].getStr();
+			_hennaMEN += _henna[i].getMen();
+			_hennaCON += _henna[i].getCon();
+			_hennaWIT += _henna[i].getWit();
+			_hennaDEX += _henna[i].getDex();
 		}
 		
 		if (_hennaINT > 5)
@@ -7247,7 +7247,7 @@ public final class Player extends Playable
 	
 	public void enterOlympiadObserverMode(int id)
 	{
-		final OlympiadGameTask task = OlympiadGameManager.getInstance().getOlympiadTask(id);
+		final OlympiadGameTask task = OlympiadGameManager.INSTANCE.getOlympiadTask(id);
 		if (task == null)
 			return;
 		
@@ -8390,8 +8390,8 @@ public final class Player extends Playable
 				_party.removePartyMember(this, MessageType.DISCONNECTED);
 			
 			// Handle removal from olympiad game
-			if (OlympiadManager.getInstance().isRegistered(this) || getOlympiadGameId() != -1)
-				OlympiadManager.getInstance().removeDisconnectedCompetitor(this);
+			if (OlympiadManager.INSTANCE.isRegistered(this) || getOlympiadGameId() != -1)
+				OlympiadManager.INSTANCE.removeDisconnectedCompetitor(this);
 			
 			// set the status for pledge member list to OFFLINE
 			if (getClan() != null)
@@ -8724,8 +8724,8 @@ public final class Player extends Playable
 					sendMessage("You are jailed for " + delayInMinutes + " minutes.");
 				}
 				
-				if (OlympiadManager.getInstance().isRegisteredInComp(this))
-					OlympiadManager.getInstance().removeDisconnectedCompetitor(this);
+				if (OlympiadManager.INSTANCE.isRegisteredInComp(this))
+					OlympiadManager.INSTANCE.removeDisconnectedCompetitor(this);
 				
 				// Open a Html message to inform the player
 				final NpcHtmlMessage html = new NpcHtmlMessage(0);
@@ -8979,7 +8979,7 @@ public final class Player extends Playable
 			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_DID_S1_DMG).addNumber(damage));
 		
 		if (isInOlympiadMode() && target instanceof Player && ((Player) target).isInOlympiadMode() && ((Player) target).getOlympiadGameId() == getOlympiadGameId())
-			OlympiadGameManager.getInstance().notifyCompetitorDamage(this, damage);
+			OlympiadGameManager.INSTANCE.notifyCompetitorDamage(this, damage);
 	}
 	
 	public void checkItemRestriction()

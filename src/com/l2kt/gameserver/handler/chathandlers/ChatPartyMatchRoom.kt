@@ -11,7 +11,7 @@ class ChatPartyMatchRoom : IChatHandler {
         if (!activeChar.isInPartyMatchRoom)
             return
 
-        val room = PartyMatchRoomList.getInstance().getPlayerRoom(activeChar) ?: return
+        val room = PartyMatchRoomList.getPlayerRoom(activeChar) ?: return
 
         val cs = CreatureSay(activeChar.objectId, type, activeChar.name, text)
         for (member in room.partyMembers)

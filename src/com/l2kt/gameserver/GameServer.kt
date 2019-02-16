@@ -114,7 +114,7 @@ object GameServer {
         TeleportLocationData
         HtmCache
         PartyMatchWaitingList
-        PartyMatchRoomList.getInstance()
+        PartyMatchRoomList
         RaidPointManager
 
         printSection("Community server")
@@ -170,8 +170,8 @@ object GameServer {
         DimensionalRiftManager
 
         printSection("Olympiads & Heroes")
-        OlympiadGameManager.getInstance()
-        Olympiad.getInstance()
+        OlympiadGameManager
+        Olympiad
         Hero.getInstance()
 
         printSection("Four Sepulchers")

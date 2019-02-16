@@ -291,9 +291,9 @@ abstract class WorldObject(objectId: Int) {
         if (!isVisible)
             return
 
-        var region = World.getRegion(position)
+        val region = World.getRegion(position)
         if (region != this.region)
-            region = region
+            this.region = region
     }
 
     /**

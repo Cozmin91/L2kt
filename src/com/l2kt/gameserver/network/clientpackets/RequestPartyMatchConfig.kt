@@ -30,7 +30,7 @@ class RequestPartyMatchConfig : L2GameClientPacket() {
 
         if (activeChar.isInPartyMatchRoom) {
             // If Player is in Room show him room, not list
-            val list = PartyMatchRoomList.getInstance() ?: return
+            val list = PartyMatchRoomList ?: return
 
             val room = list.getPlayerRoom(activeChar) ?: return
 

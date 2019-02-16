@@ -9,7 +9,7 @@ class HennaItemRemoveInfo(private val _henna: Henna, private val _activeChar: Pl
         writeC(0xe6)
         writeD(_henna.symbolId) // symbol Id
         writeD(_henna.dyeId) // item id of dye
-        writeD(Henna.getRequiredDyeAmount() / 2) // amount of given dyes
+        writeD(Henna.requiredDyeAmount / 2) // amount of given dyes
         writeD(_henna.price / 5) // amount of required adenas
         writeD(1) // able to remove or not 0 is false and 1 is true
         writeD(_activeChar.adena)

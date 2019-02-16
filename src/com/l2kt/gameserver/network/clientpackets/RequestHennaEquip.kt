@@ -29,7 +29,7 @@ class RequestHennaEquip : L2GameClientPacket() {
         val ownedDyes = activeChar.inventory!!.getItemByItemId(henna.dyeId)
         val count = ownedDyes?.count ?: 0
 
-        if (count < Henna.getRequiredDyeAmount()) {
+        if (count < Henna.requiredDyeAmount) {
             activeChar.sendPacket(SystemMessageId.CANT_DRAW_SYMBOL)
             return
         }
@@ -39,7 +39,7 @@ class RequestHennaEquip : L2GameClientPacket() {
             return
 
         // destroyItemByItemId sends a message.
-        if (!activeChar.destroyItemByItemId("Henna", henna.dyeId, Henna.getRequiredDyeAmount(), activeChar, true))
+        if (!activeChar.destroyItemByItemId("Henna", henna.dyeId, Henna.requiredDyeAmount, activeChar, true))
             return
 
         activeChar.addHenna(henna)

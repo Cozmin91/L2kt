@@ -28,7 +28,7 @@ class OlympiadStadiumZone(id: Int) : SpawnZoneType(id) {
             character.setInsideZone(ZoneId.PVP, true)
             if (character is Player) {
                 character.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE))
-                _task!!.game.sendOlympiadInfo(character)
+                _task!!.game?.sendOlympiadInfo(character)
             }
         }
 

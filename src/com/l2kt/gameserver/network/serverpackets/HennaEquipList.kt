@@ -16,7 +16,7 @@ class HennaEquipList(private val _player: Player, private val _hennaEquipList: L
             if (_player.inventory!!.getItemByItemId(temp.dyeId) != null) {
                 writeD(temp.symbolId) // symbolid
                 writeD(temp.dyeId) // itemid of dye
-                writeD(Henna.getRequiredDyeAmount()) // amount of dyes required
+                writeD(Henna.requiredDyeAmount) // amount of dyes required
                 writeD(temp.price) // amount of adenas required
                 writeD(1) // meet the requirement or not
             }

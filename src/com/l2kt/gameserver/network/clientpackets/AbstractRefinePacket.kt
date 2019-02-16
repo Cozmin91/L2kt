@@ -150,7 +150,7 @@ abstract class AbstractRefinePacket : L2GameClientPacket() {
                 return false
             if (item.isShadowItem)
                 return false
-            if (item.item.crystalType.isLesser(CrystalType.C))
+            if (item.item.crystalType != null && item.item.crystalType!!.isLesser(CrystalType.C))
                 return false
 
             // Source item can be equipped or in inventory
@@ -205,7 +205,7 @@ abstract class AbstractRefinePacket : L2GameClientPacket() {
 
         }
 
-        fun getGemStoneId(itemGrade: CrystalType): Int {
+        fun getGemStoneId(itemGrade: CrystalType?): Int {
             return when (itemGrade) {
                 CrystalType.C, CrystalType.B -> GEMSTONE_D
 
@@ -215,16 +215,12 @@ abstract class AbstractRefinePacket : L2GameClientPacket() {
             }
         }
 
-        fun getGemStoneCount(itemGrade: CrystalType): Int {
+        fun getGemStoneCount(itemGrade: CrystalType?): Int {
             return when (itemGrade) {
                 CrystalType.C -> 20
-
                 CrystalType.B -> 30
-
                 CrystalType.A -> 20
-
                 CrystalType.S -> 25
-
                 else -> 0
             }
         }

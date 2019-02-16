@@ -17,9 +17,9 @@ class PartyMatchList(private val _cha: Player, auto: Int, private val _loc: Int,
         if (client.activeChar == null)
             return
 
-        for (room in PartyMatchRoomList.getInstance().rooms) {
+        for (room in PartyMatchRoomList.rooms) {
             if (room.members < 1 || room.owner == null || !room.owner.isOnline || room.owner.partyRoom != room.id) {
-                PartyMatchRoomList.getInstance().deleteRoom(room.id)
+                PartyMatchRoomList.deleteRoom(room.id)
                 continue
             }
 

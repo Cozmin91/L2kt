@@ -16,7 +16,7 @@ class RequestWithdrawPartyRoom : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        val room = PartyMatchRoomList.getInstance().getRoom(_roomid) ?: return
+        val room = PartyMatchRoomList.getRoom(_roomid) ?: return
 
         if (activeChar.isInParty && room.owner.isInParty && activeChar.party!!.leaderObjectId == room.owner.party!!.leaderObjectId) {
             // If user is in party with Room Owner is not removed from Room

@@ -10,10 +10,10 @@ import java.util.*
  * Two lazy initialized [List]s can hold [Location]s.
  */
 abstract class SpawnZoneType(id: Int) : ZoneType(id) {
-    private var _locs: MutableList<Location>? = null
-    private var _chaoticLocs: MutableList<Location>? = null
+    private var _locs: MutableList<Location> = mutableListOf()
+    private var _chaoticLocs: MutableList<Location> = mutableListOf()
 
-    val locs: List<Location>?
+    val locs: List<Location>
         get() = _locs
 
     /**
@@ -26,7 +26,7 @@ abstract class SpawnZoneType(id: Int) : ZoneType(id) {
      * @return a random [Location] from _chaoticLocs [List]. If _chaoticLocs isn't initialized, return a random Location from _locs.
      */
     val randomChaoticLoc: Location?
-        get() = Rnd[if (_chaoticLocs != null) _chaoticLocs else _locs]
+        get() = Rnd[if (_chaoticLocs.isNotEmpty()) _chaoticLocs else _locs]
 
     /**
      * Add a [Location] to either _locs or _chaoticLocs. Initialize the container if not yet initialized.
@@ -35,15 +35,15 @@ abstract class SpawnZoneType(id: Int) : ZoneType(id) {
      */
     fun addLoc(loc: Location, isChaotic: Boolean) {
         if (isChaotic) {
-            if (_chaoticLocs == null)
+            if (_chaoticLocs.isEmpty())
                 _chaoticLocs = ArrayList()
 
-            _chaoticLocs!!.add(loc)
+            _chaoticLocs.add(loc)
         } else {
-            if (_locs == null)
+            if (_locs.isEmpty())
                 _locs = ArrayList()
 
-            _locs!!.add(loc)
+            _locs.add(loc)
         }
     }
 }

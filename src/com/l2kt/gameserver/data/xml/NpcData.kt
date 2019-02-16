@@ -58,7 +58,7 @@ object NpcData : IXmlReader {
                     set.set("ssRate", parseInteger(aiAttrs, "ssRate"))
                     set.set("spsCount", parseInteger(aiAttrs, "spsCount"))
                     set.set("spsRate", parseInteger(aiAttrs, "spsRate"))
-                    set.set("aggro", try{parseInteger(aiAttrs, "aggro")}catch (test: IllegalStateException){null /* TODO Fix this shit */})
+                    set.set("aggro", parseInteger(aiAttrs, "aggro"))
 
                     if (aiAttrs.getNamedItem("clan") != null) {
                         set.set(

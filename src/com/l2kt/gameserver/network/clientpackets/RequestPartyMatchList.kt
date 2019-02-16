@@ -28,7 +28,7 @@ class RequestPartyMatchList : L2GameClientPacket() {
         val player = client.activeChar ?: return
 
         if (_roomid > 0) {
-            val room = PartyMatchRoomList.getInstance().getRoom(_roomid)
+            val room = PartyMatchRoomList.getRoom(_roomid)
             if (room != null) {
                 room.maxMembers = _membersmax
                 room.minLvl = _lvlmin
@@ -45,13 +45,13 @@ class RequestPartyMatchList : L2GameClientPacket() {
                 }
             }
         } else {
-            val maxId = PartyMatchRoomList.getInstance().maxId
+            val maxId = PartyMatchRoomList.maxId
 
             val room = PartyMatchRoom(maxId, _roomtitle, _loot, _lvlmin, _lvlmax, _membersmax, player)
 
             // Remove from waiting list, and add to current room
             PartyMatchWaitingList.removePlayer(player)
-            PartyMatchRoomList.getInstance().addPartyMatchRoom(maxId, room)
+            PartyMatchRoomList.addPartyMatchRoom(maxId, room)
 
             val party = player.party
             if (party != null) {

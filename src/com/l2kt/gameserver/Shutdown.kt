@@ -78,7 +78,7 @@ class Shutdown : Thread {
             GrandBossManager.getInstance().cleanUp()
             LOGGER.info("World Bosses data has been saved.")
 
-            Olympiad.getInstance().saveOlympiadStatus()
+            Olympiad.saveOlympiadStatus()
             LOGGER.info("Olympiad data has been saved.")
 
             Hero.getInstance().shutdown()

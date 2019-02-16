@@ -60,8 +60,8 @@ object ItemTable {
                     highest = item.itemId
 
                 when (item) {
-                    is EtcItem -> _etcItems[item.getItemId()] = item
-                    is Armor -> _armors[item.getItemId()] = item
+                    is EtcItem -> _etcItems[item.itemId] = item
+                    is Armor -> _armors[item.itemId] = item
                     else -> _weapons[item.itemId] = item as Weapon
                 }
             }

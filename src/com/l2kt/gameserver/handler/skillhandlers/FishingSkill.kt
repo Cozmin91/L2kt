@@ -6,7 +6,6 @@ import com.l2kt.gameserver.model.ShotType
 import com.l2kt.gameserver.model.WorldObject
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.instance.Player
-import com.l2kt.gameserver.model.item.instance.ItemInstance
 import com.l2kt.gameserver.model.item.type.WeaponType
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.ActionFailed
@@ -34,7 +33,7 @@ class FishingSkill : ISkillHandler {
             return
 
         val ssBonus = if (activeChar.isChargedShot(ShotType.FISH_SOULSHOT)) 2 else 1
-        val gradeBonus = 1 + fishingRod.item.crystalType.id * 0.1
+        val gradeBonus = 1 + (fishingRod.item.crystalType?.id ?: 0) * 0.1
 
         var damage = (skill.power * gradeBonus * ssBonus.toDouble()).toInt()
         var penalty = 0

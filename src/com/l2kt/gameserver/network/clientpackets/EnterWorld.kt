@@ -271,7 +271,7 @@ class EnterWorld : L2GameClientPacket() {
         sendPacket(SkillCoolTime(player))
 
         // If player logs back in a stadium, port him in nearest town.
-        if (Olympiad.getInstance().playerInStadia(player))
+        if (Olympiad.playerInStadia(player))
             player.teleToLocation(MapRegionData.TeleportType.TOWN)
 
         if (DimensionalRiftManager.checkIfInRiftZone(player.x, player.y, player.z, false))

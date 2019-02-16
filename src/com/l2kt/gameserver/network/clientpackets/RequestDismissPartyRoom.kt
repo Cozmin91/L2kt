@@ -14,8 +14,8 @@ class RequestDismissPartyRoom : L2GameClientPacket() {
     override fun runImpl() {
         client.activeChar ?: return
 
-        PartyMatchRoomList.getInstance().getRoom(_roomid) ?: return
+        PartyMatchRoomList.getRoom(_roomid) ?: return
 
-        PartyMatchRoomList.getInstance().deleteRoom(_roomid)
+        PartyMatchRoomList.deleteRoom(_roomid)
     }
 }

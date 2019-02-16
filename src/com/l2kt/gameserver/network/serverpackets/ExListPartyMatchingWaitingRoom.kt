@@ -20,7 +20,7 @@ class ExListPartyMatchingWaitingRoom(
         // If the mode is 0 and the activeChar isn't the PartyRoom leader, return an empty list.
         if (_mode == 0) {
             // Retrieve the activeChar PartyMatchRoom
-            val room = PartyMatchRoomList.getInstance().getRoom(_activeChar.partyRoom)
+            val room = PartyMatchRoomList.getRoom(_activeChar.partyRoom)
             if (room == null || room.owner != _activeChar) {
                 writeD(0)
                 writeD(0)

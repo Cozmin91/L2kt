@@ -9,7 +9,7 @@ class HennaItemInfo(private val _henna: Henna, private val _activeChar: Player) 
         writeC(0xe3)
         writeD(_henna.symbolId) // symbol Id
         writeD(_henna.dyeId) // item id of dye
-        writeD(Henna.getRequiredDyeAmount()) // total amount of dye required
+        writeD(Henna.requiredDyeAmount) // total amount of dye required
         writeD(_henna.price) // total amount of adenas required to draw symbol
         writeD(1) // able to draw or not 0 is false and 1 is true
         writeD(_activeChar.adena)

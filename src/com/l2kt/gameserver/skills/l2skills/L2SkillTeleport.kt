@@ -12,7 +12,7 @@ import com.l2kt.gameserver.templates.StatsSet
 import com.l2kt.gameserver.templates.skills.L2SkillType
 
 class L2SkillTeleport(set: StatsSet) : L2Skill(set) {
-    private val _recallType: String = set.getString("recallType", "")
+    private val _recallType: String? = set.getString("recallType", null)
     private val _loc: Location?
 
     init {

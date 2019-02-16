@@ -10,11 +10,11 @@ import com.l2kt.gameserver.model.item.instance.ItemInstance;
 public class PreparedEntry extends Entry
 {
 	private int _taxAmount = 0;
-	
+
 	public PreparedEntry(Entry template, ItemInstance item, boolean applyTaxes, boolean maintainEnchantment, double taxRate)
 	{
 		int adenaAmount = 0;
-		
+
 		_ingredients = new ArrayList<>(template.getIngredients().size());
 		for (Ingredient ing : template.getIngredients())
 		{
@@ -29,38 +29,38 @@ public class PreparedEntry extends Entry
 				}
 				else
 					adenaAmount += ing.getItemCount();
-				
+
 				// do not yet add this adena amount to the list as non-taxIngredient adena might be entered later (order not guaranteed)
 				continue;
 			}
-			
+
 			final Ingredient newIngredient = ing.getCopy();
 			if (maintainEnchantment && item != null && ing.isArmorOrWeapon())
 				newIngredient.setEnchantLevel(item.getEnchantLevel());
-			
+
 			_ingredients.add(newIngredient);
 		}
-		
+
 		// now add the adena, if any.
 		adenaAmount += _taxAmount; // do not forget tax
 		if (adenaAmount > 0)
 			_ingredients.add(new Ingredient(57, adenaAmount, false, false));
-		
+
 		// now copy products
 		_products = new ArrayList<>(template.getProducts().size());
 		for (Ingredient ing : template.getProducts())
 		{
 			if (!ing.isStackable())
 				_stackable = false;
-			
+
 			final Ingredient newProduct = ing.getCopy();
 			if (maintainEnchantment && item != null && ing.isArmorOrWeapon())
 				newProduct.setEnchantLevel(item.getEnchantLevel());
-			
+
 			_products.add(newProduct);
 		}
 	}
-	
+
 	@Override
 	public final int getTaxAmount()
 	{

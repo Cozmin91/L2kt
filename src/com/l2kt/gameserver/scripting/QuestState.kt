@@ -472,7 +472,7 @@ class QuestState
     fun takeItems(itemId: Int, itemCount: Int) {
         var itemCount = itemCount
         // Find item in player's inventory.
-        val item = player!!.inventory!!.getItemByItemId(itemId) ?: return
+        val item = player.inventory!!.getItemByItemId(itemId) ?: return
 
         // Tests on count value and set correct value if necessary.
         if (itemCount < 0 || itemCount > item.count)

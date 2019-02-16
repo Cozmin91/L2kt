@@ -27,7 +27,7 @@ class RequestAnswerJoinParty : L2GameClientPacket() {
                 party.addPartyMember(player)
 
             if (requestor.isInPartyMatchRoom) {
-                val list = PartyMatchRoomList.getInstance()
+                val list = PartyMatchRoomList
                 if (list != null) {
                     val room = list.getPlayerRoom(requestor)
                     if (room != null) {

@@ -283,7 +283,7 @@ object ClanTable {
         clan2.setAttackerClan(clanId1)
         clan2.broadcastToOnlineMembers(
             PledgeShowInfoUpdate(clan2),
-            SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR).addString(clan1.name!!)
+            SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR).addString(clan1.name)
         )
 
         try {

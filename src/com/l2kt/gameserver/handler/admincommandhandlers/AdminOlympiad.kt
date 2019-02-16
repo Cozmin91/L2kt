@@ -16,7 +16,7 @@ class AdminOlympiad : IAdminCommandHandler {
 
     override fun useAdminCommand(command: String, activeChar: Player): Boolean {
         if (command.startsWith("admin_endoly")) {
-            Olympiad.getInstance().manualSelectHeroes()
+            Olympiad.manualSelectHeroes()
             activeChar.sendMessage("Heroes have been formed.")
         } else if (command.startsWith("admin_sethero")) {
             var target: Player? = null

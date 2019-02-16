@@ -20,13 +20,13 @@ class ShopPreviewList(list: NpcBuyList, private val _money: Int, private val _ex
 
         var newlength = 0
         for (product in _list) {
-            if (product.item.crystalType.id <= _expertise && product.item.isEquipable)
+            if (product.item.crystalType != null && product.item.crystalType!!.id <= _expertise && product.item.isEquipable)
                 newlength++
         }
         writeH(newlength)
 
         for (product in _list) {
-            if (product.item.crystalType.id <= _expertise && product.item.isEquipable) {
+            if (product.item.crystalType != null && product.item.crystalType!!.id <= _expertise && product.item.isEquipable) {
                 writeD(product.itemId)
                 writeH(product.item.type2) // item type2
 

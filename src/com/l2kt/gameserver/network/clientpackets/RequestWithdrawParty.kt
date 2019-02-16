@@ -17,7 +17,7 @@ class RequestWithdrawParty : L2GameClientPacket() {
         party.removePartyMember(player, Party.MessageType.LEFT)
 
         if (player.isInPartyMatchRoom) {
-            val room = PartyMatchRoomList.getInstance().getPlayerRoom(player)
+            val room = PartyMatchRoomList.getPlayerRoom(player)
             if (room != null) {
                 player.sendPacket(PartyMatchDetail(room))
                 player.sendPacket(ExPartyRoomMember(room, 0))

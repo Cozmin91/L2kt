@@ -308,8 +308,8 @@ public class VillageMaster extends Folk
 			}
 			
 			// Affecting subclasses (add/del/change) if registered in Olympiads makes you ineligible to compete.
-			if (OlympiadManager.getInstance().isRegisteredInComp(player))
-				OlympiadManager.getInstance().unRegisterNoble(player);
+			if (OlympiadManager.INSTANCE.isRegisteredInComp(player))
+				OlympiadManager.INSTANCE.unRegisterNoble(player);
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			

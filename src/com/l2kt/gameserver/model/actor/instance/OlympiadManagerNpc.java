@@ -1,21 +1,16 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.gameserver.data.xml.MultisellData;
-
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.entity.Hero;
-import com.l2kt.gameserver.model.olympiad.CompetitionType;
-import com.l2kt.gameserver.model.olympiad.Olympiad;
-import com.l2kt.gameserver.model.olympiad.OlympiadGameManager;
-import com.l2kt.gameserver.model.olympiad.OlympiadGameTask;
-import com.l2kt.gameserver.model.olympiad.OlympiadManager;
+import com.l2kt.gameserver.model.olympiad.*;
 import com.l2kt.gameserver.network.serverpackets.ActionFailed;
 import com.l2kt.gameserver.network.serverpackets.ExHeroList;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class OlympiadManagerNpc extends Folk
 {
@@ -122,12 +117,12 @@ public class OlympiadManagerNpc extends Folk
 			switch (val)
 			{
 				case 1: // Unregister
-					OlympiadManager.getInstance().unRegisterNoble(player);
+					OlympiadManager.INSTANCE.unRegisterNoble(player);
 					break;
 				
 				case 2: // Show waiting list
-					final int nonClassed = OlympiadManager.getInstance().getRegisteredNonClassBased().size();
-					final int classed = OlympiadManager.getInstance().getRegisteredClassBased().size();
+					final int nonClassed = OlympiadManager.INSTANCE.getRegisteredNonClassBased().size();
+					final int classed = OlympiadManager.INSTANCE.getRegisteredClassBased().size();
 					
 					html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "noble_registered.htm");
 					html.replace("%listClassed%", classed);
@@ -137,7 +132,7 @@ public class OlympiadManagerNpc extends Folk
 					break;
 				
 				case 3: // There are %points% Grand Olympiad points granted for this event.
-					int points = Olympiad.getInstance().getNoblePoints(player.getObjectId());
+					int points = Olympiad.INSTANCE.getNoblePoints(player.getObjectId());
 					html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "noble_points1.htm");
 					html.replace("%points%", points);
 					html.replace("%objectId%", getObjectId());
@@ -145,15 +140,15 @@ public class OlympiadManagerNpc extends Folk
 					break;
 				
 				case 4: // register non classed based
-					OlympiadManager.getInstance().registerNoble(player, CompetitionType.NON_CLASSED);
+					OlympiadManager.INSTANCE.registerNoble(player, CompetitionType.NON_CLASSED);
 					break;
 				
 				case 5: // register classed based
-					OlympiadManager.getInstance().registerNoble(player, CompetitionType.CLASSED);
+					OlympiadManager.INSTANCE.registerNoble(player, CompetitionType.CLASSED);
 					break;
 				
 				case 6: // request tokens reward
-					html.setFile(Olympiad.OLYMPIAD_HTML_PATH + ((Olympiad.getInstance().getNoblessePasses(player, false) > 0) ? "noble_settle.htm" : "noble_nopoints2.htm"));
+					html.setFile(Olympiad.OLYMPIAD_HTML_PATH + ((Olympiad.INSTANCE.getNoblessePasses(player, false) > 0) ? "noble_settle.htm" : "noble_nopoints2.htm"));
 					html.replace("%objectId%", getObjectId());
 					player.sendPacket(html);
 					break;
@@ -163,7 +158,7 @@ public class OlympiadManagerNpc extends Folk
 					break;
 				
 				case 10: // Give tokens to player
-					player.addItem("Olympiad", GATE_PASS, Olympiad.getInstance().getNoblessePasses(player, true), player, true);
+					player.addItem("Olympiad", GATE_PASS, Olympiad.INSTANCE.getNoblessePasses(player, true), player, true);
 					break;
 				
 				default:
@@ -181,7 +176,7 @@ public class OlympiadManagerNpc extends Folk
 					int classId = Integer.parseInt(command.substring(11));
 					if (classId >= 88 && classId <= 118)
 					{
-						List<String> names = Olympiad.getInstance().getClassLeaderBoard(classId);
+						List<String> names = Olympiad.INSTANCE.getClassLeaderBoard(classId);
 						html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "noble_ranking.htm");
 						
 						int index = 1;
@@ -212,7 +207,7 @@ public class OlympiadManagerNpc extends Folk
 					int i = 0;
 					
 					final StringBuilder sb = new StringBuilder(2000);
-					for (OlympiadGameTask task : OlympiadGameManager.getInstance().getOlympiadTasks())
+					for (OlympiadGameTask task : OlympiadGameManager.INSTANCE.getOlympiadTasks())
 					{
 						StringUtil.INSTANCE.append(sb, "<a action=\"bypass arenachange ", i, "\">Arena ", ++i, "&nbsp;");
 						

@@ -1,19 +1,13 @@
 package com.l2kt.gameserver.model.actor;
 
-import java.util.List;
-
 import com.l2kt.Config;
 import com.l2kt.gameserver.data.ItemTable;
-import com.l2kt.gameserver.model.L2Skill;
-import com.l2kt.gameserver.model.ShotType;
-import com.l2kt.gameserver.model.WorldObject;
-import com.l2kt.gameserver.model.base.Experience;
-import com.l2kt.gameserver.model.item.instance.ItemInstance;
-import com.l2kt.gameserver.model.item.kind.Weapon;
-import com.l2kt.gameserver.model.item.type.ActionType;
 import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.handler.IItemHandler;
 import com.l2kt.gameserver.handler.ItemHandler;
+import com.l2kt.gameserver.model.L2Skill;
+import com.l2kt.gameserver.model.ShotType;
+import com.l2kt.gameserver.model.WorldObject;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
 import com.l2kt.gameserver.model.actor.ai.type.CreatureAI;
 import com.l2kt.gameserver.model.actor.ai.type.SummonAI;
@@ -25,24 +19,20 @@ import com.l2kt.gameserver.model.actor.stat.SummonStat;
 import com.l2kt.gameserver.model.actor.status.SummonStatus;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.SkillType;
+import com.l2kt.gameserver.model.base.Experience;
 import com.l2kt.gameserver.model.group.Party;
+import com.l2kt.gameserver.model.item.instance.ItemInstance;
+import com.l2kt.gameserver.model.item.kind.Weapon;
 import com.l2kt.gameserver.model.itemcontainer.PetInventory;
 import com.l2kt.gameserver.model.olympiad.OlympiadGameManager;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.AbstractNpcInfo.SummonInfo;
-import com.l2kt.gameserver.network.serverpackets.ActionFailed;
-import com.l2kt.gameserver.network.serverpackets.L2GameServerPacket;
-import com.l2kt.gameserver.network.serverpackets.MoveToPawn;
-import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
-import com.l2kt.gameserver.network.serverpackets.PetDelete;
-import com.l2kt.gameserver.network.serverpackets.PetInfo;
-import com.l2kt.gameserver.network.serverpackets.PetItemList;
-import com.l2kt.gameserver.network.serverpackets.PetStatusShow;
-import com.l2kt.gameserver.network.serverpackets.PetStatusUpdate;
-import com.l2kt.gameserver.network.serverpackets.RelationChanged;
-import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+import com.l2kt.gameserver.network.serverpackets.*;
 
-import static com.l2kt.gameserver.model.item.type.ActionType.*;
+import java.util.List;
+
+import static com.l2kt.gameserver.model.item.type.ActionType.summon_soulshot;
+import static com.l2kt.gameserver.model.item.type.ActionType.summon_spiritshot;
 
 public abstract class Summon extends Playable
 {
@@ -652,7 +642,7 @@ public abstract class Summon extends Playable
 			
 			if (getOwner().isInOlympiadMode() && target instanceof Player && ((Player) target).isInOlympiadMode() && ((Player) target).getOlympiadGameId() == getOwner().getOlympiadGameId())
 			{
-				OlympiadGameManager.getInstance().notifyCompetitorDamage(getOwner(), damage);
+				OlympiadGameManager.INSTANCE.notifyCompetitorDamage(getOwner(), damage);
 			}
 		}
 	}

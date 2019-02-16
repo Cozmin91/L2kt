@@ -20,7 +20,7 @@ class RequestOustFromPartyRoom : L2GameClientPacket() {
 
         val member = World.getPlayer(_charid) ?: return
 
-        val room = PartyMatchRoomList.getInstance().getPlayerRoom(member) ?: return
+        val room = PartyMatchRoomList.getPlayerRoom(member) ?: return
 
         if (room.owner != activeChar)
             return

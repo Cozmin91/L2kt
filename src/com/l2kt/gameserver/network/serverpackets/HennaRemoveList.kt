@@ -16,7 +16,7 @@ class HennaRemoveList(private val _player: Player) : L2GameServerPacket() {
             if (henna != null) {
                 writeD(henna.symbolId)
                 writeD(henna.dyeId)
-                writeD(Henna.getRequiredDyeAmount() / 2)
+                writeD(Henna.requiredDyeAmount / 2)
                 writeD(henna.price / 5)
                 writeD(0x01)
             }

@@ -98,7 +98,7 @@ class AdminSiege : IAdminCommandHandler {
 
             // Feed Control Tower infos.
             for (spawn in castle.controlTowers) {
-                val teleLoc = spawn.toString().replace(",".toRegex(), "")
+                val teleLoc = spawn.toString().replace(",", "")
                 StringUtil.append(sb, "<a action=\"bypass -h admin_move_to ", teleLoc, "\">", teleLoc, "</a><br1>")
             }
 
@@ -109,7 +109,7 @@ class AdminSiege : IAdminCommandHandler {
 
             // Feed Flame Tower infos.
             for (spawn in castle.flameTowers) {
-                val teleLoc = spawn.toString().replace(",".toRegex(), "")
+                val teleLoc = spawn.toString().replace(",", "")
                 StringUtil.append(sb, "<a action=\"bypass -h admin_move_to ", teleLoc, "\">", teleLoc, "</a><br1>")
             }
 

@@ -14,7 +14,7 @@ class RequestOlympiadMatchList : L2GameClientPacket() {
             return
 
         val sb = StringBuilder(1500)
-        for ((i, task) in OlympiadGameManager.getInstance().olympiadTasks.withIndex()) {
+        for ((i, task) in OlympiadGameManager.olympiadTasks.withIndex()) {
             StringUtil.append(
                 sb,
                 "<tr><td fixwidth=10><a action=\"bypass arenachange ",
@@ -24,7 +24,7 @@ class RequestOlympiadMatchList : L2GameClientPacket() {
                 "</a></td><td fixwidth=80>"
             )
 
-            if (task.isGameStarted) {
+            if (task?.isGameStarted == true) {
                 when {
                     task.isInTimerTime -> StringUtil.append(sb, "&$907;") // Counting In Progress
                     task.isBattleStarted -> StringUtil.append(sb, "&$829;") // In Progress
@@ -34,9 +34,9 @@ class RequestOlympiadMatchList : L2GameClientPacket() {
                 StringUtil.append(
                     sb,
                     "</td><td>",
-                    task.game.playerNames[0],
+                    task.game?.playerNames?.get(0) ?: "",
                     "&nbsp; / &nbsp;",
-                    task.game.playerNames[1]
+                    task.game?.playerNames?.get(1) ?: ""
                 )
             } else
                 StringUtil.append(sb, "&$906;", "</td><td>&nbsp;") // Initial State

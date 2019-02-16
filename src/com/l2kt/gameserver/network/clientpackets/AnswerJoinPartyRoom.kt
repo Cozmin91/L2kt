@@ -33,7 +33,7 @@ class AnswerJoinPartyRoom : L2GameClientPacket() {
 
         // If answer is positive, join the requester's PartyRoom.
         if (_answer == 1 && !partner.isRequestExpired) {
-            val room = PartyMatchRoomList.getInstance().getRoom(partner.partyRoom) ?: return
+            val room = PartyMatchRoomList.getRoom(partner.partyRoom) ?: return
 
             if (player.level >= room.minLvl && player.level <= room.maxLvl) {
                 // Remove from waiting list

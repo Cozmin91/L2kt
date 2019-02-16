@@ -49,37 +49,34 @@ public class ItemPassiveSkillsListener implements OnEquipListener
 			}
 		}
 		
-		final IntIntHolder[] skills = it.getSkills();
-		if (skills != null)
+		final IntIntHolder[] skills = it.getSkills().toArray(new IntIntHolder[0]);
+		for (IntIntHolder skillInfo : skills)
 		{
-			for (IntIntHolder skillInfo : skills)
+			if (skillInfo == null)
+				continue;
+
+			final L2Skill itemSkill = skillInfo.getSkill();
+			if (itemSkill != null)
 			{
-				if (skillInfo == null)
-					continue;
-				
-				final L2Skill itemSkill = skillInfo.getSkill();
-				if (itemSkill != null)
+				player.addSkill(itemSkill, false);
+
+				if (itemSkill.isActive())
 				{
-					player.addSkill(itemSkill, false);
-					
-					if (itemSkill.isActive())
+					if (!player.getReuseTimeStamp().containsKey(itemSkill.getReuseHashCode()))
 					{
-						if (!player.getReuseTimeStamp().containsKey(itemSkill.getReuseHashCode()))
+						final int equipDelay = itemSkill.getEquipDelay();
+						if (equipDelay > 0)
 						{
-							final int equipDelay = itemSkill.getEquipDelay();
-							if (equipDelay > 0)
-							{
-								player.addTimeStamp(itemSkill, equipDelay);
-								player.disableSkill(itemSkill, equipDelay);
-							}
+							player.addTimeStamp(itemSkill, equipDelay);
+							player.disableSkill(itemSkill, equipDelay);
 						}
-						updateTimeStamp = true;
 					}
-					update = true;
+					updateTimeStamp = true;
 				}
+				update = true;
 			}
 		}
-		
+
 		if (update)
 		{
 			player.sendSkillList();
@@ -115,37 +112,34 @@ public class ItemPassiveSkillsListener implements OnEquipListener
 			}
 		}
 		
-		final IntIntHolder[] skills = it.getSkills();
-		if (skills != null)
+		final IntIntHolder[] skills = it.getSkills().toArray(new IntIntHolder[0]);
+		for (IntIntHolder skillInfo : skills)
 		{
-			for (IntIntHolder skillInfo : skills)
+			if (skillInfo == null)
+				continue;
+
+			final L2Skill itemSkill = skillInfo.getSkill();
+			if (itemSkill != null)
 			{
-				if (skillInfo == null)
-					continue;
-				
-				final L2Skill itemSkill = skillInfo.getSkill();
-				if (itemSkill != null)
+				boolean found = false;
+
+				for (ItemInstance pItem : player.getInventory().getPaperdollItems())
 				{
-					boolean found = false;
-					
-					for (ItemInstance pItem : player.getInventory().getPaperdollItems())
+					if (pItem != null && it.getItemId() == pItem.getItemId())
 					{
-						if (pItem != null && it.getItemId() == pItem.getItemId())
-						{
-							found = true;
-							break;
-						}
+						found = true;
+						break;
 					}
-					
-					if (!found)
-					{
-						player.removeSkill(itemSkill.getId(), false, itemSkill.isPassive() || itemSkill.isToggle());
-						update = true;
-					}
+				}
+
+				if (!found)
+				{
+					player.removeSkill(itemSkill.getId(), false, itemSkill.isPassive() || itemSkill.isToggle());
+					update = true;
 				}
 			}
 		}
-		
+
 		if (update)
 			player.sendSkillList();
 	}

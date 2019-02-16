@@ -509,7 +509,7 @@ public class Party extends AbstractGroup
 		
 		if (player.isInPartyMatchRoom())
 		{
-			final PartyMatchRoom room = PartyMatchRoomList.getInstance().getPlayerRoom(player);
+			final PartyMatchRoom room = PartyMatchRoomList.INSTANCE.getPlayerRoom(player);
 			room.changeLeader(player);
 		}
 	}

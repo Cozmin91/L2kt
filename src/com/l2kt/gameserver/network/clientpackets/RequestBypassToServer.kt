@@ -142,7 +142,7 @@ class RequestBypassToServer : L2GameClientPacket() {
                     return
             }
 
-            if (OlympiadManager.getInstance().isRegisteredInComp(player)) {
+            if (OlympiadManager.isRegisteredInComp(player)) {
                 player.sendPacket(SystemMessageId.WHILE_YOU_ARE_ON_THE_WAITING_LIST_YOU_ARE_NOT_ALLOWED_TO_WATCH_THE_GAME)
                 return
             }

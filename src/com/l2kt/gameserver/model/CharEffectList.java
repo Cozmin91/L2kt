@@ -959,7 +959,7 @@ public class CharEffectList
 
 		if (os != null)
 		{
-			final OlympiadGameTask game = OlympiadGameManager.getInstance().getOlympiadTask(((Player) _owner).getOlympiadGameId());
+			final OlympiadGameTask game = OlympiadGameManager.INSTANCE.getOlympiadTask(((Player) _owner).getOlympiadGameId());
 			if (game != null && game.isBattleStarted())
 				game.getZone().broadcastPacketToObservers(os);
 		}

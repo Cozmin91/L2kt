@@ -29,24 +29,24 @@ class L2SkillSiegeFlag(set: StatsSet) : L2Skill(set) {
         // Template initialization
         val npcDat = StatsSet()
 
-        npcDat.set("id", 35062)
+        npcDat.set("id", 35062.toInt())
         npcDat.set("type", "")
 
         npcDat.set("name", player!!.clan.name)
         npcDat.set("usingServerSideName", true)
 
         npcDat.set("hp", if (_isAdvanced) 100000 else 50000)
-        npcDat.set("mp", 0)
+        npcDat.set("mp", 0.toInt())
 
-        npcDat.set("radius", 10)
-        npcDat.set("height", 80)
+        npcDat.set("radius", 10.toInt())
+        npcDat.set("height", 80.toInt())
 
-        npcDat.set("pAtk", 0)
-        npcDat.set("mAtk", 0)
-        npcDat.set("pDef", 500)
-        npcDat.set("mDef", 500)
+        npcDat.set("pAtk", 0.toInt())
+        npcDat.set("mAtk", 0.toInt())
+        npcDat.set("pDef", 500.toInt())
+        npcDat.set("mDef", 500.toInt())
 
-        npcDat.set("runSpd", 0) // Have to keep this, static object MUST BE 0 (critical error otherwise).
+        npcDat.set("runSpd", 0.toInt()) // Have to keep this, static object MUST BE 0 (critical error otherwise).
 
         // Spawn a new flag.
         val flag = SiegeFlag(player, IdFactory.getInstance().nextId, NpcTemplate(npcDat))
