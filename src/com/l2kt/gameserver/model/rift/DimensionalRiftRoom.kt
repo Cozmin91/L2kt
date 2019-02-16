@@ -75,7 +75,7 @@ class DimensionalRiftRoom(val type: Byte, set: StatsSet) {
         for (spawn in spawns) {
             spawn.setRespawnState(false)
             if (spawn.npc != null)
-                spawn.npc.deleteMe()
+                spawn.npc?.deleteMe()
         }
         isPartyInside = false
     }

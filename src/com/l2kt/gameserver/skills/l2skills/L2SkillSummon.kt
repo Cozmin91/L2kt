@@ -173,7 +173,7 @@ class L2SkillSummon(set: StatsSet) : L2Skill(set) {
         val y = caster.y
         val z = caster.z
 
-        summon.spawnMe(GeoEngine.getInstance().canMoveToTargetLoc(x, y, z, x + 20, y + 20, z))
+        summon.spawnMe(GeoEngine.canMoveToTargetLoc(x, y, z, x + 20, y + 20, z))
         summon.followStatus = true
     }
 

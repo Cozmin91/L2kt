@@ -259,10 +259,7 @@ class Valakas : L2AttackableAIScript("ai/individual") {
             return
 
         // Pickup a target if no or dead victim. 10% luck he decides to reconsiders his target.
-        if (_actualVictim == null || _actualVictim!!.isDead || !npc.getKnownType(Player::class.java).contains(
-                _actualVictim
-            ) || Rnd[10] == 0
-        )
+        if (_actualVictim == null || _actualVictim!!.isDead || !npc.getKnownType(Player::class.java).contains(_actualVictim!!) || Rnd[10] == 0)
             _actualVictim = getRandomPlayer(npc)
 
         // If result is still null, Valakas will roam. Don't go deeper in skill AI.
@@ -275,7 +272,7 @@ class Valakas : L2AttackableAIScript("ai/individual") {
                 val posX = x + Rnd[-1400, 1400]
                 val posY = y + Rnd[-1400, 1400]
 
-                if (GeoEngine.getInstance().canMoveToTarget(x, y, z, posX, posY, z))
+                if (GeoEngine.canMoveToTarget(x, y, z, posX, posY, z))
                     npc.ai.setIntention(CtrlIntention.MOVE_TO, Location(posX, posY, z))
             }
             return

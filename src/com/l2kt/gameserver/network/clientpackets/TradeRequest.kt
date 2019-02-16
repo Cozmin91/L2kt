@@ -26,7 +26,7 @@ class TradeRequest : L2GameClientPacket() {
             return
         }
 
-        val target = World.getInstance().getPlayer(_objectId)
+        val target = World.getPlayer(_objectId)
         if (target == null || !player.getKnownType(Player::class.java).contains(target) || target == player) {
             player.sendPacket(SystemMessageId.TARGET_IS_INCORRECT)
             return

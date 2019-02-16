@@ -51,7 +51,7 @@ public class AdminCreateItem implements IAdminCommandHandler
 				final int id = Integer.parseInt(st.nextToken());
 				final int count = (st.hasMoreTokens()) ? Integer.parseInt(st.nextToken()) : 1;
 				
-				final Collection<Player> players = World.getInstance().getPlayers();
+				final Collection<Player> players = World.INSTANCE.getPlayers();
 				for (Player player : players)
 					createItem(activeChar, player, id, count, 0, false);
 				

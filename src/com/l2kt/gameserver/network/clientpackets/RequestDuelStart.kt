@@ -17,7 +17,7 @@ class RequestDuelStart : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        val targetChar = World.getInstance().getPlayer(_player)
+        val targetChar = World.getPlayer(_player)
         if (targetChar == null || activeChar == targetChar) {
             activeChar.sendPacket(SystemMessageId.THERE_IS_NO_OPPONENT_TO_RECEIVE_YOUR_CHALLENGE_FOR_A_DUEL)
             return

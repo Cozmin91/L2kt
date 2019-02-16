@@ -35,7 +35,7 @@ public class AdminHeal implements IAdminCommandHandler
 			{
 				final String nameOrRadius = st.nextToken();
 				
-				final Player target = World.getInstance().getPlayer(nameOrRadius);
+				final Player target = World.INSTANCE.getPlayer(nameOrRadius);
 				if (target != null)
 					object = target;
 				else if (StringUtil.INSTANCE.isDigit(nameOrRadius))

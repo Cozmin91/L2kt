@@ -23,7 +23,7 @@ public class AdminMenu implements IAdminCommandHandler
 			if (data.length == 5)
 			{
 				String playerName = data[1];
-				Player player = World.getInstance().getPlayer(playerName);
+				Player player = World.INSTANCE.getPlayer(playerName);
 				if (player != null)
 					teleportCharacter(player, Integer.parseInt(data[2]), Integer.parseInt(data[3]), Integer.parseInt(data[4]), activeChar);
 			}

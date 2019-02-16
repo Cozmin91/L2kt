@@ -804,7 +804,7 @@ public class CreatureAI extends AbstractAI
 				boolean cancast = true;
 				for (Creature target : _actor.getKnownTypeInRadius(Creature.class, sk.getSkillRadius()))
 				{
-					if (!GeoEngine.getInstance().canSeeTarget(_actor, target))
+					if (!GeoEngine.INSTANCE.canSeeTarget(_actor, target))
 						continue;
 					
 					if (target instanceof Attackable && !_actor.isConfused())
@@ -822,7 +822,7 @@ public class CreatureAI extends AbstractAI
 				boolean cancast = true;
 				for (Creature target : ((Creature) getTarget()).getKnownTypeInRadius(Creature.class, sk.getSkillRadius()))
 				{
-					if (!GeoEngine.getInstance().canSeeTarget(_actor, target))
+					if (!GeoEngine.INSTANCE.canSeeTarget(_actor, target))
 						continue;
 					
 					if (target instanceof Attackable && !_actor.isConfused())
@@ -843,7 +843,7 @@ public class CreatureAI extends AbstractAI
 				boolean cancast = false;
 				for (Creature target : _actor.getKnownTypeInRadius(Creature.class, sk.getSkillRadius()))
 				{
-					if (!GeoEngine.getInstance().canSeeTarget(_actor, target))
+					if (!GeoEngine.INSTANCE.canSeeTarget(_actor, target))
 						continue;
 					
 					if (target instanceof Attackable && !_actor.isConfused())
@@ -861,7 +861,7 @@ public class CreatureAI extends AbstractAI
 				boolean cancast = true;
 				for (Creature target : ((Creature) getTarget()).getKnownTypeInRadius(Creature.class, sk.getSkillRadius()))
 				{
-					if (!GeoEngine.getInstance().canSeeTarget(_actor, target))
+					if (!GeoEngine.INSTANCE.canSeeTarget(_actor, target))
 						continue;
 					
 					if (target instanceof Attackable && !_actor.isConfused())
@@ -889,7 +889,7 @@ public class CreatureAI extends AbstractAI
 		final String[] actorClans = ((Npc) _actor).getTemplate().getClans();
 		for (Attackable target : _actor.getKnownTypeInRadius(Attackable.class, sk.getSkillRadius()))
 		{
-			if (!GeoEngine.getInstance().canSeeTarget(_actor, target))
+			if (!GeoEngine.INSTANCE.canSeeTarget(_actor, target))
 				continue;
 			
 			if (!ArraysUtil.contains(actorClans, target.getTemplate().getClans()))

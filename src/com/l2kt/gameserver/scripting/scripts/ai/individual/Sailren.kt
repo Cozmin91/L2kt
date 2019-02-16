@@ -147,7 +147,7 @@ class Sailren : L2AttackableAIScript("ai/individual") {
 
     override fun onKill(npc: Npc, killer: Creature): String? {
         if (killer is Playable) {
-            val player = killer.getActingPlayer()
+            val player = killer.actingPlayer
             if (player == null || !_mobs.contains(npc) || !SAILREN_LAIR.allowedPlayers.contains(player.objectId))
                 return null
         }
@@ -206,7 +206,7 @@ class Sailren : L2AttackableAIScript("ai/individual") {
 
     override fun onAttack(npc: Npc, attacker: Creature, damage: Int, skill: L2Skill?): String? {
         if (attacker is Playable) {
-            val player = attacker.getActingPlayer()
+            val player = attacker.actingPlayer
             if (player == null || !_mobs.contains(npc) || !SAILREN_LAIR.allowedPlayers.contains(player.objectId))
                 return null
 

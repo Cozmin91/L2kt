@@ -152,7 +152,7 @@ class BlockList(private val _owner: Player) {
             sm.addString(charName!!)
             listOwner.sendPacket(sm)
 
-            val player = World.getInstance().getPlayer(targetId)
+            val player = World.getPlayer(targetId)
 
             if (player != null) {
                 sm = SystemMessage.getSystemMessage(SystemMessageId.S1_HAS_ADDED_YOU_TO_IGNORE_LIST)
@@ -205,7 +205,7 @@ class BlockList(private val _owner: Player) {
          * @return true if blocked
          */
         fun isInBlockList(ownerId: Int, targetId: Int): Boolean {
-            val player = World.getInstance().getPlayer(ownerId)
+            val player = World.getPlayer(ownerId)
 
             if (player != null)
                 return BlockList.isBlocked(player, targetId)

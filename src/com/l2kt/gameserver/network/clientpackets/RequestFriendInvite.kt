@@ -16,7 +16,7 @@ class RequestFriendInvite : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        val friend = World.getInstance().getPlayer(_name)
+        val friend = World.getPlayer(_name)
 
         // can't use friend invite for locating invisible characters
         if (friend == null || !friend.isOnline || friend.appearance.invisible) {

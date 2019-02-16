@@ -64,7 +64,7 @@ public class AdminBan implements IAdminCommandHandler
 		if (st.hasMoreTokens())
 		{
 			player = st.nextToken();
-			targetPlayer = World.getInstance().getPlayer(player);
+			targetPlayer = World.INSTANCE.getPlayer(player);
 			
 			// Second parameter, duration
 			if (st.hasMoreTokens())

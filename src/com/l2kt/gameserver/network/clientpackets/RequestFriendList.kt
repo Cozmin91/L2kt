@@ -16,7 +16,7 @@ class RequestFriendList : L2GameClientPacket() {
         for (id in activeChar.friendList) {
             val friendName = PlayerInfoTable.getPlayerName(id) ?: continue
 
-            val friend = World.getInstance().getPlayer(id)
+            val friend = World.getPlayer(id)
 
             activeChar.sendPacket(
                 SystemMessage.getSystemMessage(if (friend == null || !friend.isOnline) SystemMessageId.S1_OFFLINE else SystemMessageId.S1_ONLINE).addString(

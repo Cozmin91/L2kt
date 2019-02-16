@@ -24,7 +24,7 @@ class AnswerJoinPartyRoom : L2GameClientPacket() {
         val player = client.activeChar ?: return
 
         val partner = player.activeRequester
-        if (partner == null || World.getInstance().getPlayer(partner.objectId) == null) {
+        if (partner == null || World.getPlayer(partner.objectId) == null) {
             // Partner hasn't be found, cancel the invitation
             player.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME)
             player.activeRequester = null
@@ -37,7 +37,7 @@ class AnswerJoinPartyRoom : L2GameClientPacket() {
 
             if (player.level >= room.minLvl && player.level <= room.maxLvl) {
                 // Remove from waiting list
-                PartyMatchWaitingList.getInstance().removePlayer(player)
+                PartyMatchWaitingList.removePlayer(player)
 
                 player.partyRoom = partner.partyRoom
 

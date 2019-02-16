@@ -38,7 +38,7 @@ class RequestFriendDel : L2GameClientPacket() {
         player.friendList.remove(Integer.valueOf(friendId))
         player.sendPacket(FriendList(player)) // update friendList *heavy method*
 
-        val friend = World.getInstance().getPlayer(_name)
+        val friend = World.getPlayer(_name)
         if (friend != null) {
             friend.friendList.remove(Integer.valueOf(player.objectId))
             friend.sendPacket(FriendList(friend)) // update friendList *heavy method*

@@ -195,7 +195,7 @@ class L2GameClient(con: MMOConnection<L2GameClient>) : MMOClient<MMOConnection<L
         if (objectId < 0)
             return null
 
-        var player: Player? = World.getInstance().getPlayer(objectId)
+        var player: Player? = World.getPlayer(objectId)
         if (player != null) {
             // exploit prevention, should not happens in normal way
             _log.severe("Attempt of double login: " + player.name + "(" + objectId + ") " + accountName)
@@ -214,7 +214,7 @@ class L2GameClient(con: MMOConnection<L2GameClient>) : MMOClient<MMOConnection<L
             player.standUp() // standing is default
 
             player.setOnlineStatus(true, false)
-            World.getInstance().addPlayer(player)
+            World.addPlayer(player)
         } else
             _log.severe("L2GameClient: could not restore in slot: $slot")
 

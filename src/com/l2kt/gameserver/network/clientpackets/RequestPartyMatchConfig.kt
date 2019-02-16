@@ -41,7 +41,7 @@ class RequestPartyMatchConfig : L2GameClientPacket() {
             activeChar.broadcastUserInfo()
         } else {
             // Add to waiting list
-            PartyMatchWaitingList.getInstance().addPlayer(activeChar)
+            PartyMatchWaitingList.addPlayer(activeChar)
 
             // Send Room list
             activeChar.sendPacket(PartyMatchList(activeChar, _auto, _loc, _lvl))

@@ -97,8 +97,8 @@ class RequestRefine : AbstractRefinePacket() {
         val aug = AugmentationData.generateRandomAugmentation(lifeStoneLevel, lifeStoneGrade)
         targetItem.augmentation = aug
 
-        val stat12 = 0x0000FFFF and aug.augmentationId
-        val stat34 = aug.augmentationId shr 16
+        val stat12 = 0x0000FFFF and aug.getAugmentationId()
+        val stat34 = aug.getAugmentationId() shr 16
         activeChar.sendPacket(ExVariationResult(stat12, stat34, 1))
 
         val iu = InventoryUpdate()

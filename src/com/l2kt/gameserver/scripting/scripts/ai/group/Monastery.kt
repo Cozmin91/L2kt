@@ -60,7 +60,7 @@ class Monastery : L2AttackableAIScript("ai/group") {
 
     override fun onSpawn(npc: Npc): String? {
         for (target in npc.getKnownTypeInRadius(Player::class.java, npc.template.aggroRange)) {
-            if (!target.isDead && GeoEngine.getInstance().canSeeTarget(npc, target)) {
+            if (!target.isDead && GeoEngine.canSeeTarget(npc, target)) {
                 if (target.activeWeaponInstance != null && !npc.isInCombat && npc.target == null) {
                     npc.target = target
                     npc.broadcastNpcSay((if (target.appearance.sex === Sex.FEMALE) "Sister " else "Brother ") + target.name + ", move your weapon away!")

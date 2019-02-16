@@ -96,7 +96,7 @@ public class AdminMaintenance implements IAdminCommandHandler
 	{
 		final NpcHtmlMessage html = new NpcHtmlMessage(0);
 		html.setFile("data/html/admin/maintenance.htm");
-		html.replace("%count%", World.getInstance().getPlayers().size());
+		html.replace("%count%", World.INSTANCE.getPlayers().size());
 		html.replace("%used%", SysUtil.getUsedMemory());
 		html.replace("%server_name%", LoginServerThread.INSTANCE.getServerName());
 		html.replace("%status%", LoginServerThread.INSTANCE.getStatusString());

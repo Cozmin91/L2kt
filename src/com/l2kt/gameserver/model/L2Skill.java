@@ -38,9 +38,9 @@ import java.util.logging.Logger;
 public abstract class L2Skill implements IChanceSkillTrigger
 {
 	public static final Logger _log = Logger.getLogger(L2Skill.class.getName());
-	
+
 	private static final WorldObject[] _emptyTargetList = new WorldObject[0];
-	
+
 	public static final int SKILL_LUCKY = 194;
 	public static final int SKILL_EXPERTISE = 239;
 	public static final int SKILL_SHADOW_SENSE = 294;
@@ -49,14 +49,14 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	public static final int SKILL_CRYSTALLIZE = 248;
 	public static final int SKILL_DIVINE_INSPIRATION = 1405;
 	public static final int SKILL_NPC_RACE = 4416;
-	
+
 	public static enum SkillOpType
 	{
 		OP_PASSIVE,
 		OP_ACTIVE,
 		OP_TOGGLE
 	}
-	
+
 	/** Target types of skills : SELF, PARTY, CLAN, PET... */
 	public static enum SkillTargetType
 	{
@@ -91,114 +91,114 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		TARGET_OWNER_PET,
 		TARGET_GROUND
 	}
-	
+
 	// conditional values
 	public static final int COND_BEHIND = 0x0008;
 	public static final int COND_CRIT = 0x0010;
-	
+
 	private final int _id;
 	private final int _level;
-	
+
 	private final String _name;
 	private final SkillOpType _operateType;
-	
+
 	private final boolean _magic;
-	
+
 	private final int _mpConsume;
 	private final int _mpInitialConsume;
 	private final int _hpConsume;
-	
+
 	private final int _targetConsume;
 	private final int _targetConsumeId;
-	
+
 	private final int _itemConsume; // items consumption
 	private final int _itemConsumeId;
-	
+
 	private final int _castRange;
 	private final int _effectRange;
-	
+
 	private final int _abnormalLvl; // Abnormal levels for skills and their canceling
 	private final int _effectAbnormalLvl;
-	
+
 	private final int _hitTime; // all times in milliseconds
 	private final int _coolTime;
-	
+
 	private final int _reuseDelay;
 	private final int _equipDelay;
-	
+
 	private final int _buffDuration;
-	
+
 	/** Target type of the skill : SELF, PARTY, CLAN, PET... */
 	private final SkillTargetType _targetType;
-	
+
 	private final double _power;
-	
+
 	private final int _magicLevel;
-	
+
 	private final int _negateLvl; // abnormalLvl is negated with negateLvl
 	private final int[] _negateId; // cancels the effect of skill ID
 	private final L2SkillType[] _negateStats; // lists the effect types that are canceled
 	private final int _maxNegatedEffects; // maximum number of effects to negate
-	
+
 	private final int _levelDepend;
-	
+
 	private final int _skillRadius; // Effecting area of the skill, in radius.
-	
+
 	private final L2SkillType _skillType;
 	private final L2SkillType _effectType;
-	
+
 	private final int _effectId;
 	private final int _effectPower;
 	private final int _effectLvl;
-	
+
 	private final boolean _ispotion;
 	private final byte _element;
-	
+
 	private final boolean _ignoreResists;
-	
+
 	private final boolean _staticReuse;
 	private final boolean _staticHitTime;
-	
+
 	private final int _reuseHashCode;
-	
+
 	private final Stats _stat;
-	
+
 	private final int _condition;
 	private final int _conditionValue;
-	
+
 	private final boolean _overhit;
 	private final boolean _killByDOT;
 	private final boolean _isSuicideAttack;
-	
+
 	private final boolean _isDemonicSkill;
 	private final boolean _isFlyingSkill;
 	private final boolean _isStriderSkill;
-	
+
 	private final boolean _isSiegeSummonSkill;
-	
+
 	private final int _weaponsAllowed;
-	
+
 	private final boolean _nextActionIsAttack;
-	
+
 	private final int _minPledgeClass;
-	
+
 	private final boolean _isOffensive;
 	private final int _maxCharges;
 	private final int _numCharges;
-	
+
 	private final int _triggeredId;
 	private final int _triggeredLevel;
 	protected ChanceCondition _chanceCondition = null;
 	private final String _chanceType;
-	
+
 	private final String _flyType;
 	private final int _flyRadius;
 	private final float _flyCourse;
-	
+
 	private final int _feed;
-	
+
 	private final boolean _isHeroSkill; // If true the skill is a Hero Skill
-	
+
 	private final int _baseCritRate; // percent of success for skill critical hit (especially for PDAM & BLOW - they're not affected by rCrit values or buffs). Default loads -1 for all other skills but 0 to PDAM & BLOW
 	private final int _lethalEffect1; // percent of success for lethal 1st effect (hit cp to 1 or if mob hp to 50%) (only for PDAM skills)
 	private final int _lethalEffect2; // percent of success for lethal 2nd effect (hit cp,hp to 1 or if mob hp to 1) (only for PDAM skills)
@@ -207,84 +207,84 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	private final int _nextDanceCost;
 	private final float _sSBoost; // If true skill will have SoulShot boost (power*2)
 	private final int _aggroPoints;
-	
+
 	protected List<Condition> _preCondition;
 	protected List<Condition> _itemPreCondition;
 	protected List<FuncTemplate> _funcTemplates;
 	protected List<EffectTemplate> _effectTemplates;
 	protected List<EffectTemplate> _effectTemplatesSelf;
-	
+
 	private final String _attribute;
-	
+
 	private final boolean _isDebuff;
 	private final boolean _stayAfterDeath; // skill should stay after death
-	
+
 	private final boolean _removedOnAnyActionExceptMove;
 	private final boolean _removedOnDamage;
-	
+
 	private final boolean _canBeReflected;
 	private final boolean _canBeDispeled;
-	
+
 	private final boolean _isClanSkill;
-	
+
 	private final boolean _ignoreShield;
-	
+
 	private final boolean _simultaneousCast;
-	
+
 	private L2ExtractableSkill _extractableItems = null;
-	
+
 	protected L2Skill(StatsSet set)
 	{
 		_id = set.getInteger("skill_id");
 		_level = set.getInteger("level");
-		
+
 		_name = set.getString("name");
 		_operateType = set.getEnum("operateType", SkillOpType.class);
-		
+
 		_magic = set.getBool("isMagic", false);
 		_ispotion = set.getBool("isPotion", false);
-		
+
 		_mpConsume = set.getInteger("mpConsume", 0);
 		_mpInitialConsume = set.getInteger("mpInitialConsume", 0);
 		_hpConsume = set.getInteger("hpConsume", 0);
-		
+
 		_targetConsume = set.getInteger("targetConsumeCount", 0);
 		_targetConsumeId = set.getInteger("targetConsumeId", 0);
-		
+
 		_itemConsume = set.getInteger("itemConsumeCount", 0);
 		_itemConsumeId = set.getInteger("itemConsumeId", 0);
-		
+
 		_castRange = set.getInteger("castRange", 0);
 		_effectRange = set.getInteger("effectRange", -1);
-		
+
 		_abnormalLvl = set.getInteger("abnormalLvl", -1);
 		_effectAbnormalLvl = set.getInteger("effectAbnormalLvl", -1); // support for a separate effect abnormal lvl, e.g. poison inside a different skill
 		_negateLvl = set.getInteger("negateLvl", -1);
-		
+
 		_hitTime = set.getInteger("hitTime", 0);
 		_coolTime = set.getInteger("coolTime", 0);
-		
+
 		_reuseDelay = set.getInteger("reuseDelay", 0);
 		_equipDelay = set.getInteger("equipDelay", 0);
-		
+
 		_buffDuration = set.getInteger("buffDuration", 0);
-		
+
 		_skillRadius = set.getInteger("skillRadius", 80);
-		
+
 		_targetType = set.getEnum("target", SkillTargetType.class);
-		
+
 		_power = set.getFloat("power", 0.f);
-		
+
 		_attribute = set.getString("attribute", "");
 		String str = set.getString("negateStats", "");
-		
+
 		if (str.isEmpty())
 			_negateStats = new L2SkillType[0];
 		else
 		{
 			String[] stats = str.split(" ");
 			L2SkillType[] array = new L2SkillType[stats.length];
-			
+
 			for (int i = 0; i < stats.length; i++)
 			{
 				L2SkillType type = null;
@@ -296,12 +296,12 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				{
 					throw new IllegalArgumentException("SkillId: " + _id + "Enum value of type " + L2SkillType.class.getName() + " required, but found: " + stats[i]);
 				}
-				
+
 				array[i] = type;
 			}
 			_negateStats = array;
 		}
-		
+
 		String negateId = set.getString("negateId", null);
 		if (negateId != null)
 		{
@@ -314,16 +314,16 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		else
 			_negateId = new int[0];
-		
+
 		_maxNegatedEffects = set.getInteger("maxNegated", 0);
-		
+
 		_magicLevel = set.getInteger("magicLvl", 0);
 		_levelDepend = set.getInteger("lvlDepend", 0);
 		_ignoreResists = set.getBool("ignoreResists", false);
-		
+
 		_staticReuse = set.getBool("staticReuse", false);
 		_staticHitTime = set.getBool("staticHitTime", false);
-		
+
 		String reuseHash = set.getString("sharedReuse", null);
 		if (reuseHash != null)
 		{
@@ -339,32 +339,32 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		else
 			_reuseHashCode = SkillTable.INSTANCE.getSkillHashCode(_id, _level);
-		
+
 		_stat = set.getEnum("stat", Stats.class, null);
 		_ignoreShield = set.getBool("ignoreShld", false);
-		
+
 		_skillType = set.getEnum("skillType", L2SkillType.class);
 		_effectType = set.getEnum("effectType", L2SkillType.class, null);
-		
+
 		_effectId = set.getInteger("effectId", 0);
 		_effectPower = set.getInteger("effectPower", 0);
 		_effectLvl = set.getInteger("effectLevel", 0);
-		
+
 		_element = set.getByte("element", (byte) -1);
-		
+
 		_condition = set.getInteger("condition", 0);
 		_conditionValue = set.getInteger("conditionValue", 0);
-		
+
 		_overhit = set.getBool("overHit", false);
 		_killByDOT = set.getBool("killByDOT", false);
 		_isSuicideAttack = set.getBool("isSuicideAttack", false);
-		
+
 		_isDemonicSkill = set.getBool("isDemonicSkill", false);
 		_isFlyingSkill = set.getBool("isFlyingSkill", false);
 		_isStriderSkill = set.getBool("isStriderSkill", false);
-		
+
 		_isSiegeSummonSkill = set.getBool("isSiegeSummonSkill", false);
-		
+
 		String weaponsAllowedString = set.getString("weaponsAllowed", null);
 		if (weaponsAllowedString != null)
 		{
@@ -382,7 +382,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 						break;
 					}
 				}
-				
+
 				for (ArmorType at : ArmorType.values())
 				{
 					if (at.name().equals(item))
@@ -391,7 +391,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 						break;
 					}
 				}
-				
+
 				if (old == mask)
 					_log.info("[weaponsAllowed] Unknown item type name: " + item);
 			}
@@ -399,84 +399,84 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		else
 			_weaponsAllowed = 0;
-		
+
 		_nextActionIsAttack = set.getBool("nextActionAttack", false);
-		
+
 		_minPledgeClass = set.getInteger("minPledgeClass", 0);
-		
+
 		_triggeredId = set.getInteger("triggeredId", 0);
 		_triggeredLevel = set.getInteger("triggeredLevel", 0);
 		_chanceType = set.getString("chanceType", "");
 		if (!_chanceType.isEmpty())
 			_chanceCondition = ChanceCondition.Companion.parse(set);
-		
+
 		_isDebuff = set.getBool("isDebuff", false);
 		_isOffensive = set.getBool("offensive", isSkillTypeOffensive());
 		_maxCharges = set.getInteger("maxCharges", 0);
 		_numCharges = set.getInteger("numCharges", 0);
-		
+
 		_isHeroSkill = SkillTable.INSTANCE.isHeroSkill(_id);
-		
+
 		_baseCritRate = set.getInteger("baseCritRate", (_skillType == L2SkillType.PDAM || _skillType == L2SkillType.BLOW) ? 0 : -1);
 		_lethalEffect1 = set.getInteger("lethal1", 0);
 		_lethalEffect2 = set.getInteger("lethal2", 0);
-		
+
 		_directHpDmg = set.getBool("dmgDirectlyToHp", false);
 		_isDance = set.getBool("isDance", false);
 		_nextDanceCost = set.getInteger("nextDanceCost", 0);
 		_sSBoost = set.getFloat("SSBoost", 0.f);
 		_aggroPoints = set.getInteger("aggroPoints", 0);
-		
+
 		_stayAfterDeath = set.getBool("stayAfterDeath", false);
-		
+
 		_removedOnAnyActionExceptMove = set.getBool("removedOnAnyActionExceptMove", false);
 		_removedOnDamage = set.getBool("removedOnDamage", _skillType == L2SkillType.SLEEP);
-		
+
 		_flyType = set.getString("flyType", null);
 		_flyRadius = set.getInteger("flyRadius", 0);
 		_flyCourse = set.getFloat("flyCourse", 0);
-		
+
 		_feed = set.getInteger("feed", 0);
-		
+
 		_canBeReflected = set.getBool("canBeReflected", true);
 		_canBeDispeled = set.getBool("canBeDispeled", true);
-		
+
 		_isClanSkill = set.getBool("isClanSkill", false);
-		
+
 		_simultaneousCast = set.getBool("simultaneousCast", false);
-		
+
 		String capsuled_items = set.getString("capsuled_items_skill", null);
 		if (capsuled_items != null)
 		{
 			if (capsuled_items.isEmpty())
 				_log.warning("Empty extractable data for skill: " + _id);
-			
+
 			_extractableItems = parseExtractableSkill(_id, _level, capsuled_items);
 		}
 	}
-	
+
 	public abstract void useSkill(Creature caster, WorldObject[] targets);
-	
+
 	public final boolean isPotion()
 	{
 		return _ispotion;
 	}
-	
+
 	public final int getConditionValue()
 	{
 		return _conditionValue;
 	}
-	
+
 	public final L2SkillType getSkillType()
 	{
 		return _skillType;
 	}
-	
+
 	public final byte getElement()
 	{
 		return _element;
 	}
-	
+
 	/**
 	 * @return the target type of the skill : SELF, PARTY, CLAN, PET...
 	 */
@@ -484,47 +484,47 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _targetType;
 	}
-	
+
 	public final int getCondition()
 	{
 		return _condition;
 	}
-	
+
 	public final boolean isOverhit()
 	{
 		return _overhit;
 	}
-	
+
 	public final boolean killByDOT()
 	{
 		return _killByDOT;
 	}
-	
+
 	public final boolean isSuicideAttack()
 	{
 		return _isSuicideAttack;
 	}
-	
+
 	public final boolean isDemonicSkill()
 	{
 		return _isDemonicSkill;
 	}
-	
+
 	public final boolean isFlyingSkill()
 	{
 		return _isFlyingSkill;
 	}
-	
+
 	public final boolean isStriderSkill()
 	{
 		return _isStriderSkill;
 	}
-	
+
 	public final boolean isSiegeSummonSkill()
 	{
 		return _isSiegeSummonSkill;
 	}
-	
+
 	/**
 	 * @param activeChar
 	 * @return the power of the skill.
@@ -533,7 +533,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		if (activeChar == null)
 			return _power;
-		
+
 		switch (_skillType)
 		{
 			case DEATHLINK:
@@ -544,47 +544,47 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				return _power;
 		}
 	}
-	
+
 	public final double getPower()
 	{
 		return _power;
 	}
-	
+
 	public final L2SkillType[] getNegateStats()
 	{
 		return _negateStats;
 	}
-	
+
 	public final int getAbnormalLvl()
 	{
 		return _abnormalLvl;
 	}
-	
+
 	public final int getNegateLvl()
 	{
 		return _negateLvl;
 	}
-	
+
 	public final int[] getNegateId()
 	{
 		return _negateId;
 	}
-	
+
 	public final int getMagicLevel()
 	{
 		return _magicLevel;
 	}
-	
+
 	public final int getMaxNegatedEffects()
 	{
 		return _maxNegatedEffects;
 	}
-	
+
 	public final int getLevelDepend()
 	{
 		return _levelDepend;
 	}
-	
+
 	/**
 	 * @return true if skill should ignore all resistances.
 	 */
@@ -592,22 +592,22 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _ignoreResists;
 	}
-	
+
 	public int getTriggeredId()
 	{
 		return _triggeredId;
 	}
-	
+
 	public int getTriggeredLevel()
 	{
 		return _triggeredLevel;
 	}
-	
+
 	public boolean triggerAnotherSkill()
 	{
 		return _triggeredId > 1;
 	}
-	
+
 	/**
 	 * @return true if skill effects should be removed on any action except movement
 	 */
@@ -615,7 +615,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _removedOnAnyActionExceptMove;
 	}
-	
+
 	/**
 	 * @return true if skill effects should be removed on damage
 	 */
@@ -623,7 +623,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _removedOnDamage;
 	}
-	
+
 	/**
 	 * @return the additional effect power or base probability.
 	 */
@@ -637,23 +637,23 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					return et.getEffectPower();
 			}
 		}
-		
+
 		if (_effectPower > 0)
 			return _effectPower;
-		
+
 		// Allow damage dealing skills having proper resist even without specified effectPower.
 		switch (_skillType)
 		{
 			case PDAM:
 			case MDAM:
 				return 20;
-			
+
 			default:
 				// to let debuffs succeed even without specified power
 				return (_power <= 0 || 100 < _power) ? 20 : _power;
 		}
 	}
-	
+
 	/**
 	 * @return the additional effect Id.
 	 */
@@ -661,7 +661,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _effectId;
 	}
-	
+
 	/**
 	 * @return the additional effect level.
 	 */
@@ -669,12 +669,12 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _effectLvl;
 	}
-	
+
 	public final int getEffectAbnormalLvl()
 	{
 		return _effectAbnormalLvl;
 	}
-	
+
 	/**
 	 * @return the additional effect skill type (ex : STUN, PARALYZE,...).
 	 */
@@ -688,10 +688,10 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					return et.getEffectType();
 			}
 		}
-		
+
 		if (_effectType != null)
 			return _effectType;
-		
+
 		// to let damage dealing skills having proper resist even without specified effectType
 		switch (_skillType)
 		{
@@ -703,7 +703,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				return _skillType;
 		}
 	}
-	
+
 	/**
 	 * @return true if character should attack target after skill
 	 */
@@ -711,7 +711,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _nextActionIsAttack;
 	}
-	
+
 	/**
 	 * @return Returns the buffDuration.
 	 */
@@ -719,7 +719,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _buffDuration;
 	}
-	
+
 	/**
 	 * @return Returns the castRange.
 	 */
@@ -727,7 +727,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _castRange;
 	}
-	
+
 	/**
 	 * @return Returns the effectRange.
 	 */
@@ -735,7 +735,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _effectRange;
 	}
-	
+
 	/**
 	 * @return Returns the hpConsume.
 	 */
@@ -743,7 +743,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _hpConsume;
 	}
-	
+
 	/**
 	 * @return Returns the boolean _isDebuff.
 	 */
@@ -751,7 +751,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _isDebuff;
 	}
-	
+
 	/**
 	 * @return the skill id.
 	 */
@@ -759,12 +759,12 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _id;
 	}
-	
+
 	public final Stats getStat()
 	{
 		return _stat;
 	}
-	
+
 	/**
 	 * @return the _targetConsumeId.
 	 */
@@ -772,7 +772,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _targetConsumeId;
 	}
-	
+
 	/**
 	 * @return the targetConsume.
 	 */
@@ -780,7 +780,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _targetConsume;
 	}
-	
+
 	/**
 	 * @return the itemConsume.
 	 */
@@ -788,7 +788,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _itemConsume;
 	}
-	
+
 	/**
 	 * @return the itemConsumeId.
 	 */
@@ -796,7 +796,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _itemConsumeId;
 	}
-	
+
 	/**
 	 * @return the level.
 	 */
@@ -804,7 +804,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _level;
 	}
-	
+
 	/**
 	 * @return the magic.
 	 */
@@ -812,7 +812,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _magic;
 	}
-	
+
 	/**
 	 * @return true to set static reuse.
 	 */
@@ -820,7 +820,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _staticReuse;
 	}
-	
+
 	/**
 	 * @return true to set static hittime.
 	 */
@@ -828,7 +828,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _staticHitTime;
 	}
-	
+
 	/**
 	 * @return Returns the mpConsume.
 	 */
@@ -836,7 +836,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _mpConsume;
 	}
-	
+
 	/**
 	 * @return Returns the mpInitialConsume.
 	 */
@@ -844,7 +844,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _mpInitialConsume;
 	}
-	
+
 	/**
 	 * @return Returns the name.
 	 */
@@ -852,7 +852,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _name;
 	}
-	
+
 	/**
 	 * @return Returns the reuseDelay.
 	 */
@@ -860,22 +860,22 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _reuseDelay;
 	}
-	
+
 	public final int getEquipDelay()
 	{
 		return _equipDelay;
 	}
-	
+
 	public final int getReuseHashCode()
 	{
 		return _reuseHashCode;
 	}
-	
+
 	public final int getHitTime()
 	{
 		return _hitTime;
 	}
-	
+
 	/**
 	 * @return Returns the coolTime.
 	 */
@@ -883,52 +883,52 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return _coolTime;
 	}
-	
+
 	public final int getSkillRadius()
 	{
 		return _skillRadius;
 	}
-	
+
 	public final boolean isActive()
 	{
 		return _operateType == SkillOpType.OP_ACTIVE;
 	}
-	
+
 	public final boolean isPassive()
 	{
 		return _operateType == SkillOpType.OP_PASSIVE;
 	}
-	
+
 	public final boolean isToggle()
 	{
 		return _operateType == SkillOpType.OP_TOGGLE;
 	}
-	
+
 	public boolean isChance()
 	{
 		return _chanceCondition != null && isPassive();
 	}
-	
+
 	public final boolean isDance()
 	{
 		return _isDance;
 	}
-	
+
 	public final int getNextDanceMpCost()
 	{
 		return _nextDanceCost;
 	}
-	
+
 	public final float getSSBoost()
 	{
 		return _sSBoost;
 	}
-	
+
 	public final int getAggroPoints()
 	{
 		return _aggroPoints;
 	}
-	
+
 	public final boolean useSoulShot()
 	{
 		switch (_skillType)
@@ -941,101 +941,101 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		return false;
 	}
-	
+
 	public final boolean useSpiritShot()
 	{
 		return isMagic();
 	}
-	
+
 	public final int getWeaponsAllowed()
 	{
 		return _weaponsAllowed;
 	}
-	
+
 	public boolean isSimultaneousCast()
 	{
 		return _simultaneousCast;
 	}
-	
+
 	public int getMinPledgeClass()
 	{
 		return _minPledgeClass;
 	}
-	
+
 	public String getAttributeName()
 	{
 		return _attribute;
 	}
-	
+
 	public boolean ignoreShield()
 	{
 		return _ignoreShield;
 	}
-	
+
 	public boolean canBeReflected()
 	{
 		return _canBeReflected;
 	}
-	
+
 	public boolean canBeDispeled()
 	{
 		return _canBeDispeled;
 	}
-	
+
 	public boolean isClanSkill()
 	{
 		return _isClanSkill;
 	}
-	
+
 	public final String getFlyType()
 	{
 		return _flyType;
 	}
-	
+
 	public final int getFlyRadius()
 	{
 		return _flyRadius;
 	}
-	
+
 	public int getFeed()
 	{
 		return _feed;
 	}
-	
+
 	public final float getFlyCourse()
 	{
 		return _flyCourse;
 	}
-	
+
 	public final int getMaxCharges()
 	{
 		return _maxCharges;
 	}
-	
+
 	@Override
 	public boolean triggersChanceSkill()
 	{
 		return _triggeredId > 0 && isChance();
 	}
-	
+
 	@Override
 	public int getTriggeredChanceId()
 	{
 		return _triggeredId;
 	}
-	
+
 	@Override
 	public int getTriggeredChanceLevel()
 	{
 		return _triggeredLevel;
 	}
-	
+
 	@Override
 	public ChanceCondition getTriggeredChanceCondition()
 	{
 		return _chanceCondition;
 	}
-	
+
 	public final boolean isPvpSkill()
 	{
 		switch (_skillType)
@@ -1065,54 +1065,54 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				return false;
 		}
 	}
-	
+
 	public final boolean is7Signs()
 	{
 		if (_id > 4360 && _id < 4367)
 			return true;
 		return false;
 	}
-	
+
 	public final boolean isStayAfterDeath()
 	{
 		return _stayAfterDeath;
 	}
-	
+
 	public final boolean isOffensive()
 	{
 		return _isOffensive;
 	}
-	
+
 	public final boolean isHeroSkill()
 	{
 		return _isHeroSkill;
 	}
-	
+
 	public final int getNumCharges()
 	{
 		return _numCharges;
 	}
-	
+
 	public final int getBaseCritRate()
 	{
 		return _baseCritRate;
 	}
-	
+
 	public final int getLethalChance1()
 	{
 		return _lethalEffect1;
 	}
-	
+
 	public final int getLethalChance2()
 	{
 		return _lethalEffect2;
 	}
-	
+
 	public final boolean getDmgDirectlyToHP()
 	{
 		return _directHpDmg;
 	}
-	
+
 	public final boolean isSkillTypeOffensive()
 	{
 		switch (_skillType)
@@ -1164,44 +1164,44 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				return isDebuff();
 		}
 	}
-	
+
 	public final boolean getWeaponDependancy(Creature activeChar)
 	{
 		// check to see if skill has a weapon dependency.
 		final int weaponsAllowed = getWeaponsAllowed();
 		if (weaponsAllowed == 0)
 			return true;
-		
+
 		int mask = 0;
-		
+
 		final Weapon weapon = activeChar.getActiveWeaponItem();
 		if (weapon != null)
 			mask |= weapon.getItemType().mask();
-		
+
 		final Item shield = activeChar.getSecondaryWeaponItem();
 		if (shield != null && shield instanceof Armor)
 			mask |= ((ArmorType) shield.getItemType()).mask();
-		
+
 		if ((mask & weaponsAllowed) != 0)
 			return true;
-		
+
 		activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(this));
 		return false;
 	}
-	
+
 	public boolean checkCondition(Creature activeChar, WorldObject target, boolean itemOrWeapon)
 	{
 		final List<Condition> preCondition = (itemOrWeapon) ? _itemPreCondition : _preCondition;
 		if (preCondition == null || preCondition.isEmpty())
 			return true;
-		
+
 		final Env env = new Env();
 		env.setCharacter(activeChar);
 		if (target instanceof Creature)
 			env.setTarget((Creature) target);
-		
+
 		env.setSkill(this);
-		
+
 		for (Condition cond : preCondition)
 		{
 			if (!cond.test(env))
@@ -1225,20 +1225,20 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		return true;
 	}
-	
+
 	public final WorldObject[] getTargetList(Creature activeChar, boolean onlyFirst)
 	{
 		// Init to null the target of the skill
 		Creature target = null;
-		
+
 		// Get the WorldObject targeted by the user of the skill at this moment
 		WorldObject objTarget = activeChar.getTarget();
 		if (objTarget instanceof Creature)
 			target = (Creature) objTarget;
-		
+
 		return getTargetList(activeChar, onlyFirst, target);
 	}
-	
+
 	/**
 	 * @param activeChar : The skill caster.
 	 * @param onlyFirst : Returns the first target only, dropping others results.
@@ -1269,13 +1269,13 @@ public abstract class L2Skill implements IChanceSkillTrigger
 						canTargetSelf = true;
 						break;
 				}
-				
+
 				if (target == null || target.isDead() || (target == activeChar && !canTargetSelf))
 				{
 					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return _emptyTargetList;
 				}
-				
+
 				return new Creature[]
 				{
 					target
@@ -1296,7 +1296,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return _emptyTargetList;
 				}
-				
+
 				return new Creature[]
 				{
 					target
@@ -1310,7 +1310,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					{
 						target
 					};
-				
+
 				return _emptyTargetList;
 			}
 			case TARGET_SUMMON:
@@ -1321,7 +1321,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					{
 						target
 					};
-				
+
 				return _emptyTargetList;
 			}
 			case TARGET_OWNER_PET:
@@ -1335,7 +1335,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 							target
 						};
 				}
-				
+
 				return _emptyTargetList;
 			}
 			case TARGET_CORPSE_PET:
@@ -1349,7 +1349,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 							target
 						};
 				}
-				
+
 				return _emptyTargetList;
 			}
 			case TARGET_AURA:
@@ -1357,7 +1357,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			case TARGET_BEHIND_AURA:
 			{
 				List<Creature> targetList = new ArrayList<>();
-				
+
 				// Go through the Creature knownList
 				if (_skillType == L2SkillType.DUMMY)
 				{
@@ -1366,22 +1366,22 @@ public abstract class L2Skill implements IChanceSkillTrigger
 						{
 							activeChar
 						};
-					
+
 					final Player sourcePlayer = activeChar.getActingPlayer();
-					
+
 					targetList.add(activeChar);
 					for (Creature obj : activeChar.getKnownTypeInRadius(Creature.class, _skillRadius))
 					{
 						if (!(obj == activeChar || obj == sourcePlayer || obj instanceof Npc || obj instanceof Attackable))
 							continue;
-						
+
 						targetList.add(obj);
 					}
 				}
 				else
 				{
 					final boolean srcInArena = activeChar.isInArena();
-					
+
 					for (Creature obj : activeChar.getKnownTypeInRadius(Creature.class, _skillRadius))
 					{
 						if (obj instanceof Attackable || obj instanceof Playable)
@@ -1397,16 +1397,16 @@ public abstract class L2Skill implements IChanceSkillTrigger
 										continue;
 									break;
 							}
-							
+
 							if (!checkForAreaOffensiveSkills(activeChar, obj, this, srcInArena))
 								continue;
-							
+
 							if (onlyFirst)
 								return new Creature[]
 								{
 									obj
 								};
-							
+
 							targetList.add(obj);
 						}
 					}
@@ -1418,36 +1418,36 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				target = activeChar.getPet();
 				if (target == null || !(target instanceof Servitor) || target.isDead())
 					return _emptyTargetList;
-				
+
 				if (onlyFirst)
 					return new Creature[]
 					{
 						target
 					};
-				
+
 				final boolean srcInArena = activeChar.isInArena();
 				List<Creature> targetList = new ArrayList<>();
-				
+
 				for (Creature obj : target.getKnownType(Creature.class))
 				{
 					if (obj == null || obj == target || obj == activeChar)
 						continue;
-					
+
 					if (!MathUtil.INSTANCE.checkIfInRange(_skillRadius, target, obj, true))
 						continue;
-					
+
 					if (!(obj instanceof Attackable || obj instanceof Playable))
 						continue;
-					
+
 					if (!checkForAreaOffensiveSkills(activeChar, obj, this, srcInArena))
 						continue;
-					
+
 					targetList.add(obj);
 				}
-				
+
 				if (targetList.isEmpty())
 					return _emptyTargetList;
-				
+
 				return targetList.toArray(new Creature[targetList.size()]);
 			}
 			case TARGET_AREA:
@@ -1459,36 +1459,36 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return _emptyTargetList;
 				}
-				
+
 				final Creature origin;
 				final boolean srcInArena = activeChar.isInArena();
 				List<Creature> targetList = new ArrayList<>();
-				
+
 				if (_castRange >= 0)
 				{
 					if (!checkForAreaOffensiveSkills(activeChar, target, this, srcInArena))
 						return _emptyTargetList;
-					
+
 					if (onlyFirst)
 						return new Creature[]
 						{
 							target
 						};
-					
+
 					origin = target;
 					targetList.add(origin); // Add target to target list
 				}
 				else
 					origin = activeChar;
-				
+
 				for (Creature obj : activeChar.getKnownType(Creature.class))
 				{
 					if (!(obj instanceof Attackable || obj instanceof Playable))
 						continue;
-					
+
 					if (obj == origin)
 						continue;
-					
+
 					if (MathUtil.INSTANCE.checkIfInRange(_skillRadius, origin, obj, true))
 					{
 						switch (_targetType)
@@ -1502,17 +1502,17 @@ public abstract class L2Skill implements IChanceSkillTrigger
 									continue;
 								break;
 						}
-						
+
 						if (!checkForAreaOffensiveSkills(activeChar, obj, this, srcInArena))
 							continue;
-						
+
 						targetList.add(obj);
 					}
 				}
-				
+
 				if (targetList.isEmpty())
 					return _emptyTargetList;
-				
+
 				return targetList.toArray(new Creature[targetList.size()]);
 			}
 			case TARGET_PARTY:
@@ -1522,13 +1522,13 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					{
 						activeChar
 					};
-				
+
 				List<Creature> targetList = new ArrayList<>();
 				targetList.add(activeChar);
-				
+
 				final int radius = _skillRadius;
 				final Player player = activeChar.getActingPlayer();
-				
+
 				if (activeChar instanceof Summon)
 				{
 					if (addCharacter(activeChar, player, radius, false))
@@ -1539,7 +1539,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					if (addSummon(activeChar, player, radius, false))
 						targetList.add(player.getPet());
 				}
-				
+
 				final Party party = activeChar.getParty();
 				if (party != null)
 				{
@@ -1548,10 +1548,10 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					{
 						if (partyMember == player)
 							continue;
-						
+
 						if (addCharacter(activeChar, partyMember, radius, false))
 							targetList.add(partyMember);
-						
+
 						if (addSummon(activeChar, partyMember, radius, false))
 							targetList.add(partyMember.getPet());
 					}
@@ -1572,7 +1572,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					}
 					return _emptyTargetList;
 				}
-				
+
 				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return _emptyTargetList;
 			}
@@ -1594,14 +1594,14 @@ public abstract class L2Skill implements IChanceSkillTrigger
 											target
 										};
 									return _emptyTargetList;
-								
+
 								case 427:
 									if (((Player) target).isMageClass())
 										return new Creature[]
 										{
 											target
 										};
-									
+
 									return _emptyTargetList;
 							}
 						}
@@ -1612,7 +1612,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					}
 					return _emptyTargetList;
 				}
-				
+
 				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return _emptyTargetList;
 			}
@@ -1621,44 +1621,44 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				final Player player = activeChar.getActingPlayer();
 				if (player == null)
 					return _emptyTargetList;
-				
+
 				if (onlyFirst || player.isInOlympiadMode())
 					return new Creature[]
 					{
 						activeChar
 					};
-				
+
 				List<Creature> targetList = new ArrayList<>();
 				targetList.add(player);
-				
+
 				final int radius = _skillRadius;
-				
+
 				if (addSummon(activeChar, player, radius, false))
 					targetList.add(player.getPet());
-				
+
 				if (player.getClan() != null)
 				{
 					for (Player obj : activeChar.getKnownTypeInRadius(Player.class, radius))
 					{
 						if ((obj.getAllyId() == 0 || obj.getAllyId() != player.getAllyId()) && (obj.getClan() == null || obj.getClanId() != player.getClanId()))
 							continue;
-						
+
 						if (player.isInDuel())
 						{
 							if (player.getDuelId() != obj.getDuelId())
 								continue;
-							
+
 							if (player.isInParty() && obj.isInParty() && player.getParty().getLeaderObjectId() != obj.getParty().getLeaderObjectId())
 								continue;
 						}
-						
+
 						if (!player.checkPvpSkill(obj, this))
 							continue;
-						
+
 						final Summon summon = obj.getPet();
 						if (summon != null && !summon.isDead())
 							targetList.add(summon);
-						
+
 						if (!obj.isDead())
 							targetList.add(obj);
 					}
@@ -1670,47 +1670,47 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				final Player player = activeChar.getActingPlayer();
 				if (player == null)
 					return _emptyTargetList;
-				
+
 				if (onlyFirst || player.isInOlympiadMode())
 					return new Creature[]
 					{
 						activeChar
 					};
-				
+
 				final int radius = _skillRadius;
 				List<Creature> targetList = new ArrayList<>();
-				
+
 				targetList.add(activeChar);
-				
+
 				if (player.getClan() != null)
 				{
 					final boolean isInBossZone = player.isInsideZone(ZoneId.BOSS);
-					
+
 					for (Player obj : activeChar.getKnownTypeInRadius(Player.class, radius))
 					{
 						if (!obj.isDead())
 							continue;
-						
+
 						if ((obj.getAllyId() == 0 || obj.getAllyId() != player.getAllyId()) && (obj.getClan() == null || obj.getClanId() != player.getClanId()))
 							continue;
-						
+
 						if (player.isInDuel())
 						{
 							if (player.getDuelId() != obj.getDuelId())
 								continue;
-							
+
 							if (player.isInParty() && obj.isInParty() && player.getParty().getLeaderObjectId() != obj.getParty().getLeaderObjectId())
 								continue;
 						}
-						
+
 						// Siege battlefield resurrect has been made possible for participants
 						if (obj.isInsideZone(ZoneId.SIEGE) && !obj.isInSiege())
 							continue;
-						
+
 						// Check if both caster and target are in a boss zone.
 						if (isInBossZone != obj.isInsideZone(ZoneId.BOSS))
 							continue;
-						
+
 						targetList.add(obj);
 					}
 				}
@@ -1719,26 +1719,26 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			case TARGET_CLAN:
 			{
 				List<Creature> targetList = new ArrayList<>();
-				
+
 				if (activeChar instanceof Playable)
 				{
 					final Player player = activeChar.getActingPlayer();
 					if (player == null)
 						return _emptyTargetList;
-					
+
 					if (onlyFirst || player.isInOlympiadMode())
 						return new Creature[]
 						{
 							activeChar
 						};
-					
+
 					targetList.add(player);
-					
+
 					final int radius = _skillRadius;
-					
+
 					if (addSummon(activeChar, player, radius, false))
 						targetList.add(player.getPet());
-					
+
 					final Clan clan = player.getClan();
 					if (clan != null)
 					{
@@ -1747,25 +1747,25 @@ public abstract class L2Skill implements IChanceSkillTrigger
 							final Player obj = member.getPlayerInstance();
 							if (obj == null || obj == player)
 								continue;
-							
+
 							if (player.isInDuel())
 							{
 								if (player.getDuelId() != obj.getDuelId())
 									continue;
-								
+
 								if (player.isInParty() && obj.isInParty() && player.getParty().getLeaderObjectId() != obj.getParty().getLeaderObjectId())
 									continue;
 							}
-							
+
 							if (!player.checkPvpSkill(obj, this))
 								continue;
-							
+
 							if (addSummon(activeChar, obj, radius, false))
 								targetList.add(obj.getPet());
-							
+
 							if (!addCharacter(activeChar, obj, radius, false))
 								continue;
-							
+
 							targetList.add(obj);
 						}
 					}
@@ -1777,7 +1777,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					{
 						if (newTarget.isDead() || !ArraysUtil.contains(((Npc) activeChar).getTemplate().getClans(), newTarget.getTemplate().getClans()))
 							continue;
-						
+
 						targetList.add(newTarget);
 					}
 				}
@@ -1787,7 +1787,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			{
 				if (!(activeChar instanceof Player))
 					return _emptyTargetList;
-				
+
 				if (target != null && target.isDead())
 				{
 					final Player targetPlayer;
@@ -1795,21 +1795,21 @@ public abstract class L2Skill implements IChanceSkillTrigger
 						targetPlayer = (Player) target;
 					else
 						targetPlayer = null;
-					
+
 					final Pet targetPet;
 					if (target instanceof Pet)
 						targetPet = (Pet) target;
 					else
 						targetPet = null;
-					
+
 					if (targetPlayer != null || targetPet != null)
 					{
 						boolean condGood = true;
-						
+
 						if (_skillType == L2SkillType.RESURRECT)
 						{
 							final Player player = (Player) activeChar;
-							
+
 							if (targetPlayer != null)
 							{
 								// check target is not in a active siege zone
@@ -1818,13 +1818,13 @@ public abstract class L2Skill implements IChanceSkillTrigger
 									condGood = false;
 									activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
 								}
-								
+
 								if (targetPlayer.isFestivalParticipant()) // Check to see if the current player target is in a festival.
 								{
 									condGood = false;
 									activeChar.sendMessage("You may not resurrect participants in a festival.");
 								}
-								
+
 								if (targetPlayer.isReviveRequested())
 								{
 									if (targetPlayer.isRevivingPet())
@@ -1849,7 +1849,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 								}
 							}
 						}
-						
+
 						if (condGood)
 							return new Creature[]
 							{
@@ -1867,14 +1867,14 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return _emptyTargetList;
 				}
-				
+
 				// Corpse mob only available for half time
 				if (_skillType == L2SkillType.DRAIN && !DecayTaskManager.INSTANCE.isCorpseActionAllowed((Attackable) target))
 				{
 					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CORPSE_TOO_OLD_SKILL_NOT_USED));
 					return _emptyTargetList;
 				}
-				
+
 				return new Creature[]
 				{
 					target
@@ -1887,44 +1887,44 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return _emptyTargetList;
 				}
-				
+
 				if (onlyFirst)
 					return new Creature[]
 					{
 						target
 					};
-				
+
 				List<Creature> targetList = new ArrayList<>();
 				targetList.add(target);
-				
+
 				final boolean srcInArena = activeChar.isInArena();
-				
+
 				for (Creature obj : activeChar.getKnownTypeInRadius(Creature.class, _skillRadius))
 				{
 					if (!(obj instanceof Attackable || obj instanceof Playable))
 						continue;
-					
+
 					if (!checkForAreaOffensiveSkills(activeChar, obj, this, srcInArena))
 						continue;
-					
+
 					targetList.add(obj);
 				}
-				
+
 				if (targetList.isEmpty())
 					return _emptyTargetList;
-				
+
 				return targetList.toArray(new Creature[targetList.size()]);
 			}
 			case TARGET_UNLOCKABLE:
 			{
 				if (!(target instanceof Door) && !(target instanceof Chest))
 					return _emptyTargetList;
-				
+
 				return new Creature[]
 				{
 					target
 				};
-				
+
 			}
 			case TARGET_UNDEAD:
 			{
@@ -1935,45 +1935,45 @@ public abstract class L2Skill implements IChanceSkillTrigger
 						activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 						return _emptyTargetList;
 					}
-					
+
 					return new Creature[]
 					{
 						target
 					};
 				}
-				
+
 				activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 				return _emptyTargetList;
 			}
 			case TARGET_AURA_UNDEAD:
 			{
 				List<Creature> targetList = new ArrayList<>();
-				
+
 				for (Creature obj : activeChar.getKnownTypeInRadius(Creature.class, _skillRadius))
 				{
 					if (obj instanceof Npc || obj instanceof Servitor)
 						target = obj;
 					else
 						continue;
-					
+
 					if (target.isAlikeDead() || !target.isUndead())
 						continue;
-					
-					if (!GeoEngine.getInstance().canSeeTarget(activeChar, target))
+
+					if (!GeoEngine.INSTANCE.canSeeTarget(activeChar, target))
 						continue;
-					
+
 					if (onlyFirst)
 						return new Creature[]
 						{
 							obj
 						};
-					
+
 					targetList.add(obj);
 				}
-				
+
 				if (targetList.isEmpty())
 					return _emptyTargetList;
-				
+
 				return targetList.toArray(new Creature[targetList.size()]);
 			}
 			case TARGET_ENEMY_SUMMON:
@@ -1982,7 +1982,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				{
 					final Summon targetSummon = (Summon) target;
 					final Player summonOwner = targetSummon.getActingPlayer();
-					
+
 					if (activeChar instanceof Player && activeChar.getPet() != targetSummon && !targetSummon.isDead() && (summonOwner.getPvpFlag() != 0 || summonOwner.getKarma() > 0) || (summonOwner.isInsideZone(ZoneId.PVP) && activeChar.isInsideZone(ZoneId.PVP)) || (summonOwner.isInDuel() && ((Player) activeChar).isInDuel() && summonOwner.getDuelId() == ((Player) activeChar).getDuelId()))
 						return new Creature[]
 						{
@@ -1998,21 +1998,21 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			}
 		}
 	}
-	
+
 	public final WorldObject[] getTargetList(Creature activeChar)
 	{
 		return getTargetList(activeChar, false);
 	}
-	
+
 	public final WorldObject getFirstOfTargetList(Creature activeChar)
 	{
 		WorldObject[] targets = getTargetList(activeChar, true);
 		if (targets.length == 0)
 			return null;
-		
+
 		return targets[0];
 	}
-	
+
 	/**
 	 * Check if target should be added to the target list.
 	 * <ul>
@@ -2039,42 +2039,42 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		if (target == null || target.isDead() || target == caster)
 			return false;
-		
+
 		final Player player = caster.getActingPlayer();
 		final Player targetPlayer = target.getActingPlayer();
 		if (player != null && targetPlayer != null)
 		{
 			if (targetPlayer == caster || targetPlayer == player)
 				return false;
-			
+
 			if (targetPlayer.isInObserverMode())
 				return false;
-			
+
 			if (skill.isOffensive() && player.getSiegeState() > 0 && player.isInsideZone(ZoneId.SIEGE) && player.getSiegeState() == targetPlayer.getSiegeState())
 				return false;
-			
+
 			if (target.isInsideZone(ZoneId.PEACE))
 				return false;
-			
+
 			if (player.isInParty() && targetPlayer.isInParty())
 			{
 				// Same party
 				if (player.getParty().getLeaderObjectId() == targetPlayer.getParty().getLeaderObjectId())
 					return false;
-				
+
 				// Same commandchannel
 				if (player.getParty().getCommandChannel() != null && player.getParty().getCommandChannel() == targetPlayer.getParty().getCommandChannel())
 					return false;
 			}
-			
+
 			if (!sourceInArena && !(targetPlayer.isInsideZone(ZoneId.PVP) && !targetPlayer.isInsideZone(ZoneId.SIEGE)))
 			{
 				if (player.getAllyId() != 0 && player.getAllyId() == targetPlayer.getAllyId())
 					return false;
-				
+
 				if (player.getClanId() != 0 && player.getClanId() == targetPlayer.getClanId())
 					return false;
-				
+
 				if (!player.checkPvpSkill(targetPlayer, skill))
 					return false;
 			}
@@ -2083,48 +2083,48 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		{
 			if (caster instanceof Attackable && !caster.isConfused())
 				return false;
-			
+
 			if (skill.isOffensive() && !target.isAutoAttackable(caster))
 				return false;
 		}
-		return GeoEngine.getInstance().canSeeTarget(caster, target);
+		return GeoEngine.INSTANCE.canSeeTarget(caster, target);
 	}
-	
+
 	public static final boolean addSummon(Creature caster, Player owner, int radius, boolean isDead)
 	{
 		final Summon summon = owner.getPet();
-		
+
 		if (summon == null)
 			return false;
-		
+
 		return addCharacter(caster, summon, radius, isDead);
 	}
-	
+
 	public static final boolean addCharacter(Creature caster, Creature target, int radius, boolean isDead)
 	{
 		if (isDead != target.isDead())
 			return false;
-		
+
 		if (radius > 0 && !MathUtil.INSTANCE.checkIfInRange(radius, caster, target, true))
 			return false;
-		
+
 		return true;
 	}
-	
+
 	public final List<Func> getStatFuncs(Creature player)
 	{
 		if (_funcTemplates == null)
 			return Collections.emptyList();
-		
+
 		if (!(player instanceof Playable) && !(player instanceof Attackable))
 			return Collections.emptyList();
-		
+
 		final List<Func> funcs = new ArrayList<>(_funcTemplates.size());
-		
+
 		final Env env = new Env();
 		env.setCharacter(player);
 		env.setSkill(this);
-		
+
 		for (FuncTemplate t : _funcTemplates)
 		{
 			final Func f = t.getFunc(env, this); // skill is owner
@@ -2133,22 +2133,22 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		return funcs;
 	}
-	
+
 	public boolean hasEffects()
 	{
 		return (_effectTemplates != null && !_effectTemplates.isEmpty());
 	}
-	
+
 	public List<EffectTemplate> getEffectTemplates()
 	{
 		return _effectTemplates;
 	}
-	
+
 	public boolean hasSelfEffects()
 	{
 		return (_effectTemplatesSelf != null && !_effectTemplatesSelf.isEmpty());
 	}
-	
+
 	/**
 	 * @param effector
 	 * @param effected
@@ -2159,18 +2159,18 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		if (!hasEffects() || isPassive())
 			return Collections.emptyList();
-		
+
 		// doors and siege flags cannot receive any effects
 		if (effected instanceof Door || effected instanceof SiegeFlag)
 			return Collections.emptyList();
-		
+
 		if (effector != effected)
 		{
 			if (isOffensive() || isDebuff())
 			{
 				if (effected.isInvul())
 					return Collections.emptyList();
-				
+
 				if (effector instanceof Player && ((Player) effector).isGM())
 				{
 					if (!((Player) effector).getAccessLevel().canGiveDamage())
@@ -2178,24 +2178,24 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				}
 			}
 		}
-		
+
 		final List<L2Effect> effects = new ArrayList<>(_effectTemplates.size());
-		
+
 		if (env == null)
 			env = new Env();
-		
+
 		env.setSkillMastery(Formulas.calcSkillMastery(effector, this));
 		env.setCharacter(effector);
 		env.setTarget(effected);
 		env.setSkill(this);
-		
+
 		for (EffectTemplate et : _effectTemplates)
 		{
 			boolean success = true;
-			
+
 			if (et.getEffectPower() > -1)
 				success = Formulas.calcEffectSuccess(effector, effected, et, this, env.getShield(), env.isBlessedSpiritShot());
-			
+
 			if (success)
 			{
 				final L2Effect e = et.getEffect(env);
@@ -2211,7 +2211,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		return effects;
 	}
-	
+
 	/**
 	 * Warning: this method doesn't consider modifier (shield, ss, sps, bss) for secondary effects
 	 * @param effector
@@ -2222,7 +2222,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		return getEffects(effector, effected, null);
 	}
-	
+
 	/**
 	 * This method has suffered some changes in CT2.2 ->CT2.3<br>
 	 * Effect engine is now supporting secondary effects with independent success/fail calculus from effect skill. Env parameter has been added to pass parameters like soulshot, spiritshots, blessed spiritshots or shield deffence. Some other optimizations have been done <br>
@@ -2239,35 +2239,35 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		if (!hasEffects() || isPassive())
 			return Collections.emptyList();
-		
+
 		if (effector.getOwner() != effected)
 		{
 			if (isDebuff() || isOffensive())
 			{
 				if (effected.isInvul())
 					return Collections.emptyList();
-				
+
 				if (effector.getOwner().isGM() && !effector.getOwner().getAccessLevel().canGiveDamage())
 					return Collections.emptyList();
 			}
 		}
-		
+
 		final List<L2Effect> effects = new ArrayList<>(_effectTemplates.size());
-		
+
 		if (env == null)
 			env = new Env();
-		
+
 		env.setCharacter(effector.getOwner());
 		env.setCubic(effector);
 		env.setTarget(effected);
 		env.setSkill(this);
-		
+
 		for (EffectTemplate et : _effectTemplates)
 		{
 			boolean success = true;
 			if (et.getEffectPower() > -1)
 				success = Formulas.calcEffectSuccess(effector.getOwner(), effected, et, this, env.getShield(), env.isBlessedSpiritShot());
-			
+
 			if (success)
 			{
 				final L2Effect e = et.getEffect(env);
@@ -2280,19 +2280,19 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		return effects;
 	}
-	
+
 	public final List<L2Effect> getEffectsSelf(Creature effector)
 	{
 		if (!hasSelfEffects() || isPassive())
 			return Collections.emptyList();
-		
+
 		final List<L2Effect> effects = new ArrayList<>(_effectTemplatesSelf.size());
-		
+
 		final Env env = new Env();
 		env.setCharacter(effector);
 		env.setTarget(effector);
 		env.setSkill(this);
-		
+
 		for (EffectTemplate et : _effectTemplatesSelf)
 		{
 			final L2Effect e = et.getEffect(env);
@@ -2305,49 +2305,49 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		return effects;
 	}
-	
+
 	public final void attach(FuncTemplate f)
 	{
 		if (_funcTemplates == null)
 			_funcTemplates = new ArrayList<>(1);
-		
+
 		_funcTemplates.add(f);
 	}
-	
+
 	public final void attach(EffectTemplate effect)
 	{
 		if (_effectTemplates == null)
 			_effectTemplates = new ArrayList<>(1);
-		
+
 		_effectTemplates.add(effect);
 	}
-	
+
 	public final void attachSelf(EffectTemplate effect)
 	{
 		if (_effectTemplatesSelf == null)
 			_effectTemplatesSelf = new ArrayList<>(1);
-		
+
 		_effectTemplatesSelf.add(effect);
 	}
-	
+
 	public final void attach(Condition c, boolean itemOrWeapon)
 	{
 		if (itemOrWeapon)
 		{
 			if (_itemPreCondition == null)
 				_itemPreCondition = new ArrayList<>();
-			
+
 			_itemPreCondition.add(c);
 		}
 		else
 		{
 			if (_preCondition == null)
 				_preCondition = new ArrayList<>();
-			
+
 			_preCondition.add(c);
 		}
 	}
-	
+
 	/**
 	 * @param skillId
 	 * @param skillLvl
@@ -2359,21 +2359,21 @@ public abstract class L2Skill implements IChanceSkillTrigger
 	{
 		final String[] prodLists = values.split(";");
 		final List<L2ExtractableProductItem> products = new ArrayList<>();
-		
+
 		for (String prodList : prodLists)
 		{
 			final String[] prodData = prodList.split(",");
-			
+
 			if (prodData.length < 3)
 				_log.warning("Extractable skills data: Error in Skill Id: " + skillId + " Level: " + skillLvl + " -> wrong seperator!");
-			
+
 			final int lenght = prodData.length - 1;
-			
+
 			List<IntIntHolder> items = null;
 			double chance = 0;
 			int prodId = 0;
 			int quantity = 0;
-			
+
 			try
 			{
 				items = new ArrayList<>(lenght / 2);
@@ -2381,10 +2381,10 @@ public abstract class L2Skill implements IChanceSkillTrigger
 				{
 					prodId = Integer.parseInt(prodData[j]);
 					quantity = Integer.parseInt(prodData[j += 1]);
-					
+
 					if (prodId <= 0 || quantity <= 0)
 						_log.warning("Extractable skills data: Error in Skill Id: " + skillId + " Level: " + skillLvl + " wrong production Id: " + prodId + " or wrond quantity: " + quantity + "!");
-					
+
 					items.add(new IntIntHolder(prodId, quantity));
 				}
 				chance = Double.parseDouble(prodData[lenght]);
@@ -2395,18 +2395,18 @@ public abstract class L2Skill implements IChanceSkillTrigger
 			}
 			products.add(new L2ExtractableProductItem(items, chance));
 		}
-		
+
 		if (products.isEmpty())
 			_log.warning("Extractable skills data: Error in Skill Id: " + skillId + " Level: " + skillLvl + " -> There are no production items!");
-		
+
 		return new L2ExtractableSkill(SkillTable.INSTANCE.getSkillHashCode(this), products);
 	}
-	
+
 	public L2ExtractableSkill getExtractableSkill()
 	{
 		return _extractableItems;
 	}
-	
+
 	public boolean isDamage()
 	{
 		switch (_skillType)
@@ -2421,7 +2421,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		return false;
 	}
-	
+
 	public boolean isAOE()
 	{
 		switch (_targetType)
@@ -2436,7 +2436,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String toString()
 	{

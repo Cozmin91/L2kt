@@ -96,10 +96,7 @@ open class L2AttackableAIScript : Quest {
         if (attacker == null)
             return null
 
-        if (caller is RiftInvader && attacker.isInParty && attacker.party!!.isInDimensionalRift && !attacker.party!!.dimensionalRift.isInCurrentRoomZone(
-                npc
-            )
-        )
+        if (caller is RiftInvader && attacker.isInParty && attacker.party!!.isInDimensionalRift && !attacker.party!!.dimensionalRift.isInCurrentRoomZone(npc ?: return null))
             return null
 
         val attackable = npc as Attackable

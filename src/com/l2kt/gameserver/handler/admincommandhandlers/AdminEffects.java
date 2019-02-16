@@ -231,7 +231,7 @@ public class AdminEffects implements IAdminCommandHandler
 					final String targetOrRadius = st.nextToken();
 					if (targetOrRadius != null)
 					{
-						Player player = World.getInstance().getPlayer(targetOrRadius);
+						Player player = World.INSTANCE.getPlayer(targetOrRadius);
 						if (player != null)
 						{
 							if (performSocial(social, player))
@@ -278,7 +278,7 @@ public class AdminEffects implements IAdminCommandHandler
 					final String targetOrRadius = st.nextToken();
 					if (targetOrRadius != null)
 					{
-						Player player = World.getInstance().getPlayer(targetOrRadius);
+						Player player = World.INSTANCE.getPlayer(targetOrRadius);
 						if (player != null)
 						{
 							if (performAbnormal(abnormal, player))

@@ -50,7 +50,7 @@ class RequestPartyMatchList : L2GameClientPacket() {
             val room = PartyMatchRoom(maxId, _roomtitle, _loot, _lvlmin, _lvlmax, _membersmax, player)
 
             // Remove from waiting list, and add to current room
-            PartyMatchWaitingList.getInstance().removePlayer(player)
+            PartyMatchWaitingList.removePlayer(player)
             PartyMatchRoomList.getInstance().addPartyMatchRoom(maxId, room)
 
             val party = player.party

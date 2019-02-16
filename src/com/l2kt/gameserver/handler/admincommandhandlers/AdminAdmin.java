@@ -77,7 +77,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			}
 			
 			String firstParam = st.nextToken();
-			Player player = World.getInstance().getPlayer(firstParam);
+			Player player = World.INSTANCE.getPlayer(firstParam);
 			if (player != null)
 			{
 				if (st.hasMoreTokens())

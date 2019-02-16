@@ -490,7 +490,7 @@ object MailBBSManager : BaseBBSManager() {
                         continue
                     }
 
-                    val recipientPlayer = World.getInstance().getPlayer(recipientId)
+                    val recipientPlayer = World.getPlayer(recipientId)
 
                     if (!player.isGM) {
                         // Sender is a regular player, while recipient is a GM.
@@ -706,7 +706,7 @@ object MailBBSManager : BaseBBSManager() {
     }
 
     private fun isBlocked(player: Player, objectId: Int): Boolean {
-        for (playerToTest in World.getInstance().players) {
+        for (playerToTest in World.players) {
             if (playerToTest.objectId == objectId) {
                 return BlockList.isInBlockList(playerToTest, player)
             }

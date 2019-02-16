@@ -23,7 +23,7 @@ class AddTradeItem : L2GameClientPacket() {
         val trade = player.activeTradeList ?: return
 
         val partner = trade.partner
-        if (partner == null || World.getInstance().getPlayer(partner.objectId) == null || partner.activeTradeList == null) {
+        if (partner == null || World.getPlayer(partner.objectId) == null || partner.activeTradeList == null) {
             player.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME)
             player.cancelActiveTrade()
             return

@@ -16,7 +16,7 @@ class RequestAskJoinPartyRoom : L2GameClientPacket() {
         val activeChar = client.activeChar ?: return
 
         // Send PartyRoom invite request (with activeChar) name to the target
-        val target = World.getInstance().getPlayer(_name)
+        val target = World.getPlayer(_name)
         if (target != null) {
             if (!target.isProcessingRequest) {
                 activeChar.onTransactionRequest(target)

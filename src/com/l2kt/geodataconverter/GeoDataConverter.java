@@ -52,7 +52,7 @@ public final class GeoDataConverter
 		_blocks = new ABlock[GeoStructure.REGION_BLOCKS_X][GeoStructure.REGION_BLOCKS_Y];
 
 		// initialize multilayer temporarily buffer
-		BlockMultilayer.initialize();
+		BlockMultilayer.Companion.initialize();
 
 		// load geo files according to geoengine config setup
 		final ExProperties props = Config.initProperties(Config.GEOENGINE_FILE);
@@ -94,7 +94,7 @@ public final class GeoDataConverter
 		System.out.println("GeoDataConverter: Converted " + converted + " " + _format.toString() + " to L2D region file(s).");
 
 		// release multilayer block temporarily buffer
-		BlockMultilayer.release();
+		BlockMultilayer.Companion.release();
 	}
 
 	/**
@@ -194,9 +194,9 @@ public final class GeoDataConverter
 	{
 		try
 		{
-			for (int x = 0; x < GeoStructure.REGION_CELLS_X; x++)
+			for (int x = 0; x < GeoStructure.INSTANCE.getREGION_CELLS_X(); x++)
 			{
-				for (int y = 0; y < GeoStructure.REGION_CELLS_Y; y++)
+				for (int y = 0; y < GeoStructure.INSTANCE.getREGION_CELLS_Y(); y++)
 				{
 					// get block
 					ABlock block = _blocks[x / GeoStructure.BLOCK_CELLS_X][y / GeoStructure.BLOCK_CELLS_Y];
@@ -242,7 +242,7 @@ public final class GeoDataConverter
 	private static final byte updateNsweBelow(int x, int y, short z, byte nswe)
 	{
 		// calculate virtual layer height
-		short height = (short) (z + GeoStructure.CELL_IGNORE_HEIGHT);
+		short height = (short) (z + GeoStructure.INSTANCE.getCELL_IGNORE_HEIGHT());
 
 		// get NSWE of neighbor cells below virtual layer (NPC/PC can fall down of clif, but can not climb it -> NSWE of cell below)
 		byte nsweN = getNsweBelow(x, y - 1, height);
@@ -272,11 +272,11 @@ public final class GeoDataConverter
 	private static final byte getNsweBelow(int geoX, int geoY, short worldZ)
 	{
 		// out of geo coordinates
-		if (geoX < 0 || geoX >= GeoStructure.REGION_CELLS_X)
+		if (geoX < 0 || geoX >= GeoStructure.INSTANCE.getREGION_CELLS_X())
 			return 0;
 
 		// out of geo coordinates
-		if (geoY < 0 || geoY >= GeoStructure.REGION_CELLS_Y)
+		if (geoY < 0 || geoY >= GeoStructure.INSTANCE.getREGION_CELLS_Y())
 			return 0;
 
 		// get block
@@ -294,7 +294,7 @@ public final class GeoDataConverter
 	 */
 	private static final boolean saveGeoBlocks(String filename)
 	{
-		try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(Config.GEODATA_PATH + filename), GeoStructure.REGION_BLOCKS * GeoStructure.BLOCK_CELLS * 3))
+		try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(Config.GEODATA_PATH + filename), GeoStructure.INSTANCE.getREGION_BLOCKS() * GeoStructure.INSTANCE.getBLOCK_CELLS() * 3))
 		{
 			// loop over region blocks and save each block
 			for (int ix = 0; ix < GeoStructure.REGION_BLOCKS_X; ix++)

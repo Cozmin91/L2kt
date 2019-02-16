@@ -18,8 +18,8 @@ class RaidbossInfo : Quest(-1, "custom") {
 
         // Add all Raid Bosses locations.
         for (spawn in SpawnTable.spawnTable) {
-            if (spawn.template.isType(BOSS_CLASS_TYPE))
-                RADARS[spawn.npcId] = spawn.loc
+            if (spawn.template != null && spawn.template.isType(BOSS_CLASS_TYPE))
+                RADARS[spawn.npcId] = spawn.loc ?: continue
         }
     }
 

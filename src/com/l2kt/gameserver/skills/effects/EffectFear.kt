@@ -51,7 +51,7 @@ class EffectFear(env: Env, template: EffectTemplate) : L2Effect(env, template) {
 
         effected.ai.setIntention(
             CtrlIntention.MOVE_TO,
-            GeoEngine.getInstance().canMoveToTargetLoc(victimX, victimY, victimZ, posX, posY, victimZ)
+            GeoEngine.canMoveToTargetLoc(victimX, victimY, victimZ, posX, posY, victimZ)
         )
         return true
     }

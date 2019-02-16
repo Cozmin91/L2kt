@@ -287,7 +287,7 @@ public class Door extends Creature implements IGeoObject
 			return false;
 		
 		if (!_open)
-			GeoEngine.getInstance().removeGeoObject(this);
+			GeoEngine.INSTANCE.removeGeoObject(this);
 		
 		if (_castle != null && _castle.getSiege().isInProgress())
 			_castle.getSiege().announceToPlayers(SystemMessage.Companion.getSystemMessage((getTemplate().getType() == DoorType.WALL) ? SystemMessageId.CASTLE_WALL_DAMAGED : SystemMessageId.CASTLE_GATE_BROKEN_DOWN), false);
@@ -301,7 +301,7 @@ public class Door extends Creature implements IGeoObject
 		_open = getTemplate().isOpened();
 		
 		if (!_open)
-			GeoEngine.getInstance().addGeoObject(this);
+			GeoEngine.INSTANCE.addGeoObject(this);
 		
 		super.doRevive();
 	}
@@ -443,9 +443,9 @@ public class Door extends Creature implements IGeoObject
 		// change door state and broadcast change
 		_open = open;
 		if (open)
-			GeoEngine.getInstance().removeGeoObject(this);
+			GeoEngine.INSTANCE.removeGeoObject(this);
 		else
-			GeoEngine.getInstance().addGeoObject(this);
+			GeoEngine.INSTANCE.addGeoObject(this);
 		
 		broadcastStatusUpdate();
 		

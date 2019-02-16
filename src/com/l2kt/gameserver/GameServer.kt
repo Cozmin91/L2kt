@@ -78,7 +78,7 @@ object GameServer {
         IdFactory.getInstance()
 
         StringUtil.printSection("World")
-        World.getInstance()
+        World
         MapRegionData
         AnnouncementData
         ServerMemoTable
@@ -113,7 +113,7 @@ object GameServer {
         NewbieBuffData
         TeleportLocationData
         HtmCache
-        PartyMatchWaitingList.getInstance()
+        PartyMatchWaitingList
         PartyMatchRoomList.getInstance()
         RaidPointManager
 
@@ -130,7 +130,7 @@ object GameServer {
         ClanHallManager.getInstance()
 
         printSection("Geodata & Pathfinding")
-        GeoEngine.getInstance()
+        GeoEngine
 
         printSection("Zones")
         ZoneManager

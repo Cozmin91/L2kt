@@ -113,7 +113,7 @@ class Zaken : L2AttackableAIScript("ai/individual") {
 
                 // Potentially refresh the stored location.
                 if (Rnd[20] < 1 && !_hasTeleported)
-                    _zakenLocation.set(npc.getPosition())
+                    _zakenLocation.set(npc.position)
 
                 // Process to cleanup hate from most hated upon 5 straight AI loops.
                 if (npc.getAI().desire.intention == CtrlIntention.ATTACK && mostHated != null) {

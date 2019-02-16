@@ -38,7 +38,7 @@ public class AdminBuffs implements IAdminCommandHandler
 			if (st.hasMoreTokens())
 			{
 				String playername = st.nextToken();
-				Player player = World.getInstance().getPlayer(playername);
+				Player player = World.INSTANCE.getPlayer(playername);
 				if (player == null)
 				{
 					activeChar.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
@@ -131,7 +131,7 @@ public class AdminBuffs implements IAdminCommandHandler
 			{
 				final String name = st.nextToken();
 				
-				player = World.getInstance().getPlayer(name);
+				player = World.INSTANCE.getPlayer(name);
 				if (player == null)
 				{
 					activeChar.sendMessage("The player " + name + " is not online.");
@@ -208,7 +208,7 @@ public class AdminBuffs implements IAdminCommandHandler
 		if (skillId < 1)
 			return;
 		
-		final WorldObject obj = World.getInstance().getObject(objId);
+		final WorldObject obj = World.INSTANCE.getObject(objId);
 		if (obj instanceof Creature)
 		{
 			final Creature target = (Creature) obj;
@@ -227,7 +227,7 @@ public class AdminBuffs implements IAdminCommandHandler
 	
 	private static void removeAllBuffs(Player activeChar, int objId)
 	{
-		final WorldObject target = World.getInstance().getObject(objId);
+		final WorldObject target = World.INSTANCE.getObject(objId);
 		if (target instanceof Creature)
 		{
 			((Creature) target).stopAllEffects();

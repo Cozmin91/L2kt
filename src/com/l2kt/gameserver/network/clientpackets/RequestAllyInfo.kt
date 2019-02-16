@@ -44,7 +44,7 @@ class RequestAllyInfo : L2GameClientPacket() {
                 activeChar.sendPacket(sm)
 
                 sm = SystemMessage.getSystemMessage(SystemMessageId.CLAN_INFO_NAME_S1)
-                sm.addString(aci.clan.name)
+                sm.addString(aci.clan.name ?: continue)
                 activeChar.sendPacket(sm)
 
                 sm = SystemMessage.getSystemMessage(SystemMessageId.CLAN_INFO_LEADER_S1)

@@ -1067,7 +1067,7 @@ public class SevenSigns
 	 */
 	protected void teleLosingCabalFromDungeons(CabalType winningCabal)
 	{
-		for (Player player : World.getInstance().getPlayers())
+		for (Player player : World.INSTANCE.getPlayers())
 		{
 			if (player.isGM() || !player.isIn7sDungeon())
 				continue;
@@ -1208,7 +1208,7 @@ public class SevenSigns
 	 */
 	public void giveSosEffect(CabalType strifeOwner)
 	{
-		for (Player player : World.getInstance().getPlayers())
+		for (Player player : World.INSTANCE.getPlayers())
 		{
 			final CabalType cabal = getPlayerCabal(player.getObjectId());
 			if (cabal != CabalType.NORMAL)
@@ -1226,7 +1226,7 @@ public class SevenSigns
 	 */
 	public void removeSosEffect()
 	{
-		for (Player player : World.getInstance().getPlayers())
+		for (Player player : World.INSTANCE.getPlayers())
 		{
 			player.removeSkill(SkillTable.FrequentSkill.THE_VICTOR_OF_WAR.getSkill().getId(), false);
 			player.removeSkill(SkillTable.FrequentSkill.THE_VANQUISHED_OF_WAR.getSkill().getId(), false);

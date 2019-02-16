@@ -110,7 +110,7 @@ object FenceManager {
 
         val geoX = GeoEngine.getGeoX(x) - sx / 2
         val geoY = GeoEngine.getGeoY(y) - sy / 2
-        val geoZ = GeoEngine.getInstance().getHeight(x, y, z).toInt()
+        val geoZ = GeoEngine.getHeight(x, y, z).toInt()
 
         // create inner description
         val inside = Array(sx) { BooleanArray(sy) }
@@ -129,7 +129,7 @@ object FenceManager {
         fence.spawnMe(x, y, z)
 
         // add fence to geoengine and list
-        GeoEngine.getInstance().addGeoObject(fence)
+        GeoEngine.addGeoObject(fence)
         _fences.add(fence)
 
         return fence
@@ -144,7 +144,7 @@ object FenceManager {
         fence.decayMe()
 
         // remove fence from geoengine and list
-        GeoEngine.getInstance().removeGeoObject(fence)
+        GeoEngine.removeGeoObject(fence)
         _fences.remove(fence)
     }
 }

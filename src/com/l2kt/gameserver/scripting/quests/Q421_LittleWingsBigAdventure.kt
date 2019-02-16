@@ -175,7 +175,7 @@ class Q421_LittleWingsBigAdventure : Quest(421, "Little Wing's Big Adventure") {
         }
 
         if (attacker is Pet) {
-            val player = attacker.getActingPlayer()
+            val player = attacker.actingPlayer
 
             // Condition required : 2.
             val st = checkPlayerCondition(player, npc, "cond", "2") ?: return null

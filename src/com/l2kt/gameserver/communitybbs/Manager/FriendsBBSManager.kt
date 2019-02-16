@@ -45,7 +45,7 @@ object FriendsBBSManager : BaseBBSManager() {
 
                 for (friendId in player.friendList) {
                     // Update friend's friendlist.
-                    val friend = World.getInstance().getPlayer(friendId)
+                    val friend = World.getPlayer(friendId)
                     if (friend != null) {
                         friend.friendList.remove(Integer.valueOf(player.objectId))
                         friend.selectedFriendList.remove(Integer.valueOf(player.objectId))
@@ -75,7 +75,7 @@ object FriendsBBSManager : BaseBBSManager() {
                                 ps.addBatch()
 
                                 // Update friend's friendlist.
-                                val friend = World.getInstance().getPlayer(friendId)
+                                val friend = World.getPlayer(friendId)
                                 if (friend != null) {
                                     friend.friendList.remove(Integer.valueOf(player.objectId))
                                     friend.sendPacket(FriendList(friend))
@@ -173,7 +173,7 @@ object FriendsBBSManager : BaseBBSManager() {
 
             val friendName = PlayerInfoTable.getPlayerName(id!!) ?: continue
 
-            val friend = World.getInstance().getPlayer(id)
+            val friend = World.getPlayer(id)
             StringUtil.append(
                 sb,
                 "<a action=\"bypass _friend;select;",
@@ -194,7 +194,7 @@ object FriendsBBSManager : BaseBBSManager() {
         for (id in selectedList) {
             val friendName = PlayerInfoTable.getPlayerName(id!!) ?: continue
 
-            val friend = World.getInstance().getPlayer(id)
+            val friend = World.getPlayer(id)
             StringUtil.append(
                 sb,
                 "<a action=\"bypass _friend;deselect;",
@@ -231,7 +231,7 @@ object FriendsBBSManager : BaseBBSManager() {
 
             val blockName = PlayerInfoTable.getPlayerName(id) ?: continue
 
-            val block = World.getInstance().getPlayer(id)
+            val block = World.getPlayer(id)
             StringUtil.append(
                 sb,
                 "<a action=\"bypass _block;select;",
@@ -252,7 +252,7 @@ object FriendsBBSManager : BaseBBSManager() {
         for (id in selectedList) {
             val blockName = PlayerInfoTable.getPlayerName(id!!) ?: continue
 
-            val block = World.getInstance().getPlayer(id)
+            val block = World.getPlayer(id)
             StringUtil.append(
                 sb,
                 "<a action=\"bypass _block;deselect;",

@@ -3363,7 +3363,7 @@ public class SevenSignsFestival
 	
 	private static void addReputationPointsForPartyMemberClan(String playerName)
 	{
-		final Player player = World.getInstance().getPlayer(playerName);
+		final Player player = World.INSTANCE.getPlayer(playerName);
 		if (player != null)
 		{
 			if (player.getClan() != null)
@@ -3459,7 +3459,7 @@ public class SevenSignsFestival
 		saveFestivalData(updateSettings);
 		
 		// Remove any unused blood offerings from online players.
-		for (Player player : World.getInstance().getPlayers())
+		for (Player player : World.INSTANCE.getPlayers())
 		{
 			ItemInstance bloodOfferings = player.getInventory().getItemByItemId(FESTIVAL_OFFERING_ID);
 			if (bloodOfferings != null)
@@ -3634,7 +3634,7 @@ public class SevenSignsFestival
 				{
 					for (int partyMemberObjId : getParticipants(oracle, festivalId))
 					{
-						Player partyMember = World.getInstance().getPlayer(partyMemberObjId);
+						Player partyMember = World.INSTANCE.getPlayer(partyMemberObjId);
 						if (partyMember == null)
 							continue;
 						
@@ -4210,7 +4210,7 @@ public class SevenSignsFestival
 			{
 				for (int participantObjId : _participants)
 				{
-					Player participant = World.getInstance().getPlayer(participantObjId);
+					Player participant = World.INSTANCE.getPlayer(participantObjId);
 					if (participant == null)
 						continue;
 					
@@ -4409,7 +4409,7 @@ public class SevenSignsFestival
 			{
 				for (int participantObjId : _participants)
 				{
-					Player participant = World.getInstance().getPlayer(participantObjId);
+					Player participant = World.INSTANCE.getPlayer(participantObjId);
 					if (participant == null)
 						continue;
 					

@@ -83,8 +83,8 @@ object DoorData : IXmlReader {
                 val sizeY = GeoEngine.getGeoY(maxY) + 1 - y + 1
                 val geoX = GeoEngine.getGeoX(posX)
                 val geoY = GeoEngine.getGeoY(posY)
-                val geoZ = GeoEngine.getInstance().getHeightNearest(geoX, geoY, posZ).toInt()
-                val block = GeoEngine.getInstance().getBlock(geoX, geoY)
+                val geoZ = GeoEngine.getHeightNearest(geoX, geoY, posZ).toInt()
+                val block = GeoEngine.getBlock(geoX, geoY)
                 val i = block.getIndexAbove(geoX, geoY, geoZ)
                 if (i != -1) {
                     val layerDiff = block.getHeight(i) - geoZ
@@ -102,7 +102,7 @@ object DoorData : IXmlReader {
                     for (iy in 0 until sizeY) {
                         val gx = x + ix
                         val gy = y + iy
-                        val z = GeoEngine.getInstance().getHeightNearest(gx, gy, posZ).toInt()
+                        val z = GeoEngine.getHeightNearest(gx, gy, posZ).toInt()
                         if (Math.abs(z - posZ) > limit)
                             continue
 

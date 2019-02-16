@@ -15,7 +15,7 @@ class SnoopQuit : L2GameClientPacket() {
     override fun runImpl() {
         client.activeChar ?: return
 
-        World.getInstance().getPlayer(_snoopID) ?: return
+        World.getPlayer(_snoopID) ?: return
 
         // No use
     }

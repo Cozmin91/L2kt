@@ -163,7 +163,7 @@ public abstract class Creature extends WorldObject
 		
 		setIsTeleporting(false);
 		
-		setRegion(World.getInstance().getRegion(getPosition()));
+		setRegion(World.INSTANCE.getRegion(getPosition()));
 	}
 	
 	public Inventory getInventory()
@@ -448,7 +448,7 @@ public abstract class Creature extends WorldObject
 		}
 		
 		// GeoData Los Check here (or dz > 1000)
-		if (!GeoEngine.getInstance().canSeeTarget(this, target))
+		if (!GeoEngine.INSTANCE.canSeeTarget(this, target))
 		{
 			getAI().setIntention(CtrlIntention.ACTIVE);
 			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CANT_SEE_TARGET));
@@ -2907,9 +2907,9 @@ public abstract class Creature extends WorldObject
 		final boolean isFloating = isFlying() || isInsideZone(ZoneId.WATER);
 		
 		// Z coordinate will follow geodata or client values once a second to reduce possible cpu load
-		if (!isFloating && !m.disregardingGeodata && Rnd.INSTANCE.get(10) == 0 && GeoEngine.getInstance().hasGeo(xPrev, yPrev))
+		if (!isFloating && !m.disregardingGeodata && Rnd.INSTANCE.get(10) == 0 && GeoEngine.INSTANCE.hasGeo(xPrev, yPrev))
 		{
-			short geoHeight = GeoEngine.getInstance().getHeight(xPrev, yPrev, zPrev);
+			short geoHeight = GeoEngine.INSTANCE.getHeight(xPrev, yPrev, zPrev);
 			dz = m._zDestination - geoHeight;
 			// quite a big difference, compare to validatePosition packet
 			if (this instanceof Player && Math.abs(((Player) this).getClientZ() - geoHeight) > 200 && Math.abs(((Player) this).getClientZ() - geoHeight) < 1500)
@@ -3215,7 +3215,7 @@ public abstract class Creature extends WorldObject
 				}
 				
 				// location different if destination wasn't reached (or just z coord is different)
-				Location destiny = GeoEngine.getInstance().canMoveToTargetLoc(curX, curY, curZ, x, y, z);
+				Location destiny = GeoEngine.INSTANCE.canMoveToTargetLoc(curX, curY, curZ, x, y, z);
 				x = destiny.getX();
 				y = destiny.getY();
 				z = destiny.getZ();
@@ -3232,7 +3232,7 @@ public abstract class Creature extends WorldObject
 				// Path calculation -- overrides previous movement check
 				if ((this instanceof Playable && !isInBoat) || isMinion() || isInCombat())
 				{
-					newMd.geoPath = GeoEngine.getInstance().findPath(curX, curY, curZ, originalX, originalY, originalZ, this instanceof Playable);
+					newMd.geoPath = GeoEngine.INSTANCE.findPath(curX, curY, curZ, originalX, originalY, originalZ, this instanceof Playable);
 					if (newMd.geoPath == null || newMd.geoPath.size() < 2)
 					{
 						// No path found
@@ -3778,7 +3778,7 @@ public abstract class Creature extends WorldObject
 		}
 		
 		// GeoData Los Check or dz > 1000
-		if (!GeoEngine.getInstance().canSeeTarget(player, this))
+		if (!GeoEngine.INSTANCE.canSeeTarget(player, this))
 		{
 			player.sendPacket(SystemMessageId.CANT_SEE_TARGET);
 			player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -4059,7 +4059,7 @@ public abstract class Creature extends WorldObject
 						continue;
 					}
 					
-					if (skill.getSkillRadius() > 0 && skill.isOffensive() && !GeoEngine.getInstance().canSeeTarget(this, target))
+					if (skill.getSkillRadius() > 0 && skill.isOffensive() && !GeoEngine.INSTANCE.canSeeTarget(this, target))
 					{
 						_skipgeo++;
 						continue;

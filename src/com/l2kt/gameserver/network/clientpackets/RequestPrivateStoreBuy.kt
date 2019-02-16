@@ -40,7 +40,7 @@ class RequestPrivateStoreBuy : L2GameClientPacket() {
         if (player.isCursedWeaponEquipped)
             return
 
-        val storePlayer = World.getInstance().getPlayer(_storePlayerId) ?: return
+        val storePlayer = World.getPlayer(_storePlayerId) ?: return
 
         if (!player.isInsideRadius(storePlayer, Npc.INTERACTION_DISTANCE, true, false))
             return

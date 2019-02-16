@@ -43,11 +43,11 @@ public class AdminKnownlist implements IAdminCommandHandler
 				try
 				{
 					final int objectId = Integer.parseInt(parameter);
-					target = World.getInstance().getObject(objectId);
+					target = World.INSTANCE.getObject(objectId);
 				}
 				catch (NumberFormatException nfe)
 				{
-					target = World.getInstance().getPlayer(parameter);
+					target = World.INSTANCE.getPlayer(parameter);
 				}
 			}
 			

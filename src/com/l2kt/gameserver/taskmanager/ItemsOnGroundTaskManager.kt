@@ -38,7 +38,7 @@ object ItemsOnGroundTaskManager : Runnable {
                             while (rs.next()) {
                                 // Create new item.
                                 val item = ItemInstance(rs.getInt(1), rs.getInt(2))
-                                World.getInstance().addObject(item)
+                                World.addObject(item)
 
                                 // Check and set count.
                                 val count = rs.getInt(3)

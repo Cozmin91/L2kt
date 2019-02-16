@@ -35,8 +35,8 @@ class WarehouseWithdrawList(player: Player, private val _whType: Int) : L2GameSe
             writeH(0x00)
             writeD(temp.objectId)
             if (temp.isAugmented) {
-                writeD(0x0000FFFF and temp.augmentation.augmentationId)
-                writeD(temp.augmentation.augmentationId shr 16)
+                writeD(0x0000FFFF and temp.augmentation.getAugmentationId())
+                writeD(temp.augmentation.getAugmentationId() shr 16)
             } else
                 writeQ(0x00)
         }

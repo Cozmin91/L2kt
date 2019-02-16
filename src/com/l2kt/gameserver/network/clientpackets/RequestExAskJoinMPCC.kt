@@ -15,7 +15,7 @@ class RequestExAskJoinMPCC : L2GameClientPacket() {
     override fun runImpl() {
         val requestor = client.activeChar ?: return
 
-        val target = World.getInstance().getPlayer(_name) ?: return
+        val target = World.getPlayer(_name) ?: return
 
         val requestorParty = requestor.party ?: return
 

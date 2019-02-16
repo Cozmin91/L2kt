@@ -93,7 +93,7 @@ public class Fishing implements ISkillHandler
 			z = zone.getWaterZ();
 			
 			// Check if the height related to the bait location is above water level. If yes, it means the water isn't visible.
-			if (GeoEngine.getInstance().canSeeTarget(player, new Location(x, y, z)) && GeoEngine.getInstance().getHeight(x, y, z) < z)
+			if (GeoEngine.INSTANCE.canSeeTarget(player, new Location(x, y, z)) && GeoEngine.INSTANCE.getHeight(x, y, z) < z)
 			{
 				z += 10;
 				canFish = true;

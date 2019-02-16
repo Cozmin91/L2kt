@@ -28,7 +28,7 @@ class ExListPartyMatchingWaitingRoom(
             }
         }
 
-        for (cha in PartyMatchWaitingList.getInstance().players) {
+        for (cha in PartyMatchWaitingList.players) {
             // Don't add yourself in the list
             if (cha == null || cha == _activeChar)
                 continue

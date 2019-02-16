@@ -109,7 +109,7 @@ class QueenAnt : L2AttackableAIScript("ai/individual") {
 
             // Pick current attacker, and make actions based on it and the actual distance range seperating them.
             if (npc.npcId == QUEEN && !npc.isCastingNow) {
-                val dist = Math.sqrt(npc.getPlanDistanceSq(attacker.getX(), attacker.getY()))
+                val dist = Math.sqrt(npc.getPlanDistanceSq(attacker.x, attacker.y))
                 if (dist > 500 && Rnd[100] < 10) {
                     npc.target = attacker
                     (npc as Monster).useMagic(SkillTable.FrequentSkill.QUEEN_ANT_STRIKE.skill)

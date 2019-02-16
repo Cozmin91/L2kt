@@ -25,7 +25,7 @@ class RequestRecipeShopMakeItem : L2GameClientPacket() {
 
         val player = client.activeChar ?: return
 
-        val manufacturer = World.getInstance().getPlayer(_objectId) ?: return
+        val manufacturer = World.getPlayer(_objectId) ?: return
 
         if (player.isInStoreMode)
             return

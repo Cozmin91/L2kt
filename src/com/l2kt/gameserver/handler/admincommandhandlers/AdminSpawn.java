@@ -183,7 +183,7 @@ public class AdminSpawn implements IAdminCommandHandler
 			BroadcastExtensionsKt.toAllOnlinePlayers(SystemMessage.Companion.getSystemMessage(SystemMessageId.NPC_SERVER_NOT_OPERATING));
 			RaidBossSpawnManager.getInstance().cleanUp();
 			DayNightSpawnManager.getInstance().cleanUp();
-			World.getInstance().deleteVisibleNpcSpawns();
+			World.INSTANCE.deleteVisibleNpcSpawns();
 			AdminData.INSTANCE.broadcastMessageToGMs("NPCs' unspawn is now complete.");
 		}
 		else if (command.startsWith("admin_spawnday"))
@@ -195,7 +195,7 @@ public class AdminSpawn implements IAdminCommandHandler
 			// make sure all spawns are deleted
 			RaidBossSpawnManager.getInstance().cleanUp();
 			DayNightSpawnManager.getInstance().cleanUp();
-			World.getInstance().deleteVisibleNpcSpawns();
+			World.INSTANCE.deleteVisibleNpcSpawns();
 			// now respawn all
 			NpcData.INSTANCE.reload();
 			SpawnTable.INSTANCE.reloadAll();
@@ -231,7 +231,7 @@ public class AdminSpawn implements IAdminCommandHandler
 			st.nextToken();
 			try
 			{
-				WorldObject object = World.getInstance().getObject(Integer.parseInt(st.nextToken()));
+				WorldObject object = World.INSTANCE.getObject(Integer.parseInt(st.nextToken()));
 				if (object instanceof Fence)
 				{
 					FenceManager.INSTANCE.removeFence((Fence) object);

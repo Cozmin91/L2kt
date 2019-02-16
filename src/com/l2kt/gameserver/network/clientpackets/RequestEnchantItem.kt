@@ -215,7 +215,7 @@ class RequestEnchantItem : AbstractEnchantPacket() {
                             )
                         )
 
-                    World.getInstance().removeObject(destroyItem)
+                    World.removeObject(destroyItem)
                     if (crystalId == 0)
                         activeChar.sendPacket(EnchantResult.UNK_RESULT_4)
                     else

@@ -34,7 +34,7 @@ public class AdminTarget implements IAdminCommandHandler
 		try
 		{
 			String targetName = command.substring(13);
-			Player obj = World.getInstance().getPlayer(targetName);
+			Player obj = World.INSTANCE.getPlayer(targetName);
 			
 			if (obj != null)
 				obj.onAction(activeChar);

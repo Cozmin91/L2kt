@@ -858,7 +858,7 @@ class Q230_TestOfTheSummoner : Quest(230, "Test of the Summoner") {
         return null
     }
 
-    private inner class ProgressDuelMob(val attacker: Player, val pet: Summon)
+    private inner class ProgressDuelMob(val attacker: Player?, val pet: Summon)
 
     companion object {
         val qn = "Q230_TestOfTheSummoner"

@@ -29,7 +29,7 @@ class UserInfo(private val _activeChar: Player) : L2GameServerPacket() {
         writeD(_activeChar.heading)
         writeD(_activeChar.objectId)
 
-        writeS(if (_activeChar.polyTemplate != null) _activeChar.polyTemplate.name else _activeChar.name)
+        writeS(if (_activeChar.polyTemplate != null) _activeChar.polyTemplate!!.name else _activeChar.name)
 
         writeD(_activeChar.race.ordinal)
         writeD(_activeChar.appearance.sex.ordinal)

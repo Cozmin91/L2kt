@@ -528,7 +528,7 @@ object FourSepulchersManager {
 
         val spawn = mysteriousBoxSpawns[npcId]
         if (spawn != null) {
-            allMobs.add(spawn.doSpawn(false))
+            allMobs.add(spawn.doSpawn(false)!!)
             spawn.setRespawnState(false)
         }
     }
@@ -566,7 +566,7 @@ object FourSepulchersManager {
                     }
 
                     val keyBoxMobSpawn = L2Spawn(template)
-                    keyBoxMobSpawn.loc = spawn.getLoc()
+                    keyBoxMobSpawn.loc = spawn.loc
                     keyBoxMobSpawn.respawnDelay = 3600
 
                     SpawnTable.addNewSpawn(keyBoxMobSpawn, false)
@@ -631,7 +631,7 @@ object FourSepulchersManager {
             spawn.loc = npc.position
             spawn.respawnDelay = 3600
 
-            allMobs.add(spawn.doSpawn(false))
+            allMobs.add(spawn.doSpawn(false)!!)
             spawn.setRespawnState(false)
         }
     }
@@ -645,7 +645,7 @@ object FourSepulchersManager {
             spawn.loc = npc.position
             spawn.respawnDelay = 3600
 
-            allMobs.add(spawn.doSpawn(false))
+            allMobs.add(spawn.doSpawn(false)!!)
             spawn.setRespawnState(false)
         }
     }
@@ -679,7 +679,7 @@ object FourSepulchersManager {
         val monsterList = emperorsGraveNpcs[npcId]
         if (monsterList != null) {
             for (spawn in monsterList) {
-                allMobs.add(spawn.doSpawn(false))
+                allMobs.add(spawn.doSpawn(false)!!)
                 spawn.setRespawnState(false)
             }
         }

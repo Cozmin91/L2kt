@@ -236,7 +236,7 @@ class Shutdown : Thread {
         }
 
         private fun disconnectAllPlayers() {
-            for (player in World.getInstance().players) {
+            for (player in World.players) {
                 val client = player.client
                 if (client != null && !client.isDetached) {
                     client.close(ServerClose.STATIC_PACKET)

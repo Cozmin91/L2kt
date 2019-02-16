@@ -58,7 +58,7 @@ class FusionSkill(caster: Creature, target: Creature, skill: L2Skill) {
                 if (!MathUtil.checkIfInRange(_skillCastRange, caster, target, true))
                     caster.abortCast()
 
-                if (!GeoEngine.getInstance().canSeeTarget(caster, target))
+                if (!GeoEngine.canSeeTarget(caster, target))
                     caster.abortCast()
             } catch (e: Exception) {
                 // ignore

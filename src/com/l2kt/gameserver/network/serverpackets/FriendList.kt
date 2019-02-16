@@ -19,7 +19,7 @@ class FriendList(player: Player) : L2GameServerPacket() {
 
         for (objId in player.friendList) {
             val name = PlayerInfoTable.getPlayerName(objId) ?: ""
-            val player1 = World.getInstance().getPlayer(objId)
+            val player1 = World.getPlayer(objId)
 
             _info.add(FriendInfo(objId, name, player1 != null && player1.isOnline))
         }

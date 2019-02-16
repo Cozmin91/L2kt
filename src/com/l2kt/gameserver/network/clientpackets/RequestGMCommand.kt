@@ -20,7 +20,7 @@ class RequestGMCommand : L2GameClientPacket() {
         if (!activeChar.isGM || !activeChar.accessLevel.allowAltG)
             return
 
-        val target = World.getInstance().getPlayer(_targetName)
+        val target = World.getPlayer(_targetName)
         val clan = ClanTable.getClanByName(_targetName)
 
         if (target == null && (clan == null || _command != 6))

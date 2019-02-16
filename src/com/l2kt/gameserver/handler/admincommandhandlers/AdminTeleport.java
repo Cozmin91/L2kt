@@ -58,7 +58,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				st.nextToken();
 				String plyr = st.nextToken();
-				Player player = World.getInstance().getPlayer(plyr);
+				Player player = World.INSTANCE.getPlayer(plyr);
 				if (player == null)
 				{
 					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
@@ -73,7 +73,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			try
 			{
 				String targetName = command.substring(13);
-				Player player = World.getInstance().getPlayer(targetName);
+				Player player = World.INSTANCE.getPlayer(targetName);
 				if (player == null)
 				{
 					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
@@ -91,7 +91,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			try
 			{
 				String targetName = command.substring(19);
-				Player player = World.getInstance().getPlayer(targetName);
+				Player player = World.INSTANCE.getPlayer(targetName);
 				if (player == null)
 				{
 					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
@@ -121,7 +121,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			try
 			{
 				String targetName = command.substring(18);
-				Player player = World.getInstance().getPlayer(targetName);
+				Player player = World.INSTANCE.getPlayer(targetName);
 				if (player == null)
 				{
 					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);
@@ -166,7 +166,7 @@ public class AdminTeleport implements IAdminCommandHandler
 			{
 				st.nextToken();
 				String plyr = st.nextToken();
-				Player player = World.getInstance().getPlayer(plyr);
+				Player player = World.INSTANCE.getPlayer(plyr);
 				if (player == null)
 				{
 					activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET);

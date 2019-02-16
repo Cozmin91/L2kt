@@ -305,7 +305,7 @@ open class Quest
         val clan = player.clan ?: return null
 
         // Verify if the leader is online
-        val leader = clan.leader.playerInstance ?: return null
+        val leader = clan.leader?.playerInstance ?: return null
 
         // Verify if the player is on the radius of the leader. If true, send leader's quest state.
         return if (leader.isInsideRadius(npc, Config.PARTY_RANGE, true, false)) leader.getQuestState(name) else null
@@ -1044,7 +1044,7 @@ open class Quest
         showResult(npc, player, res)
     }
 
-    open fun onTalk(npc: Npc, talker: Player): String? {
+    open fun onTalk(npc: Npc, player: Player): String? {
         return null
     }
 

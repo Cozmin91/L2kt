@@ -213,7 +213,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
 
             // First animation
             baium.broadcastPacket(SocialAction(baium, 2))
-            baium.broadcastPacket(Earthquake(baium.getX(), baium.getY(), baium.getZ(), 40, 10))
+            baium.broadcastPacket(Earthquake(baium.x, baium.y, baium.z, 40, 10))
 
             // Second animation, waker sacrifice, followed by angels spawn, third animation and finally movement.
             startQuestTimer("baium_neck", 13000, baium, null, false)
@@ -292,7 +292,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
 
         for (obj in npc.getKnownType(Creature::class.java)) {
             if (obj is Player) {
-                if (obj.isDead() || !GeoEngine.getInstance().canSeeTarget(npc, obj))
+                if (obj.isDead() || !GeoEngine.canSeeTarget(npc, obj))
                     continue
 
                 if (obj.isGM && obj.appearance.invisible)

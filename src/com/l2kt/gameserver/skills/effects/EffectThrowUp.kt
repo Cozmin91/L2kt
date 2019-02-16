@@ -47,7 +47,7 @@ class EffectThrowUp(env: Env, template: EffectTemplate) : L2Effect(env, template
         _y = effector.y - (offset * sin).toInt()
         _z = effected.z
 
-        val destiny = GeoEngine.getInstance().canMoveToTargetLoc(effected.x, effected.y, effected.z, _x, _y, _z)
+        val destiny = GeoEngine.canMoveToTargetLoc(effected.x, effected.y, effected.z, _x, _y, _z)
         _x = destiny.x
         _y = destiny.y
 

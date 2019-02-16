@@ -19,7 +19,7 @@ class RequestJoinParty : L2GameClientPacket() {
     override fun runImpl() {
         val requestor = client.activeChar ?: return
 
-        val target = World.getInstance().getPlayer(_name)
+        val target = World.getPlayer(_name)
         if (target == null) {
             requestor.sendPacket(SystemMessageId.FIRST_SELECT_USER_TO_INVITE_TO_PARTY)
             return

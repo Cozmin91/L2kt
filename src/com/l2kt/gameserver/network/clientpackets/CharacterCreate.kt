@@ -128,7 +128,7 @@ class CharacterCreate : L2GameClientPacket() {
         // send acknowledgement
         sendPacket(CharCreateOk.STATIC_PACKET)
 
-        World.getInstance().addObject(player)
+        World.addObject(player)
 
         player.position.set(template.randomSpawn)
         player.title = ""

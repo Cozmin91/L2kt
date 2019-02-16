@@ -16,7 +16,7 @@ class RequestRecipeShopMakeInfo : L2GameClientPacket() {
     override fun runImpl() {
         val player = client.activeChar ?: return
 
-        val manufacturer = World.getInstance().getPlayer(_objectId)
+        val manufacturer = World.getPlayer(_objectId)
         if (manufacturer == null || manufacturer.storeType != Player.StoreType.MANUFACTURE)
             return
 

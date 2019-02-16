@@ -27,7 +27,7 @@ class RequestPartyMatchDetail : L2GameClientPacket() {
         val room = PartyMatchRoomList.getInstance().getRoom(_roomid) ?: return
 
         if (activeChar.level >= room.minLvl && activeChar.level <= room.maxLvl) {
-            PartyMatchWaitingList.getInstance().removePlayer(activeChar)
+            PartyMatchWaitingList.removePlayer(activeChar)
 
             activeChar.partyRoom = _roomid
 

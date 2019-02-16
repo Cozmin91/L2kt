@@ -10,7 +10,7 @@ class RecommendationUpdate : ScheduledQuest(-1, "tasks") {
 
     public override fun onStart() {
         // Refresh online characters stats.
-        for (player in World.getInstance().players) {
+        for (player in World.players) {
             player.recomChars.clear()
 
             val level = player.level

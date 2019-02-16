@@ -34,7 +34,7 @@ class RaidPointReset : ScheduledQuest(-1, "tasks") {
                 if (!clan.isMember(key))
                     continue
 
-                var points = 0
+                var points: Int
                 when (value) {
                     1 -> points = 1250
                     2 -> points = 900

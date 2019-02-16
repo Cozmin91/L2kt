@@ -22,7 +22,7 @@ class RequestJoinAlly : L2GameClientPacket() {
             return
         }
 
-        val target = World.getInstance().getPlayer(_id)
+        val target = World.getPlayer(_id)
         if (target == null) {
             activeChar.sendPacket(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET)
             return
@@ -36,10 +36,10 @@ class RequestJoinAlly : L2GameClientPacket() {
 
         target.sendPacket(
             SystemMessage.getSystemMessage(SystemMessageId.S2_ALLIANCE_LEADER_OF_S1_REQUESTED_ALLIANCE).addString(
-                clan.allyName
+                clan.allyName ?: return
             ).addCharName(activeChar)
         )
-        target.sendPacket(AskJoinAlly(activeChar.objectId, clan.allyName))
+        target.sendPacket(AskJoinAlly(activeChar.objectId, clan.allyName ?: return))
         return
     }
 }

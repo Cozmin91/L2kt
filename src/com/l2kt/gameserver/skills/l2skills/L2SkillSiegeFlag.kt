@@ -1,6 +1,7 @@
 package com.l2kt.gameserver.skills.l2skills
 
 import com.l2kt.gameserver.data.manager.CastleManager
+import com.l2kt.gameserver.idfactory.IdFactory
 import com.l2kt.gameserver.model.L2Skill
 import com.l2kt.gameserver.model.WorldObject
 import com.l2kt.gameserver.model.actor.Creature
@@ -9,7 +10,6 @@ import com.l2kt.gameserver.model.actor.instance.SiegeFlag
 import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.entity.Siege
 import com.l2kt.gameserver.model.zone.ZoneId
-import com.l2kt.gameserver.idfactory.IdFactory
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
 import com.l2kt.gameserver.templates.StatsSet
@@ -21,7 +21,7 @@ class L2SkillSiegeFlag(set: StatsSet) : L2Skill(set) {
         if (activeChar !is Player)
             return
 
-        val player = activeChar.getActingPlayer()
+        val player = activeChar.actingPlayer
 
         if (!checkIfOkToPlaceFlag(player, true))
             return

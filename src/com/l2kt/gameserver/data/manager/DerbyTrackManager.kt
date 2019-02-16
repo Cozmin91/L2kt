@@ -99,8 +99,8 @@ object DerbyTrackManager {
      * @return the name of the Npc.
      */
     fun getRunnerName(index: Int): String {
-        val npc = runners!![index]
-        return if (npc == null) "" else npc.name
+        val npc = runners?.get(index)
+        return npc?.name ?: ""
     }
 
     fun getHistoryInfo(raceNumber: Int): HistoryInfo? {
@@ -112,7 +112,7 @@ object DerbyTrackManager {
         _history[raceNumber] = HistoryInfo(raceNumber, 0, 0, 0.0)
 
         // Randomize _runners.
-        Collections.shuffle(_runners)
+        _runners.shuffle()
 
         // Setup 8 new creatures ; pickup the first 8 from _runners.
         runners = _runners.subList(0, 8)

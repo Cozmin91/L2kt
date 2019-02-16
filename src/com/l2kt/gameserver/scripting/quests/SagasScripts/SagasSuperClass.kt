@@ -81,7 +81,7 @@ open class SagasSuperClass : Quest {
 
     fun findRightState(npc: Npc): QuestState? {
         if (_SpawnList.containsKey(npc)) {
-            val player = World.getInstance().getPlayer(_SpawnList[npc]!!)
+            val player = World.getPlayer(_SpawnList[npc]!!)
             if (player != null)
                 return player.getQuestState(name)
         }
@@ -310,7 +310,7 @@ open class SagasSuperClass : Quest {
                 return null
             } else if (event.equals("Mob_3 Timer 1", ignoreCase = true)) {
                 // Search the NPC.
-                val Mob_2 = World.getInstance().getObject(st.getInt("Mob_2")) as Npc ?: return null
+                val Mob_2 = World.getObject(st.getInt("Mob_2")) as Npc ?: return null
 
                 if (_SpawnList.containsKey(Mob_2) && _SpawnList[Mob_2] == player.objectId) {
                     (npc as Attackable).addDamageHate(Mob_2, 0, 99999)
@@ -566,7 +566,7 @@ open class SagasSuperClass : Quest {
         isPet: Boolean
     ): String? {
         if (_SpawnList.containsKey(npc) && _SpawnList[npc] != player!!.objectId) {
-            val quest_player = World.getInstance().getPlayer(_SpawnList[npc]!!) ?: return null
+            val quest_player = World.getPlayer(_SpawnList[npc]!!) ?: return null
 
             for (obj in targets) {
                 if (obj === quest_player || obj === npc) {

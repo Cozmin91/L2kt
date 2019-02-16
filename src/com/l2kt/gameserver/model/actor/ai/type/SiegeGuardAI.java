@@ -59,7 +59,7 @@ public class SiegeGuardAI extends AttackableAI
 			return false;
 		
 		// Los Check Here
-		return (_actor.isAutoAttackable(target) && GeoEngine.getInstance().canSeeTarget(_actor, target));
+		return (_actor.isAutoAttackable(target) && GeoEngine.INSTANCE.canSeeTarget(_actor, target));
 	}
 	
 	/**
@@ -253,7 +253,7 @@ public class SiegeGuardAI extends AttackableAI
 				for (Creature cha : actor.getKnownTypeInRadius(Creature.class, 1000))
 				{
 					// Don't bother about dead, not visible, or healthy characters.
-					if (cha.isAlikeDead() || !GeoEngine.getInstance().canSeeTarget(actor, cha) || (cha.getCurrentHp() / cha.getMaxHp() > 0.75))
+					if (cha.isAlikeDead() || !GeoEngine.INSTANCE.canSeeTarget(actor, cha) || (cha.getCurrentHp() / cha.getMaxHp() > 0.75))
 						continue;
 					
 					// Will affect only defenders or NPCs from same faction.
@@ -307,7 +307,7 @@ public class SiegeGuardAI extends AttackableAI
 					if (!checkSkillCastConditions(sk) || (sk.getCastRange() + range <= dist && !canAura(sk)))
 						continue;
 					
-					if (!GeoEngine.getInstance().canSeeTarget(actor, attackTarget))
+					if (!GeoEngine.INSTANCE.canSeeTarget(actor, attackTarget))
 						continue;
 					
 					if (attackTarget.getFirstEffect(sk) == null)
@@ -387,7 +387,7 @@ public class SiegeGuardAI extends AttackableAI
 					if (!actor.isInsideRadius(newX, newY, actorCollision, false))
 					{
 						int newZ = actor.getZ() + 30;
-						if (GeoEngine.getInstance().canMoveToTarget(actor.getX(), actor.getY(), actor.getZ(), newX, newY, newZ))
+						if (GeoEngine.INSTANCE.canMoveToTarget(actor.getX(), actor.getY(), actor.getZ(), newX, newY, newZ))
 							moveTo(newX, newY, newZ);
 					}
 					return;
@@ -406,7 +406,7 @@ public class SiegeGuardAI extends AttackableAI
 			final int posY = actor.getY() + ((attackTarget.getY() < actor.getY()) ? 300 : -300);
 			final int posZ = actor.getZ() + 30;
 			
-			if (GeoEngine.getInstance().canMoveToTarget(actor.getX(), actor.getY(), actor.getZ(), posX, posY, posZ))
+			if (GeoEngine.INSTANCE.canMoveToTarget(actor.getX(), actor.getY(), actor.getZ(), posX, posY, posZ))
 			{
 				setIntention(CtrlIntention.MOVE_TO, new Location(posX, posY, posZ));
 				return;

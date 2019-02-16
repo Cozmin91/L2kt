@@ -458,7 +458,7 @@ public class Pet extends Summon
 		
 		// Drop pet from world's pet list.
 		if (!isDead())
-			World.getInstance().removePet(owner.getObjectId());
+			World.INSTANCE.removePet(owner.getObjectId());
 	}
 	
 	@Override
@@ -633,7 +633,7 @@ public class Pet extends Summon
 	public void destroyControlItem(Player owner)
 	{
 		// Remove the pet instance from world.
-		World.getInstance().removePet(owner.getObjectId());
+		World.INSTANCE.removePet(owner.getObjectId());
 		
 		// Delete the item from owner inventory.
 		owner.destroyItem("PetDestroy", _controlItemId, 1, getOwner(), false);

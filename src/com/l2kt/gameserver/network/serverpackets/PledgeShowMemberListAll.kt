@@ -9,8 +9,8 @@ class PledgeShowMemberListAll(private val _clan: Clan, private val _pledgeType: 
     private val _pledgeName: String = when {
         _pledgeType == 0
             // main clan
-        -> _clan.name
-        _clan.getSubPledge(_pledgeType) != null -> _clan.getSubPledge(_pledgeType).name
+        -> _clan.name ?: ""
+        _clan.getSubPledge(_pledgeType) != null -> _clan.getSubPledge(_pledgeType)?.name ?: ""
         else -> ""
     }
 

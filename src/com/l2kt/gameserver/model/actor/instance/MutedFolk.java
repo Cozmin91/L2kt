@@ -64,7 +64,7 @@ public final class MutedFolk extends Folk
 		{
 			if (isAutoAttackable(player))
 			{
-				if (player.isInsideRadius(this, player.getPhysicalAttackRange(), false, false) && GeoEngine.getInstance().canSeeTarget(player, this))
+				if (player.isInsideRadius(this, player.getPhysicalAttackRange(), false, false) && GeoEngine.INSTANCE.canSeeTarget(player, this))
 					player.getAI().setIntention(CtrlIntention.ATTACK, this);
 				else
 					player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());

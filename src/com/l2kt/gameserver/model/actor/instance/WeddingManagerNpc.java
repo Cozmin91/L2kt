@@ -75,7 +75,7 @@ public class WeddingManagerNpc extends Folk
 			
 			if (st.hasMoreTokens())
 			{
-				final Player partner = World.getInstance().getPlayer(st.nextToken());
+				final Player partner = World.INSTANCE.getPlayer(st.nextToken());
 				if (partner == null)
 				{
 					sendHtmlMessage(player, "data/html/mods/wedding/notfound.htm");
@@ -109,7 +109,7 @@ public class WeddingManagerNpc extends Folk
 				return;
 			}
 			
-			final Player partner = World.getInstance().getPlayer(partnerId);
+			final Player partner = World.INSTANCE.getPlayer(partnerId);
 			if (partner == null)
 			{
 				player.sendMessage("Your partner is not online.");

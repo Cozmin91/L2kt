@@ -8,6 +8,6 @@ class RequestExitPartyMatchingWaitingRoom : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        PartyMatchWaitingList.getInstance().removePlayer(activeChar)
+        PartyMatchWaitingList.removePlayer(activeChar)
     }
 }

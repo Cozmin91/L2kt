@@ -70,7 +70,7 @@ class EnterWorld : L2GameClientPacket() {
             player.sendPacket(PledgeSkillList(clan))
 
             // Refresh player instance.
-            clan.getClanMember(objectId).playerInstance = player
+            clan.getClanMember(objectId)?.playerInstance = player
 
             val msg = SystemMessage.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_LOGGED_IN).addCharName(player)
             val update = PledgeShowMemberListUpdate(player)
@@ -86,14 +86,14 @@ class EnterWorld : L2GameClientPacket() {
 
             // Send a login notification to sponsor or apprentice, if logged.
             if (player.sponsor != 0) {
-                val sponsor = World.getInstance().getPlayer(player.sponsor)
+                val sponsor = World.getPlayer(player.sponsor)
                 sponsor?.sendPacket(
                     SystemMessage.getSystemMessage(SystemMessageId.YOUR_APPRENTICE_S1_HAS_LOGGED_IN).addCharName(
                         player
                     )
                 )
             } else if (player.apprentice != 0) {
-                val apprentice = World.getInstance().getPlayer(player.apprentice)
+                val apprentice = World.getPlayer(player.apprentice)
                 apprentice?.sendPacket(
                     SystemMessage.getSystemMessage(SystemMessageId.YOUR_SPONSOR_S1_HAS_LOGGED_IN).addCharName(
                         player
@@ -249,7 +249,7 @@ class EnterWorld : L2GameClientPacket() {
         if (Config.ENABLE_COMMUNITY_BOARD && clan != null && clan.isNoticeEnabled) {
             val html = NpcHtmlMessage(0)
             html.setFile("data/html/clan_notice.htm")
-            html.replace("%clan_name%", clan.name)
+            html.replace("%clan_name%", clan.name ?: "")
             html.replace(
                 "%notice_text%",
                 clan.notice.replace("\r\n", "<br>").replace(

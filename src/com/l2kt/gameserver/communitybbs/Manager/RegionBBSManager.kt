@@ -42,7 +42,7 @@ object RegionBBSManager : BaseBBSManager() {
                 "</a></td><td width=160>",
                 if (owner != null) "<a action=\"bypass _bbsclan;home;" + owner.clanId + "\">" + owner.name + "</a>" else "None",
                 "</td><td width=160>",
-                if (owner != null && owner.allyId > 0) owner.allyName else "None",
+                if (owner != null && owner.allyId > 0) owner.allyName ?: "None" else "None",
                 "</td><td width=120>",
                 if (owner != null) castle.taxPercent else "0",
                 "</td><td width=5></td></tr></table><br1><img src=\"L2UI.Squaregray\" width=605 height=1><br1>"
@@ -64,7 +64,7 @@ object RegionBBSManager : BaseBBSManager() {
             "%clanName%",
             if (owner != null) "<a action=\"bypass _bbsclan;home;" + owner.clanId + "\">" + owner.name + "</a>" else "None"
         )
-        content = content.replace("%allyName%", if (owner != null && owner.allyId > 0) owner.allyName else "None")
+        content = content.replace("%allyName%", if (owner != null && owner.allyId > 0) owner.allyName ?: "None" else "None")
         content = content.replace(
             "%siegeDate%",
             SimpleDateFormat("yyyy-MM-dd HH:mm").format(castle.siegeDate.timeInMillis)

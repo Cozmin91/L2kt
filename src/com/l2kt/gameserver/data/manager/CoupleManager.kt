@@ -71,14 +71,14 @@ object CoupleManager {
         val couple = _couples.remove(coupleId) ?: return
 
         // Inform and reset the couple id of requester.
-        val requester = World.getInstance().getPlayer(couple.id)
+        val requester = World.getPlayer(couple.id)
         if (requester != null) {
             requester.coupleId = 0
             requester.sendMessage("You are now divorced.")
         }
 
         // Inform and reset the couple id of partner.
-        val partner = World.getInstance().getPlayer(couple.value)
+        val partner = World.getPlayer(couple.value)
         if (partner != null) {
             partner.coupleId = 0
             partner.sendMessage("You are now divorced.")

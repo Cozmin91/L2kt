@@ -34,7 +34,7 @@ class Action : L2GameClientPacket() {
             return
         }
 
-        val target = if (player.targetId == _objectId) player.target else World.getInstance().getObject(_objectId)
+        val target = if (player.targetId == _objectId) player.target else World.getObject(_objectId)
         if (target == null) {
             player.sendPacket(ActionFailed.STATIC_PACKET)
             return

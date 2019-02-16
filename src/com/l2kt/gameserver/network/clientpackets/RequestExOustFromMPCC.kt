@@ -14,7 +14,7 @@ class RequestExOustFromMPCC : L2GameClientPacket() {
     override fun runImpl() {
         val requestor = client.activeChar ?: return
 
-        val target = World.getInstance().getPlayer(_name)
+        val target = World.getPlayer(_name)
         if (target == null) {
             requestor.sendPacket(SystemMessageId.TARGET_CANT_FOUND)
             return

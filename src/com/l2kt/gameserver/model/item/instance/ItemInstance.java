@@ -950,7 +950,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 			
 			if (_dropper != null)
 			{
-				Location dropDest = GeoEngine.getInstance().canMoveToTargetLoc(_dropper.getX(), _dropper.getY(), _dropper.getZ(), _x, _y, _z);
+				Location dropDest = GeoEngine.INSTANCE.canMoveToTargetLoc(_dropper.getX(), _dropper.getY(), _dropper.getZ(), _x, _y, _z);
 				_x = dropDest.getX();
 				_y = dropDest.getY();
 				_z = dropDest.getZ();
@@ -993,7 +993,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 		}
 		
 		// Calls directly setRegion(null), we don't have to care about.
-		setIsVisible(false);
+		setVisible(false);
 	}
 	
 	/**
@@ -1227,7 +1227,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 		ItemInstance item = new ItemInstance(IdFactory.getInstance().getNextId(), itemId);
 		
 		// Add the ItemInstance object to _objects of World.
-		World.getInstance().addObject(item);
+		World.INSTANCE.addObject(item);
 		
 		// Set Item parameters
 		if (item.isStackable() && count > 1)
@@ -1262,7 +1262,7 @@ public final class ItemInstance extends WorldObject implements Runnable, Compara
 		setLocation(ItemLocation.VOID);
 		setLastChange(ItemState.REMOVED);
 		
-		World.getInstance().removeObject(this);
+		World.INSTANCE.removeObject(this);
 		IdFactory.getInstance().releaseId(getObjectId());
 		
 		if (Config.LOG_ITEMS)

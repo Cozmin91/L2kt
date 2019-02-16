@@ -85,7 +85,7 @@ class RequestBypassToServer : L2GameClientPacket() {
                 _command.substring(4)
 
             try {
-                val `object` = World.getInstance().getObject(Integer.parseInt(id))
+                val `object` = World.getObject(Integer.parseInt(id))
 
                 if (`object` != null && `object` is Npc && endOfId > 0 && `object`.canInteract(player))
                     `object`.onBypassFeedback(player, _command.substring(endOfId + 1))

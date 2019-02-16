@@ -151,13 +151,13 @@ object ZoneManager : IXmlReader {
 
                 addZone(zoneId, temp)
 
-                val regions = World.getInstance().worldRegions
+                val regions = World.worldRegions
                 for (x in regions.indices) {
                     val xLoc = World.getRegionX(x)
                     val xLoc2 = World.getRegionX(x + 1)
                     for (y in 0 until regions[x].size)
                         if (temp.zone!!.intersectsRectangle(xLoc, xLoc2, World.getRegionY(y), World.getRegionY(y + 1)))
-                            regions[x][y].addZone(temp)
+                            regions[x][y]?.addZone(temp)
                 }
             }
         }
@@ -178,9 +178,9 @@ object ZoneManager : IXmlReader {
         save()
 
         // Remove zones from world.
-        for (regions in World.getInstance().worldRegions) {
+        for (regions in World.worldRegions) {
             for (region in regions)
-                region.zones.clear()
+                region?.zones?.clear()
         }
 
         // Clear _zones and _debugItems Maps.
@@ -194,7 +194,7 @@ object ZoneManager : IXmlReader {
         load()
 
         // Revalidate creatures in zones.
-        for (`object` in World.getInstance().objects) {
+        for (`object` in World.objects) {
             if (`object` is Creature)
                 `object`.revalidateZone(true)
         }
@@ -308,7 +308,7 @@ object ZoneManager : IXmlReader {
      */
     fun getZones(x: Int, y: Int): List<ZoneType> {
         val temp = ArrayList<ZoneType>()
-        for (zone in World.getInstance().getRegion(x, y).zones) {
+        for (zone in World.getRegion(x, y)?.zones ?: mutableListOf()) {
             if (zone.isInsideZone(x, y))
                 temp.add(zone)
         }
@@ -323,7 +323,7 @@ object ZoneManager : IXmlReader {
      */
     fun getZones(x: Int, y: Int, z: Int): List<ZoneType> {
         val temp = ArrayList<ZoneType>()
-        for (zone in World.getInstance().getRegion(x, y).zones) {
+        for (zone in World.getRegion(x, y)?.zones ?: mutableListOf()) {
             if (zone.isInsideZone(x, y, z))
                 temp.add(zone)
         }
@@ -338,7 +338,7 @@ object ZoneManager : IXmlReader {
      * @return a zone based on given coordinates and its [Class].
     </T> */
     fun <T : ZoneType> getZone(x: Int, y: Int, type: Class<T>): T? {
-        for (zone in World.getInstance().getRegion(x, y).zones) {
+        for (zone in World.getRegion(x, y)?.zones ?: mutableListOf()) {
             if (zone.isInsideZone(x, y) && type.isInstance(zone))
                 return zone as T
         }
@@ -354,7 +354,7 @@ object ZoneManager : IXmlReader {
      * @return a zone based on given coordinates and its [Class].
     </T> */
     fun <T : ZoneType> getZone(x: Int, y: Int, z: Int, type: Class<T>): T? {
-        for (zone in World.getInstance().getRegion(x, y).zones) {
+        for (zone in World.getRegion(x, y)?.zones ?: mutableListOf()) {
             if (zone.isInsideZone(x, y, z) && type.isInstance(zone))
                 return zone as T
         }

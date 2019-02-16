@@ -191,7 +191,7 @@ object ClanTable {
         // Drop all items from clan warehouse.
         clan.warehouse.destroyAllItems(
             "ClanRemove",
-            if (clan.leader == null) null else clan.leader.playerInstance,
+            if (clan.leader == null) null else clan.leader?.playerInstance,
             null
         )
 
@@ -283,7 +283,7 @@ object ClanTable {
         clan2.setAttackerClan(clanId1)
         clan2.broadcastToOnlineMembers(
             PledgeShowInfoUpdate(clan2),
-            SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR).addString(clan1.name)
+            SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR).addString(clan1.name!!)
         )
 
         try {
@@ -307,13 +307,13 @@ object ClanTable {
         clan1.deleteEnemyClan(clanId2)
         clan1.broadcastToOnlineMembers(
             PledgeShowInfoUpdate(clan1),
-            SystemMessage.getSystemMessage(SystemMessageId.WAR_AGAINST_S1_HAS_STOPPED).addString(clan2.name)
+            SystemMessage.getSystemMessage(SystemMessageId.WAR_AGAINST_S1_HAS_STOPPED).addString(clan2.name!!)
         )
 
         clan2.deleteAttackerClan(clanId1)
         clan2.broadcastToOnlineMembers(
             PledgeShowInfoUpdate(clan2),
-            SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_HAS_DECIDED_TO_STOP).addString(clan1.name)
+            SystemMessage.getSystemMessage(SystemMessageId.CLAN_S1_HAS_DECIDED_TO_STOP).addString(clan1.name!!)
         )
 
         try {

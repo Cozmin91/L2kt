@@ -41,7 +41,7 @@ class GMViewItemList : L2GameServerPacket {
             writeD(item.bodyPart)
             writeH(temp.enchantLevel)
             writeH(temp.customType2)
-            writeD(if (temp.isAugmented) temp.augmentation.augmentationId else 0x00)
+            writeD(if (temp.isAugmented) temp.augmentation.getAugmentationId() else 0x00)
             writeD(temp.mana)
         }
     }

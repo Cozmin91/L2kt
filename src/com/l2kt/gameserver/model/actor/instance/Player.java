@@ -839,7 +839,7 @@ public final class Player extends Playable
 		if (qs == null)
 			return;
 		
-		WorldObject object = World.getInstance().getObject(getLastQuestNpcObject());
+		WorldObject object = World.INSTANCE.getObject(getLastQuestNpcObject());
 		if (!(object instanceof Npc) || !isInsideRadius(object, Npc.INTERACTION_DISTANCE, false, false))
 			return;
 		
@@ -1807,7 +1807,7 @@ public final class Player extends Playable
 			{
 				if (_throneId != 0)
 				{
-					final WorldObject object = World.getInstance().getObject(_throneId);
+					final WorldObject object = World.INSTANCE.getObject(_throneId);
 					if (object instanceof StaticObject)
 						((StaticObject) object).setBusy(false);
 					
@@ -1841,7 +1841,7 @@ public final class Player extends Playable
 				{
 					if (_throneId != 0)
 					{
-						final WorldObject object = World.getInstance().getObject(_throneId);
+						final WorldObject object = World.INSTANCE.getObject(_throneId);
 						if (object instanceof StaticObject)
 							((StaticObject) object).setBusy(false);
 						
@@ -2489,7 +2489,7 @@ public final class Player extends Playable
 	
 	public ItemInstance checkItemManipulation(int objectId, int count)
 	{
-		if (World.getInstance().getObject(objectId) == null)
+		if (World.INSTANCE.getObject(objectId) == null)
 			return null;
 		
 		final ItemInstance item = getInventory().getItemByObjectId(objectId);
@@ -2748,7 +2748,7 @@ public final class Player extends Playable
 					return;
 				}
 				
-				if (GeoEngine.getInstance().canSeeTarget(player, this))
+				if (GeoEngine.INSTANCE.canSeeTarget(player, this))
 				{
 					player.getAI().setIntention(CtrlIntention.ATTACK, this);
 					player.onActionRequest();
@@ -2759,7 +2759,7 @@ public final class Player extends Playable
 				// avoids to stuck when clicking two or more times
 				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				
-				if (player != this && GeoEngine.getInstance().canSeeTarget(player, this))
+				if (player != this && GeoEngine.INSTANCE.canSeeTarget(player, this))
 					player.getAI().setIntention(CtrlIntention.FOLLOW, this);
 			}
 		}
@@ -3403,7 +3403,7 @@ public final class Player extends Playable
 		if (!_isUnderMarryRequest || _requesterId == 0)
 			return;
 		
-		final Player requester = World.getInstance().getPlayer(_requesterId);
+		final Player requester = World.INSTANCE.getPlayer(_requesterId);
 		if (requester != null)
 		{
 			if (answer == 1)
@@ -3824,7 +3824,7 @@ public final class Player extends Playable
 	 */
 	public void removeMeFromPartyMatch()
 	{
-		PartyMatchWaitingList.getInstance().removePlayer(this);
+		PartyMatchWaitingList.INSTANCE.removePlayer(this);
 		if (_partyroom != 0)
 		{
 			PartyMatchRoom room = PartyMatchRoomList.getInstance().getRoom(_partyroom);
@@ -5105,7 +5105,7 @@ public final class Player extends Playable
 				}
 				
 				// Restore pet if it exists in the world.
-				final Pet pet = World.getInstance().getPet(player.getObjectId());
+				final Pet pet = World.INSTANCE.getPet(player.getObjectId());
 				if (pet != null)
 				{
 					player.setPet(pet);
@@ -6634,14 +6634,14 @@ public final class Player extends Playable
 		{
 			if (sklTargetType == L2Skill.SkillTargetType.TARGET_GROUND)
 			{
-				if (!GeoEngine.getInstance().canSeeTarget(this, worldPosition))
+				if (!GeoEngine.INSTANCE.canSeeTarget(this, worldPosition))
 				{
 					sendPacket(SystemMessageId.CANT_SEE_TARGET);
 					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 					return false;
 				}
 			}
-			else if (!GeoEngine.getInstance().canSeeTarget(this, target))
+			else if (!GeoEngine.INSTANCE.canSeeTarget(this, target))
 			{
 				sendPacket(SystemMessageId.CANT_SEE_TARGET);
 				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -6709,7 +6709,7 @@ public final class Player extends Playable
 		if (objectId == getObjectId())
 			return true;
 		
-		final Player looter = World.getInstance().getPlayer(objectId);
+		final Player looter = World.INSTANCE.getPlayer(objectId);
 		if (looter == null)
 			return false;
 		
@@ -8438,12 +8438,12 @@ public final class Player extends Playable
 			
 			if (isSeated())
 			{
-				final WorldObject object = World.getInstance().getObject(_throneId);
+				final WorldObject object = World.INSTANCE.getObject(_throneId);
 				if (object instanceof StaticObject)
 					((StaticObject) object).setBusy(false);
 			}
 			
-			World.getInstance().removePlayer(this); // force remove in case of crash during teleport
+			World.INSTANCE.removePlayer(this); // force remove in case of crash during teleport
 			
 			// friends & blocklist update
 			notifyFriends(false);
@@ -9427,7 +9427,7 @@ public final class Player extends Playable
 	{
 		for (int id : _friendList)
 		{
-			Player friend = World.getInstance().getPlayer(id);
+			Player friend = World.INSTANCE.getPlayer(id);
 			if (friend != null)
 			{
 				friend.sendPacket(new FriendList(friend));
@@ -9483,7 +9483,7 @@ public final class Player extends Playable
 			
 			if (isSeated())
 			{
-				final WorldObject object = World.getInstance().getObject(_throneId);
+				final WorldObject object = World.INSTANCE.getObject(_throneId);
 				if (object instanceof StaticObject)
 					activeChar.sendPacket(new ChairSit(getObjectId(), ((StaticObject) object).getStaticObjectId()));
 			}

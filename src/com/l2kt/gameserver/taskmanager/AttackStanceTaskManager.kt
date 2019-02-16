@@ -1,7 +1,5 @@
 package com.l2kt.gameserver.taskmanager
 
-import java.util.concurrent.ConcurrentHashMap
-
 import com.l2kt.commons.concurrent.ThreadPool
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.Playable
@@ -9,6 +7,7 @@ import com.l2kt.gameserver.model.actor.Summon
 import com.l2kt.gameserver.model.actor.instance.Cubic
 import com.l2kt.gameserver.model.actor.instance.Player
 import com.l2kt.gameserver.network.serverpackets.AutoAttackStop
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Turns off attack stance of [Creature] after PERIOD ms.
@@ -45,7 +44,7 @@ object AttackStanceTaskManager : Runnable {
 
     fun add(character: Creature) {
         if (character is Playable) {
-            for (cubic in character.getActingPlayer()!!.cubics.values)
+            for (cubic in character.actingPlayer!!.cubics.values)
                 if (cubic.id != Cubic.LIFE_CUBIC)
                     cubic.doAction()
         }
@@ -56,7 +55,7 @@ object AttackStanceTaskManager : Runnable {
     fun remove(character: Creature) {
         var character = character
         if (character is Summon)
-            character = character.actingPlayer
+            character = character.actingPlayer as Creature
 
         characters.remove(character)
     }
@@ -69,7 +68,7 @@ object AttackStanceTaskManager : Runnable {
     fun isInAttackStance(character: Creature): Boolean {
         var character = character
         if (character is Summon)
-            character = character.actingPlayer
+            character = character.actingPlayer as Creature
 
         return characters.containsKey(character)
     }

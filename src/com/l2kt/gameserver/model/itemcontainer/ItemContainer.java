@@ -493,7 +493,7 @@ public abstract class ItemContainer
 			for (ItemInstance item : _items)
 			{
 				item.updateDatabase();
-				World.getInstance().removeObject(item);
+				World.INSTANCE.removeObject(item);
 			}
 		}
 		_items.clear();
@@ -534,7 +534,7 @@ public abstract class ItemContainer
 						continue;
 					
 					// Add the item to world objects list.
-					World.getInstance().addObject(item);
+					World.INSTANCE.addObject(item);
 					
 					// If stackable item is found in inventory just add to current quantity
 					if (item.isStackable() && getItemByItemId(item.getItemId()) != null)

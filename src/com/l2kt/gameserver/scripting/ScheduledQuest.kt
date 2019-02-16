@@ -46,7 +46,7 @@ abstract class ScheduledQuest(questId: Int, descr: String) : Quest(questId, desc
      * @param end : End information.
      * @return boolean : True, when successfully loaded schedule system.
      */
-    fun setSchedule(type: String, start: String, end: String): Boolean {
+    fun setSchedule(type: String, start: String?, end: String?): Boolean {
         try {
             _type = Schedule.valueOf(type)
             _start = parseTimeStamp(start)

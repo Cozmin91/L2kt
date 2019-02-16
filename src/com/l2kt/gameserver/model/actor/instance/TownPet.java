@@ -68,7 +68,7 @@ public class TownPet extends Folk
 			if (getSpawn() == null)
 				return;
 			
-			getAI().setIntention(CtrlIntention.MOVE_TO, GeoEngine.getInstance().canMoveToTargetLoc(getX(), getY(), getZ(), getSpawn().getLocX() + Rnd.INSTANCE.get(-75, 75), getSpawn().getLocY() + Rnd.INSTANCE.get(-75, 75), getZ()));
+			getAI().setIntention(CtrlIntention.MOVE_TO, GeoEngine.INSTANCE.canMoveToTargetLoc(getX(), getY(), getZ(), getSpawn().getLocX() + Rnd.INSTANCE.get(-75, 75), getSpawn().getLocY() + Rnd.INSTANCE.get(-75, 75), getZ()));
 		}
 	}
 }

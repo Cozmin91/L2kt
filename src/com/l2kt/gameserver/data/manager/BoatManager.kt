@@ -104,7 +104,7 @@ object BoatManager {
      * @param packet : The packet to broadcast.
      */
     fun broadcastPacket(point1: BoatLocation, point2: BoatLocation, packet: L2GameServerPacket) {
-        for (player in World.getInstance().players) {
+        for (player in World.players) {
             var dx = player.x.toDouble() - point1.x
             var dy = player.y.toDouble() - point1.y
 
@@ -127,7 +127,7 @@ object BoatManager {
      * @param packets : The packets to broadcast.
      */
     fun broadcastPackets(point1: BoatLocation, point2: BoatLocation, vararg packets: L2GameServerPacket) {
-        for (player in World.getInstance().players) {
+        for (player in World.players) {
             var dx = player.x.toDouble() - point1.x
             var dy = player.y.toDouble() - point1.y
 

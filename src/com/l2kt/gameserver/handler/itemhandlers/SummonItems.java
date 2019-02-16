@@ -141,7 +141,7 @@ public class SummonItems implements IItemHandler
 				return;
 			
 			// Owner has a pet listed in world.
-			if (World.getInstance().getPet(_activeChar.getObjectId()) != null)
+			if (World.INSTANCE.getPet(_activeChar.getObjectId()) != null)
 				return;
 			
 			// Add the pet instance to world.
@@ -149,7 +149,7 @@ public class SummonItems implements IItemHandler
 			if (pet == null)
 				return;
 			
-			World.getInstance().addPet(_activeChar.getObjectId(), pet);
+			World.INSTANCE.addPet(_activeChar.getObjectId(), pet);
 			
 			_activeChar.setPet(pet);
 			

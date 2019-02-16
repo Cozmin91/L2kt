@@ -194,7 +194,7 @@ public class SummonAI extends PlayableAI
 		final int targetY = ownerY + (int) (AVOID_RADIUS * Math.sin(angle));
 		
 		// If the location is valid, move the summon.
-		if (GeoEngine.getInstance().canMoveToTarget(_actor.getX(), _actor.getY(), _actor.getZ(), targetX, targetY, _actor.getZ()))
+		if (GeoEngine.INSTANCE.canMoveToTarget(_actor.getX(), _actor.getY(), _actor.getZ(), targetX, targetY, _actor.getZ()))
 			moveTo(targetX, targetY, _actor.getZ());
 	}
 	

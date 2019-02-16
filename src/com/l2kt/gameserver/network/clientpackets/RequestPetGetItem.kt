@@ -17,7 +17,7 @@ class RequestPetGetItem : L2GameClientPacket() {
         if (activeChar == null || !activeChar.hasPet())
             return
 
-        val item = World.getInstance().getObject(_objectId) ?: return
+        val item = World.getObject(_objectId) ?: return
 
         val pet = activeChar.pet as Pet
         if (pet.isDead || pet.isOutOfControl) {

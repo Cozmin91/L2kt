@@ -13,7 +13,7 @@ import com.l2kt.gameserver.model.World
  * @author JIV
  */
 class FriendStatus(private val _objid: Int) : L2GameServerPacket() {
-    private val _online: Boolean = World.getInstance().getPlayer(_objid) != null
+    private val _online: Boolean = World.getPlayer(_objid) != null
     private val _name: String = PlayerInfoTable.getPlayerName(_objid) ?: ""
 
     override fun writeImpl() {

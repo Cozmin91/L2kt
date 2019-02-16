@@ -425,7 +425,7 @@ public class CursedWeapon
 		// Get position.
 		int x = attackable.getX() + Rnd.INSTANCE.get(-70, 70);
 		int y = attackable.getY() + Rnd.INSTANCE.get(-70, 70);
-		int z = GeoEngine.getInstance().getHeight(x, y, attackable.getZ());
+		int z = GeoEngine.INSTANCE.getHeight(x, y, attackable.getZ());
 		
 		// Create item and drop it.
 		_item = ItemInstance.create(_itemId, 1, player, attackable);

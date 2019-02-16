@@ -20,7 +20,7 @@ class RequestJoinPledge : L2GameClientPacket() {
 
         val clan = activeChar.clan ?: return
 
-        val target = World.getInstance().getPlayer(_target)
+        val target = World.getPlayer(_target)
         if (target == null) {
             activeChar.sendPacket(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET)
             return

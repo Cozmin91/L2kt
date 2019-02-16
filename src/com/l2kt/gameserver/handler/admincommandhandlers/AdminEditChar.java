@@ -89,7 +89,7 @@ public class AdminEditChar implements IAdminCommandHandler
 					final String name = st.nextToken();
 					final int lvl = Integer.parseInt(st.nextToken());
 					
-					final Player player = World.getInstance().getPlayer(name);
+					final Player player = World.INSTANCE.getPlayer(name);
 					if (player != null)
 						onLineChange(activeChar, player, lvl);
 					else
@@ -124,7 +124,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			try
 			{
-				final Player target = World.getInstance().getPlayer(command.substring(21));
+				final Player target = World.INSTANCE.getPlayer(command.substring(21));
 				if (target != null)
 					showCharacterInfo(activeChar, target);
 				else
@@ -495,7 +495,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			WorldObject target;
 			try
 			{
-				target = World.getInstance().getPet(Integer.parseInt(command.substring(19)));
+				target = World.INSTANCE.getPet(Integer.parseInt(command.substring(19)));
 			}
 			catch (Exception e)
 			{
@@ -524,7 +524,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			WorldObject target;
 			try
 			{
-				target = World.getInstance().getPlayer(command.substring(17));
+				target = World.INSTANCE.getPlayer(command.substring(17));
 				if (target == null)
 					target = activeChar.getTarget();
 			}
@@ -566,7 +566,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		{
 			try
 			{
-				final Player player = World.getInstance().getPlayer(command.substring(16));
+				final Player player = World.INSTANCE.getPlayer(command.substring(16));
 				if (player == null)
 				{
 					activeChar.sendPacket(SystemMessageId.TARGET_CANT_FOUND);
@@ -613,7 +613,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				boolean changeCreateExpiryTime = st.nextToken().equalsIgnoreCase("create");
 				String playerName = st.nextToken();
 				
-				Player player = World.getInstance().getPlayer(playerName);
+				Player player = World.INSTANCE.getPlayer(playerName);
 				if (player == null)
 				{
 					try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
@@ -657,7 +657,7 @@ public class AdminEditChar implements IAdminCommandHandler
 	
 	private static void listCharacters(Player activeChar, int page)
 	{
-		List<Player> players = new ArrayList<>(World.getInstance().getPlayers());
+		List<Player> players = new ArrayList<>(World.INSTANCE.getPlayers());
 		
 		final int max = MathUtil.INSTANCE.countPagesNumber(players.size(), PAGE_LIMIT);
 		
@@ -804,7 +804,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		final StringBuilder sb = new StringBuilder();
 		
 		// First use of sb, add player info into new Table row
-		for (Player player : World.getInstance().getPlayers())
+		for (Player player : World.INSTANCE.getPlayers())
 		{
 			String name = player.getName();
 			if (name.toLowerCase().contains(characterToFind.toLowerCase()))
@@ -863,7 +863,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		html.setFile("data/html/admin/ipfind.htm");
 		
 		final StringBuilder sb = new StringBuilder(1000);
-		for (Player player : World.getInstance().getPlayers())
+		for (Player player : World.INSTANCE.getPlayers())
 		{
 			L2GameClient client = player.getClient();
 			if (client.isDetached())
@@ -917,7 +917,7 @@ public class AdminEditChar implements IAdminCommandHandler
 	 */
 	private static void findCharactersPerAccount(Player activeChar, String characterName)
 	{
-		final Player player = World.getInstance().getPlayer(characterName);
+		final Player player = World.INSTANCE.getPlayer(characterName);
 		if (player == null)
 		{
 			activeChar.sendPacket(SystemMessageId.TARGET_CANT_FOUND);
@@ -944,7 +944,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		
 		final Map<String, Integer> dualboxIPs = new HashMap<>();
 		
-		for (Player player : World.getInstance().getPlayers())
+		for (Player player : World.INSTANCE.getPlayers())
 		{
 			L2GameClient client = player.getClient();
 			if (client == null || client.isDetached())

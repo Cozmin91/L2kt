@@ -15,7 +15,7 @@ class RequestEvaluate : L2GameClientPacket() {
     override fun runImpl() {
         val player = client.activeChar ?: return
 
-        val target = World.getInstance().getPlayer(_targetId)
+        val target = World.getPlayer(_targetId)
         if (target == null) {
             player.sendPacket(SystemMessageId.TARGET_IS_INCORRECT)
             return

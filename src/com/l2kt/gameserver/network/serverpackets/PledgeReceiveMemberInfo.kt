@@ -18,7 +18,7 @@ class PledgeReceiveMemberInfo(private val _member: ClanMember) : L2GameServerPac
 
         // clan or subpledge name
         if (_member.pledgeType != 0)
-            writeS(_member.clan.getSubPledge(_member.pledgeType).name)
+            writeS(_member.clan.getSubPledge(_member.pledgeType)?.name)
         else
             writeS(_member.clan.name)
 

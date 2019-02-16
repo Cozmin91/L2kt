@@ -54,7 +54,7 @@ public class AdminRes implements IAdminCommandHandler
 		if (resParam != null)
 		{
 			// Check if a player name was specified as a param.
-			Player plyr = World.getInstance().getPlayer(resParam);
+			Player plyr = World.INSTANCE.getPlayer(resParam);
 			
 			if (plyr != null)
 				obj = plyr;

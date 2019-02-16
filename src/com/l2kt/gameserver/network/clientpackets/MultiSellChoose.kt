@@ -264,7 +264,7 @@ class MultiSellChoose : L2GameClientPacket() {
                         if (product != null && list.maintainEnchantment) {
                             if (i < augmentation.size)
                                 product.augmentation =
-                                        L2Augmentation(augmentation[i].augmentationId, augmentation[i].skill)
+                                        L2Augmentation(augmentation[i].getAugmentationId(), augmentation[i].skill)
 
                             product.enchantLevel = e.enchantLevel
                             product.updateDatabase()

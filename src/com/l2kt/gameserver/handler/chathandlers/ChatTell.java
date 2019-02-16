@@ -20,7 +20,7 @@ public class ChatTell implements IChatHandler
 		if (target == null)
 			return;
 		
-		final Player receiver = World.getInstance().getPlayer(target);
+		final Player receiver = World.INSTANCE.getPlayer(target);
 		if (receiver == null || receiver.getClient().isDetached())
 		{
 			activeChar.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);

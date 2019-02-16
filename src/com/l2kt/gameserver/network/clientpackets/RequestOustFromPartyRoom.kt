@@ -18,7 +18,7 @@ class RequestOustFromPartyRoom : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        val member = World.getInstance().getPlayer(_charid) ?: return
+        val member = World.getPlayer(_charid) ?: return
 
         val room = PartyMatchRoomList.getInstance().getPlayerRoom(member) ?: return
 
@@ -35,7 +35,7 @@ class RequestOustFromPartyRoom : L2GameClientPacket() {
             member.sendPacket(ExClosePartyRoom.STATIC_PACKET)
 
             // Add player back on waiting list
-            PartyMatchWaitingList.getInstance().addPlayer(member)
+            PartyMatchWaitingList.addPlayer(member)
 
             // Send Room list
             member.sendPacket(

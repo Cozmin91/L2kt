@@ -24,7 +24,7 @@ public class ChatHeroVoice implements IChatHandler
 			return;
 		
 		final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
-		for (Player player : World.getInstance().getPlayers())
+		for (Player player : World.INSTANCE.getPlayers())
 			player.sendPacket(cs);
 	}
 	

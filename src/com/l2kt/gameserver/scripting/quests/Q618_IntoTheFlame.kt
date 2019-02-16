@@ -73,7 +73,7 @@ class Q618_IntoTheFlame : Quest(618, "Into The Flame") {
     override fun onKill(npc: Npc, killer: Creature): String? {
         val player = killer.actingPlayer
 
-        val st = getRandomPartyMember(player, npc, "2") ?: return null
+        val st = getRandomPartyMember(player ?: return null, npc, "2") ?: return null
 
         if (st.dropItems(VACUALITE_ORE, 1, 50, 500000))
             st["cond"] = "3"

@@ -570,7 +570,7 @@ public class Hero
 			{
 				String name = hero.getString(Olympiad.CHAR_NAME);
 				
-				Player player = World.getInstance().getPlayer(name);
+				Player player = World.INSTANCE.getPlayer(name);
 				if (player == null)
 					continue;
 				

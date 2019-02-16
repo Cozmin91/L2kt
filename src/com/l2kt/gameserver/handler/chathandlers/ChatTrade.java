@@ -25,7 +25,7 @@ public class ChatTrade implements IChatHandler
 		final CreatureSay cs = new CreatureSay(activeChar.getObjectId(), type, activeChar.getName(), text);
 		final int region = MapRegionData.INSTANCE.getMapRegion(activeChar.getX(), activeChar.getY());
 		
-		for (Player player : World.getInstance().getPlayers())
+		for (Player player : World.INSTANCE.getPlayers())
 		{
 			if (!BlockList.Companion.isBlocked(player, activeChar) && region == MapRegionData.INSTANCE.getMapRegion(player.getX(), player.getY()))
 				player.sendPacket(cs);

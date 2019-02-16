@@ -54,8 +54,8 @@ class Q636_TruthBeyondTheGate : Quest(636, "The Truth Beyond the Gate") {
     override fun onEnterZone(character: Creature, zone: ZoneType): String? {
         // QuestState already null on enter because quest is finished
         if (character is Player) {
-            if (character.getActingPlayer()!!.destroyItemByItemId("Mark", VISITOR_MARK, 1, character, false))
-                character.getActingPlayer()!!.addItem("Mark", FADED_VISITOR_MARK, 1, character, true)
+            if (character.actingPlayer!!.destroyItemByItemId("Mark", VISITOR_MARK, 1, character, false))
+                character.actingPlayer!!.addItem("Mark", FADED_VISITOR_MARK, 1, character, true)
         }
         return null
     }

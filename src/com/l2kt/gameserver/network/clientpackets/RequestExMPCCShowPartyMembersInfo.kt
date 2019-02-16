@@ -17,7 +17,7 @@ class RequestExMPCCShowPartyMembersInfo : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        val player = World.getInstance().getPlayer(_partyLeaderId)
+        val player = World.getPlayer(_partyLeaderId)
         if (player != null && player.isInParty)
             activeChar.sendPacket(ExMPCCShowPartyMemberInfo(player.party!!))
     }

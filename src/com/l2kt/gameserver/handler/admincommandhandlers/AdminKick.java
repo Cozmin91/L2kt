@@ -29,7 +29,7 @@ public class AdminKick implements IAdminCommandHandler
 			{
 				st.nextToken();
 				String player = st.nextToken();
-				Player plyr = World.getInstance().getPlayer(player);
+				Player plyr = World.INSTANCE.getPlayer(player);
 				if (plyr != null)
 				{
 					plyr.logout(false);
@@ -42,7 +42,7 @@ public class AdminKick implements IAdminCommandHandler
 		{
 			int counter = 0;
 			
-			for (Player player : World.getInstance().getPlayers())
+			for (Player player : World.INSTANCE.getPlayers())
 			{
 				if (player.isGM())
 					continue;

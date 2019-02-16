@@ -1,17 +1,17 @@
 package com.l2kt.gameserver.handler.admincommandhandlers;
 
-import java.util.List;
-
+import com.l2kt.gameserver.geoengine.GeoEngine;
+import com.l2kt.gameserver.geoengine.geodata.ABlock;
+import com.l2kt.gameserver.geoengine.geodata.GeoStructure;
 import com.l2kt.gameserver.handler.IAdminCommandHandler;
 import com.l2kt.gameserver.model.World;
 import com.l2kt.gameserver.model.WorldObject;
 import com.l2kt.gameserver.model.actor.instance.Player;
 import com.l2kt.gameserver.model.location.Location;
-import com.l2kt.gameserver.geoengine.GeoEngine;
-import com.l2kt.gameserver.geoengine.geodata.ABlock;
-import com.l2kt.gameserver.geoengine.geodata.GeoStructure;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.util.List;
 
 /**
  * @author -Nemesiss-, Hasha
@@ -36,14 +36,14 @@ public class AdminGeoEngine implements IAdminCommandHandler
 	{
 		if (command.startsWith("admin_geo_bug"))
 		{
-			final int geoX = GeoEngine.getGeoX(activeChar.getX());
-			final int geoY = GeoEngine.getGeoY(activeChar.getY());
-			if (GeoEngine.getInstance().hasGeoPos(geoX, geoY))
+			final int geoX = GeoEngine.INSTANCE.getGeoX(activeChar.getX());
+			final int geoY = GeoEngine.INSTANCE.getGeoY(activeChar.getY());
+			if (GeoEngine.INSTANCE.hasGeoPos(geoX, geoY))
 			{
 				try
 				{
 					String comment = command.substring(14);
-					if (GeoEngine.getInstance().addGeoBug(activeChar.getPosition(), activeChar.getName() + ": " + comment))
+					if (GeoEngine.INSTANCE.addGeoBug(activeChar.getPosition(), activeChar.getName() + ": " + comment))
 						activeChar.sendMessage("GeoData bug saved.");
 				}
 				catch (Exception e)
@@ -56,11 +56,11 @@ public class AdminGeoEngine implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_geo_pos"))
 		{
-			final int geoX = GeoEngine.getGeoX(activeChar.getX());
-			final int geoY = GeoEngine.getGeoY(activeChar.getY());
+			final int geoX = GeoEngine.INSTANCE.getGeoX(activeChar.getX());
+			final int geoY = GeoEngine.INSTANCE.getGeoY(activeChar.getY());
 			final int rx = (activeChar.getX() - World.WORLD_X_MIN) / World.TILE_SIZE + World.TILE_X_MIN;
 			final int ry = (activeChar.getY() - World.WORLD_Y_MIN) / World.TILE_SIZE + World.TILE_Y_MIN;
-			final ABlock block = GeoEngine.getInstance().getBlock(geoX, geoY);
+			final ABlock block = GeoEngine.INSTANCE.getBlock(geoX, geoY);
 			activeChar.sendMessage("Region: " + rx + "_" + ry + "; Block: " + block.getClass().getSimpleName());
 			if (block.hasGeoPos())
 			{
@@ -81,7 +81,7 @@ public class AdminGeoEngine implements IAdminCommandHandler
 			WorldObject target = activeChar.getTarget();
 			if (target != null)
 			{
-				if (GeoEngine.getInstance().canSeeTarget(activeChar, target))
+				if (GeoEngine.INSTANCE.canSeeTarget(activeChar, target))
 					activeChar.sendMessage("Can see target.");
 				else
 					activeChar.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.CANT_SEE_TARGET));
@@ -94,7 +94,7 @@ public class AdminGeoEngine implements IAdminCommandHandler
 			WorldObject target = activeChar.getTarget();
 			if (target != null)
 			{
-				if (GeoEngine.getInstance().canMoveToTarget(activeChar.getX(), activeChar.getY(), activeChar.getZ(), target.getX(), target.getY(), target.getZ()))
+				if (GeoEngine.INSTANCE.canMoveToTarget(activeChar.getX(), activeChar.getY(), activeChar.getZ(), target.getX(), target.getY(), target.getZ()))
 					activeChar.sendMessage("Can move beeline.");
 				else
 					activeChar.sendMessage("Can not move beeline!");
@@ -106,7 +106,7 @@ public class AdminGeoEngine implements IAdminCommandHandler
 		{
 			if (activeChar.getTarget() != null)
 			{
-				List<Location> path = GeoEngine.getInstance().findPath(activeChar.getX(), activeChar.getY(), (short) activeChar.getZ(), activeChar.getTarget().getX(), activeChar.getTarget().getY(), (short) activeChar.getTarget().getZ(), true);
+				List<Location> path = GeoEngine.INSTANCE.findPath(activeChar.getX(), activeChar.getY(), (short) activeChar.getZ(), activeChar.getTarget().getX(), activeChar.getTarget().getY(), (short) activeChar.getTarget().getZ(), true);
 				if (path == null)
 					activeChar.sendMessage("No route found or pathfinding disabled.");
 				else
@@ -118,7 +118,7 @@ public class AdminGeoEngine implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_path_info"))
 		{
-			final List<String> info = GeoEngine.getInstance().getStat();
+			final List<String> info = GeoEngine.INSTANCE.getStat();
 			if (info == null)
 				activeChar.sendMessage("Pathfinding disabled.");
 			else

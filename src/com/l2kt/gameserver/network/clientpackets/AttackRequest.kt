@@ -35,7 +35,7 @@ class AttackRequest : L2GameClientPacket() {
         target = if (activeChar.targetId == _objectId)
             activeChar.target
         else
-            World.getInstance().getObject(_objectId)
+            World.getObject(_objectId)
 
         if (target == null) {
             activeChar.sendPacket(ActionFailed.STATIC_PACKET)

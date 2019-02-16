@@ -18,7 +18,7 @@ class AllianceInfo(allianceId: Int) : L2GameServerPacket() {
 
     init {
         val leader = ClanTable.getClan(allianceId)!!
-        name = leader.allyName
+        name = leader.allyName ?: ""
         leaderC = leader.name
         leaderP = leader.leaderName
 

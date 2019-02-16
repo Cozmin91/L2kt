@@ -57,7 +57,7 @@ public class FlameTower extends Npc
 			player.setTarget(this);
 		else
 		{
-			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100 && GeoEngine.getInstance().canSeeTarget(player, this))
+			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100 && GeoEngine.INSTANCE.canSeeTarget(player, this))
 			{
 				// Notify the Player AI with INTERACT
 				player.getAI().setIntention(CtrlIntention.ATTACK, this);

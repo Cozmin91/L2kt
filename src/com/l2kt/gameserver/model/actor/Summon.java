@@ -161,7 +161,7 @@ public abstract class Summon extends Playable
 		{
 			if (isAutoAttackable(player))
 			{
-				if (GeoEngine.getInstance().canSeeTarget(player, this))
+				if (GeoEngine.INSTANCE.canSeeTarget(player, this))
 				{
 					player.getAI().setIntention(CtrlIntention.ATTACK, this);
 					player.onActionRequest();
@@ -175,7 +175,7 @@ public abstract class Summon extends Playable
 				// Send ActionFailed to the player in order to avoid he stucks
 				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				
-				if (GeoEngine.getInstance().canSeeTarget(player, this))
+				if (GeoEngine.INSTANCE.canSeeTarget(player, this))
 					player.getAI().setIntention(CtrlIntention.FOLLOW, this);
 			}
 		}

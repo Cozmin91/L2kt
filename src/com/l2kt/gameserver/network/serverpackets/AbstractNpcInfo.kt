@@ -60,12 +60,12 @@ abstract class AbstractNpcInfo(cha: Creature) : L2GameServerPacket() {
             _isAttackable = _npc.isAutoAttackable(attacker)
 
             // Support for polymorph.
-            if (_npc.polyType == WorldObject.PolyType.NPC) {
-                _idTemplate = _npc.polyTemplate.idTemplate
-                _rhand = _npc.polyTemplate.rightHand
-                _lhand = _npc.polyTemplate.leftHand
-                _collisionHeight = _npc.polyTemplate.collisionHeight
-                _collisionRadius = _npc.polyTemplate.collisionRadius
+            if (_npc.polyType == WorldObject.PolyType.NPC && _npc.polyTemplate != null) {
+                _idTemplate = _npc.polyTemplate!!.idTemplate
+                _rhand = _npc.polyTemplate!!.rightHand
+                _lhand = _npc.polyTemplate!!.leftHand
+                _collisionHeight = _npc.polyTemplate!!.collisionHeight
+                _collisionRadius = _npc.polyTemplate!!.collisionRadius
             } else {
                 _idTemplate = _npc.template.idTemplate
                 _rhand = _npc.rightHandItem

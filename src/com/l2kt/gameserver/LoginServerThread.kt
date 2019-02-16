@@ -183,7 +183,7 @@ object LoginServerThread : Thread("LoginServerThread") {
                             ss.addAttribute(ServerStatus.PVP_SERVER, Config.SERVER_LIST_PVPSERVER)
                             sendPacket(ss)
 
-                            val players = World.getInstance().players
+                            val players = World.players
                             if (!players.isEmpty()) {
                                 val playerList = ArrayList<String>()
                                 for (player in players)

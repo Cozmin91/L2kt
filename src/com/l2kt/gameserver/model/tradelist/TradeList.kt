@@ -106,7 +106,7 @@ class TradeList(val owner: Player?) {
         if (isLocked)
             return null
 
-        val o = World.getInstance().getObject(objectId) as? ItemInstance ?: return null
+        val o = World.getObject(objectId) as? ItemInstance ?: return null
 
         if (!o.isTradable || o.isQuestItem)
             return null
@@ -287,7 +287,7 @@ class TradeList(val owner: Player?) {
      */
     private fun validate(): Boolean {
         // Check for Owner validity
-        if (owner == null || World.getInstance().getPlayer(owner.objectId) == null)
+        if (owner == null || World.getPlayer(owner.objectId) == null)
             return false
 
         // Check for Item validity

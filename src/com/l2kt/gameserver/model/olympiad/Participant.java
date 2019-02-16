@@ -41,7 +41,7 @@ public final class Participant
 	public final void updatePlayer()
 	{
 		if (player == null || !player.isOnline())
-			player = World.getInstance().getPlayer(objectId);
+			player = World.INSTANCE.getPlayer(objectId);
 	}
 	
 	public final void updateStat(String statName, int increment)

@@ -21,7 +21,7 @@ class AnswerTradeRequest : L2GameClientPacket() {
         }
 
         val partner = player.activeRequester
-        if (partner == null || World.getInstance().getPlayer(partner.objectId) == null) {
+        if (partner == null || World.getPlayer(partner.objectId) == null) {
             // Trade partner not found, cancel trade
             player.sendPacket(SendTradeDone(0))
             player.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME)

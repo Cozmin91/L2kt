@@ -137,11 +137,11 @@ public class AttackableAI extends CreatureAI implements Runnable
 		{
 			// Check if the Player target has karma (=PK)
 			if (target instanceof Player && ((Player) target).getKarma() > 0)
-				return GeoEngine.getInstance().canSeeTarget(me, target);
+				return GeoEngine.INSTANCE.canSeeTarget(me, target);
 			
 			// Check if the L2MonsterInstance target is aggressive
 			if (target instanceof Monster && Config.GUARD_ATTACK_AGGRO_MOB)
-				return (((Monster) target).isAggressive() && GeoEngine.getInstance().canSeeTarget(me, target));
+				return (((Monster) target).isAggressive() && GeoEngine.INSTANCE.canSeeTarget(me, target));
 			
 			return false;
 		}
@@ -150,7 +150,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 		{
 			// Check if the Player target has karma (=PK)
 			if (target instanceof Player && ((Player) target).getKarma() > 0)
-				return GeoEngine.getInstance().canSeeTarget(me, target); // Los Check
+				return GeoEngine.INSTANCE.canSeeTarget(me, target); // Los Check
 				
 			return false;
 		}
@@ -158,7 +158,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 		else
 		{
 			if (target instanceof Attackable && me.isConfused())
-				return GeoEngine.getInstance().canSeeTarget(me, target);
+				return GeoEngine.INSTANCE.canSeeTarget(me, target);
 			
 			if (target instanceof Npc)
 				return false;
@@ -169,7 +169,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 				return false;
 			
 			// Check if the actor is Aggressive
-			return (me.isAggressive() && GeoEngine.getInstance().canSeeTarget(me, target));
+			return (me.isAggressive() && GeoEngine.INSTANCE.canSeeTarget(me, target));
 		}
 	}
 	
@@ -517,7 +517,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 							return;
 						}
 						
-						if (GeoEngine.getInstance().canSeeTarget(npc, master))
+						if (GeoEngine.INSTANCE.canSeeTarget(npc, master))
 						{
 							clientStopMoving(null);
 							npc.setTarget(master);
@@ -560,7 +560,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 							
 							if (obj.getCurrentHp() / obj.getMaxHp() < 0.75)
 							{
-								if (GeoEngine.getInstance().canSeeTarget(npc, obj))
+								if (GeoEngine.INSTANCE.canSeeTarget(npc, obj))
 								{
 									clientStopMoving(null);
 									npc.setTarget(obj);
@@ -612,7 +612,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 					if (!checkSkillCastConditions(sk) || (sk.getCastRange() + npc.getCollisionRadius() + attackTarget.getCollisionRadius() <= dist && !canAura(sk)))
 						continue;
 					
-					if (!GeoEngine.getInstance().canSeeTarget(npc, attackTarget))
+					if (!GeoEngine.INSTANCE.canSeeTarget(npc, attackTarget))
 						continue;
 					
 					if (attackTarget.getFirstEffect(sk) == null)
@@ -692,7 +692,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 					if (!npc.isInsideRadius(newX, newY, actorCollision, false))
 					{
 						int newZ = npc.getZ() + 30;
-						if (GeoEngine.getInstance().canMoveToTarget(npc.getX(), npc.getY(), npc.getZ(), newX, newY, newZ))
+						if (GeoEngine.INSTANCE.canMoveToTarget(npc.getX(), npc.getY(), npc.getZ(), newX, newY, newZ))
 							moveTo(newX, newY, newZ);
 					}
 					return;
@@ -711,7 +711,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 			final int posY = npc.getY() + ((attackTarget.getY() < npc.getY()) ? 300 : -300);
 			final int posZ = npc.getZ() + 30;
 			
-			if (GeoEngine.getInstance().canMoveToTarget(npc.getX(), npc.getY(), npc.getZ(), posX, posY, posZ))
+			if (GeoEngine.INSTANCE.canMoveToTarget(npc.getX(), npc.getY(), npc.getZ(), posX, posY, posZ))
 			{
 				setIntention(CtrlIntention.MOVE_TO, new Location(posX, posY, posZ));
 				return;
@@ -722,7 +722,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 		 * BASIC MELEE ATTACK
 		 */
 		
-		if (dist > range || !GeoEngine.getInstance().canSeeTarget(npc, attackTarget))
+		if (dist > range || !GeoEngine.INSTANCE.canSeeTarget(npc, attackTarget))
 		{
 			if (attackTarget.isMoving())
 				range -= 30;
@@ -813,7 +813,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 						if (!MathUtil.INSTANCE.checkIfInRange(overallRange, caster, master, false) && sk.getTargetType() != L2Skill.SkillTargetType.TARGET_PARTY && !caster.isMovementDisabled())
 							moveToPawn(master, overallRange);
 						
-						if (GeoEngine.getInstance().canSeeTarget(caster, master))
+						if (GeoEngine.INSTANCE.canSeeTarget(caster, master))
 						{
 							clientStopMoving(null);
 							caster.setTarget(master);
@@ -846,7 +846,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 						percentage = obj.getCurrentHp() / obj.getMaxHp() * 100;
 						if (Rnd.INSTANCE.get(100) < (100 - percentage) / 10)
 						{
-							if (GeoEngine.getInstance().canSeeTarget(caster, obj))
+							if (GeoEngine.INSTANCE.canSeeTarget(caster, obj))
 							{
 								clientStopMoving(null);
 								caster.setTarget(obj);
@@ -882,7 +882,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 			case MDOT:
 			case BLEED:
 			{
-				if (GeoEngine.getInstance().canSeeTarget(caster, attackTarget) && !canAOE(sk) && !attackTarget.isDead() && distance <= range)
+				if (GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget) && !canAOE(sk) && !attackTarget.isDead() && distance <= range)
 				{
 					if (attackTarget.getFirstEffect(sk) == null)
 					{
@@ -900,7 +900,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 						return true;
 					}
 					
-					if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.getInstance().canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
+					if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
 					{
 						clientStopMoving(null);
 						caster.doCast(sk);
@@ -954,7 +954,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 						return true;
 					}
 					
-					if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.getInstance().canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
+					if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
 					{
 						clientStopMoving(null);
 						caster.doCast(sk);
@@ -968,7 +968,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 			case STUN:
 			case PARALYZE:
 			{
-				if (GeoEngine.getInstance().canSeeTarget(caster, attackTarget) && !canAOE(sk) && distance <= range)
+				if (GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget) && !canAOE(sk) && distance <= range)
 				{
 					if (attackTarget.getFirstEffect(sk) == null)
 					{
@@ -985,7 +985,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 						caster.doCast(sk);
 						return true;
 					}
-					else if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.getInstance().canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
+					else if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
 					{
 						clientStopMoving(null);
 						caster.doCast(sk);
@@ -1008,7 +1008,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 			case MUTE:
 			case FEAR:
 			{
-				if (GeoEngine.getInstance().canSeeTarget(caster, attackTarget) && !canAOE(sk) && distance <= range)
+				if (GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget) && !canAOE(sk) && distance <= range)
 				{
 					if (attackTarget.getFirstEffect(sk) == null)
 					{
@@ -1026,7 +1026,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 						return true;
 					}
 					
-					if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.getInstance().canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
+					if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
 					{
 						clientStopMoving(null);
 						caster.doCast(sk);
@@ -1055,7 +1055,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 				
 				if (sk.getTargetType() == L2Skill.SkillTargetType.TARGET_ONE)
 				{
-					if (attackTarget.getFirstEffect(L2EffectType.BUFF) != null && GeoEngine.getInstance().canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
+					if (attackTarget.getFirstEffect(L2EffectType.BUFF) != null && GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
 					{
 						clientStopMoving(null);
 						caster.doCast(sk);
@@ -1075,13 +1075,13 @@ public class AttackableAI extends CreatureAI implements Runnable
 				}
 				else if (canAOE(sk))
 				{
-					if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AURA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AURA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AURA) && GeoEngine.getInstance().canSeeTarget(caster, attackTarget))
+					if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AURA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AURA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AURA) && GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget))
 					{
 						clientStopMoving(null);
 						caster.doCast(sk);
 						return true;
 					}
-					else if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.getInstance().canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
+					else if ((sk.getTargetType() == L2Skill.SkillTargetType.TARGET_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.getTargetType() == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
 					{
 						clientStopMoving(null);
 						caster.doCast(sk);
@@ -1095,7 +1095,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 			{
 				if (!canAura(sk))
 				{
-					if (GeoEngine.getInstance().canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
+					if (GeoEngine.INSTANCE.canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range)
 					{
 						clientStopMoving(null);
 						caster.doCast(sk);
@@ -1374,7 +1374,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 					
 					// Check if the WorldObject is inside the Faction Range of the actor
 					final CtrlIntention calledIntention = called.getAI().getDesire().getIntention();
-					if ((calledIntention == CtrlIntention.IDLE || calledIntention == CtrlIntention.ACTIVE || (calledIntention == CtrlIntention.MOVE_TO && !called.isRunning())) && GeoEngine.getInstance().canSeeTarget(me, called))
+					if ((calledIntention == CtrlIntention.IDLE || calledIntention == CtrlIntention.ACTIVE || (calledIntention == CtrlIntention.MOVE_TO && !called.isRunning())) && GeoEngine.INSTANCE.canSeeTarget(me, called))
 					{
 						if (attacker instanceof Playable)
 						{
@@ -1463,7 +1463,7 @@ public class AttackableAI extends CreatureAI implements Runnable
 				
 				// Check if the WorldObject is inside the Faction Range of the actor
 				final CtrlIntention calledIntention = called.getAI().getDesire().getIntention();
-				if ((calledIntention == CtrlIntention.IDLE || calledIntention == CtrlIntention.ACTIVE || (calledIntention == CtrlIntention.MOVE_TO && !called.isRunning())) && GeoEngine.getInstance().canSeeTarget(me, called))
+				if ((calledIntention == CtrlIntention.IDLE || calledIntention == CtrlIntention.ACTIVE || (calledIntention == CtrlIntention.MOVE_TO && !called.isRunning())) && GeoEngine.INSTANCE.canSeeTarget(me, called))
 				{
 					if (target instanceof Playable)
 					{

@@ -90,7 +90,7 @@ public class AdminZone implements IAdminCommandHandler
 		// Reset the StringBuilder for another use.
 		sb.setLength(0);
 		
-		for (ZoneType zone : World.getInstance().getRegion(x, y).getZones())
+		for (ZoneType zone : World.INSTANCE.getRegion(x, y).getZones())
 		{
 			if (zone.isCharacterInZone(player))
 				StringUtil.INSTANCE.append(sb, zone.getId(), " ");

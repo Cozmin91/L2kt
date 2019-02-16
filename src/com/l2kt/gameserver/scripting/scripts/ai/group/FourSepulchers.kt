@@ -52,7 +52,7 @@ class FourSepulchers : L2AttackableAIScript("ai/group") {
             val rndY = npc.y + Rnd[-Config.MAX_DRIFT_RANGE, Config.MAX_DRIFT_RANGE]
 
             // Wait the NPC to be immobile to move him again. Also check destination point.
-            if (!npc.isMoving && GeoEngine.getInstance().canMoveToTarget(npc.x, npc.y, npc.z, rndX, rndY, npc.z)) {
+            if (!npc.isMoving && GeoEngine.canMoveToTarget(npc.x, npc.y, npc.z, rndX, rndY, npc.z)) {
                 // Set the NPC as running.
                 npc.setRunning()
 

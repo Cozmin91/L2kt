@@ -31,7 +31,7 @@ class TradeDone : L2GameClientPacket() {
 
         // Trade partner not found, cancel trade
         val partner = trade.partner
-        if (partner == null || World.getInstance().getPlayer(partner.objectId) == null) {
+        if (partner == null || World.getPlayer(partner.objectId) == null) {
             player.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME)
             player.cancelActiveTrade()
             return

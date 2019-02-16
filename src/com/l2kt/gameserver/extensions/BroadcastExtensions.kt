@@ -84,7 +84,7 @@ fun Creature.toSelfAndKnownPlayersInRadius(packet: L2GameServerPacket, radius: I
  * @param packet : The packet to send.
  */
 fun L2GameServerPacket.toAllOnlinePlayers() {
-    for (player in World.getInstance().players) {
+    for (player in World.players) {
         if (player.isOnline)
             player.sendPacket(this)
     }

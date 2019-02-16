@@ -49,7 +49,7 @@ class EffectWarp(env: Env, template: EffectTemplate) : L2Effect(env, template) {
         y = _actor!!.y + y1
         z = _actor!!.z
 
-        val destiny = GeoEngine.getInstance().canMoveToTargetLoc(_actor!!.x, _actor!!.y, _actor!!.z, x, y, z)
+        val destiny = GeoEngine.canMoveToTargetLoc(_actor!!.x, _actor!!.y, _actor!!.z, x, y, z)
         x = destiny.x
         y = destiny.y
         z = destiny.z

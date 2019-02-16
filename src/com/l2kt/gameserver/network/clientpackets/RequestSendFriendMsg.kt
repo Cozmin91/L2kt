@@ -28,7 +28,7 @@ class RequestSendFriendMsg : L2GameClientPacket() {
 
         val activeChar = client.activeChar ?: return
 
-        val targetPlayer = World.getInstance().getPlayer(_reciever)
+        val targetPlayer = World.getPlayer(_reciever)
         if (targetPlayer == null || !targetPlayer.friendList.contains(activeChar.objectId)) {
             activeChar.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME)
             return

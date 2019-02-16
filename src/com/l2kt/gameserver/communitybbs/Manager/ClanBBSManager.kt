@@ -90,7 +90,7 @@ object ClanBBSManager : BaseBBSManager() {
 
         var content = HtmCache.getHtm(BaseBBSManager.CB_PATH + "clan/clanhome-mail.htm")
         content = content.replace("%clanid%", Integer.toString(clanId))
-        content = content.replace("%clanName%", clan.name)
+        content = content.replace("%clanName%", clan.name ?: "")
         BaseBBSManager.separateAndSend(content, player)
     }
 
@@ -164,7 +164,7 @@ object ClanBBSManager : BaseBBSManager() {
                     "<table width=610><tr><td width=5></td><td width=150 align=center><a action=\"bypass _bbsclan;home;",
                     cl.clanId,
                     "\">",
-                    cl.name,
+                    cl.name ?: continue,
                     "</a></td><td width=150 align=center>",
                     cl.leaderName,
                     "</td><td width=100 align=center>",
@@ -234,11 +234,11 @@ object ClanBBSManager : BaseBBSManager() {
 
         content = content.replace("%clanid%", Integer.toString(clan.clanId))
         content = content.replace("%clanIntro%", clan.introduction)
-        content = content.replace("%clanName%", clan.name)
+        content = content.replace("%clanName%", clan.name ?: "")
         content = content.replace("%clanLvL%", Integer.toString(clan.level))
         content = content.replace("%clanMembers%", Integer.toString(clan.membersCount))
         content = content.replace("%clanLeader%", clan.leaderName)
-        content = content.replace("%allyName%", if (clan.allyId > 0) clan.allyName else "")
+        content = content.replace("%allyName%", if (clan.allyId > 0) clan.allyName ?: "" else "")
         BaseBBSManager.separateAndSend(content, player)
     }
 }
