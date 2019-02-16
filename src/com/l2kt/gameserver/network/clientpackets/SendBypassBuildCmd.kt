@@ -18,7 +18,7 @@ class SendBypassBuildCmd : L2GameClientPacket() {
 
         val command = "admin_" + _command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()[0]
 
-        val ach = AdminCommandHandler.getInstance().getHandler(command)
+        val ach = AdminCommandHandler.getHandler(command)
         if (ach == null) {
             if (player.isGM)
                 player.sendMessage("The command " + command.substring(6) + " doesn't exist.")

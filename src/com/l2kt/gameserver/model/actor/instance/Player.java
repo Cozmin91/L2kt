@@ -2168,7 +2168,7 @@ public final class Player extends Playable
 			{
 				final ItemInstance herb = new ItemInstance(0, itemId);
 				
-				final IItemHandler handler = ItemHandler.getInstance().getHandler(herb.getEtcItem());
+				final IItemHandler handler = ItemHandler.INSTANCE.getHandler(herb.getEtcItem());
 				if (handler != null)
 					handler.useItem(this, herb, false);
 			}
@@ -2769,7 +2769,7 @@ public final class Player extends Playable
 	public void onActionShift(Player player)
 	{
 		if (player.isGM())
-			AdminEditChar.showCharacterInfo(player, this);
+			AdminEditChar.Companion.showCharacterInfo(player, this);
 		
 		super.onActionShift(player);
 	}
@@ -3107,7 +3107,7 @@ public final class Player extends Playable
 		// Auto use herbs - pick up
 		if (item.getItemType() == EtcItemType.HERB)
 		{
-			IItemHandler handler = ItemHandler.getInstance().getHandler(item.getEtcItem());
+			IItemHandler handler = ItemHandler.INSTANCE.getHandler(item.getEtcItem());
 			if (handler != null)
 				handler.useItem(this, item, false);
 			
@@ -4680,7 +4680,7 @@ public final class Player extends Playable
 			
 			if (food != null && checkFoodState(_petTemplate.getAutoFeedLimit()))
 			{
-				IItemHandler handler = ItemHandler.getInstance().getHandler(food.getEtcItem());
+				IItemHandler handler = ItemHandler.INSTANCE.getHandler(food.getEtcItem());
 				if (handler != null)
 				{
 					handler.useItem(Player.this, food, false);
@@ -7103,14 +7103,14 @@ public final class Player extends Playable
 			{
 				if (magic && item.getItem().getDefaultAction() == ActionType.spiritshot)
 				{
-					IItemHandler handler = ItemHandler.getInstance().getHandler(item.getEtcItem());
+					IItemHandler handler = ItemHandler.INSTANCE.getHandler(item.getEtcItem());
 					if (handler != null)
 						handler.useItem(this, item, false);
 				}
 				
 				if (physical && item.getItem().getDefaultAction() == ActionType.soulshot)
 				{
-					IItemHandler handler = ItemHandler.getInstance().getHandler(item.getEtcItem());
+					IItemHandler handler = ItemHandler.INSTANCE.getHandler(item.getEtcItem());
 					if (handler != null)
 						handler.useItem(this, item, false);
 				}

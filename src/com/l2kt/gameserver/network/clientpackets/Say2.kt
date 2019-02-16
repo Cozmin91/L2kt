@@ -56,7 +56,7 @@ class Say2 : L2GameClientPacket() {
 
         _text = _text.replace("\\\\n", "")
 
-        val handler = ChatHandler.getInstance().getHandler(_type)
+        val handler = ChatHandler.getHandler(_type)
         if (handler == null) {
             L2GameClientPacket.LOGGER.warn(
                 "{} tried to use unregistred chathandler type: {}.",

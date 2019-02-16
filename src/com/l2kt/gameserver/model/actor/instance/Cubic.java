@@ -411,7 +411,7 @@ public class Cubic
 							_owner.broadcastPacket(new MagicSkillUse(_owner, target, skill.getId(), skill.getLevel(), 0, 0));
 							
 							final L2SkillType type = skill.getSkillType();
-							final ISkillHandler handler = SkillHandler.getInstance().getHandler(skill.getSkillType());
+							final ISkillHandler handler = SkillHandler.INSTANCE.getHandler(skill.getSkillType());
 							final Creature[] targets =
 							{
 								target
@@ -734,7 +734,7 @@ public class Cubic
 								target
 							};
 							
-							final ISkillHandler handler = SkillHandler.getInstance().getHandler(skill.getSkillType());
+							final ISkillHandler handler = SkillHandler.INSTANCE.getHandler(skill.getSkillType());
 							if (handler != null)
 								handler.useSkill(_owner, skill, targets);
 							else

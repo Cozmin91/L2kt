@@ -344,7 +344,7 @@ public final class Weapon extends Item
 			return Collections.emptyList();
 		
 		// Get the skill handler corresponding to the skill type
-		ISkillHandler handler = SkillHandler.getInstance().getHandler(_skillsOnCast.getSkill().getSkillType());
+		ISkillHandler handler = SkillHandler.INSTANCE.getHandler(_skillsOnCast.getSkill().getSkillType());
 		
 		Creature[] targets = new Creature[1];
 		targets[0] = target;

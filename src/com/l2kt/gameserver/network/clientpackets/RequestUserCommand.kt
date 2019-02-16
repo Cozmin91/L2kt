@@ -12,7 +12,7 @@ class RequestUserCommand : L2GameClientPacket() {
     override fun runImpl() {
         client.activeChar ?: return
 
-        val handler = UserCommandHandler.getInstance().getHandler(_command)
-        handler?.useUserCommand(_command, client.activeChar)
+        val handler = UserCommandHandler.getHandler(_command)
+        handler?.useUserCommand(_command, client.activeChar!!)
     }
 }

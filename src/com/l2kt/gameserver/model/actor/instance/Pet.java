@@ -283,7 +283,7 @@ public class Pet extends Summon
 		// Auto use herbs - pick up
 		if (target.getItemType() == EtcItemType.HERB)
 		{
-			final IItemHandler handler = ItemHandler.getInstance().getHandler(target.getEtcItem());
+			final IItemHandler handler = ItemHandler.INSTANCE.getHandler(target.getEtcItem());
 			if (handler != null)
 				handler.useItem(this, target, false);
 			
@@ -870,7 +870,7 @@ public class Pet extends Summon
 			
 			if (food != null && checkAutoFeedState())
 			{
-				IItemHandler handler = ItemHandler.getInstance().getHandler(food.getEtcItem());
+				IItemHandler handler = ItemHandler.INSTANCE.getHandler(food.getEtcItem());
 				if (handler != null)
 				{
 					getOwner().sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY).addItemName(food));

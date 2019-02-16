@@ -201,11 +201,11 @@ object GameServer {
 
         printSection("Handlers")
         LOGGER.info("AutoSpawnHandler: Loaded {} handlers.", AutoSpawnManager.getInstance().size())
-        LOGGER.info("Loaded {} admin command handlers.", AdminCommandHandler.getInstance().size())
-        LOGGER.info("Loaded {} chat handlers.", ChatHandler.getInstance().size())
-        LOGGER.info("Loaded {} item handlers.", ItemHandler.getInstance().size())
-        LOGGER.info("Loaded {} skill handlers.", SkillHandler.getInstance().size())
-        LOGGER.info("Loaded {} user command handlers.", UserCommandHandler.getInstance().size())
+        LOGGER.info("Loaded {} admin command handlers.", AdminCommandHandler.size())
+        LOGGER.info("Loaded {} chat handlers.", ChatHandler.size())
+        LOGGER.info("Loaded {} item handlers.", ItemHandler.size())
+        LOGGER.info("Loaded {} skill handlers.", SkillHandler.size())
+        LOGGER.info("Loaded {} user command handlers.", UserCommandHandler.size())
 
         printSection("System")
         Runtime.getRuntime().addShutdownHook(Shutdown.instance)

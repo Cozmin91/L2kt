@@ -15,8 +15,6 @@ import com.l2kt.gameserver.templates.StatsSet
 import org.w3c.dom.Document
 import java.nio.file.Path
 import java.util.*
-import java.util.function.Predicate
-import kotlin.streams.toList
 
 /**
  * Loads and stores [NpcTemplate]s.
@@ -182,7 +180,7 @@ object NpcData : IXmlReader {
      * @param filter : The Predicate filter used as a filter.
      * @return a NpcTemplate list matching the given filter.
      */
-    fun getTemplates(filter: Predicate<NpcTemplate>): List<NpcTemplate> {
-        return _npcs.values.stream().filter(filter).toList()
+    fun getTemplates(filter: (NpcTemplate) -> Boolean): List<NpcTemplate> {
+        return _npcs.values.filter(filter).toList()
     }
 }

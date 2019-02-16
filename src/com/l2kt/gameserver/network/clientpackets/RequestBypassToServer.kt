@@ -36,7 +36,7 @@ class RequestBypassToServer : L2GameClientPacket() {
         if (_command.startsWith("admin_")) {
             val command = _command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()[0]
 
-            val ach = AdminCommandHandler.getInstance().getHandler(command)
+            val ach = AdminCommandHandler.getHandler(command)
             if (ach == null) {
                 if (player.isGM)
                     player.sendMessage("The command " + command.substring(6) + " doesn't exist.")

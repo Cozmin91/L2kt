@@ -375,7 +375,7 @@ class Q219_TestimonyOfFate : Quest(219, "Testimony of Fate") {
                     NIGHTSHADE_ROOT,
                     1,
                     10,
-                    CHANCES[npcId]!!
+                    CHANCES[npcId] ?: 0
                 )
             )
                 if (st.getQuestItemsCount(DEAD_SEEKER_DUNG) >= 10 && st.getQuestItemsCount(TYRANT_BLOOD) >= 10 && st.getQuestItemsCount(

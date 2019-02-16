@@ -119,7 +119,7 @@ class ChanceSkillList(val owner: Creature) : ConcurrentHashMap<IChanceSkillTrigg
 
                 // Launch the magic skill and calculate its effects
                 // TODO: once core will support all possible effects, use effects (not handler)
-                val handler = SkillHandler.getInstance().getHandler(skill.skillType)
+                val handler = SkillHandler.getHandler(skill.skillType)
                 if (handler != null)
                     handler.useSkill(owner, skill, targets)
                 else
@@ -152,7 +152,7 @@ class ChanceSkillList(val owner: Creature) : ConcurrentHashMap<IChanceSkillTrigg
 
             val firstTarget = targets[0] as Creature
 
-            val handler = SkillHandler.getInstance().getHandler(triggered.skillType)
+            val handler = SkillHandler.getHandler(triggered.skillType)
 
             owner.broadcastPacket(
                 MagicSkillLaunched(

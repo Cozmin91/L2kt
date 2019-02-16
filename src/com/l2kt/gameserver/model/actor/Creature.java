@@ -4470,7 +4470,7 @@ public abstract class Creature extends WorldObject
 			}
 			
 			// Launch the magic skill and calculate its effects
-			final ISkillHandler handler = SkillHandler.getInstance().getHandler(skill.getSkillType());
+			final ISkillHandler handler = SkillHandler.INSTANCE.getHandler(skill.getSkillType());
 			if (handler != null)
 				handler.useSkill(this, skill, targets);
 			else

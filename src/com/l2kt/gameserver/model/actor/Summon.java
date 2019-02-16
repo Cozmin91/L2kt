@@ -834,14 +834,14 @@ public abstract class Summon extends Playable
 			{
 				if (magic && item.getItem().getDefaultAction() == summon_spiritshot)
 				{
-					final IItemHandler handler = ItemHandler.getInstance().getHandler(item.getEtcItem());
+					final IItemHandler handler = ItemHandler.INSTANCE.getHandler(item.getEtcItem());
 					if (handler != null)
 						handler.useItem(getOwner(), item, false);
 				}
 				
 				if (physical && item.getItem().getDefaultAction() == summon_soulshot)
 				{
-					final IItemHandler handler = ItemHandler.getInstance().getHandler(item.getEtcItem());
+					final IItemHandler handler = ItemHandler.INSTANCE.getHandler(item.getEtcItem());
 					if (handler != null)
 						handler.useItem(getOwner(), item, false);
 				}

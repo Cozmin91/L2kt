@@ -159,7 +159,7 @@ class UseItem : L2GameClientPacket() {
                 return
             }
 
-            val handler = ItemHandler.getInstance().getHandler(item.etcItem)
+            val handler = ItemHandler.getHandler(item.etcItem)
             handler?.useItem(activeChar, item, _ctrlPressed)
 
             for (quest in item.questEvents) {

@@ -59,7 +59,7 @@ class RequestPetUseItem : L2GameClientPacket() {
         }
 
         // If pet food check is successful or if the item got an handler, use that item.
-        val handler = ItemHandler.getInstance().getHandler(item.etcItem)
+        val handler = ItemHandler.getHandler(item.etcItem)
         if (handler != null) {
             handler.useItem(pet, item, false)
             pet.updateAndBroadcastStatus(1)
