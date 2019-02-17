@@ -1403,9 +1403,9 @@ public final class Player extends Playable
 			if (weapon != null)
 			{
 				if (_expertiseWeaponPenalty)
-					ItemPassiveSkillsListener.getInstance().onUnequip(0, weapon, this);
+					ItemPassiveSkillsListener.INSTANCE.onUnequip(0, weapon, this);
 				else
-					ItemPassiveSkillsListener.getInstance().onEquip(0, weapon, this);
+					ItemPassiveSkillsListener.INSTANCE.onEquip(0, weapon, this);
 			}
 		}
 	}
@@ -2031,7 +2031,7 @@ public final class Player extends Playable
 	public void addAncientAdena(String process, int count, WorldObject reference, boolean sendMessage)
 	{
 		if (sendMessage)
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(PcInventory.ANCIENT_ADENA_ID).addNumber(count));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(PcInventory.Companion.getANCIENT_ADENA_ID()).addNumber(count));
 		
 		if (count > 0)
 		{
@@ -2074,9 +2074,9 @@ public final class Player extends Playable
 			if (sendMessage)
 			{
 				if (count > 1)
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_S1_DISAPPEARED).addItemName(PcInventory.ANCIENT_ADENA_ID).addItemNumber(count));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_S1_DISAPPEARED).addItemName(PcInventory.Companion.getANCIENT_ADENA_ID()).addItemNumber(count));
 				else
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(PcInventory.ANCIENT_ADENA_ID));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(PcInventory.Companion.getANCIENT_ADENA_ID()));
 			}
 		}
 		return true;

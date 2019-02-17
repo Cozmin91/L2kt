@@ -40,9 +40,9 @@ class PetInventoryUpdate @JvmOverloads constructor(private val _items: MutableLi
         writeH(_items.size)
 
         for (temp in _items) {
-            val item = temp.item
+            val item = temp.item ?: continue
 
-            writeH(temp.change.ordinal)
+            writeH(temp.change?.ordinal ?: 0)
             writeH(item.type1)
             writeD(temp.objectId)
             writeD(item.itemId)

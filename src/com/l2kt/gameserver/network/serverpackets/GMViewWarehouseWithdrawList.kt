@@ -42,8 +42,8 @@ class GMViewWarehouseWithdrawList : L2GameServerPacket {
             writeH(if (temp.isWeapon) (item as Weapon).soulShotCount else 0x00)
             writeH(if (temp.isWeapon) (item as Weapon).spiritShotCount else 0x00)
             writeD(temp.objectId)
-            writeD(if (temp.isWeapon && temp.isAugmented) 0x0000FFFF and temp.augmentation.getAugmentationId() else 0)
-            writeD(if (temp.isWeapon && temp.isAugmented) temp.augmentation.getAugmentationId() shr 16 else 0)
+            writeD(if (temp.isWeapon && temp.isAugmented) 0x0000FFFF and temp.getAugmentation()!!.getAugmentationId() else 0)
+            writeD(if (temp.isWeapon && temp.isAugmented) temp.getAugmentation()!!.getAugmentationId() shr 16 else 0)
         }
     }
 }

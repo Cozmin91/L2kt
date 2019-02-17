@@ -1,11 +1,9 @@
 package com.l2kt.commons.logging.formatter
 
-import java.util.logging.LogRecord
-
 import com.l2kt.commons.lang.StringUtil
 import com.l2kt.commons.logging.MasterFormatter
-
 import com.l2kt.gameserver.model.item.instance.ItemInstance
+import java.util.logging.LogRecord
 
 class ItemLogFormatter : MasterFormatter() {
     override fun format(record: LogRecord): String? {

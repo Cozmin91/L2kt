@@ -92,7 +92,7 @@ class AdminEnchant : IAdminCommandHandler {
 
             val item = player.inventory!!.getPaperdollItem(armorType)
             if (item != null && item.locationSlot == armorType) {
-                val it = item.item
+                val it = item.item ?: return
                 val oldEnchant = item.enchantLevel
 
                 item.enchantLevel = ench

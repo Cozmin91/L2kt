@@ -3,6 +3,7 @@ package com.l2kt.gameserver.model.tradelist
 import com.l2kt.gameserver.data.ItemTable
 import com.l2kt.gameserver.model.ItemRequest
 import com.l2kt.gameserver.model.World
+import com.l2kt.gameserver.model.WorldObject
 import com.l2kt.gameserver.model.actor.instance.Player
 import com.l2kt.gameserver.model.item.instance.ItemInstance
 import com.l2kt.gameserver.model.itemcontainer.PcInventory
@@ -314,7 +315,7 @@ class TradeList(val owner: Player?) {
                 titem.count,
                 partner!!.inventory,
                 owner,
-                this.partner
+                this.partner as WorldObject
             ) ?: return false
 
             // Add changes to inventory update packets

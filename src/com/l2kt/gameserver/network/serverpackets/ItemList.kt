@@ -24,7 +24,7 @@ class ItemList(cha: Player, private val _showWindow: Boolean) : L2GameServerPack
             writeD(item.bodyPart)
             writeH(temp.enchantLevel)
             writeH(temp.customType2)
-            writeD(if (temp.isAugmented) temp.augmentation.getAugmentationId() else 0x00)
+            writeD(if (temp.isAugmented) temp.getAugmentation()!!.getAugmentationId() else 0x00)
             writeD(temp.mana)
         }
     }

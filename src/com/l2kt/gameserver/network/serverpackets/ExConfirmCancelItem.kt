@@ -8,8 +8,8 @@ import com.l2kt.gameserver.model.item.instance.ItemInstance
 class ExConfirmCancelItem(item: ItemInstance, private val _price: Int) : L2GameServerPacket() {
     private val _itemObjId: Int = item.objectId
     private val _itemId: Int = item.itemId
-    private val _itemAug1: Int = item.augmentation.getAugmentationId().toShort().toInt()
-    private val _itemAug2: Int = item.augmentation.getAugmentationId() shr 16
+    private val _itemAug1: Int = item.getAugmentation()?.getAugmentationId()?.toShort()?.toInt() ?: 0
+    private val _itemAug2: Int = (item.getAugmentation()?.getAugmentationId() ?: 0) shr 16
 
     override fun writeImpl() {
         writeC(0xfe)

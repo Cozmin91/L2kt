@@ -11,7 +11,7 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 class BlockList(private val _owner: Player) {
-    private var _blockList: MutableList<Int>? = mutableListOf()
+    private var _blockList: MutableList<Int> = mutableListOf()
 
     private var isBlockAll: Boolean
         get() = _owner.isInRefusalMode
@@ -19,24 +19,22 @@ class BlockList(private val _owner: Player) {
             _owner.isInRefusalMode = state
         }
 
-    val blockList: MutableList<Int>?
+    val blockList: MutableList<Int>
         get() = _blockList
 
     init {
-        _blockList = _offlineList[_owner.objectId]
-        if (_blockList == null)
-            _blockList = loadList(_owner.objectId)
+        _blockList = _offlineList[_owner.objectId] ?: loadList(_owner.objectId)
     }
 
     @Synchronized
     private fun addToBlockList(target: Int) {
-        _blockList!!.add(target)
+        _blockList.add(target)
         updateInDB(target, true)
     }
 
     @Synchronized
     private fun removeFromBlockList(target: Int) {
-        _blockList!!.remove(Integer.valueOf(target))
+        _blockList.remove(Integer.valueOf(target))
         updateInDB(target, false)
     }
 
@@ -70,11 +68,11 @@ class BlockList(private val _owner: Player) {
     }
 
     fun isInBlockList(target: Player): Boolean {
-        return _blockList!!.contains(target.objectId)
+        return _blockList.contains(target.objectId)
     }
 
     fun isInBlockList(targetId: Int): Boolean {
-        return _blockList!!.contains(targetId)
+        return _blockList.contains(targetId)
     }
 
     fun isBlockAll(listOwner: Player): Boolean {

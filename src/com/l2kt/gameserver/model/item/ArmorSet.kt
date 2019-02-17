@@ -1,7 +1,6 @@
 package com.l2kt.gameserver.model.item
 
 import com.l2kt.gameserver.model.actor.instance.Player
-import com.l2kt.gameserver.model.item.instance.ItemInstance
 import com.l2kt.gameserver.model.itemcontainer.Inventory
 import com.l2kt.gameserver.templates.StatsSet
 
@@ -113,7 +112,7 @@ class ArmorSet(set: StatsSet) {
         val inv = player.inventory
 
         val chestItem = inv!!.getPaperdollItem(Inventory.PAPERDOLL_CHEST)
-        if (chestItem.enchantLevel < 6)
+        if (chestItem != null && chestItem.enchantLevel < 6)
             return false
 
         var legs = 0
@@ -146,7 +145,7 @@ class ArmorSet(set: StatsSet) {
         if (feetItem != null && feetItem.enchantLevel > 5)
             feet = feetItem.itemId
 
-        return if (setItemsId[4] != 0 && setItemsId[4] != feet) false else true
+        return !(setItemsId[4] != 0 && setItemsId[4] != feet)
 
     }
 }

@@ -95,7 +95,7 @@ class RequestRefine : AbstractRefinePacket() {
         }
 
         val aug = AugmentationData.generateRandomAugmentation(lifeStoneLevel, lifeStoneGrade)
-        targetItem.augmentation = aug
+        targetItem.setAugmentation(aug)
 
         val stat12 = 0x0000FFFF and aug.getAugmentationId()
         val stat34 = aug.getAugmentationId() shr 16

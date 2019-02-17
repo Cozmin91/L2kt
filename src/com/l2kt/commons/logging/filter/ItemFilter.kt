@@ -1,6 +1,5 @@
 package com.l2kt.commons.logging.filter
 
-import com.l2kt.commons.util.ArraysUtil
 import com.l2kt.gameserver.model.item.instance.ItemInstance
 import com.l2kt.gameserver.model.item.type.EtcItemType
 import com.l2kt.gameserver.model.item.type.ItemType
@@ -18,7 +17,7 @@ class ItemFilter : Filter {
             return true
 
         val item = record.parameters[1] as ItemInstance
-        return !ArraysUtil.contains(EXCLUDE_TYPE, item.itemType)
+        return !EXCLUDE_TYPE.contains(item.itemType)
 
     }
 

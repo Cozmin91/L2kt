@@ -12,7 +12,7 @@ class WarehouseDepositList(player: Player, private val _whType: Int) : L2GameSer
 
         val isPrivate = _whType == PRIVATE
         for (temp in player.inventory!!.getAvailableItems(true, isPrivate)) {
-            if (temp != null && temp.isDepositable(isPrivate))
+            if (temp.isDepositable(isPrivate))
                 _items.add(temp)
         }
     }
@@ -24,8 +24,6 @@ class WarehouseDepositList(player: Player, private val _whType: Int) : L2GameSer
         writeH(_items.size)
 
         for (temp in _items) {
-            if (temp.item == null)
-                continue
 
             val item = temp.item
 
@@ -41,8 +39,8 @@ class WarehouseDepositList(player: Player, private val _whType: Int) : L2GameSer
             writeH(0x00)
             writeD(temp.objectId)
             if (temp.isAugmented) {
-                writeD(0x0000FFFF and temp.augmentation.getAugmentationId())
-                writeD(temp.augmentation.getAugmentationId() shr 16)
+                writeD(0x0000FFFF and temp.getAugmentation()!!.getAugmentationId())
+                writeD(temp.getAugmentation()!!.getAugmentationId() shr 16)
             } else
                 writeQ(0x00)
         }

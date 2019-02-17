@@ -106,13 +106,16 @@ class L2Augmentation(effects: Int, skill: L2Skill?) {
      * Removes the augmentation bonuses from the player.
      * @param player
      */
-    fun removeBonus(player: Player) {
-        _boni!!.removeBonus(player)
+    fun removeBonus(player: Player?) {
+        if(player != null){
+            _boni!!.removeBonus(player)
 
-        // remove the skill if any
-        if (skill != null) {
-            player.removeSkill(skill!!.id, false, skill!!.isPassive || skill!!.isToggle)
-            player.sendSkillList()
+            // remove the skill if any
+            if (skill != null) {
+                player.removeSkill(skill!!.id, false, skill!!.isPassive || skill!!.isToggle)
+                player.sendSkillList()
+            }
         }
+
     }
 }

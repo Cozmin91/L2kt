@@ -139,7 +139,7 @@ public class SignsPriest extends Folk
 					break;
 				
 				case 34: // Pay the participation fee request
-					ItemInstance adena = player.getInventory().getItemByItemId(PcInventory.ADENA_ID); // adena
+					ItemInstance adena = player.getInventory().getItemByItemId(PcInventory.Companion.getADENA_ID()); // adena
 					ItemInstance certif = player.getInventory().getItemByItemId(6388); // Lord of the Manor's Certificate of Approval
 					boolean fee = true;
 					

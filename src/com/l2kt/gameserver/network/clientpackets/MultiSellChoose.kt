@@ -206,7 +206,7 @@ class MultiSellChoose : L2GameClientPacket() {
                             val inventoryContents = inv.getAllItemsByItemId(e.itemId, e.enchantLevel, false)
                             for (i in 0 until e.itemCount * _amount) {
                                 if (inventoryContents[i].isAugmented)
-                                    augmentation.add(inventoryContents[i].augmentation)
+                                    augmentation.add(inventoryContents[i].getAugmentation()!!)
 
                                 if (!player.destroyItem(
                                         "Multisell",
@@ -263,8 +263,7 @@ class MultiSellChoose : L2GameClientPacket() {
                         val product = inv.addItem("Multisell", e.itemId, 1, player, player.target)
                         if (product != null && list.maintainEnchantment) {
                             if (i < augmentation.size)
-                                product.augmentation =
-                                        L2Augmentation(augmentation[i].getAugmentationId(), augmentation[i].skill)
+                                product.setAugmentation(L2Augmentation(augmentation[i].getAugmentationId(), augmentation[i].skill))
 
                             product.enchantLevel = e.enchantLevel
                             product.updateDatabase()

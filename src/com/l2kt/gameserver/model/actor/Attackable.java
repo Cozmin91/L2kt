@@ -1141,7 +1141,7 @@ public class Attackable extends Npc
 		for (int i = 0; i < holder.getValue(); i++)
 		{
 			// Init the dropped ItemInstance and add it in the world as a visible object at the position where mob was last
-			final ItemInstance item = ItemInstance.create(holder.getId(), holder.getValue(), mainDamageDealer, this);
+			final ItemInstance item = ItemInstance.Companion.create(holder.getId(), holder.getValue(), mainDamageDealer, this);
 			item.setDropProtection(mainDamageDealer.getObjectId(), isRaidBoss());
 			item.dropMe(this, getX() + Rnd.INSTANCE.get(-70, 70), getY() + Rnd.INSTANCE.get(-70, 70), Math.max(getZ(), mainDamageDealer.getZ()) + 20);
 			

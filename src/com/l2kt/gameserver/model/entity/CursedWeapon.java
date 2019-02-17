@@ -428,7 +428,7 @@ public class CursedWeapon
 		int z = GeoEngine.INSTANCE.getHeight(x, y, attackable.getZ());
 		
 		// Create item and drop it.
-		_item = ItemInstance.create(_itemId, 1, player, attackable);
+		_item = ItemInstance.Companion.create(_itemId, 1, player, attackable);
 		_item.setDestroyProtected(true);
 		_item.dropMe(attackable, x, y, z);
 		
