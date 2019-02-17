@@ -92,7 +92,7 @@ class GrandBossTeleporters : Quest(-1, "teleports") {
             29055 -> htmltext = "29055-01.htm"
 
             31862 -> {
-                val status = GrandBossManager.getInstance().getBossStatus(29020)
+                val status = GrandBossManager.getBossStatus(29020)
                 if (status == Baium.AWAKE.toInt())
                     htmltext = "31862-01.htm"
                 else if (status == Baium.DEAD.toInt())
@@ -114,7 +114,7 @@ class GrandBossTeleporters : Quest(-1, "teleports") {
         val status: Int
         when (npc.npcId) {
             13001 -> {
-                status = GrandBossManager.getInstance().getBossStatus(Antharas.ANTHARAS)
+                status = GrandBossManager.getBossStatus(Antharas.ANTHARAS)
                 if (status == Antharas.FIGHTING.toInt())
                     htmltext = "13001-02.htm"
                 else if (status == Antharas.DEAD.toInt())
@@ -127,7 +127,7 @@ class GrandBossTeleporters : Quest(-1, "teleports") {
                         player.teleToLocation(175300 + Rnd[-350, 350], 115180 + Rnd[-1000, 1000], -7709, 0)
 
                         if (status == Antharas.DORMANT.toInt()) {
-                            GrandBossManager.getInstance().setBossStatus(Antharas.ANTHARAS, Antharas.WAITING.toInt())
+                            GrandBossManager.setBossStatus(Antharas.ANTHARAS, Antharas.WAITING.toInt())
                             ScriptData.getQuest("Antharas")!!.startQuestTimer(
                                 "beginning",
                                 Config.WAIT_TIME_ANTHARAS.toLong(),
@@ -144,7 +144,7 @@ class GrandBossTeleporters : Quest(-1, "teleports") {
             31859 -> player.teleToLocation(79800 + Rnd[600], 151200 + Rnd[1100], -3534, 0)
 
             31385 -> {
-                status = GrandBossManager.getInstance().getBossStatus(Valakas.VALAKAS)
+                status = GrandBossManager.getBossStatus(Valakas.VALAKAS)
                 if (status == 0 || status == 1) {
                     if (_valakasPlayersCount >= 200)
                         htmltext = "31385-03.htm"
@@ -157,7 +157,7 @@ class GrandBossTeleporters : Quest(-1, "teleports") {
                         _valakasPlayersCount++
 
                         if (status == Valakas.DORMANT.toInt()) {
-                            GrandBossManager.getInstance().setBossStatus(Valakas.VALAKAS, Valakas.WAITING.toInt())
+                            GrandBossManager.setBossStatus(Valakas.VALAKAS, Valakas.WAITING.toInt())
                             ScriptData.getQuest("Valakas")!!.startQuestTimer(
                                 "beginning",
                                 Config.WAIT_TIME_VALAKAS.toLong(),
@@ -201,7 +201,7 @@ class GrandBossTeleporters : Quest(-1, "teleports") {
                 htmltext = "32109-01.htm"
             else {
                 if (st.hasQuestItems(8784)) {
-                    status = GrandBossManager.getInstance().getBossStatus(Sailren.SAILREN)
+                    status = GrandBossManager.getBossStatus(Sailren.SAILREN)
                     if (status == Sailren.DORMANT.toInt()) {
                         val party = player.party!!.members
 
@@ -221,12 +221,10 @@ class GrandBossTeleporters : Quest(-1, "teleports") {
 
                         // Teleport players.
                         for (member in party) {
-                            if (nest != null) {
                                 nest.allowPlayerEntry(member, 30)
                                 member.teleToLocation(SAILREN_IN, 100)
-                            }
                         }
-                        GrandBossManager.getInstance().setBossStatus(Sailren.SAILREN, Sailren.FIGHTING.toInt())
+                        GrandBossManager.setBossStatus(Sailren.SAILREN, Sailren.FIGHTING.toInt())
                         ScriptData.getQuest("Sailren")!!.startQuestTimer("beginning", 60000, null, null, false)
                     } else if (status == Sailren.DEAD.toInt())
                         htmltext = "32109-04.htm"

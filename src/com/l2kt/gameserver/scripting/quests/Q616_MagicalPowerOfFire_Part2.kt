@@ -25,7 +25,7 @@ class Q616_MagicalPowerOfFire_Part2 : Quest(616, "Magical Power of Fire - Part 2
         addAttackId(SOUL_OF_FIRE_NASTRON)
         addKillId(SOUL_OF_FIRE_NASTRON)
 
-        when (RaidBossSpawnManager.getInstance().getRaidBossStatusId(SOUL_OF_FIRE_NASTRON)) {
+        when (RaidBossSpawnManager.getRaidBossStatusId(SOUL_OF_FIRE_NASTRON)) {
             RaidBossSpawnManager.StatusEnum.ALIVE -> {
                 spawnNpc()
                 startQuestTimer("check", CHECK_INTERVAL.toLong(), null, null, true)
@@ -37,7 +37,7 @@ class Q616_MagicalPowerOfFire_Part2 : Quest(616, "Magical Power of Fire - Part 2
     override fun onAdvEvent(event: String, npc: Npc?, player: Player?): String? {
         // global quest timer has player==null -> cannot get QuestState
         if (event == "check") {
-            val raid = RaidBossSpawnManager.getInstance().bosses[SOUL_OF_FIRE_NASTRON]
+            val raid = RaidBossSpawnManager.bosses[SOUL_OF_FIRE_NASTRON]
             if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
                 if (_status >= 0 && _status-- == 0)
                     despawnRaid(raid)
@@ -154,7 +154,7 @@ class Q616_MagicalPowerOfFire_Part2 : Quest(616, "Magical Power of Fire - Part 2
     }
 
     private fun spawnRaid(): Boolean {
-        val raid = RaidBossSpawnManager.getInstance().bosses[SOUL_OF_FIRE_NASTRON]
+        val raid = RaidBossSpawnManager.bosses[SOUL_OF_FIRE_NASTRON]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
             raid.spawn.setLoc(142624, -82285, -6491, Rnd[65536])

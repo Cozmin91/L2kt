@@ -72,7 +72,7 @@ object RegionBBSManager : BaseBBSManager() {
 
         val sb = StringBuilder(200)
 
-        val clanHalls = ClanHallManager.getInstance().getClanHallsByLocation(castle.name)
+        val clanHalls = ClanHallManager.getClanHallsByLocation(castle.name)
         if (clanHalls != null && !clanHalls.isEmpty()) {
             sb.append("<br><br><table width=610 bgcolor=A7A19A><tr><td width=5></td><td width=200>Clan Hall Name</td><td width=200>Owning Clan</td><td width=200>Clan Leader Name</td><td width=5></td></tr></table><br1>")
 

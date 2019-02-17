@@ -19,14 +19,14 @@ class AdminMaintenance : IAdminCommandHandler {
             sendHtmlForm(activeChar)
         else if (command.startsWith("admin_server_shutdown")) {
             try {
-                Shutdown.instance.startShutdown(activeChar, null!!, Integer.parseInt(command.substring(22)), false)
+                Shutdown.instance.startShutdown(activeChar, null, Integer.parseInt(command.substring(22)), false)
             } catch (e: StringIndexOutOfBoundsException) {
                 sendHtmlForm(activeChar)
             }
 
         } else if (command.startsWith("admin_server_restart")) {
             try {
-                Shutdown.instance.startShutdown(activeChar, null!!, Integer.parseInt(command.substring(21)), true)
+                Shutdown.instance.startShutdown(activeChar, null, Integer.parseInt(command.substring(21)), true)
             } catch (e: StringIndexOutOfBoundsException) {
                 sendHtmlForm(activeChar)
             }

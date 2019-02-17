@@ -35,18 +35,19 @@ class Zaken : L2AttackableAIScript("ai/individual") {
     private var _mostHated: Creature? = null
 
     init {
+        run{
+            val info = GrandBossManager.getStatsSet(ZAKEN) ?: return@run
 
-        val info = GrandBossManager.getInstance().getStatsSet(ZAKEN)
-
-        // Zaken is dead, calculate the respawn time. If passed, we spawn it directly, otherwise we set a task to spawn it lately.
-        if (GrandBossManager.getInstance().getBossStatus(ZAKEN) == DEAD.toInt()) {
-            val temp = info.getLong("respawn_time") - System.currentTimeMillis()
-            if (temp > 0)
-                startQuestTimer("zaken_unlock", temp, null, null, false)
-            else
-                spawnBoss(true)
-        } else
-            spawnBoss(false)// Zaken is alive, spawn it using stored data.
+            // Zaken is dead, calculate the respawn time. If passed, we spawn it directly, otherwise we set a task to spawn it lately.
+            if (GrandBossManager.getBossStatus(ZAKEN) == DEAD.toInt()) {
+                val temp = info.getLong("respawn_time") - System.currentTimeMillis()
+                if (temp > 0)
+                    startQuestTimer("zaken_unlock", temp, null, null, false)
+                else
+                    spawnBoss(true)
+            } else
+                spawnBoss(false)// Zaken is alive, spawn it using stored data.
+        }
     }
 
     override fun registerNpcs() {
@@ -61,7 +62,7 @@ class Zaken : L2AttackableAIScript("ai/individual") {
     }
 
     override fun onAdvEvent(event: String, npc: Npc?, player: Player?): String? {
-        if (GrandBossManager.getInstance().getBossStatus(ZAKEN) == DEAD.toInt() && !event.equals(
+        if (GrandBossManager.getBossStatus(ZAKEN) == DEAD.toInt() && !event.equals(
                 "zaken_unlock",
                 ignoreCase = true
             )
@@ -360,7 +361,7 @@ class Zaken : L2AttackableAIScript("ai/individual") {
             npc.broadcastPacket(PlaySound(1, "BS02_D", npc))
 
             // Flag Zaken as dead.
-            GrandBossManager.getInstance().setBossStatus(ZAKEN, DEAD.toInt())
+            GrandBossManager.setBossStatus(ZAKEN, DEAD.toInt())
 
             // Calculate the next respawn time.
             val respawnTime =
@@ -374,10 +375,10 @@ class Zaken : L2AttackableAIScript("ai/individual") {
             startQuestTimer("zaken_unlock", respawnTime, null, null, false)
 
             // Save the respawn time so that the info is maintained past reboots
-            val info = GrandBossManager.getInstance().getStatsSet(ZAKEN)
+            val info = GrandBossManager.getStatsSet(ZAKEN) ?: return null
             info.set("respawn_time", System.currentTimeMillis() + respawnTime)
-            GrandBossManager.getInstance().setStatsSet(ZAKEN, info)
-        } else if (GrandBossManager.getInstance().getBossStatus(ZAKEN) == ALIVE.toInt())
+            GrandBossManager.setStatsSet(ZAKEN, info)
+        } else if (GrandBossManager.getBossStatus(ZAKEN) == ALIVE.toInt())
             startQuestTimer("CreateOnePrivateEx", ((30 + Rnd[60]) * 1000).toLong(), npc, null, false)
 
         return super.onKill(npc, killer)
@@ -439,12 +440,12 @@ class Zaken : L2AttackableAIScript("ai/individual") {
     private fun spawnBoss(freshStart: Boolean) {
         val zaken: GrandBoss
         if (freshStart) {
-            GrandBossManager.getInstance().setBossStatus(ZAKEN, ALIVE.toInt())
+            GrandBossManager.setBossStatus(ZAKEN, ALIVE.toInt())
 
             val loc = LOCS[Rnd[15]]
             zaken = addSpawn(ZAKEN, loc.x, loc.y, loc.z, 0, false, 0, false) as GrandBoss
         } else {
-            val info = GrandBossManager.getInstance().getStatsSet(ZAKEN)
+            val info = GrandBossManager.getStatsSet(ZAKEN) ?: return
 
             zaken = addSpawn(
                 ZAKEN,
@@ -459,7 +460,7 @@ class Zaken : L2AttackableAIScript("ai/individual") {
             zaken.setCurrentHpMp(info.getInteger("currentHP").toDouble(), info.getInteger("currentMP").toDouble())
         }
 
-        GrandBossManager.getInstance().addBoss(zaken)
+        GrandBossManager.addBoss(zaken)
 
         // Reset variables.
         _teleportCheck = 3

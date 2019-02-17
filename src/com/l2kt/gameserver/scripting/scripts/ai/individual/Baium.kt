@@ -42,55 +42,57 @@ class Baium : L2AttackableAIScript("ai/individual") {
 
     init {
 
-        // Quest NPC starter initialization
-        addStartNpc(STONE_BAIUM)
-        addTalkId(STONE_BAIUM)
+        run {
+            // Quest NPC starter initialization
+            addStartNpc(STONE_BAIUM)
+            addTalkId(STONE_BAIUM)
 
-        val info = GrandBossManager.getInstance().getStatsSet(LIVE_BAIUM)
-        val status = GrandBossManager.getInstance().getBossStatus(LIVE_BAIUM)
+            val info = GrandBossManager.getStatsSet(LIVE_BAIUM) ?: return@run
+            val status = GrandBossManager.getBossStatus(LIVE_BAIUM)
 
-        if (status == DEAD.toInt()) {
-            // load the unlock date and time for baium from DB
-            val temp = info.getLong("respawn_time") - System.currentTimeMillis()
-            if (temp > 0) {
-                // The time has not yet expired. Mark Baium as currently locked (dead).
-                startQuestTimer("baium_unlock", temp, null, null, false)
-            } else {
-                // The time has expired while the server was offline. Spawn the stone-baium as ASLEEP.
+            if (status == DEAD.toInt()) {
+                // load the unlock date and time for baium from DB
+                val temp = info.getLong("respawn_time") - System.currentTimeMillis()
+                if (temp > 0) {
+                    // The time has not yet expired. Mark Baium as currently locked (dead).
+                    startQuestTimer("baium_unlock", temp, null, null, false)
+                } else {
+                    // The time has expired while the server was offline. Spawn the stone-baium as ASLEEP.
+                    addSpawn(STONE_BAIUM, 116033, 17447, 10104, 40188, false, 0, false)
+                    GrandBossManager.setBossStatus(LIVE_BAIUM, ASLEEP.toInt())
+                }
+            } else if (status == AWAKE.toInt()) {
+                val loc_x = info.getInteger("loc_x")
+                val loc_y = info.getInteger("loc_y")
+                val loc_z = info.getInteger("loc_z")
+                val heading = info.getInteger("heading")
+                val hp = info.getInteger("currentHP")
+                val mp = info.getInteger("currentMP")
+
+                val baium = addSpawn(LIVE_BAIUM, loc_x, loc_y, loc_z, heading, false, 0, false)
+                GrandBossManager.addBoss(baium as GrandBoss)
+
+                baium.setCurrentHpMp(hp.toDouble(), mp.toDouble())
+                baium.setRunning()
+
+                // start monitoring baium's inactivity
+                _timeTracker = System.currentTimeMillis()
+                startQuestTimer("baium_despawn", 60000, baium, null, true)
+                startQuestTimer("skill_range", 2000, baium, null, true)
+
+                // Spawns angels
+                for (loc in ANGEL_LOCATION) {
+                    val angel = addSpawn(ARCHANGEL, loc.x, loc.y, loc.z, loc.heading, false, 0, true)
+                    (angel as Attackable).isMinion = true
+                    angel.setRunning()
+                    _minions.add(angel)
+                }
+
+                // Angels AI
+                startQuestTimer("angels_aggro_reconsider", 5000, null, null, true)
+            } else
                 addSpawn(STONE_BAIUM, 116033, 17447, 10104, 40188, false, 0, false)
-                GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM, ASLEEP.toInt())
-            }
-        } else if (status == AWAKE.toInt()) {
-            val loc_x = info.getInteger("loc_x")
-            val loc_y = info.getInteger("loc_y")
-            val loc_z = info.getInteger("loc_z")
-            val heading = info.getInteger("heading")
-            val hp = info.getInteger("currentHP")
-            val mp = info.getInteger("currentMP")
-
-            val baium = addSpawn(LIVE_BAIUM, loc_x, loc_y, loc_z, heading, false, 0, false)
-            GrandBossManager.getInstance().addBoss(baium as GrandBoss)
-
-            baium.setCurrentHpMp(hp.toDouble(), mp.toDouble())
-            baium.setRunning()
-
-            // start monitoring baium's inactivity
-            _timeTracker = System.currentTimeMillis()
-            startQuestTimer("baium_despawn", 60000, baium, null, true)
-            startQuestTimer("skill_range", 2000, baium, null, true)
-
-            // Spawns angels
-            for (loc in ANGEL_LOCATION) {
-                val angel = addSpawn(ARCHANGEL, loc.x, loc.y, loc.z, loc.heading, false, 0, true)
-                (angel as Attackable).isMinion = true
-                angel.setRunning()
-                _minions.add(angel)
-            }
-
-            // Angels AI
-            startQuestTimer("angels_aggro_reconsider", 5000, null, null, true)
-        } else
-            addSpawn(STONE_BAIUM, 116033, 17447, 10104, 40188, false, 0, false)
+        }
     }
 
     override fun registerNpcs() {
@@ -151,7 +153,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
                     _minions.clear()
 
                     addSpawn(STONE_BAIUM, 116033, 17447, 10104, 40188, false, 0, false) // spawn stone-baium
-                    GrandBossManager.getInstance()
+                    GrandBossManager
                         .setBossStatus(LIVE_BAIUM, ASLEEP.toInt()) // Baium isn't awaken anymore
                     BAIUM_LAIR.oustAllPlayers()
                     cancelQuestTimer("baium_despawn", npc, null)
@@ -163,7 +165,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
             }// despawn the live baium after 30 minutes of inactivity
             // also check if the players are cheating, having pulled Baium outside his zone...
         } else if (event.equals("baium_unlock", ignoreCase = true)) {
-            GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM, ASLEEP.toInt())
+            GrandBossManager.setBossStatus(LIVE_BAIUM, ASLEEP.toInt())
             addSpawn(STONE_BAIUM, 116033, 17447, 10104, 40188, false, 0, false)
         } else if (event.equals("angels_aggro_reconsider", ignoreCase = true)) {
             var updateTarget = false // Update or no the target
@@ -203,13 +205,13 @@ class Baium : L2AttackableAIScript("ai/individual") {
     override fun onTalk(npc: Npc, player: Player): String? {
         val htmltext = ""
 
-        if (GrandBossManager.getInstance().getBossStatus(LIVE_BAIUM) == ASLEEP.toInt()) {
-            GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM, AWAKE.toInt())
+        if (GrandBossManager.getBossStatus(LIVE_BAIUM) == ASLEEP.toInt()) {
+            GrandBossManager.setBossStatus(LIVE_BAIUM, AWAKE.toInt())
 
             val baium = addSpawn(LIVE_BAIUM, npc, false, 0, false)
             baium?.setIsInvul(true)
 
-            GrandBossManager.getInstance().addBoss(baium as GrandBoss)
+            GrandBossManager.addBoss(baium as GrandBoss)
 
             // First animation
             baium.broadcastPacket(SocialAction(baium, 2))
@@ -258,12 +260,12 @@ class Baium : L2AttackableAIScript("ai/individual") {
             Config.SPAWN_INTERVAL_BAIUM.toLong() + Rnd[-Config.RANDOM_SPAWN_TIME_BAIUM, Config.RANDOM_SPAWN_TIME_BAIUM]
         respawnTime *= 3600000
 
-        GrandBossManager.getInstance().setBossStatus(LIVE_BAIUM, DEAD.toInt())
+        GrandBossManager.setBossStatus(LIVE_BAIUM, DEAD.toInt())
         startQuestTimer("baium_unlock", respawnTime, null, null, false)
 
-        val info = GrandBossManager.getInstance().getStatsSet(LIVE_BAIUM)
+        val info = GrandBossManager.getStatsSet(LIVE_BAIUM) ?: return null
         info.set("respawn_time", System.currentTimeMillis() + respawnTime)
-        GrandBossManager.getInstance().setStatsSet(LIVE_BAIUM, info)
+        GrandBossManager.setStatsSet(LIVE_BAIUM, info)
 
         // Unspawn angels.
         for (minion in _minions) {

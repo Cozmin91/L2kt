@@ -56,7 +56,7 @@ public final class Auctioneer extends Folk
 				final Auction auction = AuctionManager.INSTANCE.getAuction(Integer.parseInt(val));
 				if (auction != null)
 				{
-					final ClanHall ch = ClanHallManager.getInstance().getClanHallById(auction.getItemId());
+					final ClanHall ch = ClanHallManager.INSTANCE.getClanHallById(auction.getItemId());
 					final long remainingTime = auction.getEndDate() - System.currentTimeMillis();
 					
 					final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -242,7 +242,7 @@ public final class Auctioneer extends Folk
 			{
 				final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/auction/AgitSaleCancel.htm");
-				html.replace("%AGIT_DEPOSIT%", ClanHallManager.getInstance().getClanHallByOwner(player.getClan()).getLease());
+				html.replace("%AGIT_DEPOSIT%", ClanHallManager.INSTANCE.getClanHallByOwner(player.getClan()).getLease());
 				html.replace("%AGIT_LINK_BACK%", "bypass -h npc_" + getObjectId() + "_selectedItems");
 				html.replace("%objectId%", getObjectId());
 				player.sendPacket(html);
@@ -263,7 +263,7 @@ public final class Auctioneer extends Folk
 			{
 				final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 				html.setFile("data/html/auction/AgitSale1.htm");
-				html.replace("%AGIT_DEPOSIT%", ClanHallManager.getInstance().getClanHallByOwner(player.getClan()).getLease());
+				html.replace("%AGIT_DEPOSIT%", ClanHallManager.INSTANCE.getClanHallByOwner(player.getClan()).getLease());
 				html.replace("%AGIT_PLEDGE_ADENA%", player.getClan().getWarehouse().getAdena());
 				html.replace("%AGIT_LINK_BACK%", "bypass -h npc_" + getObjectId() + "_selectedItems");
 				html.replace("%objectId%", getObjectId());
@@ -289,7 +289,7 @@ public final class Auctioneer extends Folk
 			/* Those bypasses check if CWH got enough adenas (case of sale auction type) */
 			else
 			{
-				if (player.getClan().getWarehouse().getAdena() < ClanHallManager.getInstance().getClanHallByOwner(player.getClan()).getLease())
+				if (player.getClan().getWarehouse().getAdena() < ClanHallManager.INSTANCE.getClanHallByOwner(player.getClan()).getLease())
 				{
 					showSelectedItems(player);
 					player.sendPacket(SystemMessageId.NOT_ENOUGH_ADENA_IN_CWH);
@@ -305,7 +305,7 @@ public final class Auctioneer extends Folk
 					{
 						final int days = Integer.parseInt(val);
 						final int bid = (st.hasMoreTokens()) ? Math.min(Integer.parseInt(st.nextToken()), Integer.MAX_VALUE) : 0;
-						final ClanHall ch = ClanHallManager.getInstance().getClanHallByOwner(player.getClan());
+						final ClanHall ch = ClanHallManager.INSTANCE.getClanHallByOwner(player.getClan());
 						
 						final Auction auction = new Auction(player.getClan().getHideoutId(), player.getClan(), days * 86400000L, bid, ch.getName());
 						
@@ -337,7 +337,7 @@ public final class Auctioneer extends Folk
 					if (auction == null)
 						return;
 					
-					if (Auction.takeItem(player, ClanHallManager.getInstance().getClanHallByOwner(player.getClan()).getLease()))
+					if (Auction.takeItem(player, ClanHallManager.INSTANCE.getClanHallByOwner(player.getClan()).getLease()))
 					{
 						auction.confirmAuction();
 						
@@ -352,7 +352,7 @@ public final class Auctioneer extends Folk
 				{
 					final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 					html.setFile("data/html/auction/AgitSale2.htm");
-					html.replace("%AGIT_LAST_PRICE%", ClanHallManager.getInstance().getClanHallByOwner(player.getClan()).getLease());
+					html.replace("%AGIT_LAST_PRICE%", ClanHallManager.INSTANCE.getClanHallByOwner(player.getClan()).getLease());
 					html.replace("%AGIT_LINK_BACK%", "bypass -h npc_" + getObjectId() + "_sale");
 					html.replace("%objectId%", getObjectId());
 					player.sendPacket(html);
@@ -401,7 +401,7 @@ public final class Auctioneer extends Folk
 		
 		// Auctions feeding.
 		for (Auction auction : auctions)
-			StringUtil.INSTANCE.append(sb, "<tr><td><font color=\"aaaaff\">", ClanHallManager.getInstance().getClanHallById(auction.getItemId()).getLocation(), "</font></td><td><font color=\"ffffaa\"><a action=\"bypass -h npc_", getObjectId(), "_bidding ", auction.getId(), "\">", auction.getItemName(), " [", auction.getBidders().size(), "]</a></font></td><td>", sdf.format(auction.getEndDate()), "</td><td><font color=\"aaffff\">", auction.getStartingBid(), "</font></td></tr>");
+			StringUtil.INSTANCE.append(sb, "<tr><td><font color=\"aaaaff\">", ClanHallManager.INSTANCE.getClanHallById(auction.getItemId()).getLocation(), "</font></td><td><font color=\"ffffaa\"><a action=\"bypass -h npc_", getObjectId(), "_bidding ", auction.getId(), "\">", auction.getItemName(), " [", auction.getBidders().size(), "]</a></font></td><td>", sdf.format(auction.getEndDate()), "</td><td><font color=\"aaffff\">", auction.getStartingBid(), "</font></td></tr>");
 		
 		sb.append("</table><table width=280><tr>");
 		
@@ -430,7 +430,7 @@ public final class Auctioneer extends Folk
 			final Auction auction = AuctionManager.INSTANCE.getAuction(clan.getAuctionBiddedAt());
 			if (auction != null)
 			{
-				final ClanHall ch = ClanHallManager.getInstance().getClanHallById(auction.getItemId());
+				final ClanHall ch = ClanHallManager.INSTANCE.getClanHallById(auction.getItemId());
 				final long remainingTime = auction.getEndDate() - System.currentTimeMillis();
 				
 				final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -457,7 +457,7 @@ public final class Auctioneer extends Folk
 			final Auction auction = AuctionManager.INSTANCE.getAuction(clan.getHideoutId());
 			if (auction != null)
 			{
-				final ClanHall ch = ClanHallManager.getInstance().getClanHallById(auction.getItemId());
+				final ClanHall ch = ClanHallManager.INSTANCE.getClanHallById(auction.getItemId());
 				final long remainingTime = auction.getEndDate() - System.currentTimeMillis();
 				
 				final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -482,7 +482,7 @@ public final class Auctioneer extends Folk
 		}
 		else if (clan.hasHideout())
 		{
-			final ClanHall ch = ClanHallManager.getInstance().getClanHallById(clan.getHideoutId());
+			final ClanHall ch = ClanHallManager.INSTANCE.getClanHallById(clan.getHideoutId());
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 			html.setFile("data/html/auction/AgitInfo.htm");

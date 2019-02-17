@@ -20,37 +20,38 @@ import com.l2kt.gameserver.scripting.scripts.ai.L2AttackableAIScript
 
 class Orfen : L2AttackableAIScript("ai/individual") {
     init {
+        run{
+            _isTeleported = false
 
-        _isTeleported = false
+            val info = GrandBossManager.getStatsSet(ORFEN) ?: return@run
+            val status = GrandBossManager.getBossStatus(ORFEN)
 
-        val info = GrandBossManager.getInstance().getStatsSet(ORFEN)
-        val status = GrandBossManager.getInstance().getBossStatus(ORFEN)
+            if (status == DEAD.toInt()) {
+                // load the unlock date and time for Orfen from DB
+                val temp = info.getLong("respawn_time") - System.currentTimeMillis()
+                if (temp > 0) {
+                    // The time has not yet expired. Mark Orfen as currently locked (dead).
+                    startQuestTimer("orfen_unlock", temp, null, null, false)
+                } else {
+                    // The time has already expired while the server was offline. Spawn Orfen in a random place.
+                    _currentIndex = Rnd[1, 3]
 
-        if (status == DEAD.toInt()) {
-            // load the unlock date and time for Orfen from DB
-            val temp = info.getLong("respawn_time") - System.currentTimeMillis()
-            if (temp > 0) {
-                // The time has not yet expired. Mark Orfen as currently locked (dead).
-                startQuestTimer("orfen_unlock", temp, null, null, false)
+                    val orfen = addSpawn(ORFEN, ORFEN_LOCATION[_currentIndex], false, 0, false) as GrandBoss
+                    GrandBossManager.setBossStatus(ORFEN, ALIVE.toInt())
+                    spawnBoss(orfen)
+                }
             } else {
-                // The time has already expired while the server was offline. Spawn Orfen in a random place.
-                _currentIndex = Rnd[1, 3]
+                val loc_x = info.getInteger("loc_x")
+                val loc_y = info.getInteger("loc_y")
+                val loc_z = info.getInteger("loc_z")
+                val heading = info.getInteger("heading")
+                val hp = info.getInteger("currentHP")
+                val mp = info.getInteger("currentMP")
 
-                val orfen = addSpawn(ORFEN, ORFEN_LOCATION[_currentIndex], false, 0, false) as GrandBoss
-                GrandBossManager.getInstance().setBossStatus(ORFEN, ALIVE.toInt())
+                val orfen = addSpawn(ORFEN, loc_x, loc_y, loc_z, heading, false, 0, false) as GrandBoss
+                orfen.setCurrentHpMp(hp.toDouble(), mp.toDouble())
                 spawnBoss(orfen)
             }
-        } else {
-            val loc_x = info.getInteger("loc_x")
-            val loc_y = info.getInteger("loc_y")
-            val loc_z = info.getInteger("loc_z")
-            val heading = info.getInteger("heading")
-            val hp = info.getInteger("currentHP")
-            val mp = info.getInteger("currentMP")
-
-            val orfen = addSpawn(ORFEN, loc_x, loc_y, loc_z, heading, false, 0, false) as GrandBoss
-            orfen.setCurrentHpMp(hp.toDouble(), mp.toDouble())
-            spawnBoss(orfen)
         }
     }
 
@@ -66,7 +67,7 @@ class Orfen : L2AttackableAIScript("ai/individual") {
             _currentIndex = Rnd[1, 3]
 
             val orfen = addSpawn(ORFEN, ORFEN_LOCATION[_currentIndex], false, 0, false) as GrandBoss
-            GrandBossManager.getInstance().setBossStatus(ORFEN, ALIVE.toInt())
+            GrandBossManager.setBossStatus(ORFEN, ALIVE.toInt())
             spawnBoss(orfen)
         } else if (event.equals("check_orfen_pos", ignoreCase = true)) {
             // 30 minutes are gone without any hit ; Orfen will move to another location.
@@ -169,7 +170,7 @@ class Orfen : L2AttackableAIScript("ai/individual") {
 
     override fun onKill(npc: Npc, killer: Creature): String? {
         npc.broadcastPacket(PlaySound(1, "BS02_D", npc))
-        GrandBossManager.getInstance().setBossStatus(ORFEN, DEAD.toInt())
+        GrandBossManager.setBossStatus(ORFEN, DEAD.toInt())
 
         var respawnTime =
             Config.SPAWN_INTERVAL_ORFEN.toLong() + Rnd[-Config.RANDOM_SPAWN_TIME_ORFEN, Config.RANDOM_SPAWN_TIME_ORFEN]
@@ -178,16 +179,16 @@ class Orfen : L2AttackableAIScript("ai/individual") {
         startQuestTimer("orfen_unlock", respawnTime, null, null, false)
 
         // also save the respawn time so that the info is maintained past reboots
-        val info = GrandBossManager.getInstance().getStatsSet(ORFEN)
+        val info = GrandBossManager.getStatsSet(ORFEN) ?: return null
         info.set("respawn_time", System.currentTimeMillis() + respawnTime)
-        GrandBossManager.getInstance().setStatsSet(ORFEN, info)
+        GrandBossManager.setStatsSet(ORFEN, info)
 
         cancelQuestTimer("check_orfen_pos", npc, null)
         return super.onKill(npc, killer)
     }
 
     private fun spawnBoss(npc: GrandBoss) {
-        GrandBossManager.getInstance().addBoss(npc)
+        GrandBossManager.addBoss(npc)
         npc.broadcastPacket(PlaySound(1, "BS01_A", npc))
         startQuestTimer("check_orfen_pos", 60000, npc, null, true)
 

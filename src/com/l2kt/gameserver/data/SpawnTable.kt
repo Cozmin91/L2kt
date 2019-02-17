@@ -63,10 +63,10 @@ object SpawnTable {
                                 }
 
                                 1 // Day
-                                -> DayNightSpawnManager.getInstance().addDayCreature(spawnDat)
+                                -> DayNightSpawnManager.addDayCreature(spawnDat)
 
                                 2 // Night
-                                -> DayNightSpawnManager.getInstance().addNightCreature(spawnDat)
+                                -> DayNightSpawnManager.addNightCreature(spawnDat)
                             }
 
                             _spawntable.add(spawnDat)

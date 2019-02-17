@@ -40,44 +40,46 @@ class Antharas : L2AttackableAIScript("ai/individual") {
 
     init {
 
-        val info = GrandBossManager.getInstance().getStatsSet(ANTHARAS)
+        run{
+            val info = GrandBossManager.getStatsSet(ANTHARAS) ?: return@run
 
-        when (GrandBossManager.getInstance().getBossStatus(ANTHARAS).toByte()) {
-            DEAD // Launch the timer to set DORMANT, or set DORMANT directly if timer expired while offline.
-            -> {
-                val temp = info.getLong("respawn_time") - System.currentTimeMillis()
-                if (temp > 0)
-                    startQuestTimer("antharas_unlock", temp, null, null, false)
-                else
-                    GrandBossManager.getInstance().setBossStatus(ANTHARAS, DORMANT.toInt())
-            }
+            when (GrandBossManager.getBossStatus(ANTHARAS).toByte()) {
+                DEAD // Launch the timer to set DORMANT, or set DORMANT directly if timer expired while offline.
+                -> {
+                    val temp = info.getLong("respawn_time") - System.currentTimeMillis()
+                    if (temp > 0)
+                        startQuestTimer("antharas_unlock", temp, null, null, false)
+                    else
+                        GrandBossManager.setBossStatus(ANTHARAS, DORMANT.toInt())
+                }
 
-            WAITING // Launch beginning timer.
-            -> startQuestTimer("beginning", Config.WAIT_TIME_ANTHARAS.toLong(), null, null, false)
+                WAITING // Launch beginning timer.
+                -> startQuestTimer("beginning", Config.WAIT_TIME_ANTHARAS.toLong(), null, null, false)
 
-            FIGHTING -> {
-                val loc_x = info.getInteger("loc_x")
-                val loc_y = info.getInteger("loc_y")
-                val loc_z = info.getInteger("loc_z")
-                val heading = info.getInteger("heading")
-                val hp = info.getInteger("currentHP")
-                val mp = info.getInteger("currentMP")
+                FIGHTING -> {
+                    val loc_x = info.getInteger("loc_x")
+                    val loc_y = info.getInteger("loc_y")
+                    val loc_z = info.getInteger("loc_z")
+                    val heading = info.getInteger("heading")
+                    val hp = info.getInteger("currentHP")
+                    val mp = info.getInteger("currentMP")
 
-                // Update Antharas informations.
-                updateAntharas()
+                    // Update Antharas informations.
+                    updateAntharas()
 
-                val antharas = addSpawn(_antharasId, loc_x, loc_y, loc_z, heading, false, 0, false)
-                GrandBossManager.getInstance().addBoss(ANTHARAS, antharas as GrandBoss)
+                    val antharas = addSpawn(_antharasId, loc_x, loc_y, loc_z, heading, false, 0, false)
+                    GrandBossManager.addBoss(ANTHARAS, antharas as GrandBoss)
 
-                antharas.setCurrentHpMp(hp.toDouble(), mp.toDouble())
-                antharas.setRunning()
+                    antharas.setCurrentHpMp(hp.toDouble(), mp.toDouble())
+                    antharas.setRunning()
 
-                // stores current time for inactivity task.
-                _timeTracker = System.currentTimeMillis()
+                    // stores current time for inactivity task.
+                    _timeTracker = System.currentTimeMillis()
 
-                startQuestTimer("regen_task", 60000, antharas, null, true)
-                startQuestTimer("skill_task", 2000, antharas, null, true)
-                startQuestTimer("minions_spawn", _minionTimer.toLong(), antharas, null, true)
+                    startQuestTimer("regen_task", 60000, antharas, null, true)
+                    startQuestTimer("skill_task", 2000, antharas, null, true)
+                    startQuestTimer("minions_spawn", _minionTimer.toLong(), antharas, null, true)
+                }
             }
         }
     }
@@ -93,7 +95,7 @@ class Antharas : L2AttackableAIScript("ai/individual") {
             // Inactivity task - 30min
             if (_timeTracker + 1800000 < System.currentTimeMillis()) {
                 // Set it dormant.
-                GrandBossManager.getInstance().setBossStatus(ANTHARAS, DORMANT.toInt())
+                GrandBossManager.setBossStatus(ANTHARAS, DORMANT.toInt())
 
                 // Drop all players from the zone.
                 ANTHARAS_LAIR.oustAllPlayers()
@@ -123,7 +125,7 @@ class Antharas : L2AttackableAIScript("ai/individual") {
             // stores current time for inactivity task.
             _timeTracker = System.currentTimeMillis()
 
-            GrandBossManager.getInstance().setBossStatus(ANTHARAS, FIGHTING.toInt())
+            GrandBossManager.setBossStatus(ANTHARAS, FIGHTING.toInt())
             npc?.setIsInvul(false)
             npc?.setRunning()
 
@@ -167,7 +169,7 @@ class Antharas : L2AttackableAIScript("ai/individual") {
             updateAntharas()
 
             val antharas = addSpawn(_antharasId, 181323, 114850, -7623, 32542, false, 0, false)
-            GrandBossManager.getInstance().addBoss(ANTHARAS, antharas as GrandBoss)
+            GrandBossManager.addBoss(ANTHARAS, antharas as GrandBoss)
             antharas.setIsInvul(true)
 
             // Launch the cinematic, and tasks (regen + skill).
@@ -181,7 +183,7 @@ class Antharas : L2AttackableAIScript("ai/individual") {
             addSpawn(31859, 177615, 114941, -7709, 0, false, 900000, false)
             startQuestTimer("remove_players", 900000, null, null, false)
         } else if (event.equals("antharas_unlock", ignoreCase = true))
-            GrandBossManager.getInstance().setBossStatus(ANTHARAS, DORMANT.toInt())
+            GrandBossManager.setBossStatus(ANTHARAS, DORMANT.toInt())
         else if (event.equals("remove_players", ignoreCase = true))
             ANTHARAS_LAIR.oustAllPlayers()// spawn of Teleport Cube.
         // Cinematic
@@ -220,7 +222,7 @@ class Antharas : L2AttackableAIScript("ai/individual") {
             ANTHARAS_LAIR.broadcastPacket(PlaySound(1, "BS01_D", npc))
             startQuestTimer("die_1", 8000, null, null, false)
 
-            GrandBossManager.getInstance().setBossStatus(ANTHARAS, DEAD.toInt())
+            GrandBossManager.setBossStatus(ANTHARAS, DEAD.toInt())
 
             var respawnTime =
                 Config.SPAWN_INTERVAL_ANTHARAS.toLong() + Rnd[-Config.RANDOM_SPAWN_TIME_ANTHARAS, Config.RANDOM_SPAWN_TIME_ANTHARAS]
@@ -228,9 +230,9 @@ class Antharas : L2AttackableAIScript("ai/individual") {
 
             startQuestTimer("antharas_unlock", respawnTime, null, null, false)
 
-            val info = GrandBossManager.getInstance().getStatsSet(ANTHARAS)
+            val info = GrandBossManager.getStatsSet(ANTHARAS) ?: return null
             info.set("respawn_time", System.currentTimeMillis() + respawnTime)
-            GrandBossManager.getInstance().setStatsSet(ANTHARAS, info)
+            GrandBossManager.setStatsSet(ANTHARAS, info)
         } else {
             cancelQuestTimer("self_destruct", npc, null)
             _monsters.remove(npc)

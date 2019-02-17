@@ -102,7 +102,7 @@ class EnterWorld : L2GameClientPacket() {
             }
 
             // Add message at connexion if clanHall not paid.
-            val clanHall = ClanHallManager.getInstance().getClanHallByOwner(clan)
+            val clanHall = ClanHallManager.getClanHallByOwner(clan)
             if (clanHall != null && !clanHall.paid)
                 player.sendPacket(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW)
 

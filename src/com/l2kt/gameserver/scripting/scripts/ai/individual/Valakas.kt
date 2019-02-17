@@ -29,41 +29,42 @@ class Valakas : L2AttackableAIScript("ai/individual") {
     private var _actualVictim: Player? = null // Actual target of Valakas.
 
     init {
+        run{
+            val info = GrandBossManager.getStatsSet(VALAKAS) ?: return@run
 
-        val info = GrandBossManager.getInstance().getStatsSet(VALAKAS)
+            when (GrandBossManager.getBossStatus(VALAKAS).toByte()) {
+                DEAD // Launch the timer to set DORMANT, or set DORMANT directly if timer expired while offline.
+                -> {
+                    val temp = info.getLong("respawn_time") - System.currentTimeMillis()
+                    if (temp > 0)
+                        startQuestTimer("valakas_unlock", temp, null, null, false)
+                    else
+                        GrandBossManager.setBossStatus(VALAKAS, DORMANT.toInt())
+                }
 
-        when (GrandBossManager.getInstance().getBossStatus(VALAKAS).toByte()) {
-            DEAD // Launch the timer to set DORMANT, or set DORMANT directly if timer expired while offline.
-            -> {
-                val temp = info.getLong("respawn_time") - System.currentTimeMillis()
-                if (temp > 0)
-                    startQuestTimer("valakas_unlock", temp, null, null, false)
-                else
-                    GrandBossManager.getInstance().setBossStatus(VALAKAS, DORMANT.toInt())
-            }
+                WAITING -> startQuestTimer("beginning", Config.WAIT_TIME_VALAKAS.toLong(), null, null, false)
 
-            WAITING -> startQuestTimer("beginning", Config.WAIT_TIME_VALAKAS.toLong(), null, null, false)
+                FIGHTING -> {
+                    val loc_x = info.getInteger("loc_x")
+                    val loc_y = info.getInteger("loc_y")
+                    val loc_z = info.getInteger("loc_z")
+                    val heading = info.getInteger("heading")
+                    val hp = info.getInteger("currentHP")
+                    val mp = info.getInteger("currentMP")
 
-            FIGHTING -> {
-                val loc_x = info.getInteger("loc_x")
-                val loc_y = info.getInteger("loc_y")
-                val loc_z = info.getInteger("loc_z")
-                val heading = info.getInteger("heading")
-                val hp = info.getInteger("currentHP")
-                val mp = info.getInteger("currentMP")
+                    val valakas = addSpawn(VALAKAS, loc_x, loc_y, loc_z, heading, false, 0, false)
+                    GrandBossManager.addBoss(valakas as GrandBoss)
 
-                val valakas = addSpawn(VALAKAS, loc_x, loc_y, loc_z, heading, false, 0, false)
-                GrandBossManager.getInstance().addBoss(valakas as GrandBoss)
+                    valakas.setCurrentHpMp(hp.toDouble(), mp.toDouble())
+                    valakas.setRunning()
 
-                valakas.setCurrentHpMp(hp.toDouble(), mp.toDouble())
-                valakas.setRunning()
+                    // stores current time for inactivity task.
+                    _timeTracker = System.currentTimeMillis()
 
-                // stores current time for inactivity task.
-                _timeTracker = System.currentTimeMillis()
-
-                // Start timers.
-                startQuestTimer("regen_task", 60000, valakas, null, true)
-                startQuestTimer("skill_task", 2000, valakas, null, true)
+                    // Start timers.
+                    startQuestTimer("regen_task", 60000, valakas, null, true)
+                    startQuestTimer("skill_task", 2000, valakas, null, true)
+                }
             }
         }
     }
@@ -80,7 +81,7 @@ class Valakas : L2AttackableAIScript("ai/individual") {
 
             // Spawn Valakas and set him invul.
             npc = addSpawn(VALAKAS, 212852, -114842, -1632, 0, false, 0, false)
-            GrandBossManager.getInstance().addBoss(npc as GrandBoss?)
+            GrandBossManager.addBoss(npc as GrandBoss?)
             npc!!.setIsInvul(true)
 
             // Sound + socialAction.
@@ -102,10 +103,10 @@ class Valakas : L2AttackableAIScript("ai/individual") {
             startQuestTimer("spawn_10", 29401, npc, null, false) // 5700 - AI + unlock
         } else if (event.equals("regen_task", ignoreCase = true)) {
             // Inactivity task - 15min
-            if (GrandBossManager.getInstance().getBossStatus(VALAKAS) == FIGHTING.toInt()) {
+            if (GrandBossManager.getBossStatus(VALAKAS) == FIGHTING.toInt()) {
                 if (_timeTracker + 900000 < System.currentTimeMillis()) {
                     // Set it dormant.
-                    GrandBossManager.getInstance().setBossStatus(VALAKAS, DORMANT.toInt())
+                    GrandBossManager.setBossStatus(VALAKAS, DORMANT.toInt())
 
                     // Drop all players from the zone.
                     VALAKAS_LAIR.oustAllPlayers()
@@ -159,7 +160,7 @@ class Valakas : L2AttackableAIScript("ai/individual") {
         else if (event.equals("spawn_9", ignoreCase = true))
             VALAKAS_LAIR.broadcastPacket(SpecialCamera(npc!!.objectId, 750, 170, -10, 3400, 4000, 10, -15, 1, 0))
         else if (event.equals("spawn_10", ignoreCase = true)) {
-            GrandBossManager.getInstance().setBossStatus(VALAKAS, FIGHTING.toInt())
+            GrandBossManager.setBossStatus(VALAKAS, FIGHTING.toInt())
             npc!!.setIsInvul(false)
 
             startQuestTimer("regen_task", 60000, npc, null, true)
@@ -188,7 +189,7 @@ class Valakas : L2AttackableAIScript("ai/individual") {
         } else if (event.equals("skill_task", ignoreCase = true))
             callSkillAI(npc!!)
         else if (event.equals("valakas_unlock", ignoreCase = true))
-            GrandBossManager.getInstance().setBossStatus(VALAKAS, DORMANT.toInt())
+            GrandBossManager.setBossStatus(VALAKAS, DORMANT.toInt())
         else if (event.equals("remove_players", ignoreCase = true))
             VALAKAS_LAIR.oustAllPlayers()// Death cinematic, spawn of Teleport Cubes.
         // Spawn cinematic, regen_task and choose of skill.
@@ -234,7 +235,7 @@ class Valakas : L2AttackableAIScript("ai/individual") {
         startQuestTimer("die_7", 14000, npc, null, false) // 700
         startQuestTimer("die_8", 16500, npc, null, false) // 2500
 
-        GrandBossManager.getInstance().setBossStatus(VALAKAS, DEAD.toInt())
+        GrandBossManager.setBossStatus(VALAKAS, DEAD.toInt())
 
         var respawnTime =
             Config.SPAWN_INTERVAL_VALAKAS.toLong() + Rnd[-Config.RANDOM_SPAWN_TIME_VALAKAS, Config.RANDOM_SPAWN_TIME_VALAKAS]
@@ -243,9 +244,9 @@ class Valakas : L2AttackableAIScript("ai/individual") {
         startQuestTimer("valakas_unlock", respawnTime, null, null, false)
 
         // also save the respawn time so that the info is maintained past reboots
-        val info = GrandBossManager.getInstance().getStatsSet(VALAKAS)
+        val info = GrandBossManager.getStatsSet(VALAKAS) ?: return null
         info.set("respawn_time", System.currentTimeMillis() + respawnTime)
-        GrandBossManager.getInstance().setStatsSet(VALAKAS, info)
+        GrandBossManager.setStatsSet(VALAKAS, info)
 
         return super.onKill(npc, killer)
     }

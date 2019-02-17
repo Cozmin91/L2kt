@@ -209,7 +209,7 @@ object Formulas {
             if (cha.isInsideZone(ZoneId.CLAN_HALL) && cha.clan != null) {
                 val clanHallIndex = cha.clan.hideoutId
                 if (clanHallIndex > 0) {
-                    val clansHall = ClanHallManager.getInstance().getClanHallById(clanHallIndex)
+                    val clansHall = ClanHallManager.getClanHallById(clanHallIndex)
                     if (clansHall != null)
                         if (clansHall.getFunction(ClanHall.FUNC_RESTORE_HP) != null)
                             hpRegenMultiplier *= (1 + clansHall.getFunction(ClanHall.FUNC_RESTORE_HP).lvl / 100).toDouble()
@@ -268,7 +268,7 @@ object Formulas {
             if (cha.isInsideZone(ZoneId.CLAN_HALL) && cha.clan != null) {
                 val clanHallIndex = cha.clan.hideoutId
                 if (clanHallIndex > 0) {
-                    val clansHall = ClanHallManager.getInstance().getClanHallById(clanHallIndex)
+                    val clansHall = ClanHallManager.getClanHallById(clanHallIndex)
                     if (clansHall != null)
                         if (clansHall.getFunction(ClanHall.FUNC_RESTORE_MP) != null)
                             mpRegenMultiplier *= (1 + clansHall.getFunction(ClanHall.FUNC_RESTORE_MP).lvl / 100).toDouble()

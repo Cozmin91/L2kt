@@ -205,7 +205,7 @@ class AdminEditChar : IAdminCommandHandler {
                 } else if (target is Npc) {
 
                     target.title = newTitle
-                    target.broadcastPacket(NpcInfo(target, null!!))
+                    target.broadcastPacket(NpcInfo(target, null))
                 } else
                     activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET)
             } catch (e: Exception) {
@@ -244,7 +244,7 @@ class AdminEditChar : IAdminCommandHandler {
                 } else if (target is Npc) {
 
                     target.name = newName
-                    target.broadcastPacket(NpcInfo(target, null!!))
+                    target.broadcastPacket(NpcInfo(target, null))
                 } else
                     activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET)
             } catch (e: Exception) {
@@ -450,7 +450,7 @@ class AdminEditChar : IAdminCommandHandler {
                 )
                 html.replace(
                     "%clan_has_clanhall%",
-                    if (clan.hasHideout()) ClanHallManager.getInstance().getClanHallById(clan.hideoutId)!!.name else "No"
+                    if (clan.hasHideout()) ClanHallManager.getClanHallById(clan.hideoutId)!!.name else "No"
                 )
                 html.replace("%clan_points%", clan.reputationScore)
                 html.replace("%clan_players_count%", clan.membersCount)

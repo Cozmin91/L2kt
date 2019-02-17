@@ -1541,7 +1541,7 @@ public class ClanHallManagerNpc extends Merchant
 	{
 		if (_clanHallId < 0)
 		{
-			ClanHall temp = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
+			ClanHall temp = ClanHallManager.INSTANCE.getNearbyClanHall(getX(), getY(), 500);
 			
 			if (temp != null)
 				_clanHallId = temp.getId();
@@ -1549,12 +1549,12 @@ public class ClanHallManagerNpc extends Merchant
 			if (_clanHallId < 0)
 				return null;
 		}
-		return ClanHallManager.getInstance().getClanHallById(_clanHallId);
+		return ClanHallManager.INSTANCE.getClanHallById(_clanHallId);
 	}
 	
 	private static void revalidateDeco(Player player)
 	{
-		ClanHall ch = ClanHallManager.getInstance().getClanHallByOwner(player.getClan());
+		ClanHall ch = ClanHallManager.INSTANCE.getClanHallByOwner(player.getClan());
 		if (ch == null)
 			return;
 		

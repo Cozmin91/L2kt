@@ -25,7 +25,7 @@ class Q610_MagicalPowerOfWater_Part2 : Quest(610, "Magical Power of Water - Part
         addAttackId(SOUL_OF_WATER_ASHUTAR)
         addKillId(SOUL_OF_WATER_ASHUTAR)
 
-        when (RaidBossSpawnManager.getInstance().getRaidBossStatusId(SOUL_OF_WATER_ASHUTAR)) {
+        when (RaidBossSpawnManager.getRaidBossStatusId(SOUL_OF_WATER_ASHUTAR)) {
             RaidBossSpawnManager.StatusEnum.ALIVE -> {
                 spawnNpc()
                 startQuestTimer("check", CHECK_INTERVAL.toLong(), null, null, true)
@@ -37,7 +37,7 @@ class Q610_MagicalPowerOfWater_Part2 : Quest(610, "Magical Power of Water - Part
     override fun onAdvEvent(event: String, npc: Npc?, player: Player?): String? {
         // global quest timer has player==null -> cannot get QuestState
         if (event == "check") {
-            val raid = RaidBossSpawnManager.getInstance().bosses[SOUL_OF_WATER_ASHUTAR]
+            val raid = RaidBossSpawnManager.bosses[SOUL_OF_WATER_ASHUTAR]
             if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
                 if (_status >= 0 && _status-- == 0)
                     despawnRaid(raid)
@@ -149,7 +149,7 @@ class Q610_MagicalPowerOfWater_Part2 : Quest(610, "Magical Power of Water - Part
     }
 
     private fun spawnRaid(): Boolean {
-        val raid = RaidBossSpawnManager.getInstance().bosses[SOUL_OF_WATER_ASHUTAR]
+        val raid = RaidBossSpawnManager.bosses[SOUL_OF_WATER_ASHUTAR]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
             raid.spawn.setLoc(104771, -36993, -1149, Rnd[65536])

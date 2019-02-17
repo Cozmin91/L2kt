@@ -21,7 +21,7 @@ class ClanHallZone(id: Int) : SpawnZoneType(id) {
             clanHallId = Integer.parseInt(value)
 
             // Register self to the correct clan hall
-            ClanHallManager.getInstance().getClanHallById(clanHallId)!!.zone = this
+            ClanHallManager.getClanHallById(clanHallId)!!.zone = this
         } else
             super.setParameter(name, value)
     }
@@ -31,7 +31,7 @@ class ClanHallZone(id: Int) : SpawnZoneType(id) {
             // Set as in clan hall
             character.setInsideZone(ZoneId.CLAN_HALL, true)
 
-            val ch = ClanHallManager.getInstance().getClanHallById(clanHallId) ?: return
+            val ch = ClanHallManager.getClanHallById(clanHallId) ?: return
 
             // Send decoration packet
             character.sendPacket(ClanHallDecoration(ch))

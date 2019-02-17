@@ -32,8 +32,8 @@ class AdminDelete : IAdminCommandHandler {
                 if (spawn != null) {
                     spawn.setRespawnState(false)
 
-                    if (RaidBossSpawnManager.getInstance().isDefined(spawn.npcId))
-                        RaidBossSpawnManager.getInstance().deleteSpawn(spawn, true)
+                    if (RaidBossSpawnManager.isDefined(spawn.npcId))
+                        RaidBossSpawnManager.deleteSpawn(spawn, true)
                     else
                         SpawnTable.deleteSpawn(spawn, true)
                 }

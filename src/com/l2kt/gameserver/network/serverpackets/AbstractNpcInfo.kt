@@ -52,12 +52,11 @@ abstract class AbstractNpcInfo(cha: Creature) : L2GameServerPacket() {
     /**
      * Packet for Npcs
      */
-    class NpcInfo(private val _npc: Npc, attacker: Creature) : AbstractNpcInfo(_npc) {
-
+    class NpcInfo(private val _npc: Npc, attacker: Creature?) : AbstractNpcInfo(_npc) {
         init {
 
             _enchantEffect = _npc.enchantEffect
-            _isAttackable = _npc.isAutoAttackable(attacker)
+            _isAttackable = if(attacker == null) false else _npc.isAutoAttackable(attacker)
 
             // Support for polymorph.
             if (_npc.polyType == WorldObject.PolyType.NPC && _npc.polyTemplate != null) {

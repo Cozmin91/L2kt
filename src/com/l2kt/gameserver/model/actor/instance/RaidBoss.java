@@ -128,7 +128,7 @@ public class RaidBoss extends Monster
 			}
 		}
 		
-		RaidBossSpawnManager.getInstance().updateStatus(this, true);
+		RaidBossSpawnManager.INSTANCE.updateStatus(this, true);
 		return true;
 	}
 	

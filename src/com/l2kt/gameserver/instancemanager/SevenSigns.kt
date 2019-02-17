@@ -243,19 +243,19 @@ object SevenSigns {
      * Registers all random spawns and auto-chats for Seven Signs NPCs, along with spawns for the Preachers of Doom and Orators of Revelations at the beginning of the Seal Validation period.
      */
     fun spawnSevenSignsNPC() {
-        _merchantSpawn = AutoSpawnManager.getInstance().getAutoSpawnInstance(MAMMON_MERCHANT_ID, false)
-        _blacksmithSpawn = AutoSpawnManager.getInstance().getAutoSpawnInstance(MAMMON_BLACKSMITH_ID, false)
-        _marketeerSpawns = AutoSpawnManager.getInstance().getAutoSpawnInstances(MAMMON_MARKETEER_ID)
-        _lilithSpawn = AutoSpawnManager.getInstance().getAutoSpawnInstance(LILITH_NPC_ID, false)
-        _anakimSpawn = AutoSpawnManager.getInstance().getAutoSpawnInstance(ANAKIM_NPC_ID, false)
-        _crestofdawnspawns = AutoSpawnManager.getInstance().getAutoSpawnInstances(CREST_OF_DAWN_ID)
-        _crestofduskspawns = AutoSpawnManager.getInstance().getAutoSpawnInstances(CREST_OF_DUSK_ID)
-        _oratorSpawns = AutoSpawnManager.getInstance().getAutoSpawnInstances(ORATOR_NPC_ID)
-        _preacherSpawns = AutoSpawnManager.getInstance().getAutoSpawnInstances(PREACHER_NPC_ID)
+        _merchantSpawn = AutoSpawnManager.getAutoSpawnInstance(MAMMON_MERCHANT_ID, false)
+        _blacksmithSpawn = AutoSpawnManager.getAutoSpawnInstance(MAMMON_BLACKSMITH_ID, false)
+        _marketeerSpawns = AutoSpawnManager.getAutoSpawnInstances(MAMMON_MARKETEER_ID)
+        _lilithSpawn = AutoSpawnManager.getAutoSpawnInstance(LILITH_NPC_ID, false)
+        _anakimSpawn = AutoSpawnManager.getAutoSpawnInstance(ANAKIM_NPC_ID, false)
+        _crestofdawnspawns = AutoSpawnManager.getAutoSpawnInstances(CREST_OF_DAWN_ID)
+        _crestofduskspawns = AutoSpawnManager.getAutoSpawnInstances(CREST_OF_DUSK_ID)
+        _oratorSpawns = AutoSpawnManager.getAutoSpawnInstances(ORATOR_NPC_ID)
+        _preacherSpawns = AutoSpawnManager.getAutoSpawnInstances(PREACHER_NPC_ID)
 
         if (isSealValidationPeriod || isCompResultsPeriod) {
             for (spawnInst in _marketeerSpawns!!.values)
-                AutoSpawnManager.getInstance().setSpawnActive(spawnInst, true)
+                AutoSpawnManager.setSpawnActive(spawnInst, true)
 
             val winningCabal = cabalHighestScore
 
@@ -264,28 +264,28 @@ object SevenSigns {
                 if (!Config.ANNOUNCE_MAMMON_SPAWN)
                     _blacksmithSpawn!!.setBroadcast(false)
 
-                if (!AutoSpawnManager.getInstance().getAutoSpawnInstance(
+                if (!AutoSpawnManager.getAutoSpawnInstance(
                         _blacksmithSpawn!!.objectId,
                         true
                     )!!.isSpawnActive
                 )
-                    AutoSpawnManager.getInstance().setSpawnActive(_blacksmithSpawn, true)
+                    AutoSpawnManager.setSpawnActive(_blacksmithSpawn, true)
 
                 for (spawnInst in _oratorSpawns!!.values)
-                    if (!AutoSpawnManager.getInstance().getAutoSpawnInstance(spawnInst.objectId, true)!!.isSpawnActive)
-                        AutoSpawnManager.getInstance().setSpawnActive(spawnInst, true)
+                    if (!AutoSpawnManager.getAutoSpawnInstance(spawnInst.objectId, true)!!.isSpawnActive)
+                        AutoSpawnManager.setSpawnActive(spawnInst, true)
 
                 for (spawnInst in _preacherSpawns!!.values)
-                    if (!AutoSpawnManager.getInstance().getAutoSpawnInstance(spawnInst.objectId, true)!!.isSpawnActive)
-                        AutoSpawnManager.getInstance().setSpawnActive(spawnInst, true)
+                    if (!AutoSpawnManager.getAutoSpawnInstance(spawnInst.objectId, true)!!.isSpawnActive)
+                        AutoSpawnManager.setSpawnActive(spawnInst, true)
             } else {
-                AutoSpawnManager.getInstance().setSpawnActive(_blacksmithSpawn, false)
+                AutoSpawnManager.setSpawnActive(_blacksmithSpawn, false)
 
                 for (spawnInst in _oratorSpawns!!.values)
-                    AutoSpawnManager.getInstance().setSpawnActive(spawnInst, false)
+                    AutoSpawnManager.setSpawnActive(spawnInst, false)
 
                 for (spawnInst in _preacherSpawns!!.values)
-                    AutoSpawnManager.getInstance().setSpawnActive(spawnInst, false)
+                    AutoSpawnManager.setSpawnActive(spawnInst, false)
             }
 
             val avariceSealOwner = getSealOwner(SealType.AVARICE)
@@ -293,106 +293,106 @@ object SevenSigns {
                 if (!Config.ANNOUNCE_MAMMON_SPAWN)
                     _merchantSpawn!!.setBroadcast(false)
 
-                if (!AutoSpawnManager.getInstance().getAutoSpawnInstance(
+                if (!AutoSpawnManager.getAutoSpawnInstance(
                         _merchantSpawn!!.objectId,
                         true
                     )!!.isSpawnActive
                 )
-                    AutoSpawnManager.getInstance().setSpawnActive(_merchantSpawn, true)
+                    AutoSpawnManager.setSpawnActive(_merchantSpawn, true)
 
                 when (winningCabal) {
                     SevenSigns.CabalType.DAWN -> {
                         // Spawn Lilith, unspawn Anakim.
-                        if (!AutoSpawnManager.getInstance().getAutoSpawnInstance(
+                        if (!AutoSpawnManager.getAutoSpawnInstance(
                                 _lilithSpawn!!.objectId,
                                 true
                             )!!.isSpawnActive
                         )
-                            AutoSpawnManager.getInstance().setSpawnActive(_lilithSpawn, true)
+                            AutoSpawnManager.setSpawnActive(_lilithSpawn, true)
 
-                        AutoSpawnManager.getInstance().setSpawnActive(_anakimSpawn, false)
+                        AutoSpawnManager.setSpawnActive(_anakimSpawn, false)
 
                         // Spawn Dawn crests.
                         for (dawnCrest in _crestofdawnspawns!!.values) {
-                            if (!AutoSpawnManager.getInstance().getAutoSpawnInstance(
+                            if (!AutoSpawnManager.getAutoSpawnInstance(
                                     dawnCrest.objectId,
                                     true
                                 )!!.isSpawnActive
                             )
-                                AutoSpawnManager.getInstance().setSpawnActive(dawnCrest, true)
+                                AutoSpawnManager.setSpawnActive(dawnCrest, true)
                         }
 
                         // Unspawn Dusk crests.
                         for (duskCrest in _crestofduskspawns!!.values)
-                            AutoSpawnManager.getInstance().setSpawnActive(duskCrest, false)
+                            AutoSpawnManager.setSpawnActive(duskCrest, false)
                     }
 
                     SevenSigns.CabalType.DUSK -> {
                         // Spawn Anakim, unspawn Lilith.
-                        if (!AutoSpawnManager.getInstance().getAutoSpawnInstance(
+                        if (!AutoSpawnManager.getAutoSpawnInstance(
                                 _anakimSpawn!!.objectId,
                                 true
                             )!!.isSpawnActive
                         )
-                            AutoSpawnManager.getInstance().setSpawnActive(_anakimSpawn, true)
+                            AutoSpawnManager.setSpawnActive(_anakimSpawn, true)
 
-                        AutoSpawnManager.getInstance().setSpawnActive(_lilithSpawn, false)
+                        AutoSpawnManager.setSpawnActive(_lilithSpawn, false)
 
                         // Spawn Dusk crests.
                         for (duskCrest in _crestofduskspawns!!.values) {
-                            if (!AutoSpawnManager.getInstance().getAutoSpawnInstance(
+                            if (!AutoSpawnManager.getAutoSpawnInstance(
                                     duskCrest.objectId,
                                     true
                                 )!!.isSpawnActive
                             )
-                                AutoSpawnManager.getInstance().setSpawnActive(duskCrest, true)
+                                AutoSpawnManager.setSpawnActive(duskCrest, true)
                         }
 
                         // Unspawn Dawn crests.
                         for (dawnCrest in _crestofdawnspawns!!.values)
-                            AutoSpawnManager.getInstance().setSpawnActive(dawnCrest, false)
+                            AutoSpawnManager.setSpawnActive(dawnCrest, false)
                     }
                 }
             } else {
                 // Unspawn merchant of mammon, Lilith, Anakim.
-                AutoSpawnManager.getInstance().setSpawnActive(_merchantSpawn, false)
-                AutoSpawnManager.getInstance().setSpawnActive(_lilithSpawn, false)
-                AutoSpawnManager.getInstance().setSpawnActive(_anakimSpawn, false)
+                AutoSpawnManager.setSpawnActive(_merchantSpawn, false)
+                AutoSpawnManager.setSpawnActive(_lilithSpawn, false)
+                AutoSpawnManager.setSpawnActive(_anakimSpawn, false)
 
                 // Unspawn Dawn crests.
                 for (dawnCrest in _crestofdawnspawns!!.values)
-                    AutoSpawnManager.getInstance().setSpawnActive(dawnCrest, false)
+                    AutoSpawnManager.setSpawnActive(dawnCrest, false)
 
                 // Unspawn Dusk crests.
                 for (duskCrest in _crestofduskspawns!!.values)
-                    AutoSpawnManager.getInstance().setSpawnActive(duskCrest, false)
+                    AutoSpawnManager.setSpawnActive(duskCrest, false)
             }
         } else {
             // Unspawn merchant of mammon, Lilith, Anakim.
-            AutoSpawnManager.getInstance().setSpawnActive(_merchantSpawn, false)
-            AutoSpawnManager.getInstance().setSpawnActive(_blacksmithSpawn, false)
-            AutoSpawnManager.getInstance().setSpawnActive(_lilithSpawn, false)
-            AutoSpawnManager.getInstance().setSpawnActive(_anakimSpawn, false)
+            AutoSpawnManager.setSpawnActive(_merchantSpawn, false)
+            AutoSpawnManager.setSpawnActive(_blacksmithSpawn, false)
+            AutoSpawnManager.setSpawnActive(_lilithSpawn, false)
+            AutoSpawnManager.setSpawnActive(_anakimSpawn, false)
 
             // Unspawn Dawn crests.
             for (dawnCrest in _crestofdawnspawns!!.values)
-                AutoSpawnManager.getInstance().setSpawnActive(dawnCrest, false)
+                AutoSpawnManager.setSpawnActive(dawnCrest, false)
 
             // Unspawn Dusk crests.
             for (duskCrest in _crestofduskspawns!!.values)
-                AutoSpawnManager.getInstance().setSpawnActive(duskCrest, false)
+                AutoSpawnManager.setSpawnActive(duskCrest, false)
 
             // Unspawn Orators.
             for (spawnInst in _oratorSpawns!!.values)
-                AutoSpawnManager.getInstance().setSpawnActive(spawnInst, false)
+                AutoSpawnManager.setSpawnActive(spawnInst, false)
 
             // Unspawn Preachers.
             for (spawnInst in _preacherSpawns!!.values)
-                AutoSpawnManager.getInstance().setSpawnActive(spawnInst, false)
+                AutoSpawnManager.setSpawnActive(spawnInst, false)
 
             // Unspawn marketeer of mammon.
             for (spawnInst in _marketeerSpawns!!.values)
-                AutoSpawnManager.getInstance().setSpawnActive(spawnInst, false)
+                AutoSpawnManager.setSpawnActive(spawnInst, false)
         }
     }
 

@@ -25,7 +25,7 @@ class Q625_TheFinestIngredients_Part2 : Quest(625, "The Finest Ingredients - Par
         addAttackId(ICICLE_EMPEROR_BUMBALUMP)
         addKillId(ICICLE_EMPEROR_BUMBALUMP)
 
-        when (RaidBossSpawnManager.getInstance().getRaidBossStatusId(ICICLE_EMPEROR_BUMBALUMP)) {
+        when (RaidBossSpawnManager.getRaidBossStatusId(ICICLE_EMPEROR_BUMBALUMP)) {
             RaidBossSpawnManager.StatusEnum.ALIVE -> {
                 spawnNpc()
                 startQuestTimer("check", CHECK_INTERVAL.toLong(), null, null, true)
@@ -37,7 +37,7 @@ class Q625_TheFinestIngredients_Part2 : Quest(625, "The Finest Ingredients - Par
     override fun onAdvEvent(event: String, npc: Npc?, player: Player?): String? {
         // global quest timer has player==null -> cannot get QuestState
         if (event == "check") {
-            val raid = RaidBossSpawnManager.getInstance().bosses[ICICLE_EMPEROR_BUMBALUMP]
+            val raid = RaidBossSpawnManager.bosses[ICICLE_EMPEROR_BUMBALUMP]
             if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
                 if (_status >= 0 && _status-- == 0)
                     despawnRaid(raid)
@@ -153,7 +153,7 @@ class Q625_TheFinestIngredients_Part2 : Quest(625, "The Finest Ingredients - Par
     }
 
     private fun spawnRaid(): Boolean {
-        val raid = RaidBossSpawnManager.getInstance().bosses[ICICLE_EMPEROR_BUMBALUMP]
+        val raid = RaidBossSpawnManager.bosses[ICICLE_EMPEROR_BUMBALUMP]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
             raid.spawn.setLoc(157117, -121939, -2397, Rnd[65536])

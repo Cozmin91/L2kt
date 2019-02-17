@@ -25,7 +25,7 @@ class Q604_DaimonTheWhiteEyed_Part2 : Quest(604, "Daimon The White-Eyed - Part 2
         addAttackId(DAIMON_THE_WHITE_EYED)
         addKillId(DAIMON_THE_WHITE_EYED)
 
-        when (RaidBossSpawnManager.getInstance().getRaidBossStatusId(DAIMON_THE_WHITE_EYED)) {
+        when (RaidBossSpawnManager.getRaidBossStatusId(DAIMON_THE_WHITE_EYED)) {
             RaidBossSpawnManager.StatusEnum.ALIVE -> {
                 spawnNpc()
                 startQuestTimer("check", CHECK_INTERVAL.toLong(), null, null, true)
@@ -37,7 +37,7 @@ class Q604_DaimonTheWhiteEyed_Part2 : Quest(604, "Daimon The White-Eyed - Part 2
     override fun onAdvEvent(event: String, npc: Npc?, player: Player?): String? {
         // global quest timer has player==null -> cannot get QuestState
         if (event == "check") {
-            val raid = RaidBossSpawnManager.getInstance().bosses[DAIMON_THE_WHITE_EYED]
+            val raid = RaidBossSpawnManager.bosses[DAIMON_THE_WHITE_EYED]
             if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
                 if (_status >= 0 && _status-- == 0)
                     despawnRaid(raid)
@@ -155,7 +155,7 @@ class Q604_DaimonTheWhiteEyed_Part2 : Quest(604, "Daimon The White-Eyed - Part 2
     }
 
     private fun spawnRaid(): Boolean {
-        val raid = RaidBossSpawnManager.getInstance().bosses[DAIMON_THE_WHITE_EYED]
+        val raid = RaidBossSpawnManager.bosses[DAIMON_THE_WHITE_EYED]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
             raid.spawn.setLoc(185900, -44000, -3160, Rnd[65536])

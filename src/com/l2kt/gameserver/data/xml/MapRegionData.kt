@@ -182,7 +182,7 @@ object MapRegionData : IXmlReader {
 
         if (teleportType != TeleportType.TOWN && creature.clan != null) {
             if (teleportType == TeleportType.CLAN_HALL) {
-                val ch = ClanHallManager.getInstance().getClanHallByOwner(creature.clan)
+                val ch = ClanHallManager.getClanHallByOwner(creature.clan)
                 if (ch != null) {
                     val zone = ch.zone
                     if (zone != null)

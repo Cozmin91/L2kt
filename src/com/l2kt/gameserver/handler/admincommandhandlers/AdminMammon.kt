@@ -29,7 +29,7 @@ class AdminMammon : IAdminCommandHandler {
 
             if (teleportIndex == 1) {
                 val blackSpawnInst =
-                    AutoSpawnManager.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_BLACKSMITH_ID, false)
+                    AutoSpawnManager.getAutoSpawnInstance(SevenSigns.MAMMON_BLACKSMITH_ID, false)
                 if (blackSpawnInst != null) {
                     val blackInst = blackSpawnInst.npcInstanceList
                     if (blackInst.size > 0) {
@@ -43,7 +43,7 @@ class AdminMammon : IAdminCommandHandler {
                     activeChar.sendMessage("Blacksmith of Mammon isn't registered.")
             } else if (teleportIndex == 2) {
                 val merchSpawnInst =
-                    AutoSpawnManager.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_MERCHANT_ID, false)
+                    AutoSpawnManager.getAutoSpawnInstance(SevenSigns.MAMMON_MERCHANT_ID, false)
                 if (merchSpawnInst != null) {
                     val merchInst = merchSpawnInst.npcInstanceList
                     if (merchInst.size > 0) {
@@ -64,17 +64,17 @@ class AdminMammon : IAdminCommandHandler {
             }
 
             val merchSpawnInst =
-                AutoSpawnManager.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_MERCHANT_ID, false)
+                AutoSpawnManager.getAutoSpawnInstance(SevenSigns.MAMMON_MERCHANT_ID, false)
             if (merchSpawnInst != null) {
-                val merchRespawn = AutoSpawnManager.getInstance().getTimeToNextSpawn(merchSpawnInst)
+                val merchRespawn = AutoSpawnManager.getTimeToNextSpawn(merchSpawnInst)
                 activeChar.sendMessage("The Merchant of Mammon will respawn in " + merchRespawn / 60000 + " minute(s).")
             } else
                 activeChar.sendMessage("Merchant of Mammon isn't registered.")
 
             val blackSpawnInst =
-                AutoSpawnManager.getInstance().getAutoSpawnInstance(SevenSigns.MAMMON_BLACKSMITH_ID, false)
+                AutoSpawnManager.getAutoSpawnInstance(SevenSigns.MAMMON_BLACKSMITH_ID, false)
             if (blackSpawnInst != null) {
-                val blackRespawn = AutoSpawnManager.getInstance().getTimeToNextSpawn(blackSpawnInst)
+                val blackRespawn = AutoSpawnManager.getTimeToNextSpawn(blackSpawnInst)
                 activeChar.sendMessage("The Blacksmith of Mammon will respawn in " + blackRespawn / 60000 + " minute(s).")
             } else
                 activeChar.sendMessage("Blacksmith of Mammon isn't registered.")

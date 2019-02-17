@@ -29,16 +29,17 @@ class QueenAnt : L2AttackableAIScript("ai/individual") {
 
     init {
 
-        // Queen Ant is dead, calculate the respawn time. If passed, we spawn it directly, otherwise we set a task to spawn it lately.
-        if (GrandBossManager.getInstance().getBossStatus(QUEEN) == DEAD.toInt()) {
-            val temp =
-                GrandBossManager.getInstance().getStatsSet(QUEEN).getLong("respawn_time") - System.currentTimeMillis()
-            if (temp > 0)
-                startQuestTimer("queen_unlock", temp, null, null, false)
-            else
-                spawnBoss(true)
-        } else
-            spawnBoss(false)// Queen Ant is alive, spawn it using stored data.
+       run{
+           // Queen Ant is dead, calculate the respawn time. If passed, we spawn it directly, otherwise we set a task to spawn it lately.
+           if (GrandBossManager.getBossStatus(QUEEN) == DEAD.toInt()) {
+               val temp = GrandBossManager.getStatsSet(QUEEN)!!.getLong("respawn_time") - System.currentTimeMillis()
+               if (temp > 0)
+                   startQuestTimer("queen_unlock", temp, null, null, false)
+               else
+                   spawnBoss(true)
+           } else
+               spawnBoss(false)// Queen Ant is alive, spawn it using stored data.
+       }
     }
 
     override fun registerNpcs() {
@@ -180,7 +181,7 @@ class QueenAnt : L2AttackableAIScript("ai/individual") {
             npc.broadcastPacket(PlaySound(1, "BS02_D", npc))
 
             // Flag Queen Ant as dead.
-            GrandBossManager.getInstance().setBossStatus(QUEEN, DEAD.toInt())
+            GrandBossManager.setBossStatus(QUEEN, DEAD.toInt())
 
             // Calculate the next respawn time.
             val respawnTime =
@@ -195,9 +196,9 @@ class QueenAnt : L2AttackableAIScript("ai/individual") {
             startQuestTimer("clean", 5000, null, null, false)
 
             // Save the respawn time so that the info is maintained past reboots
-            val info = GrandBossManager.getInstance().getStatsSet(QUEEN)
+            val info = GrandBossManager.getStatsSet(QUEEN) ?: return null
             info.set("respawn_time", System.currentTimeMillis() + respawnTime)
-            GrandBossManager.getInstance().setStatsSet(QUEEN, info)
+            GrandBossManager.setStatsSet(QUEEN, info)
         } else {
             // Set the respawn time of Royal Guards and Nurses. Pick the npc master.
             val minion = npc as Monster
@@ -256,11 +257,11 @@ class QueenAnt : L2AttackableAIScript("ai/individual") {
     private fun spawnBoss(freshStart: Boolean) {
         val queen: GrandBoss
         if (freshStart) {
-            GrandBossManager.getInstance().setBossStatus(QUEEN, ALIVE.toInt())
+            GrandBossManager.setBossStatus(QUEEN, ALIVE.toInt())
 
             queen = addSpawn(QUEEN, -21610, 181594, -5734, 0, false, 0, false) as GrandBoss
         } else {
-            val info = GrandBossManager.getInstance().getStatsSet(QUEEN)
+            val info = GrandBossManager.getStatsSet(QUEEN) ?: return
 
             queen = addSpawn(
                 QUEEN,
@@ -275,7 +276,7 @@ class QueenAnt : L2AttackableAIScript("ai/individual") {
             queen.setCurrentHpMp(info.getInteger("currentHP").toDouble(), info.getInteger("currentMP").toDouble())
         }
 
-        GrandBossManager.getInstance().addBoss(queen)
+        GrandBossManager.addBoss(queen)
 
         startQuestTimer("action", 10000, queen, null, true)
         startQuestTimer("chaos", (90000 + Rnd[240000]).toLong(), queen, null, false)

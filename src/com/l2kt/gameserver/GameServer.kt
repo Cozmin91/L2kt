@@ -127,7 +127,7 @@ object GameServer {
         CrestCache
         ClanTable
         AuctionManager
-        ClanHallManager.getInstance()
+        ClanHallManager
 
         printSection("Geodata & Pathfinding")
         GeoEngine
@@ -164,9 +164,9 @@ object GameServer {
         DoorData.spawn()
         StaticObjectData
         SpawnTable
-        RaidBossSpawnManager.getInstance()
-        GrandBossManager.getInstance()
-        DayNightSpawnManager.getInstance()
+        RaidBossSpawnManager
+        GrandBossManager
+        DayNightSpawnManager
         DimensionalRiftManager
 
         printSection("Olympiads & Heroes")
@@ -200,7 +200,7 @@ object GameServer {
             FishingChampionshipManager
 
         printSection("Handlers")
-        LOGGER.info("AutoSpawnHandler: Loaded {} handlers.", AutoSpawnManager.getInstance().size())
+        LOGGER.info("AutoSpawnHandler: Loaded {} handlers.", AutoSpawnManager.size())
         LOGGER.info("Loaded {} admin command handlers.", AdminCommandHandler.size())
         LOGGER.info("Loaded {} chat handlers.", ChatHandler.size())
         LOGGER.info("Loaded {} item handlers.", ItemHandler.size())

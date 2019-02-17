@@ -150,23 +150,23 @@ class AdminSpawn : IAdminCommandHandler {
 
         } else if (command.startsWith("admin_unspawnall")) {
             SystemMessage.getSystemMessage(SystemMessageId.NPC_SERVER_NOT_OPERATING).toAllOnlinePlayers()
-            RaidBossSpawnManager.getInstance().cleanUp()
-            DayNightSpawnManager.getInstance().cleanUp()
+            RaidBossSpawnManager.cleanUp()
+            DayNightSpawnManager.cleanUp()
             World.deleteVisibleNpcSpawns()
             AdminData.broadcastMessageToGMs("NPCs' unspawn is now complete.")
         } else if (command.startsWith("admin_spawnday"))
-            DayNightSpawnManager.getInstance().spawnDayCreatures()
+            DayNightSpawnManager.spawnDayCreatures()
         else if (command.startsWith("admin_spawnnight"))
-            DayNightSpawnManager.getInstance().spawnNightCreatures()
+            DayNightSpawnManager.spawnNightCreatures()
         else if (command.startsWith("admin_respawnall") || command.startsWith("admin_spawn_reload")) {
             // make sure all spawns are deleted
-            RaidBossSpawnManager.getInstance().cleanUp()
-            DayNightSpawnManager.getInstance().cleanUp()
+            RaidBossSpawnManager.cleanUp()
+            DayNightSpawnManager.cleanUp()
             World.deleteVisibleNpcSpawns()
             // now respawn all
             NpcData.reload()
             SpawnTable.reloadAll()
-            RaidBossSpawnManager.getInstance().reloadBosses()
+            RaidBossSpawnManager.reloadBosses()
             SevenSigns.spawnSevenSignsNPC()
             AdminData.broadcastMessageToGMs("NPCs' respawn is now complete.")
         } else if (command.startsWith("admin_spawnfence")) {
@@ -268,15 +268,15 @@ class AdminSpawn : IAdminCommandHandler {
                 spawn.setLoc(target.x, target.y, target.z, activeChar.heading)
                 spawn.respawnDelay = respawnTime
 
-                if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.npcId) != null) {
-                    if (RaidBossSpawnManager.getInstance().isDefined(spawn.npcId)) {
+                if (RaidBossSpawnManager.getValidTemplate(spawn.npcId) != null) {
+                    if (RaidBossSpawnManager.isDefined(spawn.npcId)) {
                         activeChar.sendMessage("You cannot spawn another instance of " + template!!.name + ".")
                         return
                     }
 
                     spawn.respawnMinDelay = 43200
                     spawn.respawnMaxDelay = 129600
-                    RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, 0.0, 0.0, permanent)
+                    RaidBossSpawnManager.addNewSpawn(spawn, 0, 0.0, 0.0, permanent)
                 } else {
                     SpawnTable.addNewSpawn(spawn, permanent)
                     spawn.doSpawn(false)

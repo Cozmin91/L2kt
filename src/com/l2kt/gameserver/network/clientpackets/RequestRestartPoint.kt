@@ -63,7 +63,7 @@ class RequestRestartPoint : L2GameClientPacket() {
 
             loc = MapRegionData.getLocationToTeleport(player, MapRegionData.TeleportType.CLAN_HALL)
 
-            val ch = ClanHallManager.getInstance().getClanHallByOwner(clan)
+            val ch = ClanHallManager.getClanHallByOwner(clan)
             if (ch != null) {
                 val function = ch.getFunction(ClanHall.FUNC_RESTORE_EXP)
                 if (function != null)

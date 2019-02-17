@@ -30,7 +30,7 @@ class AdminSiege : IAdminCommandHandler {
         var clanhall: ClanHall? = null
 
         if (command.startsWith("admin_clanhall"))
-            clanhall = ClanHallManager.getInstance().getClanHallById(Integer.parseInt(st.nextToken()))
+            clanhall = ClanHallManager.getClanHallById(Integer.parseInt(st.nextToken()))
         else if (st.hasMoreTokens())
             castle = CastleManager.getCastleByName(st.nextToken())
 
@@ -120,17 +120,17 @@ class AdminSiege : IAdminCommandHandler {
             if (command.equals("admin_clanhallset", ignoreCase = true)) {
                 if (player == null || player.clan == null)
                     activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT)
-                else if (!ClanHallManager.getInstance().isFree(clanhall.id))
+                else if (!ClanHallManager.isFree(clanhall.id))
                     activeChar.sendMessage("This ClanHall isn't free!")
                 else if (!player.clan.hasHideout()) {
-                    ClanHallManager.getInstance().setOwner(clanhall.id, player.clan)
+                    ClanHallManager.setOwner(clanhall.id, player.clan)
                     if (AuctionManager.getAuction(clanhall.id) != null)
                         AuctionManager.getAuction(clanhall.id)!!.deleteAuctionFromDB()
                 } else
                     activeChar.sendMessage("You have already a ClanHall!")
             } else if (command.equals("admin_clanhalldel", ignoreCase = true)) {
-                if (!ClanHallManager.getInstance().isFree(clanhall.id)) {
-                    ClanHallManager.getInstance().setFree(clanhall.id)
+                if (!ClanHallManager.isFree(clanhall.id)) {
+                    ClanHallManager.setFree(clanhall.id)
                     AuctionManager.initNPC(clanhall.id)
                 } else
                     activeChar.sendMessage("This ClanHall is already Free!")
@@ -211,7 +211,7 @@ class AdminSiege : IAdminCommandHandler {
             sb.setLength(0)
             i = 0
 
-            for (clanhall in ClanHallManager.getInstance().clanHalls.values) {
+            for (clanhall in ClanHallManager.clanHalls.values) {
                 if (clanhall != null) {
                     StringUtil.append(
                         sb,
@@ -235,7 +235,7 @@ class AdminSiege : IAdminCommandHandler {
             sb.setLength(0)
             i = 0
 
-            for (clanhall in ClanHallManager.getInstance().freeClanHalls.values) {
+            for (clanhall in ClanHallManager.freeClanHalls.values) {
                 if (clanhall != null) {
                     StringUtil.append(
                         sb,

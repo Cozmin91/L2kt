@@ -19,32 +19,33 @@ class Core : L2AttackableAIScript("ai/individual") {
     private val _minions = ArrayList<Attackable>()
 
     init {
-
-        val info = GrandBossManager.getInstance().getStatsSet(CORE)
-        val status = GrandBossManager.getInstance().getBossStatus(CORE)
-        if (status == DEAD.toInt()) {
-            // load the unlock date and time for Core from DB
-            val temp = info.getLong("respawn_time") - System.currentTimeMillis()
-            if (temp > 0) {
-                // The time has not yet expired. Mark Core as currently locked (dead).
-                startQuestTimer("core_unlock", temp, null, null, false)
+        run{
+            val info = GrandBossManager.getStatsSet(CORE) ?: return@run
+            val status = GrandBossManager.getBossStatus(CORE)
+            if (status == DEAD.toInt()) {
+                // load the unlock date and time for Core from DB
+                val temp = info.getLong("respawn_time") - System.currentTimeMillis()
+                if (temp > 0) {
+                    // The time has not yet expired. Mark Core as currently locked (dead).
+                    startQuestTimer("core_unlock", temp, null, null, false)
+                } else {
+                    // The time has expired while the server was offline. Spawn Core.
+                    val core = addSpawn(CORE, 17726, 108915, -6480, 0, false, 0, false) as GrandBoss
+                    GrandBossManager.setBossStatus(CORE, ALIVE.toInt())
+                    spawnBoss(core)
+                }
             } else {
-                // The time has expired while the server was offline. Spawn Core.
-                val core = addSpawn(CORE, 17726, 108915, -6480, 0, false, 0, false) as GrandBoss
-                GrandBossManager.getInstance().setBossStatus(CORE, ALIVE.toInt())
+                val loc_x = info.getInteger("loc_x")
+                val loc_y = info.getInteger("loc_y")
+                val loc_z = info.getInteger("loc_z")
+                val heading = info.getInteger("heading")
+                val hp = info.getInteger("currentHP")
+                val mp = info.getInteger("currentMP")
+
+                val core = addSpawn(CORE, loc_x, loc_y, loc_z, heading, false, 0, false) as GrandBoss
+                core.setCurrentHpMp(hp.toDouble(), mp.toDouble())
                 spawnBoss(core)
             }
-        } else {
-            val loc_x = info.getInteger("loc_x")
-            val loc_y = info.getInteger("loc_y")
-            val loc_z = info.getInteger("loc_z")
-            val heading = info.getInteger("heading")
-            val hp = info.getInteger("currentHP")
-            val mp = info.getInteger("currentMP")
-
-            val core = addSpawn(CORE, loc_x, loc_y, loc_z, heading, false, 0, false) as GrandBoss
-            core.setCurrentHpMp(hp.toDouble(), mp.toDouble())
-            spawnBoss(core)
         }
     }
 
@@ -54,7 +55,7 @@ class Core : L2AttackableAIScript("ai/individual") {
     }
 
     fun spawnBoss(npc: GrandBoss) {
-        GrandBossManager.getInstance().addBoss(npc)
+        GrandBossManager.addBoss(npc)
         npc.broadcastPacket(PlaySound(1, "BS01_A", npc))
 
         // Spawn minions
@@ -84,7 +85,7 @@ class Core : L2AttackableAIScript("ai/individual") {
     override fun onAdvEvent(event: String, npc: Npc?, player: Player?): String? {
         if (event.equals("core_unlock", ignoreCase = true)) {
             val core = addSpawn(CORE, 17726, 108915, -6480, 0, false, 0, false) as GrandBoss
-            GrandBossManager.getInstance().setBossStatus(CORE, ALIVE.toInt())
+            GrandBossManager.setBossStatus(CORE, ALIVE.toInt())
             spawnBoss(core)
         } else if (event.equals("spawn_minion", ignoreCase = true)) {
             val mob = addSpawn(npc!!.npcId, npc.x, npc.y, npc.z, npc.heading, false, 0, false) as Attackable
@@ -123,7 +124,7 @@ class Core : L2AttackableAIScript("ai/individual") {
 
             addSpawn(31842, 16502, 110165, -6394, 0, false, 900000, false)
             addSpawn(31842, 18948, 110166, -6397, 0, false, 900000, false)
-            GrandBossManager.getInstance().setBossStatus(CORE, DEAD.toInt())
+            GrandBossManager.setBossStatus(CORE, DEAD.toInt())
 
             var respawnTime =
                 Config.SPAWN_INTERVAL_CORE.toLong() + Rnd[-Config.RANDOM_SPAWN_TIME_CORE, Config.RANDOM_SPAWN_TIME_CORE]
@@ -131,12 +132,12 @@ class Core : L2AttackableAIScript("ai/individual") {
 
             startQuestTimer("core_unlock", respawnTime, null, null, false)
 
-            val info = GrandBossManager.getInstance().getStatsSet(CORE)
+            val info = GrandBossManager.getStatsSet(CORE) ?: return null
             info.set("respawn_time", System.currentTimeMillis() + respawnTime)
-            GrandBossManager.getInstance().setStatsSet(CORE, info)
+            GrandBossManager.setStatsSet(CORE, info)
             startQuestTimer("despawn_minions", 20000, null, null, false)
             cancelQuestTimers("spawn_minion")
-        } else if (GrandBossManager.getInstance().getBossStatus(CORE) == ALIVE.toInt() && _minions != null && _minions.contains(
+        } else if (GrandBossManager.getBossStatus(CORE) == ALIVE.toInt() && _minions != null && _minions.contains(
                 npc
             )
         ) {

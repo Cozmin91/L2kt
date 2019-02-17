@@ -396,7 +396,7 @@ public class Auction
 	/** End of auction */
 	public void endAuction()
 	{
-		if (ClanHallManager.getInstance().loaded())
+		if (ClanHallManager.INSTANCE.loaded())
 		{
 			if (_highestBidderId == 0 && _sellerId == 0)
 			{
@@ -420,14 +420,14 @@ public class Auction
 			if (_sellerId > 0)
 			{
 				returnItem(_sellerClanName, _highestBidderMaxBid, true);
-				returnItem(_sellerClanName, ClanHallManager.getInstance().getClanHallById(_itemId).getLease(), false);
+				returnItem(_sellerClanName, ClanHallManager.INSTANCE.getClanHallById(_itemId).getLease(), false);
 			}
 			
 			deleteAuctionFromDB();
 			
 			Clan newOwner = ClanTable.INSTANCE.getClanByName(_bidders.get(_highestBidderId).getClanName());
 			removeBids(newOwner);
-			ClanHallManager.getInstance().setOwner(_itemId, newOwner);
+			ClanHallManager.INSTANCE.setOwner(_itemId, newOwner);
 		}
 		// Task waiting ClanHallManager is loaded every 3s
 		else

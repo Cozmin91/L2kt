@@ -51,7 +51,7 @@ public class Door extends Creature implements IGeoObject
 			_castle.getDoors().add(this);
 		
 		// assign door to a clan hall
-		_clanHall = ClanHallManager.getInstance().getNearbyClanHall(template.getPosX(), template.getPosY(), 500);
+		_clanHall = ClanHallManager.INSTANCE.getNearbyClanHall(template.getPosX(), template.getPosY(), 500);
 		if (_clanHall != null)
 			_clanHall.getDoors().add(this);
 		

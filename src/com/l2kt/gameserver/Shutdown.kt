@@ -72,10 +72,10 @@ class Shutdown : Thread {
 
             ZoneManager.save()
 
-            RaidBossSpawnManager.getInstance().cleanUp()
+            RaidBossSpawnManager.cleanUp()
             LOGGER.info("Raid Bosses data has been saved.")
 
-            GrandBossManager.getInstance().cleanUp()
+            GrandBossManager.cleanUp()
             LOGGER.info("World Bosses data has been saved.")
 
             Olympiad.saveOlympiadStatus()
@@ -145,13 +145,13 @@ class Shutdown : Thread {
      * @param seconds : The number of seconds until shutdown.
      * @param restart : If true, the server will restart after shutdown.
      */
-    fun startShutdown(player: Player?, ghostEntity: String, seconds: Int, restart: Boolean) {
+    fun startShutdown(player: Player?, ghostEntity: String?, seconds: Int, restart: Boolean) {
         _shutdownMode = if (restart) GM_RESTART else GM_SHUTDOWN
 
         if (player != null)
             LOGGER.info("GM: {} issued {} process in {} seconds.", player.toString(), MODE_TEXT[_shutdownMode], seconds)
-        else if (!ghostEntity.isEmpty())
-            LOGGER.info("Entity: {} issued {} process in {} seconds.", ghostEntity, MODE_TEXT[_shutdownMode], seconds)
+        else if (!ghostEntity.isNullOrEmpty())
+            LOGGER.info("Entity: {} issued {} process in {} seconds.", ghostEntity ?: "", MODE_TEXT[_shutdownMode], seconds)
 
         if (_shutdownMode > 0) {
             when (seconds) {

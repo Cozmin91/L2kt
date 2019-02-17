@@ -30,43 +30,45 @@ class DrChaos : L2AttackableAIScript("ai/individual") {
 
     init {
 
-        addFirstTalkId(DOCTOR_CHAOS) // Different HTMs following actual humor.
-        addSpawnId(DOCTOR_CHAOS) // Timer activation at 30sec + paranoia activity.
+        run{
+            addFirstTalkId(DOCTOR_CHAOS) // Different HTMs following actual humor.
+            addSpawnId(DOCTOR_CHAOS) // Timer activation at 30sec + paranoia activity.
 
-        val info = GrandBossManager.getInstance().getStatsSet(CHAOS_GOLEM)
-        val status = GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM)
+            val info = GrandBossManager.getStatsSet(CHAOS_GOLEM) ?: return@run
+            val status = GrandBossManager.getBossStatus(CHAOS_GOLEM)
 
-        // Load the reset date and time for Dr. Chaos from DB.
-        if (status == DEAD.toInt()) {
-            val temp = info.getLong("respawn_time") - System.currentTimeMillis()
-            if (temp > 0)
-                startQuestTimer("reset_drchaos", temp, null, null, false)
-            else {
-                // The time has already expired while the server was offline. Delete the saved time and
-                // immediately spawn Dr. Chaos. Also the state need to be changed for NORMAL
-                addSpawn(DOCTOR_CHAOS, 96320, -110912, -3328, 8191, false, 0, false)
-                GrandBossManager.getInstance().setBossStatus(CHAOS_GOLEM, NORMAL.toInt())
-            }
-        } else if (status == CRAZY.toInt()) {
-            val loc_x = info.getInteger("loc_x")
-            val loc_y = info.getInteger("loc_y")
-            val loc_z = info.getInteger("loc_z")
-            val heading = info.getInteger("heading")
-            val hp = info.getInteger("currentHP")
-            val mp = info.getInteger("currentMP")
+            // Load the reset date and time for Dr. Chaos from DB.
+            if (status == DEAD.toInt()) {
+                val temp = info.getLong("respawn_time") - System.currentTimeMillis()
+                if (temp > 0)
+                    startQuestTimer("reset_drchaos", temp, null, null, false)
+                else {
+                    // The time has already expired while the server was offline. Delete the saved time and
+                    // immediately spawn Dr. Chaos. Also the state need to be changed for NORMAL
+                    addSpawn(DOCTOR_CHAOS, 96320, -110912, -3328, 8191, false, 0, false)
+                    GrandBossManager.setBossStatus(CHAOS_GOLEM, NORMAL.toInt())
+                }
+            } else if (status == CRAZY.toInt()) {
+                val loc_x = info.getInteger("loc_x")
+                val loc_y = info.getInteger("loc_y")
+                val loc_z = info.getInteger("loc_z")
+                val heading = info.getInteger("heading")
+                val hp = info.getInteger("currentHP")
+                val mp = info.getInteger("currentMP")
 
-            val golem = addSpawn(CHAOS_GOLEM, loc_x, loc_y, loc_z, heading, false, 0, false) as GrandBoss
-            GrandBossManager.getInstance().addBoss(golem)
+                val golem = addSpawn(CHAOS_GOLEM, loc_x, loc_y, loc_z, heading, false, 0, false) as GrandBoss
+                GrandBossManager.addBoss(golem)
 
-            golem.setCurrentHpMp(hp.toDouble(), mp.toDouble())
-            golem.setRunning()
+                golem.setCurrentHpMp(hp.toDouble(), mp.toDouble())
+                golem.setRunning()
 
-            // start monitoring Dr. Chaos's inactivity
-            _lastAttackTime = System.currentTimeMillis()
-            startQuestTimer("golem_despawn", 60000, golem, null, true)
-        } else
-            addSpawn(DOCTOR_CHAOS, 96320, -110912, -3328, 8191, false, 0, false)// Spawn the regular NPC.
-        // Spawn the war golem.
+                // start monitoring Dr. Chaos's inactivity
+                _lastAttackTime = System.currentTimeMillis()
+                startQuestTimer("golem_despawn", 60000, golem, null, true)
+            } else
+                addSpawn(DOCTOR_CHAOS, 96320, -110912, -3328, 8191, false, 0, false)// Spawn the regular NPC.
+            // Spawn the war golem.
+        }
     }
 
     override fun registerNpcs() {
@@ -77,7 +79,7 @@ class DrChaos : L2AttackableAIScript("ai/individual") {
     override fun onAdvEvent(event: String, npc: Npc?, player: Player?): String? {
         var npc = npc
         if (event.equals("reset_drchaos", ignoreCase = true)) {
-            GrandBossManager.getInstance().setBossStatus(CHAOS_GOLEM, NORMAL.toInt())
+            GrandBossManager.setBossStatus(CHAOS_GOLEM, NORMAL.toInt())
             addSpawn(DOCTOR_CHAOS, 96320, -110912, -3328, 8191, false, 0, false)
         } else if (event.equals("golem_despawn", ignoreCase = true) && npc != null) {
             if (npc.npcId == CHAOS_GOLEM) {
@@ -86,7 +88,7 @@ class DrChaos : L2AttackableAIScript("ai/individual") {
                     npc.deleteMe()
 
                     addSpawn(DOCTOR_CHAOS, 96320, -110912, -3328, 8191, false, 0, false) // spawn Dr. Chaos
-                    GrandBossManager.getInstance()
+                    GrandBossManager
                         .setBossStatus(CHAOS_GOLEM, NORMAL.toInt()) // mark Dr. Chaos is not crazy any more
                     cancelQuestTimer("golem_despawn", npc, null)
                 }
@@ -105,7 +107,7 @@ class DrChaos : L2AttackableAIScript("ai/individual") {
             // Delete Dr. Chaos && spawn the war golem.
             npc!!.deleteMe()
             val golem = addSpawn(CHAOS_GOLEM, 96080, -110822, -3343, 0, false, 0, false) as GrandBoss
-            GrandBossManager.getInstance().addBoss(golem)
+            GrandBossManager.addBoss(golem)
 
             // The "npc" variable attribution is now for the golem.
             npc = golem
@@ -117,7 +119,7 @@ class DrChaos : L2AttackableAIScript("ai/individual") {
             _lastAttackTime = System.currentTimeMillis()
             startQuestTimer("golem_despawn", 60000, npc, null, true)
         } else if (event.equals("paranoia_activity", ignoreCase = true)) {
-            if (GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM) == NORMAL.toInt()) {
+            if (GrandBossManager.getBossStatus(CHAOS_GOLEM) == NORMAL.toInt()) {
                 for (obj in npc!!.getKnownTypeInRadius(Player::class.java, 500)) {
                     if (obj.isDead)
                         continue
@@ -143,7 +145,7 @@ class DrChaos : L2AttackableAIScript("ai/individual") {
     override fun onFirstTalk(npc: Npc, player: Player): String? {
         var htmltext = ""
 
-        if (GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM) == NORMAL.toInt()) {
+        if (GrandBossManager.getBossStatus(CHAOS_GOLEM) == NORMAL.toInt()) {
             _pissedOffTimer -= Rnd[1, 5] // remove 1-5 secs.
 
             if (_pissedOffTimer > 20)
@@ -180,13 +182,13 @@ class DrChaos : L2AttackableAIScript("ai/individual") {
         // "lock" Dr. Chaos for regular RB time (36H fixed +- 24H random)
         val respawnTime = ((36 + Rnd[-24, 24]) * 3600000).toLong()
 
-        GrandBossManager.getInstance().setBossStatus(CHAOS_GOLEM, DEAD.toInt())
+        GrandBossManager.setBossStatus(CHAOS_GOLEM, DEAD.toInt())
         startQuestTimer("reset_drchaos", respawnTime, null, null, false)
 
         // also save the respawn time so that the info is maintained past reboots
-        val info = GrandBossManager.getInstance().getStatsSet(CHAOS_GOLEM)
+        val info = GrandBossManager.getStatsSet(CHAOS_GOLEM) ?: return null
         info.set("respawn_time", System.currentTimeMillis() + respawnTime)
-        GrandBossManager.getInstance().setStatsSet(CHAOS_GOLEM, info)
+        GrandBossManager.setStatsSet(CHAOS_GOLEM, info)
 
         return null
     }
@@ -205,11 +207,11 @@ class DrChaos : L2AttackableAIScript("ai/individual") {
      * @param npc the midget.
      */
     private fun crazyMidgetBecomesAngry(npc: Npc) {
-        if (GrandBossManager.getInstance().getBossStatus(CHAOS_GOLEM) != NORMAL.toInt())
+        if (GrandBossManager.getBossStatus(CHAOS_GOLEM) != NORMAL.toInt())
             return
 
         // Set the status to "crazy".
-        GrandBossManager.getInstance().setBossStatus(CHAOS_GOLEM, CRAZY.toInt())
+        GrandBossManager.setBossStatus(CHAOS_GOLEM, CRAZY.toInt())
 
         // Cancels the paranoia timer.
         cancelQuestTimer("paranoia_activity", npc, null)

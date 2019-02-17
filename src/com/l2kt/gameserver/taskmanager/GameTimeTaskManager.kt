@@ -108,7 +108,7 @@ object GameTimeTaskManager : Runnable {
             _isNight = !_isNight
 
             // Inform day/night spawn manager.
-            DayNightSpawnManager.getInstance().notifyChangeMode()
+            DayNightSpawnManager.notifyChangeMode()
 
             // Set Shadow Sense skill to apply/remove effect from players.
             skill = SkillTable.getInfo(L2Skill.SKILL_SHADOW_SENSE, 1)

@@ -24,36 +24,37 @@ class Sailren : L2AttackableAIScript("ai/individual") {
     private val _mobs = CopyOnWriteArrayList<Npc>()
 
     init {
+        run{
+            val info = GrandBossManager.getStatsSet(SAILREN) ?: return@run
 
-        val info = GrandBossManager.getInstance().getStatsSet(SAILREN)
+            when (GrandBossManager.getBossStatus(SAILREN).toByte()) {
+                DEAD // Launch the timer to set DORMANT, or set DORMANT directly if timer expired while offline.
+                -> {
+                    val temp = info.getLong("respawn_time") - System.currentTimeMillis()
+                    if (temp > 0)
+                        startQuestTimer("unlock", temp, null, null, false)
+                    else
+                        GrandBossManager.setBossStatus(SAILREN, DORMANT.toInt())
+                }
 
-        when (GrandBossManager.getInstance().getBossStatus(SAILREN).toByte()) {
-            DEAD // Launch the timer to set DORMANT, or set DORMANT directly if timer expired while offline.
-            -> {
-                val temp = info.getLong("respawn_time") - System.currentTimeMillis()
-                if (temp > 0)
-                    startQuestTimer("unlock", temp, null, null, false)
-                else
-                    GrandBossManager.getInstance().setBossStatus(SAILREN, DORMANT.toInt())
-            }
+                FIGHTING -> {
+                    val loc_x = info.getInteger("loc_x")
+                    val loc_y = info.getInteger("loc_y")
+                    val loc_z = info.getInteger("loc_z")
+                    val heading = info.getInteger("heading")
+                    val hp = info.getInteger("currentHP")
+                    val mp = info.getInteger("currentMP")
 
-            FIGHTING -> {
-                val loc_x = info.getInteger("loc_x")
-                val loc_y = info.getInteger("loc_y")
-                val loc_z = info.getInteger("loc_z")
-                val heading = info.getInteger("heading")
-                val hp = info.getInteger("currentHP")
-                val mp = info.getInteger("currentMP")
+                    val sailren = addSpawn(SAILREN, loc_x, loc_y, loc_z, heading, false, 0, false)
+                    GrandBossManager.addBoss(sailren as GrandBoss)
+                    _mobs.add(sailren)
 
-                val sailren = addSpawn(SAILREN, loc_x, loc_y, loc_z, heading, false, 0, false)
-                GrandBossManager.getInstance().addBoss(sailren as GrandBoss)
-                _mobs.add(sailren)
+                    sailren.setCurrentHpMp(hp.toDouble(), mp.toDouble())
+                    sailren.setRunning()
 
-                sailren.setCurrentHpMp(hp.toDouble(), mp.toDouble())
-                sailren.setRunning()
-
-                // Don't need to edit _timeTracker, as it's initialized to 0.
-                startQuestTimer("inactivity", INTERVAL_CHECK, null, null, true)
+                    // Don't need to edit _timeTracker, as it's initialized to 0.
+                    startQuestTimer("inactivity", INTERVAL_CHECK, null, null, true)
+                }
             }
         }
     }
@@ -105,7 +106,7 @@ class Sailren : L2AttackableAIScript("ai/individual") {
             SAILREN_LAIR.broadcastPacket(SpecialCamera(npc!!.objectId, 160, 560, 0, 3000, 3000, 0, 10, 1, 0))
 
             val temp = addSpawn(SAILREN, SAILREN_LOC, false, 0, false)
-            GrandBossManager.getInstance().addBoss(temp as GrandBoss)
+            GrandBossManager.addBoss(temp as GrandBoss)
             _mobs.add(temp)
 
             // Stop skill task.
@@ -116,12 +117,12 @@ class Sailren : L2AttackableAIScript("ai/individual") {
         } else if (event.equals("camera_5", ignoreCase = true))
             SAILREN_LAIR.broadcastPacket(SpecialCamera(npc!!.objectId, 70, 560, 0, 500, 7000, -15, 10, 1, 0))
         else if (event.equals("unlock", ignoreCase = true))
-            GrandBossManager.getInstance().setBossStatus(SAILREN, DORMANT.toInt())
+            GrandBossManager.setBossStatus(SAILREN, DORMANT.toInt())
         else if (event.equals("inactivity", ignoreCase = true)) {
             // 10 minutes without any attack activity leads to a reset.
             if (System.currentTimeMillis() - _timeTracker >= INTERVAL_CHECK) {
                 // Set it dormant.
-                GrandBossManager.getInstance().setBossStatus(SAILREN, DORMANT.toInt())
+                GrandBossManager.setBossStatus(SAILREN, DORMANT.toInt())
 
                 // Delete all monsters and clean the list.
                 if (!_mobs.isEmpty()) {
@@ -179,7 +180,7 @@ class Sailren : L2AttackableAIScript("ai/individual") {
 
             SAILREN -> if (_mobs.remove(npc)) {
                 // Set Sailren as dead.
-                GrandBossManager.getInstance().setBossStatus(SAILREN, DEAD.toInt())
+                GrandBossManager.setBossStatus(SAILREN, DEAD.toInt())
 
                 // Spawn the Teleport Cube for 10min.
                 addSpawn(CUBE, npc, false, INTERVAL_CHECK, false)
@@ -195,9 +196,9 @@ class Sailren : L2AttackableAIScript("ai/individual") {
                 startQuestTimer("unlock", respawnTime, null, null, false)
 
                 // Save the respawn time so that the info is maintained past reboots.
-                val info = GrandBossManager.getInstance().getStatsSet(SAILREN)
+                val info = GrandBossManager.getStatsSet(SAILREN) ?: return null
                 info.set("respawn_time", System.currentTimeMillis() + respawnTime)
-                GrandBossManager.getInstance().setStatsSet(SAILREN, info)
+                GrandBossManager.setStatsSet(SAILREN, info)
             }
         }
 

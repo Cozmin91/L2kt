@@ -87,7 +87,7 @@ public class ClanHallDoorman extends Doorman
 	@Override
 	public void onSpawn()
 	{
-		_clanHall = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
+		_clanHall = ClanHallManager.INSTANCE.getNearbyClanHall(getX(), getY(), 500);
 		super.onSpawn();
 	}
 }
