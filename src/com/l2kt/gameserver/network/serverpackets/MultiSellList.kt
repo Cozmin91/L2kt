@@ -39,8 +39,8 @@ class MultiSellList(private val _list: ListContainer, private var _index: Int) :
             for (ing in ent.products) {
                 writeH(ing.itemId)
                 if (ing.template != null) {
-                    writeD(ing.template.bodyPart)
-                    writeH(ing.template.type2)
+                    writeD(ing.template!!.bodyPart)
+                    writeH(ing.template!!.type2)
                 } else {
                     writeD(0)
                     writeH(65535)
@@ -53,7 +53,7 @@ class MultiSellList(private val _list: ListContainer, private var _index: Int) :
 
             for (ing in ent.ingredients) {
                 writeH(ing.itemId)
-                writeH(if (ing.template != null) ing.template.type2 else 65535)
+                writeH(if (ing.template != null) ing.template!!.type2 else 65535)
                 writeD(ing.itemCount)
                 writeH(ing.enchantLevel)
                 writeD(0x00) // TODO: i.getAugmentId()

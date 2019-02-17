@@ -442,7 +442,7 @@ class ItemInstance : WorldObject, Runnable, Comparable<ItemInstance> {
         else
             this.count = this.count + count
 
-        if (count < 0)
+        if (this.count < 0)
             this.count = 0
 
         _storedInDb = false
