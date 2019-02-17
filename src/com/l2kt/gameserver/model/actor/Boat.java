@@ -166,7 +166,7 @@ public class Boat extends Creature
 	public void oustPlayers()
 	{
 		for (Player player : _passengers)
-			oustPlayer(player, false, Location.DUMMY_LOC);
+			oustPlayer(player, false, Location.Companion.getDUMMY_LOC());
 		
 		_passengers.clear();
 	}
@@ -181,7 +181,7 @@ public class Boat extends Creature
 		player.setInsideZone(ZoneId.PEACE, false);
 		player.sendPacket(SystemMessageId.EXIT_PEACEFUL_ZONE);
 		
-		final Location loc = (location.equals(Location.DUMMY_LOC)) ? MapRegionData.INSTANCE.getLocationToTeleport(this, MapRegionData.TeleportType.TOWN) : location;
+		final Location loc = (location.equals(Location.Companion.getDUMMY_LOC())) ? MapRegionData.INSTANCE.getLocationToTeleport(this, MapRegionData.TeleportType.TOWN) : location;
 		if (player.isOnline())
 			player.teleToLocation(loc.getX(), loc.getY(), loc.getZ(), 0);
 		else

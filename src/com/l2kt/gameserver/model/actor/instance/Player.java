@@ -7338,7 +7338,7 @@ public final class Player extends Playable
 	
 	public boolean isInObserverMode()
 	{
-		return !_isInOlympiadMode && !_savedLocation.equals(Location.DUMMY_LOC);
+		return !_isInOlympiadMode && !_savedLocation.equals(Location.Companion.getDUMMY_LOC());
 	}
 	
 	public int getTeleMode()
@@ -8418,7 +8418,7 @@ public final class Player extends Playable
 			
 			// Oust player from boat
 			if (getBoat() != null)
-				getBoat().oustPlayer(this, true, Location.DUMMY_LOC);
+				getBoat().oustPlayer(this, true, Location.Companion.getDUMMY_LOC());
 			
 			// Update inventory and remove them from the world
 			getInventory().deleteMe();

@@ -118,7 +118,7 @@ public class PlayerTemplate extends CreatureTemplate
 	public final Location getRandomSpawn()
 	{
 		final Location loc = Rnd.INSTANCE.get(_spawnLocations);
-		return (loc == null) ? Location.DUMMY_LOC : loc;
+		return (loc == null) ? Location.Companion.getDUMMY_LOC() : loc;
 	}
 	
 	public final int getClassBaseLevel()
