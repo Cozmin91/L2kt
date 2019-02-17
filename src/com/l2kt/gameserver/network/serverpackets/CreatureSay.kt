@@ -1,18 +1,17 @@
 package com.l2kt.gameserver.network.serverpackets
 
 import com.l2kt.gameserver.network.SystemMessageId
-import java.util.*
 
 class CreatureSay : L2GameServerPacket {
     private val _objectId: Int
     private val _textType: Int
-    private var _charName: String = ""
+    private var _charName: String? = null
     private var _charId = 0
     private var _text: String = ""
     private var _npcString = -1
     private var _parameters: MutableList<String> = mutableListOf()
 
-    constructor(objectId: Int, messageType: Int, charName: String, text: String) {
+    constructor(objectId: Int, messageType: Int, charName: String?, text: String) {
         _objectId = objectId
         _textType = messageType
         _charName = charName
@@ -34,7 +33,7 @@ class CreatureSay : L2GameServerPacket {
         writeC(0x4a)
         writeD(_objectId)
         writeD(_textType)
-        if (!_charName.isEmpty())
+        if (_charName != null)
             writeS(_charName)
         else
             writeD(_charId)

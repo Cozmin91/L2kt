@@ -162,10 +162,10 @@ class Shutdown : Thread {
         }
 
         if (counterInstance != null)
-            counterInstance!!.setShutdownMode(ABORT)
+            counterInstance?.setShutdownMode(ABORT)
 
         counterInstance = Shutdown(seconds, restart)
-        counterInstance!!.start()
+        counterInstance?.start()
     }
 
     /**
@@ -176,8 +176,7 @@ class Shutdown : Thread {
         if (counterInstance != null) {
             LOGGER.info("GM: {} aborted {} process.", player.toString(), MODE_TEXT[_shutdownMode])
             counterInstance!!.setShutdownMode(ABORT)
-
-            "Server aborted " + MODE_TEXT[_shutdownMode] + " process and continues normal operation.".announceToOnlinePlayers()
+            "Server aborted ${MODE_TEXT[_shutdownMode]} process and continues normal operation.".announceToOnlinePlayers()
         }
     }
 
