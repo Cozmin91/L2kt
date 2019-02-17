@@ -1504,7 +1504,7 @@ public final class Player extends Playable
 		
 		try
 		{
-			if (getLvlJoinedAcademy() != 0 && _clan != null && ClassId.VALUES[Id].level() == 2)
+			if (getLvlJoinedAcademy() != 0 && _clan != null && ClassId.Companion.getVALUES()[Id].level() == 2)
 			{
 				if (getLvlJoinedAcademy() <= 16)
 					_clan.addReputationScore(400);

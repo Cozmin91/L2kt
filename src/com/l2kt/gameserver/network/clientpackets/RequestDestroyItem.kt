@@ -37,7 +37,7 @@ class RequestDestroyItem : L2GameClientPacket() {
         val itemId = itemToRemove.itemId
 
         // Cannot discard item that the skill is consumming
-        if (player.isCastingNow && player.currentSkill.skill != null && player.currentSkill.skill.itemConsumeId == itemId) {
+        if (player.isCastingNow && player.currentSkill.skill != null && player.currentSkill.skill?.itemConsumeId == itemId) {
             player.sendPacket(SystemMessageId.CANNOT_DISCARD_THIS_ITEM)
             return
         }

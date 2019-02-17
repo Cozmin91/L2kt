@@ -71,7 +71,7 @@ class RequestDropItem : L2GameClientPacket() {
         }
 
         if (activeChar.isCastingNow) {
-            if (activeChar.currentSkill.skill != null && activeChar.currentSkill.skill.itemConsumeId == item.itemId) {
+            if (activeChar.currentSkill.skill != null && activeChar.currentSkill.skill?.itemConsumeId == item.itemId) {
                 activeChar.sendPacket(SystemMessageId.CANNOT_DISCARD_THIS_ITEM)
                 return
             }

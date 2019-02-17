@@ -613,7 +613,7 @@ public class VillageMaster extends Folk
 	
 	private final Set<ClassId> getAvailableSubClasses(Player player)
 	{
-		Set<ClassId> availSubs = ClassId.getAvailableSubclasses(player);
+		Set<ClassId> availSubs = ClassId.Companion.getAvailableSubclasses(player);
 		
 		if (availSubs != null && !availSubs.isEmpty())
 		{
@@ -654,14 +654,14 @@ public class VillageMaster extends Folk
 		if (!checkVillageMaster(classId))
 			return false;
 		
-		final ClassId cid = ClassId.VALUES[classId];
+		final ClassId cid = ClassId.Companion.getVALUES()[classId];
 		for (SubClass subclass : player.getSubClasses().values())
 		{
 			if (subclass.getClassDefinition().equalsOrChildOf(cid))
 				return false;
 		}
 		
-		final Set<ClassId> availSubs = ClassId.getAvailableSubclasses(player);
+		final Set<ClassId> availSubs = ClassId.Companion.getAvailableSubclasses(player);
 		if (availSubs == null || availSubs.isEmpty())
 			return false;
 		
@@ -690,7 +690,7 @@ public class VillageMaster extends Folk
 	
 	public final boolean checkVillageMaster(int classId)
 	{
-		return checkVillageMaster(ClassId.VALUES[classId]);
+		return checkVillageMaster(ClassId.Companion.getVALUES()[classId]);
 	}
 	
 	public final boolean checkVillageMaster(ClassId pclass)

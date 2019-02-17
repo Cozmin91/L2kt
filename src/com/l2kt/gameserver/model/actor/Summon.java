@@ -209,18 +209,18 @@ public abstract class Summon extends Playable
 	
 	public long getExpForThisLevel()
 	{
-		if (getLevel() >= Experience.LEVEL.length)
+		if (getLevel() >= Experience.INSTANCE.getLEVEL().length)
 			return 0;
 		
-		return Experience.LEVEL[getLevel()];
+		return Experience.INSTANCE.getLEVEL()[getLevel()];
 	}
 	
 	public long getExpForNextLevel()
 	{
-		if (getLevel() >= Experience.LEVEL.length - 1)
+		if (getLevel() >= Experience.INSTANCE.getLEVEL().length - 1)
 			return 0;
 		
-		return Experience.LEVEL[getLevel() + 1];
+		return Experience.INSTANCE.getLEVEL()[getLevel() + 1];
 	}
 	
 	@Override

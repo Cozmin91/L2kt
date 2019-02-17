@@ -164,7 +164,7 @@ public class NpcTemplate extends CreatureTemplate
 			
 			_teachInfo = new ArrayList<>(classIds.length);
 			for (int classId : classIds)
-				_teachInfo.add(ClassId.VALUES[classId]);
+				_teachInfo.add(ClassId.Companion.getVALUES()[classId]);
 		}
 		
 		addSkills(set.getList("skills"));

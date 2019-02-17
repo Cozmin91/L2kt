@@ -48,7 +48,7 @@ public class PlayerTemplate extends CreatureTemplate
 	{
 		super(set);
 		
-		_classId = ClassId.VALUES[set.getInteger("id")];
+		_classId = ClassId.Companion.getVALUES()[set.getInteger("id")];
 		
 		_fallingHeight = set.getInteger("falling_height", 333);
 		

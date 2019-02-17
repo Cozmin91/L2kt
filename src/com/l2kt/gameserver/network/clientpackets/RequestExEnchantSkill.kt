@@ -53,8 +53,8 @@ class RequestExEnchantSkill : L2GameClientPacket() {
         // Check item restriction, and try to consume item.
         if (Config.ES_SP_BOOK_NEEDED && esn.item != null && !player.destroyItemByItemId(
                 "SkillEnchant",
-                esn.item.id,
-                esn.item.value,
+                esn.item!!.id,
+                esn.item!!.value,
                 folk,
                 true
             )

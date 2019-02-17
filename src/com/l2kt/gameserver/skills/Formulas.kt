@@ -1115,8 +1115,7 @@ object Formulas {
 
     @JvmStatic
     fun calcSkillSuccess(attacker: Creature, target: Creature, skill: L2Skill, shld: Byte, bss: Boolean): Boolean {
-        if (shld == SHIELD_DEFENSE_PERFECT_BLOCK)
-        // perfect block
+        if (shld == SHIELD_DEFENSE_PERFECT_BLOCK) // perfect block
             return false
 
         val type = skill.effectType

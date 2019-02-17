@@ -222,13 +222,13 @@ class Weapon
         }
 
         val shld = Formulas.calcShldUse(caster, target, _skillsOnCrit!!.skill)
-        if (!Formulas.calcSkillSuccess(caster, target, _skillsOnCrit!!.skill, shld, false))
+        if (!Formulas.calcSkillSuccess(caster, target, _skillsOnCrit!!.skill!!, shld, false))
             return emptyList()
 
-        if (target.getFirstEffect(_skillsOnCrit!!.skill.id) != null)
-            target.getFirstEffect(_skillsOnCrit!!.skill.id).exit()
+        if (target.getFirstEffect(_skillsOnCrit!!.skill!!.id) != null)
+            target.getFirstEffect(_skillsOnCrit!!.skill!!.id).exit()
 
-        for (e in _skillsOnCrit!!.skill.getEffects(caster, target, Env(shld, false, false, false)))
+        for (e in _skillsOnCrit!!.skill!!.getEffects(caster, target, Env(shld, false, false, false)))
             effects.add(e)
 
         return effects
@@ -245,11 +245,11 @@ class Weapon
             return emptyList()
 
         // Trigger only same type of skill.
-        if (trigger.isOffensive != _skillsOnCast!!.skill.isOffensive)
+        if (trigger.isOffensive != _skillsOnCast!!.skill!!.isOffensive)
             return emptyList()
 
         // No buffing with toggle or not magic skills.
-        if ((trigger.isToggle || !trigger.isMagic) && _skillsOnCast!!.skill.skillType === L2SkillType.BUFF)
+        if ((trigger.isToggle || !trigger.isMagic) && _skillsOnCast!!.skill!!.skillType === L2SkillType.BUFF)
             return emptyList()
 
         if (_skillsOnCastCondition != null) {
@@ -263,10 +263,10 @@ class Weapon
         }
 
         val shld = Formulas.calcShldUse(caster, target, _skillsOnCast!!.skill)
-        if (_skillsOnCast!!.skill.isOffensive && !Formulas.calcSkillSuccess(
+        if (_skillsOnCast!!.skill!!.isOffensive && !Formulas.calcSkillSuccess(
                 caster,
                 target,
-                _skillsOnCast!!.skill,
+                _skillsOnCast!!.skill!!,
                 shld,
                 false
             )
@@ -274,15 +274,15 @@ class Weapon
             return emptyList()
 
         // Get the skill handler corresponding to the skill type
-        val handler = SkillHandler.getHandler(_skillsOnCast!!.skill.skillType)
+        val handler = SkillHandler.getHandler(_skillsOnCast!!.skill!!.skillType)
 
         val targets = arrayOf(target as WorldObject)
 
         // Launch the magic skill and calculate its effects
         if (handler != null)
-            handler.useSkill(caster, _skillsOnCast!!.skill, targets)
+            handler.useSkill(caster, _skillsOnCast!!.skill!!, targets)
         else
-            _skillsOnCast!!.skill.useSkill(caster, targets)
+            _skillsOnCast!!.skill!!.useSkill(caster, targets)
 
         // notify quests of a skill use
         if (caster is Player) {
@@ -291,7 +291,7 @@ class Weapon
                 val scripts = npcMob.template.getEventQuests(EventType.ON_SKILL_SEE)
                 if (scripts != null)
                     for (quest in scripts)
-                        quest.notifySkillSee(npcMob, caster, _skillsOnCast!!.skill, targets, false)
+                        quest.notifySkillSee(npcMob, caster, _skillsOnCast!!.skill!!, targets, false)
             }
         }
         return emptyList()

@@ -28,7 +28,7 @@ object BoatManager {
      * @param heading : The heading to use.
      * @return the new boat instance.
      */
-    fun getNewBoat(boatId: Int, x: Int, y: Int, z: Int, heading: Int): Boat {
+    fun getNewBoat(boatId: Int, x: Int, y: Int, z: Int, heading: Int): Boat? {
         val set = StatsSet()
         set.set("id", boatId)
         set.set("level", 0.toInt())

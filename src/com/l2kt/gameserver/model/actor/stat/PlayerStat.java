@@ -227,7 +227,7 @@ public class PlayerStat extends PlayableStat
 	@Override
 	public final long getExpForLevel(int level)
 	{
-		return Experience.LEVEL[level];
+		return Experience.INSTANCE.getLEVEL()[level];
 	}
 	
 	@Override

@@ -91,7 +91,7 @@ object AuctionManager {
         60,
         61
     )
-    val auctions: List<Auction>
+    val auctions: MutableList<Auction>
         get() = _auctions
 
     init {

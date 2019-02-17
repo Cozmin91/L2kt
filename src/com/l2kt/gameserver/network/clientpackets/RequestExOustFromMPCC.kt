@@ -48,7 +48,7 @@ class RequestExOustFromMPCC : L2GameClientPacket() {
 
         // check if CC has not been canceled
         if (requestorParty.isInCommandChannel)
-            requestorParty.commandChannel.broadcastPacket(
+            requestorParty.commandChannel?.broadcastPacket(
                 SystemMessage.getSystemMessage(SystemMessageId.S1_PARTY_DISMISSED_FROM_COMMAND_CHANNEL).addCharName(
                     targetParty.leader
                 )

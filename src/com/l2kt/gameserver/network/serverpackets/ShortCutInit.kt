@@ -31,15 +31,15 @@ class ShortCutInit(private val _activeChar: Player) : L2GameServerPacket() {
                             writeD(0x00) // Cooldown time
                         } else {
                             val skills = item.etcItem!!.skills
-                            if (skills == null) {
+                            if (skills.isEmpty()) {
                                 writeD(0x00) // Remaining time
                                 writeD(0x00) // Cooldown time
                             } else {
                                 for (skillInfo in skills) {
                                     val itemSkill = skillInfo.skill
-                                    if (_activeChar.reuseTimeStamp.containsKey(itemSkill.reuseHashCode)) {
-                                        writeD((_activeChar.reuseTimeStamp[itemSkill.reuseHashCode]!!.remaining / 1000L).toInt())
-                                        writeD((itemSkill.reuseDelay / 1000L).toInt())
+                                    if (_activeChar.reuseTimeStamp.containsKey(itemSkill?.reuseHashCode)) {
+                                        writeD((_activeChar.reuseTimeStamp[itemSkill?.reuseHashCode]!!.remaining / 1000L).toInt())
+                                        writeD(((itemSkill?.reuseDelay ?: 0) / 1000L).toInt())
                                     } else {
                                         writeD(0x00) // Remaining time
                                         writeD(0x00) // Cooldown time

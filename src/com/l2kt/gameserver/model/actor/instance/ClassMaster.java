@@ -154,7 +154,7 @@ public final class ClassMaster extends Folk
 				if (player.getLevel() >= minLevel || Config.ALLOW_ENTIRE_TREE)
 				{
 					final StringBuilder menu = new StringBuilder(100);
-					for (ClassId cid : ClassId.VALUES)
+					for (ClassId cid : ClassId.Companion.getVALUES())
 					{
 						if (cid.level() != level)
 							continue;
@@ -278,7 +278,7 @@ public final class ClassMaster extends Folk
 	{
 		try
 		{
-			return validateClassId(oldCID, ClassId.VALUES[val]);
+			return validateClassId(oldCID, ClassId.Companion.getVALUES()[val]);
 		}
 		catch (Exception e)
 		{

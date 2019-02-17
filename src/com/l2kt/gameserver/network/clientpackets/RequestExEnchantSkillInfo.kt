@@ -39,7 +39,7 @@ class RequestExEnchantSkillInfo : L2GameClientPacket() {
 
         val esi = ExEnchantSkillInfo(_skillId, _skillLevel, esn.sp, esn.exp, esn.getEnchantRate(player.level))
         if (Config.ES_SP_BOOK_NEEDED && esn.item != null)
-            esi.addRequirement(4, esn.item.id, esn.item.value, 0)
+            esi.addRequirement(4, esn.item!!.id, esn.item!!.value, 0)
 
         sendPacket(esi)
     }

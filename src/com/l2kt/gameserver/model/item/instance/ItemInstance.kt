@@ -491,7 +491,7 @@ class ItemInstance : WorldObject, Runnable, Comparable<ItemInstance> {
 
                 && (allowAdena || itemId != 57) // Not adena
 
-                && (player.currentSkill.skill == null || player.currentSkill.skill.itemConsumeId != itemId) && (!player.isCastingSimultaneouslyNow || player.lastSimultaneousSkillCast == null || player.lastSimultaneousSkillCast.itemConsumeId != itemId) && (allowNonTradable || isTradable))
+                && (player.currentSkill.skill == null || player.currentSkill.skill?.itemConsumeId != itemId) && (!player.isCastingSimultaneouslyNow || player.lastSimultaneousSkillCast == null || player.lastSimultaneousSkillCast.itemConsumeId != itemId) && (allowNonTradable || isTradable))
     }
 
     override fun onAction(player: Player) {

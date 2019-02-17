@@ -337,7 +337,7 @@ public final class Auctioneer extends Folk
 					if (auction == null)
 						return;
 					
-					if (Auction.takeItem(player, ClanHallManager.INSTANCE.getClanHallByOwner(player.getClan()).getLease()))
+					if (Auction.Companion.takeItem(player, ClanHallManager.INSTANCE.getClanHallByOwner(player.getClan()).getLease()))
 					{
 						auction.confirmAuction();
 						
