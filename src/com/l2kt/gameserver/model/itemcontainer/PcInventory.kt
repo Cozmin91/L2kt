@@ -222,7 +222,7 @@ class PcInventory(public override val owner: Player) : Inventory() {
      * @param actor : Player Player requesting the item add
      * @param reference : WorldObject Object referencing current action like NPC selling item or previous item in transformation
      */
-    fun addAdena(process: String, count: Int, actor: Player, reference: WorldObject) {
+    fun addAdena(process: String, count: Int, actor: Player?, reference: WorldObject?) {
         if (count > 0)
             addItem(process, ADENA_ID, count, actor, reference)
     }
@@ -235,7 +235,7 @@ class PcInventory(public override val owner: Player) : Inventory() {
      * @param reference : WorldObject Object referencing current action like NPC selling item or previous item in transformation
      * @return true if successful.
      */
-    fun reduceAdena(process: String, count: Int, actor: Player, reference: WorldObject): Boolean {
+    fun reduceAdena(process: String, count: Int, actor: Player?, reference: WorldObject?): Boolean {
         return if (count > 0) destroyItemByItemId(process, ADENA_ID, count, actor, reference) != null else false
 
     }
@@ -247,7 +247,7 @@ class PcInventory(public override val owner: Player) : Inventory() {
      * @param actor : Player Player requesting the item add
      * @param reference : WorldObject Object referencing current action like NPC selling item or previous item in transformation
      */
-    fun addAncientAdena(process: String, count: Int, actor: Player, reference: WorldObject) {
+    fun addAncientAdena(process: String, count: Int, actor: Player?, reference: WorldObject?) {
         if (count > 0)
             addItem(process, ANCIENT_ADENA_ID, count, actor, reference)
     }
@@ -260,7 +260,7 @@ class PcInventory(public override val owner: Player) : Inventory() {
      * @param reference : WorldObject Object referencing current action like NPC selling item or previous item in transformation
      * @return true if successful.
      */
-    fun reduceAncientAdena(process: String, count: Int, actor: Player, reference: WorldObject): Boolean {
+    fun reduceAncientAdena(process: String, count: Int, actor: Player?, reference: WorldObject?): Boolean {
         return if (count > 0) destroyItemByItemId(process, ANCIENT_ADENA_ID, count, actor, reference) != null else false
 
     }
@@ -274,15 +274,14 @@ class PcInventory(public override val owner: Player) : Inventory() {
      * @return ItemInstance corresponding to the new item or the updated item in inventory
      */
     override fun addItem(process: String, item: ItemInstance, actor: Player?, reference: WorldObject?): ItemInstance? {
-        var item = item
-        item = super.addItem(process, item, actor, reference) ?: return null
+        val currentItem = super.addItem(process, item, actor, reference) ?: return null
 
-        if (item.itemId == ADENA_ID && item != adenaInstance)
-            adenaInstance = item
-        else if (item.itemId == ANCIENT_ADENA_ID && item != ancientAdenaInstance)
-            ancientAdenaInstance = item
+        if (currentItem.itemId == ADENA_ID && currentItem != adenaInstance)
+            adenaInstance = currentItem
+        else if (currentItem.itemId == ANCIENT_ADENA_ID && currentItem != ancientAdenaInstance)
+            ancientAdenaInstance = currentItem
 
-        return item
+        return currentItem
     }
 
     /**
@@ -383,8 +382,7 @@ class PcInventory(public override val owner: Player) : Inventory() {
         actor: Player?,
         reference: WorldObject?
     ): ItemInstance? {
-        var item = item
-        item = super.destroyItem(process, item, count, actor, reference) ?: return null
+        val currentItem = super.destroyItem(process, item, count, actor, reference)
 
         if (adenaInstance != null && adenaInstance!!.count <= 0)
             adenaInstance = null
@@ -392,7 +390,7 @@ class PcInventory(public override val owner: Player) : Inventory() {
         if (ancientAdenaInstance != null && ancientAdenaInstance!!.count <= 0)
             ancientAdenaInstance = null
 
-        return item
+        return currentItem
     }
 
     /**
@@ -445,9 +443,8 @@ class PcInventory(public override val owner: Player) : Inventory() {
      * @param reference : WorldObject Object referencing current action like NPC selling item or previous item in transformation
      * @return ItemInstance corresponding to the destroyed item or the updated item in inventory
      */
-    override fun dropItem(process: String, item: ItemInstance?, actor: Player, reference: WorldObject): ItemInstance? {
-        var item = item
-        item = super.dropItem(process, item, actor, reference)
+    override fun dropItem(process: String, item: ItemInstance?, actor: Player?, reference: WorldObject?): ItemInstance? {
+        val currentItem = super.dropItem(process, item, actor, reference)
 
         if (adenaInstance != null && (adenaInstance!!.count <= 0 || adenaInstance!!.ownerId != ownerId))
             adenaInstance = null
@@ -455,7 +452,7 @@ class PcInventory(public override val owner: Player) : Inventory() {
         if (ancientAdenaInstance != null && (ancientAdenaInstance!!.count <= 0 || ancientAdenaInstance!!.ownerId != ownerId))
             ancientAdenaInstance = null
 
-        return item
+        return currentItem
     }
 
     /**
@@ -471,8 +468,8 @@ class PcInventory(public override val owner: Player) : Inventory() {
         process: String,
         objectId: Int,
         count: Int,
-        actor: Player,
-        reference: WorldObject
+        actor: Player?,
+        reference: WorldObject?
     ): ItemInstance? {
         val item = super.dropItem(process, objectId, count, actor, reference)
 

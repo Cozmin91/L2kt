@@ -132,7 +132,7 @@ class ItemInstance : WorldObject, Runnable, Comparable<ItemInstance> {
     var count: Int
         get() = _count
         set(count) {
-            if (count == count)
+            if (this.count == count)
                 return
 
             _count = if (count >= -1) count else 0
@@ -437,10 +437,10 @@ class ItemInstance : WorldObject, Runnable, Comparable<ItemInstance> {
         if (count == 0)
             return
 
-        if (count > 0 && count > Integer.MAX_VALUE - count)
+        if (count > 0 && this.count > Integer.MAX_VALUE - count)
             this.count = Integer.MAX_VALUE
         else
-            this.count = count + count
+            this.count = this.count + count
 
         if (count < 0)
             this.count = 0

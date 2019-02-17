@@ -122,7 +122,7 @@ protected constructor() : ItemContainer() {
      * @param reference : WorldObject Object referencing current action like NPC selling item or previous item in transformation
      * @return ItemInstance corresponding to the destroyed item or the updated item in inventory
      */
-    open fun dropItem(process: String, item: ItemInstance?, actor: Player, reference: WorldObject): ItemInstance? {
+    open fun dropItem(process: String, item: ItemInstance?, actor: Player?, reference: WorldObject?): ItemInstance? {
         if (item == null)
             return null
 
@@ -154,8 +154,8 @@ protected constructor() : ItemContainer() {
         process: String,
         objectId: Int,
         count: Int,
-        actor: Player,
-        reference: WorldObject
+        actor: Player?,
+        reference: WorldObject?
     ): ItemInstance? {
         var item: ItemInstance? = getItemByObjectId(objectId) ?: return null
 
@@ -706,7 +706,7 @@ protected constructor() : ItemContainer() {
                 }
             }
         } catch (e: Exception) {
-            ItemContainer.Companion.LOGGER.error("Couldn't restore inventory for {}.", e, ownerId)
+            ItemContainer.LOGGER.error("Couldn't restore inventory for {}.", e, ownerId)
         }
 
         refreshWeight()
