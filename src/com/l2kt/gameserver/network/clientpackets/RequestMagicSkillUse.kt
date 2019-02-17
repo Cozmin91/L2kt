@@ -47,13 +47,13 @@ class RequestMagicSkillUse : L2GameClientPacket() {
         }
 
         if (player.isAttackingNow)
-            player.ai.setNextAction(NextAction(CtrlEvent.EVT_READY_TO_ACT, CtrlIntention.CAST) {
+            player.ai.setNextAction(NextAction(CtrlEvent.EVT_READY_TO_ACT, CtrlIntention.CAST, Runnable{
                 player.useMagic(
                     skill,
                     _ctrlPressed,
                     _shiftPressed
                 )
-            })
+            }))
         else
             player.useMagic(skill, _ctrlPressed, _shiftPressed)
     }

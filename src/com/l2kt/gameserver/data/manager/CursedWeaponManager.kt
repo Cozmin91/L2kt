@@ -152,7 +152,9 @@ object CursedWeaponManager : IXmlReader {
         for (cw in _cursedWeapons.values) {
             if (cw.isActivated && player.objectId == cw.playerId) {
                 cw.player = player
-                cw.setItem(player.inventory!!.getItemByItemId(cw.itemId))
+
+                val item = player.inventory!!.getItemByItemId(cw.itemId)
+                item?.let { cw.setItem(it) }
                 cw.giveDemonicSkills()
 
                 player.cursedWeaponEquippedId = cw.itemId
