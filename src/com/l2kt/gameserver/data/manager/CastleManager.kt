@@ -41,7 +41,7 @@ object CastleManager : IXmlReader {
                             val castle = Castle(id, rs.getString("name"))
 
                             castle.siegeDate = Calendar.getInstance()
-                            castle.siegeDate.timeInMillis = rs.getLong("siegeDate")
+                            castle.siegeDate!!.timeInMillis = rs.getLong("siegeDate")
                             castle.isTimeRegistrationOver = rs.getBoolean("regTimeOver")
                             castle.setTaxPercent(rs.getInt("taxPercent"), false)
                             castle.treasury = rs.getLong("treasury")
@@ -194,7 +194,7 @@ object CastleManager : IXmlReader {
 
     fun getActiveSiege(x: Int, y: Int, z: Int): Siege? {
         for (castle in _castles.values)
-            if (castle.siege.checkIfInZone(x, y, z))
+            if (castle.siege?.checkIfInZone(x, y, z) == true)
                 return castle.siege
 
         return null

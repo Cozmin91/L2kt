@@ -32,7 +32,7 @@ class SiegeInfo(private val _castle: Castle) : L2GameServerPacket() {
         }
 
         writeD((Calendar.getInstance().timeInMillis / 1000).toInt())
-        writeD((_castle.siege.siegeDate.timeInMillis / 1000).toInt())
+        writeD((_castle.siege.siegeDate!!.timeInMillis / 1000).toInt())
         writeD(0x00)
     }
 }

@@ -58,7 +58,7 @@ public class OlympiadManagerNpc extends Folk
 			case 31770:
 			case 31771:
 			case 31772:
-				if (player.isHero() || Hero.getInstance().isInactiveHero(player.getObjectId()))
+				if (player.isHero() || Hero.INSTANCE.isInactiveHero(player.getObjectId()))
 					filename = "hero_main.htm";
 				else
 					filename = "hero_main2.htm";
@@ -72,7 +72,7 @@ public class OlympiadManagerNpc extends Folk
 		if (filename == "hero_main.htm")
 		{
 			String hiddenText = "";
-			if (Hero.getInstance().isInactiveHero(player.getObjectId()))
+			if (Hero.INSTANCE.isInactiveHero(player.getObjectId()))
 				hiddenText = "<a action=\"bypass -h npc_%objectId%_Olympiad 5\">\"I want to be a Hero.\"</a><br>";
 			
 			html.replace("%hero%", hiddenText);
@@ -237,7 +237,7 @@ public class OlympiadManagerNpc extends Folk
 					break;
 				
 				case 5: // Hero pending state.
-					if (Hero.getInstance().isInactiveHero(player.getObjectId()))
+					if (Hero.INSTANCE.isInactiveHero(player.getObjectId()))
 					{
 						html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "hero_confirm.htm");
 						html.replace("%objectId%", getObjectId());
@@ -246,7 +246,7 @@ public class OlympiadManagerNpc extends Folk
 					break;
 				
 				case 6: // Hero confirm action.
-					if (Hero.getInstance().isInactiveHero(player.getObjectId()))
+					if (Hero.INSTANCE.isInactiveHero(player.getObjectId()))
 					{
 						if (player.isSubClassActive() || player.getLevel() < 76)
 						{
@@ -254,7 +254,7 @@ public class OlympiadManagerNpc extends Folk
 							return;
 						}
 						
-						Hero.getInstance().activateHero(player);
+						Hero.INSTANCE.activateHero(player);
 					}
 					break;
 				
@@ -262,7 +262,7 @@ public class OlympiadManagerNpc extends Folk
 					html.setFile(Olympiad.OLYMPIAD_HTML_PATH + "hero_main.htm");
 					
 					String hiddenText = "";
-					if (Hero.getInstance().isInactiveHero(player.getObjectId()))
+					if (Hero.INSTANCE.isInactiveHero(player.getObjectId()))
 						hiddenText = "<a action=\"bypass -h npc_%objectId%_Olympiad 5\">\"I want to be a Hero.\"</a><br>";
 					
 					html.replace("%hero%", hiddenText);

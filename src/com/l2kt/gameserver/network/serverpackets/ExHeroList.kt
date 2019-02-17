@@ -12,7 +12,7 @@ class ExHeroList : L2GameServerPacket() {
     private val _heroList: Collection<StatsSet>
 
     init {
-        _heroList = Hero.getInstance().heroes.values
+        _heroList = Hero.heroes.values
     }
 
     override fun writeImpl() {

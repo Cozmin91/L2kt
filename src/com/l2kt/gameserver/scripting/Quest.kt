@@ -1050,7 +1050,7 @@ open class Quest
 
     fun addSiegeNotify(castleId: Int): Siege {
         val siege = CastleManager.getCastleById(castleId)!!.siege
-        siege.addQuestEvent(this)
+        siege!!.addQuestEvent(this)
         return siege
     }
 

@@ -11,16 +11,16 @@ interface Siegable {
 
     val defenderClans: List<Clan>
 
-    val siegeDate: Calendar
+    val siegeDate: Calendar?
     fun startSiege()
 
     fun endSiege()
 
-    fun checkSide(clan: Clan, type: SiegeSide): Boolean
+    fun checkSide(clan: Clan?, type: SiegeSide): Boolean
 
-    fun checkSides(clan: Clan, vararg types: SiegeSide): Boolean
+    fun checkSides(clan: Clan?, vararg types: SiegeSide): Boolean
 
-    fun checkSides(clan: Clan): Boolean
+    fun checkSides(clan: Clan?): Boolean
 
-    fun getFlag(clan: Clan): Npc
+    fun getFlag(clan: Clan?): Npc?
 }

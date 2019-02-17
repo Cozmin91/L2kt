@@ -67,7 +67,7 @@ object RegionBBSManager : BaseBBSManager() {
         content = content.replace("%allyName%", if (owner != null && owner.allyId > 0) owner.allyName ?: "None" else "None")
         content = content.replace(
             "%siegeDate%",
-            SimpleDateFormat("yyyy-MM-dd HH:mm").format(castle.siegeDate.timeInMillis)
+            SimpleDateFormat("yyyy-MM-dd HH:mm").format(castle.siegeDate!!.timeInMillis)
         )
 
         val sb = StringBuilder(200)

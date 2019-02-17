@@ -21,6 +21,6 @@ class RequestWriteHeroWords : L2GameClientPacket() {
         if (_heroWords.isEmpty() || _heroWords.length > 300)
             return
 
-        Hero.getInstance().setHeroMessage(player, _heroWords)
+        Hero.setHeroMessage(player, _heroWords)
     }
 }

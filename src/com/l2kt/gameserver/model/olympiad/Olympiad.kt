@@ -324,8 +324,8 @@ object Olympiad {
 
             _period = 1
             sortHeroesToBe()
-            Hero.getInstance().resetData()
-            Hero.getInstance().computeNewHeroes(_heroesToBe)
+            Hero.resetData()
+            Hero.computeNewHeroes(_heroesToBe)
 
             saveOlympiadStatus()
             updateMonthlyData()
@@ -653,7 +653,7 @@ object Olympiad {
 
         val rank = _noblesRank[objId]
         var points =
-            if (player.isHero || Hero.getInstance().isInactiveHero(player.objectId)) Config.ALT_OLY_HERO_POINTS else 0
+            if (player.isHero || Hero.isInactiveHero(player.objectId)) Config.ALT_OLY_HERO_POINTS else 0
         when (rank) {
             1 -> points += Config.ALT_OLY_RANK1_POINTS
             2 -> points += Config.ALT_OLY_RANK2_POINTS

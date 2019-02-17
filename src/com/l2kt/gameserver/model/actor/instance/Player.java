@@ -5076,7 +5076,7 @@ public final class Player extends Playable
 				player.getPosition().set(rset.getInt("x"), rset.getInt("y"), rset.getInt("z"));
 				
 				// Set Hero status if it applies
-				if (Hero.getInstance().isActiveHero(objectId))
+				if (Hero.INSTANCE.isActiveHero(objectId))
 					player.setHero(true);
 				
 				// Set pledge class rank.

@@ -42,7 +42,7 @@ class SiegeStatus : IUserCommandHandler {
                     "<tr><td width=170>",
                     member.name,
                     "</td><td width=100>",
-                    if (castle.siegeZone.isInsideZone(member)) IN_PROGRESS else OUTSIDE_ZONE,
+                    if (castle.siegeZone?.isInsideZone(member) == true) IN_PROGRESS else OUTSIDE_ZONE,
                     "</td></tr>"
                 )
 

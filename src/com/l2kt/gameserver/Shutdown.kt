@@ -81,7 +81,7 @@ class Shutdown : Thread {
             Olympiad.saveOlympiadStatus()
             LOGGER.info("Olympiad data has been saved.")
 
-            Hero.getInstance().shutdown()
+            Hero.shutdown()
             LOGGER.info("Hero data has been saved.")
 
             CastleManorManager.storeMe()

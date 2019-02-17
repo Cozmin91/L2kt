@@ -67,7 +67,7 @@ class Benom : L2AttackableAIScript("ai/individual") {
 
             "tower_check" -> if (_siege.controlTowerCount < 2) {
                 npc!!.teleToLocation(THRONE_LOC, 0)
-                _siege.castle.siegeZone.broadcastPacket(
+                _siege.castle.siegeZone!!.broadcastPacket(
                     NpcSay(
                         0,
                         Say2.ALL,
@@ -120,7 +120,7 @@ class Benom : L2AttackableAIScript("ai/individual") {
 
                 startQuestTimer(
                     "benom_spawn",
-                    _siege.siegeDate.timeInMillis - 8640000 - System.currentTimeMillis(),
+                    _siege.siegeDate!!.timeInMillis - 8640000 - System.currentTimeMillis(),
                     null,
                     null,
                     false

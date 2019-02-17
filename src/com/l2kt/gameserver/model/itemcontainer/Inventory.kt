@@ -483,7 +483,7 @@ protected constructor() : ItemContainer() {
     fun equipItem(item: ItemInstance) {
         if (owner is Player) {
             // Can't equip item if you are in shop mod or hero item and you're not hero.
-            if ((owner as Player).isInStoreMode || item.isHeroItem && !Hero.getInstance().isActiveHero(ownerId))
+            if ((owner as Player).isInStoreMode || item.isHeroItem && !Hero.isActiveHero(ownerId))
                 return
         }
 
@@ -690,7 +690,7 @@ protected constructor() : ItemContainer() {
                             val item = ItemInstance.restoreFromDb(ownerId, rs) ?: continue
 
                             // If the item is an hero item and inventory's owner is a player who isn't an hero, then set it to inventory.
-                            if (owner is Player && item.isHeroItem && !Hero.getInstance().isActiveHero(ownerId))
+                            if (owner is Player && item.isHeroItem && !Hero.isActiveHero(ownerId))
                                 item.location = ItemInstance.ItemLocation.INVENTORY
 
                             // Add the item to world objects list.

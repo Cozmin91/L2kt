@@ -194,17 +194,17 @@ object MapRegionData : IXmlReader {
                 if (castle == null) {
                     // If not, check if he is in defending side.
                     castle = CastleManager.getCastle(creature)
-                    if (!(castle != null && castle.siege.isInProgress && castle.siege.checkSides(
+                    if (!(castle != null && castle.siege!!.isInProgress && castle.siege?.checkSides(
                             creature.clan,
                             SiegeSide.DEFENDER,
                             SiegeSide.OWNER
-                        ))
+                        ) == true)
                     )
                         castle = null
                 }
 
                 if (castle != null && castle.castleId > 0)
-                    return castle.castleZone.randomLoc
+                    return castle.castleZone?.randomLoc
             } else if (teleportType == TeleportType.SIEGE_FLAG) {
                 val siege = CastleManager.getActiveSiege(creature)
                 if (siege != null) {
@@ -217,8 +217,8 @@ object MapRegionData : IXmlReader {
 
         // Check if the player needs to be teleported in second closest town, during an active siege.
         val castle = CastleManager.getCastle(creature)
-        if (castle != null && castle.siege.isInProgress)
-            return if (creature.karma > 0) castle.siegeZone.randomChaoticLoc else castle.siegeZone.randomLoc
+        if (castle != null && castle.siege!!.isInProgress)
+            return if (creature.karma > 0) castle.siegeZone!!.randomChaoticLoc else castle.siegeZone!!.randomLoc
 
         // Karma player lands out of city.
         if (creature.karma > 0)

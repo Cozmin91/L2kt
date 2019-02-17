@@ -178,7 +178,7 @@ object ClanTable {
 
         // Drop the clan from all sieges. The related mySQL query is handled below.
         for (castle in CastleManager.castles)
-            castle.siege.registeredClans.keys.removeIf { c -> c.clanId == clan.clanId }
+            castle.siege?.registeredClans?.keys?.removeIf { c -> c.clanId == clan.clanId }
 
         // Delete all clan wars.
         for (clanId in clan.attackerList) {

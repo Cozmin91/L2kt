@@ -172,7 +172,7 @@ object GameServer {
         printSection("Olympiads & Heroes")
         OlympiadGameManager
         Olympiad
-        Hero.getInstance()
+        Hero
 
         printSection("Four Sepulchers")
         FourSepulchersManager

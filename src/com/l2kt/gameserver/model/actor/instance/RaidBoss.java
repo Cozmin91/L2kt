@@ -1,23 +1,22 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.concurrent.ScheduledFuture;
-
 import com.l2kt.Config;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.data.manager.RaidPointManager;
+import com.l2kt.gameserver.instancemanager.RaidBossSpawnManager;
+import com.l2kt.gameserver.instancemanager.RaidBossSpawnManager.StatusEnum;
 import com.l2kt.gameserver.model.L2Spawn;
 import com.l2kt.gameserver.model.actor.Creature;
 import com.l2kt.gameserver.model.actor.ai.type.AttackableAI;
-
-import com.l2kt.gameserver.instancemanager.RaidBossSpawnManager;
-import com.l2kt.gameserver.instancemanager.RaidBossSpawnManager.StatusEnum;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.entity.Hero;
 import com.l2kt.gameserver.model.group.Party;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.PlaySound;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.util.concurrent.ScheduledFuture;
 
 /**
  * This class manages all classic raid bosses.<br>
@@ -116,14 +115,14 @@ public class RaidBoss extends Monster
 					{
 						RaidPointManager.INSTANCE.addPoints(member, getNpcId(), (getLevel() / 2) + Rnd.INSTANCE.get(-5, 5));
 						if (member.isNoble())
-							Hero.getInstance().setRBkilled(member.getObjectId(), getNpcId());
+							Hero.INSTANCE.setRBkilled(member.getObjectId(), getNpcId());
 					}
 				}
 				else
 				{
 					RaidPointManager.INSTANCE.addPoints(player, getNpcId(), (getLevel() / 2) + Rnd.INSTANCE.get(-5, 5));
 					if (player.isNoble())
-						Hero.getInstance().setRBkilled(player.getObjectId(), getNpcId());
+						Hero.INSTANCE.setRBkilled(player.getObjectId(), getNpcId());
 				}
 			}
 		}

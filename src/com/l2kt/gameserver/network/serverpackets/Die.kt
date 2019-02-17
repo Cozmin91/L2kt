@@ -38,7 +38,7 @@ class Die(private val _activeChar: Creature) : L2GameServerPacket() {
 
             val siege = CastleManager.getActiveSiege(_activeChar)
             if (siege != null)
-                side = siege.getSide(_clan)
+                side = siege.getSide(_clan!!)
 
             writeD(if (_clan!!.hasHideout()) 0x01 else 0x00) // to clanhall
             writeD(if (_clan!!.hasCastle() || side == Siege.SiegeSide.OWNER || side == Siege.SiegeSide.DEFENDER) 0x01 else 0x00) // to castle

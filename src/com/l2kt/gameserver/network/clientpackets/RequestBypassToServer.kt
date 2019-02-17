@@ -119,9 +119,9 @@ class RequestBypassToServer : L2GameClientPacket() {
                 Integer.parseInt(st.nextToken().split("=").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
             val heropage =
                 Integer.parseInt(st.nextToken().split("=").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
-            val heroid = Hero.getInstance().getHeroByClass(heroclass)
+            val heroid = Hero.getHeroByClass(heroclass)
             if (heroid > 0)
-                Hero.getInstance().showHeroFights(player, heroclass, heroid, heropage)
+                Hero.showHeroFights(player, heroclass, heroid, heropage)
         } else if (_command.startsWith("_diary")) {
             val params = _command.substring(_command.indexOf("?") + 1)
             val st = StringTokenizer(params, "&")
@@ -129,9 +129,9 @@ class RequestBypassToServer : L2GameClientPacket() {
                 Integer.parseInt(st.nextToken().split("=").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
             val heropage =
                 Integer.parseInt(st.nextToken().split("=").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
-            val heroid = Hero.getInstance().getHeroByClass(heroclass)
+            val heroid = Hero.getHeroByClass(heroclass)
             if (heroid > 0)
-                Hero.getInstance().showHeroDiary(player, heroclass, heroid, heropage)
+                Hero.showHeroDiary(player, heroclass, heroid, heropage)
         } else if (_command.startsWith("arenachange"))
         // change
         {
