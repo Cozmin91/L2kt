@@ -85,7 +85,7 @@ class EffectZone(id: Int) : ZoneType(id) {
                         }
 
                         for (temp in _characters.values) {
-                            if (temp.isDead || Rnd[100] >= _chance)
+                            if (temp.isDead() || Rnd[100] >= _chance)
                                 continue
 
                             for (entry in _skills) {

@@ -17,13 +17,13 @@ class Harvester : IItemHandler {
         if (!Config.ALLOW_MANOR)
             return
 
-        if (playable.getTarget() !is Monster) {
+        if (playable.target !is Monster) {
             playable.sendPacket(SystemMessageId.INCORRECT_TARGET)
             return
         }
 
-        val _target = playable.getTarget() as Monster
-        if (!_target.isDead) {
+        val _target = playable.target as Monster
+        if (!_target.isDead()) {
             playable.sendPacket(SystemMessageId.INCORRECT_TARGET)
             return
         }

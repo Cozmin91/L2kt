@@ -158,7 +158,7 @@ open class L2AttackableAIScript : Quest {
         val result = ArrayList<Player>()
 
         for (player in npc.getKnownType(Player::class.java)) {
-            if (player.isDead)
+            if (player.isDead())
                 continue
 
             if (player.isGM && player.appearance.invisible)
@@ -181,7 +181,7 @@ open class L2AttackableAIScript : Quest {
     fun getPlayersCountInRadius(range: Int, npc: Creature, invisible: Boolean): Int {
         var count = 0
         for (player in npc.getKnownTypeInRadius(Player::class.java, range)) {
-            if (player.isDead)
+            if (player.isDead())
                 continue
 
             if (!invisible && player.appearance.invisible)
@@ -206,7 +206,7 @@ open class L2AttackableAIScript : Quest {
         var sideCount = 0
 
         for (player in npc.getKnownType(Player::class.java)) {
-            if (player.isDead)
+            if (player.isDead())
                 continue
 
             if (!invisible && player.appearance.invisible)
@@ -233,7 +233,7 @@ open class L2AttackableAIScript : Quest {
      */
     @JvmOverloads
     protected fun attack(npc: Attackable, victim: Creature?, aggro: Int = 0) {
-        npc.setIsRunning(true)
+        npc.isRunning = true
         npc.addDamageHate(victim, 0, if (aggro <= 0) 999 else aggro)
         npc.ai.setIntention(CtrlIntention.ATTACK, victim)
     }

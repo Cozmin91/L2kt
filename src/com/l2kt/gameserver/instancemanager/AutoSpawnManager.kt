@@ -410,7 +410,7 @@ object AutoSpawnManager {
 
                 for (npcInst in spawnInst.npcInstanceList) {
 
-                    SpawnTable.deleteSpawn(npcInst.spawn, false)
+                    SpawnTable.deleteSpawn(npcInst.spawn!!, false)
                     npcInst.deleteMe()
                     spawnInst.removeNpcInstance(npcInst)
                 }
@@ -463,7 +463,7 @@ object AutoSpawnManager {
                 val npcSpawns = ArrayList<L2Spawn>()
 
                 for (npcInst in _npcList)
-                    npcSpawns.add(npcInst.spawn)
+                    npcSpawns.add(npcInst.spawn!!)
 
                 return npcSpawns.toTypedArray()
             }

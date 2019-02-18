@@ -31,7 +31,7 @@ class Mdam : ISkillHandler {
 
             if (activeChar is Player && obj is Player && obj.isFakeDeath)
                 obj.stopFakeDeath(true)
-            else if (obj.isDead)
+            else if (obj.isDead())
                 continue
 
             val mcrit = Formulas.calcMCrit(activeChar.getMCriticalHit(obj, skill))

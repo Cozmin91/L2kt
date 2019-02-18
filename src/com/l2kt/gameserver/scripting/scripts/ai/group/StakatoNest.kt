@@ -31,8 +31,8 @@ class StakatoNest : L2AttackableAIScript("ai/group") {
     override fun onAttack(npc: Npc, attacker: Creature, damage: Int, skill: L2Skill?): String? {
         if (npc.currentHp / npc.maxHp < 0.3 && Rnd[100] < 5) {
             for (follower in npc.getKnownTypeInRadius(Monster::class.java, 400)) {
-                if (follower.npcId == STAKATO_FOLLOWER && !follower.isDead) {
-                    npc.setIsCastingNow(true)
+                if (follower.npcId == STAKATO_FOLLOWER && !follower.isDead()) {
+                    npc.isCastingNow = true
                     npc.broadcastPacket(
                         MagicSkillUse(
                             npc,
@@ -44,17 +44,17 @@ class StakatoNest : L2AttackableAIScript("ai/group") {
                         )
                     )
                     ThreadPool.schedule(Runnable{
-                        if (npc.isDead)
+                        if (npc.isDead())
                             return@Runnable
 
-                        if (follower.isDead) {
-                            npc.setIsCastingNow(false)
+                        if (follower.isDead()) {
+                            npc.isCastingNow = false
                             return@Runnable
                         }
 
                         npc.currentHp = npc.currentHp + follower.currentHp / 2
                         follower.doDie(follower)
-                        npc.setIsCastingNow(false)
+                        npc.isCastingNow = false
                     }, 3000L)
                     break
                 }
@@ -66,7 +66,7 @@ class StakatoNest : L2AttackableAIScript("ai/group") {
     override fun onKill(npc: Npc, killer: Creature): String? {
         when (npc.npcId) {
             MALE_SPIKED_STAKATO_1 -> for (angryFemale in npc.getKnownTypeInRadius(Monster::class.java, 400)) {
-                if (angryFemale.npcId == FEMALE_SPIKED_STAKATO && !angryFemale.isDead) {
+                if (angryFemale.npcId == FEMALE_SPIKED_STAKATO && !angryFemale.isDead()) {
                     for (i in 0..2) {
                         val guard = addSpawn(SPIKED_STAKATO_GUARD, angryFemale, true, 0, false)
                         attack(guard as Attackable, killer)
@@ -75,7 +75,7 @@ class StakatoNest : L2AttackableAIScript("ai/group") {
             }
 
             FEMALE_SPIKED_STAKATO -> for (morphingMale in npc.getKnownTypeInRadius(Monster::class.java, 400)) {
-                if (morphingMale.npcId == MALE_SPIKED_STAKATO_1 && !morphingMale.isDead) {
+                if (morphingMale.npcId == MALE_SPIKED_STAKATO_1 && !morphingMale.isDead()) {
                     val newForm = addSpawn(MALE_SPIKED_STAKATO_2, morphingMale, true, 0, false)
                     attack(newForm as Attackable, killer)
 
@@ -84,7 +84,7 @@ class StakatoNest : L2AttackableAIScript("ai/group") {
             }
 
             SPIKED_STAKATO_NURSE_1 -> for (baby in npc.getKnownTypeInRadius(Monster::class.java, 400)) {
-                if (baby.npcId == SPIKED_STAKATO_BABY && !baby.isDead) {
+                if (baby.npcId == SPIKED_STAKATO_BABY && !baby.isDead()) {
                     for (i in 0..2) {
                         val captain = addSpawn(SPIKED_STAKATO_CAPTAIN, baby, true, 0, false)
                         attack(captain as Attackable, killer)
@@ -93,7 +93,7 @@ class StakatoNest : L2AttackableAIScript("ai/group") {
             }
 
             SPIKED_STAKATO_BABY -> for (morphingNurse in npc.getKnownTypeInRadius(Monster::class.java, 400)) {
-                if (morphingNurse.npcId == SPIKED_STAKATO_NURSE_1 && !morphingNurse.isDead) {
+                if (morphingNurse.npcId == SPIKED_STAKATO_NURSE_1 && !morphingNurse.isDead()) {
                     val newForm = addSpawn(SPIKED_STAKATO_NURSE_2, morphingNurse, true, 0, false)
                     attack(newForm as Attackable, killer)
 

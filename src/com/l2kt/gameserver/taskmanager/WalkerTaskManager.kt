@@ -1,9 +1,9 @@
 package com.l2kt.gameserver.taskmanager
 
-import java.util.concurrent.ConcurrentHashMap
-
 import com.l2kt.commons.concurrent.ThreadPool
+import com.l2kt.gameserver.model.actor.ai.type.WalkerAI
 import com.l2kt.gameserver.model.actor.instance.Walker
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Handles [Walker] waiting state case, when they got a delay option on their WalkNode.
@@ -24,7 +24,7 @@ object WalkerTaskManager : Runnable {
             if (time < value)
                 continue
 
-            walker.ai.moveToNextPoint()
+            (walker.ai as WalkerAI).moveToNextPoint()
             walkers.remove(walker)
         }
     }

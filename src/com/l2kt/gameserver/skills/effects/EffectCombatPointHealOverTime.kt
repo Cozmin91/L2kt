@@ -12,7 +12,7 @@ internal class EffectCombatPointHealOverTime(env: Env, template: EffectTemplate)
     }
 
     override fun onActionTime(): Boolean {
-        if (effected.isDead)
+        if (effected.isDead())
             return false
 
         var cp = effected.currentCp

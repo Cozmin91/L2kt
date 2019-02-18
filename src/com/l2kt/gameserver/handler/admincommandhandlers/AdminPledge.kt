@@ -63,21 +63,21 @@ class AdminPledge : IAdminCommandHandler {
                     }
 
                     if (action == "dismiss") {
-                        ClanTable.destroyClan(target.clan)
+                        ClanTable.destroyClan(target.clan!!)
 
                         if (target.clan == null)
                             activeChar.sendMessage("The clan is now disbanded.")
                         else
                             activeChar.sendMessage("There was a problem while destroying the clan.")
                     } else if (action == "info")
-                        activeChar.sendPacket(GMViewPledgeInfo(target.clan, target))
+                        activeChar.sendPacket(GMViewPledgeInfo(target.clan!!, target))
                     else if (action == "setlevel") {
                         try {
                             val level = Integer.parseInt(st.nextToken())
 
                             if (level >= 0 && level < 9) {
-                                target.clan.changeLevel(level)
-                                activeChar.sendMessage("You have set clan " + target.clan.name + " to level " + level)
+                                target.clan!!.changeLevel(level)
+                                activeChar.sendMessage("You have set clan " + target.clan!!.name + " to level " + level)
                             } else
                                 activeChar.sendMessage("This clan level is incorrect. Put a number between 0 and 8.")
                         } catch (e: Exception) {
@@ -87,7 +87,7 @@ class AdminPledge : IAdminCommandHandler {
                     } else if (action.startsWith("rep")) {
                         try {
                             val points = Integer.parseInt(st.nextToken())
-                            val clan = target.clan
+                            val clan = target.clan ?: return false
 
                             if (clan.level < 5) {
                                 activeChar.sendMessage("Only clans of level 5 or above may receive reputation points.")

@@ -12,7 +12,7 @@ internal class EffectManaHealOverTime(env: Env, template: EffectTemplate) : L2Ef
     }
 
     override fun onActionTime(): Boolean {
-        if (effected.isDead)
+        if (effected.isDead())
             return false
 
         var mp = effected.currentMp

@@ -155,7 +155,7 @@ class AdminTeleport : IAdminCommandHandler {
 
         private fun sendHome(player: Player) {
             player.teleToLocation(MapRegionData.TeleportType.TOWN)
-            player.setIsIn7sDungeon(false)
+            player.isIn7sDungeon = false
             player.sendMessage("A GM sent you at nearest town.")
         }
 

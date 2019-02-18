@@ -107,14 +107,14 @@ abstract class AbstractOlympiadGame protected constructor(val stadiumId: Int) {
         if (player == null || !player.isOnline)
             return SystemMessage.getSystemMessage(SystemMessageId.THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_ENDS_THE_GAME)
 
-        if (player.client == null || player.client.isDetached)
+        if (player.client == null || player.client!!.isDetached)
             return SystemMessage.getSystemMessage(SystemMessageId.THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_ENDS_THE_GAME)
 
         // safety precautions
         if (player.isInObserverMode)
             return SystemMessage.getSystemMessage(SystemMessageId.THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_DOES_NOT_MEET_THE_REQUIREMENTS_FOR_JOINING_THE_GAME)
 
-        if (player.isDead) {
+        if (player.isDead()) {
             player.sendPacket(SystemMessageId.CANNOT_PARTICIPATE_OLYMPIAD_WHILE_DEAD)
             return SystemMessage.getSystemMessage(SystemMessageId.THE_GAME_HAS_BEEN_CANCELLED_BECAUSE_THE_OTHER_PARTY_DOES_NOT_MEET_THE_REQUIREMENTS_FOR_JOINING_THE_GAME)
         }
@@ -281,11 +281,11 @@ abstract class AbstractOlympiadGame protected constructor(val stadiumId: Int) {
             player.abortCast()
             player.ai.setIntention(CtrlIntention.IDLE)
 
-            if (player.isDead)
+            if (player.isDead())
                 player.setIsDead(false)
 
             val summon = player.pet
-            if (summon != null && !summon.isDead) {
+            if (summon != null && !summon.isDead()) {
                 summon.target = null
                 summon.abortAttack()
                 summon.abortCast()
@@ -314,7 +314,7 @@ abstract class AbstractOlympiadGame protected constructor(val stadiumId: Int) {
             player.clearCharges()
 
             val summon = player.pet
-            if (summon != null && !summon.isDead)
+            if (summon != null && !summon.isDead())
                 summon.stopAllEffectsExceptThoseThatLastThroughDeath()
 
             // Add Clan Skills

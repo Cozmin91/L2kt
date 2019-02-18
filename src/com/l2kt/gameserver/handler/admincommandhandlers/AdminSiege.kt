@@ -67,7 +67,7 @@ class AdminSiege : IAdminCommandHandler {
             } else if (command.equals("admin_setcastle", ignoreCase = true)) {
                 if (player == null || player.clan == null)
                     activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT)
-                else if (player.clan.hasCastle())
+                else if (player.clan!!.hasCastle())
                     activeChar.sendMessage(player.name + "'s clan already owns a castle.")
                 else
                     castle.setOwner(player.clan)
@@ -118,14 +118,13 @@ class AdminSiege : IAdminCommandHandler {
             activeChar.sendPacket(html)
         } else if (clanhall != null) {
             if (command.equals("admin_clanhallset", ignoreCase = true)) {
-                if (player == null || player.clan == null)
+                if (player?.clan == null)
                     activeChar.sendPacket(SystemMessageId.TARGET_IS_INCORRECT)
                 else if (!ClanHallManager.isFree(clanhall.id))
                     activeChar.sendMessage("This ClanHall isn't free!")
-                else if (!player.clan.hasHideout()) {
-                    ClanHallManager.setOwner(clanhall.id, player.clan)
-                    if (AuctionManager.getAuction(clanhall.id) != null)
-                        AuctionManager.getAuction(clanhall.id)!!.deleteAuctionFromDB()
+                else if (!player.clan!!.hasHideout()) {
+                    ClanHallManager.setOwner(clanhall.id, player.clan!!)
+                    AuctionManager.getAuction(clanhall.id)?.deleteAuctionFromDB()
                 } else
                     activeChar.sendMessage("You have already a ClanHall!")
             } else if (command.equals("admin_clanhalldel", ignoreCase = true)) {

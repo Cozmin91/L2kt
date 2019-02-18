@@ -13,7 +13,7 @@ class ChatHeroVoice : IChatHandler {
         if (!activeChar.isHero)
             return
 
-        if (!FloodProtectors.performAction(activeChar.client, Action.HERO_VOICE))
+        if (!FloodProtectors.performAction(activeChar.client!!, Action.HERO_VOICE))
             return
 
         val cs = CreatureSay(activeChar.objectId, type, activeChar.name, text)

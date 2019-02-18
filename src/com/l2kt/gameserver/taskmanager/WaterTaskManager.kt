@@ -1,13 +1,12 @@
 package com.l2kt.gameserver.taskmanager
 
-import java.util.concurrent.ConcurrentHashMap
-
 import com.l2kt.commons.concurrent.ThreadPool
 import com.l2kt.gameserver.model.actor.instance.Player
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.SetupGauge
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
 import com.l2kt.gameserver.skills.Stats
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Updates [Player] drown timer and reduces [Player] HP, when drowning.
@@ -40,8 +39,8 @@ object WaterTaskManager : Runnable {
      * @param player : [Player] to be added and checked.
      */
     fun add(player: Player) {
-        if (!player.isDead && !players.containsKey(player)) {
-            val time = player.calcStat(Stats.BREATH, 60000 * player.race.breathMultiplier, player, null).toInt()
+        if (!player.isDead() && !players.containsKey(player)) {
+            val time = player.calcStat(Stats.BREATH, 60000 * player.race!!.breathMultiplier, player, null).toInt()
 
             players[player] = System.currentTimeMillis() + time
 

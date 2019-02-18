@@ -4,6 +4,7 @@ import com.l2kt.Config
 import com.l2kt.gameserver.data.SkillTable
 import com.l2kt.gameserver.data.xml.SkillTreeData
 import com.l2kt.gameserver.data.xml.SpellbookData
+import com.l2kt.gameserver.model.actor.template.PlayerTemplate
 import com.l2kt.gameserver.network.serverpackets.AcquireSkillInfo
 
 class RequestAcquireSkillInfo : L2GameClientPacket() {
@@ -51,7 +52,7 @@ class RequestAcquireSkillInfo : L2GameClientPacket() {
                     return
 
                 // Search if the asked skill exists on player template.
-                val gsn = player.template.findSkill(_skillId, _skillLevel)
+                val gsn = (player.template as PlayerTemplate).findSkill(_skillId, _skillLevel)
                 if (gsn != null) {
                     asi = AcquireSkillInfo(_skillId, _skillLevel, gsn.correctedCost, 0)
                     val bookId = SpellbookData.getBookForSkill(_skillId, _skillLevel)

@@ -32,7 +32,7 @@ class L2SkillTeleport(set: StatsSet) : L2Skill(set) {
     override fun useSkill(activeChar: Creature, targets: Array<WorldObject>) {
         if (activeChar is Player) {
             // Check invalid states.
-            if (activeChar.isAfraid() || activeChar.isInOlympiadMode || activeChar.isInsideZone(ZoneId.BOSS))
+            if (activeChar.isAfraid || activeChar.isInOlympiadMode || activeChar.isInsideZone(ZoneId.BOSS))
                 return
         }
 
@@ -60,7 +60,7 @@ class L2SkillTeleport(set: StatsSet) : L2Skill(set) {
             var loc: Location? = null
             if (skillType === L2SkillType.TELEPORT) {
                 if (_loc != null) {
-                    if (obj !is Player || !obj.isFlying())
+                    if (obj !is Player || !obj.isFlying)
                         loc = _loc
                 }
             } else {
@@ -74,7 +74,7 @@ class L2SkillTeleport(set: StatsSet) : L2Skill(set) {
 
             if (loc != null) {
                 if (obj is Player)
-                    obj.setIsIn7sDungeon(false)
+                    obj.isIn7sDungeon = false
 
                 obj.teleToLocation(loc, 20)
             }

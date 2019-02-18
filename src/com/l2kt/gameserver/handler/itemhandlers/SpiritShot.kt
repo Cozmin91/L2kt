@@ -19,7 +19,7 @@ class SpiritShot : IItemHandler {
         val itemId = item.itemId
 
         // Check if sps can be used
-        if (weaponInst == null || weaponItem.spiritShotCount == 0) {
+        if (weaponInst == null || weaponItem!!.spiritShotCount == 0) {
             if (!playable.autoSoulShot.contains(itemId))
                 playable.sendPacket(SystemMessageId.CANNOT_USE_SPIRITSHOTS)
             return

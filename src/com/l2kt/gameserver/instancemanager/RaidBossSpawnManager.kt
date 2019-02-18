@@ -128,7 +128,7 @@ object RaidBossSpawnManager {
             boss.raidStatus = StatusEnum.DEAD
 
             // getRespawnMinDelay() is used as fixed timer, while getRespawnMaxDelay() is used as random timer.
-            val respawnDelay = boss.spawn.respawnMinDelay + Rnd[-boss.spawn.respawnMaxDelay, boss.spawn.respawnMaxDelay]
+            val respawnDelay = boss.spawn!!.respawnMinDelay + Rnd[-boss.spawn!!.respawnMaxDelay, boss.spawn!!.respawnMaxDelay]
             val respawnTime = Calendar.getInstance().timeInMillis + respawnDelay * 3600000
 
             info["currentHP"] = boss.maxHp.toDouble()

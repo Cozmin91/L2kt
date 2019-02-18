@@ -20,7 +20,7 @@ class CannotMoveAnymoreInVehicle : L2GameClientPacket() {
     override fun runImpl() {
         val player = client.activeChar ?: return
 
-        if (player.isInBoat && player.boat.objectId == _boatId) {
+        if (player.isInBoat && player.boat?.objectId == _boatId) {
             player.boatPosition.set(_x, _y, _z, _heading)
             player.broadcastPacket(StopMoveInVehicle(player, _boatId))
         }

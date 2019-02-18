@@ -104,7 +104,7 @@ class Benom : L2AttackableAIScript("ai/individual") {
         when (_siege.status) {
             Siege.SiegeStatus.IN_PROGRESS -> {
                 _isPrisonOpened = false
-                if (_benom != null && !_benom!!.isDead)
+                if (_benom != null && !_benom!!.isDead())
                     startQuestTimer("tower_check", 30000, _benom, null, true)
             }
 

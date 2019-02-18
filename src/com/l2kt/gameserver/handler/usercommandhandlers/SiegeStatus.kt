@@ -21,7 +21,7 @@ class SiegeStatus : IUserCommandHandler {
             return false
         }
 
-        val clan = activeChar.clan
+        val clan = activeChar.clan!!
 
         val sb = StringBuilder()
 

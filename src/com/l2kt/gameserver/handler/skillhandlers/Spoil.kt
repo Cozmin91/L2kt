@@ -7,9 +7,9 @@ import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.ai.CtrlEvent
 import com.l2kt.gameserver.model.actor.instance.Monster
 import com.l2kt.gameserver.model.actor.instance.Player
-import com.l2kt.gameserver.skills.Formulas
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
+import com.l2kt.gameserver.skills.Formulas
 import com.l2kt.gameserver.templates.skills.L2SkillType
 
 class Spoil : ISkillHandler {
@@ -21,14 +21,14 @@ class Spoil : ISkillHandler {
         if (activeChar !is Player)
             return
 
-        if (targets == null)
+        if (targets.isEmpty())
             return
 
         for (tgt in targets) {
             if (tgt !is Monster)
                 continue
 
-            if (tgt.isDead)
+            if (tgt.isDead())
                 continue
 
             if (tgt.spoilerId != 0) {

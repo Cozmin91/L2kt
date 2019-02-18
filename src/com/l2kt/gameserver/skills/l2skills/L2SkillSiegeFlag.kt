@@ -32,7 +32,7 @@ class L2SkillSiegeFlag(set: StatsSet) : L2Skill(set) {
         npcDat.set("id", 35062.toInt())
         npcDat.set("type", "")
 
-        npcDat.set("name", player!!.clan.name)
+        npcDat.set("name", player!!.clan?.name ?: "")
         npcDat.set("usingServerSideName", true)
 
         npcDat.set("hp", if (_isAdvanced) 100000 else 50000)
@@ -69,7 +69,7 @@ class L2SkillSiegeFlag(set: StatsSet) : L2Skill(set) {
             sm = when {
                 siege == null || !siege.checkSide(player.clan, Siege.SiegeSide.ATTACKER) -> SystemMessage.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(247)
                 !player.isClanLeader -> SystemMessage.getSystemMessage(SystemMessageId.ONLY_CLAN_LEADER_CAN_ISSUE_COMMANDS)
-                player.clan.flag != null -> SystemMessage.getSystemMessage(SystemMessageId.NOT_ANOTHER_HEADQUARTERS)
+                player.clan?.flag != null -> SystemMessage.getSystemMessage(SystemMessageId.NOT_ANOTHER_HEADQUARTERS)
                 !player.isInsideZone(ZoneId.HQ) -> SystemMessage.getSystemMessage(SystemMessageId.NOT_SET_UP_BASE_HERE)
                 !player.getKnownTypeInRadius(SiegeFlag::class.java, 400).isEmpty() -> SystemMessage.getSystemMessage(SystemMessageId.HEADQUARTERS_TOO_CLOSE)
                 else -> return true

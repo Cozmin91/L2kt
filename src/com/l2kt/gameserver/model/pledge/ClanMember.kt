@@ -35,7 +35,7 @@ class ClanMember {
                 _apprentice = _player!!.apprentice
                 _sponsor = _player!!.sponsor
                 _sex = _player!!.appearance.sex
-                _raceOrdinal = _player!!.race.ordinal
+                _raceOrdinal = _player!!.race!!.ordinal
             }
 
             if (player != null) {
@@ -93,7 +93,7 @@ class ClanMember {
         }
 
     val raceOrdinal: Int
-        get() = if (_player != null) _player!!.race.ordinal else _raceOrdinal
+        get() = if (_player != null) _player!!.race!!.ordinal else _raceOrdinal
 
     val sex: Sex
         get() = if (_player != null) _player!!.appearance.sex else _sex
@@ -171,7 +171,7 @@ class ClanMember {
         _sponsor = 0
         _apprentice = 0
         _sex = player.appearance.sex
-        _raceOrdinal = player.race.ordinal
+        _raceOrdinal = player.race!!.ordinal
     }
 
     fun refreshLevel() {

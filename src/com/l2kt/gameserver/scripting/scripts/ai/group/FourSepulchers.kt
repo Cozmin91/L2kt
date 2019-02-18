@@ -26,7 +26,7 @@ class FourSepulchers : L2AttackableAIScript("ai/group") {
 
     override fun onAdvEvent(event: String, npc: Npc?, player: Player?): String? {
         if (event.equals("safety", ignoreCase = true)) {
-            if (npc != null && !npc.isDead && npc.isVisible) {
+            if (npc != null && !npc.isDead() && npc.isVisible) {
                 FourSepulchersManager.spawnKeyBox(npc)
                 npc.broadcastNpcSay("Thank you for saving me.")
                 npc.deleteMe()
@@ -144,7 +144,7 @@ class FourSepulchers : L2AttackableAIScript("ai/group") {
             18231 // Petrified statues.
                 , 18232, 18233, 18234, 18235, 18236, 18237, 18238, 18239, 18240, 18241, 18242, 18243 -> {
                 SkillTable.FrequentSkill.FAKE_PETRIFICATION.skill!!.getEffects(npc, npc)
-                npc.setIsNoRndWalk(true)
+                npc.isNoRndWalk = true
             }
 
             25339 // Shadows.

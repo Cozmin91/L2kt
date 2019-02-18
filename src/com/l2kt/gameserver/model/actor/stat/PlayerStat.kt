@@ -8,6 +8,8 @@ import com.l2kt.gameserver.model.RewardInfo
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.instance.Pet
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.template.PetTemplate
+import com.l2kt.gameserver.model.actor.template.PlayerTemplate
 import com.l2kt.gameserver.model.base.Experience
 import com.l2kt.gameserver.model.zone.ZoneId
 import com.l2kt.gameserver.model.zone.type.SwampZone
@@ -47,7 +49,7 @@ class PlayerStat(activeChar: Player) : PlayableStat(activeChar) {
         get() {
             val `val` = calcStat(
                 Stats.MAX_CP,
-                activeChar!!.template.getBaseCpMax(activeChar!!.level),
+                (activeChar!!.template as PlayerTemplate).getBaseCpMax(activeChar!!.level),
                 null,
                 null
             ).toInt()
@@ -107,12 +109,12 @@ class PlayerStat(activeChar: Player) : PlayableStat(activeChar) {
         get() {
             if (activeChar!!.isMounted) {
                 var base =
-                    if (activeChar!!.isFlying) activeChar!!.petDataEntry.mountFlySpeed else activeChar!!.petDataEntry.mountBaseSpeed
+                    if (activeChar!!.isFlying) activeChar!!.petDataEntry!!.mountFlySpeed else activeChar!!.petDataEntry!!.mountBaseSpeed
 
                 if (activeChar!!.level < activeChar!!.mountLevel)
                     base /= 2
 
-                if (activeChar!!.checkFoodState(activeChar!!.petTemplate.hungryLimit))
+                if (activeChar!!.checkFoodState(activeChar!!.petTemplate!!.hungryLimit))
                     base /= 2
 
                 return base
@@ -124,18 +126,18 @@ class PlayerStat(activeChar: Player) : PlayableStat(activeChar) {
     val baseSwimSpeed: Int
         get() {
             if (activeChar!!.isMounted) {
-                var base = activeChar!!.petDataEntry.mountSwimSpeed
+                var base = activeChar!!.petDataEntry!!.mountSwimSpeed
 
                 if (activeChar!!.level < activeChar!!.mountLevel)
                     base /= 2
 
-                if (activeChar!!.checkFoodState(activeChar!!.petTemplate.hungryLimit))
+                if (activeChar!!.checkFoodState(activeChar!!.petTemplate!!.hungryLimit))
                     base /= 2
 
                 return base
             }
 
-            return activeChar!!.template.baseSwimSpeed
+            return (activeChar!!.template as PlayerTemplate).baseSwimSpeed
         }
 
     override// get base value, use swimming speed in water
@@ -162,7 +164,7 @@ class PlayerStat(activeChar: Player) : PlayableStat(activeChar) {
             var base = 333.0
 
             if (activeChar!!.isMounted) {
-                if (activeChar!!.checkFoodState(activeChar!!.petTemplate.hungryLimit))
+                if (activeChar!!.checkFoodState(activeChar!!.petTemplate!!.hungryLimit))
                     base /= 2.0
             }
 
@@ -176,12 +178,12 @@ class PlayerStat(activeChar: Player) : PlayableStat(activeChar) {
     override val pAtkSpd: Int
         get() {
             if (activeChar!!.isFlying)
-                return if (activeChar!!.checkFoodState(activeChar!!.petTemplate.hungryLimit)) 150 else 300
+                return if (activeChar!!.checkFoodState(activeChar!!.petTemplate!!.hungryLimit)) 150 else 300
 
             if (activeChar!!.isRiding) {
-                var base = activeChar!!.petDataEntry.mountAtkSpd
+                var base = activeChar!!.petDataEntry!!.mountAtkSpd
 
-                if (activeChar!!.checkFoodState(activeChar!!.petTemplate.hungryLimit))
+                if (activeChar!!.checkFoodState(activeChar!!.petTemplate!!.hungryLimit))
                     base /= 2
 
                 return calcStat(Stats.POWER_ATTACK_SPEED, base.toDouble(), null, null).toInt()
@@ -200,8 +202,8 @@ class PlayerStat(activeChar: Player) : PlayableStat(activeChar) {
             return `val`
         }
 
-    override val physicalAttackRange: Int
-        get() = calcStat(Stats.POWER_ATTACK_RANGE, activeChar!!.attackType.range.toDouble(), null, null).toInt()
+    override val physicalAttackRange: Int //TODO look into this
+        get() = calcStat(Stats.POWER_ATTACK_RANGE, activeChar!!.attackType?.range?.toDouble() ?: 0.0, null, null).toInt()
 
     override fun addExp(value: Long): Boolean {
         // Allowed to gain exp?
@@ -272,7 +274,7 @@ class PlayerStat(activeChar: Player) : PlayableStat(activeChar) {
         // If this player has a pet, give the xp to the pet now (if any).
         if (activeChar!!.hasPet()) {
             val pet = activeChar!!.pet as Pet
-            if (pet.stat.exp <= pet.template.getPetDataEntry(81).maxExp + 10000 && !pet.isDead) {
+            if (pet.stat.exp <= (pet.template as PetTemplate).getPetDataEntry(81)!!.maxExp + 10000 && !pet.isDead()) {
                 if (MathUtil.checkIfInShortRadius(Config.PARTY_RANGE, pet, activeChar, true)) {
                     var ratio = pet.petData.expType
                     var petExp: Long = 0
@@ -385,7 +387,7 @@ class PlayerStat(activeChar: Player) : PlayableStat(activeChar) {
 
     override fun getMAtk(target: Creature?, skill: L2Skill?): Int {
         if (activeChar!!.isMounted) {
-            var base = activeChar!!.petDataEntry.mountMAtk
+            var base = activeChar!!.petDataEntry!!.mountMAtk
 
             if (activeChar!!.level < activeChar!!.mountLevel)
                 base /= 2.0
@@ -398,7 +400,7 @@ class PlayerStat(activeChar: Player) : PlayableStat(activeChar) {
 
     override fun getPAtk(target: Creature?): Int {
         if (activeChar!!.isMounted) {
-            var base = activeChar!!.petDataEntry.mountPAtk
+            var base = activeChar!!.petDataEntry!!.mountPAtk
 
             if (activeChar!!.level < activeChar!!.mountLevel)
                 base /= 2.0

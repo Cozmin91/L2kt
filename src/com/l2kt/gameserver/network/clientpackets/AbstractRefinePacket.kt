@@ -183,7 +183,7 @@ abstract class AbstractRefinePacket : L2GameClientPacket() {
                 player.sendPacket(SystemMessageId.AUGMENTED_ITEM_CANNOT_BE_DISCARDED)
                 return false
             }
-            if (player.isDead) {
+            if (player.isDead()) {
                 player.sendPacket(SystemMessageId.YOU_CANNOT_AUGMENT_ITEMS_WHILE_DEAD)
                 return false
             }

@@ -92,7 +92,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
         if (target is Playable) {
             // Check if target is in the Aggro range
-            if (!me.isInsideRadius(target, me.template.aggroRange, true, false))
+            if (!me.isInsideRadius(target, (me.template as NpcTemplate).aggroRange, true, false))
                 return false
 
             // Check if the AI isn't a Raid Boss, can See Silent Moving players and the target isn't in silent move mode
@@ -107,11 +107,11 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                     return false
 
                 // Check if player is an allied Varka.
-                if (ArraysUtil.contains(me.template.clans, "varka_silenos_clan") && targetPlayer.isAlliedWithVarka)
+                if (ArraysUtil.contains((me.template as NpcTemplate).clans, "varka_silenos_clan") && targetPlayer.isAlliedWithVarka)
                     return false
 
                 // Check if player is an allied Ketra.
-                if (ArraysUtil.contains(me.template.clans, "ketra_orc_clan") && targetPlayer.isAlliedWithKetra)
+                if (ArraysUtil.contains((me.template as NpcTemplate).clans, "ketra_orc_clan") && targetPlayer.isAlliedWithKetra)
                     return false
 
                 // check if the target is within the grace period for JUST getting up from fake death
@@ -192,9 +192,9 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                     if (npc.spawn != null) {
                         val range = Config.MAX_DRIFT_RANGE
                         if (!npc.isInsideRadius(
-                                npc.spawn.locX,
-                                npc.spawn.locY,
-                                npc.spawn.locZ,
+                                npc.spawn!!.locX,
+                                npc.spawn!!.locY,
+                                npc.spawn!!.locZ,
                                 range + range,
                                 true,
                                 false
@@ -257,7 +257,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
         clientStopMoving(null)
         setIntention(CtrlIntention.ACTIVE)
-        actor.doCast(_skill)
+        _skill?.let { actor.doCast(it) }
     }
 
     /**
@@ -366,17 +366,17 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
             // Random walk otherwise.
             if (npc.spawn != null && !npc.isNoRndWalk && Rnd[RANDOM_WALK_RATE] == 0) {
-                var x1 = npc.spawn.locX
-                var y1 = npc.spawn.locY
-                var z1 = npc.spawn.locZ
+                var x1 = npc.spawn!!.locX
+                var y1 = npc.spawn!!.locY
+                var z1 = npc.spawn!!.locZ
 
                 val range = Config.MAX_DRIFT_RANGE
 
                 x1 = Rnd[range * 2] // x
                 y1 = Rnd[x1, range * 2] // distance
                 y1 = Math.sqrt((y1 * y1 - x1 * x1).toDouble()).toInt() // y
-                x1 += npc.spawn.locX - range
-                y1 += npc.spawn.locY - range
+                x1 += npc.spawn!!.locX - range
+                y1 += npc.spawn!!.locY - range
                 z1 = npc.z
 
                 // Move the actor to Location (x,y,z)
@@ -458,7 +458,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
             // -------------------------------------------------------------------------------
             // Suicide possibility if HPs are < 15%.
-            defaultList = npc.template.getSkills(SkillType.SUICIDE)
+            defaultList = (npc.template as NpcTemplate).getSkills(SkillType.SUICIDE)
             if (!defaultList.isEmpty() && npc.currentHp / npc.maxHp < 0.15) {
                 val skill = Rnd[defaultList]
                 if (cast(skill, dist, range + skill!!.skillRadius))
@@ -467,11 +467,11 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
             // -------------------------------------------------------------------------------
             // Heal
-            defaultList = npc.template.getSkills(SkillType.HEAL)
+            defaultList = (npc.template as NpcTemplate).getSkills(SkillType.HEAL)
             if (!defaultList.isEmpty()) {
                 // First priority is to heal the master.
                 val master = npc.master
-                if (master != null && !master.isDead && master.currentHp / master.maxHp < 0.75) {
+                if (master != null && !master.isDead() && master.currentHp / master.maxHp < 0.75) {
                     for (sk in defaultList) {
                         if (sk.targetType == L2Skill.SkillTargetType.TARGET_SELF)
                             continue
@@ -519,12 +519,12 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                         continue
 
                     if (sk.targetType == L2Skill.SkillTargetType.TARGET_ONE) {
-                        val actorClans = npc.template.clans
+                        val actorClans = (npc.template as NpcTemplate).clans
                         for (obj in npc.getKnownTypeInRadius(Attackable::class.java, sk.castRange + actorCollision)) {
-                            if (obj.isDead)
+                            if (obj.isDead())
                                 continue
 
-                            if (!ArraysUtil.contains(actorClans, obj.template.clans))
+                            if (!ArraysUtil.contains(actorClans, (obj.template as NpcTemplate).clans))
                                 continue
 
                             if (obj.currentHp / obj.maxHp < 0.75) {
@@ -548,7 +548,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
             // -------------------------------------------------------------------------------
             // Buff
-            defaultList = npc.template.getSkills(SkillType.BUFF)
+            defaultList = (npc.template as NpcTemplate).getSkills(SkillType.BUFF)
             if (!defaultList.isEmpty()) {
                 for (sk in defaultList) {
                     if (!checkSkillCastConditions(sk))
@@ -567,7 +567,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
             // -------------------------------------------------------------------------------
             // Debuff - 10% luck to get debuffed.
-            defaultList = npc.template.getSkills(SkillType.DEBUFF)
+            defaultList = (npc.template as NpcTemplate).getSkills(SkillType.DEBUFF)
             if (Rnd[100] < 10 && !defaultList.isEmpty()) {
                 for (sk in defaultList) {
                     if (!checkSkillCastConditions(sk) || sk.castRange.toDouble() + npc.collisionRadius + attackTarget.collisionRadius <= dist && !canAura(
@@ -589,13 +589,13 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
             // -------------------------------------------------------------------------------
             // General attack skill - short range is checked, then long range.
-            defaultList = npc.template.getSkills(SkillType.SHORT_RANGE)
+            defaultList = (npc.template as NpcTemplate).getSkills(SkillType.SHORT_RANGE)
             if (!defaultList.isEmpty() && dist <= 150) {
                 val skill = Rnd[defaultList]
                 if (cast(skill, dist, skill!!.castRange))
                     return
             } else {
-                defaultList = npc.template.getSkills(SkillType.LONG_RANGE)
+                defaultList = (npc.template as NpcTemplate).getSkills(SkillType.LONG_RANGE)
                 if (!defaultList.isEmpty() && dist > 150) {
                     val skill = Rnd[defaultList]
                     if (cast(skill, dist, skill!!.castRange))
@@ -659,7 +659,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
          * Test the flee possibility. Archers got 25% chance to flee.
          */
 
-        if (npc.template.aiType == AIType.ARCHER && dist <= 60 + combinedCollision && Rnd[4] > 1) {
+        if ((npc.template as NpcTemplate).aiType == AIType.ARCHER && dist <= 60 + combinedCollision && Rnd[4] > 1) {
             val posX = npc.x + if (attackTarget.x < npc.x) 300 else -300
             val posY = npc.y + if (attackTarget.y < npc.y) 300 else -300
             val posZ = npc.z + 30
@@ -740,7 +740,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                 // Minion case.
                 if (sk.targetType != L2Skill.SkillTargetType.TARGET_SELF) {
                     val master = caster.master
-                    if (master != null && !master.isDead && Rnd[100] > master.currentHp / master.maxHp * 100) {
+                    if (master != null && !master.isDead() && Rnd[100] > master.currentHp / master.maxHp * 100) {
                         val overallRange =
                             (sk.castRange.toDouble() + caster.collisionRadius + master.collisionRadius).toInt()
                         if (!MathUtil.checkIfInRange(
@@ -775,10 +775,10 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                         Attackable::class.java,
                         (sk.castRange + caster.collisionRadius).toInt()
                     )) {
-                        if (obj.isDead)
+                        if (obj.isDead())
                             continue
 
-                        if (!ArraysUtil.contains(caster.template.clans, obj.template.clans))
+                        if (!ArraysUtil.contains((caster.template as NpcTemplate).clans, (obj.template as NpcTemplate).clans))
                             continue
 
                         percentage = obj.currentHp / obj.maxHp * 100
@@ -798,7 +798,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                         Attackable::class.java,
                         (sk.skillRadius + caster.collisionRadius).toInt()
                     )) {
-                        if (!ArraysUtil.contains(caster.template.clans, obj.template.clans))
+                        if (!ArraysUtil.contains((caster.template as NpcTemplate).clans, (obj.template as NpcTemplate).clans))
                             continue
 
                         if (obj.currentHp < obj.maxHp && Rnd[100] <= 20) {
@@ -815,7 +815,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                 if (GeoEngine.canSeeTarget(
                         caster,
                         attackTarget
-                    ) && !canAOE(sk) && !attackTarget.isDead && distance <= range
+                    ) && !canAOE(sk) && !attackTarget.isDead() && distance <= range
                 ) {
                     if (attackTarget.getFirstEffect(sk) == null) {
                         clientStopMoving(null)
@@ -832,7 +832,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                     if ((sk.targetType == L2Skill.SkillTargetType.TARGET_AREA || sk.targetType == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.targetType == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.canSeeTarget(
                             caster,
                             attackTarget
-                        ) && !attackTarget.isDead && distance <= range
+                        ) && !attackTarget.isDead() && distance <= range
                     ) {
                         clientStopMoving(null)
                         caster.doCast(sk)
@@ -850,7 +850,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
             L2SkillType.SLEEP -> {
                 if (sk.targetType == L2Skill.SkillTargetType.TARGET_ONE) {
-                    if (!attackTarget.isDead && distance <= range) {
+                    if (!attackTarget.isDead() && distance <= range) {
                         if (distance > range || attackTarget.isMoving) {
                             if (attackTarget.getFirstEffect(sk) == null) {
                                 clientStopMoving(null)
@@ -876,7 +876,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                     if ((sk.targetType == L2Skill.SkillTargetType.TARGET_AREA || sk.targetType == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.targetType == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.canSeeTarget(
                             caster,
                             attackTarget
-                        ) && !attackTarget.isDead && distance <= range
+                        ) && !attackTarget.isDead() && distance <= range
                     ) {
                         clientStopMoving(null)
                         caster.doCast(sk)
@@ -900,7 +900,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                     } else if ((sk.targetType == L2Skill.SkillTargetType.TARGET_AREA || sk.targetType == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.targetType == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.canSeeTarget(
                             caster,
                             attackTarget
-                        ) && !attackTarget.isDead && distance <= range
+                        ) && !attackTarget.isDead() && distance <= range
                     ) {
                         clientStopMoving(null)
                         caster.doCast(sk)
@@ -933,7 +933,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                     if ((sk.targetType == L2Skill.SkillTargetType.TARGET_AREA || sk.targetType == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.targetType == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.canSeeTarget(
                             caster,
                             attackTarget
-                        ) && !attackTarget.isDead && distance <= range
+                        ) && !attackTarget.isDead() && distance <= range
                     ) {
                         clientStopMoving(null)
                         caster.doCast(sk)
@@ -958,7 +958,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                     if (attackTarget.getFirstEffect(L2EffectType.BUFF) != null && GeoEngine.canSeeTarget(
                             caster,
                             attackTarget
-                        ) && !attackTarget.isDead && distance <= range
+                        ) && !attackTarget.isDead() && distance <= range
                     ) {
                         clientStopMoving(null)
                         caster.doCast(sk)
@@ -985,7 +985,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                     } else if ((sk.targetType == L2Skill.SkillTargetType.TARGET_AREA || sk.targetType == L2Skill.SkillTargetType.TARGET_BEHIND_AREA || sk.targetType == L2Skill.SkillTargetType.TARGET_FRONT_AREA) && GeoEngine.canSeeTarget(
                             caster,
                             attackTarget
-                        ) && !attackTarget.isDead && distance <= range
+                        ) && !attackTarget.isDead() && distance <= range
                     ) {
                         clientStopMoving(null)
                         caster.doCast(sk)
@@ -996,7 +996,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
             else -> {
                 if (!canAura(sk)) {
-                    if (GeoEngine.canSeeTarget(caster, attackTarget) && !attackTarget.isDead && distance <= range) {
+                    if (GeoEngine.canSeeTarget(caster, attackTarget) && !attackTarget.isDead() && distance <= range) {
                         clientStopMoving(null)
                         caster.doCast(sk)
                         return true
@@ -1035,7 +1035,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
             return false
 
         // Is a magic skill and character is magically muted or is a physical skill and character is physically muted.
-        return if (skill.isMagic && activeChar.isMuted || activeChar.isPhysicalMuted) false else true
+        return !(skill.isMagic && activeChar.isMuted || activeChar.isPhysicalMuted)
 
     }
 
@@ -1044,7 +1044,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
      * @return true if the actor will cast a spell, false otherwise.
      */
     protected fun willCastASpell(): Boolean {
-        when (activeChar.template.aiType) {
+        when ((activeChar.template as NpcTemplate).aiType) {
             NpcTemplate.AIType.HEALER, NpcTemplate.AIType.MAGE -> return !activeChar.isMuted
 
             else -> if (activeChar.isPhysicalMuted)
@@ -1100,7 +1100,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
         // If hate list gave nothing, then verify first if the actor is aggressive, and then pickup a victim from his knownlist.
         if (actor.isAggressive) {
-            for (target in actor.getKnownTypeInRadius(Creature::class.java, actor.template.aggroRange)) {
+            for (target in actor.getKnownTypeInRadius(Creature::class.java, (actor.template as NpcTemplate).aggroRange)) {
                 if (!autoAttackCondition(target))
                     continue
 
@@ -1216,19 +1216,19 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
         if (attacker != null) {
             // Faction check.
-            val actorClans = me.template.clans
+            val actorClans = (me.template as NpcTemplate).clans
             if (actorClans != null && me.attackByList.contains(attacker)) {
-                for (called in me.getKnownTypeInRadius(Attackable::class.java, me.template.clanRange)) {
+                for (called in me.getKnownTypeInRadius(Attackable::class.java, (me.template as NpcTemplate).clanRange)) {
                     // Caller hasn't AI or is dead.
-                    if (!called.hasAI() || called.isDead)
+                    if (!called.hasAI() || called.isDead())
                         continue
 
                     // Caller clan doesn't correspond to the called clan.
-                    if (!ArraysUtil.contains(actorClans, called.template.clans))
+                    if (!ArraysUtil.contains(actorClans, (called.template as NpcTemplate).clans))
                         continue
 
                     // Called mob doesnt care about that type of caller id (the bitch !).
-                    if (ArraysUtil.contains(called.template.ignoredIds, me.npcId))
+                    if (ArraysUtil.contains((called.template as NpcTemplate).ignoredIds, me.npcId))
                         continue
 
                     // Check if the WorldObject is inside the Faction Range of the actor
@@ -1239,14 +1239,12 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                         )
                     ) {
                         if (attacker is Playable) {
-                            val scripts = called.template.getEventQuests(EventType.ON_FACTION_CALL)
-                            if (scripts != null) {
-                                val player = attacker.actingPlayer
-                                val isSummon = attacker is Summon
+                            val scripts = (called.template as NpcTemplate).getEventQuests(EventType.ON_FACTION_CALL)
+                            val player = attacker.actingPlayer
+                            val isSummon = attacker is Summon
 
-                                for (quest in scripts)
-                                    quest.notifyFactionCall(called, me, player, isSummon)
-                            }
+                            for (quest in scripts)
+                                quest.notifyFactionCall(called, me, player, isSummon)
                         } else {
                             called.addDamageHate(attacker, 0, me.getHating(attacker))
                             called.ai.setIntention(CtrlIntention.ATTACK, attacker)
@@ -1297,19 +1295,19 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
             return
 
         // Faction check.
-        val actorClans = me.template.clans
+        val actorClans = (me.template as NpcTemplate).clans
         if (actorClans != null && me.attackByList.contains(target)) {
-            for (called in me.getKnownTypeInRadius(Attackable::class.java, me.template.clanRange)) {
+            for (called in me.getKnownTypeInRadius(Attackable::class.java, (me.template as NpcTemplate).clanRange)) {
                 // Caller hasn't AI or is dead.
-                if (!called.hasAI() || called.isDead)
+                if (!called.hasAI() || called.isDead())
                     continue
 
                 // Caller clan doesn't correspond to the called clan.
-                if (!ArraysUtil.contains(actorClans, called.template.clans))
+                if (!ArraysUtil.contains(actorClans, (called.template as NpcTemplate).clans))
                     continue
 
                 // Called mob doesnt care about that type of caller id (the bitch !).
-                if (ArraysUtil.contains(called.template.ignoredIds, me.npcId))
+                if (ArraysUtil.contains((called.template as NpcTemplate).ignoredIds, me.npcId))
                     continue
 
                 // Check if the WorldObject is inside the Faction Range of the actor
@@ -1320,7 +1318,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                     )
                 ) {
                     if (target is Playable) {
-                        val scripts = called.template.getEventQuests(EventType.ON_FACTION_CALL)
+                        val scripts = (called.template as NpcTemplate).getEventQuests(EventType.ON_FACTION_CALL)
                         if (scripts != null) {
                             val player = target.actingPlayer
                             val isSummon = target is Summon
@@ -1352,7 +1350,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
         if (Rnd[RANDOM_WALK_RATE] != 0)
             return false
 
-        for (sk in activeChar.template.getSkills(SkillType.BUFF)) {
+        for (sk in (activeChar.template as NpcTemplate).getSkills(SkillType.BUFF)) {
             if (activeChar.getFirstEffect(sk) != null)
                 continue
 

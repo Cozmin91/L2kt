@@ -51,7 +51,7 @@ class RequestGiveItemToPet : L2GameClientPacket() {
         }
 
         val pet = player.pet as Pet
-        if (pet.isDead) {
+        if (pet.isDead()) {
             player.sendPacket(SystemMessageId.CANNOT_GIVE_ITEMS_TO_DEAD_PET)
             return
         }

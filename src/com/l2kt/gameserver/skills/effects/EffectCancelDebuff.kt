@@ -47,7 +47,7 @@ class EffectCancelDebuff(env: Env, template: EffectTemplate) : L2Effect(env, tem
                     continue
 
                 if (!effect!!.skill.isDebuff || !effect!!.skill.canBeDispeled()) {
-                    effects[i] = null
+                    effects.removeAt(i)
                     continue
                 }
 
@@ -77,7 +77,7 @@ class EffectCancelDebuff(env: Env, template: EffectTemplate) : L2Effect(env, tem
                     continue
 
                 if (!effect!!.skill.isDebuff || !effect!!.skill.canBeDispeled()) {
-                    effects[i] = null
+                    effects.removeAt(i)
                     continue
                 }
 

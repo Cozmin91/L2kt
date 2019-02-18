@@ -36,7 +36,7 @@ class Pdam : ISkillHandler {
 
             if (activeChar is Player && obj is Player && obj.isFakeDeath)
                 obj.stopFakeDeath(true)
-            else if (obj.isDead)
+            else if (obj.isDead())
                 continue
 
             // Calculate skill evasion. As Dodge blocks only melee skills, make an exception with bow weapons.

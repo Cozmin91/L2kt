@@ -10,7 +10,7 @@ import com.l2kt.gameserver.network.serverpackets.CreatureSay
 class ChatAll : IChatHandler {
 
     override fun handleChat(type: Int, activeChar: Player, params: String, text: String) {
-        if (!FloodProtectors.performAction(activeChar.client, Action.GLOBAL_CHAT))
+        if (!FloodProtectors.performAction(activeChar.client!!, Action.GLOBAL_CHAT))
             return
 
         val cs = CreatureSay(activeChar.objectId, type, activeChar.name, text)

@@ -126,7 +126,7 @@ class Antharas : L2AttackableAIScript("ai/individual") {
             _timeTracker = System.currentTimeMillis()
 
             GrandBossManager.setBossStatus(ANTHARAS, FIGHTING.toInt())
-            npc?.setIsInvul(false)
+            npc?.isInvul = false
             npc?.setRunning()
 
             startQuestTimer("regen_task", 60000, npc, null, true)
@@ -170,7 +170,7 @@ class Antharas : L2AttackableAIScript("ai/individual") {
 
             val antharas = addSpawn(_antharasId, 181323, 114850, -7623, 32542, false, 0, false)
             GrandBossManager.addBoss(ANTHARAS, antharas as GrandBoss)
-            antharas.setIsInvul(true)
+            antharas.isInvul = true
 
             // Launch the cinematic, and tasks (regen + skill).
             startQuestTimer("spawn_1", 16, antharas, null, false)
@@ -246,7 +246,7 @@ class Antharas : L2AttackableAIScript("ai/individual") {
             return
 
         // Pickup a target if no or dead victim. 10% luck he decides to reconsiders his target.
-        if (_actualVictim == null || _actualVictim!!.isDead || !npc.getKnownType(Player::class.java).contains(_actualVictim!!) || Rnd[10] == 0)
+        if (_actualVictim == null || _actualVictim!!.isDead() || !npc.getKnownType(Player::class.java).contains(_actualVictim!!) || Rnd[10] == 0)
             _actualVictim = getRandomPlayer(npc)
 
         // If result is still null, Antharas will roam. Don't go deeper in skill AI.

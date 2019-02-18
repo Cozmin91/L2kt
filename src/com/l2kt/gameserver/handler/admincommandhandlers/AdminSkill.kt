@@ -7,6 +7,7 @@ import com.l2kt.gameserver.handler.IAdminCommandHandler
 import com.l2kt.gameserver.model.L2Skill
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.template.PlayerTemplate
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.MagicSkillUse
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage
@@ -169,7 +170,7 @@ class AdminSkill : IAdminCommandHandler {
                 "<html><body><table width=270><tr><td width=45><button value=\"Main\" action=\"bypass -h admin_admin\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td width=180><center>Delete Skills Menu</center></td><td width=45><button value=\"Back\" action=\"bypass -h admin_show_skills\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table><br><br><center>Editing <font color=\"LEVEL\">",
                 player.name,
                 "</font>, ",
-                player.template.className,
+                (player.template as PlayerTemplate).className,
                 " lvl ",
                 player.level,
                 ".<br><center><table width=270><tr>"
@@ -227,7 +228,7 @@ class AdminSkill : IAdminCommandHandler {
             html.setFile("data/html/admin/charskills.htm")
             html.replace("%name%", player.name)
             html.replace("%level%", player.level)
-            html.replace("%class%", player.template.className)
+            html.replace("%class%", (player.template as PlayerTemplate).className)
             activeChar.sendPacket(html)
         }
 
@@ -376,9 +377,9 @@ class AdminSkill : IAdminCommandHandler {
                 return
             }
 
-            player.clan.addNewSkill(skill)
+            player.clan?.addNewSkill(skill)
 
-            activeChar.sendMessage("You gave " + skill.name + " Clan Skill to " + player.clan.name + " clan.")
+            activeChar.sendMessage("You gave " + skill.name + " Clan Skill to " + player.clan?.name + " clan.")
 
             showMainPage(activeChar)
             return

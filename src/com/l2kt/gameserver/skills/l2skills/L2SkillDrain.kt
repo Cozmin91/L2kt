@@ -65,7 +65,7 @@ class L2SkillDrain(set: StatsSet) : L2Skill(set) {
                 }
 
                 // That section is launched for drain skills made on ALIVE targets.
-                if (!obj.isDead || targetType != L2Skill.SkillTargetType.TARGET_CORPSE_MOB) {
+                if (!obj.isDead() || targetType != L2Skill.SkillTargetType.TARGET_CORPSE_MOB) {
                     // Manage cast break of the target (calculating rate, sending message...)
                     Formulas.calcCastBreak(obj, damage.toDouble())
 
@@ -129,7 +129,7 @@ class L2SkillDrain(set: StatsSet) : L2Skill(set) {
                 if (hpAdd > 0) {
                     val hp: Double = if (owner.currentHp + hpAdd > owner.maxHp) owner.maxHp.toDouble() else owner.currentHp + hpAdd
 
-                    owner.setCurrentHp(hp)
+                    owner.currentHp = hp
 
                     val suhp = StatusUpdate(owner)
                     suhp.addAttribute(StatusUpdate.CUR_HP, hp.toInt())
@@ -137,7 +137,7 @@ class L2SkillDrain(set: StatsSet) : L2Skill(set) {
                 }
 
                 // That section is launched for drain skills made on ALIVE targets.
-                if (!obj.isDead || targetType != L2Skill.SkillTargetType.TARGET_CORPSE_MOB) {
+                if (!obj.isDead() || targetType != L2Skill.SkillTargetType.TARGET_CORPSE_MOB) {
                     obj.reduceCurrentHp(damage.toDouble(), activeCubic.owner, this)
 
                     // Manage cast break of the target (calculating rate, sending message...)

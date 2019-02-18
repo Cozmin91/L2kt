@@ -42,7 +42,7 @@ class HealPercent : ISkillHandler {
             if (obj !is Creature)
                 continue
 
-            if (obj.isDead || obj.isInvul)
+            if (obj.isDead() || obj.isInvul)
                 continue
 
             // Doors and flags can't be healed in any way

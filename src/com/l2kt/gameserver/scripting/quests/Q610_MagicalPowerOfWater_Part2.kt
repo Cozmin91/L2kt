@@ -172,7 +172,7 @@ class Q610_MagicalPowerOfWater_Part2 : Quest(610, "Magical Power of Water - Part
         raid.spawn.setLoc(-105900, -252700, -15542, 0)
 
         // teleport raid back to secret place
-        if (!raid.isDead)
+        if (!raid.isDead())
             raid.teleToLocation(-105900, -252700, -15542, 0)
 
         // reset raid status

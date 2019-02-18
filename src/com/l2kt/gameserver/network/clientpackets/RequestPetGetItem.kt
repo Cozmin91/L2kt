@@ -20,7 +20,7 @@ class RequestPetGetItem : L2GameClientPacket() {
         val item = World.getObject(_objectId) ?: return
 
         val pet = activeChar.pet as Pet
-        if (pet.isDead || pet.isOutOfControl) {
+        if (pet.isDead() || pet.isOutOfControl) {
             sendPacket(ActionFailed.STATIC_PACKET)
             return
         }

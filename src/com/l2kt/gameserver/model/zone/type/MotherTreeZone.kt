@@ -31,7 +31,7 @@ class MotherTreeZone(id: Int) : ZoneType(id) {
     }
 
     override fun isAffected(character: Creature): Boolean {
-        return if (character is Player) _race == character.race.ordinal else true
+        return if (character is Player) _race == character.race!!.ordinal else true
 
     }
 

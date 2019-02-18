@@ -114,9 +114,9 @@ class Duel(
 
         init {
             if (player != null){
-                _hp = this.player.getCurrentHp()
-                _mp = this.player.getCurrentMp()
-                _cp = this.player.getCurrentCp()
+                _hp = this.player.currentHp
+                _mp = this.player.currentMp
+                _cp = this.player.currentCp
 
                 if (partyDuel) {
                     _x = this.player.x
@@ -132,9 +132,9 @@ class Duel(
             if (abnormalEnd)
                 return
 
-            player?.setCurrentHp(_hp)
-            player?.setCurrentMp(_mp)
-            player?.setCurrentCp(_cp)
+            player?.currentHp = _hp
+            player?.currentMp = _mp
+            player?.currentCp = _cp
 
             if (_debuffs != null) {
                 for (skill in _debuffs!!)
@@ -425,7 +425,7 @@ class Duel(
      * Broadcast a packet to the challenger team.
      * @param packet : The packet to send.
      */
-    fun broadcastToTeam1(packet: L2GameServerPacket?) {
+    fun broadcastToTeam1(packet: L2GameServerPacket) {
         if (isPartyDuel && playerA.party != null) {
             for (partyPlayer in playerA.party!!.members)
                 partyPlayer.sendPacket(packet)
@@ -437,7 +437,7 @@ class Duel(
      * Broadcast a packet to the challenged team.
      * @param packet : The packet to send.
      */
-    fun broadcastToTeam2(packet: L2GameServerPacket?) {
+    fun broadcastToTeam2(packet: L2GameServerPacket) {
         if (isPartyDuel && playerB.party != null) {
             for (partyPlayer in playerB.party!!.members)
                 partyPlayer.sendPacket(packet)
@@ -522,8 +522,8 @@ class Duel(
                 SystemMessage.getSystemMessage(SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE)
         }
 
-        broadcastToTeam1(sm)
-        broadcastToTeam2(sm)
+        sm?.let { broadcastToTeam1(it) }
+        sm?.let { broadcastToTeam2(it) }
 
         restorePlayerConditions(result == DuelResult.CANCELED)
 

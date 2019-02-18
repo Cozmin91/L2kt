@@ -201,7 +201,7 @@ class L2GameClient(con: MMOConnection<L2GameClient>) : MMOClient<MMOConnection<L
             _log.severe("Attempt of double login: " + player.name + "(" + objectId + ") " + accountName)
 
             if (player.client != null)
-                player.client.closeNow()
+                player.client!!.closeNow()
             else
                 player.deleteMe()
 

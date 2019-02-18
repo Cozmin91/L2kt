@@ -25,7 +25,7 @@ class CombatPointHeal : ISkillHandler {
             if (obj !is Creature)
                 continue
 
-            if (obj.isDead || obj.isInvul)
+            if (obj.isDead() || obj.isInvul)
                 continue
 
             var cp = skill.power

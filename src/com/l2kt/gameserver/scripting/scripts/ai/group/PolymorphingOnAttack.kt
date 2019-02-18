@@ -18,7 +18,7 @@ class PolymorphingOnAttack : L2AttackableAIScript("ai/group") {
     }
 
     override fun onAttack(npc: Npc, attacker: Creature, damage: Int, skill: L2Skill?): String? {
-        if (npc.isVisible && !npc.isDead) {
+        if (npc.isVisible && !npc.isDead()) {
             val tmp = MOBSPAWNS[npc.npcId]
             if (tmp != null) {
                 if (npc.currentHp <= npc.maxHp * tmp[1] / 100.0 && Rnd[100] < tmp[2]) {

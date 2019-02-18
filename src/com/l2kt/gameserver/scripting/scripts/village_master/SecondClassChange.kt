@@ -333,6 +333,7 @@ class SecondClassChange : Quest(-1, "village_master") {
                     if (player.classId == ClassId.HUMAN_WIZARD || player.classId == ClassId.ELVEN_WIZARD) "master_human_elf_mystic" else "master_human_elf_buffer"
                 else
                     "master_human_elf_fighter"
+                else -> ""
             }
 
             return change

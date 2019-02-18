@@ -22,7 +22,7 @@ class EffectFakeDeath(env: Env, template: EffectTemplate) : L2Effect(env, templa
     }
 
     override fun onActionTime(): Boolean {
-        if (effected.isDead)
+        if (effected.isDead())
             return false
 
         val manaDam = calc()

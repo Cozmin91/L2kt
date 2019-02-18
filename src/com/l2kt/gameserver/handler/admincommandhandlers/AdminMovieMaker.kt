@@ -61,7 +61,7 @@ class AdminMovieMaker : IAdminCommandHandler {
                 return false
             }
 
-            val targ = if (activeChar.target != null) activeChar.target.objectId else activeChar.objectId
+            val targ = if (activeChar.target != null) activeChar.target!!.objectId else activeChar.objectId
 
             if (command.startsWith("admin_addsequence")) {
                 MovieMakerManager.addSequence(

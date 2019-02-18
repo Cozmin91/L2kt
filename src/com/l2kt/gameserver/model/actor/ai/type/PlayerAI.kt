@@ -200,7 +200,7 @@ internal class PlayerAI(player: Player) : PlayableAI(player) {
 
         if (_skill!!.targetType == L2Skill.SkillTargetType.TARGET_GROUND && actor is Player) {
             if (maybeMoveToPosition(actor.currentSkillWorldPosition, _skill!!.castRange)) {
-                actor.setIsCastingNow(false)
+                actor.isCastingNow = false
                 return
             }
         } else {
@@ -209,12 +209,12 @@ internal class PlayerAI(player: Player) : PlayableAI(player) {
                 if (_skill!!.isOffensive && target != null)
                     this.target = null
 
-                actor.setIsCastingNow(false)
+                actor.isCastingNow = false
                 return
             }
 
             if (target != null && maybeMoveToPawn(target, _skill!!.castRange)) {
-                actor.setIsCastingNow(false)
+                actor.isCastingNow = false
                 return
             }
         }
@@ -222,7 +222,7 @@ internal class PlayerAI(player: Player) : PlayableAI(player) {
         if (_skill!!.hitTime > 50 && !_skill!!.isSimultaneousCast)
             clientStopMoving(null)
 
-        actor.doCast(_skill)
+        actor.doCast(_skill!!)
     }
 
     private fun thinkPickUp() {
@@ -237,7 +237,7 @@ internal class PlayerAI(player: Player) : PlayableAI(player) {
             return
 
         setIntention(CtrlIntention.IDLE)
-        actor.actingPlayer!!.doPickupItem(target)
+        actor.actingPlayer!!.doPickupItem(target!!)
     }
 
     private fun thinkInteract() {

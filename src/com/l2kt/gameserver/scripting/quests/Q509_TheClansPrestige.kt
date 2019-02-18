@@ -60,7 +60,7 @@ class Q509_TheClansPrestige : Quest(509, "The Clan's Prestige") {
         when (st.state) {
             Quest.STATE_CREATED -> if (!player.isClanLeader)
                 htmltext = "31331-0a.htm"
-            else if (clan.level < 6)
+            else if (clan != null && clan.level < 6)
                 htmltext = "31331-0b.htm"
             else
                 htmltext = "31331-0c.htm"
@@ -76,13 +76,13 @@ class Q509_TheClansPrestige : Quest(509, "The Clan's Prestige") {
 
                     htmltext = "31331-" + raid + "b.htm"
                     st.takeItems(item, 1)
-                    clan.addReputationScore(reward)
+                    clan?.addReputationScore(reward)
                     player.sendPacket(
                         SystemMessage.getSystemMessage(SystemMessageId.CLAN_QUEST_COMPLETED_AND_S1_POINTS_GAINED).addNumber(
                             reward
                         )
                     )
-                    clan.broadcastToOnlineMembers(PledgeShowInfoUpdate(clan))
+                    clan?.broadcastToOnlineMembers(PledgeShowInfoUpdate(clan))
                 }
             }
         }

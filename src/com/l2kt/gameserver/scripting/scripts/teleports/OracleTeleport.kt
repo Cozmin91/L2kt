@@ -47,7 +47,7 @@ class OracleTeleport : Quest(-1, "teleports") {
             if (ArraysUtil.contains(TEMPLE_PRIEST, npcId) && st!!.state == Quest.STATE_STARTED) {
                 val loc = RETURN_LOCS[st.getInt("id")]
                 player.teleToLocation(loc.x, loc.y, loc.z, 0)
-                player.setIsIn7sDungeon(false)
+                player.isIn7sDungeon = false
                 st.exitQuest(true)
             } else if (ArraysUtil.contains(RIFT_POSTERS, npcId) && st!!.state == Quest.STATE_STARTED) {
                 val loc = RETURN_LOCS[st.getInt("id")]
@@ -59,10 +59,10 @@ class OracleTeleport : Quest(-1, "teleports") {
             val id = st!!.getInt("id")
             if (ArraysUtil.contains(TOWN_DAWN, id)) {
                 player.teleToLocation(-80157, 111344, -4901, 0)
-                player.setIsIn7sDungeon(true)
+                player.isIn7sDungeon = true
             } else if (ArraysUtil.contains(TOWN_DUSK, id)) {
                 player.teleToLocation(-81261, 86531, -5157, 0)
-                player.setIsIn7sDungeon(true)
+                player.isIn7sDungeon = true
             } else
                 htmltext = "oracle1.htm"
         } else if (event.equals("Dimensional", ignoreCase = true)) {
@@ -137,7 +137,7 @@ class OracleTeleport : Quest(-1, "teleports") {
             st["id"] = Integer.toString(i)
             st.playSound(QuestState.SOUND_ACCEPT)
             player.teleToLocation(-80157, 111344, -4901, 0)
-            player.setIsIn7sDungeon(true)
+            player.isIn7sDungeon = true
         }
 
         if (ArraysUtil.contains(TOWN_DUSK, npcId)) {
@@ -153,7 +153,7 @@ class OracleTeleport : Quest(-1, "teleports") {
             st["id"] = Integer.toString(i)
             st.playSound(QuestState.SOUND_ACCEPT)
             player.teleToLocation(-81261, 86531, -5157, 0)
-            player.setIsIn7sDungeon(true)
+            player.isIn7sDungeon = true
         } else if (npcId in 31494..31507) {
             if (player.level < 20) {
                 htmltext = "1.htm"

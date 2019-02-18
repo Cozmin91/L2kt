@@ -31,7 +31,7 @@ class CpDamPercent : ISkillHandler {
 
             if (activeChar is Player && obj is Player && obj.isFakeDeath)
                 obj.stopFakeDeath(true)
-            else if (obj.isDead || obj.isInvul)
+            else if (obj.isDead() || obj.isInvul)
                 continue
 
             val shld = Formulas.calcShldUse(activeChar, obj, skill)

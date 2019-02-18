@@ -37,7 +37,7 @@ class Disablers : ISkillHandler {
                 continue
 
             var target = obj
-            if (target.isDead || target.isInvul && !target.isParalyzed)
+            if (target.isDead() || target.isInvul && !target.isParalyzed)
             // bypass if target is dead or invul (excluding invul from Petrification)
                 continue
 
@@ -119,7 +119,7 @@ class Disablers : ISkillHandler {
                     // do nothing if not on mob
                     if (target is Attackable) {
                         if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, bsps)) {
-                            val effects = target.getAllEffects()
+                            val effects = target.allEffects
                             for (e in effects) {
                                 if (e.skill.skillType === type)
                                     e.exit()
@@ -138,10 +138,10 @@ class Disablers : ISkillHandler {
 
                 L2SkillType.AGGDAMAGE -> {
                     if (target is Attackable)
-                        target.getAI().notifyEvent(
+                        target.ai.notifyEvent(
                             CtrlEvent.EVT_AGGRESSION,
                             activeChar,
-                            (150 * skill.power / (target.getLevel() + 7)).toInt()
+                            (150 * skill.power / (target.level + 7)).toInt()
                         )
 
                     skill.getEffects(activeChar, target, Env(shld, ss, sps, bsps))
@@ -192,10 +192,10 @@ class Disablers : ISkillHandler {
 
                 L2SkillType.AGGREMOVE ->
                     // these skills needs to be rechecked
-                    if (target is Attackable && !target.isRaidRelated()) {
+                    if (target is Attackable && !target.isRaidRelated) {
                         if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, bsps)) {
                             if (skill.targetType == L2Skill.SkillTargetType.TARGET_UNDEAD) {
-                                if (target.isUndead())
+                                if (target.isUndead)
                                     target.reduceHate(null, target.getHating(target.mostHated))
                             } else
                                 target.reduceHate(null, target.getHating(target.mostHated))
@@ -207,7 +207,7 @@ class Disablers : ISkillHandler {
                                     ).addSkillName(skill)
                                 )
 
-                            target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar)
+                            target.ai.notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar)
                         }
                     } else
                         target.ai.notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar)

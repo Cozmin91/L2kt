@@ -16,7 +16,7 @@ class RequestAutoSoulShot : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        if (!activeChar.isInStoreMode && activeChar.activeRequester == null && !activeChar.isDead) {
+        if (!activeChar.isInStoreMode && activeChar.activeRequester == null && !activeChar.isDead()) {
             val item = activeChar.inventory!!.getItemByItemId(_itemId) ?: return
 
             if (_type == 1) {

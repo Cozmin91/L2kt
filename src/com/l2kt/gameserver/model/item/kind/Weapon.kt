@@ -225,8 +225,7 @@ class Weapon
         if (!Formulas.calcSkillSuccess(caster, target, _skillsOnCrit!!.skill!!, shld, false))
             return emptyList()
 
-        if (target.getFirstEffect(_skillsOnCrit!!.skill!!.id) != null)
-            target.getFirstEffect(_skillsOnCrit!!.skill!!.id).exit()
+        target.getFirstEffect(_skillsOnCrit!!.skill!!.id)?.exit()
 
         for (e in _skillsOnCrit!!.skill!!.getEffects(caster, target, Env(shld, false, false, false)))
             effects.add(e)

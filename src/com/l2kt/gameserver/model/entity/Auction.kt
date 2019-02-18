@@ -198,13 +198,13 @@ class Auction {
     fun setBid(bidder: Player, bid: Int) {
         var requiredAdena = bid
 
-        if (highestBidderName == bidder.clan.leaderName)
+        if (highestBidderName == bidder.clan!!.leaderName)
             requiredAdena = bid - highestBidderMaxBid
 
         if (highestBidderId > 0 && bid > highestBidderMaxBid || highestBidderId == 0 && bid >= startingBid) {
             if (takeItem(bidder, requiredAdena)) {
                 updateInDB(bidder, bid)
-                bidder.clan.auctionBiddedAt = id
+                bidder.clan!!.auctionBiddedAt = id
                 return
             }
         }
@@ -227,7 +227,7 @@ class Auction {
                     statement =
                             con.prepareStatement("UPDATE auction_bid SET bidderId=?, bidderName=?, maxBid=?, time_bid=? WHERE auctionId=? AND bidderId=?")
                     statement.setInt(1, bidder.clanId)
-                    statement.setString(2, bidder.clan.leaderName)
+                    statement.setString(2, bidder.clan!!.leaderName)
                     statement.setInt(3, bid)
                     statement.setLong(4, System.currentTimeMillis())
                     statement.setInt(5, id)
@@ -242,7 +242,7 @@ class Auction {
                     statement.setInt(3, bidder.clanId)
                     statement.setString(4, bidder.name)
                     statement.setInt(5, bid)
-                    statement.setString(6, bidder.clan.name)
+                    statement.setString(6, bidder.clan!!.name)
                     statement.setLong(7, System.currentTimeMillis())
                     statement.execute()
                     statement.close()
@@ -250,11 +250,11 @@ class Auction {
 
                 highestBidderId = bidder.clanId
                 highestBidderMaxBid = bid
-                highestBidderName = bidder.clan.leaderName
+                highestBidderName = bidder.clan!!.leaderName
 
                 if (_bidders[highestBidderId] == null)
                     _bidders[highestBidderId] =
-                            Bidder(highestBidderName, bidder.clan.name, bid, Calendar.getInstance().timeInMillis)
+                            Bidder(highestBidderName, bidder.clan!!.name, bid, Calendar.getInstance().timeInMillis)
                 else {
                     _bidders[highestBidderId]!!.bid = bid
                     _bidders[highestBidderId]!!.setTimeBid(Calendar.getInstance().timeInMillis)
@@ -437,8 +437,8 @@ class Auction {
          * @return true if successful.
          */
         fun takeItem(bidder: Player, quantity: Int): Boolean {
-            if (bidder.clan != null && bidder.clan.warehouse.adena >= quantity) {
-                bidder.clan.warehouse.destroyItemByItemId("Buy", 57, quantity, bidder, bidder)
+            if (bidder.clan != null && bidder.clan!!.warehouse.adena >= quantity) {
+                bidder.clan!!.warehouse.destroyItemByItemId("Buy", 57, quantity, bidder, bidder)
                 return true
             }
 

@@ -48,7 +48,7 @@ class AdminEditNpc : IAdminCommandHandler {
                     "</td><td>",
                     master.name,
                     " (",
-                    if (master.isDead) "Dead" else "Alive",
+                    if (master.isDead()) "Dead" else "Alive",
                     ")</td></tr>"
                 )
             } else if (target.hasMinions()) {
@@ -169,7 +169,7 @@ class AdminEditNpc : IAdminCommandHandler {
 
             if (activeChar.target is Merchant) {
                 val merchant = activeChar.target as Npc
-                val taxRate = merchant.castle.taxPercent
+                val taxRate = merchant.castle?.taxPercent ?:0
 
                 StringUtil.append(
                     sb,

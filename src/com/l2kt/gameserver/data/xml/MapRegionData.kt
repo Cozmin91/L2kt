@@ -7,6 +7,7 @@ import com.l2kt.gameserver.data.xml.MapRegionData.forEach
 import com.l2kt.gameserver.instancemanager.ClanHallManager
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.template.PlayerTemplate
 import com.l2kt.gameserver.model.base.ClassRace
 import com.l2kt.gameserver.model.entity.Siege.SiegeSide
 import com.l2kt.gameserver.model.location.Location
@@ -182,7 +183,7 @@ object MapRegionData : IXmlReader {
 
         if (teleportType != TeleportType.TOWN && creature.clan != null) {
             if (teleportType == TeleportType.CLAN_HALL) {
-                val ch = ClanHallManager.getClanHallByOwner(creature.clan)
+                val ch = ClanHallManager.getClanHallByOwner(creature.clan!!)
                 if (ch != null) {
                     val zone = ch.zone
                     if (zone != null)
@@ -190,7 +191,7 @@ object MapRegionData : IXmlReader {
                 }
             } else if (teleportType == TeleportType.CASTLE) {
                 // Check if the player is part of a castle owning clan.
-                var castle = CastleManager.getCastleByOwner(creature.clan)
+                var castle = CastleManager.getCastleByOwner(creature.clan!!)
                 if (castle == null) {
                     // If not, check if he is in defending side.
                     castle = CastleManager.getCastle(creature)
@@ -198,7 +199,7 @@ object MapRegionData : IXmlReader {
                             creature.clan,
                             SiegeSide.DEFENDER,
                             SiegeSide.OWNER
-                        ) == true)
+                        ))
                     )
                         castle = null
                 }
@@ -235,9 +236,9 @@ object MapRegionData : IXmlReader {
         when (getMapRegion(creature.x, creature.y)) {
             0 -> return getTown(2) // TI
             1// Elven
-            -> return getTown(if (creature is Player && creature.template.race == ClassRace.DARK_ELF) 1 else 3)
+            -> return getTown(if (creature is Player && (creature.template as PlayerTemplate).race == ClassRace.DARK_ELF) 1 else 3)
             2// DE
-            -> return getTown(if (creature is Player && creature.template.race == ClassRace.ELF) 3 else 1)
+            -> return getTown(if (creature is Player && (creature.template as PlayerTemplate).race == ClassRace.ELF) 3 else 1)
             3 -> return getTown(4) // Orc
             4// Dwarven
             -> return getTown(6)

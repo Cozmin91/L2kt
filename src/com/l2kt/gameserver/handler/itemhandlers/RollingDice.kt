@@ -17,7 +17,7 @@ class RollingDice : IItemHandler {
         if (playable !is Player)
             return
 
-        if (!FloodProtectors.performAction(playable.client, Action.ROLL_DICE)) {
+        if (!FloodProtectors.performAction(playable.client!!, Action.ROLL_DICE)) {
             playable.sendPacket(SystemMessageId.YOU_MAY_NOT_THROW_THE_DICE_AT_THIS_TIME_TRY_AGAIN_LATER)
             return
         }

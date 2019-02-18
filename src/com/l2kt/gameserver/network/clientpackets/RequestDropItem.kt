@@ -27,7 +27,7 @@ class RequestDropItem : L2GameClientPacket() {
             return
 
         val activeChar = client.activeChar
-        if (activeChar == null || activeChar.isDead)
+        if (activeChar == null || activeChar.isDead())
             return
 
         val item = activeChar.validateItemManipulation(_objectId)

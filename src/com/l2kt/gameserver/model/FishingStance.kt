@@ -424,12 +424,12 @@ class FishingStance(private val _fisher: Player?) {
      * @param lure : The used lure.
      */
     fun start(x: Int, y: Int, z: Int, lure: ItemInstance) {
-        if (_fisher!!.isDead)
+        if (_fisher!!.isDead())
             return
 
         // Stop the player.
         _fisher.stopMove(null)
-        _fisher.setIsImmobilized(true)
+        _fisher.isImmobilized = true
 
         // Set variables.
         loc.set(x, y, z)
@@ -617,7 +617,7 @@ class FishingStance(private val _fisher: Player?) {
         // Ends fishing
         _fisher!!.broadcastPacket(ExFishingEnd(win, _fisher.objectId))
         _fisher.sendPacket(SystemMessageId.REEL_LINE_AND_STOP_FISHING)
-        _fisher.setIsImmobilized(false)
+        _fisher.isImmobilized = false
 
         // Stop tasks.
         if (_lookingForFish != null) {

@@ -3,6 +3,7 @@ package com.l2kt.gameserver.handler.admincommandhandlers
 import com.l2kt.gameserver.handler.IAdminCommandHandler
 import com.l2kt.gameserver.model.actor.Playable
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.stat.PlayableStat
 import com.l2kt.gameserver.model.base.Experience
 import com.l2kt.gameserver.network.SystemMessageId
 import java.util.*
@@ -23,7 +24,7 @@ class AdminLevel : IAdminCommandHandler {
         if (actualCommand.equals("admin_addlevel", ignoreCase = true)) {
             try {
                 if (targetChar is Playable)
-                    targetChar.stat.addLevel(java.lang.Byte.parseByte(`val`))
+                    (targetChar.stat as PlayableStat).addLevel(java.lang.Byte.parseByte(`val`))
             } catch (e: NumberFormatException) {
                 activeChar.sendMessage("Wrong number format.")
                 return false

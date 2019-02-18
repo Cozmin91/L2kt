@@ -13,7 +13,7 @@ class EffectDamOverTime(env: Env, template: EffectTemplate) : L2Effect(env, temp
     }
 
     override fun onActionTime(): Boolean {
-        if (effected.isDead)
+        if (effected.isDead())
             return false
 
         var damage = calc()

@@ -2,6 +2,7 @@ package com.l2kt.gameserver.handler.admincommandhandlers
 
 import com.l2kt.gameserver.handler.IAdminCommandHandler
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.template.PlayerTemplate
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage
 import java.util.*
@@ -58,7 +59,7 @@ class AdminExpSp : IAdminCommandHandler {
             html.replace("%level%", player.level)
             html.replace("%xp%", player.exp)
             html.replace("%sp%", player.sp)
-            html.replace("%class%", player.template.className)
+            html.replace("%class%", (player.template as PlayerTemplate).className)
             activeChar.sendPacket(html)
         }
 

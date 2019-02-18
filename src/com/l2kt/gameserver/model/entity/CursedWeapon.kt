@@ -164,7 +164,7 @@ class CursedWeapon(set: StatsSet) {
                 removeDemonicSkills()
 
                 // Unequip && remove.
-                player!!.useEquippableItem(_item, true)
+                player!!.useEquippableItem(_item!!, true)
                 player!!.destroyItemByItemId("CW", itemId, 1, player, false)
 
                 player!!.broadcastUserInfo()

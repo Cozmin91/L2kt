@@ -27,7 +27,7 @@ class EffectSilentMove(env: Env, template: EffectTemplate) : L2Effect(env, templ
         if (skill.skillType !== L2SkillType.CONT)
             return false
 
-        if (effected.isDead)
+        if (effected.isDead())
             return false
 
         val manaDam = calc()

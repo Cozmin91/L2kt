@@ -26,7 +26,7 @@ class EffectChameleonRest(env: Env, template: EffectTemplate) : L2Effect(env, te
     }
 
     override fun onActionTime(): Boolean {
-        if (effected.isDead)
+        if (effected.isDead())
             return false
 
         if (skill.skillType !== L2SkillType.CONT)

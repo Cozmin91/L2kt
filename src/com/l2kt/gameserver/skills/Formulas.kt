@@ -16,6 +16,7 @@ import com.l2kt.gameserver.model.actor.Playable
 import com.l2kt.gameserver.model.actor.instance.Cubic
 import com.l2kt.gameserver.model.actor.instance.Door
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.Race.*
 import com.l2kt.gameserver.model.entity.ClanHall
 import com.l2kt.gameserver.model.entity.Siege
@@ -207,7 +208,7 @@ object Formulas {
                 hpRegenMultiplier *= 1.5
 
             if (cha.isInsideZone(ZoneId.CLAN_HALL) && cha.clan != null) {
-                val clanHallIndex = cha.clan.hideoutId
+                val clanHallIndex = cha.clan!!.hideoutId
                 if (clanHallIndex > 0) {
                     val clansHall = ClanHallManager.getClanHallById(clanHallIndex)
                     if (clansHall != null)
@@ -266,7 +267,7 @@ object Formulas {
             }
 
             if (cha.isInsideZone(ZoneId.CLAN_HALL) && cha.clan != null) {
-                val clanHallIndex = cha.clan.hideoutId
+                val clanHallIndex = cha.clan!!.hideoutId
                 if (clanHallIndex > 0) {
                     val clansHall = ClanHallManager.getClanHallById(clanHallIndex)
                     if (clansHall != null)
@@ -516,7 +517,7 @@ object Formulas {
 
         if (target is Npc) {
             val multiplier: Double
-            when (target.template.race) {
+            when ((target.template as NpcTemplate).race) {
                 BEAST -> {
                     multiplier = 1 + (attacker.getPAtkMonsters(target) - target.getPDefMonsters(target)) / 100
                     damage *= multiplier
@@ -840,7 +841,7 @@ object Formulas {
         }
 
         // Initialization to 15% for magical skills ; don't go further for ppl casting a physical skill
-        if (!target.isCastingNow && target.lastSkillCast != null && !target.lastSkillCast.isMagic)
+        if (!target.isCastingNow && target.lastSkillCast != null && !target.lastSkillCast!!.isMagic)
             return
 
         // Calculate all modifiers for ATTACK_CANCEL ; chance to break is higher with higher dmg, and is affected by target MEN.

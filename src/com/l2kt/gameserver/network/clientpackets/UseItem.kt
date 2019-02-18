@@ -80,7 +80,7 @@ class UseItem : L2GameClientPacket() {
                 return
             }
 
-            if (pet.isDead) {
+            if (pet.isDead()) {
                 activeChar.sendPacket(SystemMessageId.CANNOT_GIVE_ITEMS_TO_DEAD_PET)
                 return
             }

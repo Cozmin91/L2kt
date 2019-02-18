@@ -29,7 +29,7 @@ class EffectRelax(env: Env, template: EffectTemplate) : L2Effect(env, template) 
     }
 
     override fun onActionTime(): Boolean {
-        if (effected.isDead)
+        if (effected.isDead())
             return false
 
         if (effected is Player) {

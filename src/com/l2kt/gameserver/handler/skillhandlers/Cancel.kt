@@ -27,7 +27,7 @@ class Cancel : ISkillHandler {
             if (obj !is Creature)
                 continue
 
-            if (obj.isDead)
+            if (obj.isDead())
                 continue
 
             var lastCanceledSkillId = 0
@@ -39,7 +39,7 @@ class Cancel : ISkillHandler {
 
             for (effect in obj.allEffects) {
                 // Don't cancel null effects or toggles.
-                if (effect == null || effect.skill.isToggle)
+                if (effect.skill.isToggle)
                     continue
 
                 // Mage && Warrior Bane drop only particular stacktypes.

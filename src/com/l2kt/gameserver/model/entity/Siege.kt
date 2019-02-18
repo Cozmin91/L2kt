@@ -426,11 +426,11 @@ class Siege(val castle: Castle) : Siegable {
             for (member in clan.onlineMembers) {
                 if (clear) {
                     member.siegeState = 0.toByte()
-                    member.setIsInSiege(false)
+                    member.isInSiege = false
                 } else {
                     member.siegeState = 1.toByte()
                     if (checkIfInZone(member))
-                        member.setIsInSiege(true)
+                        member.isInSiege = true
                 }
                 member.sendPacket(UserInfo(member))
                 member.broadcastRelationsChanges()
@@ -441,11 +441,11 @@ class Siege(val castle: Castle) : Siegable {
             for (member in clan.onlineMembers) {
                 if (clear) {
                     member.siegeState = 0.toByte()
-                    member.setIsInSiege(false)
+                    member.isInSiege = false
                 } else {
                     member.siegeState = 2.toByte()
                     if (checkIfInZone(member))
-                        member.setIsInSiege(true)
+                        member.isInSiege = true
                 }
                 member.sendPacket(UserInfo(member))
                 member.broadcastRelationsChanges()
@@ -526,17 +526,17 @@ class Siege(val castle: Castle) : Siegable {
         // If the castle owning clan got an alliance
         if (allyId != 0) {
             // Same alliance can't be attacked
-            if (player.clan.allyId == allyId) {
+            if (player.clan!!.allyId == allyId) {
                 player.sendPacket(SystemMessageId.CANNOT_ATTACK_ALLIANCE_CASTLE)
                 return
             }
         }
 
         // Can't register as attacker if at least one allied clan is registered as defender
-        if (allyIsRegisteredOnOppositeSide(player.clan, true))
+        if (allyIsRegisteredOnOppositeSide(player.clan!!, true))
             player.sendPacket(SystemMessageId.CANT_ACCEPT_ALLY_ENEMY_FOR_SIEGE)
         else if (checkIfCanRegister(player, SiegeSide.ATTACKER))
-            registerClan(player.clan, SiegeSide.ATTACKER)// Save to database
+            registerClan(player.clan!!, SiegeSide.ATTACKER)// Save to database
     }
 
     /**
@@ -550,10 +550,10 @@ class Siege(val castle: Castle) : Siegable {
         // Castle owned by NPC is considered as full side
         if (castle.ownerId <= 0)
             player.sendPacket(SystemMessageId.DEFENDER_SIDE_FULL)
-        else if (allyIsRegisteredOnOppositeSide(player.clan, false))
+        else if (allyIsRegisteredOnOppositeSide(player.clan!!, false))
             player.sendPacket(SystemMessageId.CANT_ACCEPT_ALLY_ENEMY_FOR_SIEGE)
         else if (checkIfCanRegister(player, SiegeSide.PENDING))
-            registerClan(player.clan, SiegeSide.PENDING)// Save to database
+            registerClan(player.clan!!, SiegeSide.PENDING)// Save to database
         // Can't register as defender if at least one allied clan is registered as attacker
     }
 
@@ -644,16 +644,16 @@ class Siege(val castle: Castle) : Siegable {
             sm = SystemMessage.getSystemMessage(SystemMessageId.DEADLINE_FOR_SIEGE_S1_PASSED).addString(castle.name)
         else if (isInProgress)
             sm = SystemMessage.getSystemMessage(SystemMessageId.NOT_SIEGE_REGISTRATION_TIME2)
-        else if (player.clan == null || player.clan.level < Config.MINIMUM_CLAN_LEVEL)
+        else if (player.clan == null || player.clan!!.level < Config.MINIMUM_CLAN_LEVEL)
             sm = SystemMessage.getSystemMessage(SystemMessageId.ONLY_CLAN_LEVEL_4_ABOVE_MAY_SIEGE)
-        else if (player.clan.hasCastle())
+        else if (player.clan!!.hasCastle())
             sm =
-                    if (player.clan.clanId == castle.ownerId) SystemMessage.getSystemMessage(SystemMessageId.CLAN_THAT_OWNS_CASTLE_IS_AUTOMATICALLY_REGISTERED_DEFENDING) else SystemMessage.getSystemMessage(
+                    if (player.clan!!.clanId == castle.ownerId) SystemMessage.getSystemMessage(SystemMessageId.CLAN_THAT_OWNS_CASTLE_IS_AUTOMATICALLY_REGISTERED_DEFENDING) else SystemMessage.getSystemMessage(
                         SystemMessageId.CLAN_THAT_OWNS_CASTLE_CANNOT_PARTICIPATE_OTHER_SIEGE
                     )
-        else if (player.clan.isRegisteredOnSiege)
+        else if (player.clan!!.isRegisteredOnSiege)
             sm = SystemMessage.getSystemMessage(SystemMessageId.ALREADY_REQUESTED_SIEGE_BATTLE)
-        else if (checkIfAlreadyRegisteredForSameDay(player.clan))
+        else if (checkIfAlreadyRegisteredForSameDay(player.clan!!))
             sm =
                     SystemMessage.getSystemMessage(SystemMessageId.APPLICATION_DENIED_BECAUSE_ALREADY_SUBMITTED_A_REQUEST_FOR_ANOTHER_SIEGE_BATTLE)
         else if (type == SiegeSide.ATTACKER && attackerClans.size >= Config.MAX_ATTACKERS_NUMBER)

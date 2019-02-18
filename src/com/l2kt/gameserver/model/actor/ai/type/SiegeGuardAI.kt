@@ -13,6 +13,7 @@ import com.l2kt.gameserver.model.actor.Playable
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention
 import com.l2kt.gameserver.model.actor.instance.Player
 import com.l2kt.gameserver.model.actor.instance.SiegeGuard
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.AIType
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.SkillType
 import com.l2kt.gameserver.model.entity.Siege.SiegeSide
@@ -37,7 +38,7 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
      * @return True if the target is autoattackable (depends on the actor type).
      */
     override fun autoAttackCondition(target: Creature?): Boolean {
-        if (target !is Playable || target.isAlikeDead())
+        if (target !is Playable || target.isAlikeDead)
             return false
 
         val player = target.actingPlayer ?: return false
@@ -123,7 +124,7 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
         // A L2Attackable isn't aggressive during 10s after its spawn because _globalAggro is set to -10
         if (_globalAggro >= 0) {
             val npc = actor as Attackable
-            for (target in npc.getKnownTypeInRadius(Creature::class.java, npc.template.clanRange)) {
+            for (target in npc.getKnownTypeInRadius(Creature::class.java, (npc.template as NpcTemplate).clanRange)) {
                 if (autoAttackCondition(target))
                 // check aggression
                 {
@@ -134,7 +135,7 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
             }
 
             // Chose a target from its aggroList
-            val hated = (if (actor.isConfused()) target else npc.mostHated) as Creature?
+            val hated = (if (actor.isConfused) target else npc.mostHated) as Creature?
             if (hated != null) {
                 // Get the hate level of the L2Attackable against this Creature target contained in _aggroList
                 if (npc.getHating(hated) + _globalAggro > 0) {
@@ -188,7 +189,7 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
             actor.stopHating(attackTarget)
 
             // Search the nearest target. If a target is found, continue regular process, else drop angry behavior.
-            attackTarget = targetReconsider(actor.template.clanRange, false)
+            attackTarget = targetReconsider((actor.template as NpcTemplate).clanRange, false)
             if (attackTarget == null) {
                 setIntention(CtrlIntention.ACTIVE)
                 actor.setWalking()
@@ -229,9 +230,9 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
 
             // -------------------------------------------------------------------------------
             // Heal
-            defaultList = actor.template.getSkills(SkillType.HEAL)
+            defaultList = (actor.template as NpcTemplate).getSkills(SkillType.HEAL)
             if (!defaultList.isEmpty()) {
-                val clans = actor.template.clans
+                val clans = (actor.template as NpcTemplate).clans
 
                 // Go through all characters around the actor that belongs to its faction.
                 for (cha in actor.getKnownTypeInRadius(Creature::class.java, 1000)) {
@@ -240,11 +241,11 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
                         continue
 
                     // Will affect only defenders or NPCs from same faction.
-                    if (!actor.isAttackingDisabled && cha is Player && actor.castle.siege.checkSides(
+                    if (!actor.isAttackingDisabled && cha is Player && actor.castle!!.siege.checkSides(
                             cha.clan,
                             SiegeSide.DEFENDER,
                             SiegeSide.OWNER
-                        ) || cha is Npc && ArraysUtil.contains(clans, cha.template.clans)
+                        ) || cha is Npc && ArraysUtil.contains(clans, (actor.template as NpcTemplate).clans)
                     ) {
                         for (sk in defaultList) {
                             if (!MathUtil.checkIfInRange(sk.castRange, actor, cha, true))
@@ -263,7 +264,7 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
 
             // -------------------------------------------------------------------------------
             // Buff
-            defaultList = actor.template.getSkills(SkillType.BUFF)
+            defaultList = (actor.template as NpcTemplate).getSkills(SkillType.BUFF)
             if (!defaultList.isEmpty()) {
                 for (sk in defaultList) {
                     if (!checkSkillCastConditions(sk))
@@ -282,7 +283,7 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
 
             // -------------------------------------------------------------------------------
             // Debuff - 10% luck to get debuffed.
-            defaultList = actor.template.getSkills(SkillType.DEBUFF)
+            defaultList = (actor.template as NpcTemplate).getSkills(SkillType.DEBUFF)
             if (Rnd[100] < 10 && !defaultList.isEmpty()) {
                 for (sk in defaultList) {
                     if (!checkSkillCastConditions(sk) || sk.castRange + range <= dist && !canAura(sk))
@@ -301,13 +302,13 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
 
             // -------------------------------------------------------------------------------
             // General attack skill - short range is checked, then long range.
-            defaultList = actor.template.getSkills(SkillType.SHORT_RANGE)
+            defaultList = (actor.template as NpcTemplate).getSkills(SkillType.SHORT_RANGE)
             if (!defaultList.isEmpty() && dist <= 150) {
                 val skill = Rnd[defaultList]
                 if (cast(skill, dist, skill!!.castRange))
                     return
             } else {
-                defaultList = actor.template.getSkills(SkillType.LONG_RANGE)
+                defaultList = (actor.template as NpcTemplate).getSkills(SkillType.LONG_RANGE)
                 if (!defaultList.isEmpty() && dist > 150) {
                     val skill = Rnd[defaultList]
                     if (cast(skill, dist, skill!!.castRange))
@@ -371,7 +372,7 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
          * Test the flee possibility. Archers got 25% chance to flee.
          */
 
-        if (actor.template.aiType == AIType.ARCHER && dist <= 60 + combinedCollision && Rnd[4] > 1) {
+        if ((actor.template as NpcTemplate).aiType == AIType.ARCHER && dist <= 60 + combinedCollision && Rnd[4] > 1) {
             val posX = actor.x + if (attackTarget.x < actor.x) 300 else -300
             val posY = actor.y + if (attackTarget.y < actor.y) 300 else -300
             val posZ = actor.z + 30

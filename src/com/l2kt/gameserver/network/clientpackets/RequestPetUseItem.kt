@@ -24,7 +24,7 @@ class RequestPetUseItem : L2GameClientPacket() {
 
         val item = pet.inventory!!.getItemByObjectId(_objectId) ?: return
 
-        if (activeChar.isAlikeDead || pet.isDead) {
+        if (activeChar.isAlikeDead || pet.isDead()) {
             activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item))
             return
         }

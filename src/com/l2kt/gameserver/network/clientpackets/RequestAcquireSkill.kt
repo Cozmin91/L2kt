@@ -8,6 +8,7 @@ import com.l2kt.gameserver.model.L2ShortCut
 import com.l2kt.gameserver.model.actor.instance.Fisherman
 import com.l2kt.gameserver.model.actor.instance.Player
 import com.l2kt.gameserver.model.actor.instance.VillageMaster
+import com.l2kt.gameserver.model.actor.template.PlayerTemplate
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.ExStorageMaxCount
 import com.l2kt.gameserver.network.serverpackets.ShortCutRegister
@@ -49,7 +50,7 @@ class RequestAcquireSkill : L2GameClientPacket() {
                     return
 
                 // Search if the asked skill exists on player template.
-                val gsn = player.template.findSkill(_skillId, _skillLevel) ?: return
+                val gsn = (player.template as PlayerTemplate).findSkill(_skillId, _skillLevel) ?: return
 
                 // Not enought SP.
                 if (player.sp < gsn.correctedCost) {

@@ -54,7 +54,7 @@ class DamageZone(id: Int) : CastleZoneType(id) {
 
                         // Effect all people inside the zone.
                         for (temp in _characters.values) {
-                            if (!temp.isDead)
+                            if (!temp.isDead())
                                 temp.reduceCurrentHp(
                                     _hpDamage * (1 + temp.calcStat(
                                         Stats.DAMAGE_ZONE_VULN,

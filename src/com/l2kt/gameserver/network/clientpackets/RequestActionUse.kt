@@ -29,7 +29,7 @@ class RequestActionUse : L2GameClientPacket() {
         val player = client.activeChar ?: return
 
         // Dont do anything if player is dead, or use fakedeath using another action than sit.
-        if (player.isFakeDeath && _actionId != 0 || player.isDead || player.isOutOfControl) {
+        if (player.isFakeDeath && _actionId != 0 || player.isDead() || player.isOutOfControl) {
             player.sendPacket(ActionFailed.STATIC_PACKET)
             return
         }
@@ -143,7 +143,7 @@ class RequestActionUse : L2GameClientPacket() {
                 if (pet == null || pet !is Pet)
                     return
 
-                if (pet.isDead)
+                if (pet.isDead())
                     player.sendPacket(SystemMessageId.DEAD_PET_CANNOT_BE_RETURNED)
                 else if (pet.isOutOfControl)
                     player.sendPacket(SystemMessageId.PET_REFUSING_ORDER)
@@ -210,7 +210,7 @@ class RequestActionUse : L2GameClientPacket() {
                 if (pet == null || pet !is Servitor)
                     return
 
-                if (pet.isDead)
+                if (pet.isDead())
                     player.sendPacket(SystemMessageId.DEAD_PET_CANNOT_BE_RETURNED)
                 else if (pet.isOutOfControl)
                     player.sendPacket(SystemMessageId.PET_REFUSING_ORDER)

@@ -22,7 +22,7 @@ internal class EffectHealOverTime(env: Env, template: EffectTemplate) : L2Effect
     }
 
     override fun onActionTime(): Boolean {
-        if (effected.isDead || effected is Door)
+        if (effected.isDead() || effected is Door)
             return false
 
         val maxHp = effected.maxHp.toDouble()

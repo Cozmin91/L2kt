@@ -41,8 +41,8 @@ class PrimevalIsle : L2AttackableAIScript("ai/group") {
 
         if (event.equals("skill", ignoreCase = true)) {
             var playableCounter = 0
-            for (playable in npc.getKnownTypeInRadius(Playable::class.java, npc.getTemplate().aggroRange)) {
-                if (!playable.isDead)
+            for (playable in npc.getKnownTypeInRadius(Playable::class.java, npc.template.aggroRange)) {
+                if (!playable.isDead())
                     playableCounter++
             }
 
@@ -52,8 +52,8 @@ class PrimevalIsle : L2AttackableAIScript("ai/group") {
                 return null
             }
 
-            npc.setTarget(npc)
-            npc.doCast(if (npc.getNpcId() == 18345) ANESTHESIA else POISON)
+            npc.target = npc
+            npc.doCast(if (npc.npcId == 18345) ANESTHESIA else POISON)
         }
         return null
     }
@@ -84,7 +84,7 @@ class PrimevalIsle : L2AttackableAIScript("ai/group") {
         // Make all mobs found in a radius 2k aggressive towards attacker.
         for (called in attacker.getKnownTypeInRadius(Attackable::class.java, 2000)) {
             // Caller hasn't AI or is dead.
-            if (!called.hasAI() || called.isDead)
+            if (!called.hasAI() || called.isDead())
                 continue
 
             // Check if the Attackable can help the actor.

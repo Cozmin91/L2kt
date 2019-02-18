@@ -14,7 +14,7 @@ class ChatTell : IChatHandler {
             return
 
         val receiver = World.getPlayer(target)
-        if (receiver == null || receiver.client.isDetached) {
+        if (receiver == null || receiver.client!!.isDetached) {
             activeChar.sendPacket(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME)
             return
         }

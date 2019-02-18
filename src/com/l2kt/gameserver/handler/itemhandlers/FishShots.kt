@@ -21,7 +21,7 @@ class FishShots : IItemHandler {
         val weaponInst = playable.activeWeaponInstance
         val weaponItem = playable.activeWeaponItem
 
-        if (weaponInst == null || weaponItem.itemType != WeaponType.FISHINGROD)
+        if (weaponInst == null || weaponItem!!.itemType != WeaponType.FISHINGROD)
             return
 
         // Fishshot is already active

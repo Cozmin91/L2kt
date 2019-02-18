@@ -72,9 +72,9 @@ class AdminGeoEngine : IAdminCommandHandler {
                     activeChar.x,
                     activeChar.y,
                     activeChar.z.toShort().toInt(),
-                    activeChar.target.x,
-                    activeChar.target.y,
-                    activeChar.target.z.toShort().toInt(),
+                    activeChar.target!!.x,
+                    activeChar.target!!.y,
+                    activeChar.target!!.z.toShort().toInt(),
                     true
                 )
                 if (path == null)
@@ -86,7 +86,7 @@ class AdminGeoEngine : IAdminCommandHandler {
                 activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET)
         } else if (command == "admin_path_info") {
             val info = GeoEngine.stat
-            if (info == null)
+            if (info.isEmpty())
                 activeChar.sendMessage("Pathfinding disabled.")
             else
                 for (msg in info) {

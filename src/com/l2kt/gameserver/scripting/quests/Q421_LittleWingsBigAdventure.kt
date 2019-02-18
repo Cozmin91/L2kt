@@ -169,7 +169,7 @@ class Q421_LittleWingsBigAdventure : Quest(421, "Little Wing's Big Adventure") {
         // Minions scream no matter current quest state.
         if ((npc as Monster).hasMinions()) {
             for (ghost in npc.minionList.spawnedMinions) {
-                if (!ghost.isDead && Rnd[100] < 1)
+                if (!ghost.isDead() && Rnd[100] < 1)
                     ghost.broadcastNpcSay("We must protect the fairy tree!")
             }
         }
@@ -182,7 +182,7 @@ class Q421_LittleWingsBigAdventure : Quest(421, "Little Wing's Big Adventure") {
 
             // A pet was the attacker, and the objectId is the good one - random luck is reached and you still have some leaves ; go further.
             if (attacker.controlItemId == st.getInt("summonOid") && Rnd[100] < 1 && st.hasQuestItems(FAIRY_LEAF)) {
-                val idMask = Math.pow(2.0, (npc.getNpcId() - 27182 - 1).toDouble()).toInt()
+                val idMask = Math.pow(2.0, (npc.npcId - 27182 - 1).toDouble()).toInt()
                 val iCond = st.getInt("iCond")
 
                 if (iCond or idMask != iCond) {

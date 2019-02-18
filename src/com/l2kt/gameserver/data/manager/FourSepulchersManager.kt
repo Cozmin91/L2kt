@@ -487,7 +487,7 @@ object FourSepulchersManager {
 
         // For every party player who isn't dead and who is near current player.
         for (member in party.members.filter { m ->
-            !m.isDead && MathUtil.checkIfInRange(
+            !m.isDead() && MathUtil.checkIfInRange(
                 700,
                 player,
                 m,
@@ -603,7 +603,7 @@ object FourSepulchersManager {
         val mobs = viscountMobs[npcId] ?: return
 
         for (mob in mobs) {
-            if (!mob.isDead)
+            if (!mob.isDead())
                 return
         }
 
@@ -615,7 +615,7 @@ object FourSepulchersManager {
         val mobs = dukeMobs[npcId] ?: return
 
         for (mob in mobs) {
-            if (!mob.isDead)
+            if (!mob.isDead())
                 return
         }
 
@@ -776,7 +776,7 @@ object FourSepulchersManager {
         // Delete all monsters.
         for (mob in allMobs) {
             if (mob.spawn != null)
-                mob.spawn.setRespawnState(false)
+                mob.spawn!!.setRespawnState(false)
 
             mob.deleteMe()
         }

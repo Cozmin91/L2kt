@@ -36,7 +36,7 @@ class SiegeZone(id: Int) : SpawnZoneType(id) {
 
             if (character is Player) {
 
-                character.setIsInSiege(true) // in siege
+                character.isInSiege = true // in siege
 
                 character.sendPacket(SystemMessageId.ENTERED_COMBAT_ZONE)
                 character.enterOnNoLandingZone()
@@ -62,7 +62,7 @@ class SiegeZone(id: Int) : SpawnZoneType(id) {
                     character.updatePvPFlag(1)
             }
 
-            character.setIsInSiege(false)
+            character.isInSiege = false
         } else if (character is SiegeSummon)
             character.unSummon(character.owner)
     }

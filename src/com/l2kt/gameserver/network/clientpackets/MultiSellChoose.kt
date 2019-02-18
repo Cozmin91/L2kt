@@ -143,7 +143,7 @@ class MultiSellChoose : L2GameClientPacket() {
                     return
                 }
 
-                if (player.clan.reputationScore < e.itemCount * _amount) {
+                if (player.clan!!.reputationScore < e.itemCount * _amount) {
                     player.sendPacket(SystemMessageId.THE_CLAN_REPUTATION_SCORE_IS_TOO_LOW)
                     return
                 }
@@ -168,7 +168,7 @@ class MultiSellChoose : L2GameClientPacket() {
             if (e.itemId == CLAN_REPUTATION) {
                 val amount = e.itemCount * _amount
 
-                player.clan.takeReputationScore(amount)
+                player.clan?.takeReputationScore(amount)
                 player.sendPacket(
                     SystemMessage.getSystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP).addNumber(
                         amount
@@ -254,7 +254,7 @@ class MultiSellChoose : L2GameClientPacket() {
         // Generate the appropriate items
         for (e in entry.products) {
             if (e.itemId == CLAN_REPUTATION)
-                player.clan.addReputationScore(e.itemCount * _amount)
+                player.clan?.addReputationScore(e.itemCount * _amount)
             else {
                 if (e.isStackable)
                     inv.addItem("Multisell", e.itemId, e.itemCount * _amount, player, player.target)
@@ -298,7 +298,7 @@ class MultiSellChoose : L2GameClientPacket() {
 
         // finally, give the tax to the castle...
         if (folk != null && entry.taxAmount > 0)
-            folk.castle.addToTreasury(entry.taxAmount * _amount)
+            folk.castle?.addToTreasury(entry.taxAmount * _amount)
     }
 
     companion object {

@@ -176,7 +176,7 @@ class Q625_TheFinestIngredients_Part2 : Quest(625, "The Finest Ingredients - Par
         raid.spawn.setLoc(-104700, -252700, -15542, 0)
 
         // teleport raid back to secret place
-        if (!raid.isDead)
+        if (!raid.isDead())
             raid.teleToLocation(-104700, -252700, -15542, 0)
 
         // reset raid status

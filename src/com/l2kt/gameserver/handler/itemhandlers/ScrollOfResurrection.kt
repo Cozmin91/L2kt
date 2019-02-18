@@ -25,7 +25,7 @@ class ScrollOfResurrection : IItemHandler {
         val target = playable.target as Creature
 
         // Target must be a dead pet or player.
-        if (target !is Pet && target !is Player || !target.isDead) {
+        if (target !is Pet && target !is Player || !target.isDead()) {
             playable.sendPacket(SystemMessageId.INCORRECT_TARGET)
             return
         }

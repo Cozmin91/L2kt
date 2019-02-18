@@ -24,7 +24,7 @@ class EffectSpoil(env: Env, template: EffectTemplate) : L2Effect(env, template) 
             return false
 
         val target = effected as Monster
-        if (target.isDead)
+        if (target.isDead())
             return false
 
         if (target.spoilerId != 0) {

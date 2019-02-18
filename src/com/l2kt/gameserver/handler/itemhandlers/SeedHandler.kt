@@ -7,6 +7,7 @@ import com.l2kt.gameserver.handler.IItemHandler
 import com.l2kt.gameserver.model.actor.Attackable
 import com.l2kt.gameserver.model.actor.Playable
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.item.instance.ItemInstance
 import com.l2kt.gameserver.network.SystemMessageId
 
@@ -15,13 +16,13 @@ class SeedHandler : IItemHandler {
         if (!Config.ALLOW_MANOR || playable !is Player)
             return
 
-        val tgt = playable.getTarget()
-        if (tgt !is Attackable || !tgt.template.isSeedable) {
+        val tgt = playable.target
+        if (tgt !is Attackable || !(tgt.template as NpcTemplate).isSeedable) {
             playable.sendPacket(SystemMessageId.THE_TARGET_IS_UNAVAILABLE_FOR_SEEDING)
             return
         }
 
-        if (tgt.isDead || tgt.isSeeded) {
+        if (tgt.isDead() || tgt.isSeeded) {
             playable.sendPacket(SystemMessageId.INCORRECT_TARGET)
             return
         }
@@ -36,11 +37,9 @@ class SeedHandler : IItemHandler {
         tgt.setSeeded(seed, playable.objectId)
 
         val skills = item.etcItem!!.skills
-        if (skills != null) {
-            if (skills[0] == null)
-                return
+        if (!skills.any())
+            return
 
-            playable.useMagic(skills[0].skill, false, false)
-        }
+        playable.useMagic(skills[0].skill!!, false, false)
     }
 }

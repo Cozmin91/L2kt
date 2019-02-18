@@ -108,7 +108,7 @@ class CharacterCreate : L2GameClientPacket() {
         val player = Player.create(
             IdFactory.getInstance().nextId,
             template,
-            client.accountName,
+            client.accountName!!,
             _name,
             _hairStyle,
             _hairColor,

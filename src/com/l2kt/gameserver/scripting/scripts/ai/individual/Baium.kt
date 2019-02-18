@@ -132,7 +132,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
                 // Angels AI
                 startQuestTimer("angels_aggro_reconsider", 5000, null, null, true)
             } else if (event.equals("baium_move", ignoreCase = true)) {
-                npc.setIsInvul(false)
+                npc.isInvul = false
                 npc.setRunning()
 
                 // Start monitoring baium's inactivity and activate the AI
@@ -209,7 +209,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
             GrandBossManager.setBossStatus(LIVE_BAIUM, AWAKE.toInt())
 
             val baium = addSpawn(LIVE_BAIUM, npc, false, 0, false)
-            baium?.setIsInvul(true)
+            baium?.isInvul = true
 
             GrandBossManager.addBoss(baium as GrandBoss)
 
@@ -330,7 +330,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
             return
 
         // Pickup a target if no or dead victim. If Baium was hitting an angel, 50% luck he reconsiders his target. 10% luck he decides to reconsiders his target.
-        if (_actualVictim == null || _actualVictim!!.isDead || !npc.getKnownType(Player::class.java).contains(
+        if (_actualVictim == null || _actualVictim!!.isDead() || !npc.getKnownType(Player::class.java).contains(
                 _actualVictim
             ) || _actualVictim is Monster && Rnd[10] < 5 || Rnd[10] == 0
         )

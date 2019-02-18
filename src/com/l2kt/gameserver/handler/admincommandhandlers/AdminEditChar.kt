@@ -15,6 +15,8 @@ import com.l2kt.gameserver.model.actor.Npc
 import com.l2kt.gameserver.model.actor.Summon
 import com.l2kt.gameserver.model.actor.instance.Pet
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.stat.PetStat
+import com.l2kt.gameserver.model.actor.template.PlayerTemplate
 import com.l2kt.gameserver.model.base.ClassId
 import com.l2kt.gameserver.model.base.Sex
 import com.l2kt.gameserver.network.SystemMessageId
@@ -175,7 +177,7 @@ class AdminEditChar : IAdminCommandHandler {
                     if (!player.isSubClassActive)
                         player.baseClass = classidval
 
-                    val newclass = player.template.className
+                    val newclass = (player.template as PlayerTemplate).className
 
                     player.refreshOverloaded()
                     player.store()
@@ -338,12 +340,12 @@ class AdminEditChar : IAdminCommandHandler {
                     val level = Integer.parseInt(command.substring(20))
 
                     val oldExp = target.stat.exp
-                    val newExp = target.stat.getExpForLevel(level)
+                    val newExp = (target.stat as PetStat).getExpForLevel(level)
 
                     if (oldExp > newExp)
-                        target.stat.removeExp(oldExp - newExp)
+                        (target.stat as PetStat).removeExp(oldExp - newExp)
                     else if (oldExp < newExp)
-                        target.stat.addExp(newExp - oldExp)
+                        (target.stat as PetStat).addExp(newExp - oldExp)
                 } catch (e: Exception) {
                 }
 
@@ -586,7 +588,7 @@ class AdminEditChar : IAdminCommandHandler {
                     "\">",
                     player.name,
                     "</a></td><td width=110>",
-                    player.template.className,
+                    (player.template as PlayerTemplate).className,
                     "</td><td width=40>",
                     player.level,
                     "</td></tr>"
@@ -625,11 +627,11 @@ class AdminEditChar : IAdminCommandHandler {
             html.replace("%level%", player.level)
             html.replace(
                 "%clan%",
-                if (player.clan != null) "<a action=\"bypass -h admin_clan_info " + player.name + "\">" + player.clan.name + "</a>" else "none"
+                if (player.clan != null) "<a action=\"bypass -h admin_clan_info " + player.name + "\">" + player.clan!!.name + "</a>" else "none"
             )
             html.replace("%xp%", player.exp)
             html.replace("%sp%", player.sp)
-            html.replace("%class%", player.template.className)
+            html.replace("%class%", (player.template as PlayerTemplate).className)
             html.replace("%ordinal%", player.classId.ordinal)
             html.replace("%classid%", player.classId.toString())
             html.replace("%baseclass%", PlayerData.getClassNameById(player.baseClass))
@@ -711,7 +713,7 @@ class AdminEditChar : IAdminCommandHandler {
                         "\">",
                         name,
                         "</a></td><td width=110>",
-                        player.template.className,
+                        (player.template as PlayerTemplate).className,
                         "</td><td width=40>",
                         player.level,
                         "</td></tr>"
@@ -766,7 +768,7 @@ class AdminEditChar : IAdminCommandHandler {
 
             val sb = StringBuilder(1000)
             for (player in World.players) {
-                val client = player.client
+                val client = player.client!!
                 if (client.isDetached) {
                     if (!findDisconnected)
                         continue
@@ -774,7 +776,7 @@ class AdminEditChar : IAdminCommandHandler {
                     if (findDisconnected)
                         continue
 
-                    ip = client.connection.inetAddress.hostAddress
+                    ip = client!!.connection.inetAddress.hostAddress
                     if (ip != IpAdress)
                         continue
                 }
@@ -788,7 +790,7 @@ class AdminEditChar : IAdminCommandHandler {
                     "\">",
                     name,
                     "</a></td><td width=110>",
-                    player.template.className,
+                    (player.template as PlayerTemplate).className,
                     "</td><td width=40>",
                     player.level,
                     "</td></tr>"

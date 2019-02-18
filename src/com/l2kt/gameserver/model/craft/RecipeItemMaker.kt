@@ -57,7 +57,7 @@ class RecipeItemMaker(
 
             // Check if that customer can afford to pay for creation services. Also check manufacturer integrity.
             if (_player != _target) {
-                for (temp in _player.createList.list) {
+                for (temp in _player.createList?.list ?: mutableListOf()) {
                     // Find recipe for item we want manufactured.
                     if (temp.id == _recipe.id) {
                         _price = temp.value

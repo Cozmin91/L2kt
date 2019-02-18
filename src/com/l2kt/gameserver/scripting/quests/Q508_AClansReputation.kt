@@ -74,7 +74,7 @@ class Q508_AClansReputation : Quest(508, "A Clan's Reputation") {
         when (st.state) {
             Quest.STATE_CREATED -> if (!player.isClanLeader)
                 htmltext = "30868-0a.htm"
-            else if (clan.level < 5)
+            else if (clan != null && clan.level < 5)
                 htmltext = "30868-0b.htm"
             else
                 htmltext = "30868-0c.htm"
@@ -90,13 +90,13 @@ class Q508_AClansReputation : Quest(508, "A Clan's Reputation") {
 
                     htmltext = "30868-" + raid + "b.htm"
                     st.takeItems(item, 1)
-                    clan.addReputationScore(reward)
+                    clan?.addReputationScore(reward)
                     player.sendPacket(
                         SystemMessage.getSystemMessage(SystemMessageId.CLAN_QUEST_COMPLETED_AND_S1_POINTS_GAINED).addNumber(
                             reward
                         )
                     )
-                    clan.broadcastToOnlineMembers(PledgeShowInfoUpdate(clan))
+                    clan?.broadcastToOnlineMembers(PledgeShowInfoUpdate(clan))
                 }
             }
         }
@@ -121,26 +121,26 @@ class Q508_AClansReputation : Quest(508, "A Clan's Reputation") {
     }
 
     companion object {
-        private val qn = "Q508_AClansReputation"
+        private const val qn = "Q508_AClansReputation"
 
         // NPC
-        private val SIR_ERIC_RODEMAI = 30868
+        private const val SIR_ERIC_RODEMAI = 30868
 
         // Items
-        private val NUCLEUS_OF_FLAMESTONE_GIANT = 8494
-        private val THEMIS_SCALE = 8277
-        private val NUCLEUS_OF_HEKATON_PRIME = 8279
-        private val TIPHON_SHARD = 8280
-        private val GLAKI_NUCLEUS = 8281
-        private val RAHHA_FANG = 8282
+        private const val NUCLEUS_OF_FLAMESTONE_GIANT = 8494
+        private const val THEMIS_SCALE = 8277
+        private const val NUCLEUS_OF_HEKATON_PRIME = 8279
+        private const val TIPHON_SHARD = 8280
+        private const val GLAKI_NUCLEUS = 8281
+        private const val RAHHA_FANG = 8282
 
         // Raidbosses
-        private val FLAMESTONE_GIANT = 25524
-        private val PALIBATI_QUEEN_THEMIS = 25252
-        private val HEKATON_PRIME = 25140
-        private val GARGOYLE_LORD_TIPHON = 25255
-        private val LAST_LESSER_GIANT_GLAKI = 25245
-        private val RAHHA = 25051
+        private const val FLAMESTONE_GIANT = 25524
+        private const val PALIBATI_QUEEN_THEMIS = 25252
+        private const val HEKATON_PRIME = 25140
+        private const val GARGOYLE_LORD_TIPHON = 25255
+        private const val LAST_LESSER_GIANT_GLAKI = 25245
+        private const val RAHHA = 25051
 
         // Reward list (itemId, minClanPoints, maxClanPoints)
         private val reward_list = arrayOf(

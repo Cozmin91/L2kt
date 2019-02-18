@@ -285,14 +285,14 @@ abstract class OlympiadGameNormal protected constructor(id: Int, opponents: Arra
             val _fightTime = System.currentTimeMillis() - _startTime
 
             var playerOneHp = 0.0
-            if (_playerOne!!.player != null && !_playerOne!!.player!!.isDead) {
+            if (_playerOne!!.player != null && !_playerOne!!.player!!.isDead()) {
                 playerOneHp = _playerOne!!.player!!.currentHp + _playerOne!!.player!!.currentCp
                 if (playerOneHp < 0.5)
                     playerOneHp = 0.0
             }
 
             var playerTwoHp = 0.0
-            if (_playerTwo!!.player != null && !_playerTwo!!.player!!.isDead) {
+            if (_playerTwo!!.player != null && !_playerTwo!!.player!!.isDead()) {
                 playerTwoHp = _playerTwo!!.player!!.currentHp + _playerTwo!!.player!!.currentCp
                 if (playerTwoHp < 0.5)
                     playerTwoHp = 0.0

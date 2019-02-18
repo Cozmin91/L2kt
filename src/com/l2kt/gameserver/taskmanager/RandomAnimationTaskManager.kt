@@ -43,7 +43,7 @@ object RandomAnimationTaskManager : Runnable {
                 }
             }
 
-            if (!(character.isDead || character.isStunned || character.isSleeping || character.isParalyzed))
+            if (!(character.isDead() || character.isStunned || character.isSleeping || character.isParalyzed))
                 character.onRandomAnimation(Rnd.get(2, 3))
 
             val timer =

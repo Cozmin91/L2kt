@@ -32,7 +32,7 @@ class Unlock : ISkillHandler {
             else
                 activeChar.sendPacket(SystemMessage.getSystemMessage(SystemMessageId.FAILED_TO_UNLOCK_DOOR))
         } else if (`object` is Chest) {
-            if (`object`.isDead || `object`.isInteracted)
+            if (`object`.isDead() || `object`.isInteracted)
                 return
 
             `object`.setInteracted()

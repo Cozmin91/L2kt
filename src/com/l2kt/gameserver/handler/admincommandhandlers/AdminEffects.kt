@@ -111,21 +111,21 @@ class AdminEffects : IAdminCommandHandler {
             for (player in activeChar.getKnownType(Player::class.java)) {
                 if (!player.isGM) {
                     player.startAbnormalEffect(0x0800)
-                    player.setIsParalyzed(true)
+                    player.isParalyzed = true
                     player.broadcastPacket(StopMove(player))
                 }
             }
         } else if (command.startsWith("admin_unpara_all")) {
             for (player in activeChar.getKnownType(Player::class.java)) {
                 player.stopAbnormalEffect(0x0800)
-                player.setIsParalyzed(false)
+                player.isParalyzed = false
             }
         } else if (command.startsWith("admin_para")) {
             val target = activeChar.target
             if (target is Creature) {
 
                 target.startAbnormalEffect(0x0800)
-                target.setIsParalyzed(true)
+                target.isParalyzed = true
                 target.broadcastPacket(StopMove(target))
             } else
                 activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET)
@@ -134,7 +134,7 @@ class AdminEffects : IAdminCommandHandler {
             if (target is Creature) {
 
                 target.stopAbnormalEffect(0x0800)
-                target.setIsParalyzed(false)
+                target.isParalyzed = false
             } else
                 activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET)
         } else if (command.startsWith("admin_gmspeed")) {
@@ -143,7 +143,7 @@ class AdminEffects : IAdminCommandHandler {
 
                 val `val` = Integer.parseInt(st.nextToken())
                 if (`val` > 0 && `val` < 5)
-                    activeChar.doCast(SkillTable.getInfo(7029, `val`))
+                    activeChar.doCast(SkillTable.getInfo(7029, `val`)!!)
             } catch (e: Exception) {
                 activeChar.sendMessage("Use: //gmspeed value (0-4).")
             } finally {

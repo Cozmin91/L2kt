@@ -14,6 +14,7 @@ import com.l2kt.gameserver.model.actor.ai.Desire
 import com.l2kt.gameserver.model.actor.instance.Door
 import com.l2kt.gameserver.model.actor.instance.Folk
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.item.instance.ItemInstance
 import com.l2kt.gameserver.model.location.Location
 import com.l2kt.gameserver.model.location.SpawnLocation
@@ -21,7 +22,7 @@ import com.l2kt.gameserver.network.serverpackets.AutoAttackStop
 import com.l2kt.gameserver.taskmanager.AttackStanceTaskManager
 import com.l2kt.gameserver.templates.skills.L2SkillType
 
-internal open class CreatureAI(character: Creature) : AbstractAI(character) {
+open class CreatureAI(character: Creature) : AbstractAI(character) {
 
     open val nextIntention: Desire?
         get() = null
@@ -162,7 +163,7 @@ internal open class CreatureAI(character: Creature) : AbstractAI(character) {
     override fun onIntentionCast(skill: L2Skill, target: WorldObject?) {
         if (desire.intention === CtrlIntention.REST && skill.isMagic) {
             clientActionFailed()
-            actor.setIsCastingNow(false)
+            actor.isCastingNow = false
             return
         }
 
@@ -233,7 +234,7 @@ internal open class CreatureAI(character: Creature) : AbstractAI(character) {
         }
 
         // Dead actors can`t follow
-        if (actor.isDead) {
+        if (actor.isDead()) {
             clientActionFailed()
             return
         }
@@ -776,12 +777,12 @@ internal open class CreatureAI(character: Creature) : AbstractAI(character) {
         var count = 0
         var ccount = 0
 
-        val actorClans = (actor as Npc).template.clans
+        val actorClans = ((actor as Npc).template as NpcTemplate).clans
         for (target in actor.getKnownTypeInRadius(Attackable::class.java, sk.skillRadius)) {
             if (!GeoEngine.canSeeTarget(actor, target))
                 continue
 
-            if (!ArraysUtil.contains(actorClans, target.template.clans))
+            if (!ArraysUtil.contains(actorClans, (target.template as NpcTemplate).clans))
                 continue
 
             count++

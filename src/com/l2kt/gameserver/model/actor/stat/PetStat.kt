@@ -3,6 +3,7 @@ package com.l2kt.gameserver.model.actor.stat
 import com.l2kt.gameserver.model.L2Skill
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.instance.Pet
+import com.l2kt.gameserver.model.actor.template.PetTemplate
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.InventoryUpdate
 import com.l2kt.gameserver.network.serverpackets.SocialAction
@@ -89,7 +90,7 @@ class PetStat(activeChar: Pet) : SummonStat(activeChar) {
     }
 
     override fun getExpForLevel(level: Int): Long {
-        return activeChar!!.template.getPetDataEntry(level).maxExp
+        return (activeChar!!.template as PetTemplate).getPetDataEntry(level)?.maxExp ?: 0L
     }
 
     override val activeChar: Pet? get() = super.activeChar as Pet?

@@ -82,7 +82,7 @@ class Valakas : L2AttackableAIScript("ai/individual") {
             // Spawn Valakas and set him invul.
             npc = addSpawn(VALAKAS, 212852, -114842, -1632, 0, false, 0, false)
             GrandBossManager.addBoss(npc as GrandBoss?)
-            npc!!.setIsInvul(true)
+            npc!!.isInvul = true
 
             // Sound + socialAction.
             for (plyr in VALAKAS_LAIR.getKnownTypeInside(Player::class.java)) {
@@ -161,7 +161,7 @@ class Valakas : L2AttackableAIScript("ai/individual") {
             VALAKAS_LAIR.broadcastPacket(SpecialCamera(npc!!.objectId, 750, 170, -10, 3400, 4000, 10, -15, 1, 0))
         else if (event.equals("spawn_10", ignoreCase = true)) {
             GrandBossManager.setBossStatus(VALAKAS, FIGHTING.toInt())
-            npc!!.setIsInvul(false)
+            npc!!.isInvul = false
 
             startQuestTimer("regen_task", 60000, npc, null, true)
             startQuestTimer("skill_task", 2000, npc, null, true)
@@ -260,7 +260,7 @@ class Valakas : L2AttackableAIScript("ai/individual") {
             return
 
         // Pickup a target if no or dead victim. 10% luck he decides to reconsiders his target.
-        if (_actualVictim == null || _actualVictim!!.isDead || !npc.getKnownType(Player::class.java).contains(_actualVictim!!) || Rnd[10] == 0)
+        if (_actualVictim == null || _actualVictim!!.isDead() || !npc.getKnownType(Player::class.java).contains(_actualVictim!!) || Rnd[10] == 0)
             _actualVictim = getRandomPlayer(npc)
 
         // If result is still null, Valakas will roam. Don't go deeper in skill AI.

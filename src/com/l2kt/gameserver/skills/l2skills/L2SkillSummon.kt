@@ -107,8 +107,8 @@ class L2SkillSummon(set: StatsSet) : L2Skill(set) {
 
                     if (obj.cubics.containsKey(_npcId)) {
                         val cubic = obj.getCubic(_npcId)
-                        cubic.stopAction()
-                        cubic.cancelDisappear()
+                        cubic?.stopAction()
+                        cubic?.cancelDisappear()
                         obj.delCubic(_npcId)
                     }
 
@@ -127,8 +127,8 @@ class L2SkillSummon(set: StatsSet) : L2Skill(set) {
 
             if (caster.cubics.containsKey(_npcId)) {
                 val cubic = caster.getCubic(_npcId)
-                cubic.stopAction()
-                cubic.cancelDisappear()
+                cubic?.stopAction()
+                cubic?.cancelDisappear()
                 caster.delCubic(_npcId)
             }
 

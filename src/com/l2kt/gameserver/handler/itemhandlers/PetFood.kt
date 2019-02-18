@@ -53,7 +53,7 @@ class PetFood : IItemHandler {
             } else if (activeChar is Player) {
                 val itemId = item.itemId
 
-                if (activeChar.isMounted && activeChar.petTemplate.canEatFood(itemId)) {
+                if (activeChar.isMounted && activeChar.petTemplate!!.canEatFood(itemId)) {
                     if (activeChar.destroyItem("Consume", item.objectId, 1, null, false)) {
                         activeChar.broadcastPacket(MagicSkillUse(activeChar, activeChar, magicId, 1, 0, 0))
                         activeChar.currentFeed = activeChar.currentFeed + skill.feed * Config.PET_FOOD_RATE

@@ -13,7 +13,7 @@ internal class EffectManaDamOverTime(env: Env, template: EffectTemplate) : L2Eff
     }
 
     override fun onActionTime(): Boolean {
-        if (effected.isDead)
+        if (effected.isDead())
             return false
 
         val manaDam = calc()

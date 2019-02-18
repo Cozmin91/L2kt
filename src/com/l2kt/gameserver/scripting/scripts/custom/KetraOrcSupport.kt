@@ -166,7 +166,7 @@ class KetraOrcSupport : Quest(-1, "custom") {
             when (skill?.skillType) {
                 L2SkillType.BUFF, L2SkillType.HEAL, L2SkillType.HEAL_PERCENT, L2SkillType.HEAL_STATIC, L2SkillType.BALANCE_LIFE, L2SkillType.HOT -> for (target in targets as Array<Creature>) {
                     // Character isn't existing, is dead or is current caster, we drop check.
-                    if (target == null || target.isDead || target === caster)
+                    if (target == null || target.isDead() || target === caster)
                         continue
 
                     // Target isn't a summon nor a player, we drop check.
@@ -181,14 +181,14 @@ class KetraOrcSupport : Quest(-1, "custom") {
                         // If the NPC got that player registered in aggro list, go further.
                         if ((npc as Attackable).aggroList.containsKey(player)) {
                             // Save current target for future use.
-                            val oldTarget = npc.getTarget()
+                            val oldTarget = npc.target
 
                             // Curse the heretic or his pet.
-                            npc.setTarget(if (isPet && player.pet != null) caster.pet else caster)
+                            npc.target = if (isPet && player.pet != null) caster.pet else caster
                             npc.doCast(SkillTable.FrequentSkill.VARKA_KETRA_PETRIFICATION.skill)
 
                             // Revert to old target && drop the loop.
-                            npc.setTarget(oldTarget)
+                            npc.target = oldTarget
                             break
                         }
                     }

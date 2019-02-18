@@ -62,7 +62,7 @@ internal class SummonAI(summon: Summon) : PlayableAI(summon) {
         setIntention(CtrlIntention.IDLE)
 
         _startFollow = `val`
-        actor.doCast(_skill)
+        actor.doCast(_skill!!)
     }
 
     private fun thinkPickUp() {
@@ -74,7 +74,7 @@ internal class SummonAI(summon: Summon) : PlayableAI(summon) {
             return
 
         setIntention(CtrlIntention.IDLE)
-        (actor as Summon).doPickupItem(target)
+        (actor as Summon).doPickupItem(target!!)
     }
 
     private fun thinkInteract() {
@@ -148,7 +148,7 @@ internal class SummonAI(summon: Summon) : PlayableAI(summon) {
             return
 
         // Summon mustn't be under movement, must be alive and not be movement disabled.
-        if (_clientMoving || actor.isDead() || actor.isMovementDisabled())
+        if (_clientMoving || actor.isDead() || actor.isMovementDisabled)
             return
 
         val ownerX = owner.x

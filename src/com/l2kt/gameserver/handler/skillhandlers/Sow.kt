@@ -25,7 +25,7 @@ class Sow : ISkillHandler {
 
         val `object` = targets[0] as? Monster ?: return
 
-        if (`object`.isDead || !`object`.isSeeded || `object`.seederId != activeChar.objectId)
+        if (`object`.isDead() || !`object`.isSeeded || `object`.seederId != activeChar.objectId)
             return
 
         val seed = `object`.seed ?: return

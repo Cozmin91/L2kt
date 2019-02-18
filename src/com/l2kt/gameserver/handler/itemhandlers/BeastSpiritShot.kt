@@ -29,7 +29,7 @@ class BeastSpiritShot : IItemHandler {
             return
         }
 
-        if (activePet.isDead) {
+        if (activePet.isDead()) {
             activeOwner.sendPacket(SystemMessageId.SOULSHOTS_AND_SPIRITSHOTS_ARE_NOT_AVAILABLE_FOR_A_DEAD_PET)
             return
         }

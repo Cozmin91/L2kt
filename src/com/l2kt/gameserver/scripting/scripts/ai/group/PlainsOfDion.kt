@@ -22,7 +22,7 @@ class PlainsOfDion : L2AttackableAIScript("ai/group") {
             npc.broadcastNpcSay(MONSTERS_MSG[Rnd[5]].replace("\$s1", attacker.name))
 
             for (obj in npc.getKnownTypeInRadius(Monster::class.java, 300)) {
-                if (!obj.isAttackingNow && !obj.isDead && ArraysUtil.contains(MONSTERS, obj.npcId)) {
+                if (!obj.isAttackingNow && !obj.isDead() && ArraysUtil.contains(MONSTERS, obj.npcId)) {
                     attack(obj, attacker)
                     obj.broadcastNpcSay(MONSTERS_ASSIST_MSG[Rnd[3]])
                 }

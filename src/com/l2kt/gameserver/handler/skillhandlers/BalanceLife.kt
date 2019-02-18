@@ -29,7 +29,7 @@ class BalanceLife : ISkillHandler {
             if (obj !is Creature)
                 continue
 
-            if (obj.isDead)
+            if (obj.isDead())
                 continue
 
             // Player holding a cursed weapon can't be healed and can't heal

@@ -908,7 +908,7 @@ object SevenSigns {
             }
 
             player.teleToLocation(MapRegionData.TeleportType.TOWN)
-            player.setIsIn7sDungeon(false)
+            player.isIn7sDungeon = false
         }
     }
 

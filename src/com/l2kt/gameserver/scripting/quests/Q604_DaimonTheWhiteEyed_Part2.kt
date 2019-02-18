@@ -178,7 +178,7 @@ class Q604_DaimonTheWhiteEyed_Part2 : Quest(604, "Daimon The White-Eyed - Part 2
         raid.spawn.setLoc(-106500, -252700, -15542, 0)
 
         // teleport raid back to secret place
-        if (!raid.isDead)
+        if (!raid.isDead())
             raid.teleToLocation(-106500, -252700, -15542, 0)
 
         // reset raid status

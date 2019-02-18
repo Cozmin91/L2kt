@@ -183,7 +183,7 @@ class Party(leader: Player, target: Player, val lootRule: LootRule) : AbstractGr
                 member.abortCast()
 
             for (character in member.getKnownType(Creature::class.java))
-                if (character.fusionSkill != null && character.fusionSkill.target === member)
+                if (character.fusionSkill != null && character.fusionSkill!!.target === member)
                     character.abortCast()
 
             member.sendPacket(SystemMessageId.PARTY_DISPERSED)
@@ -367,7 +367,7 @@ class Party(leader: Player, target: Player, val lootRule: LootRule) : AbstractGr
                 player.abortCast()
 
             for (character in player.getKnownType(Creature::class.java))
-                if (character.fusionSkill != null && character.fusionSkill.target === player)
+                if (character.fusionSkill != null && character.fusionSkill!!.target === player)
                     character.abortCast()
 
             if (type == MessageType.EXPELLED) {
@@ -619,7 +619,7 @@ class Party(leader: Player, target: Player, val lootRule: LootRule) : AbstractGr
 
         // Go through the players that must be rewarded.
         for (member in rewardedMembers) {
-            if (member.isDead)
+            if (member.isDead())
                 continue
 
             // Calculate and add the EXP and SP reward to the member.
@@ -648,7 +648,7 @@ class Party(leader: Player, target: Player, val lootRule: LootRule) : AbstractGr
      */
     fun wipedOut(): Boolean {
         for (member in _members) {
-            if (!member.isDead)
+            if (!member.isDead())
                 return false
         }
         return true

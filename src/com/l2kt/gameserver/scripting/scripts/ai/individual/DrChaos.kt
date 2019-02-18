@@ -121,7 +121,7 @@ class DrChaos : L2AttackableAIScript("ai/individual") {
         } else if (event.equals("paranoia_activity", ignoreCase = true)) {
             if (GrandBossManager.getBossStatus(CHAOS_GOLEM) == NORMAL.toInt()) {
                 for (obj in npc!!.getKnownTypeInRadius(Player::class.java, 500)) {
-                    if (obj.isDead)
+                    if (obj.isDead())
                         continue
 
                     _pissedOffTimer -= 1

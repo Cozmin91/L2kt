@@ -98,7 +98,7 @@ class AdminRes : IAdminCommandHandler {
         }
 
         private fun doResurrect(targetChar: Creature) {
-            if (!targetChar.isDead)
+            if (!targetChar.isDead())
                 return
 
             // If the target is a player, then restore the XP lost on death.

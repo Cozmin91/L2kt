@@ -26,7 +26,7 @@ class RequestRestartPoint : L2GameClientPacket() {
             return
         }
 
-        if (!player.isDead)
+        if (!player.isDead())
             return
 
         // Schedule a respawn delay if player is part of a clan registered in an active siege.
@@ -107,9 +107,9 @@ class RequestRestartPoint : L2GameClientPacket() {
         // To siege flag.
         // To castle.
 
-        player.setIsIn7sDungeon(false)
+        player.isIn7sDungeon = false
 
-        if (player.isDead)
+        if (player.isDead())
             player.doRevive()
 
         player.teleToLocation(loc, 20)

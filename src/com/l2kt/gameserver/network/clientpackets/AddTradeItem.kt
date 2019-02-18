@@ -29,7 +29,7 @@ class AddTradeItem : L2GameClientPacket() {
             return
         }
 
-        if (trade.isConfirmed || partner.activeTradeList.isConfirmed) {
+        if (trade.isConfirmed || partner.activeTradeList!!.isConfirmed) {
             player.sendPacket(SystemMessageId.CANNOT_ADJUST_ITEMS_AFTER_TRADE_CONFIRMED)
             return
         }

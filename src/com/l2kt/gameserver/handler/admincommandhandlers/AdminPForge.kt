@@ -45,10 +45,10 @@ class AdminPForge : IAdminCommandHandler {
                     if (`val`.toLowerCase() == "\$objid") {
                         `val` = activeChar.objectId.toString()
                     } else if (`val`.toLowerCase() == "\$tobjid") {
-                        `val` = activeChar.target.objectId.toString()
+                        `val` = activeChar.target?.objectId.toString()
                     } else if (`val`.toLowerCase() == "\$bobjid") {
                         if (activeChar.boat != null) {
-                            `val` = activeChar.boat.objectId.toString()
+                            `val` = activeChar.boat?.objectId.toString()
                         }
                     } else if (`val`.toLowerCase() == "\$clanid") {
                         `val` = activeChar.objectId.toString()
@@ -67,11 +67,11 @@ class AdminPForge : IAdminCommandHandler {
                     } else if (`val`.toLowerCase() == "\$heading") {
                         `val` = activeChar.heading.toString()
                     } else if (`val`.toLowerCase() == "\$tx") {
-                        `val` = activeChar.target.x.toString()
+                        `val` = activeChar.target?.x.toString()
                     } else if (`val`.toLowerCase() == "\$ty") {
-                        `val` = activeChar.target.y.toString()
+                        `val` = activeChar.target?.y.toString()
                     } else if (`val`.toLowerCase() == "\$tz") {
-                        `val` = activeChar.target.z.toString()
+                        `val` = activeChar.target?.z.toString()
                     } else if (`val`.toLowerCase() == "\$theading") {
                         `val` = (activeChar.target as Player).heading.toString()
                     }

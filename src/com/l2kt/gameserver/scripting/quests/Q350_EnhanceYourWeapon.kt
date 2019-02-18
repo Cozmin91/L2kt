@@ -82,7 +82,7 @@ class Q350_EnhanceYourWeapon : Quest(350, "Enhance Your Weapon") {
 
     override fun onItemUse(item: ItemInstance, user: Player, target: WorldObject): String? {
         // Caster is dead.
-        if (user.isDead)
+        if (user.isDead())
             return null
 
         // No target, or target isn't an L2Attackable.
@@ -90,7 +90,7 @@ class Q350_EnhanceYourWeapon : Quest(350, "Enhance Your Weapon") {
             return null
 
 // Mob is dead or not registered in _npcInfos.
-        if (target.isDead || !SoulCrystalData.levelingInfos.containsKey(target.npcId))
+        if (target.isDead() || !SoulCrystalData.levelingInfos.containsKey(target.npcId))
             return null
 
         // Add user to mob's absorber list.

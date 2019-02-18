@@ -15,6 +15,7 @@ import com.l2kt.gameserver.model.actor.Npc
 import com.l2kt.gameserver.model.actor.instance.Door
 import com.l2kt.gameserver.model.actor.instance.HolyThing
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.stat.DoorStat
 import com.l2kt.gameserver.model.item.MercenaryTicket
 import com.l2kt.gameserver.model.item.instance.ItemInstance
 import com.l2kt.gameserver.model.location.TowerSpawnLocation
@@ -103,7 +104,7 @@ class Castle(val castleId: Int, val name: String) {
     }
 
     @Synchronized
-    fun engrave(clan: Clan, target: WorldObject) {
+    fun engrave(clan: Clan?, target: WorldObject) {
         if (!isGoodArtifact(target))
             return
 
@@ -374,7 +375,7 @@ class Castle(val castleId: Int, val name: String) {
      */
     fun spawnDoors(isDoorWeak: Boolean) {
         for (door in doors) {
-            if (door.isDead)
+            if (door.isDead())
                 door.doRevive()
 
             door.closeMe()
@@ -400,7 +401,7 @@ class Castle(val castleId: Int, val name: String) {
     fun upgradeDoor(doorId: Int, hp: Int, db: Boolean) {
         val door = getDoor(doorId) ?: return
 
-        door.stat.upgradeHpRatio = hp
+        (door.stat as DoorStat).upgradeHpRatio = hp
         door.currentHp = door.maxHp.toDouble()
 
         if (db) {

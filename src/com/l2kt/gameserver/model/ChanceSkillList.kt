@@ -68,7 +68,7 @@ class ChanceSkillList(val owner: Creature) : ConcurrentHashMap<IChanceSkillTrigg
     }
 
     fun onChanceSkillEvent(event: Int, target: Creature) {
-        if (owner.isDead)
+        if (owner.isDead())
             return
 
         for ((trigger, cond) in entries) {

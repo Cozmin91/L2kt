@@ -176,7 +176,7 @@ class Q616_MagicalPowerOfFire_Part2 : Quest(616, "Magical Power of Fire - Part 2
         raid.spawn.setLoc(-105300, -252700, -15542, 0)
 
         // teleport raid back to secret place
-        if (!raid.isDead)
+        if (!raid.isDead())
             raid.teleToLocation(-105300, -252700, -15542, 0)
 
         // reset raid status

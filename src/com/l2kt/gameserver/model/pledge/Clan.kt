@@ -1596,7 +1596,7 @@ class Clan {
                 return false
             }
 
-            val leaderClan = player.clan
+            val leaderClan = player.clan!!
             if (leaderClan.allyPenaltyType == PENALTY_TYPE_DISMISS_CLAN && leaderClan.allyPenaltyExpiryTime > System.currentTimeMillis()) {
                 player.sendPacket(SystemMessageId.CANT_INVITE_CLAN_WITHIN_1_DAY)
                 return false
@@ -1626,7 +1626,7 @@ class Clan {
                 return false
             }
 
-            val targetClan = target.clan
+            val targetClan = target.clan!!
             if (target.allyId != 0) {
                 player.sendPacket(
                     SystemMessage.getSystemMessage(SystemMessageId.S1_CLAN_ALREADY_MEMBER_OF_S2_ALLIANCE).addString(

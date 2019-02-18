@@ -26,9 +26,9 @@ class PreparedListContainer(template: ListContainer, inventoryOnly: Boolean, pla
             var taxRate = 0.0
             if (npc != null) {
                 _npcObjectId = npc.objectId
-                if (template.applyTaxes && npc.castle != null && npc.castle.ownerId > 0) {
+                if (template.applyTaxes && npc.castle != null && npc.castle!!.ownerId > 0) {
                     applyTaxes = true
-                    taxRate = npc.castle.taxRate
+                    taxRate = npc.castle!!.taxRate
                 }
             }
 

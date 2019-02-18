@@ -726,8 +726,8 @@ object SevenSignsFestival {
         val player = World.getPlayer(playerName)
         if (player != null) {
             if (player.clan != null) {
-                player.clan.addReputationScore(100)
-                player.clan.broadcastToOnlineMembers(
+                player.clan!!.addReputationScore(100)
+                player.clan!!.broadcastToOnlineMembers(
                     SystemMessage.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_WAS_IN_HIGHEST_RANKED_PARTY_IN_FESTIVAL_OF_DARKNESS_AND_GAINED_S2_REPUTATION).addString(
                         playerName
                     ).addNumber(100)
@@ -1663,7 +1663,7 @@ object SevenSignsFestival {
 
         fun moveMonstersToCenter() {
             for (festivalMob in _npcInsts!!) {
-                if (festivalMob.isDead)
+                if (festivalMob.isDead())
                     continue
 
                 // Only move monsters that are idle or doing their usual functions.
@@ -1785,17 +1785,17 @@ object SevenSignsFestival {
         fun unspawnMobs() {
             // Delete all the NPCs in the current festival arena.
             if (_witchInst != null) {
-                _witchInst!!.spawn.setRespawnState(false)
+                _witchInst!!.spawn!!.setRespawnState(false)
                 _witchInst!!.deleteMe()
-                SpawnTable.deleteSpawn(_witchInst!!.spawn, false)
+                SpawnTable.deleteSpawn(_witchInst!!.spawn!!, false)
             }
 
             if (_npcInsts != null)
                 for (monsterInst in _npcInsts)
                     if (monsterInst != null) {
-                        monsterInst.spawn.setRespawnState(false)
+                        monsterInst.spawn!!.setRespawnState(false)
                         monsterInst.deleteMe()
-                        SpawnTable.deleteSpawn(monsterInst.spawn, false)
+                        SpawnTable.deleteSpawn(monsterInst.spawn!!, false)
                     }
         }
 

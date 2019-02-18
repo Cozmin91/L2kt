@@ -20,7 +20,7 @@ class SoulShots : IItemHandler {
         val itemId = item.itemId
 
         // Check if soulshot can be used
-        if (weaponInst == null || weaponItem.soulShotCount == 0) {
+        if (weaponInst == null || weaponItem!!.soulShotCount == 0) {
             if (!playable.autoSoulShot.contains(itemId))
                 playable.sendPacket(SystemMessageId.CANNOT_USE_SOULSHOTS)
             return

@@ -6,6 +6,7 @@ import com.l2kt.gameserver.data.xml.NpcData
 import com.l2kt.gameserver.idfactory.IdFactory
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.instance.Monster
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import java.util.concurrent.ConcurrentHashMap
 
 class MinionList(private val _master: Monster) {
@@ -32,14 +33,14 @@ class MinionList(private val _master: Monster) {
      */
     fun spawnMinions() {
         // We generate new instances. We can't reuse existing instances, since previous monsters can still exist.
-        for (data in _master.template.minionData) {
+        for (data in (_master.template as NpcTemplate).minionData) {
             // Get the template of the Minion to spawn
             val template = NpcData.getTemplate(data.minionId) ?: continue
 
             for (i in 0 until data.amount) {
                 val minion = Monster(IdFactory.getInstance().nextId, template)
                 minion.master = _master
-                minion.isMinion = _master.isRaidBoss
+                minion.setMinion(_master.isRaidBoss)
 
                 initializeNpcInstance(_master, minion)
             }
@@ -134,7 +135,7 @@ class MinionList(private val _master: Monster) {
             aggro *= 10
 
         for (minion in spawnedMinions) {
-            if (!minion.isDead && (callerIsMaster || !minion.isInCombat))
+            if (!minion.isDead() && (callerIsMaster || !minion.isInCombat))
                 minion.addDamageHate(attacker, 0, aggro)
         }
     }
@@ -144,7 +145,7 @@ class MinionList(private val _master: Monster) {
      */
     fun onMasterTeleported() {
         for (minion in spawnedMinions) {
-            if (minion.isDead || minion.isMovementDisabled)
+            if (minion.isDead() || minion.isMovementDisabled)
                 continue
 
             minion.teleToMaster()

@@ -14,7 +14,7 @@ object ClanBBSManager : BaseBBSManager() {
             if (player.clan == null)
                 sendClanList(player, 1)
             else
-                sendClanDetails(player, player.clan.clanId)
+                sendClanDetails(player, player.clan!!.clanId)
         } else if (command.startsWith("_bbsclan")) {
             val st = StringTokenizer(command, ";")
             st.nextToken()
@@ -32,7 +32,7 @@ object ClanBBSManager : BaseBBSManager() {
                 if (st.hasMoreTokens()) {
                     val noticeCommand = st.nextToken()
                     if (!noticeCommand.isEmpty() && player.clan != null)
-                        player.clan.setNoticeEnabledAndStore(java.lang.Boolean.parseBoolean(noticeCommand))
+                        player.clan!!.setNoticeEnabledAndStore(java.lang.Boolean.parseBoolean(noticeCommand))
                 }
                 sendClanNotice(player, player.clanId)
             }

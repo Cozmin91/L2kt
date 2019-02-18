@@ -15,7 +15,7 @@ class DrainSoul : ISkillHandler {
 
     override fun useSkill(activeChar: Creature, skill: L2Skill, targets: Array<WorldObject>) {
         // Check player.
-        if (activeChar == null || activeChar.isDead || activeChar !is Player)
+        if (activeChar == null || activeChar.isDead() || activeChar !is Player)
             return
 
         // Check quest condition.
@@ -29,7 +29,7 @@ class DrainSoul : ISkillHandler {
             return
 
         // Check monster.
-        if (target.isDead)
+        if (target.isDead())
             return
 
         // Range condition, cannot be higher than skill's effectRange.
