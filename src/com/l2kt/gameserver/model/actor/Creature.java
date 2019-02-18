@@ -4733,32 +4733,32 @@ public abstract class Creature extends WorldObject
 	// Property - Public
 	public final int getCON()
 	{
-		return getStat().getCON();
+		return getStat().getCon();
 	}
 	
 	public final int getDEX()
 	{
-		return getStat().getDEX();
+		return getStat().getDex();
 	}
 	
 	public final int getINT()
 	{
-		return getStat().getINT();
+		return getStat().getInt();
 	}
 	
 	public final int getMEN()
 	{
-		return getStat().getMEN();
+		return getStat().getMen();
 	}
 	
 	public final int getSTR()
 	{
-		return getStat().getSTR();
+		return getStat().getStr();
 	}
 	
 	public final int getWIT()
 	{
-		return getStat().getWIT();
+		return getStat().getWit();
 	}
 	
 	public final int getAccuracy()
