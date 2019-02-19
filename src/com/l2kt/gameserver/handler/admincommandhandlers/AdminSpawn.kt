@@ -296,7 +296,7 @@ class AdminSpawn : IAdminCommandHandler {
         }
 
         private fun showMonsters(activeChar: Player, level: Int, from: Int) {
-            val mobs = NpcData.getTemplates { t -> t.isType("Monster") && t.getLevel().toInt() == level }
+            val mobs = NpcData.getTemplates { t -> t.isType("Monster") && t.level.toInt() == level }
             val sb = StringBuilder(200 + mobs.size * 100)
 
             StringUtil.append(
@@ -341,7 +341,7 @@ class AdminSpawn : IAdminCommandHandler {
         }
 
         private fun showNpcs(activeChar: Player, starting: String, from: Int) {
-            val mobs = NpcData.getTemplates({ t -> t.isType("Folk") && t.getName().startsWith(starting) })
+            val mobs = NpcData.getTemplates({ t -> t.isType("Folk") && t.name.startsWith(starting) })
             val sb = StringBuilder(200 + mobs.size * 100)
 
             StringUtil.append(

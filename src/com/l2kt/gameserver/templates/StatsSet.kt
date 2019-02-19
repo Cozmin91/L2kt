@@ -205,10 +205,10 @@ open class StatsSet : HashMap<String, Any> {
 
     }
 
-    fun <T> getList(key: String): List<T> {
-        val `val` = get(key) ?: return emptyList()
+    fun <T> getList(key: String): MutableList<T> {
+        val `val` = get(key) ?: return mutableListOf()
 
-        return `val` as List<T>
+        return `val` as MutableList<T>
     }
 
     fun getLong(key: String): Long {
