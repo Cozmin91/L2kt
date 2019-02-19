@@ -26,8 +26,8 @@ class FrenzyOnAttack : L2AttackableAIScript("ai/group") {
 
     override fun onAttack(npc: Npc, attacker: Creature, damage: Int, skill: L2Skill?): String? {
         // The only requirements are HPs < 25% and not already under the buff. It's not 100% aswell.
-        if (npc.currentHp / npc.maxHp < 0.25 && npc.getFirstEffect(ULTIMATE_BUFF) == null && Rnd[10] == 0) {
-            npc.broadcastNpcSay(Rnd[ORCS_WORDS])
+        if (npc.currentHp / npc.maxHp < 0.25 && npc.getFirstEffect(ULTIMATE_BUFF!!) == null && Rnd[10] == 0) {
+            npc.broadcastNpcSay(Rnd[ORCS_WORDS]!!)
             npc.target = npc
             npc.doCast(ULTIMATE_BUFF)
         }

@@ -867,7 +867,7 @@ open class Quest
         }
     }
 
-    fun notifyItemUse(item: ItemInstance, player: Player, target: WorldObject) {
+    fun notifyItemUse(item: ItemInstance, player: Player, target: WorldObject?) {
         var res: String? = null
         try {
             res = onItemUse(item, player, target)
@@ -879,7 +879,7 @@ open class Quest
         showResult(null, player, res)
     }
 
-    open fun onItemUse(item: ItemInstance, player: Player, target: WorldObject): String? {
+    open fun onItemUse(item: ItemInstance, player: Player, target: WorldObject?): String? {
         return null
     }
 

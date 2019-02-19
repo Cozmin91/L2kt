@@ -104,7 +104,7 @@ class Castle(val castleId: Int, val name: String) {
     }
 
     @Synchronized
-    fun engrave(clan: Clan?, target: WorldObject) {
+    fun engrave(clan: Clan, target: WorldObject) {
         if (!isGoodArtifact(target))
             return
 
@@ -447,7 +447,7 @@ class Castle(val castleId: Int, val name: String) {
      */
     fun removeDoorUpgrade() {
         for (door in doors)
-            door.stat.upgradeHpRatio = 1
+            (door.stat as DoorStat).upgradeHpRatio = 1
 
         try {
             L2DatabaseFactory.connection.use { con ->

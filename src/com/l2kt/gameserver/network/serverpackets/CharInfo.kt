@@ -4,6 +4,7 @@ import com.l2kt.Config
 import com.l2kt.gameserver.data.manager.CursedWeaponManager
 import com.l2kt.gameserver.data.xml.NpcData
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.stat.PlayerStat
 import com.l2kt.gameserver.model.itemcontainer.Inventory
 import com.l2kt.gameserver.skills.AbnormalEffect
 
@@ -82,7 +83,7 @@ class CharInfo(private val _activeChar: Player) : L2GameServerPacket() {
 
         val _runSpd = _activeChar.stat.baseRunSpeed
         val _walkSpd = _activeChar.stat.baseWalkSpeed
-        val _swimSpd = _activeChar.stat.baseSwimSpeed
+        val _swimSpd = (_activeChar.stat as PlayerStat).baseSwimSpeed
         writeD(_runSpd) // base run speed
         writeD(_walkSpd) // base walk speed
         writeD(_swimSpd) // swim run speed

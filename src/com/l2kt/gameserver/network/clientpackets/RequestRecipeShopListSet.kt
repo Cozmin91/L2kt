@@ -51,7 +51,7 @@ class RequestRecipeShopListSet : L2GameClientPacket() {
                 val cost = _items[x * 2 + 1]
                 createList.add(ManufactureItem(recipeID, cost))
             }
-            createList.storeName = if (player.createList != null) player.createList.storeName else ""
+            createList.storeName = if (player.createList != null) player.createList!!.storeName else ""
             player.createList = createList
 
             player.storeType = Player.StoreType.MANUFACTURE

@@ -2,10 +2,11 @@ package com.l2kt.gameserver.network.serverpackets
 
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.Npc
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 
 class ServerObjectInfo(private val _npc: Npc, actor: Creature) : L2GameServerPacket() {
 
-    private val _idTemplate: Int = _npc.template.idTemplate
+    private val _idTemplate: Int = (_npc.template as NpcTemplate).idTemplate
     private val _name: String = _npc.name
 
     private val _x: Int = _npc.x

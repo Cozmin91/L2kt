@@ -3,6 +3,7 @@ package com.l2kt.gameserver.network.clientpackets
 import com.l2kt.commons.util.ArraysUtil
 import com.l2kt.gameserver.handler.ItemHandler
 import com.l2kt.gameserver.model.actor.instance.Pet
+import com.l2kt.gameserver.model.actor.template.PetTemplate
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.PetItemList
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
@@ -53,7 +54,7 @@ class RequestPetUseItem : L2GameClientPacket() {
             return
         }
 
-        if (ArraysUtil.contains(PET_FOOD_IDS, item.itemId) && !pet.template.canEatFood(item.itemId)) {
+        if (ArraysUtil.contains(PET_FOOD_IDS, item.itemId) && !(pet.template as PetTemplate).canEatFood(item.itemId)) {
             activeChar.sendPacket(SystemMessageId.PET_CANNOT_USE_ITEM)
             return
         }

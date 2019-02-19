@@ -4,7 +4,7 @@ import com.l2kt.gameserver.model.actor.instance.Player
 import com.l2kt.gameserver.model.item.instance.ItemInstance
 
 class ItemList(cha: Player, private val _showWindow: Boolean) : L2GameServerPacket() {
-    private val _items: Set<ItemInstance> = cha.inventory.items
+    private val _items: Set<ItemInstance> = cha.inventory?.items ?: emptySet()
 
     override fun writeImpl() {
         writeC(0x1b)

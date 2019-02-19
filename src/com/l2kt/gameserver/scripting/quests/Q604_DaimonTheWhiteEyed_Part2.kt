@@ -158,7 +158,7 @@ class Q604_DaimonTheWhiteEyed_Part2 : Quest(604, "Daimon The White-Eyed - Part 2
         val raid = RaidBossSpawnManager.bosses[DAIMON_THE_WHITE_EYED]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-            raid.spawn.setLoc(185900, -44000, -3160, Rnd[65536])
+            raid.spawn?.setLoc(185900, -44000, -3160, Rnd[65536])
 
             // teleport raid from secret place
             raid.teleToLocation(185900, -44000, -3160, 100)
@@ -175,7 +175,7 @@ class Q604_DaimonTheWhiteEyed_Part2 : Quest(604, "Daimon The White-Eyed - Part 2
 
     private fun despawnRaid(raid: Npc) {
         // reset spawn location
-        raid.spawn.setLoc(-106500, -252700, -15542, 0)
+        raid.spawn?.setLoc(-106500, -252700, -15542, 0)
 
         // teleport raid back to secret place
         if (!raid.isDead())

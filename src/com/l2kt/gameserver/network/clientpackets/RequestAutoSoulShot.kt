@@ -57,7 +57,7 @@ class RequestAutoSoulShot : L2GameClientPacket() {
                             activeChar.sendPacket(SystemMessageId.NO_SERVITOR_CANNOT_AUTOMATE_USE)
                     } else {
                         // Cannot activate bss automation during Olympiad.
-                        if (_itemId >= 3947 && _itemId <= 3952 && activeChar.isInOlympiadMode) {
+                        if (_itemId in 3947..3952 && activeChar.isInOlympiadMode) {
                             activeChar.sendPacket(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT)
                             return
                         }
@@ -67,7 +67,7 @@ class RequestAutoSoulShot : L2GameClientPacket() {
                         activeChar.sendPacket(ExAutoSoulShot(_itemId, _type))
 
                         // start the auto soulshot use
-                        if (activeChar.activeWeaponInstance != null && item.item.crystalType == activeChar.activeWeaponItem.crystalType)
+                        if (activeChar.activeWeaponInstance != null && item.item.crystalType == activeChar.activeWeaponItem?.crystalType)
                             activeChar.rechargeShots(true, true)
                         else {
                             if (_itemId in 2509..2514 || _itemId in 3947..3952 || _itemId == 5790)

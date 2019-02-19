@@ -20,7 +20,7 @@ class RequestGetOffVehicle : L2GameClientPacket() {
     override fun runImpl() {
         val activeChar = client.activeChar ?: return
 
-        if (!activeChar.isInBoat || activeChar.boat.objectId != _boatId || activeChar.boat.isMoving || !activeChar.isInsideRadius(
+        if (!activeChar.isInBoat || activeChar.boat!!.objectId != _boatId || activeChar.boat!!.isMoving || !activeChar.isInsideRadius(
                 _x,
                 _y,
                 _z,

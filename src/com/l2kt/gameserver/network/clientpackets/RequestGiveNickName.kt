@@ -34,12 +34,12 @@ class RequestGiveNickName : L2GameClientPacket() {
                 return
             }
 
-            if (activeChar.clan.level < 3) {
+            if (activeChar.clan!!.level < 3) {
                 activeChar.sendPacket(SystemMessageId.CLAN_LVL_3_NEEDED_TO_ENDOWE_TITLE)
                 return
             }
 
-            val member = activeChar.clan.getClanMember(_target)
+            val member = activeChar.clan!!.getClanMember(_target)
             if (member != null) {
                 val playerMember = member.playerInstance
                 if (playerMember != null) {

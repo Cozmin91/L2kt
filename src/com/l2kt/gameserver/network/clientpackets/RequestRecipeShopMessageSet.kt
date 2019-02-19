@@ -14,7 +14,7 @@ class RequestRecipeShopMessageSet : L2GameClientPacket() {
             return
 
         if (player.createList != null)
-            player.createList.storeName = _name
+            player.createList!!.storeName = _name
     }
 
     companion object {

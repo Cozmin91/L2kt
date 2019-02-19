@@ -8,6 +8,7 @@ import com.l2kt.gameserver.model.WorldObject
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.Npc
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.holder.IntIntHolder
 import com.l2kt.gameserver.model.item.type.WeaponType
 import com.l2kt.gameserver.scripting.EventType
@@ -287,10 +288,9 @@ class Weapon
         if (caster is Player) {
             // Mobs in range 1000 see spell
             for (npcMob in caster.getKnownTypeInRadius(Npc::class.java, 1000)) {
-                val scripts = npcMob.template.getEventQuests(EventType.ON_SKILL_SEE)
-                if (scripts != null)
-                    for (quest in scripts)
-                        quest.notifySkillSee(npcMob, caster, _skillsOnCast!!.skill!!, targets, false)
+                val scripts = (npcMob.template as NpcTemplate).getEventQuests(EventType.ON_SKILL_SEE)
+                for (quest in scripts)
+                    quest.notifySkillSee(npcMob, caster, _skillsOnCast!!.skill!!, targets, false)
             }
         }
         return emptyList()

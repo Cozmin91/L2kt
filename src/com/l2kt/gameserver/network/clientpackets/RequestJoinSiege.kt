@@ -26,7 +26,7 @@ class RequestJoinSiege : L2GameClientPacket() {
         val castle = CastleManager.getCastleById(_castleId) ?: return
 
         if (_isJoining == 1) {
-            if (System.currentTimeMillis() < player.clan.dissolvingExpiryTime) {
+            if (System.currentTimeMillis() < player.clan!!.dissolvingExpiryTime) {
                 player.sendPacket(SystemMessageId.CANT_PARTICIPATE_IN_SIEGE_WHILE_DISSOLUTION_IN_PROGRESS)
                 return
             }

@@ -244,7 +244,7 @@ class Q234_FatesWhisper : Quest(234, "Fate's Whispers") {
 
         val st = checkPlayerCondition(player, npc, "cond", "7") ?: return null
 
-        if (player!!.activeWeaponItem != null && player.activeWeaponItem.itemId == PIPETTE_KNIFE && !st.hasQuestItems(
+        if (player!!.activeWeaponItem != null && player.activeWeaponItem!!.itemId == PIPETTE_KNIFE && !st.hasQuestItems(
                 RED_PIPETTE_KNIFE
             )
         ) {

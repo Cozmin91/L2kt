@@ -1,10 +1,10 @@
 package com.l2kt.gameserver.taskmanager
 
-import java.util.concurrent.ConcurrentHashMap
-
 import com.l2kt.commons.concurrent.ThreadPool
 import com.l2kt.gameserver.model.actor.Attackable
 import com.l2kt.gameserver.model.actor.Creature
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Destroys [Creature] corpse after specified time.
@@ -59,7 +59,7 @@ object DecayTaskManager : Runnable {
      */
     fun isCorpseActionAllowed(monster: Attackable): Boolean {
         val time = characters[monster] ?: return false
-        var corpseTime = monster.template.corpseTime * 1000 / 2
+        var corpseTime = (monster.template as NpcTemplate).corpseTime * 1000 / 2
 
         if (monster.spoilerId != 0 || monster.isSeeded)
             corpseTime *= 2

@@ -3,7 +3,6 @@ package com.l2kt.gameserver.scripting.quests
 import com.l2kt.commons.random.Rnd
 import com.l2kt.commons.util.ArraysUtil
 import com.l2kt.gameserver.data.xml.SoulCrystalData
-import com.l2kt.gameserver.model.AbsorbInfo
 import com.l2kt.gameserver.model.WorldObject
 import com.l2kt.gameserver.model.actor.Attackable
 import com.l2kt.gameserver.model.actor.Creature
@@ -80,7 +79,7 @@ class Q350_EnhanceYourWeapon : Quest(350, "Enhance Your Weapon") {
         return htmltext
     }
 
-    override fun onItemUse(item: ItemInstance, user: Player, target: WorldObject): String? {
+    override fun onItemUse(item: ItemInstance, user: Player, target: WorldObject?): String? {
         // Caster is dead.
         if (user.isDead())
             return null

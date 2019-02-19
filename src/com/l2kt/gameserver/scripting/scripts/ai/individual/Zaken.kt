@@ -71,7 +71,7 @@ class Zaken : L2AttackableAIScript("ai/individual") {
 
         if (event.equals("1001", ignoreCase = true)) {
             if (GameTimeTaskManager.isNight) {
-                var skill = SkillTable.FrequentSkill.ZAKEN_DAY_TO_NIGHT.skill
+                var skill = SkillTable.FrequentSkill.ZAKEN_DAY_TO_NIGHT.skill!!
                 if (npc!!.getFirstEffect(skill) == null) {
                     // Add effect "Day to Night" if not found.
                     skill!!.getEffects(npc, npc)
@@ -81,7 +81,7 @@ class Zaken : L2AttackableAIScript("ai/individual") {
                 }
 
                 // Add Night regen if not found.
-                skill = SkillTable.FrequentSkill.ZAKEN_REGEN_NIGHT.skill
+                skill = SkillTable.FrequentSkill.ZAKEN_REGEN_NIGHT.skill!!
                 if (npc.getFirstEffect(skill) == null)
                     skill!!.getEffects(npc, npc)
 
@@ -142,7 +142,7 @@ class Zaken : L2AttackableAIScript("ai/individual") {
                     _hate = 0
                 }
             } else {
-                var skill = SkillTable.FrequentSkill.ZAKEN_NIGHT_TO_DAY.skill
+                var skill = SkillTable.FrequentSkill.ZAKEN_NIGHT_TO_DAY.skill!!
                 if (npc!!.getFirstEffect(skill) == null) {
                     // Add effect "Night to Day" if not found.
                     skill!!.getEffects(npc, npc)
@@ -151,7 +151,7 @@ class Zaken : L2AttackableAIScript("ai/individual") {
                 }
 
                 // Add Day regen if not found.
-                skill = SkillTable.FrequentSkill.ZAKEN_REGEN_DAY.skill
+                skill = SkillTable.FrequentSkill.ZAKEN_REGEN_DAY.skill!!
                 if (npc!!.getFirstEffect(skill) == null)
                     skill!!.getEffects(npc, npc)
             }
@@ -414,7 +414,7 @@ class Zaken : L2AttackableAIScript("ai/individual") {
             4217 // Mass Teleport ; teleport victims and targeted Player, each on a defined, random Location.
             -> {
                 for (ply in VICTIMS) {
-                    if (ply.isInsideRadius(player, 250, true, false)) {
+                    if (ply.isInsideRadius(player!!, 250, true, false)) {
                         (npc as Attackable).stopHating(ply)
                         ply.teleToLocation(LOCS[Rnd[15]], 0)
                     }

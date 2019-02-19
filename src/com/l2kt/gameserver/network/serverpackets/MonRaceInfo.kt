@@ -1,6 +1,7 @@
 package com.l2kt.gameserver.network.serverpackets
 
 import com.l2kt.gameserver.model.actor.Npc
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 
 class MonRaceInfo(
     private val _unknown1: Int,
@@ -20,7 +21,7 @@ class MonRaceInfo(
             val npc = _monsters[i]
 
             writeD(npc.objectId)
-            writeD(npc.template.npcId + 1000000)
+            writeD((npc.template as NpcTemplate).npcId + 1000000)
             writeD(14107) // origin X
             writeD(181875 + 58 * (7 - i)) // origin Y
             writeD(-3566) // origin Z

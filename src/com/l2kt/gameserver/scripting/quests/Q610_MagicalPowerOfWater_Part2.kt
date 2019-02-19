@@ -152,7 +152,7 @@ class Q610_MagicalPowerOfWater_Part2 : Quest(610, "Magical Power of Water - Part
         val raid = RaidBossSpawnManager.bosses[SOUL_OF_WATER_ASHUTAR]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-            raid.spawn.setLoc(104771, -36993, -1149, Rnd[65536])
+            raid.spawn?.setLoc(104771, -36993, -1149, Rnd[65536])
 
             // teleport raid from secret place
             raid.teleToLocation(104771, -36993, -1149, 100)
@@ -169,7 +169,7 @@ class Q610_MagicalPowerOfWater_Part2 : Quest(610, "Magical Power of Water - Part
 
     private fun despawnRaid(raid: Npc) {
         // reset spawn location
-        raid.spawn.setLoc(-105900, -252700, -15542, 0)
+        raid.spawn?.setLoc(-105900, -252700, -15542, 0)
 
         // teleport raid back to secret place
         if (!raid.isDead())

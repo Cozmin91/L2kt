@@ -32,7 +32,7 @@ class RequestAnswerJoinPledge : L2GameClientPacket() {
                 return  // hax
 
             val requestPacket = requestor.request.requestPacket as RequestJoinPledge
-            val clan = requestor.clan
+            val clan = requestor.clan!!
 
             // we must double check this cause during response time conditions can be changed, i.e. another player could join clan
             if (clan.checkClanJoinCondition(requestor, activeChar, requestPacket.pledgeType)) {
@@ -69,7 +69,7 @@ class RequestAnswerJoinPledge : L2GameClientPacket() {
 
                 // this activates the clan tab on the new member
                 activeChar.sendPacket(PledgeShowMemberListAll(clan, 0))
-                for (sp in activeChar.clan.allSubPledges)
+                for (sp in activeChar.clan?.allSubPledges ?: emptyArray())
                     activeChar.sendPacket(PledgeShowMemberListAll(clan, sp.id))
 
                 activeChar.clanJoinExpiryTime = 0

@@ -147,7 +147,7 @@ class Antharas : L2AttackableAIScript("ai/individual") {
 
                 val npcId = if (isBehemoth) 29069 else Rnd[29070, 29076]
                 val dragon = addSpawn(npcId, npc!!.x + Rnd[-200, 200], npc.y + Rnd[-200, 200], npc.z, 0, false, 0, true)
-                (dragon as Attackable).isMinion = true
+                (dragon as Attackable).setMinion(true)
 
                 _monsters.add(dragon)
 

@@ -14,9 +14,8 @@ import com.l2kt.gameserver.data.manager.*
 import com.l2kt.gameserver.data.sql.ClanTable
 import com.l2kt.gameserver.data.sql.PlayerInfoTable
 import com.l2kt.gameserver.data.xml.*
-import com.l2kt.gameserver.extensions.*
+import com.l2kt.gameserver.extensions.toKnownPlayers
 import com.l2kt.gameserver.geoengine.GeoEngine
-import com.l2kt.gameserver.handler.IItemHandler
 import com.l2kt.gameserver.handler.ItemHandler
 import com.l2kt.gameserver.handler.admincommandhandlers.AdminEditChar
 import com.l2kt.gameserver.instancemanager.SevenSigns
@@ -37,6 +36,7 @@ import com.l2kt.gameserver.model.actor.stat.PlayerStat
 import com.l2kt.gameserver.model.actor.status.CreatureStatus
 import com.l2kt.gameserver.model.actor.status.PlayerStatus
 import com.l2kt.gameserver.model.actor.template.CreatureTemplate
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.actor.template.PetTemplate
 import com.l2kt.gameserver.model.actor.template.PlayerTemplate
 import com.l2kt.gameserver.model.base.*
@@ -44,9 +44,7 @@ import com.l2kt.gameserver.model.craft.ManufactureList
 import com.l2kt.gameserver.model.entity.Castle
 import com.l2kt.gameserver.model.entity.Duel.DuelState
 import com.l2kt.gameserver.model.entity.Hero
-import com.l2kt.gameserver.model.entity.Siege
 import com.l2kt.gameserver.model.entity.Siege.SiegeSide
-import com.l2kt.gameserver.model.group.CommandChannel
 import com.l2kt.gameserver.model.group.Party
 import com.l2kt.gameserver.model.group.Party.LootRule
 import com.l2kt.gameserver.model.group.Party.MessageType
@@ -70,9 +68,7 @@ import com.l2kt.gameserver.model.location.SpawnLocation
 import com.l2kt.gameserver.model.memo.PlayerMemo
 import com.l2kt.gameserver.model.multisell.PreparedListContainer
 import com.l2kt.gameserver.model.olympiad.OlympiadGameManager
-import com.l2kt.gameserver.model.olympiad.OlympiadGameTask
 import com.l2kt.gameserver.model.olympiad.OlympiadManager
-import com.l2kt.gameserver.model.partymatching.PartyMatchRoom
 import com.l2kt.gameserver.model.partymatching.PartyMatchRoomList
 import com.l2kt.gameserver.model.partymatching.PartyMatchWaitingList
 import com.l2kt.gameserver.model.pledge.Clan
@@ -90,7 +86,6 @@ import com.l2kt.gameserver.scripting.QuestState
 import com.l2kt.gameserver.skills.Env
 import com.l2kt.gameserver.skills.Formulas
 import com.l2kt.gameserver.skills.Stats
-import com.l2kt.gameserver.skills.effects.EffectTemplate
 import com.l2kt.gameserver.skills.funcs.*
 import com.l2kt.gameserver.skills.l2skills.L2SkillSiegeFlag
 import com.l2kt.gameserver.skills.l2skills.L2SkillSummon
@@ -98,10 +93,6 @@ import com.l2kt.gameserver.taskmanager.*
 import com.l2kt.gameserver.templates.skills.L2EffectFlag
 import com.l2kt.gameserver.templates.skills.L2EffectType
 import com.l2kt.gameserver.templates.skills.L2SkillType
-
-import java.sql.Connection
-import java.sql.PreparedStatement
-import java.sql.ResultSet
 import java.util.*
 import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicInteger
@@ -164,8 +155,8 @@ class Player : Playable {
      * Set the Karma of the Player and send StatusUpdate (broadcast).
      * @param karma A value.
      */
-    override// send message with new karma value
-    var karma: Int = 0
+    // send message with new karma value
+    override var karma: Int = 0
         set(karma) {
             var karma = karma
             if (karma < 0)
@@ -359,11 +350,11 @@ class Player : Playable {
             sendSkillList()
         }
 
-    /*override var isAlikeDead: Boolean
+    override var isAlikeDead: Boolean
         get() = if (super.isAlikeDead) true else isFakeDeath
         set(value: Boolean) {
             super.isAlikeDead = value
-        }*/
+        }
 
     /**
      * @return the current [Folk] of the [Player].
@@ -741,7 +732,7 @@ class Player : Playable {
             _recomLeft = MathUtil.limit(value, 0, 9)
         }
 
-    val recomChars: List<Int>
+    val recomChars: MutableList<Int>
         get() = _recomChars
 
     /**
@@ -1019,14 +1010,12 @@ class Player : Playable {
         get() {
             val result = ArrayList<GeneralSkillNode>()
 
-            (template as PlayerTemplate).skills.stream().filter({s -> s.minLvl <= level && s.cost == 0})
-                .collect<Map<Int, Optional<GeneralSkillNode>>, Any>(
-                    Collectors.groupingBy({ s -> s.id }, Collectors.maxBy(COMPARE_SKILLS_BY_LVL)
-                    )
-                ).forEach { i, s ->
-                if (getSkillLevel(i) < s.get().value)
-                    result.add(s.get())
-            }
+            (template as PlayerTemplate).skills.filter{s -> s.minLvl <= level && s.cost == 0}
+                .associateBy {it.id to Collectors.maxBy(COMPARE_SKILLS_BY_LVL) }
+                .forEach { i, s ->
+                    if (getSkillLevel(i.first) < s.value)
+                        result.add(s)
+                }
             return result
         }
 
@@ -1051,16 +1040,13 @@ class Player : Playable {
         get() {
             val result = ArrayList<GeneralSkillNode>()
 
-            (template as PlayerTemplate).skills.stream().filter { s -> s.minLvl <= level }
-                .collect<Map<Int, Optional<GeneralSkillNode>>, Any>(
-                    Collectors.groupingBy<GeneralSkillNode, Int, Any, Optional<GeneralSkillNode>>(
-                        { s -> s.id },
-                        Collectors.maxBy(COMPARE_SKILLS_BY_LVL)
-                    )
-                ).forEach { i, s ->
-                if (getSkillLevel(i) < s.get().value)
-                    result.add(s.get())
-            }
+            (template as PlayerTemplate).skills.filter { s -> s.minLvl <= level }
+                .associateBy {it.id to Collectors.maxBy(COMPARE_SKILLS_BY_LVL) }
+                .forEach { i, s ->
+                    if (getSkillLevel(i.first) < s.value)
+                        result.add(s)
+                }
+
             return result
         }
 
@@ -1521,11 +1507,11 @@ class Player : Playable {
         val quests = ArrayList<Quest>()
 
         for (qs in _quests) {
-            if (qs == null || completed && qs.isCreated || !completed && !qs.isStarted)
+            if (completed && qs.isCreated || !completed && !qs.isStarted)
                 continue
 
             val quest = qs.quest
-            if (quest == null || !quest.isRealQuest)
+            if (!quest.isRealQuest)
                 continue
 
             quests.add(quest)
@@ -1545,15 +1531,13 @@ class Player : Playable {
 
         val npc = `object` as Npc?
 
-        val scripts = npc!!.(template as PlayerTemplate).getEventQuests(EventType.ON_TALK)
-        if (scripts != null) {
-            for (script in scripts!!) {
-                if (script == null || script != quest)
-                    continue
+        val scripts = (npc!!.template as NpcTemplate).getEventQuests(EventType.ON_TALK)
+        for (script in scripts) {
+            if (script != quest)
+                continue
 
-                quest.notifyEvent(event, npc, this)
-                break
-            }
+            quest.notifyEvent(event, npc, this)
+            break
         }
     }
 
@@ -2057,7 +2041,7 @@ class Player : Playable {
      * @param target The target, used for thrones types.
      * @param sittingState The sitting state, inheritated from packet or player status.
      */
-    fun tryToSitOrStand(target: WorldObject, sittingState: Boolean) {
+    fun tryToSitOrStand(target: WorldObject?, sittingState: Boolean) {
         if (isFakeDeath) {
             stopFakeDeath(true)
             return
@@ -2066,7 +2050,7 @@ class Player : Playable {
         val isThrone = target is StaticObject && target.type == 1
 
         // Player wants to sit on a throne but is out of radius, move to the throne delaying the sit action.
-        if (isThrone && !sittingState && !isInsideRadius(target, Npc.INTERACTION_DISTANCE, false, false)) {
+        if (isThrone && !sittingState && !isInsideRadius(target!!, Npc.INTERACTION_DISTANCE, false, false)) {
             ai!!.setIntention(CtrlIntention.MOVE_TO, Location(target.x, target.y, target.z))
 
             val nextAction = NextAction(CtrlEvent.EVT_ARRIVED, CtrlIntention.MOVE_TO, Runnable{
@@ -3256,7 +3240,7 @@ class Player : Playable {
         clearRecentFakeDeath()
     }
 
-    override fun doCast(skill: L2Skill) {
+    override fun doCast(skill: L2Skill?) {
         super.doCast(skill)
         clearRecentFakeDeath()
     }
@@ -3854,13 +3838,9 @@ class Player : Playable {
 
         // Retrieve the player template skills, based on actual level (+9 for regular skills, unchanged for expertise).
         val availableSkills =
-            (template as PlayerTemplate).skills.stream().filter { s -> s.minLvl <= level + if (s.id == L2Skill.SKILL_EXPERTISE) 0 else 9 }
-                .collect<MutableMap<Int, Optional<GeneralSkillNode>>, Any>(
-                    Collectors.groupingBy<GeneralSkillNode, Int, Any, Optional<GeneralSkillNode>>(
-                        { s -> s.id },
-                        Collectors.maxBy(COMPARE_SKILLS_BY_LVL)
-                    )
-                )
+            (template as PlayerTemplate).skills.filter { s -> s.minLvl <= level + if (s.id == L2Skill.SKILL_EXPERTISE) 0 else 9 }
+                .associateBy {it.id to Collectors.maxBy(COMPARE_SKILLS_BY_LVL) }
+                .map{ it.key.first to it.value }.toMap()
 
         for (skill in skills.values) {
             // Bother only with skills existing on template (spare temporary skills, items skills, etc).
@@ -3875,7 +3855,7 @@ class Player : Playable {
             }
 
             // Retrieve the skill and max level for enchant scenario.
-            val availableSkill = tempSkill.get()
+            val availableSkill = tempSkill
             val maxLevel = SkillTable.getMaxLevel(skill.id)
 
             // Case of enchanted skills.
@@ -6265,13 +6245,9 @@ class Player : Playable {
 
             subClasses[subclass.classIndex] = subclass
 
-            PlayerData.getTemplate(classId)!!.skills.stream().filter { s -> s.minLvl <= 40 }
-                .collect<Map<Int, Optional<GeneralSkillNode>>, Any>(
-                    Collectors.groupingBy<GeneralSkillNode, Int, Any, Optional<GeneralSkillNode>>(
-                        { s -> s.id },
-                        Collectors.maxBy(COMPARE_SKILLS_BY_LVL)
-                    )
-                ).forEach { i, s -> storeSkill(s.get().skill, classIndex) }
+            PlayerData.getTemplate(classId).skills.filter { s -> s.minLvl <= 40 }
+                .associateBy {it.id to Collectors.maxBy(COMPARE_SKILLS_BY_LVL) }
+                .forEach{ i, s -> storeSkill(s.skill, classIndex) }
 
             return true
         } finally {
@@ -6353,7 +6329,7 @@ class Player : Playable {
         _activeClass = classId
 
         // Set the template of the Player
-        template = PlayerData.getTemplate(classId)!!
+        template = PlayerData.getTemplate(classId)
     }
 
     /**

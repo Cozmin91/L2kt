@@ -9,7 +9,7 @@ import com.l2kt.gameserver.model.pledge.Clan
 
 class Die(private val _activeChar: Creature) : L2GameServerPacket() {
     private val _charObjId: Int = _activeChar.objectId
-    private val _fake: Boolean = !_activeChar.isDead
+    private val _fake: Boolean = !_activeChar.isDead()
 
     private var _sweepable: Boolean = false
     private var _allowFixedRes: Boolean = false

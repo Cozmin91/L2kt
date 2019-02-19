@@ -6,6 +6,7 @@ import com.l2kt.gameserver.model.actor.Npc
 import com.l2kt.gameserver.model.actor.instance.Fisherman
 import com.l2kt.gameserver.model.actor.instance.MercenaryManagerNpc
 import com.l2kt.gameserver.model.actor.instance.Merchant
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.holder.IntIntHolder
 import com.l2kt.gameserver.network.serverpackets.ItemList
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage
@@ -51,14 +52,14 @@ class RequestSellItem : L2GameClientPacket() {
         if (_listId > 1000000)
         // lease
         {
-            if (merchant.template.npcId != _listId - 1000000)
+            if ((merchant.template as NpcTemplate).npcId != _listId - 1000000)
                 return
         }
 
         var totalPrice = 0
         // Proceed the sell
         for (i in _items.filterNotNull()) {
-            var item = player.checkItemManipulation(i.id, i.value)
+            val item = player.checkItemManipulation(i.id, i.value)
             if (item == null || !item.isSellable)
                 continue
 
@@ -67,7 +68,7 @@ class RequestSellItem : L2GameClientPacket() {
             if (Integer.MAX_VALUE / i.value < price || totalPrice > Integer.MAX_VALUE)
                 return
 
-            player.inventory.destroyItem("Sell", i.id, i.value, player, merchant)
+            player.inventory?.destroyItem("Sell", i.id, i.value, player, merchant)
         }
 
         player.addAdena("Sell", totalPrice, merchant, false)

@@ -72,7 +72,7 @@ class RequestRestartPoint : L2GameClientPacket() {
         } else if (_requestType == 2) {
             val siege = CastleManager.getActiveSiege(player)
             loc = if (siege != null) {
-                val side = siege.getSide(clan)
+                val side = siege.getSide(clan!!)
                 if (side == Siege.SiegeSide.DEFENDER || side == Siege.SiegeSide.OWNER)
                     MapRegionData.getLocationToTeleport(player, MapRegionData.TeleportType.CASTLE)
                 else if (side == Siege.SiegeSide.ATTACKER)

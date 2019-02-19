@@ -56,12 +56,12 @@ object PlayerData : IXmlReader {
         }
     }
 
-    fun getTemplate(classId: ClassId): PlayerTemplate? {
-        return _templates[classId.id]
+    fun getTemplate(classId: ClassId): PlayerTemplate {
+        return _templates[classId.id]!!
     }
 
-    fun getTemplate(classId: Int): PlayerTemplate? {
-        return _templates[classId]
+    fun getTemplate(classId: Int): PlayerTemplate {
+        return _templates[classId]!!
     }
 
     fun getClassNameById(classId: Int): String {

@@ -187,8 +187,8 @@ class ClanHall(
      * @param type
      * @return clanHall function with id
      */
-    fun getFunction(type: Int): ClanHallFunction {
-        return _functions[type]!!
+    fun getFunction(type: Int): ClanHallFunction? {
+        return _functions[type]
     }
 
     /** Free this clan hall  */

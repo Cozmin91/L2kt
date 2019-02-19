@@ -9,6 +9,7 @@ import com.l2kt.gameserver.model.actor.Summon
 import com.l2kt.gameserver.model.actor.instance.Monster
 import com.l2kt.gameserver.model.actor.instance.Pet
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.stat.PlayerStat
 import com.l2kt.gameserver.model.actor.template.NpcTemplate
 
 abstract class AbstractNpcInfo(cha: Creature) : L2GameServerPacket() {
@@ -66,27 +67,27 @@ abstract class AbstractNpcInfo(cha: Creature) : L2GameServerPacket() {
                 _collisionHeight = _npc.polyTemplate!!.collisionHeight
                 _collisionRadius = _npc.polyTemplate!!.collisionRadius
             } else {
-                _idTemplate = _npc.template.idTemplate
+                _idTemplate = (_npc.template as NpcTemplate).idTemplate
                 _rhand = _npc.rightHandItem
                 _lhand = _npc.leftHandItem
                 _collisionHeight = _npc.collisionHeight
                 _collisionRadius = _npc.collisionRadius
             }
 
-            if (_npc.template.isUsingServerSideName)
+            if ((_npc.template as NpcTemplate).isUsingServerSideName)
                 name = _npc.name
 
             if (_npc.isChampion)
                 title = "Champion"
-            else if (_npc.template.isUsingServerSideTitle)
+            else if ((_npc.template as NpcTemplate).isUsingServerSideTitle)
                 title = _npc.title
 
             if (Config.SHOW_NPC_LVL && _npc is Monster)
                 title = "Lv " + _npc.getLevel() + (if (_npc.getTemplate().aggroRange > 0) "* " else " ") + title
 
             // NPC crest system
-            if (Config.SHOW_NPC_CREST && _npc.castle != null && _npc.castle.ownerId != 0) {
-                val clan = ClanTable.getClan(_npc.castle.ownerId)!!
+            if (Config.SHOW_NPC_CREST && _npc.castle != null && _npc.castle!!.ownerId != 0) {
+                val clan = ClanTable.getClan(_npc.castle!!.ownerId)!!
                 _clanCrest = clan.crestId
                 _clanId = clan.clanId
                 _allyCrest = clan.allyCrestId
@@ -177,9 +178,9 @@ abstract class AbstractNpcInfo(cha: Creature) : L2GameServerPacket() {
             _rhand = _summon.weapon
             _lhand = 0
             _chest = _summon.armor
-            _enchantEffect = _summon.template.enchantEffect
+            _enchantEffect = (_summon.template as NpcTemplate).enchantEffect
             title = if (_owner == null || !_owner.isOnline) "" else _owner.name
-            _idTemplate = _summon.template.idTemplate
+            _idTemplate = (_summon.template as NpcTemplate).idTemplate
 
             _collisionHeight = _summon.collisionHeight
             _collisionRadius = _summon.collisionRadius
@@ -267,7 +268,7 @@ abstract class AbstractNpcInfo(cha: Creature) : L2GameServerPacket() {
      * Packet for morphed PCs
      */
     class PcMorphInfo(private val _pc: Player, private val _template: NpcTemplate) : AbstractNpcInfo(_pc) {
-        private val _swimSpd: Int = _pc.stat.baseSwimSpeed
+        private val _swimSpd: Int = (_pc.stat as PlayerStat).baseSwimSpeed
 
         init {
             _rhand = _template.rightHand

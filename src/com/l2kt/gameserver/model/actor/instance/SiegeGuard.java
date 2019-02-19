@@ -69,18 +69,18 @@ public final class SiegeGuard extends Attackable
 			if (isAutoAttackable(player))
 			{
 				if (!isAlikeDead() && (Math.abs(player.getZ() - getZ()) < 600)) // this max heigth difference might need some tweaking
-					player.getAI().setIntention(CtrlIntention.ATTACK, this);
+					player.getAi().setIntention(CtrlIntention.ATTACK, this);
 			}
 			else
 			{
 				// Notify the Player AI with INTERACT
 				if (!canInteract(player))
-					player.getAI().setIntention(CtrlIntention.INTERACT, this);
+					player.getAi().setIntention(CtrlIntention.INTERACT, this);
 				else
 				{
 					// Stop moving if we're already in interact range.
 					if (player.isMoving() || player.isInCombat())
-						player.getAI().setIntention(CtrlIntention.IDLE);
+						player.getAi().setIntention(CtrlIntention.IDLE);
 					
 					// Rotate the player to face the instance
 					player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));

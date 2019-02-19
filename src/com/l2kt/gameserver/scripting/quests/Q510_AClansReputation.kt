@@ -43,7 +43,7 @@ class Q510_AClansReputation : Quest(510, "A Clan's Reputation") {
 
         when (st.state) {
             Quest.STATE_CREATED -> htmltext =
-                    if (!player.isClanLeader || player.clan.level < 5) "31331-0.htm" else "31331-1.htm"
+                    if (!player.isClanLeader || player.clan!!.level < 5) "31331-0.htm" else "31331-1.htm"
 
             Quest.STATE_STARTED -> {
                 val count = 50 * st.getQuestItemsCount(TYRANNOSAURUS_CLAW)
@@ -53,13 +53,13 @@ class Q510_AClansReputation : Quest(510, "A Clan's Reputation") {
                     htmltext = "31331-7.htm"
                     st.takeItems(TYRANNOSAURUS_CLAW, -1)
 
-                    clan.addReputationScore(count)
+                    clan?.addReputationScore(count)
                     player.sendPacket(
                         SystemMessage.getSystemMessage(SystemMessageId.CLAN_QUEST_COMPLETED_AND_S1_POINTS_GAINED).addNumber(
                             count
                         )
                     )
-                    clan.broadcastToOnlineMembers(PledgeShowInfoUpdate(clan))
+                    clan?.broadcastToOnlineMembers(PledgeShowInfoUpdate(clan))
                 } else
                     htmltext = "31331-4.htm"
             }

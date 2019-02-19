@@ -47,9 +47,7 @@ class RequestSetCrop : L2GameClientPacket() {
 
         // Check player privileges
         val player = client.activeChar
-        if (player == null || player.clan == null || player.clan.castleId != _manorId || player.clanPrivileges and Clan.CP_CS_MANOR_ADMIN != Clan.CP_CS_MANOR_ADMIN || !player.currentFolk.canInteract(
-                player
-            )
+        if (player?.clan == null || player.clan!!.castleId != _manorId || player.clanPrivileges and Clan.CP_CS_MANOR_ADMIN != Clan.CP_CS_MANOR_ADMIN || player.currentFolk?.canInteract(player) == false
         ) {
             sendPacket(ActionFailed.STATIC_PACKET)
             return

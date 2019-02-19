@@ -156,7 +156,7 @@ class Q625_TheFinestIngredients_Part2 : Quest(625, "The Finest Ingredients - Par
         val raid = RaidBossSpawnManager.bosses[ICICLE_EMPEROR_BUMBALUMP]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-            raid.spawn.setLoc(157117, -121939, -2397, Rnd[65536])
+            raid.spawn?.setLoc(157117, -121939, -2397, Rnd[65536])
 
             // teleport raid from secret place
             raid.teleToLocation(157117, -121939, -2397, 100)
@@ -173,7 +173,7 @@ class Q625_TheFinestIngredients_Part2 : Quest(625, "The Finest Ingredients - Par
 
     private fun despawnRaid(raid: Npc) {
         // reset spawn location
-        raid.spawn.setLoc(-104700, -252700, -15542, 0)
+        raid.spawn?.setLoc(-104700, -252700, -15542, 0)
 
         // teleport raid back to secret place
         if (!raid.isDead())

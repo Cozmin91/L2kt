@@ -58,7 +58,7 @@ class Chests : L2AttackableAIScript("ai/group") {
                         else -> npc.doCast(
                             SkillTable.getInfo(
                                 4143,
-                                Math.min(10, Math.round((npc.getLevel() / 10).toFloat()))
+                                Math.min(10, Math.round((npc.level / 10).toFloat()))
                             )
                         )
                     }
@@ -78,7 +78,7 @@ class Chests : L2AttackableAIScript("ai/group") {
 
                 // If it was a box, cast a suicide type skill.
                 if (Rnd[100] < 40)
-                    npc.doCast(SkillTable.getInfo(4143, Math.min(10, Math.round((npc.getLevel() / 10).toFloat()))))
+                    npc.doCast(SkillTable.getInfo(4143, Math.min(10, Math.round((npc.level / 10).toFloat()))))
             }
         }
         return super.onAttack(npc, attacker, damage, skill)

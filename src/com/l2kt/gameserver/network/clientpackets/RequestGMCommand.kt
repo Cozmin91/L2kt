@@ -34,8 +34,8 @@ class RequestGMCommand : L2GameClientPacket() {
             }
 
             2 // target clan
-            -> if (target != null && target.clan != null)
-                sendPacket(GMViewPledgeInfo(target.clan, target))
+            -> if (target?.clan != null)
+                sendPacket(GMViewPledgeInfo(target.clan!!, target))
 
             3 // target skills
             -> sendPacket(GMViewSkillInfo(target!!))

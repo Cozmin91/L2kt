@@ -29,7 +29,7 @@ class RequestPledgePower : L2GameClientPacket() {
                     _privs = (_privs and Clan.CP_CL_VIEW_WAREHOUSE) + (_privs and Clan.CP_CH_OPEN_DOOR) +
                             (_privs and Clan.CP_CS_OPEN_DOOR)
 
-                player.clan.setPriviledgesForRank(_rank, _privs)
+                player.clan!!.setPriviledgesForRank(_rank, _privs)
             }
         } else
             player.sendPacket(ManagePledgePower(clan, _action, _rank))

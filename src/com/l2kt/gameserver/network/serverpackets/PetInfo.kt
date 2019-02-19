@@ -3,6 +3,7 @@ package com.l2kt.gameserver.network.serverpackets
 import com.l2kt.gameserver.model.actor.Summon
 import com.l2kt.gameserver.model.actor.instance.Pet
 import com.l2kt.gameserver.model.actor.instance.Servitor
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 
 class PetInfo(private val _summon: Summon, private val _val: Int) : L2GameServerPacket() {
     private var _maxFed: Int = 0
@@ -25,7 +26,7 @@ class PetInfo(private val _summon: Summon, private val _val: Int) : L2GameServer
         writeC(0xb1)
         writeD(_summon.summonType)
         writeD(_summon.objectId)
-        writeD(_summon.template.idTemplate + 1000000)
+        writeD((_summon.template as NpcTemplate).idTemplate + 1000000)
         writeD(0) // 1=attackable
 
         writeD(_summon.x)
@@ -75,7 +76,7 @@ class PetInfo(private val _summon: Summon, private val _val: Int) : L2GameServer
         writeQ(_summon.stat.exp)
         writeQ(_summon.expForThisLevel) // 0% absolute value
         writeQ(_summon.expForNextLevel) // 100% absoulte value
-        writeD(if (_summon is Pet) _summon.getInventory()!!.totalWeight else 0) // weight
+        writeD(if (_summon is Pet) _summon.inventory!!.totalWeight else 0) // weight
         writeD(_summon.maxLoad) // max weight it can carry
         writeD(_summon.getPAtk(null)) // patk
         writeD(_summon.getPDef(null)) // pdef

@@ -48,7 +48,7 @@ class RequestJoinParty : L2GameClientPacket() {
             return
         }
 
-        if (target.client.isDetached) {
+        if (target.client?.isDetached == true) {
             requestor.sendMessage("The player you tried to invite is in offline mode.")
             return
         }

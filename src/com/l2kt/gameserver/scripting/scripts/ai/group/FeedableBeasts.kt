@@ -264,7 +264,7 @@ class FeedableBeasts : L2AttackableAIScript("ai/group") {
         // if this is finally a trained mob, then despawn any other trained mobs that the player might have and initialize the Tamed Beast.
         if (ArraysUtil.contains(TAMED_BEASTS, nextNpcId)) {
             if (player.trainedBeast != null)
-                player.trainedBeast.deleteMe()
+                player.trainedBeast?.deleteMe()
 
             val template = NpcData.getTemplate(nextNpcId)
             val nextNpc = TamedBeast(IdFactory.getInstance().nextId, template, player, food, npc.position)

@@ -10,6 +10,7 @@ import com.l2kt.gameserver.model.actor.Npc
 import com.l2kt.gameserver.model.actor.Playable
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.scripting.EventType
 import com.l2kt.gameserver.scripting.scripts.ai.L2AttackableAIScript
 
@@ -41,7 +42,7 @@ class PrimevalIsle : L2AttackableAIScript("ai/group") {
 
         if (event.equals("skill", ignoreCase = true)) {
             var playableCounter = 0
-            for (playable in npc.getKnownTypeInRadius(Playable::class.java, npc.template.aggroRange)) {
+            for (playable in npc.getKnownTypeInRadius(Playable::class.java, (npc.template as NpcTemplate).aggroRange)) {
                 if (!playable.isDead())
                     playableCounter++
             }

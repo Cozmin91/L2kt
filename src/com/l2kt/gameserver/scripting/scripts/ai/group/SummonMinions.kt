@@ -31,7 +31,7 @@ class SummonMinions : L2AttackableAIScript("ai/group") {
                 for (`val` in MINIONS[npcId] ?: IntArray(0))
                     addSpawn(`val`, npc, true, 0, false)
 
-                npc.broadcastNpcSay(Rnd[ORCS_WORDS])
+                npc.broadcastNpcSay(Rnd[ORCS_WORDS]!!)
             }
             npc.scriptValue = 1
         }

@@ -12,7 +12,7 @@ class MoveToLocationInVehicle(
     private val _originZ: Int
 ) : L2GameServerPacket() {
     private val _objectId: Int = player.objectId
-    private val _boatId: Int = player.boat.objectId
+    private val _boatId: Int = player.boat?.objectId ?: 0
 
     override fun writeImpl() {
         writeC(0x71)

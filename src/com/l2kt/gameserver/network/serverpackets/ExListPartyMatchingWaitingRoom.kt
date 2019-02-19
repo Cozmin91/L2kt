@@ -30,7 +30,7 @@ class ExListPartyMatchingWaitingRoom(
 
         for (cha in PartyMatchWaitingList.players) {
             // Don't add yourself in the list
-            if (cha == null || cha == _activeChar)
+            if (cha == _activeChar)
                 continue
 
             if (cha.level < _minlvl || cha.level > _maxlvl)
@@ -43,7 +43,7 @@ class ExListPartyMatchingWaitingRoom(
         writeD(_members.size)
         for (member in _members) {
             writeS(member.name)
-            writeD(member.activeClass)
+            writeD(member.getActiveClass())
             writeD(member.level)
         }
     }

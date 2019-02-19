@@ -12,7 +12,7 @@ class GMViewSkillInfo(private val _activeChar: Player) : L2GameServerPacket() {
 
         var isDisabled = false
         if (_activeChar.clan != null)
-            isDisabled = _activeChar.clan.reputationScore < 0
+            isDisabled = _activeChar.clan!!.reputationScore < 0
 
         for (skill in _skills) {
             writeD(if (skill.isPassive) 1 else 0)

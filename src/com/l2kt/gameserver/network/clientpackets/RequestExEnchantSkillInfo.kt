@@ -3,6 +3,7 @@ package com.l2kt.gameserver.network.clientpackets
 import com.l2kt.Config
 import com.l2kt.gameserver.data.SkillTable
 import com.l2kt.gameserver.data.xml.SkillTreeData
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.network.serverpackets.ExEnchantSkillInfo
 
 class RequestExEnchantSkillInfo : L2GameClientPacket() {
@@ -32,7 +33,7 @@ class RequestExEnchantSkillInfo : L2GameClientPacket() {
 
         SkillTable.getInfo(_skillId, _skillLevel) ?: return
 
-        if (!folk.template.canTeach(player.classId))
+        if (!(folk.template as NpcTemplate).canTeach(player.classId))
             return
 
         val esn = SkillTreeData.getEnchantSkillFor(player, _skillId, _skillLevel) ?: return

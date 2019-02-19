@@ -12,6 +12,6 @@ class RequestDismissAlly : L2GameClientPacket() {
             activeChar.sendPacket(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER)
             return
         }
-        activeChar.clan.dissolveAlly(activeChar)
+        activeChar.clan!!.dissolveAlly(activeChar)
     }
 }

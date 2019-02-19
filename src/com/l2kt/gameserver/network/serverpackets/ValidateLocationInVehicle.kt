@@ -5,7 +5,7 @@ import com.l2kt.gameserver.model.location.SpawnLocation
 
 class ValidateLocationInVehicle(player: Player) : L2GameServerPacket() {
     private val _objectId: Int = player.objectId
-    private val _boatId: Int = player.boat.objectId
+    private val _boatId: Int = player.boat?.objectId ?: 0
     private val _loc: SpawnLocation = player.boatPosition
 
     override fun writeImpl() {

@@ -175,7 +175,7 @@ abstract class AbstractOlympiadGame protected constructor(val stadiumId: Int) {
 
             // Remove Clan Skills
             if (player.clan != null) {
-                for (skill in player.clan.clanSkills.values)
+                for (skill in player.clan!!.clanSkills.values)
                     player.removeSkill(skill.id, false)
             }
 
@@ -319,7 +319,7 @@ abstract class AbstractOlympiadGame protected constructor(val stadiumId: Int) {
 
             // Add Clan Skills
             if (player.clan != null) {
-                player.clan.addSkillEffects(player)
+                player.clan!!.addSkillEffects(player)
 
                 // heal again after adding clan skills
                 player.currentCp = player.maxCp.toDouble()

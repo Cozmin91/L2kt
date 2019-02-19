@@ -84,13 +84,13 @@ class Q242_PossessorOfAPreciousSoul : Quest(242, "Possessor of a Precious Soul -
             addSpawn(PURE_UNICORN, 85884, -76588, -3470, 0, false, 0, true)
             return null
         } else if (event.equals("dspu", ignoreCase = true)) {
-            npc!!.spawn.setRespawnState(false)
+            npc!!.spawn?.setRespawnState(false)
             npc.deleteMe()
             startQuestTimer("sfu", 2000, null, player, false)
             return null
         } else if (event.equals("sfu", ignoreCase = true)) {
             npc = addSpawn(FALLEN_UNICORN, 85884, -76588, -3470, 0, false, 0, true)
-            npc!!.spawn.setRespawnState(true)
+            npc!!.spawn?.setRespawnState(true)
             return null
         }// Spawn Fallen Unicorn
         // Despawn Pure Unicorn
@@ -217,7 +217,7 @@ class Q242_PossessorOfAPreciousSoul : Quest(242, "Possessor of a Precious Soul -
                         // Global variable check to prevent multiple spawns
                         {
                             _unicorn = true
-                            npc.spawn.setRespawnState(false) // Despawn fallen unicorn
+                            npc.spawn?.setRespawnState(false) // Despawn fallen unicorn
                             npc.deleteMe()
                             startQuestTimer("spu", 3000, npc, player, false)
                         }

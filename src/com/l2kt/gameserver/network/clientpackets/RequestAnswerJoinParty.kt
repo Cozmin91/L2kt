@@ -22,31 +22,29 @@ class RequestAnswerJoinParty : L2GameClientPacket() {
         var party = requestor.party
         if (_response == 1) {
             if (party == null)
-                party = Party(requestor, player, requestor.lootRule)
+                party = Party(requestor, player, requestor.lootRule!!)
             else
                 party.addPartyMember(player)
 
             if (requestor.isInPartyMatchRoom) {
                 val list = PartyMatchRoomList
-                if (list != null) {
-                    val room = list.getPlayerRoom(requestor)
-                    if (room != null) {
-                        if (player.isInPartyMatchRoom) {
-                            if (list.getPlayerRoomId(requestor) == list.getPlayerRoomId(player)) {
-                                val packet = ExManagePartyRoomMember(player, room, 1)
-                                for (member in room.partyMembers)
-                                    member.sendPacket(packet)
-                            }
-                        } else {
-                            room.addMember(player)
-
+                val room = list.getPlayerRoom(requestor)
+                if (room != null) {
+                    if (player.isInPartyMatchRoom) {
+                        if (list.getPlayerRoomId(requestor) == list.getPlayerRoomId(player)) {
                             val packet = ExManagePartyRoomMember(player, room, 1)
                             for (member in room.partyMembers)
                                 member.sendPacket(packet)
-
-                            player.partyRoom = room.id
-                            player.broadcastUserInfo()
                         }
+                    } else {
+                        room.addMember(player)
+
+                        val packet = ExManagePartyRoomMember(player, room, 1)
+                        for (member in room.partyMembers)
+                            member.sendPacket(packet)
+
+                        player.partyRoom = room.id
+                        player.broadcastUserInfo()
                     }
                 }
             }

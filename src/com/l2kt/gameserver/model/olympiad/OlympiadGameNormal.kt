@@ -181,7 +181,7 @@ abstract class OlympiadGameNormal protected constructor(id: Int, opponents: Arra
         var playerOneLost = true
         try {
             if (_playerOne!!.player!!.olympiadGameId == stadiumId)
-                playerOneLost = _playerOne!!.player!!.isDead
+                playerOneLost = _playerOne!!.player!!.isDead()
         } catch (e: Exception) {
             playerOneLost = true
         }
@@ -189,7 +189,7 @@ abstract class OlympiadGameNormal protected constructor(id: Int, opponents: Arra
         var playerTwoLost = true
         try {
             if (_playerTwo!!.player!!.olympiadGameId == stadiumId)
-                playerTwoLost = _playerTwo!!.player!!.isDead
+                playerTwoLost = _playerTwo!!.player!!.isDead()
         } catch (e: Exception) {
             playerTwoLost = true
         }

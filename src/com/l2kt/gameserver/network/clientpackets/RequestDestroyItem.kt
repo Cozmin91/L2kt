@@ -43,7 +43,7 @@ class RequestDestroyItem : L2GameClientPacket() {
         }
 
         // Cannot discard item that the skill is consuming
-        if (player.isCastingSimultaneouslyNow && player.lastSimultaneousSkillCast != null && player.lastSimultaneousSkillCast.itemConsumeId == itemId) {
+        if (player.isCastingSimultaneouslyNow && player.lastSimultaneousSkillCast != null && player.lastSimultaneousSkillCast!!.itemConsumeId == itemId) {
             player.sendPacket(SystemMessageId.CANNOT_DISCARD_THIS_ITEM)
             return
         }

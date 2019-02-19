@@ -272,7 +272,7 @@ object Formulas {
                     val clansHall = ClanHallManager.getClanHallById(clanHallIndex)
                     if (clansHall != null)
                         if (clansHall.getFunction(ClanHall.FUNC_RESTORE_MP) != null)
-                            mpRegenMultiplier *= (1 + clansHall.getFunction(ClanHall.FUNC_RESTORE_MP).lvl / 100).toDouble()
+                            mpRegenMultiplier *= (1 + clansHall.getFunction(ClanHall.FUNC_RESTORE_MP)!!.lvl / 100).toDouble()
                 }
             }
 

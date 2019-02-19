@@ -117,7 +117,7 @@ class RequestAcquireSkill : L2GameClientPacket() {
 
                 val csn = SkillTreeData.getClanSkillFor(player, _skillId, _skillLevel) ?: return
 
-                if (player.clan.reputationScore < csn.cost) {
+                if (player.clan!!.reputationScore < csn.cost) {
                     player.sendPacket(SystemMessageId.ACQUIRE_SKILL_FAILED_BAD_CLAN_REP_SCORE)
                     VillageMaster.showPledgeSkillList(player)
                     return
@@ -129,14 +129,14 @@ class RequestAcquireSkill : L2GameClientPacket() {
                     return
                 }
 
-                player.clan.takeReputationScore(csn.cost)
+                player.clan!!.takeReputationScore(csn.cost)
                 player.sendPacket(
                     SystemMessage.getSystemMessage(SystemMessageId.S1_DEDUCTED_FROM_CLAN_REP).addNumber(
                         csn.cost
                     )
                 )
 
-                player.clan.addNewSkill(skill)
+                player.clan!!.addNewSkill(skill)
 
                 VillageMaster.showPledgeSkillList(player)
                 return

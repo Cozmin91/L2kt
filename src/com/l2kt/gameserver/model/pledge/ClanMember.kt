@@ -53,7 +53,7 @@ class ClanMember {
         }
 
     val isOnline: Boolean
-        get() = _player != null && _player!!.client != null && !_player!!.client.isDetached
+        get() = _player != null && _player!!.client != null && !_player!!.client!!.isDetached
 
     val classId: Int
         get() = if (_player != null) _player!!.classId.id else _classId

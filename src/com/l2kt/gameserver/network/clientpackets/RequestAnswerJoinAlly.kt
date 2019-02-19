@@ -25,11 +25,11 @@ class RequestAnswerJoinAlly : L2GameClientPacket() {
             if (!Clan.checkAllyJoinCondition(requestor, activeChar))
                 return
 
-            activeChar.clan.allyId = requestor.clan.allyId
-            activeChar.clan.allyName = requestor.clan.allyName
-            activeChar.clan.setAllyPenaltyExpiryTime(0, 0)
-            activeChar.clan.changeAllyCrest(requestor.clan.allyCrestId, true)
-            activeChar.clan.updateClanInDB()
+            activeChar.clan!!.allyId = requestor.clan!!.allyId
+            activeChar.clan!!.allyName = requestor.clan!!.allyName
+            activeChar.clan!!.setAllyPenaltyExpiryTime(0, 0)
+            activeChar.clan!!.changeAllyCrest(requestor.clan!!.allyCrestId, true)
+            activeChar.clan!!.updateClanInDB()
 
             activeChar.sendPacket(SystemMessageId.YOU_ACCEPTED_ALLIANCE)
         }

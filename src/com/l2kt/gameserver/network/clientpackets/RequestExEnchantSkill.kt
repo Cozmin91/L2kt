@@ -5,6 +5,7 @@ import com.l2kt.commons.random.Rnd
 import com.l2kt.gameserver.data.SkillTable
 import com.l2kt.gameserver.data.xml.SkillTreeData
 import com.l2kt.gameserver.model.L2ShortCut
+import com.l2kt.gameserver.model.actor.stat.PlayerStat
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.ShortCutRegister
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
@@ -45,7 +46,7 @@ class RequestExEnchantSkill : L2GameClientPacket() {
             return
         }
 
-        if (player.exp - esn.exp < player.stat.getExpForLevel(76)) {
+        if (player.exp - esn.exp < (player.stat as PlayerStat).getExpForLevel(76)) {
             player.sendPacket(SystemMessageId.YOU_DONT_HAVE_ENOUGH_EXP_TO_ENCHANT_THAT_SKILL)
             return
         }

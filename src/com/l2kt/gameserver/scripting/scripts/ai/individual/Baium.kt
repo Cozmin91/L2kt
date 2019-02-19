@@ -83,7 +83,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
                 // Spawns angels
                 for (loc in ANGEL_LOCATION) {
                     val angel = addSpawn(ARCHANGEL, loc.x, loc.y, loc.z, loc.heading, false, 0, true)
-                    (angel as Attackable).isMinion = true
+                    (angel as Attackable).setMinion(true)
                     angel.setRunning()
                     _minions.add(angel)
                 }
@@ -124,7 +124,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
                 // Spawn angels
                 for (loc in ANGEL_LOCATION) {
                     val angel = addSpawn(ARCHANGEL, loc.x, loc.y, loc.z, loc.heading, false, 0, true)
-                    (angel as Attackable).isMinion = true
+                    (angel as Attackable).setMinion(true)
                     angel.setRunning()
                     _minions.add(angel)
                 }
@@ -147,7 +147,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
 
                     // Unspawn angels
                     for (minion in _minions) {
-                        minion.spawn.setRespawnState(false)
+                        minion.spawn?.setRespawnState(false)
                         minion.deleteMe()
                     }
                     _minions.clear()
@@ -269,7 +269,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
 
         // Unspawn angels.
         for (minion in _minions) {
-            minion.spawn.setRespawnState(false)
+            minion.spawn?.setRespawnState(false)
             minion.deleteMe()
         }
         _minions.clear()

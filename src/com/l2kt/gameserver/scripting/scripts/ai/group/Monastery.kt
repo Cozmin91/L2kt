@@ -7,6 +7,7 @@ import com.l2kt.gameserver.model.WorldObject
 import com.l2kt.gameserver.model.actor.Attackable
 import com.l2kt.gameserver.model.actor.Npc
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.base.Sex
 import com.l2kt.gameserver.scripting.EventType
 import com.l2kt.gameserver.scripting.scripts.ai.L2AttackableAIScript
@@ -59,7 +60,7 @@ class Monastery : L2AttackableAIScript("ai/group") {
     }
 
     override fun onSpawn(npc: Npc): String? {
-        for (target in npc.getKnownTypeInRadius(Player::class.java, npc.template.aggroRange)) {
+        for (target in npc.getKnownTypeInRadius(Player::class.java, (npc.template as NpcTemplate).aggroRange)) {
             if (!target.isDead() && GeoEngine.canSeeTarget(npc, target)) {
                 if (target.activeWeaponInstance != null && !npc.isInCombat && npc.target == null) {
                     npc.target = target

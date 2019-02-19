@@ -4,6 +4,7 @@ import com.l2kt.Config
 import com.l2kt.gameserver.data.manager.CursedWeaponManager
 import com.l2kt.gameserver.model.WorldObject
 import com.l2kt.gameserver.model.actor.instance.Player
+import com.l2kt.gameserver.model.actor.stat.PlayerStat
 import com.l2kt.gameserver.model.itemcontainer.Inventory
 import com.l2kt.gameserver.skills.AbnormalEffect
 
@@ -57,41 +58,41 @@ class UserInfo(private val _activeChar: Player) : L2GameServerPacket() {
 
         writeD(if (_activeChar.activeWeaponItem != null) 40 else 20) // 20 no weapon, 40 weapon equipped
 
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_HAIRALL))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_REAR))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_LEAR))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_NECK))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_RFINGER))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_LFINGER))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_HEAD))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_LHAND))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_GLOVES))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_CHEST))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_LEGS))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_FEET))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_BACK))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR))
-        writeD(_activeChar.inventory.getPaperdollObjectId(Inventory.PAPERDOLL_FACE))
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_HAIRALL) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_REAR) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_LEAR) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_NECK) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_RFINGER) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_LFINGER) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_HEAD) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_LHAND) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_GLOVES) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_CHEST) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_LEGS) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_FEET) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_BACK) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollObjectId(Inventory.PAPERDOLL_FACE) ?: 0)
 
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_REAR))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_LEAR))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_NECK))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_RFINGER))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_LFINGER))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_HEAD))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_RHAND))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_LHAND))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_CHEST))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_LEGS))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_FEET))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_BACK))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_RHAND))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_HAIR))
-        writeD(_activeChar.inventory.getPaperdollItemId(Inventory.PAPERDOLL_FACE))
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_REAR) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_LEAR) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_NECK) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_RFINGER) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_LFINGER) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_HEAD) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_RHAND) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_LHAND) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_CHEST) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_LEGS) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_FEET) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_BACK) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_RHAND) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_HAIR) ?: 0)
+        writeD(_activeChar.inventory?.getPaperdollItemId(Inventory.PAPERDOLL_FACE) ?: 0)
 
         // c6 new h's
         writeH(0x00)
@@ -108,7 +109,7 @@ class UserInfo(private val _activeChar: Player) : L2GameServerPacket() {
         writeH(0x00)
         writeH(0x00)
         writeH(0x00)
-        writeD(_activeChar.inventory.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND))
+        writeD(_activeChar.inventory?.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND) ?: 0)
         writeH(0x00)
         writeH(0x00)
         writeH(0x00)
@@ -121,7 +122,7 @@ class UserInfo(private val _activeChar: Player) : L2GameServerPacket() {
         writeH(0x00)
         writeH(0x00)
         writeH(0x00)
-        writeD(_activeChar.inventory.getPaperdollAugmentationId(Inventory.PAPERDOLL_LHAND))
+        writeD(_activeChar.inventory?.getPaperdollAugmentationId(Inventory.PAPERDOLL_LHAND) ?: 0)
         writeH(0x00)
         writeH(0x00)
         writeH(0x00)
@@ -146,7 +147,7 @@ class UserInfo(private val _activeChar: Player) : L2GameServerPacket() {
 
         val _runSpd = _activeChar.stat.baseRunSpeed
         val _walkSpd = _activeChar.stat.baseWalkSpeed
-        val _swimSpd = _activeChar.stat.baseSwimSpeed
+        val _swimSpd = (_activeChar.stat as PlayerStat).baseSwimSpeed
         writeD(_runSpd) // base run speed
         writeD(_walkSpd) // base walk speed
         writeD(_swimSpd) // swim run speed

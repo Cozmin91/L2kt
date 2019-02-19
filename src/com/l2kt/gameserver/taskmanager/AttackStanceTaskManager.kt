@@ -44,7 +44,7 @@ object AttackStanceTaskManager : Runnable {
 
     fun add(character: Creature) {
         if (character is Playable) {
-            for (cubic in character.actingPlayer!!.cubics?.values ?: emptyList())
+            for (cubic in character.actingPlayer!!.cubics.values)
                 if (cubic.id != Cubic.LIFE_CUBIC)
                     cubic.doAction()
         }

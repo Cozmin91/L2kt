@@ -74,7 +74,7 @@ open class L2AttackableAIScript : Quest {
         var skillAggroPoints = skill?.aggroPoints ?: 0
 
         if (caster.pet != null) {
-            if (targets.size == 1 && targets.contains(caster.pet))
+            if (targets.size == 1 && targets.contains(caster.pet as WorldObject))
                 skillAggroPoints = 0
         }
 
@@ -96,7 +96,7 @@ open class L2AttackableAIScript : Quest {
         if (attacker == null)
             return null
 
-        if (caller is RiftInvader && attacker.isInParty && attacker.party.isInDimensionalRift && !attacker.party.dimensionalRift!!.isInCurrentRoomZone(npc ?: return null))
+        if (caller is RiftInvader && attacker.isInParty && attacker.party!!.isInDimensionalRift && !attacker.party!!.dimensionalRift!!.isInCurrentRoomZone(npc ?: return null))
             return null
 
         val attackable = npc as Attackable
@@ -129,7 +129,7 @@ open class L2AttackableAIScript : Quest {
 
     override fun onAttack(npc: Npc, attacker: Creature, damage: Int, skill: L2Skill?): String? {
         npc.ai.notifyEvent(CtrlEvent.EVT_ATTACKED, attacker)
-        (npc as Attackable).addDamageHate(attacker, damage, damage * 100 / (npc.getLevel() + 7))
+        (npc as Attackable).addDamageHate(attacker, damage, damage * 100 / (npc.level + 7))
         return null
     }
 
@@ -139,7 +139,7 @@ open class L2AttackableAIScript : Quest {
 
             master?.minionList?.onMinionDie(
                 npc,
-                if (master.isRaidBoss) Config.RAID_MINION_RESPAWN_TIMER else master.spawn.respawnDelay * 1000 / 2
+                if (master.isRaidBoss) Config.RAID_MINION_RESPAWN_TIMER else master.spawn!!.respawnDelay * 1000 / 2
             )
 
             if (npc.hasMinions())
@@ -254,7 +254,7 @@ open class L2AttackableAIScript : Quest {
 
         // Petrification curse.
         if (attacker.level - npc.level > 8) {
-            val curse = SkillTable.FrequentSkill.RAID_CURSE2.skill
+            val curse = SkillTable.FrequentSkill.RAID_CURSE2.skill!!
             if (attacker.getFirstEffect(curse) == null) {
                 npc.broadcastPacket(MagicSkillUse(npc, attacker, curse!!.id, curse.level, 300, 0))
                 curse.getEffects(npc, attacker)
@@ -266,7 +266,7 @@ open class L2AttackableAIScript : Quest {
 
         // Antistrider slow curse.
         if (npc.npcId == npcId && attacker is Player && attacker.isMounted) {
-            val curse = SkillTable.FrequentSkill.RAID_ANTI_STRIDER_SLOW.skill
+            val curse = SkillTable.FrequentSkill.RAID_ANTI_STRIDER_SLOW.skill!!
             if (attacker.getFirstEffect(curse) == null) {
                 npc.broadcastPacket(MagicSkillUse(npc, attacker, curse!!.id, curse.level, 300, 0))
                 curse.getEffects(npc, attacker)

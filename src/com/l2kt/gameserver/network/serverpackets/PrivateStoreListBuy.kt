@@ -11,7 +11,7 @@ class PrivateStoreListBuy(player: Player, private val _storePlayer: Player) : L2
         _storePlayer.sellList.updateItems()
 
         _playerAdena = player.adena
-        _items = _storePlayer.buyList.getAvailableItems(player.inventory)
+        _items = _storePlayer.buyList.getAvailableItems(player.inventory!!)
     }
 
     override fun writeImpl() {

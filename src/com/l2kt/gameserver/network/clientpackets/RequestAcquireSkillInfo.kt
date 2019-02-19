@@ -4,6 +4,7 @@ import com.l2kt.Config
 import com.l2kt.gameserver.data.SkillTable
 import com.l2kt.gameserver.data.xml.SkillTreeData
 import com.l2kt.gameserver.data.xml.SpellbookData
+import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.actor.template.PlayerTemplate
 import com.l2kt.gameserver.network.serverpackets.AcquireSkillInfo
 
@@ -48,7 +49,7 @@ class RequestAcquireSkillInfo : L2GameClientPacket() {
                 if (skillLvl != _skillLevel - 1)
                     return
 
-                if (!folk.template.canTeach(player.classId))
+                if (!(folk.template as NpcTemplate).canTeach(player.classId))
                     return
 
                 // Search if the asked skill exists on player template.

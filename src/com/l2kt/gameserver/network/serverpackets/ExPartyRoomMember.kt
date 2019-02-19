@@ -13,7 +13,7 @@ class ExPartyRoomMember(private val _room: PartyMatchRoom, private val _mode: In
         for (member in _room.partyMembers) {
             writeD(member.objectId)
             writeS(member.name)
-            writeD(member.activeClass)
+            writeD(member.getActiveClass())
             writeD(member.level)
             writeD(MapRegionData.getClosestLocation(member.x, member.y))
             if (_room.owner == member)

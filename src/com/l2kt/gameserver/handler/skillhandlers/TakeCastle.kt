@@ -27,7 +27,7 @@ class TakeCastle : ISkillHandler {
         if (castle == null || !activeChar.checkIfOkToCastSealOfRule(castle, true, skill, targets[0]))
             return
 
-        castle.engrave(activeChar.clan, targets[0])
+        castle.engrave(activeChar.clan!!, targets[0])
     }
 
     companion object {

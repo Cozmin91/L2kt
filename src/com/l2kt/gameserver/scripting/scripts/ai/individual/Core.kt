@@ -63,21 +63,21 @@ class Core : L2AttackableAIScript("ai/individual") {
         for (i in 0..4) {
             val x = 16800 + i * 360
             mob = addSpawn(DEATH_KNIGHT, x, 110000, npc.z, 280 + Rnd[40], false, 0, false) as Attackable
-            mob.isMinion = true
+            mob.setMinion(true)
             _minions.add(mob)
             mob = addSpawn(DEATH_KNIGHT, x, 109000, npc.z, 280 + Rnd[40], false, 0, false) as Attackable
-            mob.isMinion = true
+            mob.setMinion(true)
             _minions.add(mob)
             val x2 = 16800 + i * 600
             mob = addSpawn(DOOM_WRAITH, x2, 109300, npc.z, 280 + Rnd[40], false, 0, false) as Attackable
-            mob.isMinion = true
+            mob.setMinion(true)
             _minions.add(mob)
         }
 
         for (i in 0..3) {
             val x = 16800 + i * 450
             mob = addSpawn(SUSCEPTOR, x, 110300, npc.z, 280 + Rnd[40], false, 0, false) as Attackable
-            mob.isMinion = true
+            mob.setMinion(true)
             _minions.add(mob)
         }
     }
@@ -89,7 +89,7 @@ class Core : L2AttackableAIScript("ai/individual") {
             spawnBoss(core)
         } else if (event.equals("spawn_minion", ignoreCase = true)) {
             val mob = addSpawn(npc!!.npcId, npc.x, npc.y, npc.z, npc.heading, false, 0, false) as Attackable
-            mob.isMinion = true
+            mob.setMinion(true)
             _minions.add(mob)
         } else if (event.equals("despawn_minions", ignoreCase = true)) {
             for (i in _minions.indices) {

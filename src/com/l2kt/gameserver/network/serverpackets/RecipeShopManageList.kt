@@ -16,7 +16,7 @@ class RecipeShopManageList(private val _seller: Player, private val _isDwarven: 
 
         // clean previous recipes
         if (_seller.createList != null) {
-            val it = _seller.createList.list.iterator()
+            val it = _seller.createList!!.list.iterator()
             while (it.hasNext()) {
                 val item = it.next()
                 if (item.isDwarven != _isDwarven || !_seller.hasRecipeList(item.id))
@@ -45,7 +45,7 @@ class RecipeShopManageList(private val _seller: Player, private val _isDwarven: 
         if (_seller.createList == null)
             writeD(0)
         else {
-            val list = _seller.createList.list
+            val list = _seller.createList!!.list
             writeD(list.size)
 
             for (item in list) {

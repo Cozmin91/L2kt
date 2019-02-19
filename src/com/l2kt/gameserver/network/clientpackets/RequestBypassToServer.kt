@@ -56,7 +56,7 @@ class RequestBypassToServer : L2GameClientPacket() {
             }
 
             if (Config.GMAUDIT)
-                GMAUDIT_LOG.info(player.name + " [" + player.objectId + "] used '" + _command + "' command on: " + if (player.target != null) player.target.name else "none")
+                GMAUDIT_LOG.info(player.name + " [" + player.objectId + "] used '" + _command + "' command on: " + if (player.target != null) player.target!!.name else "none")
 
             ach.useAdminCommand(_command, player)
         } else if (_command.startsWith("player_help ")) {
