@@ -39,7 +39,7 @@ public class RaidBoss extends Monster
 	public void onSpawn()
 	{
 		// No random walk allowed.
-		setIsNoRndWalk(true);
+		setNoRndWalk(true);
 		
 		// Basic behavior.
 		super.onSpawn();
@@ -68,7 +68,7 @@ public class RaidBoss extends Monster
 				}
 				// Randomized attack if the boss is already attacking.
 				else if (Rnd.INSTANCE.get(5) == 0)
-					((AttackableAI) getAI()).aggroReconsider();
+					((AttackableAI) getAi()).aggroReconsider();
 			}
 			
 			// For each minion (if any), randomize the attack.
@@ -82,7 +82,7 @@ public class RaidBoss extends Monster
 					
 					// Randomized attack if the boss is already attacking.
 					if (Rnd.INSTANCE.get(3) == 0)
-						((AttackableAI) minion.getAI()).aggroReconsider();
+						((AttackableAI) minion.getAi()).aggroReconsider();
 				}
 			}
 		}, 1000, 60000);

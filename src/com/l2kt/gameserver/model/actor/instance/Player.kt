@@ -6592,9 +6592,9 @@ class Player : Playable {
 
         // Modify the position of the tamed beast if necessary
         if (trainedBeast != null) {
-            trainedBeast!!.getAI().stopFollow()
+            trainedBeast!!.getAi().stopFollow()
             trainedBeast!!.teleToLocation(position, 0)
-            trainedBeast!!.getAI().startFollow(this)
+            trainedBeast!!.getAi().startFollow(this)
         }
 
         // Modify the position of the pet if necessary
@@ -6602,7 +6602,7 @@ class Player : Playable {
         if (pet != null) {
             pet.followStatus = false
             pet.teleToLocation(position, 0)
-            (pet.getAI() as SummonAI).setStartFollowController(true)
+            (pet.getAi() as SummonAI).setStartFollowController(true)
             pet.followStatus = true
         }
     }

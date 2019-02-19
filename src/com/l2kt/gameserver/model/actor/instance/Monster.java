@@ -35,14 +35,14 @@ public class Monster extends Attackable
 	@Override
 	public boolean isAggressive()
 	{
-		return getTemplate().getAggroRange() > 0;
+		return ((NpcTemplate)getTemplate()).getAggroRange() > 0;
 	}
 	
 	@Override
 	public void onSpawn()
 	{
 		// Generate minions and spawn them (initial call and regular minions respawn are handled in the same method).
-		if (!getTemplate().getMinionData().isEmpty())
+		if (!((NpcTemplate)getTemplate()).getMinionData().isEmpty())
 			getMinionList().spawnMinions();
 		
 		super.onSpawn();

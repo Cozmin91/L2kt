@@ -17,11 +17,11 @@ public class Walker extends Folk
 	{
 		super(objectId, template);
 		
-		setAI(new WalkerAI(this));
+		setAi(new WalkerAI(this));
 	}
 	
 	@Override
-	public void setAI(CreatureAI newAI)
+	public void setAi(CreatureAI newAI)
 	{
 		// AI can't be detached, npc must move with the same AI instance.
 		if (!(_ai instanceof WalkerAI))
@@ -40,7 +40,7 @@ public class Walker extends Folk
 	}
 	
 	@Override
-	public WalkerAI getAI()
+	public WalkerAI getAi()
 	{
 		return (WalkerAI) _ai;
 	}

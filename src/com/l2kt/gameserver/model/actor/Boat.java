@@ -36,7 +36,7 @@ public class Boat extends Creature
 	{
 		super(objectId, template);
 		
-		setAI(new BoatAI(this));
+		setAi(new BoatAI(this));
 	}
 	
 	@Override
@@ -74,10 +74,10 @@ public class Boat extends Creature
 			if (point.getRotationSpeed() > 0)
 				getStat().setRotationSpeed(point.getRotationSpeed());
 			
-			getAI().setIntention(CtrlIntention.MOVE_TO, point);
+			getAi().setIntention(CtrlIntention.MOVE_TO, point);
 			return;
 		}
-		getAI().setIntention(CtrlIntention.ACTIVE);
+		getAi().setIntention(CtrlIntention.ACTIVE);
 	}
 	
 	@Override
@@ -282,9 +282,9 @@ public class Boat extends Creature
 		if (isMoving())
 			stopMove(null);
 		
-		setIsTeleporting(true);
+		setTeleporting(true);
 		
-		getAI().setIntention(CtrlIntention.ACTIVE);
+		getAi().setIntention(CtrlIntention.ACTIVE);
 		
 		for (Player player : _passengers)
 		{
@@ -374,7 +374,7 @@ public class Boat extends Creature
 	}
 	
 	@Override
-	public void setAI(CreatureAI newAI)
+	public void setAi(CreatureAI newAI)
 	{
 		if (_ai == null)
 			_ai = newAI;

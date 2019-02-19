@@ -33,12 +33,12 @@ public class TownPet extends Folk
 		else
 		{
 			if (!canInteract(player))
-				player.getAI().setIntention(CtrlIntention.INTERACT, this);
+				player.getAi().setIntention(CtrlIntention.INTERACT, this);
 			else
 			{
 				// Stop moving if we're already in interact range.
 				if (player.isMoving() || player.isInCombat())
-					player.getAI().setIntention(CtrlIntention.IDLE);
+					player.getAi().setIntention(CtrlIntention.IDLE);
 				
 				// Rotate the player to face the instance
 				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
@@ -68,7 +68,7 @@ public class TownPet extends Folk
 			if (getSpawn() == null)
 				return;
 			
-			getAI().setIntention(CtrlIntention.MOVE_TO, GeoEngine.INSTANCE.canMoveToTargetLoc(getX(), getY(), getZ(), getSpawn().getLocX() + Rnd.INSTANCE.get(-75, 75), getSpawn().getLocY() + Rnd.INSTANCE.get(-75, 75), getZ()));
+			getAi().setIntention(CtrlIntention.MOVE_TO, GeoEngine.INSTANCE.canMoveToTargetLoc(getX(), getY(), getZ(), getSpawn().getLocX() + Rnd.INSTANCE.get(-75, 75), getSpawn().getLocY() + Rnd.INSTANCE.get(-75, 75), getZ()));
 		}
 	}
 }

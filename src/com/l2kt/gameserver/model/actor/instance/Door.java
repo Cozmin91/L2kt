@@ -63,7 +63,7 @@ public class Door extends Creature implements IGeoObject
 	}
 	
 	@Override
-	public CreatureAI getAI()
+	public CreatureAI getAi()
 	{
 		CreatureAI ai = _ai;
 		if (ai == null)
@@ -196,7 +196,7 @@ public class Door extends Creature implements IGeoObject
 			if (isAutoAttackable(player))
 			{
 				if (Math.abs(player.getZ() - getZ()) < 400) // this max heigth difference might need some tweaking
-					player.getAI().setIntention(CtrlIntention.ATTACK, this);
+					player.getAi().setIntention(CtrlIntention.ATTACK, this);
 			}
 			else if (!isInsideRadius(player, Npc.INTERACTION_DISTANCE, false, false))
 				player.getAI().setIntention(CtrlIntention.INTERACT, this);

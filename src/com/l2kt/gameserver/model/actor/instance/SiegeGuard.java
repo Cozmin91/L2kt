@@ -22,7 +22,7 @@ public final class SiegeGuard extends Attackable
 	}
 	
 	@Override
-	public CreatureAI getAI()
+	public CreatureAI getAi()
 	{
 		CreatureAI ai = _ai;
 		if (ai == null)

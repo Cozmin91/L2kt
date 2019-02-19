@@ -1,21 +1,20 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.Locale;
-
 import com.l2kt.commons.lang.StringUtil;
 import com.l2kt.gameserver.data.manager.DerbyTrackManager;
+import com.l2kt.gameserver.idfactory.IdFactory;
 import com.l2kt.gameserver.model.HistoryInfo;
 import com.l2kt.gameserver.model.WorldObject;
 import com.l2kt.gameserver.model.actor.Npc;
-import com.l2kt.gameserver.model.item.instance.ItemInstance;
-
-import com.l2kt.gameserver.idfactory.IdFactory;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
+import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.ActionFailed;
 import com.l2kt.gameserver.network.serverpackets.DeleteObject;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
+
+import java.util.Locale;
 
 public class DerbyTrackManagerNpc extends Folk
 {
@@ -58,7 +57,7 @@ public class DerbyTrackManagerNpc extends Folk
 			if ((val == 10 && player.getRace(0) == 0) || (val == 20 && player.getRace(0) == 0 && player.getRace(1) == 0))
 				val = 0;
 			
-			int npcId = getTemplate().getNpcId();
+			int npcId = ((NpcTemplate)getTemplate()).getNpcId();
 			String search, replace;
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -164,7 +163,7 @@ public class DerbyTrackManagerNpc extends Folk
 			}
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile(getHtmlPath(getTemplate().getNpcId(), 5));
+			html.setFile(getHtmlPath(((NpcTemplate)getTemplate()).getNpcId(), 5));
 			for (int i = 0; i < 8; i++)
 			{
 				final int n = i + 1;
@@ -183,7 +182,7 @@ public class DerbyTrackManagerNpc extends Folk
 		else if (command.equals("ShowInfo"))
 		{
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile(getHtmlPath(getTemplate().getNpcId(), 6));
+			html.setFile(getHtmlPath(((NpcTemplate)getTemplate()).getNpcId(), 6));
 			
 			for (int i = 0; i < 8; i++)
 			{
@@ -211,7 +210,7 @@ public class DerbyTrackManagerNpc extends Folk
 			}
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile(getHtmlPath(getTemplate().getNpcId(), 7));
+			html.setFile(getHtmlPath(((NpcTemplate)getTemplate()).getNpcId(), 7));
 			html.replace("%tickets%", sb.toString());
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);
@@ -248,7 +247,7 @@ public class DerbyTrackManagerNpc extends Folk
 			}
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile(getHtmlPath(getTemplate().getNpcId(), 8));
+			html.setFile(getHtmlPath(((NpcTemplate)getTemplate()).getNpcId(), 8));
 			html.replace("%raceId%", raceId);
 			html.replace("%lane%", lane);
 			html.replace("%bet%", bet);
@@ -309,7 +308,7 @@ public class DerbyTrackManagerNpc extends Folk
 				StringUtil.INSTANCE.append(sb, "<tr><td><font color=\"LEVEL\">", info.getRaceId(), "</font> th</td><td><font color=\"LEVEL\">", (raceNumber == info.getRaceId()) ? 0 : info.getFirst() + 1, "</font> Lane </td><td><font color=\"LEVEL\">", (raceNumber == info.getRaceId()) ? 0 : info.getSecond() + 1, "</font> Lane</td><td align=right><font color=00ffff>", String.format(Locale.ENGLISH, "%.2f", info.getOddRate()), "</font> Times</td></tr>");
 			
 			final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-			html.setFile(getHtmlPath(getTemplate().getNpcId(), 9));
+			html.setFile(getHtmlPath(((NpcTemplate)getTemplate()).getNpcId(), 9));
 			html.replace("%infos%", sb.toString());
 			html.replace("%objectId%", getObjectId());
 			player.sendPacket(html);

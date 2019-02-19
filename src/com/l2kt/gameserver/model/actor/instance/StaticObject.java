@@ -82,7 +82,7 @@ public class StaticObject extends WorldObject
 			if (!player.isInsideRadius(this, Npc.INTERACTION_DISTANCE, false, false))
 			{
 				// Notify the Player AI with INTERACT
-				player.getAI().setIntention(CtrlIntention.INTERACT, this);
+				player.getAi().setIntention(CtrlIntention.INTERACT, this);
 			}
 			else
 			{

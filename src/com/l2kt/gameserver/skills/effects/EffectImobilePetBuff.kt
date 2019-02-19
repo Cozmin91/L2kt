@@ -18,14 +18,14 @@ internal class EffectImobilePetBuff(env: Env, template: EffectTemplate) : L2Effe
 
         if (effected is Summon && effector is Player && (effected as Summon).owner == effector) {
             _pet = effected as Summon
-            _pet!!.setIsImmobilized(true)
+            _pet!!.setImmobilized(true)
             return true
         }
         return false
     }
 
     override fun onExit() {
-        _pet!!.setIsImmobilized(false)
+        _pet!!.setImmobilized(false)
     }
 
     override fun onActionTime(): Boolean {

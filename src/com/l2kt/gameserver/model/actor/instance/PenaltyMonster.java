@@ -31,7 +31,7 @@ public class PenaltyMonster extends Monster
 		
 		_ptk = ptk;
 		
-		getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _ptk, Rnd.INSTANCE.get(1, 100));
+		getAi().notifyEvent(CtrlEvent.EVT_AGGRESSION, _ptk, Rnd.INSTANCE.get(1, 100));
 	}
 	
 	@Override

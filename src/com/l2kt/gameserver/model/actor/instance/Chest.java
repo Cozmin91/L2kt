@@ -16,7 +16,7 @@ public final class Chest extends Monster
 	public Chest(int objectId, NpcTemplate template)
 	{
 		super(objectId, template);
-		setIsNoRndWalk(true);
+		setNoRndWalk(true);
 		
 		_isInteracted = false;
 		_specialDrop = false;
@@ -54,7 +54,7 @@ public final class Chest extends Monster
 	@Override
 	public void doItemDrop(NpcTemplate npcTemplate, Creature lastAttacker)
 	{
-		int id = getTemplate().getNpcId();
+		int id = ((NpcTemplate)getTemplate()).getNpcId();
 		
 		if (!_specialDrop)
 		{

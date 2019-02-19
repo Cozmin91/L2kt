@@ -721,7 +721,7 @@ public class SignsPriest extends Folk
 	@Override
 	public void showChatWindow(Player player, int val)
 	{
-		final int npcId = getTemplate().getNpcId();
+		final int npcId = ((NpcTemplate)getTemplate()).getNpcId();
 		String filename = SevenSigns.SEVEN_SIGNS_HTML_PATH;
 		
 		final CabalType playerCabal = SevenSigns.INSTANCE.getPlayerCabal(player.getObjectId());

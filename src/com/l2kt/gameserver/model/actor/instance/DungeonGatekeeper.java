@@ -1,7 +1,5 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.StringTokenizer;
-
 import com.l2kt.gameserver.data.xml.TeleportLocationData;
 import com.l2kt.gameserver.instancemanager.SevenSigns;
 import com.l2kt.gameserver.instancemanager.SevenSigns.CabalType;
@@ -11,6 +9,8 @@ import com.l2kt.gameserver.model.location.TeleportLocation;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.ActionFailed;
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage;
+
+import java.util.StringTokenizer;
 
 public class DungeonGatekeeper extends Folk
 {
@@ -67,7 +67,7 @@ public class DungeonGatekeeper extends Folk
 			else
 			{
 				doTeleport(player, Integer.parseInt(st.nextToken()));
-				player.setIsIn7sDungeon(true);
+				player.setIn7sDungeon(true);
 			}
 		}
 		else if (actualCommand.startsWith("cata"))
@@ -105,13 +105,13 @@ public class DungeonGatekeeper extends Folk
 			else
 			{
 				doTeleport(player, Integer.parseInt(st.nextToken()));
-				player.setIsIn7sDungeon(true);
+				player.setIn7sDungeon(true);
 			}
 		}
 		else if (actualCommand.startsWith("exit"))
 		{
 			doTeleport(player, Integer.parseInt(st.nextToken()));
-			player.setIsIn7sDungeon(false);
+			player.setIn7sDungeon(false);
 		}
 		else if (actualCommand.startsWith("goto"))
 		{

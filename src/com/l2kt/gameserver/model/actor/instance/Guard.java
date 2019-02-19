@@ -1,18 +1,17 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.List;
-
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.model.actor.Attackable;
 import com.l2kt.gameserver.model.actor.Creature;
 import com.l2kt.gameserver.model.actor.Npc;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
-
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.network.serverpackets.ActionFailed;
 import com.l2kt.gameserver.network.serverpackets.MoveToPawn;
 import com.l2kt.gameserver.scripting.EventType;
 import com.l2kt.gameserver.scripting.Quest;
+
+import java.util.List;
 
 /**
  * This class manages all Guards in the world.<br>
@@ -38,7 +37,7 @@ public final class Guard extends Attackable
 	@Override
 	public void onSpawn()
 	{
-		setIsNoRndWalk(true);
+		setNoRndWalk(true);
 		super.onSpawn();
 	}
 	
@@ -66,13 +65,13 @@ public final class Guard extends Attackable
 			if (!canInteract(player))
 			{
 				// Set the Player Intention to INTERACT
-				player.getAI().setIntention(CtrlIntention.INTERACT, this);
+				player.getAi().setIntention(CtrlIntention.INTERACT, this);
 			}
 			else
 			{
 				// Stop moving if we're already in interact range.
 				if (player.isMoving() || player.isInCombat())
-					player.getAI().setIntention(CtrlIntention.IDLE);
+					player.getAi().setIntention(CtrlIntention.IDLE);
 				
 				// Rotate the player to face the instance
 				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
@@ -99,11 +98,11 @@ public final class Guard extends Attackable
 				if (hasRandomAnimation())
 					onRandomAnimation(Rnd.INSTANCE.get(8));
 				
-				List<Quest> scripts = getTemplate().getEventQuests(EventType.QUEST_START);
+				List<Quest> scripts = ((NpcTemplate)getTemplate()).getEventQuests(EventType.QUEST_START);
 				if (scripts != null && !scripts.isEmpty())
 					player.setLastQuestNpcObject(getObjectId());
 				
-				scripts = getTemplate().getEventQuests(EventType.ON_FIRST_TALK);
+				scripts = ((NpcTemplate)getTemplate()).getEventQuests(EventType.ON_FIRST_TALK);
 				if (scripts != null && scripts.size() == 1)
 					scripts.get(0).notifyFirstTalk(this, player);
 				else

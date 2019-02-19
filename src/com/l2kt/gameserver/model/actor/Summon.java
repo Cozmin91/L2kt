@@ -78,7 +78,7 @@ public abstract class Summon extends Playable
 	}
 	
 	@Override
-	public CreatureAI getAI()
+	public CreatureAI getAi()
 	{
 		CreatureAI ai = _ai;
 		if (ai == null)
@@ -130,13 +130,13 @@ public abstract class Summon extends Playable
 			if (!canInteract(player))
 			{
 				// Notify the Player AI with INTERACT
-				player.getAI().setIntention(CtrlIntention.INTERACT, this);
+				player.getAi().setIntention(CtrlIntention.INTERACT, this);
 			}
 			else
 			{
 				// Stop moving if we're already in interact range.
 				if (player.isMoving() || player.isInCombat())
-					player.getAI().setIntention(CtrlIntention.IDLE);
+					player.getAi().setIntention(CtrlIntention.IDLE);
 				
 				// Rotate the player to face the instance
 				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
@@ -153,7 +153,7 @@ public abstract class Summon extends Playable
 			{
 				if (GeoEngine.INSTANCE.canSeeTarget(player, this))
 				{
-					player.getAI().setIntention(CtrlIntention.ATTACK, this);
+					player.getAi().setIntention(CtrlIntention.ATTACK, this);
 					player.onActionRequest();
 				}
 			}
@@ -166,7 +166,7 @@ public abstract class Summon extends Playable
 				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				
 				if (GeoEngine.INSTANCE.canSeeTarget(player, this))
-					player.getAI().setIntention(CtrlIntention.FOLLOW, this);
+					player.getAi().setIntention(CtrlIntention.FOLLOW, this);
 			}
 		}
 	}
@@ -183,7 +183,7 @@ public abstract class Summon extends Playable
 			html.replace("%exp%", getStat().getExp());
 			html.replace("%owner%", " <a action=\"bypass -h admin_character_info " + getActingPlayer().getName() + "\">" + getActingPlayer().getName() + "</a>");
 			html.replace("%class%", getClass().getSimpleName());
-			html.replace("%ai%", hasAI() ? getAI().getDesire().getIntention().name() : "NULL");
+			html.replace("%ai%", hasAI() ? getAi().getDesire().getIntention().name() : "NULL");
 			html.replace("%hp%", (int) getStatus().getCurrentHp() + "/" + getStat().getMaxHp());
 			html.replace("%mp%", (int) getStatus().getCurrentMp() + "/" + getStat().getMaxMp());
 			html.replace("%karma%", getKarma());
@@ -320,7 +320,7 @@ public abstract class Summon extends Playable
 			abortAttack();
 			
 			stopHpMpRegeneration();
-			getAI().stopFollow();
+			getAi().stopFollow();
 			
 			owner.sendPacket(new PetDelete(getSummonType(), getObjectId()));
 			
@@ -329,7 +329,7 @@ public abstract class Summon extends Playable
 			
 			// Stop AI tasks
 			if (hasAI())
-				getAI().stopAITask();
+				getAi().stopAITask();
 			
 			stopAllEffects();
 			
@@ -360,9 +360,9 @@ public abstract class Summon extends Playable
 	{
 		_follow = state;
 		if (_follow)
-			getAI().setIntention(CtrlIntention.FOLLOW, getOwner());
+			getAi().setIntention(CtrlIntention.FOLLOW, getOwner());
 		else
-			getAI().setIntention(CtrlIntention.IDLE, null);
+			getAi().setIntention(CtrlIntention.IDLE, null);
 	}
 	
 	public boolean getFollowStatus()
@@ -583,14 +583,14 @@ public abstract class Summon extends Playable
 		}
 		
 		// Notify the AI with CAST and target
-		getAI().setIntention(CtrlIntention.CAST, skill, target);
+		getAi().setIntention(CtrlIntention.CAST, skill, target);
 		return true;
 	}
 	
 	@Override
-	public void setIsImmobilized(boolean value)
+	public void setImmobilized(boolean value)
 	{
-		super.setIsImmobilized(value);
+		super.setImmobilized(value);
 		
 		if (value)
 		{

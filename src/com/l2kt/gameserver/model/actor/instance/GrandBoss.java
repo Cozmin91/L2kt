@@ -30,7 +30,7 @@ public final class GrandBoss extends Monster
 	@Override
 	public void onSpawn()
 	{
-		setIsNoRndWalk(true);
+		setNoRndWalk(true);
 		super.onSpawn();
 	}
 	

@@ -43,7 +43,7 @@ public class OlympiadManagerNpc extends Folk
 	@Override
 	public void showChatWindow(Player player, int val)
 	{
-		int npcId = getTemplate().getNpcId();
+		int npcId = ((NpcTemplate)getTemplate()).getNpcId();
 		String filename = getHtmlPath(npcId, val);
 		
 		switch (npcId)

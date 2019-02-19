@@ -1,15 +1,11 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.data.SkillTable;
 import com.l2kt.gameserver.data.manager.DuelManager;
+import com.l2kt.gameserver.handler.ISkillHandler;
+import com.l2kt.gameserver.handler.SkillHandler;
 import com.l2kt.gameserver.model.L2Effect;
 import com.l2kt.gameserver.model.L2Skill;
 import com.l2kt.gameserver.model.ShotType;
@@ -18,17 +14,20 @@ import com.l2kt.gameserver.model.actor.Attackable;
 import com.l2kt.gameserver.model.actor.Creature;
 import com.l2kt.gameserver.model.actor.Playable;
 import com.l2kt.gameserver.model.actor.ai.CtrlEvent;
-import com.l2kt.gameserver.model.zone.ZoneId;
-
-import com.l2kt.gameserver.handler.ISkillHandler;
-import com.l2kt.gameserver.handler.SkillHandler;
 import com.l2kt.gameserver.model.group.Party;
+import com.l2kt.gameserver.model.zone.ZoneId;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.MagicSkillUse;
 import com.l2kt.gameserver.skills.Formulas;
 import com.l2kt.gameserver.skills.l2skills.L2SkillDrain;
 import com.l2kt.gameserver.taskmanager.AttackStanceTaskManager;
 import com.l2kt.gameserver.templates.skills.L2SkillType;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Cubic
 {
@@ -562,7 +561,7 @@ public class Cubic
 					break;
 				
 				case CANCEL_DEBUFF:
-					final L2Effect[] effects = target.getAllEffects();
+					final L2Effect[] effects = target.getAllEffects().toArray(new L2Effect[0]);
 					if (effects == null || effects.length == 0)
 						break;
 					
@@ -586,7 +585,7 @@ public class Cubic
 					if (Formulas.calcCubicSkillSuccess(activeCubic, target, skill, shld, bss))
 					{
 						if (target instanceof Attackable)
-							target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeCubic.getOwner(), (int) ((150 * skill.getPower()) / (target.getLevel() + 7)));
+							target.getAi().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeCubic.getOwner(), (int) ((150 * skill.getPower()) / (target.getLevel() + 7)));
 						
 						skill.getEffects(activeCubic, target, null);
 					}

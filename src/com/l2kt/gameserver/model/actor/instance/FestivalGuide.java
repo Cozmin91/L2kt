@@ -391,7 +391,7 @@ public final class FestivalGuide extends Folk
 	{
 		String filename = SevenSigns.SEVEN_SIGNS_HTML_PATH;
 		
-		switch (getTemplate().getNpcId())
+		switch (((NpcTemplate)getTemplate()).getNpcId())
 		{
 			case 31127: //
 			case 31128: //

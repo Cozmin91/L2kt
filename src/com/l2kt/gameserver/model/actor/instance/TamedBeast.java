@@ -1,19 +1,18 @@
 package com.l2kt.gameserver.model.actor.instance;
 
-import java.util.List;
-import java.util.concurrent.Future;
-
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.model.L2Skill;
 import com.l2kt.gameserver.model.actor.Creature;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
-
 import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.SkillType;
 import com.l2kt.gameserver.model.location.Location;
 import com.l2kt.gameserver.network.serverpackets.NpcSay;
 import com.l2kt.gameserver.network.serverpackets.SocialAction;
+
+import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * A tamed beast behaves a lot like a pet and has an owner. Some points :
@@ -101,7 +100,7 @@ public final class TamedBeast extends FeedableBeast
 		}
 		
 		stopHpMpRegeneration();
-		getAI().stopFollow();
+		getAi().stopFollow();
 		
 		// Clean up actual trained beast.
 		if (_owner != null)
@@ -137,7 +136,7 @@ public final class TamedBeast extends FeedableBeast
 			float HPRatio = ((float) _owner.getCurrentHp()) / _owner.getMaxHp();
 			if (HPRatio < 0.5)
 			{
-				for (L2Skill skill : getTemplate().getSkills(SkillType.HEAL))
+				for (L2Skill skill : ((NpcTemplate)getTemplate()).getSkills(SkillType.HEAL))
 				{
 					switch (skill.getSkillType())
 					{
@@ -155,7 +154,7 @@ public final class TamedBeast extends FeedableBeast
 		// Debuff, 33% luck.
 		else if (proba == 1)
 		{
-			for (L2Skill skill : getTemplate().getSkills(SkillType.DEBUFF))
+			for (L2Skill skill : ((NpcTemplate)getTemplate()).getSkills(SkillType.DEBUFF))
 			{
 				// if the skill is a debuff, check if the attacker has it already
 				if (attacker.getFirstEffect(skill) == null)
@@ -172,7 +171,7 @@ public final class TamedBeast extends FeedableBeast
 			float MPRatio = ((float) _owner.getCurrentMp()) / _owner.getMaxMp();
 			if (MPRatio < 0.5)
 			{
-				for (L2Skill skill : getTemplate().getSkills(SkillType.HEAL))
+				for (L2Skill skill : ((NpcTemplate)getTemplate()).getSkills(SkillType.HEAL))
 				{
 					switch (skill.getSkillType())
 					{
@@ -199,11 +198,11 @@ public final class TamedBeast extends FeedableBeast
 	protected void sitCastAndFollow(L2Skill skill, Creature target)
 	{
 		stopMove(null);
-		getAI().setIntention(CtrlIntention.IDLE);
+		getAi().setIntention(CtrlIntention.IDLE);
 		
 		setTarget(target);
 		doCast(skill);
-		getAI().setIntention(CtrlIntention.FOLLOW, _owner);
+		getAi().setIntention(CtrlIntention.FOLLOW, _owner);
 	}
 	
 	private class AiTask implements Runnable
@@ -257,7 +256,7 @@ public final class TamedBeast extends FeedableBeast
 			int i = 0;
 			L2Skill buffToGive = null;
 			
-			final List<L2Skill> skills = getTemplate().getSkills(SkillType.BUFF);
+			final List<L2Skill> skills = ((NpcTemplate)getTemplate()).getSkills(SkillType.BUFF);
 			final int rand = Rnd.INSTANCE.get(skills.size());
 			
 			// Retrieve the random buff, and check how much tamed beast buffs the player has.
@@ -276,7 +275,7 @@ public final class TamedBeast extends FeedableBeast
 			if (totalBuffsOnOwner < 2 && owner.getFirstEffect(buffToGive) == null)
 				sitCastAndFollow(buffToGive, owner);
 			else
-				getAI().setIntention(CtrlIntention.FOLLOW, owner);
+				getAi().setIntention(CtrlIntention.FOLLOW, owner);
 		}
 	}
 }

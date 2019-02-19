@@ -66,7 +66,7 @@ public class Doorman extends Folk
 	public void showChatWindow(Player player)
 	{
 		final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-		html.setFile("data/html/doormen/" + getTemplate().getNpcId() + ((!isOwnerClan(player)) ? "-no.htm" : ".htm"));
+		html.setFile("data/html/doormen/" + ((NpcTemplate)getTemplate()).getNpcId() + ((!isOwnerClan(player)) ? "-no.htm" : ".htm"));
 		html.replace("%objectId%", getObjectId());
 		player.sendPacket(html);
 		

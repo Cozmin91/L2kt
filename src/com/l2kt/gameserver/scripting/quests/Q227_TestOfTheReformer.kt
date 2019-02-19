@@ -221,7 +221,7 @@ class Q227_TestOfTheReformer : Quest(227, "Test Of The Reformer") {
 
                             // TODO : make L2Npc be able to attack L2Attackable.
                             // ((L2Attackable) _olMahumPilgrim).addDamageHate(_olMahumInspector, 0, 99999);
-                            // _olMahumPilgrim.getAI().setIntention(CtrlIntention.ATTACK, _olMahumInspector);
+                            // _olMahumPilgrim.getAi().setIntention(CtrlIntention.ATTACK, _olMahumInspector);
                         }
                     } else if (cond == 7) {
                         htmltext = "30668-01.htm"

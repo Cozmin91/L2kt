@@ -1,28 +1,12 @@
 package com.l2kt.gameserver.model.actor;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.l2kt.Config;
 import com.l2kt.commons.concurrent.ThreadPool;
 import com.l2kt.commons.math.MathUtil;
 import com.l2kt.commons.random.Rnd;
 import com.l2kt.gameserver.data.manager.CursedWeaponManager;
 import com.l2kt.gameserver.data.xml.HerbDropData;
-import com.l2kt.gameserver.model.item.DropCategory;
-import com.l2kt.gameserver.model.item.DropData;
-import com.l2kt.gameserver.model.item.instance.ItemInstance;
-
-import com.l2kt.gameserver.model.AbsorbInfo;
-import com.l2kt.gameserver.model.AggroInfo;
-import com.l2kt.gameserver.model.L2Skill;
-import com.l2kt.gameserver.model.RewardInfo;
-import com.l2kt.gameserver.model.WorldObject;
+import com.l2kt.gameserver.model.*;
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention;
 import com.l2kt.gameserver.model.actor.ai.type.AttackableAI;
 import com.l2kt.gameserver.model.actor.ai.type.CreatureAI;
@@ -35,11 +19,17 @@ import com.l2kt.gameserver.model.actor.template.NpcTemplate.SkillType;
 import com.l2kt.gameserver.model.group.CommandChannel;
 import com.l2kt.gameserver.model.group.Party;
 import com.l2kt.gameserver.model.holder.IntIntHolder;
+import com.l2kt.gameserver.model.item.DropCategory;
+import com.l2kt.gameserver.model.item.DropData;
+import com.l2kt.gameserver.model.item.instance.ItemInstance;
 import com.l2kt.gameserver.model.manor.Seed;
 import com.l2kt.gameserver.network.SystemMessageId;
 import com.l2kt.gameserver.network.serverpackets.SystemMessage;
 import com.l2kt.gameserver.scripting.EventType;
 import com.l2kt.gameserver.scripting.Quest;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class manages all NPCs that can be attacked. It inherits from {@link Npc}.
@@ -89,7 +79,7 @@ public class Attackable extends Npc
 	}
 	
 	@Override
-	public CreatureAI getAI()
+	public CreatureAI getAi()
 	{
 		CreatureAI ai = _ai;
 		if (ai == null)
@@ -178,7 +168,7 @@ public class Attackable extends Npc
 		if (!super.doDie(killer))
 			return false;
 		
-		final List<Quest> scripts = getTemplate().getEventQuests(EventType.ON_KILL);
+		final List<Quest> scripts = ((NpcTemplate)getTemplate()).getEventQuests(EventType.ON_KILL);
 		if (scripts != null)
 			for (Quest quest : scripts)
 				ThreadPool.INSTANCE.schedule(() -> quest.notifyKill(this, killer), 3000);
@@ -265,7 +255,7 @@ public class Attackable extends Npc
 			maxDealer = getFirstCommandChannelAttacked().getLeader();
 		
 		// Manage Base, Quests and Sweep drops of the L2Attackable.
-		doItemDrop(getTemplate(), (maxDealer != null && maxDealer.isOnline()) ? maxDealer : lastAttacker);
+		doItemDrop(((NpcTemplate)getTemplate()), (maxDealer != null && maxDealer.isOnline()) ? maxDealer : lastAttacker);
 		
 		for (RewardInfo reward : rewards.values())
 		{
@@ -436,7 +426,7 @@ public class Attackable extends Npc
 		if (!isInActiveRegion())
 		{
 			if (hasAI())
-				getAI().stopAITask();
+				getAi().stopAITask();
 		}
 	}
 	
@@ -517,7 +507,7 @@ public class Attackable extends Npc
 		if (attacker == null || isDead())
 			return;
 		
-		final List<Quest> scripts = getTemplate().getEventQuests(EventType.ON_ATTACK);
+		final List<Quest> scripts = ((NpcTemplate)getTemplate()).getEventQuests(EventType.ON_ATTACK);
 		if (scripts != null)
 			for (Quest quest : scripts)
 				quest.notifyAttack(this, attacker, damage, skill);
@@ -544,7 +534,7 @@ public class Attackable extends Npc
 			final Player targetPlayer = attacker.getActingPlayer();
 			if (targetPlayer != null)
 			{
-				final List<Quest> scripts = getTemplate().getEventQuests(EventType.ON_AGGRO);
+				final List<Quest> scripts = ((NpcTemplate)getTemplate()).getEventQuests(EventType.ON_AGGRO);
 				if (scripts != null)
 					for (Quest quest : scripts)
 						quest.notifyAggro(this, targetPlayer, (attacker instanceof Summon));
@@ -558,8 +548,8 @@ public class Attackable extends Npc
 		else
 		{
 			// Set the intention to the L2Attackable to ACTIVE
-			if (aggro > 0 && getAI().getDesire().getIntention() == CtrlIntention.IDLE)
-				getAI().setIntention(CtrlIntention.ACTIVE);
+			if (aggro > 0 && getAi().getDesire().getIntention() == CtrlIntention.IDLE)
+				getAi().setIntention(CtrlIntention.ACTIVE);
 		}
 	}
 	
@@ -570,11 +560,11 @@ public class Attackable extends Npc
 	 */
 	public void reduceHate(Creature target, int amount)
 	{
-		if (getAI() instanceof SiegeGuardAI)
+		if (getAi() instanceof SiegeGuardAI)
 		{
 			stopHating(target);
 			setTarget(null);
-			getAI().setIntention(CtrlIntention.IDLE);
+			getAi().setIntention(CtrlIntention.IDLE);
 			return;
 		}
 		
@@ -585,7 +575,7 @@ public class Attackable extends Npc
 			// If not most hated target is found, makes AI passive for a moment more
 			if (mostHated == null)
 			{
-				((AttackableAI) getAI()).setGlobalAggro(-25);
+				((AttackableAI) getAi()).setGlobalAggro(-25);
 				return;
 			}
 			
@@ -596,9 +586,9 @@ public class Attackable extends Npc
 			
 			if (amount <= 0)
 			{
-				((AttackableAI) getAI()).setGlobalAggro(-25);
+				((AttackableAI) getAi()).setGlobalAggro(-25);
 				_aggroList.clear();
-				getAI().setIntention(CtrlIntention.ACTIVE);
+				getAi().setIntention(CtrlIntention.ACTIVE);
 				setWalking();
 			}
 			return;
@@ -614,9 +604,9 @@ public class Attackable extends Npc
 		{
 			if (getMostHated() == null)
 			{
-				((AttackableAI) getAI()).setGlobalAggro(-25);
+				((AttackableAI) getAi()).setGlobalAggro(-25);
 				_aggroList.clear();
-				getAI().setIntention(CtrlIntention.ACTIVE);
+				getAi().setIntention(CtrlIntention.ACTIVE);
 				setWalking();
 			}
 		}
@@ -1104,9 +1094,9 @@ public class Attackable extends Npc
 		}
 		
 		// Herbs.
-		if (getTemplate().getDropHerbGroup() > 0)
+		if (((NpcTemplate)getTemplate()).getDropHerbGroup() > 0)
 		{
-			for (DropCategory cat : HerbDropData.INSTANCE.getHerbDroplist(getTemplate().getDropHerbGroup()))
+			for (DropCategory cat : HerbDropData.INSTANCE.getHerbDroplist(((NpcTemplate)getTemplate()).getDropHerbGroup()))
 			{
 				final IntIntHolder item = calculateCategorizedHerbItem(cat, levelModifier);
 				if (item != null)
@@ -1186,7 +1176,7 @@ public class Attackable extends Npc
 		if (target == null)
 			return;
 		
-		getAI().setIntention(CtrlIntention.CAST, skill, target);
+		getAi().setIntention(CtrlIntention.CAST, skill, target);
 	}
 	
 	/**
@@ -1212,7 +1202,7 @@ public class Attackable extends Npc
 			
 			setIsReturningToSpawnPoint(true);
 			setWalking();
-			getAI().setIntention(CtrlIntention.MOVE_TO, getSpawn().getLoc());
+			getAi().setIntention(CtrlIntention.MOVE_TO, getSpawn().getLoc());
 			return true;
 		}
 		return false;
@@ -1466,7 +1456,7 @@ public class Attackable extends Npc
 		{
 			int count = 1;
 			
-			for (L2Skill skill : getTemplate().getSkills(SkillType.PASSIVE))
+			for (L2Skill skill : ((NpcTemplate)getTemplate()).getSkills(SkillType.PASSIVE))
 			{
 				switch (skill.getId())
 				{
@@ -1603,8 +1593,8 @@ public class Attackable extends Npc
 	@Override
 	public void addKnownObject(WorldObject object)
 	{
-		if (object instanceof Player && getAI().getDesire().getIntention() == CtrlIntention.IDLE)
-			getAI().setIntention(CtrlIntention.ACTIVE, null);
+		if (object instanceof Player && getAi().getDesire().getIntention() == CtrlIntention.IDLE)
+			getAi().setIntention(CtrlIntention.ACTIVE, null);
 	}
 	
 	@Override

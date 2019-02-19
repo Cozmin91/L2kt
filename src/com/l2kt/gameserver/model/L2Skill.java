@@ -6,6 +6,7 @@ import com.l2kt.gameserver.data.SkillTable;
 import com.l2kt.gameserver.geoengine.GeoEngine;
 import com.l2kt.gameserver.model.actor.*;
 import com.l2kt.gameserver.model.actor.instance.*;
+import com.l2kt.gameserver.model.actor.template.NpcTemplate;
 import com.l2kt.gameserver.model.group.Party;
 import com.l2kt.gameserver.model.holder.IntIntHolder;
 import com.l2kt.gameserver.model.item.kind.Armor;
@@ -1775,7 +1776,7 @@ public abstract class L2Skill implements IChanceSkillTrigger
 					targetList.add(activeChar);
 					for (Npc newTarget : activeChar.getKnownTypeInRadius(Npc.class, _castRange))
 					{
-						if (newTarget.isDead() || !ArraysUtil.contains(((Npc) activeChar).getTemplate().getClans(), newTarget.getTemplate().getClans()))
+						if (newTarget.isDead() || !ArraysUtil.contains((((NpcTemplate)(((Npc) activeChar).getTemplate())).getClans()), ((NpcTemplate)newTarget.getTemplate()).getClans()))
 							continue;
 
 						targetList.add(newTarget);

@@ -29,17 +29,17 @@ public final class MutedFolk extends Folk
 		{
 			// Check if the player is attackable (without a forced attack).
 			if (isAutoAttackable(player))
-				player.getAI().setIntention(CtrlIntention.ATTACK, this);
+				player.getAi().setIntention(CtrlIntention.ATTACK, this);
 			else
 			{
 				// Calculate the distance between the Player and this instance.
 				if (!canInteract(player))
-					player.getAI().setIntention(CtrlIntention.INTERACT, this);
+					player.getAi().setIntention(CtrlIntention.INTERACT, this);
 				else
 				{
 					// Stop moving if we're already in interact range.
 					if (player.isMoving() || player.isInCombat())
-						player.getAI().setIntention(CtrlIntention.IDLE);
+						player.getAi().setIntention(CtrlIntention.IDLE);
 					
 					// Rotate the player to face the instance
 					player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
@@ -65,7 +65,7 @@ public final class MutedFolk extends Folk
 			if (isAutoAttackable(player))
 			{
 				if (player.isInsideRadius(this, player.getPhysicalAttackRange(), false, false) && GeoEngine.INSTANCE.canSeeTarget(player, this))
-					player.getAI().setIntention(CtrlIntention.ATTACK, this);
+					player.getAi().setIntention(CtrlIntention.ATTACK, this);
 				else
 					player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			}
@@ -73,12 +73,12 @@ public final class MutedFolk extends Folk
 			{
 				// Calculate the distance between the Player and the L2Npc
 				if (!canInteract(player))
-					player.getAI().setIntention(CtrlIntention.INTERACT, this);
+					player.getAi().setIntention(CtrlIntention.INTERACT, this);
 				else
 				{
 					// Stop moving if we're already in interact range.
 					if (player.isMoving() || player.isInCombat())
-						player.getAI().setIntention(CtrlIntention.IDLE);
+						player.getAi().setIntention(CtrlIntention.IDLE);
 					
 					// Rotate the player to face the instance
 					player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));

@@ -157,7 +157,7 @@ public final class BabyPet extends Pet
 			
 			// if the owner is dead, merely wait for the owner to be resurrected
 			// if the pet is still casting from the previous iteration, allow the cast to complete...
-			if (owner != null && !owner.isDead() && !owner.isInvul() && !_baby.isCastingNow() && !_baby.isBetrayed() && !_baby.isMuted() && !_baby.isOutOfControl() && _baby.getAI().getDesire().getIntention() != CtrlIntention.CAST)
+			if (owner != null && !owner.isDead() && !owner.isInvul() && !_baby.isCastingNow() && !_baby.isBetrayed() && !_baby.isMuted() && !_baby.isOutOfControl() && _baby.getAi().getDesire().getIntention() != CtrlIntention.CAST)
 			{
 				L2Skill skill = null;
 				

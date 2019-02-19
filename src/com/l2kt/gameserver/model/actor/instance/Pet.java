@@ -213,7 +213,7 @@ public class Pet extends Summon
 		if (isDead())
 			return;
 		
-		getAI().setIntention(CtrlIntention.IDLE);
+		getAi().setIntention(CtrlIntention.IDLE);
 		
 		// The object must be an item.
 		if (!(object instanceof ItemInstance))
@@ -363,7 +363,7 @@ public class Pet extends Summon
 		if (!checkHungryState())
 			setRunning();
 		
-		getAI().setIntention(CtrlIntention.ACTIVE, null);
+		getAi().setIntention(CtrlIntention.ACTIVE, null);
 	}
 	
 	@Override
@@ -789,12 +789,12 @@ public class Pet extends Summon
 				if (newWeightPenalty > 0)
 				{
 					// addSkill(SkillTable.INSTANCE.getInfo(4270, newWeightPenalty), false);
-					setIsOverloaded(getCurrentLoad() >= maxLoad);
+					setOverloaded(getCurrentLoad() >= maxLoad);
 				}
 				else
 				{
 					// removeSkill(4270, false);
-					setIsOverloaded(false);
+					setOverloaded(false);
 				}
 			}
 		}
