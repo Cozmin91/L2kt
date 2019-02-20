@@ -5104,7 +5104,7 @@ public abstract class Creature extends WorldObject
 	}
 	
 	@Override
-	public final void setRegion(WorldRegion newRegion)
+	public void setRegion(WorldRegion newRegion)
 	{
 		// If old region exists and no new region is set, we delete use directly from current region zones.
 		if (getRegion() != null && newRegion == null)

@@ -12,7 +12,7 @@ public class Adventurer extends Folk
 	{
 		super(objectId, template);
 	}
-	
+
 	@Override
 	public void onBypassFeedback(Player player, String command)
 	{
@@ -22,7 +22,7 @@ public class Adventurer extends Folk
 			String filename = "data/html/adventurer_guildsman/raid_info/info.htm";
 			if (bossLevel != 0)
 				filename = "data/html/adventurer_guildsman/raid_info/level" + bossLevel + ".htm";
-			
+
 			showChatWindow(player, filename);
 		}
 		else if (command.equalsIgnoreCase("questlist"))
@@ -30,17 +30,17 @@ public class Adventurer extends Folk
 		else
 			super.onBypassFeedback(player, command);
 	}
-	
+
 	@Override
 	public String getHtmlPath(int npcId, int val)
 	{
 		String filename = "";
-		
+
 		if (val == 0)
 			filename = "" + npcId;
 		else
 			filename = npcId + "-" + val;
-		
+
 		return "data/html/adventurer_guildsman/" + filename + ".htm";
 	}
 }

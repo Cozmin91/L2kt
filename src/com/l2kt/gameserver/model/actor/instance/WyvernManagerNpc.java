@@ -25,13 +25,13 @@ public class WyvernManagerNpc extends CastleChamberlain
 	{
 		super(objectId, template);
 	}
-	
+
 	@Override
 	public void onBypassFeedback(Player player, String command)
 	{
 		if (player.getCurrentFolk() == null || player.getCurrentFolk().getObjectId() != getObjectId())
 			return;
-		
+
 		if (command.startsWith("RideWyvern"))
 		{
 			String val = "2";
@@ -62,7 +62,7 @@ public class WyvernManagerNpc extends CastleChamberlain
 					val = "1";
 				}
 			}
-			
+
 			sendHtm(player, val);
 		}
 		else if (command.startsWith("Chat"))
@@ -75,18 +75,18 @@ public class WyvernManagerNpc extends CastleChamberlain
 			catch (IndexOutOfBoundsException ioobe)
 			{
 			}
-			
+
 			sendHtm(player, val);
 		}
 		else
 			super.onBypassFeedback(player, command);
 	}
-	
+
 	@Override
 	public void showChatWindow(Player player)
 	{
 		String val = "0a"; // Default value : player's clan doesn't own castle.
-		
+
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE)
 		{
@@ -102,7 +102,7 @@ public class WyvernManagerNpc extends CastleChamberlain
 		}
 		sendHtm(player, val);
 	}
-	
+
 	private void sendHtm(Player player, String val)
 	{
 		final NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -112,7 +112,7 @@ public class WyvernManagerNpc extends CastleChamberlain
 		html.replace("%wyvern_level%", Config.WYVERN_REQUIRED_LEVEL);
 		html.replace("%needed_crystals%", Config.WYVERN_REQUIRED_CRYSTALS);
 		player.sendPacket(html);
-		
+
 		player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 	}
 }
