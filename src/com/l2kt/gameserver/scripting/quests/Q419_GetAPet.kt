@@ -187,7 +187,7 @@ class Q419_GetAPet : Quest(419, "Get a Pet") {
         private fun checkQuestions(st: QuestState): String {
             val answers = st.getInt("correct") + st.getInt("wrong")
             if (answers < 10) {
-                val questions = st["quiz"]!!.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val questions = st["quiz"]!!.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
                 val index = Rnd[questions.size - 1]
                 val question = questions[index]
 

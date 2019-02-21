@@ -115,7 +115,7 @@ abstract class ScheduledQuest(questId: Int, descr: String) : Quest(questId, desc
         when (_type) {
             ScheduledQuest.Schedule.HOURLY -> {
                 // HOURLY, "20:10", "50:00"
-                timeStamp = value.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                timeStamp = value.split(":").dropLastWhile { it.isEmpty() }.toTypedArray()
                 calendar.set(Calendar.MINUTE, Integer.valueOf(timeStamp[0]))
                 calendar.set(Calendar.SECOND, Integer.valueOf(timeStamp[1]))
                 calendar.set(Calendar.MILLISECOND, 0)
@@ -124,45 +124,45 @@ abstract class ScheduledQuest(questId: Int, descr: String) : Quest(questId, desc
 
             ScheduledQuest.Schedule.DAILY ->
                 // DAILY, "16:20:10", "17:20:00"
-                timeStamp = value.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                timeStamp = value.split(":").dropLastWhile { it.isEmpty() }.toTypedArray()
 
             ScheduledQuest.Schedule.WEEKLY -> {
                 // WEEKLY, "MON 6:20:10", "FRI 17:20:00"
-                val params = value.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                timeStamp = params[1].split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val params = value.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
+                timeStamp = params[1].split(":").dropLastWhile { it.isEmpty() }.toTypedArray()
                 calendar.set(Calendar.DAY_OF_WEEK, getDayOfWeek(params[0]))
             }
 
             ScheduledQuest.Schedule.MONTHLY_DAY -> {
                 // MONTHLY_DAY, "1 6:20:10", "2 17:20:00"
-                val params = value.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                timeStamp = params[1].split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val params = value.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
+                timeStamp = params[1].split(":").dropLastWhile { it.isEmpty() }.toTypedArray()
                 calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(params[0]))
             }
 
             ScheduledQuest.Schedule.MONTHLY_WEEK -> {
                 // MONTHLY_WEEK, "MON-1 6:20:10", "FRI-2 17:20:00"
-                val params = value.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                val date = params[0].split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                timeStamp = params[1].split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val params = value.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
+                val date = params[0].split("-").dropLastWhile { it.isEmpty() }.toTypedArray()
+                timeStamp = params[1].split(":").dropLastWhile { it.isEmpty() }.toTypedArray()
                 calendar.set(Calendar.DAY_OF_WEEK, getDayOfWeek(date[0]))
                 calendar.set(Calendar.WEEK_OF_MONTH, Integer.valueOf(date[1]))
             }
 
             ScheduledQuest.Schedule.YEARLY_DAY -> {
                 // YEARLY_DAY, "23-02 6:20:10", "25-03 17:20:00"
-                val params = value.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                val date = params[0].split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                timeStamp = params[1].split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val params = value.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
+                val date = params[0].split("-").dropLastWhile { it.isEmpty() }.toTypedArray()
+                timeStamp = params[1].split(":").dropLastWhile { it.isEmpty() }.toTypedArray()
                 calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date[0]))
                 calendar.set(Calendar.MONTH, Integer.valueOf(date[1]) - 1)
             }
 
             ScheduledQuest.Schedule.YEARLY_WEEK -> {
                 // YEARLY_WEEK, "MON-1 6:20:10", "FRI-2 17:20:00"
-                val params = value.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                val date = params[0].split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                timeStamp = params[1].split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val params = value.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
+                val date = params[0].split("-").dropLastWhile { it.isEmpty() }.toTypedArray()
+                timeStamp = params[1].split(":").dropLastWhile { it.isEmpty() }.toTypedArray()
                 calendar.set(Calendar.DAY_OF_WEEK, getDayOfWeek(date[0]))
                 calendar.set(Calendar.WEEK_OF_YEAR, Integer.valueOf(date[1]))
             }

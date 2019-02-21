@@ -114,7 +114,7 @@ class Weapon
         spiritShotCount = set.getInteger("spiritshots", 0)
         randomDamage = set.getInteger("random_damage", 0)
         _mpConsume = set.getInteger("mp_consume", 0)
-        val reduce = set.getString("mp_consume_reduce", "0,0")!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }
+        val reduce = set.getString("mp_consume_reduce", "0,0")!!.split(",").dropLastWhile { it.isEmpty() }
             .toTypedArray()
         _mpConsumeReduceRate = Integer.parseInt(reduce[0])
         _mpConsumeReduceValue = Integer.parseInt(reduce[1])
@@ -122,13 +122,13 @@ class Weapon
         isMagical = set.getBool("is_magical", false)
 
         val reduced_soulshots =
-            set.getString("reduced_soulshot", "")!!.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            set.getString("reduced_soulshot", "")!!.split(",").dropLastWhile { it.isEmpty() }.toTypedArray()
         reducedSoulShotChance = if (reduced_soulshots.size == 2) Integer.parseInt(reduced_soulshots[0]) else 0
         reducedSoulShot = if (reduced_soulshots.size == 2) Integer.parseInt(reduced_soulshots[1]) else 0
 
         var skill = set.getString("enchant4_skill", null)
         if (skill != null) {
-            val info = skill.split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val info = skill.split("-").dropLastWhile { it.isEmpty() }.toTypedArray()
 
             if (info != null && info.size == 2) {
                 var id = 0
@@ -148,7 +148,7 @@ class Weapon
 
         skill = set.getString("oncast_skill", null)
         if (skill != null) {
-            val info = skill.split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val info = skill.split("-").dropLastWhile { it.isEmpty() }.toTypedArray()
             val infochance = set.getString("oncast_chance", null)
             if (info != null && info.size == 2) {
                 var id = 0
@@ -174,7 +174,7 @@ class Weapon
 
         skill = set.getString("oncrit_skill", null)
         if (skill != null) {
-            val info = skill.split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val info = skill.split("-").dropLastWhile { it.isEmpty() }.toTypedArray()
             val infochance = set.getString("oncrit_chance", null)
             if (info != null && info.size == 2) {
                 var id = 0

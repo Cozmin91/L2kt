@@ -46,7 +46,7 @@ class ClanHall(
     /**
      * @return clanHall doors list.
      */
-    val doors: List<Door> = ArrayList()
+    val doors: MutableList<Door> = ArrayList()
     private val _functions = ConcurrentHashMap<Int, ClanHallFunction>()
 
     /**
@@ -187,8 +187,8 @@ class ClanHall(
      * @param type
      * @return clanHall function with id
      */
-    fun getFunction(type: Int): ClanHallFunction {
-        return _functions[type]!!
+    fun getFunction(type: Int): ClanHallFunction? {
+        return _functions[type]
     }
 
     /** Free this clan hall  */

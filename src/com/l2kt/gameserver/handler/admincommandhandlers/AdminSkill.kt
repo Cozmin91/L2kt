@@ -72,7 +72,7 @@ class AdminSkill : IAdminCommandHandler {
             }
         } else if (command.startsWith("admin_add_clan_skill")) {
             try {
-                val `val` = command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val `val` = command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
                 adminAddClanSkill(activeChar, Integer.parseInt(`val`[1]), Integer.parseInt(`val`[2]))
             } catch (e: Exception) {
                 activeChar.sendMessage("Usage: //add_clan_skill <skill_id> <level>")

@@ -151,7 +151,7 @@ class L2SkillSummon(set: StatsSet) : L2Skill(set) {
         if (summonTemplate != null && summonTemplate.isType("SiegeSummon"))
             summon = SiegeSummon(IdFactory.getInstance().nextId, summonTemplate, caster, this)
         else
-            summon = Servitor(IdFactory.getInstance().nextId, summonTemplate, caster, this)
+            summon = Servitor(IdFactory.getInstance().nextId, summonTemplate!!, caster, this)
 
         summon.name = summonTemplate?.name ?: ""
         summon.title = caster.name

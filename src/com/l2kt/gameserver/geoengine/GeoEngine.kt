@@ -124,13 +124,13 @@ object GeoEngine {
 
         _geoBugReports = writer
 
-        val array = Config.PATHFIND_BUFFERS.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        val array = Config.PATHFIND_BUFFERS.split(";").dropLastWhile { it.isEmpty() }.toTypedArray()
         _buffers = arrayOfNulls(array.size)
 
         var count = 0
         for (i in array.indices) {
             val buf = array[i]
-            val args = buf.split("x".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val args = buf.split("x").dropLastWhile { it.isEmpty() }.toTypedArray()
 
             try {
                 val size = Integer.parseInt(args[1])

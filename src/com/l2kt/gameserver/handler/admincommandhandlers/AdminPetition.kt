@@ -16,7 +16,7 @@ class AdminPetition : IAdminCommandHandler {
         var petitionId = -1
 
         try {
-            petitionId = Integer.parseInt(command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
+            petitionId = Integer.parseInt(command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
         } catch (e: Exception) {
         }
 

@@ -98,7 +98,7 @@ class Q384_WarehouseKeepersPastime : Quest(384, "Warehouse Keeper's Pastime") {
 
             // Verify if the given number is already on the player array, if yes, it's invalid, otherwise register it.
             if (ArraysUtil.contains(
-                    playerArray!!.split("".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray(),
+                    playerArray!!.split("").dropLastWhile { it.isEmpty() }.toTypedArray(),
                     number
                 )
             )
@@ -126,7 +126,7 @@ class Q384_WarehouseKeepersPastime : Quest(384, "Warehouse Keeper's Pastime") {
 
             // Verify if the given number is already on the player array, if yes, it's invalid, otherwise calculate reward.
             if (ArraysUtil.contains(
-                    playerArray!!.split("".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray(),
+                    playerArray!!.split("").dropLastWhile { it.isEmpty() }.toTypedArray(),
                     number
                 )
             )
@@ -134,10 +134,10 @@ class Q384_WarehouseKeepersPastime : Quest(384, "Warehouse Keeper's Pastime") {
             else {
                 // No need to store the String on player db, but still need to update it.
                 val playerChoice =
-                    (playerArray + number).split("".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    (playerArray + number).split("").dropLastWhile { it.isEmpty() }.toTypedArray()
 
                 // Transform the generated board (9 string length) into a 2d matrice (3x3 int).
-                val board = st["board"]!!.split("".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val board = st["board"]!!.split("").dropLastWhile { it.isEmpty() }.toTypedArray()
 
                 // test for all line combination
                 var winningLines = 0
@@ -275,8 +275,8 @@ class Q384_WarehouseKeepersPastime : Quest(384, "Warehouse Keeper's Pastime") {
 
         private fun fillBoard(st: QuestState, htmltext: String): String {
             var htmltext = htmltext
-            val playerArray = st["playerArray"]!!.split("".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            val board = st["board"]!!.split("".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val playerArray = st["playerArray"]!!.split("").dropLastWhile { it.isEmpty() }.toTypedArray()
+            val board = st["board"]!!.split("").dropLastWhile { it.isEmpty() }.toTypedArray()
 
             for (i in 1..9)
                 htmltext = htmltext.replace(

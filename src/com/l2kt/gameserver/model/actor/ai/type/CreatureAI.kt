@@ -21,7 +21,7 @@ import com.l2kt.gameserver.network.serverpackets.AutoAttackStop
 import com.l2kt.gameserver.taskmanager.AttackStanceTaskManager
 import com.l2kt.gameserver.templates.skills.L2SkillType
 
-internal open class CreatureAI(character: Creature) : AbstractAI(character) {
+open class CreatureAI(character: Creature) : AbstractAI(character) {
 
     open val nextIntention: Desire?
         get() = null

@@ -99,7 +99,7 @@ object CastleManager : IXmlReader {
                     forEach(castleNode, "controlTowers") { controlTowersNode ->
                         forEach(controlTowersNode, "tower") { towerNode ->
                             val location =
-                                parseString(towerNode.attributes, "loc").split(",".toRegex())
+                                parseString(towerNode.attributes, "loc").split(",")
                                     .dropLastWhile { it.isEmpty() }
                                     .toTypedArray()
                             castle.controlTowers.add(
@@ -119,7 +119,7 @@ object CastleManager : IXmlReader {
                         forEach(flameTowersNode, "tower") { towerNode ->
                             val towerAttrs = towerNode.attributes
                             val location =
-                                parseString(towerAttrs, "loc").split(",".toRegex()).dropLastWhile { it.isEmpty() }
+                                parseString(towerAttrs, "loc").split(",").dropLastWhile { it.isEmpty() }
                                     .toTypedArray()
                             castle.flameTowers.add(
                                 TowerSpawnLocation(
@@ -133,7 +133,7 @@ object CastleManager : IXmlReader {
                                     parseString(
                                         towerAttrs,
                                         "zones"
-                                    ).split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                                    ).split(",").dropLastWhile { it.isEmpty() }.toTypedArray()
                                 )
                             )
                         }

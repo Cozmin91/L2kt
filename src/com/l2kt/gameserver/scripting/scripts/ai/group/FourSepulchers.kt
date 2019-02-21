@@ -66,7 +66,7 @@ class FourSepulchers : L2AttackableAIScript("ai/group") {
 
                 npc.broadcastNpcSay(
                     if (playerToCall == null) "Help me!!" else "%s! Help me!!".replace(
-                        "%s".toRegex(),
+                        "%s",
                         playerToCall.name
                     )
                 )

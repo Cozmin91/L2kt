@@ -36,7 +36,7 @@ class AdminSpawn : IAdminCommandHandler {
             var npcId = 0
 
             try {
-                val params = command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val params = command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
                 val pattern = Pattern.compile("[0-9]*")
                 val regexp = pattern.matcher(params[1])
 

@@ -200,13 +200,13 @@ protected constructor(set: StatsSet) {
 
         val skills = set.getString("item_skill", null)
         if (skills != null) {
-            val skillsSplit = skills.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val skillsSplit = skills.split(";").dropLastWhile { it.isEmpty() }.toTypedArray()
             this.skills = mutableListOf()
             var used = 0
 
             for (element in skillsSplit) {
                 try {
-                    val skillSplit = element.split("-".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    val skillSplit = element.split("-").dropLastWhile { it.isEmpty() }.toTypedArray()
                     val id = Integer.parseInt(skillSplit[0])
                     val level = Integer.parseInt(skillSplit[1])
 

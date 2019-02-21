@@ -266,7 +266,7 @@ class FeedableBeasts : L2AttackableAIScript("ai/group") {
             if (player.trainedBeast != null)
                 player.trainedBeast.deleteMe()
 
-            val template = NpcData.getTemplate(nextNpcId)
+            val template = NpcData.getTemplate(nextNpcId) ?: return
             val nextNpc = TamedBeast(IdFactory.getInstance().nextId, template, player, food, npc.position)
             nextNpc.setRunning()
 

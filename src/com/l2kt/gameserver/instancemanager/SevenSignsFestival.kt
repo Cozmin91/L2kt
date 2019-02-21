@@ -946,7 +946,7 @@ object SevenSignsFestival {
         for (i in 0 until FESTIVAL_COUNT) {
             val set = getOverallHighestScoreData(i)
             if (set != null) {
-                for (playerName in set.getString("members").split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
+                for (playerName in set.getString("members").split(",").dropLastWhile { it.isEmpty() }.toTypedArray())
                     addReputationPointsForPartyMemberClan(playerName)
             }
         }
@@ -1288,7 +1288,7 @@ object SevenSignsFestival {
             val members = set.getString("members")
             if (members.indexOf(playerName) > -1) {
                 val festivalId = set.getInteger("festivalId")
-                val numPartyMembers = members.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size
+                val numPartyMembers = members.split(",").dropLastWhile { it.isEmpty() }.toTypedArray().size
                 val totalAccumBonus = _accumulatedBonuses[festivalId]
 
                 playerBonus = totalAccumBonus / numPartyMembers

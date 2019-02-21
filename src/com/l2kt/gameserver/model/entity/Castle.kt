@@ -601,12 +601,12 @@ class Castle(val castleId: Int, val name: String) {
     }
 
     fun setRelatedNpcIds(idsToSplit: String) {
-        for (splittedId in idsToSplit.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
+        for (splittedId in idsToSplit.split(";").dropLastWhile { it.isEmpty() }.toTypedArray())
             _relatedNpcIds.add(Integer.parseInt(splittedId))
     }
 
     fun setArtifacts(idsToSplit: String) {
-        for (idToSplit in idsToSplit.split(";".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
+        for (idToSplit in idsToSplit.split(";").dropLastWhile { it.isEmpty() }.toTypedArray())
             _artifacts.add(Integer.parseInt(idToSplit))
     }
 

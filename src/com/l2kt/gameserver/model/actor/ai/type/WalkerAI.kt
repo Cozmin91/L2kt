@@ -15,7 +15,7 @@ import com.l2kt.gameserver.taskmanager.WalkerTaskManager
  * <br></br>
  * It is associated to a global task named [WalkerTaskManager] to handle individual WalkerLocation delays.
  */
-internal class WalkerAI(creature: Creature) : CreatureAI(creature) {
+class WalkerAI(creature: Creature) : CreatureAI(creature) {
     private val _route: List<WalkerLocation> = WalkerRouteData.getWalkerRoute((super.actor as Walker).npcId)
 
     private var _index = 1

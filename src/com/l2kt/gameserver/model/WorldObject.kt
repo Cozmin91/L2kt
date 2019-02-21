@@ -34,6 +34,10 @@ abstract class WorldObject(objectId: Int) {
         private set
 
     val position = SpawnLocation(0, 0, 0, 0)
+
+    var region: WorldRegion? = null
+        private set
+
     /**
      * Update current and surrounding [WorldRegion]s, based on both current region and region setted as parameter.
      * @param newRegion : null to remove the [WorldObject], or the new region.
@@ -44,50 +48,49 @@ abstract class WorldObject(objectId: Int) {
     // For every new surrounding area NOT SHARED with old surrounding areas.
     // Update all objects.
     // Activate the new neighbor region.
-    open var region: WorldRegion? = null
-        set(newRegion) {
-            var oldAreas = emptyList<WorldRegion>()
+    open fun setRegion(newRegion: WorldRegion?){
+        var oldAreas = emptyList<WorldRegion>()
 
-            if (region != null) {
-                region!!.removeVisibleObject(this)
-                oldAreas = region!!.surroundingRegions
-            }
-
-            var newAreas = emptyList<WorldRegion>()
-
-            if (newRegion != null) {
-                newRegion.addVisibleObject(this)
-                newAreas = newRegion.surroundingRegions
-            }
-            for (region in oldAreas) {
-                if (!newAreas.contains(region)) {
-                    for (obj in region.objects) {
-                        if (obj === this)
-                            continue
-
-                        obj.removeKnownObject(this)
-                        removeKnownObject(obj)
-                    }
-                    if (this is Player && region.isEmptyNeighborhood)
-                        region.isActive = false
-                }
-            }
-            for (region in newAreas) {
-                if (!oldAreas.contains(region)) {
-                    for (obj in region.objects) {
-                        if (obj === this)
-                            continue
-
-                        obj.addKnownObject(this)
-                        addKnownObject(obj)
-                    }
-                    if (this is Player)
-                        region.isActive = true
-                }
-            }
-
-            field = newRegion
+        if (region != null) {
+            region!!.removeVisibleObject(this)
+            oldAreas = region!!.surroundingRegions
         }
+
+        var newAreas = emptyList<WorldRegion>()
+
+        if (newRegion != null) {
+            newRegion.addVisibleObject(this)
+            newAreas = newRegion.surroundingRegions
+        }
+        for (region in oldAreas) {
+            if (!newAreas.contains(region)) {
+                for (obj in region.objects) {
+                    if (obj === this)
+                        continue
+
+                    obj.removeKnownObject(this)
+                    removeKnownObject(obj)
+                }
+                if (this is Player && region.isEmptyNeighborhood)
+                    region.isActive = false
+            }
+        }
+        for (region in newAreas) {
+            if (!oldAreas.contains(region)) {
+                for (obj in region.objects) {
+                    if (obj === this)
+                        continue
+
+                    obj.addKnownObject(this)
+                    addKnownObject(obj)
+                }
+                if (this is Player)
+                    region.isActive = true
+            }
+        }
+
+        region = newRegion
+    }
 
     private var _isVisible: Boolean = false
 
@@ -103,7 +106,7 @@ abstract class WorldObject(objectId: Int) {
             _isVisible = value
 
             if (!_isVisible)
-                region = null
+                setRegion(null)
         }
 
     open val actingPlayer: Player?
@@ -156,7 +159,7 @@ abstract class WorldObject(objectId: Int) {
      * Remove this [WorldObject] from the world.
      */
     open fun decayMe() {
-        region = null
+        setRegion(null)
 
         World.removeObject(this)
     }
@@ -173,7 +176,7 @@ abstract class WorldObject(objectId: Int) {
     fun spawnMe() {
         _isVisible = true
 
-        region = World.getRegion(position)
+        setRegion(World.getRegion(position))
 
         World.addObject(this)
 
@@ -293,7 +296,7 @@ abstract class WorldObject(objectId: Int) {
 
         val region = World.getRegion(position)
         if (region != this.region)
-            this.region = region
+            setRegion(region)
     }
 
     /**

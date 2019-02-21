@@ -55,7 +55,7 @@ object BufferManager : IXmlReader {
                             val schemeList = ArrayList<Int>()
 
                             val skills =
-                                rs.getString("skills").split(",".toRegex()).dropLastWhile { it.isEmpty() }
+                                rs.getString("skills").split(",").dropLastWhile { it.isEmpty() }
                                     .toTypedArray()
                             for (skill in skills) {
                                 // Don't feed the skills list if the list is empty.
@@ -148,7 +148,7 @@ object BufferManager : IXmlReader {
      * @param playerId : The player objectId to check.
      * @return the list of schemes for a given player.
      */
-    fun getPlayerSchemes(playerId: Int): Map<String, ArrayList<Int>>? {
+    fun getPlayerSchemes(playerId: Int): MutableMap<String, ArrayList<Int>>? {
         return _schemesTable[playerId]
     }
 
@@ -157,8 +157,8 @@ object BufferManager : IXmlReader {
      * @param schemeName : The scheme name to check.
      * @return the List holding skills for the given scheme name and player, or null (if scheme or player isn't registered).
      */
-    fun getScheme(playerId: Int, schemeName: String): List<Int> {
-        return if (_schemesTable[playerId] == null || _schemesTable[playerId]?.get(schemeName) == null) emptyList() else _schemesTable[playerId]?.get(schemeName) ?: emptyList()
+    fun getScheme(playerId: Int, schemeName: String): MutableList<Int> {
+        return if (_schemesTable[playerId] == null || _schemesTable[playerId]?.get(schemeName) == null) mutableListOf() else _schemesTable[playerId]?.get(schemeName) ?: mutableListOf()
     }
 
     /**

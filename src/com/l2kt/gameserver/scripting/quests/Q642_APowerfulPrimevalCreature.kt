@@ -63,7 +63,7 @@ class Q642_APowerfulPrimevalCreature : Quest(642, "A Powerful Primeval Creature"
                 st.takeItems(DINOSAUR_EGG, 1)
                 st.rewardItems(57, 44000)
                 st.giveItems(
-                    REWARDS[Integer.parseInt(event.split("_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])],
+                    REWARDS[Integer.parseInt(event.split("_").dropLastWhile { it.isEmpty() }.toTypedArray()[1])],
                     1
                 )
             } else

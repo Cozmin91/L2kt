@@ -70,7 +70,7 @@ class ExProperties : Properties() {
         val value = super.getProperty(name, null)
 
         if (value != null)
-            `val` = value.split(delimiter.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            `val` = value.split(delimiter).dropLastWhile { it.isEmpty() }.toTypedArray()
 
         return `val`
     }
@@ -81,7 +81,7 @@ class ExProperties : Properties() {
         val value = super.getProperty(name, null)
 
         if (value != null) {
-            val values = value.split(delimiter.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val values = value.split(delimiter).dropLastWhile { it.isEmpty() }.toTypedArray()
             `val` = BooleanArray(values.size)
             for (i in `val`.indices)
                 `val`[i] = java.lang.Boolean.parseBoolean(values[i])
@@ -96,7 +96,7 @@ class ExProperties : Properties() {
         val value = super.getProperty(name, null)
 
         if (value != null) {
-            val values = value.split(delimiter.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val values = value.split(delimiter).dropLastWhile { it.isEmpty() }.toTypedArray()
             `val` = IntArray(values.size)
             for (i in `val`.indices)
                 `val`[i] = Integer.parseInt(values[i])
@@ -111,7 +111,7 @@ class ExProperties : Properties() {
         val value = super.getProperty(name, null)
 
         if (value != null) {
-            val values = value.split(delimiter.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val values = value.split(delimiter).dropLastWhile { it.isEmpty() }.toTypedArray()
             `val` = LongArray(values.size)
             for (i in `val`.indices)
                 `val`[i] = java.lang.Long.parseLong(values[i])
@@ -126,7 +126,7 @@ class ExProperties : Properties() {
         val value= super.getProperty(name, null)
 
         if (value != null) {
-            val values = value.split(delimiter.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val values = value.split(delimiter).dropLastWhile { it.isEmpty() }.toTypedArray()
             `val` = DoubleArray(values.size)
             for (i in `val`.indices)
                 `val`[i] = java.lang.Double.parseDouble(values[i])

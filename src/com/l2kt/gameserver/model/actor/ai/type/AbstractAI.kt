@@ -17,7 +17,7 @@ import com.l2kt.gameserver.taskmanager.AttackStanceTaskManager
 
 import java.util.concurrent.Future
 
-internal abstract class AbstractAI protected constructor(val actor: Creature) {
+abstract class AbstractAI protected constructor(val actor: Creature) {
     val desire = Desire()
 
     private var _nextAction: NextAction? = null

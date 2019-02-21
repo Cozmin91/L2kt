@@ -77,7 +77,7 @@ class Siege(val castle: Castle) : Siegable {
     val controlTowerCount: Int
         get() = _controlTowers.stream().filter { lc -> lc.isActive }.count().toInt()
 
-    val destroyedTowers: List<Npc>
+    val destroyedTowers: MutableList<Npc>
         get() = _destroyedTowers
 
     enum class SiegeSide {

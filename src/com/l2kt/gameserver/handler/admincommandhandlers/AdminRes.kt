@@ -17,13 +17,13 @@ class AdminRes : IAdminCommandHandler {
 
     override fun useAdminCommand(command: String, activeChar: Player): Boolean {
         if (command.startsWith("admin_res "))
-            handleRes(activeChar, command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
+            handleRes(activeChar, command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
         else if (command == "admin_res")
             handleRes(activeChar)
         else if (command.startsWith("admin_res_monster "))
             handleNonPlayerRes(
                 activeChar,
-                command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+                command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()[1]
             )
         else if (command == "admin_res_monster")
             handleNonPlayerRes(activeChar)

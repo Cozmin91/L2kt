@@ -107,7 +107,7 @@ class RequestBypassToServer : L2GameClientPacket() {
             if (!player.validateBypass(_command))
                 return
 
-            val str = _command.substring(6).trim { it <= ' ' }.split("[ ]".toRegex(), 2).toTypedArray()
+            val str = _command.substring(6).trim { it <= ' ' }.split(" ".toRegex(), 2).toTypedArray()
             if (str.size == 1)
                 player.processQuestEvent(str[0], "")
             else

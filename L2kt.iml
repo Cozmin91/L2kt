@@ -12,5 +12,6 @@
     <orderEntry type="library" name="c3p0-0.9.5-pre5" level="project" />
     <orderEntry type="library" name="mchange-commons-java-0.2.6.2" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.26" level="project" />
+    <orderEntry type="library" name="kotlinx-coroutines-core-1.1.1" level="project" />
   </component>
 </module>

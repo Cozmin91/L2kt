@@ -55,7 +55,7 @@ class AdminMovieMaker : IAdminCommandHandler {
             }
 
         } else {
-            val args = command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val args = command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
             if (args.size < 10) {
                 activeChar.sendMessage("Some arguments are missing.")
                 return false

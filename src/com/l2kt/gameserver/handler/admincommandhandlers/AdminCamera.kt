@@ -14,7 +14,7 @@ class AdminCamera : IAdminCommandHandler {
         if (command.startsWith("admin_camera ")) {
             try {
                 val target = activeChar.target as Creature
-                val com = command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                val com = command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
 
                 target.broadcastPacket(
                     SpecialCamera(

@@ -22,7 +22,7 @@ class L2SkillSignet(set: StatsSet) : L2Skill(set) {
         if (caster.isAlikeDead)
             return
 
-        val template = NpcData.getTemplate(_effectNpcId)
+        val template = NpcData.getTemplate(_effectNpcId) ?: return
         val effectPoint = EffectPoint(IdFactory.getInstance().nextId, template, caster)
         effectPoint.currentHp = effectPoint.maxHp.toDouble()
         effectPoint.currentMp = effectPoint.maxMp.toDouble()

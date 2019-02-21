@@ -10,7 +10,7 @@ class AdminMenu : IAdminCommandHandler {
         if (command == "admin_char_manage")
             showMainPage(activeChar)
         else if (command.startsWith("admin_teleport_character_to_menu")) {
-            val data = command.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val data = command.split(" ").dropLastWhile { it.isEmpty() }.toTypedArray()
             if (data.size == 5) {
                 val playerName = data[1]
                 val player = World.getPlayer(playerName)

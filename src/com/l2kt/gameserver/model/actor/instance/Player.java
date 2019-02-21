@@ -3412,7 +3412,7 @@ public final class Player extends Playable
 				CoupleManager.INSTANCE.addCouple(requester, this);
 				
 				// Then "finish the job"
-				WeddingManagerNpc.justMarried(requester, this);
+				WeddingManagerNpc.Companion.justMarried(requester, this);
 			}
 			else
 			{
