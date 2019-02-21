@@ -14,7 +14,7 @@ class PetStatusUpdate(private val _summon: Summon) : L2GameServerPacket() {
         if (_summon is Pet) {
             val pet = _summon
             _curFed = pet.currentFed
-            _maxFed = pet.petData.maxMeal
+            _maxFed = pet.petData!!.maxMeal
         } else if (_summon is Servitor) {
             val sum = _summon
             _curFed = sum.timeRemaining

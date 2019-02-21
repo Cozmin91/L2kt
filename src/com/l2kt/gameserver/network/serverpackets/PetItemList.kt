@@ -4,7 +4,7 @@ import com.l2kt.gameserver.model.actor.instance.Pet
 import com.l2kt.gameserver.model.item.instance.ItemInstance
 
 class PetItemList(character: Pet) : L2GameServerPacket() {
-    private val _items: Set<ItemInstance> = character.inventory.items
+    private val _items: Set<ItemInstance> = character.inventory?.items ?: setOf()
 
     override fun writeImpl() {
         writeC(0xB2)

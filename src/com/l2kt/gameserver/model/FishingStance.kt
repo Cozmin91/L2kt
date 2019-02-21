@@ -575,7 +575,7 @@ class FishingStance(private val _fisher: Player?) {
             if (Rnd[100] < 5) {
                 val npcId = 18319 + Math.min(_fisher!!.level / 11, 7) // 18319-18326
 
-                val npc = PenaltyMonster(IdFactory.getInstance().nextId, NpcData.getTemplate(npcId))
+                val npc = PenaltyMonster(IdFactory.getInstance().nextId, NpcData.getTemplate(npcId) ?: return)
                 npc.setXYZ(_fisher.x, _fisher.y, _fisher.z + 20)
                 npc.setCurrentHpMp(npc.maxHp.toDouble(), npc.maxMp.toDouble())
                 npc.heading = _fisher.heading

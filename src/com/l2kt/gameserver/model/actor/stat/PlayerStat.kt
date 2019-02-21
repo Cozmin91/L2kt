@@ -269,7 +269,7 @@ class PlayerStat(activeChar: Player) : PlayableStat(activeChar) {
             val pet = activeChar.pet as Pet
             if (pet.stat.exp <= pet.template.getPetDataEntry(81)!!.maxExp + 10000 && !pet.isDead) {
                 if (MathUtil.checkIfInShortRadius(Config.PARTY_RANGE, pet, activeChar, true)) {
-                    var ratio = pet.petData.expType
+                    var ratio = pet.petData!!.expType
                     var petExp: Long = 0
                     var petSp = 0
                     if (ratio == -1) {

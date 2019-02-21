@@ -32,10 +32,10 @@ class PetStat(activeChar: Pet) : SummonStat(activeChar) {
         }
 
     override val maxHp: Int
-        get() = calcStat(Stats.MAX_HP, activeChar.petData.maxHp, null, null).toInt()
+        get() = calcStat(Stats.MAX_HP, activeChar.petData!!.maxHp, null, null).toInt()
 
     override val maxMp: Int
-        get() = calcStat(Stats.MAX_MP, activeChar.petData.maxMp, null, null).toInt()
+        get() = calcStat(Stats.MAX_MP, activeChar.petData!!.maxMp, null, null).toInt()
 
     override val mAtkSpd: Int
         get() {
@@ -96,7 +96,7 @@ class PetStat(activeChar: Pet) : SummonStat(activeChar) {
         get() = super.activeChar as Pet
 
     override fun getMAtk(target: Creature?, skill: L2Skill?): Int {
-        var attack = activeChar.petData.mAtk
+        var attack = activeChar.petData!!.mAtk
 
         if (skill != null)
             attack += skill.power
@@ -105,14 +105,14 @@ class PetStat(activeChar: Pet) : SummonStat(activeChar) {
     }
 
     override fun getMDef(target: Creature?, skill: L2Skill?): Int {
-        return calcStat(Stats.MAGIC_DEFENCE, activeChar.petData.mDef, target, skill).toInt()
+        return calcStat(Stats.MAGIC_DEFENCE, activeChar.petData!!.mDef, target, skill).toInt()
     }
 
     override fun getPAtk(target: Creature?): Int {
-        return calcStat(Stats.POWER_ATTACK, activeChar.petData.pAtk, target, null).toInt()
+        return calcStat(Stats.POWER_ATTACK, activeChar.petData!!.pAtk, target, null).toInt()
     }
 
     override fun getPDef(target: Creature?): Int {
-        return calcStat(Stats.POWER_DEFENCE, activeChar.petData.pDef, target, null).toInt()
+        return calcStat(Stats.POWER_DEFENCE, activeChar.petData!!.pDef, target, null).toInt()
     }
 }

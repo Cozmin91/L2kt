@@ -365,7 +365,7 @@ class AdminEditChar : IAdminCommandHandler {
         } else if (command.startsWith("admin_fullfood")) {
             val target = activeChar.target
             if (target is Pet) {
-                target.currentFed = target.petData.maxMeal
+                target.currentFed = target.petData!!.maxMeal
             } else
                 activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET)
         } else if (command.startsWith("admin_party_info")) {
@@ -916,7 +916,7 @@ class AdminEditChar : IAdminCommandHandler {
                     "%inv%",
                     " <a action=\"bypass admin_show_pet_inv " + target.actingPlayer!!.objectId + "\">view</a>"
                 )
-                html.replace("%food%", target.currentFed.toString() + "/" + target.petData.maxMeal)
+                html.replace("%food%", target.currentFed.toString() + "/" + target.petData!!.maxMeal)
                 html.replace("%load%", target.inventory!!.totalWeight.toString() + "/" + target.maxLoad)
             } else {
                 html.replace("%inv%", "none")

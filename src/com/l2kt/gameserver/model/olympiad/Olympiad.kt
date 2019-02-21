@@ -741,7 +741,7 @@ object Olympiad {
                     announcement = "Olympiad class individual match is going to begin in Arena " +
                             (game.stadiumId + 1) + " in a moment."
 
-                for (manager in OlympiadManagerNpc.getInstances())
+                for (manager in OlympiadManagerNpc.instances)
                     manager.broadcastPacket(NpcSay(manager.objectId, Say2.SHOUT, manager.npcId, announcement))
             }
         }
