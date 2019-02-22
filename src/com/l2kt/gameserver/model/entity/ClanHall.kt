@@ -12,6 +12,8 @@ import com.l2kt.gameserver.model.zone.type.ClanHallZone
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.PledgeShowInfoUpdate
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.logging.Level
@@ -100,7 +102,7 @@ class ClanHall(
             if (endTime > currentTime)
                 ThreadPool.schedule(FunctionTask(cwh), endTime - currentTime)
             else
-                ThreadPool.execute(FunctionTask(cwh))
+                GlobalScope.launch { FunctionTask(cwh).run() }
         }
 
         private inner class FunctionTask(cwh: Boolean) : Runnable {

@@ -216,7 +216,7 @@ class Disablers : ISkillHandler {
                     // doesn't affect siege summons
                     if (Formulas.calcSkillSuccess(activeChar, target, skill, shld, bsps) && target !is SiegeSummon) {
                         val summonOwner = (target as Summon).owner
-                        val summonPet = summonOwner.pet
+                        val summonPet = summonOwner!!.pet
                         if (summonPet != null) {
                             summonPet.unSummon(summonOwner)
                             summonOwner.sendPacket(SystemMessageId.YOUR_SERVITOR_HAS_VANISHED)

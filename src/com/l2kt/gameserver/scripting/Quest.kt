@@ -1,7 +1,6 @@
 package com.l2kt.gameserver.scripting
 
 import com.l2kt.Config
-import com.l2kt.commons.concurrent.ThreadPool
 import com.l2kt.commons.logging.CLogger
 import com.l2kt.commons.random.Rnd
 import com.l2kt.gameserver.data.ItemTable
@@ -23,6 +22,8 @@ import com.l2kt.gameserver.network.serverpackets.ActionFailed
 import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage
 import com.l2kt.gameserver.scripting.scripts.ai.L2AttackableAIScript
 import com.l2kt.gameserver.taskmanager.GameTimeTaskManager
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
@@ -682,7 +683,7 @@ open class Quest
     }
 
     fun notifyAggro(npc: Npc, player: Player, isPet: Boolean) {
-        ThreadPool.execute(OnAggroEnter(npc, player, isPet))
+        GlobalScope.launch { OnAggroEnter(npc, player, isPet).run() }
     }
 
     open fun onAggro(npc: Npc, player: Player?, isPet: Boolean): String? {
@@ -984,7 +985,7 @@ open class Quest
     }
 
     fun notifySkillSee(npc: Npc, caster: Player, skill: L2Skill, targets: Array<WorldObject>, isPet: Boolean) {
-        ThreadPool.execute(OnSkillSee(npc, caster, skill, targets, isPet))
+        GlobalScope.launch { OnSkillSee(npc, caster, skill, targets, isPet).run() }
     }
 
     open fun onSkillSee(

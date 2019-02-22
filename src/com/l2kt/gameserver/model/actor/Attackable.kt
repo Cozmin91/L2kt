@@ -1,25 +1,12 @@
 package com.l2kt.gameserver.model.actor
 
-import java.util.ArrayList
-import java.util.Collections
-import java.util.HashMap
-import java.util.concurrent.ConcurrentHashMap
-
 import com.l2kt.Config
 import com.l2kt.commons.concurrent.ThreadPool
 import com.l2kt.commons.math.MathUtil
 import com.l2kt.commons.random.Rnd
 import com.l2kt.gameserver.data.manager.CursedWeaponManager
 import com.l2kt.gameserver.data.xml.HerbDropData
-import com.l2kt.gameserver.model.item.DropCategory
-import com.l2kt.gameserver.model.item.DropData
-import com.l2kt.gameserver.model.item.instance.ItemInstance
-
-import com.l2kt.gameserver.model.AbsorbInfo
-import com.l2kt.gameserver.model.AggroInfo
-import com.l2kt.gameserver.model.L2Skill
-import com.l2kt.gameserver.model.RewardInfo
-import com.l2kt.gameserver.model.WorldObject
+import com.l2kt.gameserver.model.*
 import com.l2kt.gameserver.model.actor.ai.CtrlIntention
 import com.l2kt.gameserver.model.actor.ai.type.AttackableAI
 import com.l2kt.gameserver.model.actor.ai.type.CreatureAI
@@ -30,13 +17,16 @@ import com.l2kt.gameserver.model.actor.status.AttackableStatus
 import com.l2kt.gameserver.model.actor.template.NpcTemplate
 import com.l2kt.gameserver.model.actor.template.NpcTemplate.SkillType
 import com.l2kt.gameserver.model.group.CommandChannel
-import com.l2kt.gameserver.model.group.Party
 import com.l2kt.gameserver.model.holder.IntIntHolder
+import com.l2kt.gameserver.model.item.DropCategory
+import com.l2kt.gameserver.model.item.DropData
+import com.l2kt.gameserver.model.item.instance.ItemInstance
 import com.l2kt.gameserver.model.manor.Seed
 import com.l2kt.gameserver.network.SystemMessageId
 import com.l2kt.gameserver.network.serverpackets.SystemMessage
 import com.l2kt.gameserver.scripting.EventType
-import com.l2kt.gameserver.scripting.Quest
+import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * This class manages all NPCs that can be attacked. It inherits from [Npc].
@@ -557,9 +547,7 @@ open class Attackable(objectId: Int, template: NpcTemplate) : Npc(objectId, temp
             return
 
         // Get or create the AggroInfo of the attacker.
-        val ai = aggroList.computeIfAbsent(
-            attacker
-        ) { AggroInfo(it) }
+        val ai = aggroList.computeIfAbsent(attacker) { AggroInfo(it) }
         ai.addDamage(damage)
         ai.addHate(aggro)
 
@@ -588,6 +576,7 @@ open class Attackable(objectId: Int, template: NpcTemplate) : Npc(objectId, temp
      */
     fun reduceHate(target: Creature?, amount: Int) {
         var amount = amount
+
         if (ai is SiegeGuardAI) {
             stopHating(target)
             setTarget(null)
@@ -595,8 +584,7 @@ open class Attackable(objectId: Int, template: NpcTemplate) : Npc(objectId, temp
             return
         }
 
-        if (target == null)
-        // whole aggrolist
+        if (target == null) // whole aggrolist
         {
             val mostHated = mostHated
 

@@ -15,6 +15,8 @@ import com.l2kt.gameserver.model.actor.instance.Player
 import com.l2kt.gameserver.network.serverpackets.ActionFailed
 import com.l2kt.gameserver.network.serverpackets.L2GameServerPacket
 import com.l2kt.gameserver.network.serverpackets.ServerClose
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.nio.ByteBuffer
 import java.sql.PreparedStatement
 import java.util.concurrent.ArrayBlockingQueue
@@ -263,11 +265,12 @@ class L2GameClient(con: MMOConnection<L2GameClient>) : MMOClient<MMOConnection<L
     override fun onDisconnection() {
         // no long running tasks here, do it async
         try {
-            ThreadPool.execute(DisconnectTask())
+            GlobalScope.launch {
+                DisconnectTask().run()
+            }
         } catch (e: RejectedExecutionException) {
             // server is closing
         }
-
     }
 
     /**

@@ -3,6 +3,8 @@ package com.l2kt.gameserver.taskmanager
 import com.l2kt.commons.concurrent.ThreadPool
 import com.l2kt.gameserver.model.actor.Creature
 import com.l2kt.gameserver.model.actor.ai.CtrlEvent
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -33,7 +35,9 @@ object MovementTaskManager : Runnable {
             characters.remove(character)
 
             val ai = character.ai ?: return@forEach
-            ThreadPool.execute( Runnable{ ai.notifyEvent(CtrlEvent.EVT_ARRIVED) })
+            GlobalScope.launch {
+                ai.notifyEvent(CtrlEvent.EVT_ARRIVED)
+            }
         }
     }
 

@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 /**
  * @author mkizub
  */
-abstract class DocumentBase
+public abstract class DocumentBase
 {
 	static Logger _log = Logger.getLogger(DocumentBase.class.getName());
 	

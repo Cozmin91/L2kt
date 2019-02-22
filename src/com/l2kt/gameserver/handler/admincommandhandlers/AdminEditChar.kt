@@ -328,7 +328,7 @@ class AdminEditChar : IAdminCommandHandler {
         } else if (command.startsWith("admin_unsummon")) {
             val target = activeChar.target
             if (target is Summon)
-                target.unSummon(target.owner)
+                target.unSummon(target.owner!!)
             else
                 activeChar.sendPacket(SystemMessageId.INCORRECT_TARGET)
         } else if (command.startsWith("admin_summon_setlvl")) {

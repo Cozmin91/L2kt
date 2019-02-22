@@ -25,6 +25,8 @@ import com.l2kt.gameserver.network.serverpackets.*
 import com.l2kt.gameserver.scripting.Quest
 import com.l2kt.gameserver.skills.basefuncs.Func
 import com.l2kt.gameserver.taskmanager.ItemsOnGroundTaskManager
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.sql.ResultSet
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.locks.ReentrantLock
@@ -714,7 +716,8 @@ class ItemInstance : WorldObject, Runnable, Comparable<ItemInstance> {
      * @param z : Z location of the item.
      */
     fun dropMe(dropper: Creature, x: Int, y: Int, z: Int) {
-        ThreadPool.execute(ItemDropTask(this, dropper, x, y, z))
+        val instance = this
+        GlobalScope.launch { ItemDropTask(instance, dropper, x, y, z).run() }
     }
 
     inner class ItemDropTask(
