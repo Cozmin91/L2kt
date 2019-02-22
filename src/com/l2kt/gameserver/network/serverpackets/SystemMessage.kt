@@ -8,15 +8,19 @@ import com.l2kt.gameserver.model.item.instance.ItemInstance
 import com.l2kt.gameserver.model.item.kind.Item
 import com.l2kt.gameserver.model.location.Location
 import com.l2kt.gameserver.network.SystemMessageId
-import java.util.*
 
 class SystemMessage private constructor(val systemMessageId: SystemMessageId) : L2GameServerPacket() {
-    private var _params = if (systemMessageId.paramCount != 0) arrayOfNulls(systemMessageId.paramCount) else EMPTY_PARAM_ARRAY
+    private var _params: Array<SMParam?> = emptyArray()
     private var _paramIndex: Int = 0
+
+    init {
+        val paramCount = systemMessageId.paramCount
+        _params = if (paramCount != 0) arrayOfNulls(paramCount) else EMPTY_PARAM_ARRAY
+    }
 
     private fun append(param: SMParam) {
         if (_paramIndex >= _params.size) {
-            _params = Arrays.copyOf(_params, _paramIndex + 1)
+            _params = _params.copyOf(_paramIndex + 1)
             systemMessageId.paramCount = _paramIndex + 1
 
             L2GameServerPacket.Companion.LOGGER.warn(

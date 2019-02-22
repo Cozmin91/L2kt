@@ -508,11 +508,11 @@ public class Npc extends Creature
 			switch (cmdChoice)
 			{
 				case 1:
-					player.sendPacket(SystemMessageId.SELECT_THE_ITEM_TO_BE_AUGMENTED);
+					player.sendPacket(SystemMessageId.Companion.getSELECT_THE_ITEM_TO_BE_AUGMENTED());
 					player.sendPacket(ExShowVariationMakeWindow.Companion.getSTATIC_PACKET());
 					break;
 				case 2:
-					player.sendPacket(SystemMessageId.SELECT_THE_ITEM_FROM_WHICH_YOU_WISH_TO_REMOVE_AUGMENTATION);
+					player.sendPacket(SystemMessageId.Companion.getSELECT_THE_ITEM_FROM_WHICH_YOU_WISH_TO_REMOVE_AUGMENTATION());
 					player.sendPacket(ExShowVariationCancelWindow.Companion.getSTATIC_PACKET());
 					break;
 			}
@@ -596,7 +596,7 @@ public class Npc extends Creature
 		
 		if (quest.isRealQuest() && (player.getWeightPenalty() > 2 || player.getInventoryLimit() * 0.8 <= player.getInventory().getSize()))
 		{
-			player.sendPacket(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT);
+			player.sendPacket(SystemMessageId.Companion.getINVENTORY_LESS_THAN_80_PERCENT());
 			return;
 		}
 		
@@ -757,13 +757,13 @@ public class Npc extends Creature
 			if (!LotteryManager.INSTANCE.isStarted())
 			{
 				// tickets can't be sold
-				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD);
+				player.sendPacket(SystemMessageId.Companion.getNO_LOTTERY_TICKETS_CURRENT_SOLD());
 				return;
 			}
 			if (!LotteryManager.INSTANCE.isSellableTickets())
 			{
 				// tickets can't be sold
-				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE);
+				player.sendPacket(SystemMessageId.Companion.getNO_LOTTERY_TICKETS_AVAILABLE());
 				return;
 			}
 			
@@ -821,13 +821,13 @@ public class Npc extends Creature
 			if (!LotteryManager.INSTANCE.isStarted())
 			{
 				// tickets can't be sold
-				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_CURRENT_SOLD);
+				player.sendPacket(SystemMessageId.Companion.getNO_LOTTERY_TICKETS_CURRENT_SOLD());
 				return;
 			}
 			if (!LotteryManager.INSTANCE.isSellableTickets())
 			{
 				// tickets can't be sold
-				player.sendPacket(SystemMessageId.NO_LOTTERY_TICKETS_AVAILABLE);
+				player.sendPacket(SystemMessageId.Companion.getNO_LOTTERY_TICKETS_AVAILABLE());
 				return;
 			}
 			
@@ -859,7 +859,7 @@ public class Npc extends Creature
 			item.setCustomType2(type2);
 			
 			player.addItem("Loto", item, player, false);
-			player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_ITEM_S1).addItemName(4442));
+			player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getEARNED_ITEM_S1()).addItemName(4442));
 			
 			html.setFile(getHtmlPath(npcId, 3));
 		}
@@ -964,7 +964,7 @@ public class Npc extends Creature
 		{
 			setTarget(player);
 			doCast(SkillTable.FrequentSkill.ARENA_CP_RECOVERY.getSkill());
-			player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED).addCharName(player));
+			player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CP_WILL_BE_RESTORED()).addCharName(player));
 		}
 	}
 	

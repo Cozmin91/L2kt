@@ -307,7 +307,7 @@ public class Attackable extends Npc
 					
 					if (isOverhit() && _overhitAttacker != null && _overhitAttacker.getActingPlayer() != null && attacker == _overhitAttacker.getActingPlayer())
 					{
-						attacker.sendPacket(SystemMessageId.OVER_HIT);
+						attacker.sendPacket(SystemMessageId.Companion.getOVER_HIT());
 						exp += calculateOverhitExp(exp);
 					}
 					
@@ -395,7 +395,7 @@ public class Attackable extends Npc
 				// (When in party, the over-hit exp bonus is given to the whole party and splitted proportionally through the party members)
 				if (isOverhit() && _overhitAttacker != null && _overhitAttacker.getActingPlayer() != null && attacker == _overhitAttacker.getActingPlayer())
 				{
-					attacker.sendPacket(SystemMessageId.OVER_HIT);
+					attacker.sendPacket(SystemMessageId.Companion.getOVER_HIT());
 					exp += calculateOverhitExp(exp);
 				}
 				
@@ -1074,7 +1074,7 @@ public class Attackable extends Npc
 					
 					// Broadcast message if RaidBoss was defeated
 					if (isRaidBoss())
-						broadcastPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DIED_DROPPED_S3_S2).addCharName(this).addItemName(item.getId()).addNumber(item.getValue()));
+						broadcastPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_DIED_DROPPED_S3_S2()).addCharName(this).addItemName(item.getId()).addNumber(item.getValue()));
 				}
 			}
 		}

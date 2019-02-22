@@ -179,7 +179,7 @@ public class Boat extends Creature
 			removePassenger(player);
 
 		player.setInsideZone(ZoneId.PEACE, false);
-		player.sendPacket(SystemMessageId.EXIT_PEACEFUL_ZONE);
+		player.sendPacket(SystemMessageId.Companion.getEXIT_PEACEFUL_ZONE());
 
 		final Location loc = (location.equals(Location.Companion.getDUMMY_LOC())) ? MapRegionData.INSTANCE.getLocationToTeleport(this, MapRegionData.TeleportType.TOWN) : location;
 		if (player.isOnline())
@@ -200,7 +200,7 @@ public class Boat extends Creature
 		_passengers.add(player);
 
 		player.setInsideZone(ZoneId.PEACE, true);
-		player.sendPacket(SystemMessageId.ENTER_PEACEFUL_ZONE);
+		player.sendPacket(SystemMessageId.Companion.getENTER_PEACEFUL_ZONE());
 
 		return true;
 	}
@@ -246,14 +246,14 @@ public class Boat extends Creature
 					if (!player.destroyItemByItemId("Boat", itemId, count, this, false))
 					{
 						oustPlayer(player, true, loc);
-						player.sendPacket(SystemMessageId.NOT_CORRECT_BOAT_TICKET);
+						player.sendPacket(SystemMessageId.Companion.getNOT_CORRECT_BOAT_TICKET());
 						continue;
 					}
 
 					if (count > 1)
-						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_S1_DISAPPEARED).addItemName(itemId).addItemNumber(count));
+						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS2_S1_DISAPPEARED()).addItemName(itemId).addItemNumber(count));
 					else
-						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(itemId));
+						player.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_DISAPPEARED()).addItemName(itemId));
 				}
 				addPassenger(player);
 			}

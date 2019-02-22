@@ -515,7 +515,7 @@ public abstract class Summon extends Playable
 		// Check the validity of the target
 		if (target == null)
 		{
-			sendPacket(SystemMessageId.TARGET_CANT_FOUND);
+			sendPacket(SystemMessageId.Companion.getTARGET_CANT_FOUND());
 			return false;
 		}
 		
@@ -524,7 +524,7 @@ public abstract class Summon extends Playable
 		// Check if this skill is enabled (e.g. reuse time)
 		if (isSkillDisabled(skill))
 		{
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE).addString(skill.getName()));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_PREPARED_FOR_REUSE()).addString(skill.getName()));
 			return false;
 		}
 		
@@ -534,7 +534,7 @@ public abstract class Summon extends Playable
 		if (getCurrentMp() < getStat().getMpConsume(skill) + getStat().getMpInitialConsume(skill))
 		{
 			// Send a System Message to the caster
-			sendPacket(SystemMessageId.NOT_ENOUGH_MP);
+			sendPacket(SystemMessageId.Companion.getNOT_ENOUGH_MP());
 			return false;
 		}
 		
@@ -542,7 +542,7 @@ public abstract class Summon extends Playable
 		if (getCurrentHp() <= skill.getHpConsume())
 		{
 			// Send a System Message to the caster
-			sendPacket(SystemMessageId.NOT_ENOUGH_HP);
+			sendPacket(SystemMessageId.Companion.getNOT_ENOUGH_HP());
 			return false;
 		}
 		
@@ -554,7 +554,7 @@ public abstract class Summon extends Playable
 			if (isInsidePeaceZone(this, target))
 			{
 				// If summon or target is in a peace zone, send a system message TARGET_IN_PEACEZONE
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getTARGET_IN_PEACEZONE()));
 				return false;
 			}
 			
@@ -622,21 +622,21 @@ public abstract class Summon extends Playable
 		{
 			if (pcrit || mcrit)
 				if (this instanceof Servitor)
-					sendPacket(SystemMessageId.CRITICAL_HIT_BY_SUMMONED_MOB);
+					sendPacket(SystemMessageId.Companion.getCRITICAL_HIT_BY_SUMMONED_MOB());
 				else
-					sendPacket(SystemMessageId.CRITICAL_HIT_BY_PET);
+					sendPacket(SystemMessageId.Companion.getCRITICAL_HIT_BY_PET());
 				
 			final SystemMessage sm;
 			
 			if (target.isInvul())
 			{
 				if (target.isParalyzed())
-					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.OPPONENT_PETRIFIED);
+					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getOPPONENT_PETRIFIED());
 				else
-					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.ATTACK_WAS_BLOCKED);
+					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getATTACK_WAS_BLOCKED());
 			}
 			else
-				sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_HIT_FOR_S1_DAMAGE).addNumber(damage);
+				sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getPET_HIT_FOR_S1_DAMAGE()).addNumber(damage);
 			
 			sendPacket(sm);
 			
@@ -660,7 +660,7 @@ public abstract class Summon extends Playable
 		if (!actingPlayer.checkPvpSkill(getTarget(), skill) && !actingPlayer.getAccessLevel().allowPeaceAttack())
 		{
 			// Send a System Message to the Player
-			actingPlayer.sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
+			actingPlayer.sendPacket(SystemMessageId.Companion.getTARGET_IS_INCORRECT());
 			
 			// Send ActionFailed to the Player
 			actingPlayer.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());

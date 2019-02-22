@@ -242,7 +242,7 @@ public final class Player extends Playable
 	
 	private DuelState _duelState = DuelState.NO_DUEL;
 	private int _duelId;
-	private SystemMessageId _noDuelReason = SystemMessageId.THERE_IS_NO_OPPONENT_TO_RECEIVE_YOUR_CHALLENGE_FOR_A_DUEL;
+	private SystemMessageId _noDuelReason = SystemMessageId.Companion.getTHERE_IS_NO_OPPONENT_TO_RECEIVE_YOUR_CHALLENGE_FOR_A_DUEL();
 	
 	private Boat _boat;
 	private SpawnLocation _boatPosition = new SpawnLocation(0, 0, 0, 0);
@@ -1279,7 +1279,7 @@ public final class Player extends Playable
 		}
 		
 		// send message with new karma value
-		sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOUR_KARMA_HAS_BEEN_CHANGED_TO_S1).addNumber(karma));
+		sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getYOUR_KARMA_HAS_BEEN_CHANGED_TO_S1()).addNumber(karma));
 		
 		_karma = karma;
 		broadcastKarma();
@@ -1431,9 +1431,9 @@ public final class Player extends Playable
 		if (isEquipped)
 		{
 			if (item.getEnchantLevel() > 0)
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED).addNumber(item.getEnchantLevel()).addItemName(item));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getEQUIPMENT_S1_S2_REMOVED()).addNumber(item.getEnchantLevel()).addItemName(item));
 			else
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISARMED).addItemName(item));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_DISARMED()).addItemName(item));
 			
 			items = getInventory().unEquipItemInBodySlotAndRecord(item);
 		}
@@ -1444,15 +1444,15 @@ public final class Player extends Playable
 			if (item.isEquipped())
 			{
 				if (item.getEnchantLevel() > 0)
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_S2_EQUIPPED).addNumber(item.getEnchantLevel()).addItemName(item));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_S2_EQUIPPED()).addNumber(item.getEnchantLevel()).addItemName(item));
 				else
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_EQUIPPED).addItemName(item));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_EQUIPPED()).addItemName(item));
 				
 				if ((item.getItem().getBodyPart() & Item.SLOT_ALLWEAPON) != 0)
 					rechargeShots(true, true);
 			}
 			else
-				sendPacket(SystemMessageId.CANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION);
+				sendPacket(SystemMessageId.Companion.getCANNOT_EQUIP_ITEM_DUE_TO_BAD_CONDITION());
 		}
 		refreshExpertisePenalty();
 		broadcastUserInfo();
@@ -1516,9 +1516,9 @@ public final class Player extends Playable
 				setLvlJoinedAcademy(0);
 				
 				// Oust pledge member from the academy, because he has finished his 2nd class transfer.
-				_clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(getName()), SystemMessage.Companion.getSystemMessage(SystemMessageId.CLAN_MEMBER_S1_EXPELLED).addString(getName()));
+				_clan.broadcastToOnlineMembers(new PledgeShowMemberListDelete(getName()), SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getCLAN_MEMBER_S1_EXPELLED()).addString(getName()));
 				_clan.removeClanMember(getObjectId(), 0);
-				sendPacket(SystemMessageId.ACADEMY_MEMBERSHIP_TERMINATED);
+				sendPacket(SystemMessageId.Companion.getACADEMY_MEMBERSHIP_TERMINATED());
 				
 				// receive graduation gift : academy circlet
 				addItem("Gift", 8181, 1, this, true);
@@ -1531,9 +1531,9 @@ public final class Player extends Playable
 			setClassTemplate(Id);
 			
 			if (getClassId().level() == 3)
-				sendPacket(SystemMessageId.THIRD_CLASS_TRANSFER);
+				sendPacket(SystemMessageId.Companion.getTHIRD_CLASS_TRANSFER());
 			else
-				sendPacket(SystemMessageId.CLASS_TRANSFER);
+				sendPacket(SystemMessageId.Companion.getCLASS_TRANSFER());
 			
 			// Update class icon in party and clan
 			if (_party != null)
@@ -1974,7 +1974,7 @@ public final class Player extends Playable
 	public void addAdena(String process, int count, WorldObject reference, boolean sendMessage)
 	{
 		if (sendMessage)
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_S1_ADENA).addNumber(count));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getEARNED_S1_ADENA()).addNumber(count));
 		
 		if (count > 0)
 		{
@@ -1999,7 +1999,7 @@ public final class Player extends Playable
 		if (count > getAdena())
 		{
 			if (sendMessage)
-				sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
+				sendPacket(SystemMessageId.Companion.getYOU_NOT_ENOUGH_ADENA());
 			
 			return false;
 		}
@@ -2016,7 +2016,7 @@ public final class Player extends Playable
 			sendPacket(iu);
 			
 			if (sendMessage)
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISAPPEARED_ADENA).addNumber(count));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_DISAPPEARED_ADENA()).addNumber(count));
 		}
 		return true;
 	}
@@ -2031,7 +2031,7 @@ public final class Player extends Playable
 	public void addAncientAdena(String process, int count, WorldObject reference, boolean sendMessage)
 	{
 		if (sendMessage)
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(PcInventory.Companion.getANCIENT_ADENA_ID()).addNumber(count));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getEARNED_S2_S1_S()).addItemName(PcInventory.Companion.getANCIENT_ADENA_ID()).addNumber(count));
 		
 		if (count > 0)
 		{
@@ -2056,7 +2056,7 @@ public final class Player extends Playable
 		if (count > getAncientAdena())
 		{
 			if (sendMessage)
-				sendPacket(SystemMessageId.YOU_NOT_ENOUGH_ADENA);
+				sendPacket(SystemMessageId.Companion.getYOU_NOT_ENOUGH_ADENA());
 			
 			return false;
 		}
@@ -2074,9 +2074,9 @@ public final class Player extends Playable
 			if (sendMessage)
 			{
 				if (count > 1)
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_S1_DISAPPEARED).addItemName(PcInventory.Companion.getANCIENT_ADENA_ID()).addItemNumber(count));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS2_S1_DISAPPEARED()).addItemName(PcInventory.Companion.getANCIENT_ADENA_ID()).addItemNumber(count));
 				else
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(PcInventory.Companion.getANCIENT_ADENA_ID()));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_DISAPPEARED()).addItemName(PcInventory.Companion.getANCIENT_ADENA_ID()));
 			}
 		}
 		return true;
@@ -2097,11 +2097,11 @@ public final class Player extends Playable
 			if (sendMessage)
 			{
 				if (item.getCount() > 1)
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_PICKED_UP_S2_S1).addItemName(item).addNumber(item.getCount()));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getYOU_PICKED_UP_S2_S1()).addItemName(item).addNumber(item.getCount()));
 				else if (item.getEnchantLevel() > 0)
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_PICKED_UP_A_S1_S2).addNumber(item.getEnchantLevel()).addItemName(item));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getYOU_PICKED_UP_A_S1_S2()).addNumber(item.getEnchantLevel()).addItemName(item));
 				else
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_PICKED_UP_S1).addItemName(item));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getYOU_PICKED_UP_S1()).addItemName(item));
 			}
 			
 			// Add the item to inventory
@@ -2150,16 +2150,16 @@ public final class Player extends Playable
 				if (count > 1)
 				{
 					if (process.equalsIgnoreCase("Sweep") || process.equalsIgnoreCase("Quest"))
-						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_S2_S1_S).addItemName(itemId).addItemNumber(count));
+						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getEARNED_S2_S1_S()).addItemName(itemId).addItemNumber(count));
 					else
-						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_PICKED_UP_S2_S1).addItemName(itemId).addItemNumber(count));
+						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getYOU_PICKED_UP_S2_S1()).addItemName(itemId).addItemNumber(count));
 				}
 				else
 				{
 					if (process.equalsIgnoreCase("Sweep") || process.equalsIgnoreCase("Quest"))
-						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.EARNED_ITEM_S1).addItemName(itemId));
+						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getEARNED_ITEM_S1()).addItemName(itemId));
 					else
-						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_PICKED_UP_S1).addItemName(itemId));
+						sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getYOU_PICKED_UP_S1()).addItemName(itemId));
 				}
 			}
 			
@@ -2218,7 +2218,7 @@ public final class Player extends Playable
 		if (item == null)
 		{
 			if (sendMessage)
-				sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+				sendPacket(SystemMessageId.Companion.getNOT_ENOUGH_ITEMS());
 			
 			return false;
 		}
@@ -2240,9 +2240,9 @@ public final class Player extends Playable
 		if (sendMessage)
 		{
 			if (count > 1)
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_S1_DISAPPEARED).addItemName(item).addItemNumber(count));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS2_S1_DISAPPEARED()).addItemName(item).addItemNumber(count));
 			else
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(item));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_DISAPPEARED()).addItemName(item));
 		}
 		return true;
 	}
@@ -2263,7 +2263,7 @@ public final class Player extends Playable
 		if (item == null)
 		{
 			if (sendMessage)
-				sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+				sendPacket(SystemMessageId.Companion.getNOT_ENOUGH_ITEMS());
 			
 			return false;
 		}
@@ -2287,7 +2287,7 @@ public final class Player extends Playable
 		if (item == null || item.getCount() < count)
 		{
 			if (sendMessage)
-				sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+				sendPacket(SystemMessageId.Companion.getNOT_ENOUGH_ITEMS());
 			
 			return false;
 		}
@@ -2315,7 +2315,7 @@ public final class Player extends Playable
 		if (item == null || item.getCount() < count || _inventory.destroyItemByItemId(process, itemId, count, this, reference) == null)
 		{
 			if (sendMessage)
-				sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+				sendPacket(SystemMessageId.Companion.getNOT_ENOUGH_ITEMS());
 			
 			return false;
 		}
@@ -2334,9 +2334,9 @@ public final class Player extends Playable
 		if (sendMessage)
 		{
 			if (count > 1)
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S2_S1_DISAPPEARED).addItemName(itemId).addItemNumber(count));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS2_S1_DISAPPEARED()).addItemName(itemId).addItemNumber(count));
 			else
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISAPPEARED).addItemName(itemId));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_DISAPPEARED()).addItemName(itemId));
 		}
 		return true;
 	}
@@ -2419,7 +2419,7 @@ public final class Player extends Playable
 		if (item == null)
 		{
 			if (sendMessage)
-				sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+				sendPacket(SystemMessageId.Companion.getNOT_ENOUGH_ITEMS());
 			
 			return false;
 		}
@@ -2438,7 +2438,7 @@ public final class Player extends Playable
 		
 		// Sends message to client if requested
 		if (sendMessage)
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_DROPPED_S1).addItemName(item));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getYOU_DROPPED_S1()).addItemName(item));
 		
 		return true;
 	}
@@ -2463,7 +2463,7 @@ public final class Player extends Playable
 		if (item == null)
 		{
 			if (sendMessage)
-				sendPacket(SystemMessageId.NOT_ENOUGH_ITEMS);
+				sendPacket(SystemMessageId.Companion.getNOT_ENOUGH_ITEMS());
 			
 			return null;
 		}
@@ -2482,7 +2482,7 @@ public final class Player extends Playable
 		
 		// Sends message to client if requested
 		if (sendMessage)
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_DROPPED_S1).addItemName(item));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getYOU_DROPPED_S1()).addItemName(item));
 		
 		return item;
 	}
@@ -2652,7 +2652,7 @@ public final class Player extends Playable
 		{
 			if (!((L2SkillSummon) skill).isCubic() && (getPet() != null || isMounted()))
 			{
-				sendPacket(SystemMessageId.SUMMON_ONLY_ONE);
+				sendPacket(SystemMessageId.Companion.getSUMMON_ONLY_ONE());
 				return false;
 			}
 		}
@@ -2664,7 +2664,7 @@ public final class Player extends Playable
 			{
 				if (getClan() == null)
 				{
-					sendPacket(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE);
+					sendPacket(SystemMessageId.Companion.getCANNOT_BE_RESURRECTED_DURING_SIEGE());
 					return false;
 				}
 				
@@ -2673,7 +2673,7 @@ public final class Player extends Playable
 				{
 					if (siege.getControlTowerCount() == 0)
 					{
-						sendPacket(SystemMessageId.TOWER_DESTROYED_NO_RESURRECTION);
+						sendPacket(SystemMessageId.Companion.getTOWER_DESTROYED_NO_RESURRECTION());
 						return false;
 					}
 				}
@@ -2681,13 +2681,13 @@ public final class Player extends Playable
 				{
 					if (getClan().getFlag() == null)
 					{
-						sendPacket(SystemMessageId.NO_RESURRECTION_WITHOUT_BASE_CAMP);
+						sendPacket(SystemMessageId.Companion.getNO_RESURRECTION_WITHOUT_BASE_CAMP());
 						return false;
 					}
 				}
 				else
 				{
-					sendPacket(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE);
+					sendPacket(SystemMessageId.Companion.getCANNOT_BE_RESURRECTED_DURING_SIEGE());
 					return false;
 				}
 			}
@@ -2701,7 +2701,7 @@ public final class Player extends Playable
 			
 			if (!region.checkEffectRangeInsidePeaceZone(skill, (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_GROUND) ? getCurrentSkillWorldPosition() : getPosition()))
 			{
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CANNOT_BE_USED()).addSkillName(skill));
 				return false;
 			}
 		}
@@ -2709,14 +2709,14 @@ public final class Player extends Playable
 		// Can't use Hero and resurrect skills during Olympiad
 		if (isInOlympiadMode() && (skill.isHeroSkill() || skill.getSkillType() == L2SkillType.RESURRECT))
 		{
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.THIS_SKILL_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getTHIS_SKILL_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT()));
 			return false;
 		}
 		
 		// Check if the spell uses charges
 		if (skill.getMaxCharges() == 0 && getCharges() < skill.getNumCharges())
 		{
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CANNOT_BE_USED()).addSkillName(skill));
 			return false;
 		}
 		
@@ -3066,30 +3066,30 @@ public final class Player extends Playable
 			
 			if (!_inventory.validateWeight(item.getCount() * item.getItem().getWeight()))
 			{
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getWEIGHT_LIMIT_EXCEEDED()));
 				return;
 			}
 			
 			if (((isInParty() && getParty().getLootRule() == LootRule.ITEM_LOOTER) || !isInParty()) && !_inventory.validateCapacity(item))
 			{
-				sendPacket(SystemMessageId.SLOTS_FULL);
+				sendPacket(SystemMessageId.Companion.getSLOTS_FULL());
 				return;
 			}
 			
 			if (getActiveTradeList() != null)
 			{
-				sendPacket(SystemMessageId.CANNOT_PICKUP_OR_USE_ITEM_WHILE_TRADING);
+				sendPacket(SystemMessageId.Companion.getCANNOT_PICKUP_OR_USE_ITEM_WHILE_TRADING());
 				return;
 			}
 			
 			if (item.getOwnerId() != 0 && !isLooterOrInLooterParty(item.getOwnerId()))
 			{
 				if (item.getItemId() == 57)
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1_ADENA).addNumber(item.getCount()));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getFAILED_TO_PICKUP_S1_ADENA()).addNumber(item.getCount()));
 				else if (item.getCount() > 1)
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FAILED_TO_PICKUP_S2_S1_S).addItemName(item).addNumber(item.getCount()));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getFAILED_TO_PICKUP_S2_S1_S()).addItemName(item).addNumber(item.getCount()));
 				else
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1).addItemName(item));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getFAILED_TO_PICKUP_S1()).addItemName(item));
 				
 				return;
 			}
@@ -3125,9 +3125,9 @@ public final class Player extends Playable
 			{
 				SystemMessage msg;
 				if (item.getEnchantLevel() > 0)
-					msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.ATTENTION_S1_PICKED_UP_S2_S3).addString(getName()).addNumber(item.getEnchantLevel()).addItemName(item.getItemId());
+					msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getATTENTION_S1_PICKED_UP_S2_S3()).addString(getName()).addNumber(item.getEnchantLevel()).addItemName(item.getItemId());
 				else
-					msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.ATTENTION_S1_PICKED_UP_S2).addString(getName()).addItemName(item.getItemId());
+					msg = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getATTENTION_S1_PICKED_UP_S2()).addString(getName()).addItemName(item.getItemId());
 				
 				broadcastPacket(msg, 1400);
 			}
@@ -3191,7 +3191,7 @@ public final class Player extends Playable
 		else
 		{
 			if (isInsideZone(ZoneId.NO_STORE))
-				sendPacket(SystemMessageId.NO_PRIVATE_STORE_HERE);
+				sendPacket(SystemMessageId.Companion.getNO_PRIVATE_STORE_HERE());
 			
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
@@ -3215,7 +3215,7 @@ public final class Player extends Playable
 		else
 		{
 			if (isInsideZone(ZoneId.NO_STORE))
-				sendPacket(SystemMessageId.NO_PRIVATE_STORE_HERE);
+				sendPacket(SystemMessageId.Companion.getNO_PRIVATE_STORE_HERE());
 			
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
@@ -3241,7 +3241,7 @@ public final class Player extends Playable
 		else
 		{
 			if (isInsideZone(ZoneId.NO_STORE))
-				sendPacket(SystemMessageId.NO_PRIVATE_WORKSHOP_HERE);
+				sendPacket(SystemMessageId.Companion.getNO_PRIVATE_WORKSHOP_HERE());
 			
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 		}
@@ -3993,13 +3993,13 @@ public final class Player extends Playable
 		_activeTradeList = new TradeList(this);
 		_activeTradeList.setPartner(partner);
 		
-		sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.BEGIN_TRADE_WITH_S1).addString(partner.getName()));
+		sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getBEGIN_TRADE_WITH_S1()).addString(partner.getName()));
 		sendPacket(new TradeStart(this));
 	}
 	
 	public void onTradeConfirm(Player partner)
 	{
-		sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CONFIRMED_TRADE).addString(partner.getName()));
+		sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CONFIRMED_TRADE()).addString(partner.getName()));
 		
 		partner.sendPacket(TradePressOwnOk.Companion.getSTATIC_PACKET());
 		sendPacket(TradePressOtherOk.Companion.getSTATIC_PACKET());
@@ -4014,7 +4014,7 @@ public final class Player extends Playable
 		_activeTradeList = null;
 		
 		sendPacket(new SendTradeDone(0));
-		sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANCELED_TRADE).addString(partner.getName()));
+		sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CANCELED_TRADE()).addString(partner.getName()));
 	}
 	
 	public void onTradeFinish(boolean successfull)
@@ -4022,7 +4022,7 @@ public final class Player extends Playable
 		_activeTradeList = null;
 		sendPacket(new SendTradeDone(1));
 		if (successfull)
-			sendPacket(SystemMessageId.TRADE_SUCCESSFUL);
+			sendPacket(SystemMessageId.Companion.getTRADE_SUCCESSFUL());
 	}
 	
 	public void startTrade(Player partner)
@@ -4439,9 +4439,9 @@ public final class Player extends Playable
 			{
 				SystemMessage sm;
 				if (unequipped[0].getEnchantLevel() > 0)
-					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED).addNumber(unequipped[0].getEnchantLevel()).addItemName(unequipped[0]);
+					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getEQUIPMENT_S1_S2_REMOVED()).addNumber(unequipped[0].getEnchantLevel()).addItemName(unequipped[0]);
 				else
-					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISARMED).addItemName(unequipped[0]);
+					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_DISARMED()).addItemName(unequipped[0]);
 				
 				sendPacket(sm);
 			}
@@ -4465,9 +4465,9 @@ public final class Player extends Playable
 			{
 				SystemMessage sm;
 				if (unequipped[0].getEnchantLevel() > 0)
-					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED).addNumber(unequipped[0].getEnchantLevel()).addItemName(unequipped[0]);
+					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getEQUIPMENT_S1_S2_REMOVED()).addNumber(unequipped[0].getEnchantLevel()).addItemName(unequipped[0]);
 				else
-					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_DISARMED).addItemName(unequipped[0]);
+					sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_DISARMED()).addItemName(unequipped[0]);
 				
 				sendPacket(sm);
 			}
@@ -4533,55 +4533,55 @@ public final class Player extends Playable
 		{
 			if (isDead()) // A strider cannot be ridden when dead.
 			{
-				sendPacket(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_DEAD);
+				sendPacket(SystemMessageId.Companion.getSTRIDER_CANT_BE_RIDDEN_WHILE_DEAD());
 				return false;
 			}
 			
 			if (summon.isDead()) // A dead strider cannot be ridden.
 			{
-				sendPacket(SystemMessageId.DEAD_STRIDER_CANT_BE_RIDDEN);
+				sendPacket(SystemMessageId.Companion.getDEAD_STRIDER_CANT_BE_RIDDEN());
 				return false;
 			}
 			
 			if (summon.isInCombat() || summon.isRooted()) // A strider in battle cannot be ridden.
 			{
-				sendPacket(SystemMessageId.STRIDER_IN_BATLLE_CANT_BE_RIDDEN);
+				sendPacket(SystemMessageId.Companion.getSTRIDER_IN_BATLLE_CANT_BE_RIDDEN());
 				return false;
 			}
 			
 			if (isInCombat()) // A strider cannot be ridden while in battle
 			{
-				sendPacket(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
+				sendPacket(SystemMessageId.Companion.getSTRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE());
 				return false;
 			}
 			
 			if (isSitting()) // A strider can be ridden only when standing
 			{
-				sendPacket(SystemMessageId.STRIDER_CAN_BE_RIDDEN_ONLY_WHILE_STANDING);
+				sendPacket(SystemMessageId.Companion.getSTRIDER_CAN_BE_RIDDEN_ONLY_WHILE_STANDING());
 				return false;
 			}
 			
 			if (isFishing()) // You can't mount, dismount, break and drop items while fishing
 			{
-				sendPacket(SystemMessageId.CANNOT_DO_WHILE_FISHING_2);
+				sendPacket(SystemMessageId.Companion.getCANNOT_DO_WHILE_FISHING_2());
 				return false;
 			}
 			
 			if (isCursedWeaponEquipped()) // You can't mount, dismount, break and drop items while weilding a cursed weapon
 			{
-				sendPacket(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
+				sendPacket(SystemMessageId.Companion.getSTRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE());
 				return false;
 			}
 			
 			if (!MathUtil.INSTANCE.checkIfInRange(200, this, summon, true))
 			{
-				sendPacket(SystemMessageId.TOO_FAR_AWAY_FROM_STRIDER_TO_MOUNT);
+				sendPacket(SystemMessageId.Companion.getTOO_FAR_AWAY_FROM_STRIDER_TO_MOUNT());
 				return false;
 			}
 			
 			if (((Pet) summon).checkHungryState())
 			{
-				sendPacket(SystemMessageId.HUNGRY_STRIDER_NOT_MOUNT);
+				sendPacket(SystemMessageId.Companion.getHUNGRY_STRIDER_NOT_MOUNT());
 				return false;
 			}
 			
@@ -4592,13 +4592,13 @@ public final class Player extends Playable
 		{
 			if (getMountType() == 2 && isInsideZone(ZoneId.NO_LANDING))
 			{
-				sendPacket(SystemMessageId.NO_DISMOUNT_HERE);
+				sendPacket(SystemMessageId.Companion.getNO_DISMOUNT_HERE());
 				return false;
 			}
 			
 			if (checkFoodState(_petTemplate.getHungryLimit()))
 			{
-				sendPacket(SystemMessageId.HUNGRY_STRIDER_NOT_MOUNT);
+				sendPacket(SystemMessageId.Companion.getHUNGRY_STRIDER_NOT_MOUNT());
 				return false;
 			}
 			
@@ -4670,7 +4670,7 @@ public final class Player extends Playable
 				setCurrentFeed(0);
 				stopFeed();
 				dismount();
-				sendPacket(SystemMessageId.OUT_OF_FEED_MOUNT_CANCELED);
+				sendPacket(SystemMessageId.Companion.getOUT_OF_FEED_MOUNT_CANCELED());
 				return;
 			}
 			
@@ -4684,7 +4684,7 @@ public final class Player extends Playable
 				if (handler != null)
 				{
 					handler.useItem(Player.this, food, false);
-					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY).addItemName(food));
+					sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getPET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY()).addItemName(food));
 				}
 			}
 		}
@@ -5926,7 +5926,7 @@ public final class Player extends Playable
 		
 		// Add the recovered dyes to the player's inventory and notify them.
 		addItem("Henna", henna.getDyeId(), Henna.Companion.getRequiredDyeAmount() / 2, this, true);
-		sendPacket(SystemMessageId.SYMBOL_DELETED);
+		sendPacket(SystemMessageId.Companion.getSYMBOL_DELETED());
 		return true;
 	}
 	
@@ -5961,7 +5961,7 @@ public final class Player extends Playable
 				
 				sendPacket(new HennaInfo(this));
 				sendPacket(new UserInfo(this));
-				sendPacket(SystemMessageId.SYMBOL_ADDED);
+				sendPacket(SystemMessageId.Companion.getSYMBOL_ADDED());
 				return;
 			}
 		}
@@ -6182,7 +6182,7 @@ public final class Player extends Playable
 		// Check if this skill is enabled (ex : reuse time)
 		if (isSkillDisabled(skill))
 		{
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE).addSkillName(skill));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_PREPARED_FOR_REUSE()).addSkillName(skill));
 			return false;
 		}
 		
@@ -6199,7 +6199,7 @@ public final class Player extends Playable
 		final ItemInstance formal = getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST);
 		if (formal != null && formal.getItem().getBodyPart() == Item.SLOT_ALLDRESS)
 		{
-			sendPacket(SystemMessageId.CANNOT_USE_ITEMS_SKILLS_WITH_FORMALWEAR);
+			sendPacket(SystemMessageId.Companion.getCANNOT_USE_ITEMS_SKILLS_WITH_FORMALWEAR());
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return false;
 		}
@@ -6273,13 +6273,13 @@ public final class Player extends Playable
 		if (isFishing() && (sklType != L2SkillType.PUMPING && sklType != L2SkillType.REELING && sklType != L2SkillType.FISHING))
 		{
 			// Only fishing skills are available
-			sendPacket(SystemMessageId.ONLY_FISHING_SKILLS_NOW);
+			sendPacket(SystemMessageId.Companion.getONLY_FISHING_SKILLS_NOW());
 			return false;
 		}
 		
 		if (isInObserverMode())
 		{
-			sendPacket(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE);
+			sendPacket(SystemMessageId.Companion.getOBSERVERS_CANNOT_PARTICIPATE());
 			abortCast();
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 			return false;
@@ -6289,7 +6289,7 @@ public final class Player extends Playable
 		if (isSitting())
 		{
 			// Send a System Message to the caster
-			sendPacket(SystemMessageId.CANT_MOVE_SITTING);
+			sendPacket(SystemMessageId.Companion.getCANT_MOVE_SITTING());
 			
 			// Send ActionFailed to the Player
 			sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -6371,7 +6371,7 @@ public final class Player extends Playable
 			if (!((Door) target).isAutoAttackable(this) // Siege doors only hittable during siege
 				|| (((Door) target).isUnlockable() && skill.getSkillType() != L2SkillType.UNLOCK)) // unlockable doors
 			{
-				sendPacket(SystemMessageId.INCORRECT_TARGET);
+				sendPacket(SystemMessageId.Companion.getINCORRECT_TARGET());
 				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return false;
 			}
@@ -6386,7 +6386,7 @@ public final class Player extends Playable
 				Player cha = target.getActingPlayer();
 				if (cha.getDuelId() != getDuelId())
 				{
-					sendPacket(SystemMessageId.INCORRECT_TARGET);
+					sendPacket(SystemMessageId.Companion.getINCORRECT_TARGET());
 					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 					return false;
 				}
@@ -6401,13 +6401,13 @@ public final class Player extends Playable
 			final Siege siege = CastleManager.INSTANCE.getActiveSiege(this);
 			if (siege == null || !siege.checkSide(getClan(), SiegeSide.ATTACKER) || (isInSiege() && isInsideZone(ZoneId.CASTLE)))
 			{
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.NOT_CALL_PET_FROM_THIS_LOCATION));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getNOT_CALL_PET_FROM_THIS_LOCATION()));
 				return false;
 			}
 			
 			if (SevenSigns.INSTANCE.isSealValidationPeriod() && SevenSigns.INSTANCE.getSealOwner(SealType.STRIFE) == CabalType.DAWN && SevenSigns.INSTANCE.getPlayerCabal(getObjectId()) == CabalType.DUSK)
 			{
-				sendPacket(SystemMessageId.SEAL_OF_STRIFE_FORBIDS_SUMMONING);
+				sendPacket(SystemMessageId.Companion.getSEAL_OF_STRIFE_FORBIDS_SUMMONING());
 				return false;
 			}
 		}
@@ -6430,7 +6430,7 @@ public final class Player extends Playable
 			if (isInsidePeaceZone(this, target))
 			{
 				// If Creature or target is in a peace zone, send a system message TARGET_IN_PEACEZONE ActionFailed
-				sendPacket(SystemMessageId.TARGET_IN_PEACEZONE);
+				sendPacket(SystemMessageId.Companion.getTARGET_IN_PEACEZONE());
 				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return false;
 			}
@@ -6482,7 +6482,7 @@ public final class Player extends Playable
 					if (!isInsideRadius(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), (int) (skill.getCastRange() + getCollisionRadius()), false, false))
 					{
 						// Send a System Message to the caster
-						sendPacket(SystemMessageId.TARGET_TOO_FAR);
+						sendPacket(SystemMessageId.Companion.getTARGET_TOO_FAR());
 						
 						// Send ActionFailed to the Player
 						sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -6492,7 +6492,7 @@ public final class Player extends Playable
 				else if (skill.getCastRange() > 0 && !isInsideRadius(target, (int) (skill.getCastRange() + getCollisionRadius()), false, false))
 				{
 					// Send a System Message to the caster
-					sendPacket(SystemMessageId.TARGET_TOO_FAR);
+					sendPacket(SystemMessageId.Companion.getTARGET_TOO_FAR());
 					
 					// Send ActionFailed to the Player
 					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -6545,7 +6545,7 @@ public final class Player extends Playable
 			if (!(target instanceof Monster))
 			{
 				// Send a System Message to the Player
-				sendPacket(SystemMessageId.INCORRECT_TARGET);
+				sendPacket(SystemMessageId.Companion.getINCORRECT_TARGET());
 				
 				// Send ActionFailed to the Player
 				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -6562,7 +6562,7 @@ public final class Player extends Playable
 				if (spoilerId == 0)
 				{
 					// Send a System Message to the Player
-					sendPacket(SystemMessageId.SWEEPER_FAILED_TARGET_NOT_SPOILED);
+					sendPacket(SystemMessageId.Companion.getSWEEPER_FAILED_TARGET_NOT_SPOILED());
 					
 					// Send ActionFailed to the Player
 					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -6572,7 +6572,7 @@ public final class Player extends Playable
 				if (!isLooterOrInLooterParty(spoilerId))
 				{
 					// Send a System Message to the Player
-					sendPacket(SystemMessageId.SWEEP_NOT_ALLOWED);
+					sendPacket(SystemMessageId.Companion.getSWEEP_NOT_ALLOWED());
 					
 					// Send ActionFailed to the Player
 					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -6587,7 +6587,7 @@ public final class Player extends Playable
 			if (!(target instanceof Monster))
 			{
 				// Send a System Message to the Player
-				sendPacket(SystemMessageId.INCORRECT_TARGET);
+				sendPacket(SystemMessageId.Companion.getINCORRECT_TARGET());
 				
 				// Send ActionFailed to the Player
 				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -6614,7 +6614,7 @@ public final class Player extends Playable
 				if (!checkPvpSkill(target, skill) && !getAccessLevel().allowPeaceAttack())
 				{
 					// Send a System Message to the Player
-					sendPacket(SystemMessageId.TARGET_IS_INCORRECT);
+					sendPacket(SystemMessageId.Companion.getTARGET_IS_INCORRECT());
 					
 					// Send ActionFailed to the Player
 					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
@@ -6636,14 +6636,14 @@ public final class Player extends Playable
 			{
 				if (!GeoEngine.INSTANCE.canSeeTarget(this, worldPosition))
 				{
-					sendPacket(SystemMessageId.CANT_SEE_TARGET);
+					sendPacket(SystemMessageId.Companion.getCANT_SEE_TARGET());
 					sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 					return false;
 				}
 			}
 			else if (!GeoEngine.INSTANCE.canSeeTarget(this, target))
 			{
-				sendPacket(SystemMessageId.CANT_SEE_TARGET);
+				sendPacket(SystemMessageId.Companion.getCANT_SEE_TARGET());
 				sendPacket(ActionFailed.Companion.getSTATIC_PACKET());
 				return false;
 			}
@@ -6659,11 +6659,11 @@ public final class Player extends Playable
 		SystemMessage sm;
 		
 		if (!isRiding())
-			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CANNOT_BE_USED()).addSkillName(skill);
 		else if (!(getTarget() instanceof Door))
-			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.INCORRECT_TARGET);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getINCORRECT_TARGET());
 		else if (siege == null || !siege.checkSide(getClan(), SiegeSide.ATTACKER))
-			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CANNOT_BE_USED()).addSkillName(skill);
 		else
 			return true;
 		
@@ -6676,22 +6676,22 @@ public final class Player extends Playable
 		SystemMessage sm;
 		
 		if (castle == null || castle.getCastleId() <= 0)
-			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CANNOT_BE_USED()).addSkillName(skill);
 		else if (!castle.isGoodArtifact(target))
-			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.INCORRECT_TARGET);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getINCORRECT_TARGET());
 		else if (!castle.getSiege().isInProgress())
-			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CANNOT_BE_USED()).addSkillName(skill);
 		else if (!MathUtil.INSTANCE.checkIfInRange(200, this, target, true))
-			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.DIST_TOO_FAR_CASTING_STOPPED);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getDIST_TOO_FAR_CASTING_STOPPED());
 		else if (!isInsideZone(ZoneId.CAST_ON_ARTIFACT))
-			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CANNOT_BE_USED()).addSkillName(skill);
 		else if (!castle.getSiege().checkSide(getClan(), SiegeSide.ATTACKER))
-			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill);
+			sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CANNOT_BE_USED()).addSkillName(skill);
 		else
 		{
 			if (!isCheckOnly)
 			{
-				sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.OPPONENT_STARTED_ENGRAVING);
+				sm = SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getOPPONENT_STARTED_ENGRAVING());
 				castle.getSiege().announceToPlayers(sm, false);
 			}
 			return true;
@@ -7131,7 +7131,7 @@ public final class Player extends Playable
 		{
 			removeAutoSoulShot(itemId);
 			sendPacket(new ExAutoSoulShot(itemId, 0));
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.AUTO_USE_OF_S1_CANCELLED).addItemName(itemId));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getAUTO_USE_OF_S1_CANCELLED()).addItemName(itemId));
 			return true;
 		}
 		
@@ -7146,7 +7146,7 @@ public final class Player extends Playable
 		for (int itemId : _activeSoulShots)
 		{
 			sendPacket(new ExAutoSoulShot(itemId, 0));
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.AUTO_USE_OF_S1_CANCELLED).addItemName(itemId));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getAUTO_USE_OF_S1_CANCELLED()).addItemName(itemId));
 		}
 		_activeSoulShots.clear();
 	}
@@ -7502,7 +7502,7 @@ public final class Player extends Playable
 		final SystemMessage sm = SystemMessage.Companion.getSystemMessage(_noDuelReason).addCharName(this);
 		
 		// Reinitialize the reason.
-		_noDuelReason = SystemMessageId.THERE_IS_NO_OPPONENT_TO_RECEIVE_YOUR_CHALLENGE_FOR_A_DUEL;
+		_noDuelReason = SystemMessageId.Companion.getTHERE_IS_NO_OPPONENT_TO_RECEIVE_YOUR_CHALLENGE_FOR_A_DUEL();
 		
 		// Send stored reason.
 		return sm;
@@ -7515,23 +7515,23 @@ public final class Player extends Playable
 	public boolean canDuel()
 	{
 		if (isInCombat() || getPunishLevel() == PunishLevel.JAIL)
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_BATTLE;
+			_noDuelReason = SystemMessageId.Companion.getS1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_BATTLE();
 		else if (isDead() || isAlikeDead() || (getCurrentHp() < getMaxHp() / 2 || getCurrentMp() < getMaxMp() / 2))
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_HP_OR_MP_IS_BELOW_50_PERCENT;
+			_noDuelReason = SystemMessageId.Companion.getS1_CANNOT_DUEL_BECAUSE_S1_HP_OR_MP_IS_BELOW_50_PERCENT();
 		else if (isInDuel())
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_ALREADY_ENGAGED_IN_A_DUEL;
+			_noDuelReason = SystemMessageId.Companion.getS1_CANNOT_DUEL_BECAUSE_S1_IS_ALREADY_ENGAGED_IN_A_DUEL();
 		else if (isInOlympiadMode())
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_PARTICIPATING_IN_THE_OLYMPIAD;
+			_noDuelReason = SystemMessageId.Companion.getS1_CANNOT_DUEL_BECAUSE_S1_IS_PARTICIPATING_IN_THE_OLYMPIAD();
 		else if (isCursedWeaponEquipped() || getKarma() != 0)
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_IN_A_CHAOTIC_STATE;
+			_noDuelReason = SystemMessageId.Companion.getS1_CANNOT_DUEL_BECAUSE_S1_IS_IN_A_CHAOTIC_STATE();
 		else if (isInStoreMode())
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE;
+			_noDuelReason = SystemMessageId.Companion.getS1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE();
 		else if (isMounted() || isInBoat())
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_RIDING_A_BOAT_WYVERN_OR_STRIDER;
+			_noDuelReason = SystemMessageId.Companion.getS1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_RIDING_A_BOAT_WYVERN_OR_STRIDER();
 		else if (isFishing())
-			_noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_FISHING;
+			_noDuelReason = SystemMessageId.Companion.getS1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_FISHING();
 		else if (isInsideZone(ZoneId.PVP) || isInsideZone(ZoneId.PEACE) || isInsideZone(ZoneId.SIEGE))
-			_noDuelReason = SystemMessageId.S1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_S1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA;
+			_noDuelReason = SystemMessageId.Companion.getS1_CANNOT_MAKE_A_CHALLANGE_TO_A_DUEL_BECAUSE_S1_IS_CURRENTLY_IN_A_DUEL_PROHIBITED_AREA();
 		else
 			return true;
 		
@@ -8042,15 +8042,15 @@ public final class Player extends Playable
 		{
 			// Resurrection has already been proposed.
 			if (_revivePet == Pet)
-				Reviver.sendPacket(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED);
+				Reviver.sendPacket(SystemMessageId.Companion.getRES_HAS_ALREADY_BEEN_PROPOSED());
 			else
 			{
 				if (Pet)
 					// A pet cannot be resurrected while it's owner is in the process of resurrecting.
-					Reviver.sendPacket(SystemMessageId.CANNOT_RES_PET2);
+					Reviver.sendPacket(SystemMessageId.Companion.getCANNOT_RES_PET2());
 				else
 					// While a pet is attempting to resurrect, it cannot help in resurrecting its master.
-					Reviver.sendPacket(SystemMessageId.MASTER_CANNOT_RES);
+					Reviver.sendPacket(SystemMessageId.Companion.getMASTER_CANNOT_RES());
 			}
 			return;
 		}
@@ -8070,11 +8070,11 @@ public final class Player extends Playable
 			
 			if (isAffected(L2EffectFlag.CHARM_OF_COURAGE))
 			{
-				sendPacket(new ConfirmDlg(SystemMessageId.DO_YOU_WANT_TO_BE_RESTORED).addTime(60000));
+				sendPacket(new ConfirmDlg(SystemMessageId.Companion.getDO_YOU_WANT_TO_BE_RESTORED()).addTime(60000));
 				return;
 			}
 			
-			sendPacket(new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST_BY_S1).addCharName(Reviver));
+			sendPacket(new ConfirmDlg(SystemMessageId.Companion.getRESSURECTION_REQUEST_BY_S1()).addCharName(Reviver));
 		}
 	}
 	
@@ -8882,7 +8882,7 @@ public final class Player extends Playable
 			
 			addSkill(SkillTable.INSTANCE.getInfo(5076, _deathPenaltyBuffLevel), false);
 			sendPacket(new EtcStatusUpdate(this));
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED).addNumber(_deathPenaltyBuffLevel));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getDEATH_PENALTY_LEVEL_S1_ADDED()).addNumber(_deathPenaltyBuffLevel));
 		}
 	}
 	
@@ -8898,10 +8898,10 @@ public final class Player extends Playable
 		if (_deathPenaltyBuffLevel > 0)
 		{
 			addSkill(SkillTable.INSTANCE.getInfo(5076, _deathPenaltyBuffLevel), false);
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED).addNumber(_deathPenaltyBuffLevel));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getDEATH_PENALTY_LEVEL_S1_ADDED()).addNumber(_deathPenaltyBuffLevel));
 		}
 		else
-			sendPacket(SystemMessageId.DEATH_PENALTY_LIFTED);
+			sendPacket(SystemMessageId.Companion.getDEATH_PENALTY_LIFTED());
 		
 		sendPacket(new EtcStatusUpdate(this));
 	}
@@ -8958,25 +8958,25 @@ public final class Player extends Playable
 		// Check if hit is missed
 		if (miss)
 		{
-			sendPacket(SystemMessageId.MISSED_TARGET);
+			sendPacket(SystemMessageId.Companion.getMISSED_TARGET());
 			return;
 		}
 		
 		// Check if hit is critical
 		if (pcrit)
-			sendPacket(SystemMessageId.CRITICAL_HIT);
+			sendPacket(SystemMessageId.Companion.getCRITICAL_HIT());
 		if (mcrit)
-			sendPacket(SystemMessageId.CRITICAL_HIT_MAGIC);
+			sendPacket(SystemMessageId.Companion.getCRITICAL_HIT_MAGIC());
 		
 		if (target.isInvul())
 		{
 			if (target.isParalyzed())
-				sendPacket(SystemMessageId.OPPONENT_PETRIFIED);
+				sendPacket(SystemMessageId.Companion.getOPPONENT_PETRIFIED());
 			else
-				sendPacket(SystemMessageId.ATTACK_WAS_BLOCKED);
+				sendPacket(SystemMessageId.Companion.getATTACK_WAS_BLOCKED());
 		}
 		else
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.YOU_DID_S1_DMG).addNumber(damage));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getYOU_DID_S1_DMG()).addNumber(damage));
 		
 		if (isInOlympiadMode() && target instanceof Player && ((Player) target).isInOlympiadMode() && ((Player) target).getOlympiadGameId() == getOlympiadGameId())
 			OlympiadGameManager.INSTANCE.notifyCompetitorDamage(this, damage);
@@ -9005,7 +9005,7 @@ public final class Player extends Playable
 			if (_dismountTask == null)
 				_dismountTask = ThreadPool.INSTANCE.schedule(() -> dismount(), 5000);
 			
-			sendPacket(SystemMessageId.AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN);
+			sendPacket(SystemMessageId.Companion.getAREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN());
 		}
 	}
 	
@@ -9054,7 +9054,7 @@ public final class Player extends Playable
 	{
 		if (_charges.get() >= max)
 		{
-			sendPacket(SystemMessageId.FORCE_MAXLEVEL_REACHED);
+			sendPacket(SystemMessageId.Companion.getFORCE_MAXLEVEL_REACHED());
 			return;
 		}
 		
@@ -9063,10 +9063,10 @@ public final class Player extends Playable
 		if (_charges.addAndGet(count) >= max)
 		{
 			_charges.set(max);
-			sendPacket(SystemMessageId.FORCE_MAXLEVEL_REACHED);
+			sendPacket(SystemMessageId.Companion.getFORCE_MAXLEVEL_REACHED());
 		}
 		else
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1).addNumber(_charges.get()));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getFORCE_INCREASED_TO_S1()).addNumber(_charges.get()));
 		
 		sendPacket(new EtcStatusUpdate(this));
 	}
@@ -9188,7 +9188,7 @@ public final class Player extends Playable
 		{
 			if (getInventory().getInventoryItemCount(itemConsumeId, -1) < itemConsumeCount)
 			{
-				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_REQUIRED_FOR_SUMMONING).addItemName(skill.getTargetConsumeId()));
+				sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_REQUIRED_FOR_SUMMONING()).addItemName(skill.getTargetConsumeId()));
 				return;
 			}
 			
@@ -9208,7 +9208,7 @@ public final class Player extends Playable
 		
 		if (isInOlympiadMode() || isInObserverMode() || isInsideZone(ZoneId.NO_SUMMON_FRIEND))
 		{
-			sendPacket(SystemMessageId.YOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION);
+			sendPacket(SystemMessageId.Companion.getYOU_MAY_NOT_SUMMON_FROM_YOUR_CURRENT_LOCATION());
 			return false;
 		}
 		return true;
@@ -9228,37 +9228,37 @@ public final class Player extends Playable
 		
 		if (player.isAlikeDead())
 		{
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED).addCharName(player));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_IS_DEAD_AT_THE_MOMENT_AND_CANNOT_BE_SUMMONED()).addCharName(player));
 			return false;
 		}
 		
 		if (player.isInStoreMode())
 		{
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_CURRENTLY_TRADING_OR_OPERATING_PRIVATE_STORE_AND_CANNOT_BE_SUMMONED).addCharName(player));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_CURRENTLY_TRADING_OR_OPERATING_PRIVATE_STORE_AND_CANNOT_BE_SUMMONED()).addCharName(player));
 			return false;
 		}
 		
 		if (player.isRooted() || player.isInCombat())
 		{
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_IS_ENGAGED_IN_COMBAT_AND_CANNOT_BE_SUMMONED).addCharName(player));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_IS_ENGAGED_IN_COMBAT_AND_CANNOT_BE_SUMMONED()).addCharName(player));
 			return false;
 		}
 		
 		if (player.isInOlympiadMode())
 		{
-			sendPacket(SystemMessageId.YOU_CANNOT_SUMMON_PLAYERS_WHO_ARE_IN_OLYMPIAD);
+			sendPacket(SystemMessageId.Companion.getYOU_CANNOT_SUMMON_PLAYERS_WHO_ARE_IN_OLYMPIAD());
 			return false;
 		}
 		
 		if (player.isFestivalParticipant() || player.isMounted())
 		{
-			sendPacket(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING);
+			sendPacket(SystemMessageId.Companion.getYOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING());
 			return false;
 		}
 		
 		if (player.isInObserverMode() || player.isInsideZone(ZoneId.NO_SUMMON_FRIEND))
 		{
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.S1_IN_SUMMON_BLOCKING_AREA).addCharName(player));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getS1_IN_SUMMON_BLOCKING_AREA()).addCharName(player));
 			return false;
 		}
 		
@@ -9341,7 +9341,7 @@ public final class Player extends Playable
 		if (damage > 0)
 		{
 			reduceCurrentHp(Math.min(damage, getCurrentHp() - 1), null, false, true, null);
-			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FALL_DAMAGE_S1).addNumber(damage));
+			sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getFALL_DAMAGE_S1()).addNumber(damage));
 		}
 		
 		setFalling();
@@ -9433,7 +9433,7 @@ public final class Player extends Playable
 				friend.sendPacket(new FriendList(friend));
 				
 				if (login)
-					friend.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN).addCharName(this));
+					friend.sendPacket(SystemMessage.Companion.getSystemMessage(SystemMessageId.Companion.getFRIEND_S1_HAS_LOGGED_IN()).addCharName(this));
 			}
 		}
 	}
