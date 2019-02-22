@@ -74,8 +74,8 @@ class Q328_SenseForBusiness : Quest(328, "Sense for Business") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerState(player, npc, Quest.STATE_STARTED) ?: return null
 

@@ -101,8 +101,8 @@ class Q633_InTheForgottenVillage : Quest(633, "In the Forgotten Village") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         val npcId = npc.npcId
 
         if (UNDEADS.containsKey(npcId)) {

@@ -546,8 +546,8 @@ class Q220_TestimonyOfGlory : Quest(220, "Testimony Of Glory") {
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerState(player, npc, Quest.STATE_STARTED) ?: return null
 

@@ -40,8 +40,8 @@ class FestivalMonster(objectId: Int, template: NpcTemplate) : Monster(objectId, 
     /**
      * Add a blood offering item to the leader of the party.
      */
-    override fun doItemDrop(template: NpcTemplate, attacker: Creature) {
-        val player = attacker.actingPlayer
+    override fun doItemDrop(template: NpcTemplate, attacker: Creature?) {
+        val player = attacker?.actingPlayer
         if (player == null || !player.isInParty)
             return
 

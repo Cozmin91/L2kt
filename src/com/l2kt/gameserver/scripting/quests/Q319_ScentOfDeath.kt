@@ -52,8 +52,8 @@ class Q319_ScentOfDeath : Quest(319, "Scent of Death") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "1") ?: return null
 

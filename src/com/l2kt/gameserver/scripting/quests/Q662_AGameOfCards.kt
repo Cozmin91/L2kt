@@ -434,8 +434,8 @@ class Q662_AGameOfCards : Quest(662, "A Game Of Cards") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMemberState(player, npc, Quest.STATE_STARTED) ?: return null
 

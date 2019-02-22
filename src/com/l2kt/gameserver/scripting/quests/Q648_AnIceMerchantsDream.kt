@@ -169,8 +169,8 @@ class Q648_AnIceMerchantsDream : Quest(648, "An Ice Merchant's Dream") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMemberState(player, npc, Quest.STATE_STARTED) ?: return null
 

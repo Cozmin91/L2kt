@@ -98,8 +98,8 @@ class Q354_ConquestOfAlligatorIsland : Quest(354, "Conquest of Alligator Island"
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMemberState(player, npc, Quest.STATE_STARTED) ?: return null
 

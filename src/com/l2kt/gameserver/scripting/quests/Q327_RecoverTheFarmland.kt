@@ -234,8 +234,8 @@ class Q327_RecoverTheFarmland : Quest(327, "Recover the Farmland") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerState(player, npc, Quest.STATE_STARTED) ?: return null
 

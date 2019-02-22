@@ -63,8 +63,8 @@ class Q316_DestroyPlagueCarriers : Quest(316, "Destroy Plague Carriers") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerState(player, npc, Quest.STATE_STARTED) ?: return null
 

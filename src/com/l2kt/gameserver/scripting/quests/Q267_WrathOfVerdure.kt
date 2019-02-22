@@ -59,8 +59,8 @@ class Q267_WrathOfVerdure : Quest(267, "Wrath of Verdure") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerState(player, npc, Quest.STATE_STARTED) ?: return null
 

@@ -67,8 +67,8 @@ class Q376_ExplorationOfTheGiantsCave_Part1 : Quest(376, "Exploration of the Gia
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         // Drop parchment to anyone
         var st: QuestState? = getRandomPartyMemberState(player, npc, Quest.STATE_STARTED) ?: return null

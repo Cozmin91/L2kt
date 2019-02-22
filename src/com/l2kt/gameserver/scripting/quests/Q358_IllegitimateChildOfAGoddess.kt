@@ -51,8 +51,8 @@ class Q358_IllegitimateChildOfAGoddess : Quest(358, "Illegitimate Child of a God
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "1") ?: return null
 

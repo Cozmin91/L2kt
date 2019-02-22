@@ -68,8 +68,8 @@ class Q266_PleasOfPixies : Quest(266, "Pleas of Pixies") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "1") ?: return null
 

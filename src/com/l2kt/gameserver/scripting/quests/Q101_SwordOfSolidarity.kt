@@ -116,8 +116,8 @@ class Q101_SwordOfSolidarity : Quest(101, "Sword of Solidarity") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "2") ?: return null
 

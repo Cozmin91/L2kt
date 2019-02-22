@@ -89,8 +89,8 @@ class Q374_WhisperOfDreams_Part1 : Quest(374, "Whisper of Dreams, Part 1") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         // Drop tooth or light to anyone.
         var st: QuestState? = getRandomPartyMemberState(player, npc, Quest.STATE_STARTED) ?: return null

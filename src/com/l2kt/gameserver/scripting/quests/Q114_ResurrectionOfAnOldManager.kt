@@ -339,8 +339,8 @@ class Q114_ResurrectionOfAnOldManager : Quest(114, "Resurrection of an Old Manag
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "10") ?: return null
 

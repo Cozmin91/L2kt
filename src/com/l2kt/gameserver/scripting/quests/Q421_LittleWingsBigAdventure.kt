@@ -204,11 +204,11 @@ class Q421_LittleWingsBigAdventure : Quest(421, "Little Wing's Big Adventure") {
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         // Tree curses the killer.
         if (Rnd[100] < 30) {
             val skill = SkillTable.getInfo(4243, 1)
-            if (skill != null && killer.getFirstEffect(skill) == null)
+            if (skill != null && killer?.getFirstEffect(skill) == null)
                 skill.getEffects(npc, killer)
         }
 

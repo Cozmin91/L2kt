@@ -50,8 +50,8 @@ class Q634_InSearchOfFragmentsOfDimension : Quest(634, "In Search of Fragments o
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMemberState(player, npc, Quest.STATE_STARTED) ?: return null
 

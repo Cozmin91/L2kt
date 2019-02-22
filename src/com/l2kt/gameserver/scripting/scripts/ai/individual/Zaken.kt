@@ -355,7 +355,7 @@ class Zaken : L2AttackableAIScript("ai/individual") {
         return super.onFactionCall(npc, caller, attacker, isPet)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         if (npc.npcId == ZAKEN) {
             // Broadcast death sound.
             npc.broadcastPacket(PlaySound(1, "BS02_D", npc))

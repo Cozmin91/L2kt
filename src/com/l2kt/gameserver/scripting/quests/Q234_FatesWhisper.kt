@@ -256,7 +256,7 @@ class Q234_FatesWhisper : Quest(234, "Fate's Whispers") {
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         addSpawn(CHEST_SPAWN[npc.npcId] ?: -1, npc, true, 120000, false)
 
         return null

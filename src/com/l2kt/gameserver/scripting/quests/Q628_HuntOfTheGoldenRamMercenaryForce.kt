@@ -100,8 +100,8 @@ class Q628_HuntOfTheGoldenRamMercenaryForce : Quest(628, "Hunt of the Golden Ram
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMemberState(player, npc, Quest.STATE_STARTED) ?: return null
 

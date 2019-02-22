@@ -66,8 +66,8 @@ class Q298_LizardmensConspiracy : Quest(298, "Lizardmen's Conspiracy") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMember(player!!, npc, "2") ?: return null
 

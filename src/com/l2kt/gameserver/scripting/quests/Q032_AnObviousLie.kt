@@ -138,8 +138,8 @@ class Q032_AnObviousLie : Quest(32, "An Obvious Lie") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "3") ?: return null
 

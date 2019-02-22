@@ -106,8 +106,8 @@ class Q246_PossessorOfAPreciousSoul : Quest(246, "Possessor of a Precious Soul -
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         val npcId = npc.npcId
 
         if (npcId == BARAKIEL) {

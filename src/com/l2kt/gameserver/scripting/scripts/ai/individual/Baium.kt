@@ -249,7 +249,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
         return super.onAttack(npc, attacker, damage, skill)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         cancelQuestTimer("baium_despawn", npc, null)
         npc.broadcastPacket(PlaySound(1, "BS01_D", npc))
 

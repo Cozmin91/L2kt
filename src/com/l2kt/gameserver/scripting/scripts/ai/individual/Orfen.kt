@@ -168,7 +168,7 @@ class Orfen : L2AttackableAIScript("ai/individual") {
         return super.onAttack(npc, attacker, damage, skill)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         npc.broadcastPacket(PlaySound(1, "BS02_D", npc))
         GrandBossManager.setBossStatus(ORFEN, DEAD.toInt())
 

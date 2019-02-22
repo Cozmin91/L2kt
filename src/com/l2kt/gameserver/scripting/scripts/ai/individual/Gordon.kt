@@ -70,7 +70,7 @@ class Gordon : L2AttackableAIScript("ai/individual") {
         return super.onSpawn(npc)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         cancelQuestTimer("ai_loop", npc, null)
 
         return super.onKill(npc, killer)

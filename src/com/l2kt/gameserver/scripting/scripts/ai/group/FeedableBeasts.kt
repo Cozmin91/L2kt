@@ -399,7 +399,7 @@ class FeedableBeasts : L2AttackableAIScript("ai/group") {
         return super.onSkillSee(npc, caster, skill, targets, isPet)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         // Remove the feedinfo of the mob that got killed, if any
         FEED_INFO.remove(npc.objectId)
 

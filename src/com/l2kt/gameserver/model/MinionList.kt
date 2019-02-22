@@ -38,7 +38,7 @@ class MinionList(private val _master: Monster) {
 
             for (i in 0 until data.amount) {
                 val minion = Monster(IdFactory.getInstance().nextId, template)
-                minion.master = _master
+                minion.setMaster(_master)
                 minion.isMinion = _master.isRaidBoss
 
                 initializeNpcInstance(_master, minion)
@@ -61,7 +61,7 @@ class MinionList(private val _master: Monster) {
         } else {
             // For all minions, remove leader reference.
             for (minion in _minions.keys)
-                minion.master = null
+                minion.setMaster(null)
         }
 
         // Cleanup the entire MinionList.
@@ -74,7 +74,7 @@ class MinionList(private val _master: Monster) {
     fun onMasterDeletion() {
         // For all minions, delete them and remove leader reference.
         for (minion in _minions.keys) {
-            minion.master = null
+            minion.setMaster(null)
             minion.deleteMe()
         }
 
@@ -88,7 +88,7 @@ class MinionList(private val _master: Monster) {
      */
     fun onMinionDeletion(minion: Monster) {
         // Keep it to avoid OOME.
-        minion.master = null
+        minion.setMaster(null)
 
         // Cleanup the map form this reference.
         _minions.remove(minion)

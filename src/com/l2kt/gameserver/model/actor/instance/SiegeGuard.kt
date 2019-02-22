@@ -81,11 +81,9 @@ class SiegeGuard(objectId: Int, template: NpcTemplate) : Attackable(objectId, te
             super.addDamageHate(attacker, damage, aggro)
     }
 
-    override fun isGuard(): Boolean {
-        return true
-    }
+    override val isGuard: Boolean
+        get() = true
 
-    override fun getDriftRange(): Int {
-        return 20
-    }
+    override val driftRange: Int
+        get() = 20
 }

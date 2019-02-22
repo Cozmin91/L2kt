@@ -54,8 +54,8 @@ class Q052_WilliesSpecialBait : Quest(52, "Willie's Special Bait") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "1") ?: return null
 

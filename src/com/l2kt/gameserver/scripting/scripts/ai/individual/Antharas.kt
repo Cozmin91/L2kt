@@ -212,7 +212,7 @@ class Antharas : L2AttackableAIScript("ai/individual") {
         return super.onAttack(npc, attacker, damage, skill)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         if (npc.npcId == _antharasId) {
             // Drop tasks.
             dropTimers(npc)

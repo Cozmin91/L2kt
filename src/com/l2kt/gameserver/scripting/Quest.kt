@@ -892,7 +892,7 @@ open class Quest
             addEventId(killId, EventType.ON_KILL)
     }
 
-    fun notifyKill(npc: Npc, killer: Creature) {
+    fun notifyKill(npc: Npc, killer: Creature?) {
         var res: String? = null
         try {
             res = onKill(npc, killer)
@@ -904,7 +904,7 @@ open class Quest
         showResult(npc, killer, res)
     }
 
-    open fun onKill(npc: Npc, killer: Creature): String? {
+    open fun onKill(npc: Npc, killer: Creature?): String? {
         return null
     }
 

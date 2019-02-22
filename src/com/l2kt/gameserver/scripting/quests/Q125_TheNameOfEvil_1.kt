@@ -134,8 +134,8 @@ class Q125_TheNameOfEvil_1 : Quest(125, "The Name of Evil - 1") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "3") ?: return null
 

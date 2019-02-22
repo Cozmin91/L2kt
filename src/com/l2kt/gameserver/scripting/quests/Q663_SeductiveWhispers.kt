@@ -336,8 +336,8 @@ class Q663_SeductiveWhispers : Quest(663, "Seductive Whispers") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         val st = getRandomPartyMemberState(player, npc, Quest.STATE_STARTED) ?: return null
 
         val chance = CHANCES[npc.npcId] ?: 0

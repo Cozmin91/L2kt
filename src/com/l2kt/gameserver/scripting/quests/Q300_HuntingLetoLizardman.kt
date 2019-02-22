@@ -77,8 +77,8 @@ class Q300_HuntingLetoLizardman : Quest(300, "Hunting Leto Lizardman") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMember(player!!, npc, "1") ?: return null
 

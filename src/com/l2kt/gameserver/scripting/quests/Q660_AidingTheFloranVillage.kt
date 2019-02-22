@@ -148,8 +148,8 @@ class Q660_AidingTheFloranVillage : Quest(660, "Aiding the Floran Village") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMember(player!!, npc, "2") ?: return null
 

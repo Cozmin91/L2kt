@@ -79,8 +79,8 @@ class Q646_SignsOfRevolt : Quest(646, "Signs Of Revolt") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMember(player!!, npc, "1") ?: return null
 

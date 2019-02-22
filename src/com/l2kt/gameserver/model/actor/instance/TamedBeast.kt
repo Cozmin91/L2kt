@@ -47,7 +47,7 @@ class TamedBeast(
         spawnMe(loc)
     }
 
-    override fun doDie(killer: Creature): Boolean {
+    override fun doDie(killer: Creature?): Boolean {
         if (!super.doDie(killer))
             return false
 

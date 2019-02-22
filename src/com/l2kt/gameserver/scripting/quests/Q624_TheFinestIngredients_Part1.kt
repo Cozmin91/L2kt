@@ -72,8 +72,8 @@ class Q624_TheFinestIngredients_Part1 : Quest(624, "The Finest Ingredients - Par
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMember(player!!, npc, "1") ?: return null
 

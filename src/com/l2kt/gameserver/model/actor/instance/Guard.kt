@@ -84,11 +84,9 @@ class Guard(objectId: Int, template: NpcTemplate) : Attackable(objectId, templat
         }
     }
 
-    override fun isGuard(): Boolean {
-        return true
-    }
+    override val isGuard: Boolean
+        get() = true
 
-    override fun getDriftRange(): Int {
-        return 20
-    }
+    override val driftRange: Int
+        get() = 20
 }

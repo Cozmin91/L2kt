@@ -102,8 +102,8 @@ class Q347_GoGetTheCalculator : Quest(347, "Go Get the Calculator") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "5") ?: return null
 

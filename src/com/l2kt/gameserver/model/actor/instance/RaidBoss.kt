@@ -88,7 +88,7 @@ class RaidBoss(objectId: Int, template: NpcTemplate) : Monster(objectId, templat
         }
 
         if (killer != null) {
-            val player = killer.actingPlayer
+            val player = killer?.actingPlayer
             if (player != null) {
                 broadcastPacket(SystemMessage.getSystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL))
                 broadcastPacket(PlaySound("systemmsg_e.1209"))

@@ -62,7 +62,7 @@ open class Monster(objectId: Int, template: NpcTemplate) : Attackable(objectId, 
         return _master
     }
 
-    fun setMaster(master: Monster?) {
+    fun setMaster(master: Monster?){
         _master = master
     }
 

@@ -64,8 +64,8 @@ class Q608_SlayTheEnemyCommander : Quest(608, "Slay the enemy commander!") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         if (player != null) {
             for (st in getPartyMembers(player, npc, "cond", "1")) {
                 if (st.player.allianceWithVarkaKetra >= 4 && st.hasQuestItems(KETRA_ALLIANCE_4)) {

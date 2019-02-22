@@ -175,7 +175,7 @@ class QueenAnt : L2AttackableAIScript("ai/individual") {
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         if (npc.npcId == QUEEN) {
             // Broadcast death sound.
             npc.broadcastPacket(PlaySound(1, "BS02_D", npc))
@@ -202,7 +202,7 @@ class QueenAnt : L2AttackableAIScript("ai/individual") {
         } else {
             // Set the respawn time of Royal Guards and Nurses. Pick the npc master.
             val minion = npc as Monster
-            val master = minion.master
+            val master = minion.getMaster()
 
             if (master != null && master.hasMinions())
                 master.minionList.onMinionDie(minion, if (npc.getNpcId() == NURSE) 10000 else 280000 + Rnd[40] * 1000)

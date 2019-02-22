@@ -184,7 +184,7 @@ class Benom : L2AttackableAIScript("ai/individual") {
         return super.onAttack(npc, attacker, damage, skill)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         npc.broadcastNpcSay("It's not over yet... It won't be... over... like this... Never...")
         cancelQuestTimer("raid_check", npc, null)
 

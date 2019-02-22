@@ -114,8 +114,8 @@ class Q034_InSearchOfCloth : Quest(34, "In Search of Cloth") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "4") ?: return null
 

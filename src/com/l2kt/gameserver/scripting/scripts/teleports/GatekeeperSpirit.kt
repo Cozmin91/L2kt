@@ -47,7 +47,7 @@ class GatekeeperSpirit : Quest(-1, "teleports") {
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         when (npc.npcId) {
             LILITH -> startQuestTimer("lilith_exit", 10000, null, null, false)
 

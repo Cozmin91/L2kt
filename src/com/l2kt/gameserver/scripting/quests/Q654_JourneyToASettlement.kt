@@ -62,8 +62,8 @@ class Q654_JourneyToASettlement : Quest(654, "Journey to a Settlement") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "2") ?: return null
 

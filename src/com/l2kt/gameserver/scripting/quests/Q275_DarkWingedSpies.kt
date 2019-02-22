@@ -60,8 +60,8 @@ class Q275_DarkWingedSpies : Quest(275, "Dark Winged Spies") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "1") ?: return null
 

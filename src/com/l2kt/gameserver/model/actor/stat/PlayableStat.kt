@@ -46,11 +46,10 @@ open class PlayableStat(activeChar: Playable) : CreatureStat(activeChar) {
 
             level--
             break
-            level++
         }
 
-        if (level != level)
-            addLevel((level - level).toByte())
+        if (level != this.level)
+            addLevel((level - this.level).toByte())
 
         return true
     }
@@ -73,8 +72,8 @@ open class PlayableStat(activeChar: Playable) : CreatureStat(activeChar) {
             break
         }
 
-        if (level != level)
-            addLevel((level - level).toByte())
+        if (level != this.level)
+            addLevel((level - this.level).toByte())
 
         return true
     }

@@ -582,8 +582,8 @@ open class SagasSuperClass : Quest {
         return super.onSkillSee(npc, player, skill, targets, isPet)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         if (player == null)
             return super.onKill(npc, player!!)
 

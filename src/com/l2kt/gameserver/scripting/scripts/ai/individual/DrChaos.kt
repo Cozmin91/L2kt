@@ -175,7 +175,7 @@ class DrChaos : L2AttackableAIScript("ai/individual") {
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         cancelQuestTimer("golem_despawn", npc, null)
         npc.broadcastNpcSay("Urggh! You will pay dearly for this insult.")
 

@@ -125,8 +125,8 @@ class Q616_MagicalPowerOfFire_Part2 : Quest(616, "Magical Power of Fire - Part 2
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         if (player != null) {
             for (st in getPartyMembers(player, npc, "cond", "2")) {
                 st["cond"] = "3"

@@ -28,11 +28,11 @@ class GrandBoss
         super.onSpawn()
     }
 
-    override fun doDie(killer: Creature): Boolean {
+    override fun doDie(killer: Creature?): Boolean {
         if (!super.doDie(killer))
             return false
 
-        val player = killer.actingPlayer
+        val player = killer?.actingPlayer
         if (player != null) {
             broadcastPacket(SystemMessage.getSystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL))
             broadcastPacket(PlaySound("systemmsg_e.1209"))

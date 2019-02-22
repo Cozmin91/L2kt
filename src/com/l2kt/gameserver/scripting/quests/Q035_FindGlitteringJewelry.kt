@@ -93,8 +93,8 @@ class Q035_FindGlitteringJewelry : Quest(35, "Find Glittering Jewelry") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "2") ?: return null
 

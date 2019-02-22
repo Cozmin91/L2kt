@@ -84,8 +84,8 @@ class Q380_BringOutTheFlavorOfIngredients : Quest(380, "Bring Out the Flavor of 
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "1") ?: return null
 

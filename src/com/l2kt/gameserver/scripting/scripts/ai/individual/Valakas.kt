@@ -218,7 +218,7 @@ class Valakas : L2AttackableAIScript("ai/individual") {
         return super.onAttack(npc, attacker, damage, skill)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         // Cancel skill_task and regen_task.
         cancelQuestTimer("regen_task", npc, null)
         cancelQuestTimer("skill_task", npc, null)

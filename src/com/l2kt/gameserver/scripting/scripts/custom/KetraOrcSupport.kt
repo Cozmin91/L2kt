@@ -140,8 +140,8 @@ class KetraOrcSupport : Quest(-1, "custom") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         if (player != null) {
             val party = player.party
             if (party != null) {

@@ -132,8 +132,8 @@ class Q603_DaimonTheWhiteEyed_Part1 : Quest(603, "Daimon the White-Eyed - Part 1
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMember(player!!, npc, "7") ?: return null
 

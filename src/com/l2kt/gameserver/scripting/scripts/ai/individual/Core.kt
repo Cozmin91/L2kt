@@ -115,7 +115,7 @@ class Core : L2AttackableAIScript("ai/individual") {
         return super.onAttack(npc, attacker, damage, skill)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         if (npc.npcId == CORE) {
             npc.broadcastPacket(PlaySound(1, "BS02_D", npc))
             npc.broadcastNpcSay("A fatal error has occurred.")

@@ -9,10 +9,8 @@ import com.l2kt.gameserver.model.actor.template.NpcTemplate
 class PenaltyMonster(objectId: Int, template: NpcTemplate) : Monster(objectId, template) {
     private var _ptk: Player? = null
 
-    override fun getMostHated(): Creature? {
-        return if (_ptk != null) _ptk else super.getMostHated() // always attack only one person
-
-    }
+    override val mostHated: Creature?
+        get() = if (_ptk != null) _ptk else super.mostHated // always attack only one person
 
     fun setPlayerToKill(ptk: Player) {
         if (Rnd[100] <= 80)
@@ -23,7 +21,7 @@ class PenaltyMonster(objectId: Int, template: NpcTemplate) : Monster(objectId, t
         ai.notifyEvent(CtrlEvent.EVT_AGGRESSION, _ptk, Rnd[1, 100])
     }
 
-    override fun doDie(killer: Creature): Boolean {
+    override fun doDie(killer: Creature?): Boolean {
         if (!super.doDie(killer))
             return false
 

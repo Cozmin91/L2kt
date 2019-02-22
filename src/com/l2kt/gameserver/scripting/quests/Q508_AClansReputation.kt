@@ -104,8 +104,8 @@ class Q508_AClansReputation : Quest(508, "A Clan's Reputation") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         // Retrieve the qS of the clan leader.
         val st = getClanLeaderQuestState(player, npc)

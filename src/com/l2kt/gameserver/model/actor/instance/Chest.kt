@@ -38,7 +38,7 @@ class Chest(objectId: Int, template: NpcTemplate) : Monster(objectId, template) 
         isSpecialDrop = true
     }
 
-    override fun doItemDrop(npcTemplate: NpcTemplate, lastAttacker: Creature) {
+    override fun doItemDrop(npcTemplate: NpcTemplate, lastAttacker: Creature?) {
         var id = template.npcId
 
         if (!isSpecialDrop) {
@@ -58,14 +58,14 @@ class Chest(objectId: Int, template: NpcTemplate) : Monster(objectId, template) 
                 id = 21786
         }
 
-        super.doItemDrop(NpcData.getTemplate(id), lastAttacker)
+        super.doItemDrop(NpcData.getTemplate(id)!!, lastAttacker)
     }
 
     override fun isMovementDisabled(): Boolean {
         if (super.isMovementDisabled())
             return true
 
-        return if (isInteracted) false else true
+        return !isInteracted
 
     }
 

@@ -196,8 +196,8 @@ class Q108_JumbleTumbleDiamondFuss : Quest(108, "Jumble, Tumble, Diamond Fuss") 
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerState(player, npc, Quest.STATE_STARTED) ?: return null
 

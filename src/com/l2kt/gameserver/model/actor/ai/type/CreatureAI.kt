@@ -432,7 +432,7 @@ open class CreatureAI(character: Creature) : AbstractAI(character) {
             return
 
         if (actor is Attackable)
-            actor.setIsReturningToSpawnPoint(false)
+            actor.isReturningToSpawnPoint = false
 
         clientStoppedMoving()
 

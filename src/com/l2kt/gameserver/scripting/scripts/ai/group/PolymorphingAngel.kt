@@ -16,7 +16,7 @@ class PolymorphingAngel : L2AttackableAIScript("ai/group") {
         addEventIds(ANGELSPAWNS.keys, EventType.ON_KILL)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         val newNpc = addSpawn(ANGELSPAWNS[npc.npcId]!!, npc, false, 0, false) as Attackable
         attack(newNpc, killer)
 

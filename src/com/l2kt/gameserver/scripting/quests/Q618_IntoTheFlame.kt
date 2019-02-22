@@ -70,8 +70,8 @@ class Q618_IntoTheFlame : Quest(618, "Into The Flame") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMember(player ?: return null, npc, "2") ?: return null
 

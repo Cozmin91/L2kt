@@ -106,8 +106,8 @@ class Q299_GatherIngredientsForPie : Quest(299, "Gather Ingredients for Pie") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMember(player!!, npc, "1") ?: return null
 

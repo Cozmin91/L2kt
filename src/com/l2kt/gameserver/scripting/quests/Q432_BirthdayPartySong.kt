@@ -54,8 +54,8 @@ class Q432_BirthdayPartySong : Quest(432, "Birthday Party Song") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = getRandomPartyMember(player!!, npc, "1") ?: return null
 

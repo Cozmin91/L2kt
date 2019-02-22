@@ -89,8 +89,8 @@ class Q039_RedEyedInvaders : Quest(39, "Red-Eyed Invaders") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         val npcId = npc.npcId
 
         var st = getRandomPartyMember(player!!, npc, "2")

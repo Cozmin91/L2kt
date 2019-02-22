@@ -99,8 +99,8 @@ class Q350_EnhanceYourWeapon : Quest(350, "Enhance Your Weapon") {
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer ?: return null
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer ?: return null
 
         // Retrieve individual mob informations.
         val npcInfo = SoulCrystalData.levelingInfos[npc.npcId] ?: return null

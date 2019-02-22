@@ -126,8 +126,8 @@ class Q604_DaimonTheWhiteEyed_Part2 : Quest(604, "Daimon The White-Eyed - Part 2
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         if (player != null) {
             for (st in getPartyMembers(player, npc, "cond", "2")) {
                 st["cond"] = "3"

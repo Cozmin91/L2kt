@@ -327,7 +327,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
             return
 
         // Minions following leader
-        val master = npc.master
+        val master = npc.getMaster()
         if (master != null && !master.isAlikeDead) {
             if (!npc.isCastingNow) {
                 val offset = (100.0 + npc.collisionRadius + master.collisionRadius).toInt()
@@ -470,7 +470,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
             defaultList = npc.template.getSkills(SkillType.HEAL)
             if (!defaultList.isEmpty()) {
                 // First priority is to heal the master.
-                val master = npc.master
+                val master = npc.getMaster()
                 if (master != null && !master.isDead && master.currentHp / master.maxHp < 0.75) {
                     for (sk in defaultList) {
                         if (sk.targetType == L2Skill.SkillTargetType.TARGET_SELF)
@@ -739,7 +739,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
             L2SkillType.HEAL, L2SkillType.HOT, L2SkillType.HEAL_PERCENT, L2SkillType.HEAL_STATIC, L2SkillType.BALANCE_LIFE -> {
                 // Minion case.
                 if (sk.targetType != L2Skill.SkillTargetType.TARGET_SELF) {
-                    val master = caster.master
+                    val master = caster.getMaster()
                     if (master != null && !master.isDead && Rnd[100] > master.currentHp / master.maxHp * 100) {
                         val overallRange =
                             (sk.castRange.toDouble() + caster.collisionRadius + master.collisionRadius).toInt()
@@ -1208,7 +1208,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
             if (master!!.hasMinions())
                 master.minionList.onAssist(me, attacker)
             else {
-                master = master.master
+                master = master.getMaster()
                 if (master != null && master.hasMinions())
                     master.minionList.onAssist(me, attacker)
             }
@@ -1287,7 +1287,7 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
             if (master!!.hasMinions())
                 master.minionList.onAssist(me, target)
             else {
-                master = master.master
+                master = master.getMaster()
                 if (master != null && master.hasMinions())
                     master.minionList.onAssist(me, target)
             }

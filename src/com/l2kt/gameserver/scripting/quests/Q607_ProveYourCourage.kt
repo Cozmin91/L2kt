@@ -63,8 +63,8 @@ class Q607_ProveYourCourage : Quest(607, "Prove your courage!") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         if (player != null) {
             for (st in getPartyMembers(player, npc, "cond", "1")) {
                 if (st.player.allianceWithVarkaKetra >= 3 && st.hasQuestItems(KETRA_ALLIANCE_3)) {

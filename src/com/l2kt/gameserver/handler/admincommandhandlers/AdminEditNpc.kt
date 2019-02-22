@@ -38,7 +38,7 @@ class AdminEditNpc : IAdminCommandHandler {
             val sb = StringBuilder()
 
             // Monster is a minion, deliver boss state.
-            val master = target.master
+            val master = target.getMaster()
             if (master != null) {
                 html.replace("%type%", "minion")
                 StringUtil.append(

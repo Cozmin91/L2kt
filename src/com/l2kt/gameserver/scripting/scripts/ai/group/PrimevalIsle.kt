@@ -73,7 +73,7 @@ class PrimevalIsle : L2AttackableAIScript("ai/group") {
         return super.onAggro(npc, player, isPet)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         if (getQuestTimer("skill", npc, null) != null)
             cancelQuestTimer("skill", npc, null)
 

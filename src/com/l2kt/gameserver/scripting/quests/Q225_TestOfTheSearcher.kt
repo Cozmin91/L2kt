@@ -283,8 +283,8 @@ class Q225_TestOfTheSearcher : Quest(225, "Test of the Searcher") {
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st: QuestState?
 

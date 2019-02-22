@@ -75,7 +75,7 @@ class FourSepulchers : L2AttackableAIScript("ai/group") {
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         when (npc.npcId) {
             18120, 18121, 18122, 18123, 18124, 18125, 18126, 18127, 18128, 18129, 18130, 18131, 18149, 18158, 18159, 18160, 18161, 18162, 18163, 18164, 18165, 18183, 18184, 18212, 18213, 18214, 18215, 18216, 18217, 18218, 18219 -> FourSepulchersManager.spawnKeyBox(
                 npc
@@ -106,7 +106,7 @@ class FourSepulchers : L2AttackableAIScript("ai/group") {
                     25349 -> cupId = 7259
                 }
 
-                val player = killer.actingPlayer
+                val player = killer?.actingPlayer
                 if (player != null) {
                     val party = killer.party
                     if (party != null) {

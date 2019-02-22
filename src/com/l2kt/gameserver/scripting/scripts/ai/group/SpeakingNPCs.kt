@@ -40,7 +40,7 @@ class SpeakingNPCs : L2AttackableAIScript("ai/group") {
         return super.onAttack(npc, attacker, damage, skill)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         var message = ""
 
         when (npc.npcId) {

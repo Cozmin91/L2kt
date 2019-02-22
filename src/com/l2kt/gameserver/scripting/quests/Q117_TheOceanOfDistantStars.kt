@@ -120,8 +120,8 @@ class Q117_TheOceanOfDistantStars : Quest(117, "The Ocean of Distant Stars") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         val st = checkPlayerCondition(player, npc, "cond", "7") ?: return null
 

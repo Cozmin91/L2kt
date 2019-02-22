@@ -120,8 +120,8 @@ class Q610_MagicalPowerOfWater_Part2 : Quest(610, "Magical Power of Water - Part
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         if (player != null) {
             for (st in getPartyMembers(player, npc, "cond", "2")) {
                 st["cond"] = "3"

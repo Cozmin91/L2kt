@@ -122,8 +122,8 @@ class Q625_TheFinestIngredients_Part2 : Quest(625, "The Finest Ingredients - Par
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
         if (player != null) {
             for (st in getPartyMembers(player, npc, "cond", "2")) {
                 st["cond"] = "3"

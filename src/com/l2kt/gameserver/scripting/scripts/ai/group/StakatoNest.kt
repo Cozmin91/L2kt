@@ -63,7 +63,7 @@ class StakatoNest : L2AttackableAIScript("ai/group") {
         return super.onAttack(npc, attacker, damage, skill)
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         when (npc.npcId) {
             MALE_SPIKED_STAKATO_1 -> for (angryFemale in npc.getKnownTypeInRadius(Monster::class.java, 400)) {
                 if (angryFemale.npcId == FEMALE_SPIKED_STAKATO && !angryFemale.isDead) {

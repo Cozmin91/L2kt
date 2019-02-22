@@ -133,9 +133,9 @@ open class L2AttackableAIScript : Quest {
         return null
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
+    override fun onKill(npc: Npc, killer: Creature?): String? {
         if (npc is Monster) {
-            val master = npc.master
+            val master = npc.getMaster()
 
             master?.minionList?.onMinionDie(
                 npc,

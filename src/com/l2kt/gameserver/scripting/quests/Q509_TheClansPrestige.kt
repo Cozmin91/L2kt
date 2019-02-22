@@ -90,8 +90,8 @@ class Q509_TheClansPrestige : Quest(509, "The Clan's Prestige") {
         return htmltext
     }
 
-    override fun onKill(npc: Npc, killer: Creature): String? {
-        val player = killer.actingPlayer
+    override fun onKill(npc: Npc, killer: Creature?): String? {
+        val player = killer?.actingPlayer
 
         // Retrieve the qS of the clan leader.
         val st = getClanLeaderQuestState(player, npc)

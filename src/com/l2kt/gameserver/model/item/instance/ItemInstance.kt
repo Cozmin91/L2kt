@@ -719,7 +719,7 @@ class ItemInstance : WorldObject, Runnable, Comparable<ItemInstance> {
 
     inner class ItemDropTask(
         private val _itm: ItemInstance,
-        private val _dropper: Creature?,
+        private val _dropper: Creature,
         private var _x: Int,
         private var _y: Int,
         private var _z: Int
@@ -735,10 +735,10 @@ class ItemInstance : WorldObject, Runnable, Comparable<ItemInstance> {
                 _z = dropDest.z
             }
 
-            _itm.setDropperObjectId(_dropper?.objectId ?: 0) // Set the dropper Id for the knownlist packets in sendInfo
+            _itm.setDropperObjectId(_dropper.objectId) // Set the dropper Id for the knownlist packets in sendInfo
             _itm.spawnMe(_x, _y, _z)
 
-            ItemsOnGroundTaskManager.add(_itm, _dropper!!)
+            ItemsOnGroundTaskManager.add(_itm, _dropper)
 
             _itm.setDropperObjectId(0) // Set the dropper Id back to 0 so it no longer shows the drop packet
         }
