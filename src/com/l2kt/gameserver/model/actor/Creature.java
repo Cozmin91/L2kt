@@ -1405,7 +1405,7 @@ public abstract class Creature extends WorldObject
 		
 		setIsDead(false);
 		
-		_status.setCurrentHp(getMaxHp() * Config.RESPAWN_RESTORE_HP);
+		_status.setCurrentHp(getMaxHp() * Config.INSTANCE.getRESPAWN_RESTORE_HP());
 		
 		// Start broadcast status
 		broadcastPacket(new Revive(this));
@@ -3604,7 +3604,7 @@ public abstract class Creature extends WorldObject
 		sendDamageMessage(target, damage, false, crit, miss);
 		
 		// Character will be petrified if attacking a raid related object that's more than 8 levels lower
-		if (!Config.RAID_DISABLE_CURSE && target.isRaidRelated() && getLevel() > target.getLevel() + 8)
+		if (!Config.INSTANCE.getRAID_DISABLE_CURSE() && target.isRaidRelated() && getLevel() > target.getLevel() + 8)
 		{
 			final L2Skill skill = SkillTable.FrequentSkill.RAID_CURSE2.getSkill();
 			if (skill != null)
@@ -3831,7 +3831,7 @@ public abstract class Creature extends WorldObject
 		if (attacker.getActingPlayer() != null && attacker.getActingPlayer().getAccessLevel().allowPeaceAttack())
 			return false;
 		
-		if (Config.KARMA_PLAYER_CAN_BE_KILLED_IN_PZ && target.getActingPlayer() != null && target.getActingPlayer().getKarma() > 0)
+		if (Config.INSTANCE.getKARMA_PLAYER_CAN_BE_KILLED_IN_PZ() && target.getActingPlayer() != null && target.getActingPlayer().getKarma() > 0)
 			return false;
 		
 		if (target instanceof Creature)
@@ -4415,7 +4415,7 @@ public abstract class Creature extends WorldObject
 				if (this instanceof Playable)
 				{
 					// Raidboss curse.
-					if (!Config.RAID_DISABLE_CURSE)
+					if (!Config.INSTANCE.getRAID_DISABLE_CURSE())
 					{
 						boolean isVictimTargetBoss = false;
 						
@@ -4931,8 +4931,8 @@ public abstract class Creature extends WorldObject
 	
 	public void reduceCurrentHp(double i, Creature attacker, boolean awake, boolean isDOT, L2Skill skill)
 	{
-		if (isChampion() && Config.CHAMPION_HP != 0)
-			getStatus().reduceHp(i / Config.CHAMPION_HP, attacker, awake, isDOT, false);
+		if (isChampion() && Config.INSTANCE.getCHAMPION_HP() != 0)
+			getStatus().reduceHp(i / Config.INSTANCE.getCHAMPION_HP(), attacker, awake, isDOT, false);
 		else
 			getStatus().reduceHp(i, attacker, awake, isDOT, false);
 	}
@@ -5056,7 +5056,7 @@ public abstract class Creature extends WorldObject
 	 */
 	public int getMaxBuffCount()
 	{
-		return Config.MAX_BUFFS_AMOUNT + getSkillLevel(L2Skill.SKILL_DIVINE_INSPIRATION);
+		return Config.INSTANCE.getMAX_BUFFS_AMOUNT() + getSkillLevel(L2Skill.SKILL_DIVINE_INSPIRATION);
 	}
 	
 	/**

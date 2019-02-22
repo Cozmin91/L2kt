@@ -764,7 +764,7 @@ public abstract class Summon extends Playable
 		super.onSpawn();
 		
 		// Need it only for "crests on summons" custom.
-		if (Config.SHOW_SUMMON_CREST)
+		if (Config.INSTANCE.getSHOW_SUMMON_CREST())
 			sendPacket(new SummonInfo(this, getOwner(), 0));
 		
 		sendPacket(new RelationChanged(this, getOwner().getRelation(getOwner()), false));

@@ -504,7 +504,7 @@ public final class Player extends Playable
 		player.setName(name);
 		
 		// Set access level
-		player.setAccessLevel(Config.DEFAULT_ACCESS_LEVEL);
+		player.setAccessLevel(Config.INSTANCE.getDEFAULT_ACCESS_LEVEL());
 		
 		// Cache few informations into CharNameTable.
 		PlayerInfoTable.INSTANCE.addPlayer(objectId, accountName, name, player.getAccessLevel().getLevel());
@@ -1050,7 +1050,7 @@ public final class Player extends Playable
 	{
 		super.revalidateZone(force);
 		
-		if (Config.ALLOW_WATER)
+		if (Config.INSTANCE.getALLOW_WATER())
 		{
 			if (isInsideZone(ZoneId.WATER))
 				WaterTaskManager.INSTANCE.add(this);
@@ -1299,7 +1299,7 @@ public final class Player extends Playable
 			return 176000;
 		
 		double baseLoad = Math.pow(1.029993928, con) * 30495.627366;
-		return (int) calcStat(Stats.MAX_LOAD, baseLoad * Config.ALT_WEIGHT_LIMIT, this, null);
+		return (int) calcStat(Stats.MAX_LOAD, baseLoad * Config.INSTANCE.getALT_WEIGHT_LIMIT(), this, null);
 	}
 	
 	public int getExpertiseArmorPenalty()
@@ -1542,7 +1542,7 @@ public final class Player extends Playable
 			if (_clan != null)
 				_clan.broadcastToOnlineMembers(new PledgeShowMemberListUpdate(this));
 			
-			if (Config.AUTO_LEARN_SKILLS)
+			if (Config.INSTANCE.getAUTO_LEARN_SKILLS())
 				rewardSkills();
 		}
 		finally
@@ -2530,7 +2530,7 @@ public final class Player extends Playable
 				{
 					setSpawnProtection(false);
 					sendMessage("The spawn protection has ended.");
-				}, Config.PLAYER_SPAWN_PROTECTION * 1000);
+				}, Config.INSTANCE.getPLAYER_SPAWN_PROTECTION() * 1000);
 		}
 		else
 		{
@@ -2550,7 +2550,7 @@ public final class Player extends Playable
 	 */
 	public void setRecentFakeDeath()
 	{
-		_recentFakeDeathEndTime = System.currentTimeMillis() + Config.PLAYER_FAKEDEATH_UP_PROTECTION * 1000;
+		_recentFakeDeathEndTime = System.currentTimeMillis() + Config.INSTANCE.getPLAYER_FAKEDEATH_UP_PROTECTION() * 1000;
 	}
 	
 	public void clearRecentFakeDeath()
@@ -3509,7 +3509,7 @@ public final class Player extends Playable
 					}
 					
 					// Reduce player's xp and karma.
-					if (Config.ALT_GAME_DELEVEL && (!hasSkill(L2Skill.SKILL_LUCKY) || getStat().getLevel() > 9))
+					if (Config.INSTANCE.getALT_GAME_DELEVEL() && (!hasSkill(L2Skill.SKILL_LUCKY) || getStat().getLevel() > 9))
 						deathPenalty(pk != null && getClan() != null && pk.getClan() != null && (getClan().isAtWarWith(pk.getClanId()) || pk.getClan().isAtWarWith(getClanId())), pk != null, killer instanceof SiegeGuard);
 				}
 			}
@@ -3557,10 +3557,10 @@ public final class Player extends Playable
 		if (getKarma() <= 0 && pk != null && pk.getClan() != null && getClan() != null && pk.getClan().isAtWarWith(getClanId()))
 			return;
 		
-		if ((!isInsideZone(ZoneId.PVP) || pk == null) && (!isGM() || Config.KARMA_DROP_GM))
+		if ((!isInsideZone(ZoneId.PVP) || pk == null) && (!isGM() || Config.INSTANCE.getKARMA_DROP_GM()))
 		{
 			boolean isKillerNpc = (killer instanceof Npc);
-			int pkLimit = Config.KARMA_PK_LIMIT;
+			int pkLimit = Config.INSTANCE.getKARMA_PK_LIMIT();
 			
 			int dropEquip = 0;
 			int dropEquipWeapon = 0;
@@ -3570,19 +3570,19 @@ public final class Player extends Playable
 			
 			if (getKarma() > 0 && getPkKills() >= pkLimit)
 			{
-				dropPercent = Config.KARMA_RATE_DROP;
-				dropEquip = Config.KARMA_RATE_DROP_EQUIP;
-				dropEquipWeapon = Config.KARMA_RATE_DROP_EQUIP_WEAPON;
-				dropItem = Config.KARMA_RATE_DROP_ITEM;
-				dropLimit = Config.KARMA_DROP_LIMIT;
+				dropPercent = Config.INSTANCE.getKARMA_RATE_DROP();
+				dropEquip = Config.INSTANCE.getKARMA_RATE_DROP_EQUIP();
+				dropEquipWeapon = Config.INSTANCE.getKARMA_RATE_DROP_EQUIP_WEAPON();
+				dropItem = Config.INSTANCE.getKARMA_RATE_DROP_ITEM();
+				dropLimit = Config.INSTANCE.getKARMA_DROP_LIMIT();
 			}
 			else if (isKillerNpc && getLevel() > 4 && !isFestivalParticipant())
 			{
-				dropPercent = Config.PLAYER_RATE_DROP;
-				dropEquip = Config.PLAYER_RATE_DROP_EQUIP;
-				dropEquipWeapon = Config.PLAYER_RATE_DROP_EQUIP_WEAPON;
-				dropItem = Config.PLAYER_RATE_DROP_ITEM;
-				dropLimit = Config.PLAYER_DROP_LIMIT;
+				dropPercent = Config.INSTANCE.getPLAYER_RATE_DROP();
+				dropEquip = Config.INSTANCE.getPLAYER_RATE_DROP_EQUIP();
+				dropEquipWeapon = Config.INSTANCE.getPLAYER_RATE_DROP_EQUIP_WEAPON();
+				dropItem = Config.INSTANCE.getPLAYER_RATE_DROP_ITEM();
+				dropLimit = Config.INSTANCE.getPLAYER_DROP_LIMIT();
 			}
 			
 			if (dropPercent > 0 && Rnd.INSTANCE.get(100) < dropPercent)
@@ -3593,7 +3593,7 @@ public final class Player extends Playable
 				for (ItemInstance itemDrop : getInventory().getItems())
 				{
 					// Don't drop those following things
-					if (!itemDrop.isDropable() || itemDrop.isShadowItem() || itemDrop.getItemId() == 57 || itemDrop.getItem().getType2() == Item.TYPE2_QUEST || getPet() != null && getPet().getControlItemId() == itemDrop.getItemId() || Arrays.binarySearch(Config.KARMA_LIST_NONDROPPABLE_ITEMS, itemDrop.getItemId()) >= 0 || Arrays.binarySearch(Config.KARMA_LIST_NONDROPPABLE_PET_ITEMS, itemDrop.getItemId()) >= 0)
+					if (!itemDrop.isDropable() || itemDrop.isShadowItem() || itemDrop.getItemId() == 57 || itemDrop.getItem().getType2() == Item.TYPE2_QUEST || getPet() != null && getPet().getControlItemId() == itemDrop.getItemId() || Arrays.binarySearch(Config.INSTANCE.getKARMA_LIST_NONDROPPABLE_ITEMS(), itemDrop.getItemId()) >= 0 || Arrays.binarySearch(Config.INSTANCE.getKARMA_LIST_NONDROPPABLE_PET_ITEMS(), itemDrop.getItemId()) >= 0)
 						continue;
 					
 					if (itemDrop.isEquipped())
@@ -3672,7 +3672,7 @@ public final class Player extends Playable
 		}
 		
 		// Check if it's pvp (cases : regular, wars, victim is PKer)
-		if (checkIfPvP(target) || (targetPlayer.getClan() != null && getClan() != null && getClan().isAtWarWith(targetPlayer.getClanId()) && targetPlayer.getClan().isAtWarWith(getClanId()) && targetPlayer.getPledgeType() != Clan.SUBUNIT_ACADEMY && getPledgeType() != Clan.SUBUNIT_ACADEMY) || (targetPlayer.getKarma() > 0 && Config.KARMA_AWARD_PK_KILL))
+		if (checkIfPvP(target) || (targetPlayer.getClan() != null && getClan() != null && getClan().isAtWarWith(targetPlayer.getClanId()) && targetPlayer.getClan().isAtWarWith(getClanId()) && targetPlayer.getPledgeType() != Clan.SUBUNIT_ACADEMY && getPledgeType() != Clan.SUBUNIT_ACADEMY) || (targetPlayer.getKarma() > 0 && Config.INSTANCE.getKARMA_AWARD_PK_KILL()))
 		{
 			if (target instanceof Player)
 			{
@@ -3703,7 +3703,7 @@ public final class Player extends Playable
 		if (isInsideZone(ZoneId.PVP))
 			return;
 		
-		PvpFlagTaskManager.INSTANCE.add(this, Config.PVP_NORMAL_TIME);
+		PvpFlagTaskManager.INSTANCE.add(this, Config.INSTANCE.getPVP_NORMAL_TIME());
 		
 		if (getPvpFlag() == 0)
 			updatePvPFlag(1);
@@ -3720,7 +3720,7 @@ public final class Player extends Playable
 		
 		if ((!isInsideZone(ZoneId.PVP) || !target.isInsideZone(ZoneId.PVP)) && player.getKarma() == 0)
 		{
-			PvpFlagTaskManager.INSTANCE.add(this, checkIfPvP(player) ? Config.PVP_PVP_TIME : Config.PVP_NORMAL_TIME);
+			PvpFlagTaskManager.INSTANCE.add(this, checkIfPvP(player) ? Config.INSTANCE.getPVP_PVP_TIME() : Config.INSTANCE.getPVP_NORMAL_TIME());
 			
 			if (getPvpFlag() == 0)
 				updatePvPFlag(1);
@@ -3781,7 +3781,7 @@ public final class Player extends Playable
 			percentLost = 4.0;
 		
 		if (getKarma() > 0)
-			percentLost *= Config.RATE_KARMA_EXP_LOST;
+			percentLost *= Config.INSTANCE.getRATE_KARMA_EXP_LOST();
 		
 		if (isFestivalParticipant() || atWar || isInsideZone(ZoneId.SIEGE))
 			percentLost /= 4.0;
@@ -4121,7 +4121,7 @@ public final class Player extends Playable
 	 */
 	public void giveSkills()
 	{
-		if (Config.AUTO_LEARN_SKILLS)
+		if (Config.INSTANCE.getAUTO_LEARN_SKILLS())
 			rewardSkills();
 		else
 		{
@@ -4225,7 +4225,7 @@ public final class Player extends Playable
 		{
 			getClan().addSkillEffects(this);
 			
-			if (getClan().getLevel() >= Config.MINIMUM_CLAN_LEVEL && isClanLeader())
+			if (getClan().getLevel() >= Config.INSTANCE.getMINIMUM_CLAN_LEVEL() && isClanLeader())
 				addSiegeSkills();
 		}
 		
@@ -5088,7 +5088,7 @@ public final class Player extends Playable
 				player.giveSkills();
 				
 				// buff and status icons
-				if (Config.STORE_SKILL_COOLTIME)
+				if (Config.INSTANCE.getSTORE_SKILL_COOLTIME())
 					player.restoreEffects();
 				
 				// Restore current CP, HP and MP values
@@ -5422,7 +5422,7 @@ public final class Player extends Playable
 	
 	private void storeEffect(boolean storeEffects)
 	{
-		if (!Config.STORE_SKILL_COOLTIME)
+		if (!Config.INSTANCE.getSTORE_SKILL_COOLTIME())
 			return;
 		
 		try (Connection con = L2DatabaseFactory.INSTANCE.getConnection())
@@ -8136,7 +8136,7 @@ public final class Player extends Playable
 	{
 		super.onTeleported();
 		
-		if (Config.PLAYER_SPAWN_PROTECTION > 0)
+		if (Config.INSTANCE.getPLAYER_SPAWN_PROTECTION() > 0)
 			setSpawnProtection(true);
 		
 		// Stop toggles upon teleport.
@@ -8462,42 +8462,42 @@ public final class Player extends Playable
 	
 	public int getInventoryLimit()
 	{
-		return ((getRace() == ClassRace.DWARF) ? Config.INVENTORY_MAXIMUM_DWARF : Config.INVENTORY_MAXIMUM_NO_DWARF) + (int) getStat().calcStat(Stats.INV_LIM, 0, null, null);
+		return ((getRace() == ClassRace.DWARF) ? Config.INSTANCE.getINVENTORY_MAXIMUM_DWARF() : Config.INSTANCE.getINVENTORY_MAXIMUM_NO_DWARF()) + (int) getStat().calcStat(Stats.INV_LIM, 0, null, null);
 	}
 	
 	public static int getQuestInventoryLimit()
 	{
-		return Config.INVENTORY_MAXIMUM_QUEST_ITEMS;
+		return Config.INSTANCE.getINVENTORY_MAXIMUM_QUEST_ITEMS();
 	}
 	
 	public int getWareHouseLimit()
 	{
-		return ((getRace() == ClassRace.DWARF) ? Config.WAREHOUSE_SLOTS_DWARF : Config.WAREHOUSE_SLOTS_NO_DWARF) + (int) getStat().calcStat(Stats.WH_LIM, 0, null, null);
+		return ((getRace() == ClassRace.DWARF) ? Config.INSTANCE.getWAREHOUSE_SLOTS_DWARF() : Config.INSTANCE.getWAREHOUSE_SLOTS_NO_DWARF()) + (int) getStat().calcStat(Stats.WH_LIM, 0, null, null);
 	}
 	
 	public int getPrivateSellStoreLimit()
 	{
-		return ((getRace() == ClassRace.DWARF) ? Config.MAX_PVTSTORE_SLOTS_DWARF : Config.MAX_PVTSTORE_SLOTS_OTHER) + (int) getStat().calcStat(Stats.P_SELL_LIM, 0, null, null);
+		return ((getRace() == ClassRace.DWARF) ? Config.INSTANCE.getMAX_PVTSTORE_SLOTS_DWARF() : Config.INSTANCE.getMAX_PVTSTORE_SLOTS_OTHER()) + (int) getStat().calcStat(Stats.P_SELL_LIM, 0, null, null);
 	}
 	
 	public int getPrivateBuyStoreLimit()
 	{
-		return ((getRace() == ClassRace.DWARF) ? Config.MAX_PVTSTORE_SLOTS_DWARF : Config.MAX_PVTSTORE_SLOTS_OTHER) + (int) getStat().calcStat(Stats.P_BUY_LIM, 0, null, null);
+		return ((getRace() == ClassRace.DWARF) ? Config.INSTANCE.getMAX_PVTSTORE_SLOTS_DWARF() : Config.INSTANCE.getMAX_PVTSTORE_SLOTS_OTHER()) + (int) getStat().calcStat(Stats.P_BUY_LIM, 0, null, null);
 	}
 	
 	public int getFreightLimit()
 	{
-		return Config.FREIGHT_SLOTS + (int) getStat().calcStat(Stats.FREIGHT_LIM, 0, null, null);
+		return Config.INSTANCE.getFREIGHT_SLOTS() + (int) getStat().calcStat(Stats.FREIGHT_LIM, 0, null, null);
 	}
 	
 	public int getDwarfRecipeLimit()
 	{
-		return Config.DWARF_RECIPE_LIMIT + (int) getStat().calcStat(Stats.REC_D_LIM, 0, null, null);
+		return Config.INSTANCE.getDWARF_RECIPE_LIMIT() + (int) getStat().calcStat(Stats.REC_D_LIM, 0, null, null);
 	}
 	
 	public int getCommonRecipeLimit()
 	{
-		return Config.COMMON_RECIPE_LIMIT + (int) getStat().calcStat(Stats.REC_C_LIM, 0, null, null);
+		return Config.INSTANCE.getCOMMON_RECIPE_LIMIT() + (int) getStat().calcStat(Stats.REC_C_LIM, 0, null, null);
 	}
 	
 	public int getMountNpcId()
@@ -8873,7 +8873,7 @@ public final class Player extends Playable
 		if (_deathPenaltyBuffLevel >= 15) // maximum level reached
 			return;
 		
-		if ((getKarma() > 0 || Rnd.INSTANCE.get(1, 100) <= Config.DEATH_PENALTY_CHANCE) && !(killer instanceof Player) && !isGM() && !(getCharmOfLuck() && (killer == null || killer.isRaidRelated())) && !isPhoenixBlessed() && !(isInsideZone(ZoneId.PVP) || isInsideZone(ZoneId.SIEGE)))
+		if ((getKarma() > 0 || Rnd.INSTANCE.get(1, 100) <= Config.INSTANCE.getDEATH_PENALTY_CHANCE()) && !(killer instanceof Player) && !isGM() && !(getCharmOfLuck() && (killer == null || killer.isRaidRelated())) && !isPhoenixBlessed() && !(isInsideZone(ZoneId.PVP) || isInsideZone(ZoneId.SIEGE)))
 		{
 			if (_deathPenaltyBuffLevel != 0)
 				removeSkill(5076, false);

@@ -101,7 +101,7 @@ public class Npc extends Creature
 		if (!hasRandomAnimation())
 			return;
 		
-		final int timer = (isMob()) ? Rnd.INSTANCE.get(Config.MIN_MONSTER_ANIMATION, Config.MAX_MONSTER_ANIMATION) : Rnd.INSTANCE.get(Config.MIN_NPC_ANIMATION, Config.MAX_NPC_ANIMATION);
+		final int timer = (isMob()) ? Rnd.INSTANCE.get(Config.INSTANCE.getMIN_MONSTER_ANIMATION(), Config.INSTANCE.getMAX_MONSTER_ANIMATION()) : Rnd.INSTANCE.get(Config.INSTANCE.getMIN_NPC_ANIMATION(), Config.INSTANCE.getMAX_NPC_ANIMATION());
 		RandomAnimationTaskManager.INSTANCE.add(this, timer);
 	}
 	
@@ -110,7 +110,7 @@ public class Npc extends Creature
 	 */
 	public boolean hasRandomAnimation()
 	{
-		return (Config.MAX_NPC_ANIMATION > 0 && !getTemplate().getAiType().equals(AIType.CORPSE));
+		return (Config.INSTANCE.getMAX_NPC_ANIMATION() > 0 && !getTemplate().getAiType().equals(AIType.CORPSE));
 	}
 	
 	/**
@@ -831,7 +831,7 @@ public class Npc extends Creature
 				return;
 			}
 			
-			int price = Config.ALT_LOTTERY_TICKET_PRICE;
+			int price = Config.INSTANCE.getALT_LOTTERY_TICKET_PRICE();
 			int lotonumber = LotteryManager.INSTANCE.getId();
 			int enchant = 0;
 			int type2 = 0;
@@ -918,10 +918,10 @@ public class Npc extends Creature
 		else if (val == 25) // 25 - lottery instructions
 		{
 			html.setFile(getHtmlPath(npcId, 2));
-			html.replace("%prize5%", Config.ALT_LOTTERY_5_NUMBER_RATE * 100);
-			html.replace("%prize4%", Config.ALT_LOTTERY_4_NUMBER_RATE * 100);
-			html.replace("%prize3%", Config.ALT_LOTTERY_3_NUMBER_RATE * 100);
-			html.replace("%prize2%", Config.ALT_LOTTERY_2_AND_1_NUMBER_PRIZE);
+			html.replace("%prize5%", Config.INSTANCE.getALT_LOTTERY_5_NUMBER_RATE() * 100);
+			html.replace("%prize4%", Config.INSTANCE.getALT_LOTTERY_4_NUMBER_RATE() * 100);
+			html.replace("%prize3%", Config.INSTANCE.getALT_LOTTERY_3_NUMBER_RATE() * 100);
+			html.replace("%prize2%", Config.INSTANCE.getALT_LOTTERY_2_AND_1_NUMBER_PRIZE());
 		}
 		else if (val > 25) // >25 - check lottery ticket by item object id
 		{
@@ -940,7 +940,7 @@ public class Npc extends Creature
 		html.replace("%objectId%", getObjectId());
 		html.replace("%race%", LotteryManager.INSTANCE.getId());
 		html.replace("%adena%", LotteryManager.INSTANCE.getPrize());
-		html.replace("%ticket_price%", Config.ALT_LOTTERY_TICKET_PRICE);
+		html.replace("%ticket_price%", Config.INSTANCE.getALT_LOTTERY_TICKET_PRICE());
 		html.replace("%enddate%", DateFormat.getDateInstance().format(LotteryManager.INSTANCE.getEndDate()));
 		player.sendPacket(html);
 		
@@ -1095,7 +1095,7 @@ public class Npc extends Creature
 	 */
 	public int getExpReward()
 	{
-		return (int) (getTemplate().getRewardExp() * Config.RATE_XP);
+		return (int) (getTemplate().getRewardExp() * Config.INSTANCE.getRATE_XP());
 	}
 	
 	/**
@@ -1103,7 +1103,7 @@ public class Npc extends Creature
 	 */
 	public int getSpReward()
 	{
-		return (int) (getTemplate().getRewardSp() * Config.RATE_SP);
+		return (int) (getTemplate().getRewardSp() * Config.INSTANCE.getRATE_SP());
 	}
 	
 	/**

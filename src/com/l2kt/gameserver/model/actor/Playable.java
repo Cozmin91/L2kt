@@ -165,7 +165,7 @@ public abstract class Playable extends Creature
 			getStatus().setCurrentMp(getMaxMp());
 		}
 		else
-			getStatus().setCurrentHp(getMaxHp() * Config.RESPAWN_RESTORE_HP);
+			getStatus().setCurrentHp(getMaxHp() * Config.INSTANCE.getRESPAWN_RESTORE_HP());
 		
 		// Start broadcast status
 		broadcastPacket(new Revive(this));

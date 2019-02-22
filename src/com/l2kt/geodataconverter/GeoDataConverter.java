@@ -24,7 +24,7 @@ public final class GeoDataConverter
 	public static void main(String[] args)
 	{
 		// initialize config
-		Config.loadGeodataConverter();
+		Config.INSTANCE.loadGeodataConverter();
 
 		// get geodata format
 		String type = "";
@@ -55,7 +55,7 @@ public final class GeoDataConverter
 		BlockMultilayer.Companion.initialize();
 
 		// load geo files according to geoengine config setup
-		final ExProperties props = Config.initProperties(Config.GEOENGINE_FILE);
+		final ExProperties props = Config.INSTANCE.initProperties(Config.GEOENGINE_FILE);
 		int converted = 0;
 		for (int rx = World.TILE_X_MIN; rx <= World.TILE_X_MAX; rx++)
 		{
@@ -105,8 +105,8 @@ public final class GeoDataConverter
 	private static final boolean loadGeoBlocks(String filename)
 	{
 		// region file is load-able, try to load it
-		try (RandomAccessFile raf = new RandomAccessFile(Config.GEODATA_PATH + filename, "r");
-			FileChannel fc = raf.getChannel())
+		try (RandomAccessFile raf = new RandomAccessFile(Config.INSTANCE.getGEODATA_PATH() + filename, "r");
+             FileChannel fc = raf.getChannel())
 		{
 			MappedByteBuffer buffer = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size()).load();
 			buffer.order(ByteOrder.LITTLE_ENDIAN);
@@ -294,7 +294,7 @@ public final class GeoDataConverter
 	 */
 	private static final boolean saveGeoBlocks(String filename)
 	{
-		try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(Config.GEODATA_PATH + filename), GeoStructure.INSTANCE.getREGION_BLOCKS() * GeoStructure.INSTANCE.getBLOCK_CELLS() * 3))
+		try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(Config.INSTANCE.getGEODATA_PATH() + filename), GeoStructure.INSTANCE.getREGION_BLOCKS() * GeoStructure.INSTANCE.getBLOCK_CELLS() * 3))
 		{
 			// loop over region blocks and save each block
 			for (int ix = 0; ix < GeoStructure.REGION_BLOCKS_X; ix++)
