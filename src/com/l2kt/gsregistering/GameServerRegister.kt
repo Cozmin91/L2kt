@@ -36,7 +36,7 @@ object GameServerRegister {
                     println()
                     for ((key, value) in GameServerManager.serverNames)
                         println(
-                            key.toString() + ": " + value + " " + if (GameServerManager.registeredGameServers.containsKey(
+                            "$key: $value " + if (GameServerManager.registeredGameServers.containsKey(
                                     key
                                 )
                             ) "*" else ""

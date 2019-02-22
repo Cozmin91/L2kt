@@ -252,9 +252,6 @@ open class VillageMaster(objectId: Int, template: NpcTemplate) : Folk(objectId, 
             } catch (NumberFormatException: Exception) {
             }
 
-            val sb: StringBuilder
-            val subsAvailable: Set<ClassId>?
-
             when (cmdChoice) {
                 0 // Subclass change menu
                 -> html.setFile("data/html/villagemaster/SubClass.htm")
@@ -279,13 +276,13 @@ open class VillageMaster(objectId: Int, template: NpcTemplate) : Folk(objectId, 
                         return@run
                     }
 
-                    subsAvailable = getAvailableSubClasses(player)
+                    val subsAvailable = getAvailableSubClasses(player)
                     if (subsAvailable == null || subsAvailable.isEmpty()) {
                         player.sendMessage("There are no sub classes available at this time.")
                         return
                     }
 
-                    sb = StringBuilder(300)
+                    val sb = StringBuilder(300)
                     for (subClass in subsAvailable)
                         StringUtil.append(
                             sb,
@@ -319,7 +316,7 @@ open class VillageMaster(objectId: Int, template: NpcTemplate) : Folk(objectId, 
                     if (player.subClasses.isEmpty())
                         html.setFile("data/html/villagemaster/SubClass_ChangeNo.htm")
                     else {
-                        sb = StringBuilder(300)
+                        val sb = StringBuilder(300)
 
                         if (checkVillageMaster(player.baseClass))
                             StringUtil.append(
@@ -447,7 +444,7 @@ open class VillageMaster(objectId: Int, template: NpcTemplate) : Folk(objectId, 
                     if (paramOne < 1 || paramOne > 3)
                         return
 
-                    subsAvailable = getAvailableSubClasses(player)
+                    val subsAvailable = getAvailableSubClasses(player)
 
                     // another validity check
                     if (subsAvailable == null || subsAvailable.isEmpty()) {
@@ -455,7 +452,7 @@ open class VillageMaster(objectId: Int, template: NpcTemplate) : Folk(objectId, 
                         return
                     }
 
-                    sb = StringBuilder(300)
+                    val sb = StringBuilder(300)
                     for (subClass in subsAvailable)
                         StringUtil.append(
                             sb,

@@ -6,13 +6,13 @@ configure() {
 LSDBHOST="localhost"
 LSDB="l2kt"
 LSUSER="root"
-LSPASS=""
+LSPASS="root"
 
 # Gameserver
 GSDBHOST="localhost"
 GSDB="l2kt"
 GSUSER="root"
-GSPASS=""
+GSPASS="root"
 
 echo "                        aCis database installation"
 echo "                        __________________________"
