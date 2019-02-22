@@ -53,7 +53,7 @@ class PrimevalIsle : L2AttackableAIScript("ai/group") {
             }
 
             npc.setTarget(npc)
-            npc.doCast(if (npc.getNpcId() == 18345) ANESTHESIA else POISON)
+            npc.doCast(if (npc.npcId == 18345) ANESTHESIA else POISON)
         }
         return null
     }

@@ -25,14 +25,14 @@ class ManorManagerNpc(objectId: Int, template: NpcTemplate) : Merchant(objectId,
                 Integer.parseInt(st.nextToken().split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1])
             val time = st.nextToken().split("=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1] == "1"
 
-            val castleId = if (state < 0) castle.castleId else state
+            val castleId = if (state < 0) castle!!.castleId else state
 
             when (ask) {
                 1 // Seed purchase
-                -> if (castleId != castle.castleId)
+                -> if (castleId != castle!!.castleId)
                     player.sendPacket(
                         SystemMessage.getSystemMessage(SystemMessageId.HERE_YOU_CAN_BUY_ONLY_SEEDS_OF_S1_MANOR).addString(
-                            castle.name
+                            castle!!.name
                         )
                     )
                 else
@@ -70,7 +70,7 @@ class ManorManagerNpc(objectId: Int, template: NpcTemplate) : Merchant(objectId,
             return
         }
 
-        if (castle != null && player.clan != null && castle.ownerId == player.clanId && player.isClanLeader)
+        if (castle != null && player.clan != null && castle!!.ownerId == player.clanId && player.isClanLeader)
             showChatWindow(player, "data/html/manormanager/manager-lord.htm")
         else
             showChatWindow(player, "data/html/manormanager/manager.htm")

@@ -25,7 +25,7 @@ class Walker(objectId: Int, template: NpcTemplate) : Folk(objectId, template) {
 
     override fun reduceCurrentHp(i: Double, attacker: Creature, awake: Boolean, isDOT: Boolean, skill: L2Skill) {}
 
-    override fun doDie(killer: Creature): Boolean {
+    override fun doDie(killer: Creature?): Boolean {
         return false
     }
 

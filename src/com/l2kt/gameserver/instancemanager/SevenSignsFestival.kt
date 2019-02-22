@@ -1785,18 +1785,18 @@ object SevenSignsFestival {
         fun unspawnMobs() {
             // Delete all the NPCs in the current festival arena.
             if (_witchInst != null) {
-                _witchInst!!.spawn.setRespawnState(false)
+                _witchInst!!.spawn!!.setRespawnState(false)
                 _witchInst!!.deleteMe()
-                SpawnTable.deleteSpawn(_witchInst!!.spawn, false)
+                SpawnTable.deleteSpawn(_witchInst!!.spawn!!, false)
             }
 
             if (_npcInsts != null)
                 for (monsterInst in _npcInsts)
-                    if (monsterInst != null) {
-                        monsterInst.spawn.setRespawnState(false)
-                        monsterInst.deleteMe()
-                        SpawnTable.deleteSpawn(monsterInst.spawn, false)
-                    }
+                {
+                    monsterInst.spawn!!.setRespawnState(false)
+                    monsterInst.deleteMe()
+                    SpawnTable.deleteSpawn(monsterInst.spawn!!, false)
+                }
         }
 
         fun relocatePlayer(participant: Player?, isRemoving: Boolean) {

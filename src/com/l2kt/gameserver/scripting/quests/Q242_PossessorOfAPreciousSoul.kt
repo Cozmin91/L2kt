@@ -84,13 +84,13 @@ class Q242_PossessorOfAPreciousSoul : Quest(242, "Possessor of a Precious Soul -
             addSpawn(PURE_UNICORN, 85884, -76588, -3470, 0, false, 0, true)
             return null
         } else if (event.equals("dspu", ignoreCase = true)) {
-            npc!!.spawn.setRespawnState(false)
+            npc!!.spawn?.setRespawnState(false)
             npc.deleteMe()
             startQuestTimer("sfu", 2000, null, player, false)
             return null
         } else if (event.equals("sfu", ignoreCase = true)) {
             npc = addSpawn(FALLEN_UNICORN, 85884, -76588, -3470, 0, false, 0, true)
-            npc!!.spawn.setRespawnState(true)
+            npc!!.spawn?.setRespawnState(true)
             return null
         }// Spawn Fallen Unicorn
         // Despawn Pure Unicorn
@@ -217,7 +217,7 @@ class Q242_PossessorOfAPreciousSoul : Quest(242, "Possessor of a Precious Soul -
                         // Global variable check to prevent multiple spawns
                         {
                             _unicorn = true
-                            npc.spawn.setRespawnState(false) // Despawn fallen unicorn
+                            npc.spawn?.setRespawnState(false) // Despawn fallen unicorn
                             npc.deleteMe()
                             startQuestTimer("spu", 3000, npc, player, false)
                         }
@@ -263,29 +263,29 @@ class Q242_PossessorOfAPreciousSoul : Quest(242, "Possessor of a Precious Soul -
     }
 
     companion object {
-        private val qn = "Q242_PossessorOfAPreciousSoul"
+        private const val qn = "Q242_PossessorOfAPreciousSoul"
 
         // NPCs
-        private val VIRGIL = 31742
-        private val KASSANDRA = 31743
-        private val OGMAR = 31744
-        private val MYSTERIOUS_KNIGHT = 31751
-        private val ANGEL_CORPSE = 31752
-        private val KALIS = 30759
-        private val MATILD = 30738
-        private val CORNERSTONE = 31748
-        private val FALLEN_UNICORN = 31746
-        private val PURE_UNICORN = 31747
+        private const val VIRGIL = 31742
+        private const val KASSANDRA = 31743
+        private const val OGMAR = 31744
+        private const val MYSTERIOUS_KNIGHT = 31751
+        private const val ANGEL_CORPSE = 31752
+        private const val KALIS = 30759
+        private const val MATILD = 30738
+        private const val CORNERSTONE = 31748
+        private const val FALLEN_UNICORN = 31746
+        private const val PURE_UNICORN = 31747
 
         // Monsters
-        private val RESTRAINER_OF_GLORY = 27317
+        private const val RESTRAINER_OF_GLORY = 27317
 
         // Items
-        private val VIRGIL_LETTER = 7677
-        private val GOLDEN_HAIR = 7590
-        private val SORCERY_INGREDIENT = 7596
-        private val ORB_OF_BINDING = 7595
-        private val CARADINE_LETTER = 7678
+        private const val VIRGIL_LETTER = 7677
+        private const val GOLDEN_HAIR = 7590
+        private const val SORCERY_INGREDIENT = 7596
+        private const val ORB_OF_BINDING = 7595
+        private const val CARADINE_LETTER = 7678
 
         private var _unicorn = false
     }

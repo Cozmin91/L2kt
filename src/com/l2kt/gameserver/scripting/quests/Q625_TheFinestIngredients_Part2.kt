@@ -156,7 +156,7 @@ class Q625_TheFinestIngredients_Part2 : Quest(625, "The Finest Ingredients - Par
         val raid = RaidBossSpawnManager.bosses[ICICLE_EMPEROR_BUMBALUMP]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-            raid.spawn.setLoc(157117, -121939, -2397, Rnd[65536])
+            raid.spawn?.setLoc(157117, -121939, -2397, Rnd[65536])
 
             // teleport raid from secret place
             raid.teleToLocation(157117, -121939, -2397, 100)
@@ -173,7 +173,7 @@ class Q625_TheFinestIngredients_Part2 : Quest(625, "The Finest Ingredients - Par
 
     private fun despawnRaid(raid: Npc) {
         // reset spawn location
-        raid.spawn.setLoc(-104700, -252700, -15542, 0)
+        raid.spawn?.setLoc(-104700, -252700, -15542, 0)
 
         // teleport raid back to secret place
         if (!raid.isDead)
@@ -184,23 +184,23 @@ class Q625_TheFinestIngredients_Part2 : Quest(625, "The Finest Ingredients - Par
     }
 
     companion object {
-        private val qn = "Q625_TheFinestIngredients_Part2"
+        private const val qn = "Q625_TheFinestIngredients_Part2"
 
         // Monster
-        private val ICICLE_EMPEROR_BUMBALUMP = 25296
+        private const val ICICLE_EMPEROR_BUMBALUMP = 25296
 
         // NPCs
-        private val JEREMY = 31521
-        private val YETI_TABLE = 31542
+        private const val JEREMY = 31521
+        private const val YETI_TABLE = 31542
 
         // Items
-        private val SOY_SAUCE_JAR = 7205
-        private val FOOD_FOR_BUMBALUMP = 7209
-        private val SPECIAL_YETI_MEAT = 7210
+        private const val SOY_SAUCE_JAR = 7205
+        private const val FOOD_FOR_BUMBALUMP = 7209
+        private const val SPECIAL_YETI_MEAT = 7210
         private val REWARD_DYE = intArrayOf(4589, 4590, 4591, 4592, 4593, 4594)
 
         // Other
-        private val CHECK_INTERVAL = 600000 // 10 minutes
-        private val IDLE_INTERVAL = 3 // (X * CHECK_INTERVAL) = 30 minutes
+        private const val CHECK_INTERVAL = 600000 // 10 minutes
+        private const val IDLE_INTERVAL = 3 // (X * CHECK_INTERVAL) = 30 minutes
     }
 }

@@ -59,7 +59,7 @@ class RequestBuyItem : L2GameClientPacket() {
                 return
 
             if (merchant.castle != null)
-                castleTaxRate = merchant.castle.taxRate
+                castleTaxRate = merchant.castle!!.taxRate
         }
 
         var subTotal = 0
@@ -139,7 +139,7 @@ class RequestBuyItem : L2GameClientPacket() {
         // Add to castle treasury and send the htm, if existing.
         if (merchant != null) {
             if (merchant.castle != null)
-                merchant.castle.addToTreasury((subTotal * castleTaxRate).toInt())
+                merchant.castle!!.addToTreasury((subTotal * castleTaxRate).toInt())
 
             var htmlFolder = ""
             if (merchant is Fisherman)
@@ -150,7 +150,7 @@ class RequestBuyItem : L2GameClientPacket() {
             if (!htmlFolder.isEmpty()) {
                 val content =
                     HtmCache.getHtm("data/html/" + htmlFolder + "/" + merchant.npcId + "-bought.htm")
-                if (content != null) {
+                if (content.isNotEmpty()) {
                     val html = NpcHtmlMessage(merchant.objectId)
                     html.setHtml(content)
                     html.replace("%objectId%", merchant.objectId)

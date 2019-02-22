@@ -139,7 +139,7 @@ open class L2AttackableAIScript : Quest {
 
             master?.minionList?.onMinionDie(
                 npc,
-                if (master.isRaidBoss) Config.RAID_MINION_RESPAWN_TIMER else master.spawn.respawnDelay * 1000 / 2
+                if (master.isRaidBoss) Config.RAID_MINION_RESPAWN_TIMER else master.spawn!!.respawnDelay * 1000 / 2
             )
 
             if (npc.hasMinions())

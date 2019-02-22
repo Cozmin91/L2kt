@@ -14,7 +14,6 @@ class FriendlyMonster(objectId: Int, template: NpcTemplate) : Attackable(objectI
         return attacker is Player && attacker.karma > 0
     }
 
-    override fun isAggressive(): Boolean {
-        return true
-    }
+    override val isAggressive: Boolean
+        get() = true
 }

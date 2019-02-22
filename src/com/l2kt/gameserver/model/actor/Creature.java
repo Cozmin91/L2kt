@@ -3813,7 +3813,7 @@ public abstract class Creature extends WorldObject
 			return false;
 		
 		// Can't interact if regular distance doesn't match.
-		if (!isInsideRadius(player, Npc.INTERACTION_DISTANCE, true, false))
+		if (!isInsideRadius(player, Npc.Companion.getINTERACTION_DISTANCE(), true, false))
 			return false;
 		
 		return true;

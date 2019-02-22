@@ -54,7 +54,7 @@ class RequestProcureCropList : L2GameClientPacket() {
             return
         }
 
-        val castleId = folk.getCastle().castleId
+        val castleId = folk.castle!!.castleId
 
         // Calculate summary values
         var slots = 0

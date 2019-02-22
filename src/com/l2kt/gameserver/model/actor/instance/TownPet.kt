@@ -55,7 +55,7 @@ class TownPet(objectId: Int, template: NpcTemplate) : Folk(objectId, template) {
 
             ai.setIntention(
                 CtrlIntention.MOVE_TO,
-                GeoEngine.canMoveToTargetLoc(x, y, z, spawn.locX + Rnd[-75, 75], spawn.locY + Rnd[-75, 75], z)
+                GeoEngine.canMoveToTargetLoc(x, y, z, spawn!!.locX + Rnd[-75, 75], spawn!!.locY + Rnd[-75, 75], z)
             )
         }
     }

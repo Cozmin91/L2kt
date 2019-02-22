@@ -31,7 +31,7 @@ class SiegeGuard(objectId: Int, template: NpcTemplate) : Attackable(objectId, te
      */
     override fun isAutoAttackable(attacker: Creature): Boolean {
         // Attackable during siege by all except defenders
-        return attacker?.actingPlayer != null && castle != null && castle.siege.isInProgress && !castle.siege.checkSides(
+        return attacker?.actingPlayer != null && castle != null && castle!!.siege.isInProgress && !castle!!.siege.checkSides(
             attacker.actingPlayer!!.clan,
             SiegeSide.DEFENDER,
             SiegeSide.OWNER

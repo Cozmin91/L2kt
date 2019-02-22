@@ -13,9 +13,8 @@ import com.l2kt.gameserver.network.serverpackets.*
  */
 open class WarehouseKeeper(objectId: Int, template: NpcTemplate) : Folk(objectId, template) {
 
-    override fun isWarehouse(): Boolean {
-        return true
-    }
+    override val isWarehouse: Boolean
+        get() = true
 
     override fun getHtmlPath(npcId: Int, `val`: Int): String {
         var filename = ""

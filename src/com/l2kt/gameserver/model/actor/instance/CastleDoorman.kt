@@ -18,7 +18,7 @@ class CastleDoorman(objectID: Int, template: NpcTemplate) : Doorman(objectID, te
         while (st.hasMoreTokens()) {/*
 			 * if (getConquerableHall() != null) getConquerableHall().openCloseDoor(Integer.parseInt(st.nextToken()), true); else
 			 */
-            castle.openDoor(player, Integer.parseInt(st.nextToken()))
+            castle?.openDoor(player, Integer.parseInt(st.nextToken()))
         }
     }
 
@@ -29,7 +29,7 @@ class CastleDoorman(objectID: Int, template: NpcTemplate) : Doorman(objectID, te
         while (st.hasMoreTokens()) {/*
 			 * if (getConquerableHall() != null) getConquerableHall().openCloseDoor(Integer.parseInt(st.nextToken()), false); else
 			 */
-            castle.closeDoor(player, Integer.parseInt(st.nextToken()))
+            castle?.closeDoor(player, Integer.parseInt(st.nextToken()))
         }
     }
 
@@ -39,7 +39,7 @@ class CastleDoorman(objectID: Int, template: NpcTemplate) : Doorman(objectID, te
 			 */
             if (castle != null) {
                 // player should have privileges to open doors
-                if (player.clanId == castle.ownerId && player.clanPrivileges and Clan.CP_CS_OPEN_DOOR == Clan.CP_CS_OPEN_DOOR)
+                if (player.clanId == castle!!.ownerId && player.clanPrivileges and Clan.CP_CS_OPEN_DOOR == Clan.CP_CS_OPEN_DOOR)
                     return true
             }
         }
@@ -47,5 +47,5 @@ class CastleDoorman(objectID: Int, template: NpcTemplate) : Doorman(objectID, te
     }
 
     override val isUnderSiege: Boolean
-        get() = castle.siegeZone!!.isActive
+        get() = castle?.siegeZone?.isActive ?: false
 }

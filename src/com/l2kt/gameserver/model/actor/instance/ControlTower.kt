@@ -23,14 +23,14 @@ class ControlTower(objectId: Int, template: NpcTemplate) : Npc(objectId, templat
 
     override// Attackable during siege by attacker only
     val isAttackable: Boolean
-        get() = castle != null && castle.siege.isInProgress
+        get() = castle != null && castle!!.siege.isInProgress
 
     val guards: List<L2Spawn>
         get() = _guards
 
     override fun isAutoAttackable(attacker: Creature): Boolean {
         // Attackable during siege by attacker only
-        return attacker is Player && castle != null && castle.siege.isInProgress && castle.siege.checkSide(
+        return attacker is Player && castle != null && castle!!.siege.isInProgress && castle!!.siege.checkSide(
             attacker.clan,
             SiegeSide.ATTACKER
         )
@@ -62,9 +62,9 @@ class ControlTower(objectId: Int, template: NpcTemplate) : Npc(objectId, templat
         }
     }
 
-    override fun doDie(killer: Creature): Boolean {
+    override fun doDie(killer: Creature?): Boolean {
         if (castle != null) {
-            val siege = castle.siege
+            val siege = castle!!.siege
             if (siege.isInProgress) {
                 isActive = false
 

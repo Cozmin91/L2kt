@@ -233,14 +233,14 @@ class Orfen : L2AttackableAIScript("ai/individual") {
             npc.getAI().setIntention(CtrlIntention.IDLE, null, null)
 
             // Edit the spawn location in case server crashes.
-            val spawn = npc.getSpawn()
-            spawn.loc = index
+            val spawn = npc.spawn
+            spawn?.loc = index
 
             if (index.x == 43728)
             // Hack !
                 npc.teleToLocation(index.x, index.y, index.z, 0)
             else
-                npc.getAI().setIntention(CtrlIntention.MOVE_TO, Location(index.x, index.y, index.z))
+                npc.ai.setIntention(CtrlIntention.MOVE_TO, Location(index.x, index.y, index.z))
         }
     }
 }

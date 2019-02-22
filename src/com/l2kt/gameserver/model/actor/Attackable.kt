@@ -241,9 +241,8 @@ open class Attackable(objectId: Int, template: NpcTemplate) : Npc(objectId, temp
             return false
 
         val scripts = template.getEventQuests(EventType.ON_KILL)
-        if (scripts != null)
-            for (quest in scripts)
-                ThreadPool.schedule(Runnable{ quest.notifyKill(this, killer) }, 3000)
+        for (quest in scripts)
+            ThreadPool.schedule(Runnable{ quest.notifyKill(this, killer) }, 3000)
 
         _attackByList.clear()
 
@@ -487,9 +486,8 @@ open class Attackable(objectId: Int, template: NpcTemplate) : Npc(objectId, temp
         return Config.MAX_MONSTER_ANIMATION > 0 && !isRaidRelated
     }
 
-    override fun isMob(): Boolean {
-        return true // This means we use MAX_MONSTER_ANIMATION instead of MAX_NPC_ANIMATION
-    }
+    override val isMob: Boolean
+        get() = true
 
     override fun isRaidBoss(): Boolean {
         return _isRaid && !_isMinion
@@ -1106,12 +1104,12 @@ open class Attackable(objectId: Int, template: NpcTemplate) : Npc(objectId, temp
         }
 
         // For regular Attackable, we check if a spawn exists, and if we're far from it (using drift range).
-        if (spawn != null && !isInsideRadius(spawn.locX, spawn.locY, driftRange, false)) {
+        if (spawn != null && !isInsideRadius(spawn!!.locX, spawn!!.locY, driftRange, false)) {
             cleanAllHate()
 
             isReturningToSpawnPoint = true
             setWalking()
-            ai.setIntention(CtrlIntention.MOVE_TO, spawn.loc)
+            ai.setIntention(CtrlIntention.MOVE_TO, spawn!!.loc)
             return true
         }
         return false

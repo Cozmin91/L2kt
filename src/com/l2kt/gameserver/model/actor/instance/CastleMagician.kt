@@ -69,10 +69,10 @@ class CastleMagician(objectId: Int, template: NpcTemplate) : Folk(objectId, temp
 
     protected fun validateCondition(player: Player): Int {
         if (castle != null && player.clan != null) {
-            if (castle.siegeZone!!.isActive)
+            if (castle!!.siegeZone!!.isActive)
                 return COND_BUSY_BECAUSE_OF_SIEGE
 
-            if (castle.ownerId == player.clanId)
+            if (castle!!.ownerId == player.clanId)
                 return COND_OWNER
         }
         return COND_ALL_FALSE

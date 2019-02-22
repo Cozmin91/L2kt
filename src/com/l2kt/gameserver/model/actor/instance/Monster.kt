@@ -30,9 +30,8 @@ open class Monster(objectId: Int, template: NpcTemplate) : Attackable(objectId, 
 
     }
 
-    override fun isAggressive(): Boolean {
-        return template.aggroRange > 0
-    }
+    override val isAggressive: Boolean
+        get() = template.aggroRange > 0
 
     override fun onSpawn() {
         // Generate minions and spawn them (initial call and regular minions respawn are handled in the same method).

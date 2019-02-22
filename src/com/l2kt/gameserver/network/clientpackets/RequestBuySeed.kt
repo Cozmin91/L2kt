@@ -62,7 +62,7 @@ class RequestBuySeed : L2GameClientPacket() {
         }
 
         val folk = player.currentFolk
-        if (folk !is ManorManagerNpc || !folk.canInteract(player) || folk.getCastle() !== castle) {
+        if (folk !is ManorManagerNpc || !folk.canInteract(player) || folk.castle !== castle) {
             sendPacket(ActionFailed.STATIC_PACKET)
             return
         }

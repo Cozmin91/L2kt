@@ -26,9 +26,8 @@ class FestivalMonster(objectId: Int, template: NpcTemplate) : Monster(objectId, 
     /**
      * All mobs in the festival are aggressive, and have high aggro range.
      */
-    override fun isAggressive(): Boolean {
-        return true
-    }
+    override val isAggressive: Boolean
+        get() = true
 
     /**
      * All mobs in the festival don't need random animation.

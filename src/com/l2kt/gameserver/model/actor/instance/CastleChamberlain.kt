@@ -53,7 +53,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
                 return
 
             // Move non-clan members off castle area, and send html
-            castle.banishForeigners()
+            castle!!.banishForeigners()
             sendFileMessage(player, "data/html/chamberlain/banishafter.htm")
         } else if (actualCommand.equals("banish_foreigner_show", ignoreCase = true)) {
             if (!validatePrivileges(player, Clan.CP_CS_DISMISS))
@@ -74,19 +74,19 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
             if (!validatePrivileges(player, Clan.CP_CS_MANAGE_SIEGE))
                 return
 
-            player.sendPacket(SiegeInfo(castle))
+            player.sendPacket(SiegeInfo(castle!!))
         } else if (actualCommand.equals("receive_report", ignoreCase = true)) {
             if (cond == COND_CLAN_MEMBER)
                 sendFileMessage(player, "data/html/chamberlain/noprivs.htm")
             else {
-                val clan = ClanTable.getClan(castle.ownerId)
+                val clan = ClanTable.getClan(castle!!.ownerId)
 
                 val html = NpcHtmlMessage(objectId)
                 html.setFile("data/html/chamberlain/report.htm")
                 html.replace("%objectId%", objectId)
                 html.replace("%clanname%", clan!!.name)
                 html.replace("%clanleadername%", clan.leaderName)
-                html.replace("%castlename%", castle.name)
+                html.replace("%castlename%", castle!!.name)
                 html.replace("%ss_event%", SevenSigns.currentPeriod.periodTypeName)
 
                 when (SevenSigns.getSealOwner(SealType.AVARICE)) {
@@ -126,7 +126,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
             if (!validatePrivileges(player, Clan.CP_CS_MANAGE_SIEGE))
                 return
 
-            player.sendPacket(SiegeInfo(castle))
+            player.sendPacket(SiegeInfo(castle!!))
         } else if (actualCommand.equals("manage_vault", ignoreCase = true)) {
             if (!validatePrivileges(player, Clan.CP_CS_TAXES))
                 return
@@ -140,9 +140,9 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
                 } catch (e: NoSuchElementException) {
                 }
 
-                if (amount > 0 && castle.treasury + amount < Integer.MAX_VALUE) {
+                if (amount > 0 && castle!!.treasury + amount < Integer.MAX_VALUE) {
                     if (player.reduceAdena("Castle", amount, this, true))
-                        castle.addToTreasuryNoTax(amount.toLong())
+                        castle!!.addToTreasuryNoTax(amount.toLong())
                 }
             } else if (`val`.equals("withdraw", ignoreCase = true)) {
                 try {
@@ -151,10 +151,10 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
                 }
 
                 if (amount > 0) {
-                    if (castle.treasury < amount)
+                    if (castle!!.treasury < amount)
                         filename = "data/html/chamberlain/vault-no.htm"
                     else {
-                        if (castle.addToTreasuryNoTax((-1 * amount).toLong()))
+                        if (castle!!.addToTreasuryNoTax((-1 * amount).toLong()))
                             player.addAdena("Castle", amount, this, true)
                     }
                 }
@@ -162,7 +162,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
             val html = NpcHtmlMessage(objectId)
             html.setFile(filename)
             html.replace("%objectId%", objectId)
-            html.replace("%tax_income%", StringUtil.formatNumber(castle.treasury))
+            html.replace("%tax_income%", StringUtil.formatNumber(castle!!.treasury))
             html.replace("%withdraw_amount%", StringUtil.formatNumber(amount.toLong()))
             player.sendPacket(html)
         } else if (actualCommand.equals("operate_door", ignoreCase = true))
@@ -181,7 +181,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
 
             val open = Integer.parseInt(`val`) == 1
             while (st.hasMoreTokens())
-                castle.openCloseDoor(player, Integer.parseInt(st.nextToken()), open)
+                castle!!.openCloseDoor(player, Integer.parseInt(st.nextToken()), open)
 
             val html = NpcHtmlMessage(objectId)
             html.setFile(if (open) "data/html/chamberlain/doors-open.htm" else "data/html/chamberlain/doors-close.htm")
@@ -197,13 +197,13 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
                 html.setFile("data/html/chamberlain/tax.htm")
             else {
                 if (!`val`.isEmpty())
-                    castle.setTaxPercent(player, Integer.parseInt(`val`))
+                    castle!!.setTaxPercent(player, Integer.parseInt(`val`))
 
                 html.setFile("data/html/chamberlain/tax-adjust.htm")
             }
 
             html.replace("%objectId%", objectId)
-            html.replace("%tax%", castle.taxPercent)
+            html.replace("%tax%", castle!!.taxPercent)
             player.sendPacket(html)
         } else if (actualCommand.equals("manor", ignoreCase = true)) {
             if (!validatePrivileges(player, Clan.CP_CS_MANOR_ADMIN))
@@ -250,7 +250,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
                 Integer.parseInt(str.nextToken().split("=").dropLastWhile { it.isEmpty() }.toTypedArray()[1])
             val time = str.nextToken().split("=").dropLastWhile { it.isEmpty() }.toTypedArray()[1] == "1"
 
-            val castleId = if (state == -1) castle.castleId else state
+            val castleId = if (state == -1) castle!!.castleId else state
 
             when (ask) {
                 3 // Current seeds (Manor info)
@@ -280,9 +280,9 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
             if (!validatePrivileges(player, Clan.CP_CS_MANAGE_SIEGE))
                 return
 
-            if (castle.siege.siegeRegistrationEndDate < Calendar.getInstance().timeInMillis)
+            if (castle!!.siege.siegeRegistrationEndDate < Calendar.getInstance().timeInMillis)
                 sendFileMessage(player, "data/html/chamberlain/siegetime1.htm")
-            else if (castle.siege.isTimeRegistrationOver)
+            else if (castle!!.siege.isTimeRegistrationOver)
                 sendFileMessage(player, "data/html/chamberlain/siegetime2.htm")
             else
                 sendFileMessage(player, "data/html/chamberlain/siegetime3.htm")
@@ -297,10 +297,10 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
             }
 
             if (_preHour != 6) {
-                castle.siegeDate!!.set(Calendar.HOUR_OF_DAY, _preHour + 12)
+                castle!!.siegeDate!!.set(Calendar.HOUR_OF_DAY, _preHour + 12)
 
                 // now store the changed time and finished next Siege Time registration
-                castle.siege.endTimeRegistration(false)
+                castle!!.siege.endTimeRegistration(false)
                 sendFileMessage(player, "data/html/chamberlain/siegetime8.htm")
                 return
             }
@@ -315,7 +315,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
 
                     html.setFile("data/html/chamberlain/gavecrown.htm")
                     html.replace("%CharName%", player.name)
-                    html.replace("%FeudName%", castle.name)
+                    html.replace("%FeudName%", castle!!.name)
                 } else
                     html.setFile("data/html/chamberlain/hascrown.htm")
             } else
@@ -332,11 +332,11 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
             if (SevenSigns.isSealValidationPeriod) {
                 if (SevenSigns.getPlayerCabal(player.objectId) === CabalType.DUSK)
                     html.setFile("data/html/chamberlain/not-dawn-or-event.htm")
-                else if (castle.leftCertificates == 0)
+                else if (castle!!.leftCertificates == 0)
                     html.setFile("data/html/chamberlain/not-enough-ticket.htm")
                 else {
                     html.setFile("data/html/chamberlain/sell-dawn-ticket.htm")
-                    html.replace("%left%", castle.leftCertificates)
+                    html.replace("%left%", castle!!.leftCertificates)
                     html.replace("%bundle%", CERTIFICATES_BUNDLE)
                     html.replace("%price%", CERTIFICATES_PRICE)
                 }// We already reached the tickets limit.
@@ -355,17 +355,17 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
             if (SevenSigns.isSealValidationPeriod) {
                 if (SevenSigns.getPlayerCabal(player.objectId) === CabalType.DUSK)
                     html.setFile("data/html/chamberlain/not-dawn-or-event.htm")
-                else if (castle.leftCertificates == 0)
+                else if (castle!!.leftCertificates == 0)
                     html.setFile("data/html/chamberlain/not-enough-ticket.htm")
                 else if (player.reduceAdena("Certificate", CERTIFICATES_BUNDLE * CERTIFICATES_PRICE, this, true)) {
                     // We add certificates.
                     player.addItem("Certificate", 6388, CERTIFICATES_BUNDLE, this, true)
 
                     // We update that castle certificates count.
-                    castle.setLeftCertificates(castle.leftCertificates - 10, true)
+                    castle!!.setLeftCertificates(castle!!.leftCertificates - 10, true)
 
                     html.setFile("data/html/chamberlain/sell-dawn-ticket.htm")
-                    html.replace("%left%", castle.leftCertificates)
+                    html.replace("%left%", castle!!.leftCertificates)
                     html.replace("%bundle%", CERTIFICATES_BUNDLE)
                     html.replace("%price%", CERTIFICATES_PRICE)
                 } else
@@ -422,7 +422,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
                 return
 
             val id = Integer.parseInt(`val`)
-            val door = castle.getDoor(id) ?: return
+            val door = castle?.getDoor(id) ?: return
 
             val currentHpRatio = door.stat.upgradeHpRatio
 
@@ -434,7 +434,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
             } else if (!player.reduceAdena("doors_upgrade", price, player, true))
                 html.setFile("data/html/chamberlain/not-enough-adena.htm")
             else {
-                castle.upgradeDoor(id, level, true)
+                castle!!.upgradeDoor(id, level, true)
 
                 html.setFile("data/html/chamberlain/doors-success.htm")
             }
@@ -449,7 +449,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
                 html.setFile("data/html/chamberlain/$npcId-tu.htm")
             else {
                 html.setFile(
-                    "data/html/chamberlain/traps-update" + (if (castle.name.equals(
+                    "data/html/chamberlain/traps-update" + (if (castle?.name.equals(
                             "aden",
                             ignoreCase = true
                         )
@@ -484,7 +484,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
                 return
 
             val trapIndex = Integer.parseInt(`val`)
-            val currentLevel = castle.getTrapUpgradeLevel(trapIndex)
+            val currentLevel = castle!!.getTrapUpgradeLevel(trapIndex)
 
             val html = NpcHtmlMessage(objectId)
 
@@ -494,7 +494,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
             } else if (!player.reduceAdena("traps_upgrade", price, player, true))
                 html.setFile("data/html/chamberlain/not-enough-adena.htm")
             else {
-                castle.setTrapUpgrade(trapIndex, level, true)
+                castle!!.setTrapUpgrade(trapIndex, level, true)
 
                 html.setFile("data/html/chamberlain/traps-success.htm")
             }
@@ -524,10 +524,10 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
 
     protected fun validateCondition(player: Player): Int {
         if (castle != null && player.clan != null) {
-            if (castle.siege.isInProgress)
+            if (castle!!.siege.isInProgress)
                 return COND_BUSY_BECAUSE_OF_SIEGE
 
-            if (castle.ownerId == player.clanId) {
+            if (castle!!.ownerId == player.clanId) {
                 return if (player.isClanLeader) COND_OWNER else COND_CLAN_MEMBER
 
             }
@@ -550,7 +550,7 @@ open class CastleChamberlain(objectId: Int, template: NpcTemplate) : Merchant(ob
         html.setFile(htmlMessage)
         html.replace("%objectId%", objectId)
         html.replace("%npcId%", npcId)
-        html.replace("%time%", castle.siegeDate!!.time.toString())
+        html.replace("%time%", castle!!.siegeDate!!.time.toString())
         player.sendPacket(html)
     }
 

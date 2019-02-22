@@ -139,7 +139,7 @@ public abstract class Summon extends Playable
 					player.getAI().setIntention(CtrlIntention.IDLE);
 				
 				// Rotate the player to face the instance
-				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
+				player.sendPacket(new MoveToPawn(player, this, Npc.Companion.getINTERACTION_DISTANCE()));
 				
 				player.sendPacket(new PetStatusShow(this));
 				
@@ -160,7 +160,7 @@ public abstract class Summon extends Playable
 			else
 			{
 				// Rotate the player to face the instance
-				player.sendPacket(new MoveToPawn(player, this, Npc.INTERACTION_DISTANCE));
+				player.sendPacket(new MoveToPawn(player, this, Npc.Companion.getINTERACTION_DISTANCE()));
 				
 				// Send ActionFailed to the player in order to avoid he stucks
 				player.sendPacket(ActionFailed.Companion.getSTATIC_PACKET());

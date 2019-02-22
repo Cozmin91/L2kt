@@ -158,7 +158,7 @@ class Q604_DaimonTheWhiteEyed_Part2 : Quest(604, "Daimon The White-Eyed - Part 2
         val raid = RaidBossSpawnManager.bosses[DAIMON_THE_WHITE_EYED]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-            raid.spawn.setLoc(185900, -44000, -3160, Rnd[65536])
+            raid.spawn?.setLoc(185900, -44000, -3160, Rnd[65536])
 
             // teleport raid from secret place
             raid.teleToLocation(185900, -44000, -3160, 100)
@@ -175,7 +175,7 @@ class Q604_DaimonTheWhiteEyed_Part2 : Quest(604, "Daimon The White-Eyed - Part 2
 
     private fun despawnRaid(raid: Npc) {
         // reset spawn location
-        raid.spawn.setLoc(-106500, -252700, -15542, 0)
+        raid.spawn?.setLoc(-106500, -252700, -15542, 0)
 
         // teleport raid back to secret place
         if (!raid.isDead)
@@ -186,23 +186,23 @@ class Q604_DaimonTheWhiteEyed_Part2 : Quest(604, "Daimon The White-Eyed - Part 2
     }
 
     companion object {
-        private val qn = "Q604_DaimonTheWhiteEyed_Part2"
+        private const val qn = "Q604_DaimonTheWhiteEyed_Part2"
 
         // Monster
-        private val DAIMON_THE_WHITE_EYED = 25290
+        private const val DAIMON_THE_WHITE_EYED = 25290
 
         // NPCs
-        private val EYE_OF_ARGOS = 31683
-        private val DAIMON_ALTAR = 31541
+        private const val EYE_OF_ARGOS = 31683
+        private const val DAIMON_ALTAR = 31541
 
         // Items
-        private val UNFINISHED_SUMMON_CRYSTAL = 7192
-        private val SUMMON_CRYSTAL = 7193
-        private val ESSENCE_OF_DAIMON = 7194
+        private const val UNFINISHED_SUMMON_CRYSTAL = 7192
+        private const val SUMMON_CRYSTAL = 7193
+        private const val ESSENCE_OF_DAIMON = 7194
         private val REWARD_DYE = intArrayOf(4595, 4596, 4597, 4598, 4599, 4600)
 
         // Other
-        private val CHECK_INTERVAL = 600000 // 10 minutes
-        private val IDLE_INTERVAL = 3 // (X * CHECK_INTERVAL) = 30 minutes
+        private const val CHECK_INTERVAL = 600000 // 10 minutes
+        private const val IDLE_INTERVAL = 3 // (X * CHECK_INTERVAL) = 30 minutes
     }
 }

@@ -147,7 +147,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
 
                     // Unspawn angels
                     for (minion in _minions) {
-                        minion.spawn.setRespawnState(false)
+                        minion.spawn?.setRespawnState(false)
                         minion.deleteMe()
                     }
                     _minions.clear()
@@ -269,7 +269,7 @@ class Baium : L2AttackableAIScript("ai/individual") {
 
         // Unspawn angels.
         for (minion in _minions) {
-            minion.spawn.setRespawnState(false)
+            minion.spawn?.setRespawnState(false)
             minion.deleteMe()
         }
         _minions.clear()

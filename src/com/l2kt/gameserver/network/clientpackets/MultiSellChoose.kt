@@ -298,7 +298,7 @@ class MultiSellChoose : L2GameClientPacket() {
 
         // finally, give the tax to the castle...
         if (folk != null && entry.taxAmount > 0)
-            folk.castle.addToTreasury(entry.taxAmount * _amount)
+            folk.castle?.addToTreasury(entry.taxAmount * _amount)
     }
 
     companion object {

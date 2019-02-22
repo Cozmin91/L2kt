@@ -22,11 +22,11 @@ class FlameTower(objectId: Int, template: NpcTemplate) : Npc(objectId, template)
 
     override// Attackable during siege by attacker only
     val isAttackable: Boolean
-        get() = castle != null && castle.siege.isInProgress
+        get() = castle != null && castle!!.siege.isInProgress
 
     override fun isAutoAttackable(attacker: Creature): Boolean {
         // Attackable during siege by attacker only
-        return attacker is Player && castle != null && castle.siege.isInProgress && castle.siege.checkSide(
+        return attacker is Player && castle != null && castle!!.siege.isInProgress && castle!!.siege.checkSide(
             attacker.clan,
             SiegeSide.ATTACKER
         )
@@ -58,13 +58,13 @@ class FlameTower(objectId: Int, template: NpcTemplate) : Npc(objectId, template)
         }
     }
 
-    override fun doDie(killer: Creature): Boolean {
+    override fun doDie(killer: Creature?): Boolean {
         enableZones(false)
 
         if (castle != null) {
             // Message occurs only if the trap was triggered first.
             if (_zoneList != null && _upgradeLevel != 0)
-                castle.siege.announceToPlayers(
+                castle!!.siege.announceToPlayers(
                     SystemMessage.getSystemMessage(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED),
                     false
                 )
@@ -77,7 +77,7 @@ class FlameTower(objectId: Int, template: NpcTemplate) : Npc(objectId, template)
                 val tower = spawn.doSpawn(false)
                 tower!!.castle = castle
 
-                castle.siege.destroyedTowers.add(tower)
+                castle!!.siege.destroyedTowers.add(tower)
             } catch (e: Exception) {
                 WorldObject.LOGGER.error("Couldn't spawn the flame tower.", e)
             }

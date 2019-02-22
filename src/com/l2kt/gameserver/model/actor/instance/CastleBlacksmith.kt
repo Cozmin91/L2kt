@@ -63,24 +63,24 @@ class CastleBlacksmith(objectId: Int, template: NpcTemplate) : Folk(objectId, te
         html.setFile(filename)
         html.replace("%objectId%", objectId)
         html.replace("%npcname%", name)
-        html.replace("%castleid%", castle.castleId)
+        html.replace("%castleid%", castle!!.castleId)
         player.sendPacket(html)
     }
 
     protected fun validateCondition(player: Player): Int {
         if (castle != null && player.clan != null) {
-            if (castle.siege.isInProgress)
+            if (castle!!.siege.isInProgress)
                 return COND_BUSY_BECAUSE_OF_SIEGE
 
-            if (castle.ownerId == player.clanId && player.clanPrivileges and Clan.CP_CS_MANOR_ADMIN == Clan.CP_CS_MANOR_ADMIN)
+            if (castle!!.ownerId == player.clanId && player.clanPrivileges and Clan.CP_CS_MANOR_ADMIN == Clan.CP_CS_MANOR_ADMIN)
                 return COND_OWNER
         }
         return COND_ALL_FALSE
     }
 
     companion object {
-        protected val COND_ALL_FALSE = 0
-        protected val COND_BUSY_BECAUSE_OF_SIEGE = 1
-        protected val COND_OWNER = 2
+        protected const val COND_ALL_FALSE = 0
+        protected const val COND_BUSY_BECAUSE_OF_SIEGE = 1
+        protected const val COND_OWNER = 2
     }
 }

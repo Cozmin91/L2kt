@@ -21,8 +21,8 @@ class CastleGatekeeper(objectId: Int, template: NpcTemplate) : Folk(objectId, te
 
         if (actualCommand.equals("tele", ignoreCase = true)) {
             if (!_currentTask) {
-                if (castle.siege.isInProgress) {
-                    if (castle.siege.controlTowerCount == 0)
+                if (castle!!.siege.isInProgress) {
+                    if (castle!!.siege.controlTowerCount == 0)
                         _delay = 480000
                     else
                         _delay = 30000
@@ -44,7 +44,7 @@ class CastleGatekeeper(objectId: Int, template: NpcTemplate) : Folk(objectId, te
     override fun showChatWindow(player: Player) {
         val filename: String
         if (!_currentTask) {
-            if (castle.siege.isInProgress && castle.siege.controlTowerCount == 0)
+            if (castle!!.siege.isInProgress && castle!!.siege.controlTowerCount == 0)
                 filename = "data/html/castleteleporter/MassGK-2.htm"
             else
                 filename = "data/html/castleteleporter/MassGK.htm"
@@ -61,12 +61,12 @@ class CastleGatekeeper(objectId: Int, template: NpcTemplate) : Folk(objectId, te
     protected inner class oustAllPlayers : Runnable {
         override fun run() {
             // Make the region talk only during a siege
-            if (castle.siege.isInProgress) {
+            if (castle!!.siege.isInProgress) {
                 val cs = NpcSay(
                     objectId,
                     1,
                     npcId,
-                    "The defenders of " + castle.name + " castle have been teleported to the inner castle."
+                    "The defenders of " + castle!!.name + " castle have been teleported to the inner castle."
                 )
                 val region = MapRegionData.getMapRegion(x, y)
 
@@ -75,7 +75,7 @@ class CastleGatekeeper(objectId: Int, template: NpcTemplate) : Folk(objectId, te
                         player.sendPacket(cs)
                 }
             }
-            castle.oustAllPlayers()
+            castle!!.oustAllPlayers()
             _currentTask = false
         }
     }

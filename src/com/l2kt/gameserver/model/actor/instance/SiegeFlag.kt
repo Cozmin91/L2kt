@@ -32,7 +32,7 @@ class SiegeFlag(player: Player, objectId: Int, template: NpcTemplate) : Npc(obje
         return true
     }
 
-    override fun doDie(killer: Creature): Boolean {
+    override fun doDie(killer: Creature?): Boolean {
         if (!super.doDie(killer))
             return false
 

@@ -85,8 +85,8 @@ abstract class AbstractNpcInfo(cha: Creature) : L2GameServerPacket() {
                 title = "Lv " + _npc.getLevel() + (if (_npc.getTemplate().aggroRange > 0) "* " else " ") + title
 
             // NPC crest system
-            if (Config.SHOW_NPC_CREST && _npc.castle != null && _npc.castle.ownerId != 0) {
-                val clan = ClanTable.getClan(_npc.castle.ownerId)!!
+            if (Config.SHOW_NPC_CREST && _npc.castle != null && _npc.castle!!.ownerId != 0) {
+                val clan = ClanTable.getClan(_npc.castle!!.ownerId)!!
                 _clanCrest = clan.crestId
                 _clanId = clan.clanId
                 _allyCrest = clan.allyCrestId

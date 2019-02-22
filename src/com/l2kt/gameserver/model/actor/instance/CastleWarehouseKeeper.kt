@@ -9,9 +9,8 @@ import com.l2kt.gameserver.network.serverpackets.NpcHtmlMessage
  */
 class CastleWarehouseKeeper(objectId: Int, template: NpcTemplate) : WarehouseKeeper(objectId, template) {
 
-    override fun isWarehouse(): Boolean {
-        return true
-    }
+    override val isWarehouse: Boolean
+        get() = true
 
     override fun showChatWindow(player: Player, `val`: Int) {
         player.sendPacket(ActionFailed.STATIC_PACKET)
@@ -38,10 +37,10 @@ class CastleWarehouseKeeper(objectId: Int, template: NpcTemplate) : WarehouseKee
 
     protected fun validateCondition(player: Player): Int {
         if (castle != null && player.clan != null) {
-            if (castle.siege.isInProgress)
+            if (castle!!.siege.isInProgress)
                 return COND_BUSY_BECAUSE_OF_SIEGE
 
-            if (castle.ownerId == player.clanId)
+            if (castle!!.ownerId == player.clanId)
                 return COND_OWNER
         }
         return COND_ALL_FALSE

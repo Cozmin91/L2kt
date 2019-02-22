@@ -240,11 +240,11 @@ internal class SiegeGuardAI(guard: SiegeGuard) : AttackableAI(guard) {
                         continue
 
                     // Will affect only defenders or NPCs from same faction.
-                    if (!actor.isAttackingDisabled && cha is Player && actor.castle.siege.checkSides(
+                    if (!actor.isAttackingDisabled && cha is Player && actor.castle?.siege?.checkSides(
                             cha.clan,
                             SiegeSide.DEFENDER,
                             SiegeSide.OWNER
-                        ) || cha is Npc && ArraysUtil.contains(clans, cha.template.clans)
+                        ) == true || cha is Npc && ArraysUtil.contains(clans, cha.template.clans)
                     ) {
                         for (sk in defaultList) {
                             if (!MathUtil.checkIfInRange(sk.castRange, actor, cha, true))

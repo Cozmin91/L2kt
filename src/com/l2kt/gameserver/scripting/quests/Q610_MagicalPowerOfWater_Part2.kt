@@ -152,7 +152,7 @@ class Q610_MagicalPowerOfWater_Part2 : Quest(610, "Magical Power of Water - Part
         val raid = RaidBossSpawnManager.bosses[SOUL_OF_WATER_ASHUTAR]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-            raid.spawn.setLoc(104771, -36993, -1149, Rnd[65536])
+            raid.spawn?.setLoc(104771, -36993, -1149, Rnd[65536])
 
             // teleport raid from secret place
             raid.teleToLocation(104771, -36993, -1149, 100)
@@ -169,7 +169,7 @@ class Q610_MagicalPowerOfWater_Part2 : Quest(610, "Magical Power of Water - Part
 
     private fun despawnRaid(raid: Npc) {
         // reset spawn location
-        raid.spawn.setLoc(-105900, -252700, -15542, 0)
+        raid.spawn?.setLoc(-105900, -252700, -15542, 0)
 
         // teleport raid back to secret place
         if (!raid.isDead)
@@ -180,21 +180,21 @@ class Q610_MagicalPowerOfWater_Part2 : Quest(610, "Magical Power of Water - Part
     }
 
     companion object {
-        private val qn = "Q610_MagicalPowerOfWater_Part2"
+        private const val qn = "Q610_MagicalPowerOfWater_Part2"
 
         // Monster
-        private val SOUL_OF_WATER_ASHUTAR = 25316
+        private const val SOUL_OF_WATER_ASHUTAR = 25316
 
         // NPCs
-        private val ASEFA = 31372
-        private val VARKAS_HOLY_ALTAR = 31560
+        private const val ASEFA = 31372
+        private const val VARKAS_HOLY_ALTAR = 31560
 
         // Items
-        private val GREEN_TOTEM = 7238
-        private val ICE_HEART_OF_ASHUTAR = 7239
+        private const val GREEN_TOTEM = 7238
+        private const val ICE_HEART_OF_ASHUTAR = 7239
 
         // Other
-        private val CHECK_INTERVAL = 600000 // 10 minutes
-        private val IDLE_INTERVAL = 2 // (X * CHECK_INTERVAL) = 20 minutes
+        private const val CHECK_INTERVAL = 600000 // 10 minutes
+        private const val IDLE_INTERVAL = 2 // (X * CHECK_INTERVAL) = 20 minutes
     }
 }

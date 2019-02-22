@@ -205,7 +205,7 @@ class QueenAnt : L2AttackableAIScript("ai/individual") {
             val master = minion.getMaster()
 
             if (master != null && master.hasMinions())
-                master.minionList.onMinionDie(minion, if (npc.getNpcId() == NURSE) 10000 else 280000 + Rnd[40] * 1000)
+                master.minionList.onMinionDie(minion, if (npc.npcId == NURSE) 10000 else 280000 + Rnd[40] * 1000)
 
             return null
         }

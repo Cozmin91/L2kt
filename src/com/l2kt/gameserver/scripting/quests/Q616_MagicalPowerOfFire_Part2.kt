@@ -157,7 +157,7 @@ class Q616_MagicalPowerOfFire_Part2 : Quest(616, "Magical Power of Fire - Part 2
         val raid = RaidBossSpawnManager.bosses[SOUL_OF_FIRE_NASTRON]
         if (raid != null && raid.raidStatus == StatusEnum.ALIVE) {
             // set temporarily spawn location (to provide correct behavior of checkAndReturnToSpawn())
-            raid.spawn.setLoc(142624, -82285, -6491, Rnd[65536])
+            raid.spawn?.setLoc(142624, -82285, -6491, Rnd[65536])
 
             // teleport raid from secret place
             raid.teleToLocation(142624, -82285, -6491, 100)
@@ -173,7 +173,7 @@ class Q616_MagicalPowerOfFire_Part2 : Quest(616, "Magical Power of Fire - Part 2
 
     private fun despawnRaid(raid: Npc) {
         // reset spawn location
-        raid.spawn.setLoc(-105300, -252700, -15542, 0)
+        raid.spawn?.setLoc(-105300, -252700, -15542, 0)
 
         // teleport raid back to secret place
         if (!raid.isDead)
@@ -184,21 +184,21 @@ class Q616_MagicalPowerOfFire_Part2 : Quest(616, "Magical Power of Fire - Part 2
     }
 
     companion object {
-        private val qn = "Q616_MagicalPowerOfFire_Part2"
+        private const val qn = "Q616_MagicalPowerOfFire_Part2"
 
         // Monster
-        private val SOUL_OF_FIRE_NASTRON = 25306
+        private const val SOUL_OF_FIRE_NASTRON = 25306
 
         // NPCs
-        private val UDAN_MARDUI = 31379
-        private val KETRAS_HOLY_ALTAR = 31558
+        private const val UDAN_MARDUI = 31379
+        private const val KETRAS_HOLY_ALTAR = 31558
 
         // Items
-        private val RED_TOTEM = 7243
-        private val FIRE_HEART_OF_NASTRON = 7244
+        private const val RED_TOTEM = 7243
+        private const val FIRE_HEART_OF_NASTRON = 7244
 
         // Other
-        private val CHECK_INTERVAL = 600000 // 10 minutes
-        private val IDLE_INTERVAL = 2 // (X * CHECK_INTERVAL) = 20 minutes
+        private const val CHECK_INTERVAL = 600000 // 10 minutes
+        private const val IDLE_INTERVAL = 2 // (X * CHECK_INTERVAL) = 20 minutes
     }
 }

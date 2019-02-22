@@ -123,6 +123,6 @@ open class Merchant(objectId: Int, template: NpcTemplate) : Folk(objectId, templ
             return
 
         player.tempInventoryDisable()
-        player.sendPacket(BuyList(buyList, player.adena, if (castle != null) castle.taxRate else 0.0))
+        player.sendPacket(BuyList(buyList, player.adena, if (castle != null) castle!!.taxRate else 0.0))
     }
 }

@@ -776,7 +776,7 @@ object FourSepulchersManager {
         // Delete all monsters.
         for (mob in allMobs) {
             if (mob.spawn != null)
-                mob.spawn.setRespawnState(false)
+                mob.spawn!!.setRespawnState(false)
 
             mob.deleteMe()
         }

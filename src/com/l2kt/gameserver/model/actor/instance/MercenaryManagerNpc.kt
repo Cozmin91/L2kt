@@ -48,8 +48,8 @@ class MercenaryManagerNpc(objectId: Int, template: NpcTemplate) : Folk(objectId,
             player.sendPacket(html)
         } else if (command.startsWith("merc_limit")) {
             val html = NpcHtmlMessage(objectId)
-            html.setFile("data/html/mercmanager/" + if (castle.castleId == 5) "aden_msellerLimit.htm" else "msellerLimit.htm")
-            html.replace("%castleName%", castle.name)
+            html.setFile("data/html/mercmanager/" + if (castle!!.castleId == 5) "aden_msellerLimit.htm" else "msellerLimit.htm")
+            html.replace("%castleName%", castle!!.name)
             html.replace("%objectId%", objectId)
             player.sendPacket(html)
         } else
@@ -81,10 +81,10 @@ class MercenaryManagerNpc(objectId: Int, template: NpcTemplate) : Folk(objectId,
 
     private fun validateCondition(player: Player): Int {
         if (castle != null && player.clan != null) {
-            if (castle.siege.isInProgress)
+            if (castle!!.siege.isInProgress)
                 return COND_BUSY_BECAUSE_OF_SIEGE
 
-            if (castle.ownerId == player.clanId && player.clanPrivileges and Clan.CP_CS_MERCENARIES == Clan.CP_CS_MERCENARIES)
+            if (castle!!.ownerId == player.clanId && player.clanPrivileges and Clan.CP_CS_MERCENARIES == Clan.CP_CS_MERCENARIES)
                 return COND_OWNER
         }
         return COND_ALL_FALSE

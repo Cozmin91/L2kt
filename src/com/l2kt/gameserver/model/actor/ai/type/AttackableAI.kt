@@ -192,9 +192,9 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
                     if (npc.spawn != null) {
                         val range = Config.MAX_DRIFT_RANGE
                         if (!npc.isInsideRadius(
-                                npc.spawn.locX,
-                                npc.spawn.locY,
-                                npc.spawn.locZ,
+                                npc.spawn!!.locX,
+                                npc.spawn!!.locY,
+                                npc.spawn!!.locZ,
                                 range + range,
                                 true,
                                 false
@@ -366,18 +366,17 @@ internal open class AttackableAI(attackable: Attackable) : CreatureAI(attackable
 
             // Random walk otherwise.
             if (npc.spawn != null && !npc.isNoRndWalk && Rnd[RANDOM_WALK_RATE] == 0) {
-                var x1 = npc.spawn.locX
-                var y1 = npc.spawn.locY
-                var z1 = npc.spawn.locZ
+                var x1: Int
+                var y1: Int
+                var z1: Int = npc.z
 
                 val range = Config.MAX_DRIFT_RANGE
 
                 x1 = Rnd[range * 2] // x
                 y1 = Rnd[x1, range * 2] // distance
                 y1 = Math.sqrt((y1 * y1 - x1 * x1).toDouble()).toInt() // y
-                x1 += npc.spawn.locX - range
-                y1 += npc.spawn.locY - range
-                z1 = npc.z
+                x1 += npc.spawn!!.locX - range
+                y1 += npc.spawn!!.locY - range
 
                 // Move the actor to Location (x,y,z)
                 moveTo(x1, y1, z1)

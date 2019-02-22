@@ -840,7 +840,7 @@ public final class Player extends Playable
 			return;
 		
 		WorldObject object = World.INSTANCE.getObject(getLastQuestNpcObject());
-		if (!(object instanceof Npc) || !isInsideRadius(object, Npc.INTERACTION_DISTANCE, false, false))
+		if (!(object instanceof Npc) || !isInsideRadius(object, Npc.Companion.getINTERACTION_DISTANCE(), false, false))
 			return;
 		
 		final Npc npc = (Npc) object;
@@ -1772,7 +1772,7 @@ public final class Player extends Playable
 		final boolean isThrone = target instanceof StaticObject && ((StaticObject) target).getType() == 1;
 		
 		// Player wants to sit on a throne but is out of radius, move to the throne delaying the sit action.
-		if (isThrone && !sittingState && !isInsideRadius(target, Npc.INTERACTION_DISTANCE, false, false))
+		if (isThrone && !sittingState && !isInsideRadius(target, Npc.Companion.getINTERACTION_DISTANCE(), false, false))
 		{
 			getAI().setIntention(CtrlIntention.MOVE_TO, new Location(target.getX(), target.getY(), target.getZ()));
 			
@@ -1820,7 +1820,7 @@ public final class Player extends Playable
 			{
 				sitDown();
 				
-				if (isThrone && !((StaticObject) target).isBusy() && isInsideRadius(target, Npc.INTERACTION_DISTANCE, false, false))
+				if (isThrone && !((StaticObject) target).isBusy() && isInsideRadius(target, Npc.Companion.getINTERACTION_DISTANCE(), false, false))
 				{
 					_throneId = target.getObjectId();
 					
@@ -1854,7 +1854,7 @@ public final class Player extends Playable
 				{
 					sitDown();
 					
-					if (isThrone && !((StaticObject) target).isBusy() && isInsideRadius(target, Npc.INTERACTION_DISTANCE, false, false))
+					if (isThrone && !((StaticObject) target).isBusy() && isInsideRadius(target, Npc.Companion.getINTERACTION_DISTANCE(), false, false))
 					{
 						_throneId = target.getObjectId();
 						
@@ -2976,7 +2976,7 @@ public final class Player extends Playable
 		if (target instanceof Player)
 		{
 			Player temp = (Player) target;
-			sendPacket(new MoveToPawn(this, temp, Npc.INTERACTION_DISTANCE));
+			sendPacket(new MoveToPawn(this, temp, Npc.Companion.getINTERACTION_DISTANCE()));
 			
 			switch (temp.getStoreType())
 			{
